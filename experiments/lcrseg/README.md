@@ -30,3 +30,15 @@ bash scripts/sync_to_jiangsuiyang.sh --execute \
 It prompts for SSH authentication rather than storing a password, never uploads
 raw source images, uses no `--delete`, and verifies the remote inventory
 separately.
+
+## JASCL Gate 0 repaired baseline
+
+The verified fixed-class Fundus Gate 0 baseline is implemented in
+`di_dmpa_jascl/`. It uses the frozen medical UNet2D body and the official JASCL
+3x3 stochastic classifier, with `method_registered=false`; no DI-DMPA method
+training is included. Protocol, repair ledger, reports, three-seed matrices,
+and reproduction commands are under `docs/di_dmpa_jascl/`.
+
+The official JASCL checkout is intentionally not vendored. Follow
+`docs/di_dmpa_jascl/EXACT_COMMANDS.md` to install the pinned reference at
+`third_party/JASCL_REFERENCE` before running the Gate 0 tests or runner.
