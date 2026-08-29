@@ -1,0 +1,133 @@
+{
+  "protocol_id": "lcrseg_v0_3",
+  "status": "FUNDUS_V0_3_INTERNAL_GATE_FAILED",
+  "internal_gate_passed": false,
+  "paired_summary": {
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "metrics": {
+      "final_average_dice": {
+        "mean": -0.0022128272271618363,
+        "std": 0.010769371344051993,
+        "positive_direction_count": 2,
+        "nonnegative_direction_count": 2
+      },
+      "bwt": {
+        "mean": -0.009276990747415467,
+        "std": 0.01123464389686278,
+        "positive_direction_count": 1,
+        "nonnegative_direction_count": 1
+      },
+      "incoming_dice": {
+        "mean": 0.003971833271115055,
+        "std": 0.01121285514454871,
+        "positive_direction_count": 2,
+        "nonnegative_direction_count": 2
+      },
+      "previous_site_dice": {
+        "mean": -0.005539645531946635,
+        "std": 0.010633324985545936,
+        "positive_direction_count": 1,
+        "nonnegative_direction_count": 1
+      }
+    }
+  },
+  "metric_thresholds": {
+    "mean_delta_final": false,
+    "mean_delta_bwt": false,
+    "mean_delta_incoming": true,
+    "mean_delta_previous": false,
+    "final_positive_2_of_3": true,
+    "previous_positive_2_of_3": false,
+    "bwt_nonnegative_2_of_3": false
+  },
+  "class_mean_deltas": {
+    "1": 0.0025014496419103346,
+    "2": -0.006927104096234179
+  },
+  "site_class_mean_deltas": {
+    "Drishti_GS:class_1": 0.03874053988791241,
+    "Drishti_GS:class_2": -0.0066803454670313345,
+    "REFUGE:class_1": -0.02535844307625279,
+    "REFUGE:class_2": -0.006794713531978247,
+    "RIM_ONE_r3:class_1": -0.005877747885928615,
+    "RIM_ONE_r3:class_2": -0.007306253289692958
+  },
+  "class_thresholds": {
+    "optic_disc_rim_mean_delta_ge_minus_0_010": true,
+    "optic_cup_mean_delta_ge_minus_0_010": true,
+    "no_site_class_cross_seed_mean_drop_gt_0_015": false
+  },
+  "coverage": {
+    "0": {
+      "groups": 1764,
+      "maximum_absolute_error": 0.022192341805378768,
+      "passed": true
+    },
+    "1": {
+      "groups": 1764,
+      "maximum_absolute_error": 0.0035437881122510895,
+      "passed": true
+    },
+    "2": {
+      "groups": 1763,
+      "maximum_absolute_error": 0.022553170728460636,
+      "passed": true
+    }
+  },
+  "coverage_passed": true,
+  "admission_gate": {
+    "1": {
+      "class_name": "optic_disc_rim",
+      "per_seed_accuracy_gap": [
+        0.04944304210799422,
+        0.043790108813683726,
+        0.041537203458225314
+      ],
+      "strictly_positive_seed_count": 3,
+      "mean_accuracy_gap": 0.044923451459967755,
+      "direction_passed": true,
+      "magnitude_passed": true
+    },
+    "2": {
+      "class_name": "optic_cup",
+      "per_seed_accuracy_gap": [
+        0.05029657274962873,
+        0.04338061727745024,
+        0.05030303978528328
+      ],
+      "strictly_positive_seed_count": 3,
+      "mean_accuracy_gap": 0.04799340993745408,
+      "direction_passed": true,
+      "magnitude_passed": true
+    }
+  },
+  "mechanism_passed": true,
+  "run_directories": {
+    "seed0_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+    "seed0_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r1_progressive_uniform_full200e",
+    "seed1_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e",
+    "seed1_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r1_progressive_uniform_full200e",
+    "seed2_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e",
+    "seed2_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r1_progressive_uniform_full200e"
+  },
+  "hard_stop": true,
+  "conditional_baselines_executed": false,
+  "external_fundus_gate_evaluated": false,
+  "p0_seeds_1_2_executed": false,
+  "bootstrap_executed": false,
+  "prostate_executed": false,
+  "unexecuted_due_to_internal_gate": [
+    "Sequential-SSL seeds 1 and 2",
+    "Uniform-KD seeds 1 and 2",
+    "external Fundus gate",
+    "P0 seeds 1 and 2",
+    "patient-level bootstrap",
+    "Prostate RUNMC to BMC pilot"
+  ],
+  "p0_seed0_completion": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/experiment_status/V0_3_P0_SEED0_COMPLETION.json",
+  "admission_analysis": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/v0_3/fundus_admission_analysis.csv"
+}

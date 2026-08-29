@@ -1,0 +1,771 @@
+{
+  "protocol_id": "sparcseg_v0_1",
+  "status": "SPARC_MODEL_PATH_AUDIT_PASSED",
+  "generated_at": "2026-08-28T15:23:44.319885+00:00",
+  "optimizer_steps": 0,
+  "hidden_gt_usage": "none",
+  "module_paths": {
+    "dec3": "lcrseg.models.unet.UNet2D.dec3 output",
+    "dec1": "lcrseg.models.unet.UNet2D.dec1 output (classifier input)",
+    "relation_features": "lcrseg.models.unet.UNet2D.projection_head(dec3)",
+    "segmentation_logits": "lcrseg.models.unet.UNet2D.segmentation_head(dec1)"
+  },
+  "golden": {
+    "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/experiment_status/SPARC_MODEL_PATH_GOLDEN_BEFORE.pt",
+    "sha256": "07cb1d786a387c2ec9c69ed9d110787592c7c843153a55939a8be555a96fac98",
+    "logits_max_abs": 0.0,
+    "relation_max_abs": 0.0,
+    "dec3_max_abs": 0.0,
+    "dec1_max_abs": 0.0
+  },
+  "pairs": [
+    {
+      "pair": "seed0_site0_to_1",
+      "present": true,
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site0_REFUGE.pt",
+      "old_checkpoint_sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "current_checkpoint_sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+      "old": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498326605824
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498362257408
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498334994432
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498325557248
+        }
+      },
+      "current": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498390568960
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496990720000
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496963457024
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498385326080
+        }
+      },
+      "storage_identity": true,
+      "shape_compatible": true
+    },
+    {
+      "pair": "seed0_site1_to_2",
+      "present": true,
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "old_checkpoint_sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "current_checkpoint_sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d",
+      "old": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498407346176
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496789393408
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135497030565888
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498402103296
+        }
+      },
+      "current": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498425171968
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496864890880
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496837627904
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498424123392
+        }
+      },
+      "storage_identity": true,
+      "shape_compatible": true
+    },
+    {
+      "pair": "seed1_site0_to_1",
+      "present": true,
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+      "old_checkpoint_sha256": "c8a8c95e0fdddde88acdc42c3cbc62a3f20ac436a2cf00f76513ed29b410ab0b",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "current_checkpoint_sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd",
+      "old": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498382180352
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496973942784
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135497030565888
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498376937472
+        }
+      },
+      "current": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498440900608
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496630009856
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496898445312
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498435657728
+        }
+      },
+      "storage_identity": true,
+      "shape_compatible": true
+    },
+    {
+      "pair": "seed1_site1_to_2",
+      "present": true,
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "old_checkpoint_sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "current_checkpoint_sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f",
+      "old": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498394763264
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496839725056
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496827142144
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498392666112
+        }
+      },
+      "current": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498441949184
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496814559232
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135497049440256
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498422026240
+        }
+      },
+      "storage_identity": true,
+      "shape_compatible": true
+    },
+    {
+      "pair": "seed2_site0_to_1",
+      "present": true,
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+      "old_checkpoint_sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "current_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+      "old": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498532651008
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496869085184
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498358063104
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498392666112
+        }
+      },
+      "current": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498432512000
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496630009856
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496938291200
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498427269120
+        }
+      },
+      "storage_identity": true,
+      "shape_compatible": true
+    },
+    {
+      "pair": "seed2_site1_to_2",
+      "present": true,
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "old_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "current_checkpoint_sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283",
+      "old": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498401049600
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135497013788672
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496938291200
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498425171968
+        }
+      },
+      "current": {
+        "dec3": {
+          "shape": [
+            1,
+            64,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498437754880
+        },
+        "dec1": {
+          "shape": [
+            1,
+            16,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135496856502272
+        },
+        "relation_features": {
+          "shape": [
+            1,
+            128,
+            64,
+            64
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135497003302912
+        },
+        "logits": {
+          "shape": [
+            1,
+            3,
+            256,
+            256
+          ],
+          "dtype": "torch.float32",
+          "device": "cuda:0",
+          "requires_grad": true,
+          "finite": true,
+          "storage_id": 135498398957568
+        }
+      },
+      "storage_identity": true,
+      "shape_compatible": true
+    }
+  ],
+  "checks": {
+    "seed0_site0_to_1_checkpoints_present": true,
+    "seed0_site0_to_1_shape_compatible": true,
+    "seed0_site0_to_1_storage_identity": true,
+    "seed0_site1_to_2_checkpoints_present": true,
+    "seed0_site1_to_2_shape_compatible": true,
+    "seed0_site1_to_2_storage_identity": true,
+    "seed1_site0_to_1_checkpoints_present": true,
+    "seed1_site0_to_1_shape_compatible": true,
+    "seed1_site0_to_1_storage_identity": true,
+    "seed1_site1_to_2_checkpoints_present": true,
+    "seed1_site1_to_2_shape_compatible": true,
+    "seed1_site1_to_2_storage_identity": true,
+    "seed2_site0_to_1_checkpoints_present": true,
+    "seed2_site0_to_1_shape_compatible": true,
+    "seed2_site0_to_1_storage_identity": true,
+    "seed2_site1_to_2_checkpoints_present": true,
+    "seed2_site1_to_2_shape_compatible": true,
+    "seed2_site1_to_2_storage_identity": true,
+    "golden_checkpoint_identity": true,
+    "logits_max_abs_zero": true,
+    "relation_max_abs_zero": true,
+    "dec3_max_abs_zero": true,
+    "dec1_max_abs_zero": true,
+    "no_cross_layer_mapping": true,
+    "no_duplicate_encoder_decoder_forward": true
+  },
+  "environment": {
+    "physical_index": 5,
+    "cuda_visible_devices": "5",
+    "torch_device": "cuda",
+    "torch": "2.2.1+cu121",
+    "cuda": "12.1",
+    "cudnn": 8902,
+    "python": "3.10.6",
+    "uuid": "GPU-2052f3b4-88f8-4be9-d43c-5068fafb02a5",
+    "name": "NVIDIA GeForce RTX 3090",
+    "driver": "580.173.02"
+  },
+  "workspace_hash": "fd1989eff2dd14be0b6e5a9c27c46203c933d4b2c000e20d8d7f050fb8d83714"
+}

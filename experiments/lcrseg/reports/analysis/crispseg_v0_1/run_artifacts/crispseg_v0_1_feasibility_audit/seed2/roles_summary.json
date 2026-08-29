@@ -1,0 +1,61 @@
+{
+  "protocol_id": "crispseg_v0_1",
+  "seed": 2,
+  "status": "CRISP_ROLE_PHASE_COMPLETE",
+  "optimizer_steps": 0,
+  "hidden_gt_usage": "none",
+  "role_model": "frozen_previous_site_model",
+  "role_data": [
+    "current_train_labeled",
+    "current_train_unlabeled"
+  ],
+  "transitions": [
+    {
+      "transition": "REFUGE->RIM_ONE_r3",
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+      "old_checkpoint_sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "current_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+      "role_state": "/home/jiangsuiyang/SSL_CL/runs/crispseg_v0_1_feasibility_audit/seed2/channel_roles_0_1.pt",
+      "role_state_sha256": "ca8b6a729cfa35dd07a3c3842ef9cb71a189d4dacdfaffa96bc299b41eae8934",
+      "labeled_cases": 16,
+      "unlabeled_cases": 63,
+      "old_model_sha256_before": "d954cc2be99bb2b075b453eb7e80ff723ee04b9a729e64e1d51e03c1c8a4abf6",
+      "old_model_sha256_after": "d954cc2be99bb2b075b453eb7e80ff723ee04b9a729e64e1d51e03c1c8a4abf6"
+    },
+    {
+      "transition": "RIM_ONE_r3->Drishti_GS",
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "old_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "current_checkpoint_sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283",
+      "role_state": "/home/jiangsuiyang/SSL_CL/runs/crispseg_v0_1_feasibility_audit/seed2/channel_roles_1_2.pt",
+      "role_state_sha256": "c38c0cb9419929401e74456c7874d0964c4d8d0819a5cb95daa6d7ffa906fc29",
+      "labeled_cases": 10,
+      "unlabeled_cases": 41,
+      "old_model_sha256_before": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+      "old_model_sha256_after": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df"
+    }
+  ],
+  "role_rows": 4,
+  "reproducibility_rows": 4,
+  "validation_rows": 4,
+  "case_manifest_sha256": "3d4615252e452b9e44e9394296c59c4c97bafef8ede444db55744939fe161d1c",
+  "style_probe_contract_sha256": "7d9c2f9a43b0a6c688de8c9543713bd78779231a32f7d4669d98ffd560399ec3",
+  "style_probe_audit_sha256": "c41dc0c516e736e850b07b912929980876945c49c813a0d391220ec287c97076",
+  "training_manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+  "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+  "environment": {
+    "physical_gpu": 7,
+    "cuda_visible_devices": "7",
+    "torch_device": "cuda",
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "cuda": "12.1",
+    "cudnn": 8902,
+    "uuid": "GPU-885f8cbc-d6bd-3ba9-f65d-a34373a93c0c",
+    "name": "NVIDIA GeForce RTX 3090",
+    "driver": "580.173.02"
+  },
+  "workspace_hash": "c8d5b5670d0a69e843c4ffbf918fabcb5c23648c1cc5fba904289b37a30acb45"
+}

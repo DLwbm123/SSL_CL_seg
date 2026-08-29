@@ -1,0 +1,37 @@
+{
+  "protocol_id": "crispseg_v0_1",
+  "status": "DIAGNOSED_NUMERICAL_SUBGRADIENT_FAILURE",
+  "optimizer_steps": 0,
+  "formal_functional_artifacts_written": false,
+  "checkpoint_mutation": false,
+  "data_mutation": false,
+  "failed_seeds": [0, 1, 2],
+  "exit_codes": {"0": 1, "1": 1, "2": 1},
+  "exception": "FloatingPointError: invalid C2 virtual gradient norm: nan",
+  "failure_location": "first transition, first update batch, C2 PFC virtual gradient",
+  "root_cause": "undefined sqrt(sum(x^2)) gradient at exactly zero centered channel maps",
+  "repair": "zero-vector subgradient defined as zero; exact forward expression retained for every nonzero channel and zero forward remains zero",
+  "attempt1_driver_log_sha256": {
+    "0": "841b52a1850586a31358c48a1ca6d2857c5c71a3d86a2520faf7a081596cff7f",
+    "1": "841b52a1850586a31358c48a1ca6d2857c5c71a3d86a2520faf7a081596cff7f",
+    "2": "841b52a1850586a31358c48a1ca6d2857c5c71a3d86a2520faf7a081596cff7f"
+  },
+  "roles_summary_sha256": {
+    "0": "41646ff5905f0ed176b3ec43077de3cb34ccaa78967dca626aca7f43fd29cfd7",
+    "1": "86b0f8ee79424b80806fbc5d6920e262e359a8fbc3279157b64dae25fdc2cb1f",
+    "2": "d6120f809243af484d199dc4c73e1519361f788da36e35fee33f2f7dff879216"
+  },
+  "source_sha256": {
+    "audit_driver": "dc79710df362d6b28fd20e64bffd5166ac697cef75be9ca1eb9ee04fe426b0fb",
+    "channel_roles_attempt1": "5a66c016205695fe312947392b7e18bd125259aaf9ade76582b521c7e2a90949",
+    "channel_roles_repaired": "40f9c562ada398057657a865edc9674aa404a3bfb856d40600827074fcd5536c",
+    "repaired_test": "768899e56521a6a0a8aa638ea37a8e9c81c2590e57bd61300711f2be72e65e70"
+  },
+  "post_repair_validation": {
+    "targeted_tests": "13 passed",
+    "c0_c5_forward_bit_identical_to_pre_repair_smoke": true,
+    "all_c0_c5_gradient_norms_finite": true,
+    "old_model_gradient_nonnull": 0
+  },
+  "resume_semantics": "restart functional audit from update batch 0 using existing immutable role states; use non-overwriting attempt2 driver logs"
+}

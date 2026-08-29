@@ -1,0 +1,55 @@
+{
+  "protocol_id": "crispseg_v0_1",
+  "final_status": "CRISP_ROLE_NOT_REPRODUCIBLE",
+  "status_interpretation": "Gate A composite failure due to nondegeneracy 0/6 per layer; split-half reproducibility itself passed",
+  "optimizer_steps": 0,
+  "hidden_gt_usage": "none",
+  "method_registered": false,
+  "config_registered": false,
+  "conditional_training_run": false,
+  "prerequisites": {
+    "sparc_freeze": "SPARC_V0_1_FROZEN_FOR_CRISP",
+    "source_audit": "CRISP_SOURCE_AUDIT_PASSED",
+    "model_path": "CRISP_MODEL_PATH_REVALIDATION_PASSED",
+    "style_probe": "CRISP_STYLE_PROBE_AUDIT_PASSED"
+  },
+  "gate_A": {
+    "nondegeneracy_pass": false,
+    "reproducibility_pass": true,
+    "dec3": {"nondegenerate_pairs": 0, "pairs": 6, "median_spearman": 0.9910943223443222, "median_top_jaccard": 0.8823529411764706, "median_bottom_jaccard": 0.8823529411764706},
+    "dec1": {"nondegenerate_pairs": 0, "pairs": 6, "median_spearman": 0.9718791902050866, "median_top_jaccard": 0.8, "median_bottom_jaccard": 0.6}
+  },
+  "gate_B": {
+    "content_pass": false,
+    "style_pass": false,
+    "dec3": {"median_fisher_ratio": 54.00992978660779, "fisher_positive_pairs": 6, "median_style_ratio": 9.631085810966795, "minimum_plastic_alive_fraction": 1.0},
+    "dec1": {"median_fisher_ratio": 4.012726108011643, "fisher_positive_pairs": 3, "median_style_ratio": 2281696.09498064, "minimum_plastic_alive_fraction": 0.5}
+  },
+  "gate_C": {
+    "pass": false,
+    "ifc": {"median": 0.6480023096038539, "p10": 0.19373374754558872, "p90": 1.5244571974201933, "pass": true},
+    "pfc": {"median": 3.8984855952328337, "p10": 1.6891594962926935, "p90": 9.826042579018893, "pass": false},
+    "total": {"median": 3.0196273635435515, "p90": 7.166891087590861, "pass": false},
+    "finite_rows": 192,
+    "old_model_gradient_nonnull": 0
+  },
+  "gate_D": {
+    "pass": false,
+    "C3_vs_C0": false,
+    "C3_vs_C2_ifc_contribution": false,
+    "C3_vs_C1_pfc_contribution": true,
+    "C3_vs_C4": false,
+    "C3_vs_C5": false,
+    "finite_rows": 1152
+  },
+  "audit_tests": "13 passed in 1.35s",
+  "row_counts": {"role_non_degeneracy": 12, "role_reproducibility": 12, "semantic_style_validation": 12, "gradient_scale": 192, "virtual_steps": 1152},
+  "remote_run_root": "/home/jiangsuiyang/SSL_CL/runs/crispseg_v0_1_feasibility_audit",
+  "nas_target": "/data_nas/jiangsuiyang/LCR-Seg/crispseg_v0_1",
+  "nas_sync_status": "confirmed_non_overwriting_and_sha256_verified",
+  "nas_initial_file_count": 87,
+  "nas_initial_bundle_size": "2.2 MB",
+  "nas_initial_manifest_sha256": "59bd68ed568d94986a0e1cac05e5e3b5162dd3da801b349b445c642b13d2f353",
+  "main_feasibility_report_sha256": "73a4fdbe1dac8d4434dd187c9f03a9c0ca5dc57f9ddc071fdd47ec833885cb69",
+  "protocol_stop": true
+}

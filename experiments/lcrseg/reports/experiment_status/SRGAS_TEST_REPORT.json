@@ -1,0 +1,38 @@
+{
+  "status": "SRGAS_V0_1A_TESTS_PASSED",
+  "protocol_id": "srgas_v0_1a",
+  "generated_date": "2026-08-28",
+  "environment": {
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "cuda_runtime": "12.1",
+    "pytest": "8.3.5"
+  },
+  "commands": [
+    "PYTHONPATH=.:tests python -m pytest -q tests/test_srgas_v0_1.py tests/test_srgas_v0_1a_r2c.py",
+    "PYTHONPATH=.:tests python -m pytest -q tests"
+  ],
+  "results": {
+    "srgas_contract_tests": {"passed": 50, "failed": 0},
+    "complete_repository_tests": {"passed": 148, "failed": 0}
+  },
+  "verified_contracts": {
+    "cosine_classifier_bias_free_fp32_normalization": true,
+    "classifier_only_noise": true,
+    "master_weight_not_modified": true,
+    "same_step_sensitivity_without_higher_order_graph": true,
+    "class_space_r2c_target_is_stop_gradient": true,
+    "r2c_not_in_total_objective": true,
+    "no_channel_mapping": true,
+    "no_architecture_change": true,
+    "old_model_no_gradient": true,
+    "historical_anchor_no_gradient": true,
+    "projection_head_no_r2c_gradient": true,
+    "empty_mask_and_first_site_reduce_a5_to_a4": true,
+    "spatial_shuffle_preserves_marginals_and_resumes_exactly": true,
+    "a5_incremental_runner_integration": true,
+    "all_historical_regression_tests_unchanged": true
+  },
+  "class_semantics_sha256": "5c52655356b11831820433035dad0adfe919219a4da2a9f70d2b18d784010200",
+  "next_gate": "A1_TWO_CASE_OVERFIT"
+}

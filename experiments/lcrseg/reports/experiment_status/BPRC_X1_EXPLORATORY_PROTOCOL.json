@@ -1,0 +1,43 @@
+{
+  "protocol_id": "bprcseg_x1_exploratory",
+  "created_at": "2026-08-28T14:43:55Z",
+  "authorization": "direct_user_request_after_bprc_v0_1_hard_stop",
+  "epistemic_status": "exploratory_not_originally_preregistered",
+  "preserve_bprc_v0_1_immutable": true,
+  "variants": {
+    "X0": "exact_b0_categorical_pixel_mean",
+    "X1": "b2_top2_pairwise_class_balanced_divided_by_num_classes"
+  },
+  "num_classes": 3,
+  "x1_scale": 0.3333333333333333,
+  "seeds": [0, 1, 2],
+  "transitions": ["REFUGE->RIM_ONE_r3", "RIM_ONE_r3->Drishti_GS"],
+  "update_batches_per_transition": 32,
+  "previous_val_batches": 16,
+  "current_val_batches": 16,
+  "virtual_step_norm": 0.001,
+  "optimizer_steps_allowed_in_diagnostic": 0,
+  "gates": {
+    "gradient_scale": {
+      "median_min": 0.5,
+      "median_max": 2.0,
+      "p10_min": 0.25,
+      "p90_max": 4.0,
+      "nonfinite_max": 0
+    },
+    "previous_utility": {
+      "paired_better_fraction_min": 0.6,
+      "median_improvement_min": 0.0001
+    },
+    "current_safety": {
+      "loss_tolerance_fraction_of_abs_x0": 0.02,
+      "dice_tolerance": 0.002
+    },
+    "disc_rim_margin": {
+      "paired_better_fraction_min": 0.6,
+      "median_improvement_min": 0.005,
+      "minimum_class_median_delta": -0.005
+    }
+  },
+  "pilot_authorization_condition": "all_diagnostic_gates_pass"
+}

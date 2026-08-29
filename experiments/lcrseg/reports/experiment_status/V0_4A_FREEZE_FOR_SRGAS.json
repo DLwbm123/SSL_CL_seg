@@ -1,0 +1,123 @@
+{
+  "protocol_id": "srgas_v0_1",
+  "generated_at": "2026-08-28T16:00:32+08:00",
+  "status": "V0_4A_FROZEN_FOR_SRGAS",
+  "hypothesis_id": "SRGAS_V0_1_H1_STABLE_RELATION_CONDITIONED_GAS",
+  "branch_declarations": {
+    "LCR-Seg routing/SRA branch": "frozen",
+    "V0.4a failure": "research failure, not engineering failure",
+    "SR-GAS": "new optimization hypothesis",
+    "RGM/GPM": "not implemented",
+    "PAS": "not part of proposed"
+  },
+  "authoritative_report": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/experiment_status/V0_4A_FUNDUS_COMPLETION.json",
+  "v0_4a": {
+    "status": "FUNDUS_V0_4A_INTERNAL_GATE_FAILED",
+    "engineering_gate_passed": true,
+    "mechanism_gate_passed": true,
+    "internal_gate_passed": false,
+    "external_baselines_executed": false,
+    "prostate_executed": false,
+    "mean_sra_minus_r0": {
+      "final_average_dice": -0.03056917376123558,
+      "bwt": -0.04010161662072179,
+      "incoming_dice": -0.0038347626807544812,
+      "previous_site_dice": -0.026327381280339845
+    },
+    "failed_gates": [
+      "mean_delta_final_ge_0_003",
+      "mean_delta_bwt_ge_0",
+      "mean_delta_previous_ge_0_003",
+      "final_positive_at_least_2_of_3",
+      "previous_positive_at_least_2_of_3",
+      "bwt_nonnegative_at_least_2_of_3",
+      "optic_disc_rim_mean_delta_ge_minus_0_010",
+      "optic_cup_mean_delta_ge_minus_0_010",
+      "no_site_class_cross_seed_mean_drop_gt_0_015",
+      "std_delta_final_le_0_010",
+      "std_delta_previous_le_0_010"
+    ],
+    "passed_research_checks": [
+      "mean_delta_incoming_ge_minus_0_005"
+    ],
+    "passed_engineering_checks": [
+      "exact_rows_and_steps_all_seeds",
+      "finite_numeric_logs_all_seeds",
+      "zero_hidden_gt_training_usage_all_seeds",
+      "zero_amp_skips_all_seeds",
+      "zero_old_model_gradient_all_seeds",
+      "zero_historical_anchor_mutation_all_seeds",
+      "complete_three_site_checkpoints_all_seeds"
+    ],
+    "passed_mechanism_checks": [
+      "boundary_effective_assimilation_mass_ratio_ge_0_75",
+      "low_learnability_soft_gradient_nonzero",
+      "anchor_to_labeled_centroid_not_below_r1",
+      "sra_weight_stability_above_r1_hard_mask"
+    ]
+  },
+  "seedwise_metrics": {
+    "0": {
+      "final_average_dice": 0.6561066143232489,
+      "bwt": -0.12268277927652427,
+      "incoming_dice": 0.7378951338409316,
+      "previous_site_dice": 0.6737292388104481,
+      "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88"
+    },
+    "1": {
+      "final_average_dice": 0.6478894675856033,
+      "bwt": -0.14190366703629542,
+      "incoming_dice": 0.7424919122764669,
+      "previous_site_dice": 0.6354728353962361,
+      "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727"
+    },
+    "2": {
+      "final_average_dice": 0.650476477475718,
+      "bwt": -0.1755258909293687,
+      "incoming_dice": 0.7674937380952972,
+      "previous_site_dice": 0.6310096575987358,
+      "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3"
+    }
+  },
+  "frozen_runs": {
+    "0": {
+      "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_4a_sra_uniform_full200e",
+      "all_files_manifest_sha256": "e5d37f05e8fe7a313c1de4e5a0bb72bf59db366878fc9c9b8eec8d569555829a",
+      "run_summary_sha256": "f4af482ac21734da8853409f0c775e210c2f175627bbdaa88607be7b15df9966",
+      "train_log_sha256": "b96599bf54866ba83b442097d98351a042726f161c7cd803d6d162c4a8fe709a",
+      "checkpoint_final_sha256": "69dd5facd0363a7a6b81d63b00a0c2233435523a8799c8921da7eeca0f9579f8",
+      "checkpoint_site0_sha256": "9ecd98346d2bde5b056a8db4e8d61245347b180a97d1d660986936579466a93a",
+      "checkpoint_site1_sha256": "a95bcbcb94e7fa85c9f4f3c38da394292c8e0bb3d8f711b596c968b80e451747",
+      "checkpoint_site2_sha256": "69dd5facd0363a7a6b81d63b00a0c2233435523a8799c8921da7eeca0f9579f8"
+    },
+    "1": {
+      "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_4a_sra_uniform_full200e",
+      "all_files_manifest_sha256": "df42a209921157b4b0821ffb858fb4ddcade55c595b4b2daad55c34195515636",
+      "run_summary_sha256": "0220990332f1c3063a45576cdd0f996056ac5c09f5b748d6424860c0df5506b2",
+      "train_log_sha256": "082f0cb65c49ac22cb096b04a4055ea90f965eaaddccac5ff45c056d9bd70284",
+      "checkpoint_final_sha256": "35a5687ef96b9520558f544c102ff1b9513c102789b85fb1ea23a76df4866f82",
+      "checkpoint_site0_sha256": "20698530bf1e9ee23ce58324feffa890695e67c731fd8103b381814a77ca78b3",
+      "checkpoint_site1_sha256": "2445ad0fe893b36c19663671a1d6a526ff7f2f09fc3bd3065ba8e7d069d6a583",
+      "checkpoint_site2_sha256": "35a5687ef96b9520558f544c102ff1b9513c102789b85fb1ea23a76df4866f82"
+    },
+    "2": {
+      "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_4a_sra_uniform_full200e",
+      "all_files_manifest_sha256": "6881487ca307e3ad3fb713a0e072a9636db5d43f74a983ca52263d9458f73100",
+      "run_summary_sha256": "a214267d30ce4547a7aaba3dab7bf7e6a2650c1ce4d121d6252303210fdca194",
+      "train_log_sha256": "3ebd91e8a245525e4605759b016f97d5225557424a6bb7b7f72c57aa5d26acb2",
+      "checkpoint_final_sha256": "b4c9bc79da8389e2409f5cf5f22dc49b5c25a4371876fe8b418d255544dbb65a",
+      "checkpoint_site0_sha256": "505e06e7b032faaaaf3e74d4d92c7332510c8387e7d8010fb3920f18088c4b56",
+      "checkpoint_site1_sha256": "c4499aeee2a19e167ba7ad1aa86998b6df27dbe5712feaaa862a275aaa14069b",
+      "checkpoint_site2_sha256": "b4c9bc79da8389e2409f5cf5f22dc49b5c25a4371876fe8b418d255544dbb65a"
+    }
+  },
+  "specification_sha256": {
+    "METHOD_SPEC_V0_1.md": "be2c82b6fc6216c4c4eeb209cb7d972948e8d5fa61fc1ddba15dcee9bf188b4f",
+    "IMPLEMENTATION_CONTRACT_V0_1.md": "f09ee73bb6206ee17eec9e79e084850743e6ddda25d250ec9b7e64bb3c1d2fa0",
+    "METHOD_ACCEPTANCE_TESTS_V0_1.md": "9174942bf5c3702b275b35c9615c3ad268da7c67957cbbc4bd4334989cbff826"
+  },
+  "freeze_policy": "No routing or SRA tuning, rerun, overwrite, or reinterpretation is permitted under SR-GAS V0.1."
+}

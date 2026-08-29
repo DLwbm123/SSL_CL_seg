@@ -1,0 +1,215 @@
+{
+  "protocol_id": "asprseg_v0_1",
+  "generated_at": "2026-08-28T12:49:40.431868+00:00",
+  "status": "ASPR_MEMORY_RECONSTRUCTION_COMPLETE",
+  "stage": "post_hoc_memory_reconstruction",
+  "seed": 0,
+  "hidden_gt_usage": "none",
+  "optimizer_steps": 0,
+  "bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/seed0/seed0_memory_reconstruction.pt",
+  "bundle_sha256": "d113ce1f45c3d6ce2ef25f62b572895e8e838ac637557d97a5df54be1a0a1ac7",
+  "class_semantics_sha256": "5c52655356b11831820433035dad0adfe919219a4da2a9f70d2b18d784010200",
+  "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "sites": [
+    {
+      "site_id": "REFUGE",
+      "checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site0_REFUGE.pt",
+      "checkpoint_sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb",
+      "feature_dim": 128,
+      "batch_size": 4,
+      "labeled_cases": 40,
+      "unlabeled_cases": 160,
+      "calibrator_support": {
+        "1": 29346,
+        "2": 9831
+      },
+      "classwise_calibrators": [
+        1,
+        2
+      ],
+      "selection_without_hidden_gt": {
+        "1": {
+          "candidate_pixels": 122230,
+          "reliable_pixels": 116109,
+          "reliable_weight": 115680.45776367188
+        },
+        "2": {
+          "candidate_pixels": 40166,
+          "reliable_pixels": 38979,
+          "reliable_weight": 38730.81506347656
+        }
+      },
+      "labeled_memory_counts": {
+        "1": 40,
+        "2": 40
+      },
+      "combined_memory_counts": {
+        "1": {
+          "labeled": 40,
+          "unlabeled": 160
+        },
+        "2": {
+          "labeled": 40,
+          "unlabeled": 160
+        }
+      }
+    },
+    {
+      "site_id": "RIM_ONE_r3",
+      "checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "checkpoint_sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+      "feature_dim": 128,
+      "batch_size": 4,
+      "labeled_cases": 16,
+      "unlabeled_cases": 63,
+      "calibrator_support": {
+        "1": 10613,
+        "2": 2443
+      },
+      "classwise_calibrators": [
+        1,
+        2
+      ],
+      "selection_without_hidden_gt": {
+        "1": {
+          "candidate_pixels": 38264,
+          "reliable_pixels": 35382,
+          "reliable_weight": 35177.60876464844
+        },
+        "2": {
+          "candidate_pixels": 12196,
+          "reliable_pixels": 11441,
+          "reliable_weight": 11310.212524414062
+        }
+      },
+      "labeled_memory_counts": {
+        "1": 16,
+        "2": 16
+      },
+      "combined_memory_counts": {
+        "1": {
+          "labeled": 16,
+          "unlabeled": 62
+        },
+        "2": {
+          "labeled": 16,
+          "unlabeled": 63
+        }
+      }
+    },
+    {
+      "site_id": "Drishti_GS",
+      "checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "checkpoint_sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d",
+      "feature_dim": 128,
+      "batch_size": 4,
+      "labeled_cases": 10,
+      "unlabeled_cases": 41,
+      "calibrator_support": {
+        "1": 7977,
+        "2": 5940
+      },
+      "classwise_calibrators": [
+        1,
+        2
+      ],
+      "selection_without_hidden_gt": {
+        "1": {
+          "candidate_pixels": 28004,
+          "reliable_pixels": 25401,
+          "reliable_weight": 25216.75799560547
+        },
+        "2": {
+          "candidate_pixels": 17549,
+          "reliable_pixels": 15182,
+          "reliable_weight": 15107.444702148438
+        }
+      },
+      "labeled_memory_counts": {
+        "1": 10,
+        "2": 10
+      },
+      "combined_memory_counts": {
+        "1": {
+          "labeled": 10,
+          "unlabeled": 39
+        },
+        "2": {
+          "labeled": 10,
+          "unlabeled": 41
+        }
+      }
+    }
+  ],
+  "transports": [
+    {
+      "site_id": "RIM_ONE_r3",
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site0_REFUGE.pt",
+      "old_checkpoint_sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "current_checkpoint_sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+      "classes": {
+        "1": {
+          "case_count": 16,
+          "shrinkage": 0.9877985021966433,
+          "variance": 0.3651372194290161,
+          "signal": 1.8475301265716553,
+          "delta_norm": 1.3426541090011597,
+          "full_shift_norm": 1.3592387437820435,
+          "valid": true
+        },
+        "2": {
+          "case_count": 16,
+          "shrinkage": 0.9820510095043469,
+          "variance": 0.31281641125679016,
+          "signal": 1.0697044134140015,
+          "delta_norm": 1.015701174736023,
+          "full_shift_norm": 1.034265160560608,
+          "valid": true
+        }
+      },
+      "transition": "0_to_1"
+    },
+    {
+      "site_id": "Drishti_GS",
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "old_checkpoint_sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "current_checkpoint_sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d",
+      "classes": {
+        "1": {
+          "case_count": 10,
+          "shrinkage": 0.983473812041475,
+          "variance": 0.2270662486553192,
+          "signal": 1.3512723445892334,
+          "delta_norm": 1.143231749534607,
+          "full_shift_norm": 1.1624424457550049,
+          "valid": true
+        },
+        "2": {
+          "case_count": 10,
+          "shrinkage": 0.9838912540238505,
+          "variance": 0.4007858633995056,
+          "signal": 2.4479236602783203,
+          "delta_norm": 1.539380669593811,
+          "full_shift_norm": 1.5645841360092163,
+          "valid": true
+        }
+      },
+      "transition": "1_to_2"
+    }
+  ],
+  "environment": {
+    "physical_index": 5,
+    "cuda_visible_devices": "5",
+    "torch_device": "cuda",
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "cuda": "12.1",
+    "cudnn": 8902,
+    "uuid": "GPU-2052f3b4-88f8-4be9-d43c-5068fafb02a5",
+    "name": "NVIDIA GeForce RTX 3090",
+    "driver": "580.173.02"
+  }
+}

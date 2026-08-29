@@ -1,0 +1,125 @@
+{
+  "protocol_id": "asprseg_v0_1",
+  "generated_at": "2026-08-28T12:50:18.199400+00:00",
+  "status": "ASPR_UNLABELED_MEMORY_NOT_SUPPORTED",
+  "hidden_gt_usage": "post_hoc_only",
+  "optimizer_steps": 0,
+  "engineering_checks": {
+    "three_seed_summaries": true,
+    "hidden_gt_post_hoc_only": true,
+    "optimizer_steps_zero": true,
+    "memory_rows_complete": true,
+    "drift_rows_complete": true,
+    "transport_rows_complete": true,
+    "site_mode_rows_complete": true
+  },
+  "gates": {
+    "A_unlabeled_memory": {
+      "passed": false,
+      "metrics": {
+        "precision_seed_pass_count_by_class": {
+          "1": 0,
+          "2": 0
+        },
+        "coverage_seed_pass_count_by_class": {
+          "1": 3,
+          "2": 3
+        },
+        "median_delta_lu": 0.011580109596252441,
+        "fraction_delta_lu_nonnegative": 0.7777777777777778,
+        "p10_delta_lu": -0.004098266363143921,
+        "site_class_seed_pairs": 18
+      },
+      "checks": {
+        "precision_ge_0_90_in_at_least_2_of_3_by_class": false,
+        "coverage_ge_0_02_in_at_least_2_of_3_by_class": true,
+        "median_delta_lu_ge_0_005": true,
+        "fraction_delta_lu_nonnegative_ge_0_70": true,
+        "p10_delta_lu_ge_minus_0_010": true
+      }
+    },
+    "B_prototype_drift": {
+      "passed": true,
+      "metrics": {
+        "median_static_cosine_degradation": 0.7890832424163818,
+        "fraction_degradation_ge_0_050": 1.0,
+        "pairs": 18,
+        "memory_source": "combined_labeled_plus_reliable_unlabeled"
+      },
+      "checks": {
+        "median_degradation_ge_0_030_or_fraction_ge_0_050_at_least_0_50": true
+      }
+    },
+    "C_transport": {
+      "passed": true,
+      "metrics": {
+        "median_shrinkage_minus_static": 0.6918560229241848,
+        "fraction_shrinkage_gt_static": 1.0,
+        "p10_shrinkage_minus_static": 0.3491638779640198,
+        "median_shrinkage_oracle_cosine": 0.8291383385658264,
+        "median_full_shift_oracle_cosine": 0.8327313363552094,
+        "pairs": 18,
+        "memory_source": "combined_labeled_plus_reliable_unlabeled"
+      },
+      "checks": {
+        "median_shrinkage_minus_static_ge_0_020": true,
+        "fraction_shrinkage_gt_static_ge_0_70": true,
+        "p10_delta_ge_minus_0_020": true,
+        "shrinkage_median_ge_full_shift_median_minus_0_010": true
+      }
+    },
+    "D_site_mode": {
+      "passed": false,
+      "metrics": {
+        "median_nearest_distance_reduction": 0.0693180709433151,
+        "minimum_max_site_minus_global_accuracy": -0.008570194244384766,
+        "own_site_seed_pass_count_by_class": {
+          "1": 1,
+          "2": 1
+        },
+        "minimum_historical_site_occupancy": 105,
+        "seed_class_rows": 6,
+        "memory_source": "combined_labeled_plus_reliable_unlabeled"
+      },
+      "checks": {
+        "median_nearest_distance_reduction_ge_0_10": false,
+        "max_over_site_accuracy_ge_global_minus_0_005": false,
+        "own_site_rate_ge_0_55_in_at_least_2_of_3_by_class": false,
+        "all_historical_prototypes_nonzero_occupancy": true
+      }
+    }
+  },
+  "protocol_consequence": "Protocol hard stop: do not implement or train ASPR V0.1. A new protocol is required to change the proposed method line.",
+  "seed_summaries": [
+    {
+      "seed": 0,
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/seed0/feasibility_seed_summary.json"
+    },
+    {
+      "seed": 1,
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/seed1/feasibility_seed_summary.json"
+    },
+    {
+      "seed": 2,
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/seed2/feasibility_seed_summary.json"
+    }
+  ],
+  "artifacts": {
+    "memory_selection_quality.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/memory_selection_quality.csv",
+      "sha256": "f7a63e61ac6a61413f0704374c6371d73726706409462f4037aa0ccf9272ac21"
+    },
+    "prototype_drift.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/prototype_drift.csv",
+      "sha256": "6720286b7895a7142bb62947488f0eaa7593220e4fbe5ac1ad7019668e7dd122"
+    },
+    "transport_quality.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/transport_quality.csv",
+      "sha256": "175a3f5e4ceb98714bc5eba323fa311b59ac5f1c1725d8d1f78fc6200f1b8ca8"
+    },
+    "site_mode_utility.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/asprseg_v0_1/site_mode_utility.csv",
+      "sha256": "8e8783257b17fabe65dab5886c0727b97cfbe05edf8edd753faf33fc8a5cd439"
+    }
+  }
+}

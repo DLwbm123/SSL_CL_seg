@@ -1,0 +1,85 @@
+{
+  "checks": {
+    "crisp_not_direct_reproduction": true,
+    "dc2t_primary_doi_recorded": true,
+    "lag_channel_count_from_rho": true,
+    "lag_channel_wise_decoupling_stated": true,
+    "lag_contrastive_path_present": true,
+    "lag_origin_official": true,
+    "lag_rho_cli_present": true,
+    "lag_rho_source_default_recorded": true,
+    "lag_same_index_current_feature": true,
+    "lag_same_index_old_feature": true,
+    "lag_sample_specific_role_stated": true,
+    "star_classifier_input_feature": true,
+    "star_origin_official": true,
+    "star_partial_region_mask": true,
+    "star_pkd_training_path": true,
+    "star_selected_feature_pair": true
+  },
+  "crisp_adaptation": {
+    "content_metric": "case-equal squared activation-gradient",
+    "direct_reproduction": false,
+    "new_relation_formula": false,
+    "objectives": [
+      "content-invariant feature consolidation",
+      "style-plastic feature consistency"
+    ],
+    "role_formula": "unit-mean normalized content over normalized content plus normalized style",
+    "style_metric": "case-equal centered L2-normalized paired-view squared distance",
+    "uniform_relation_kd": "unchanged"
+  },
+  "dc2t": {
+    "adopted_idea": "content relevance and style sensitivity as separate diagnostics",
+    "doi": "https://doi.org/10.1109/TMI.2024.3469528",
+    "not_adopted": [
+      "dual encoder",
+      "VAE",
+      "FiLM",
+      "CPC",
+      "SCT parameter perturbation",
+      "reconstruction loss"
+    ],
+    "official_code_located": false,
+    "primary_metadata": "https://pubmed.ncbi.nlm.nih.gov/39331545/",
+    "publication": "IEEE Transactions on Medical Imaging 44(2):903-914, 2025",
+    "source_scope": "paper-level only"
+  },
+  "generated_at": "2026-08-29T10:00:00+08:00",
+  "lag": {
+    "adopted_idea": "channel-wise invariant versus sample-specific role separation",
+    "commit": "3dbd3f8dcee06770aa9c4412f447147b2520c71f",
+    "crisp_c4_hard_split": "60/40 contextual control, not claimed source default",
+    "not_adopted": [
+      "prototype matching",
+      "triplet SFP",
+      "LRP/NSC",
+      "unknown class"
+    ],
+    "paper": "https://arxiv.org/abs/2407.15429",
+    "repository": "https://github.com/YBIO/LAG",
+    "source_rho_default": 1.0
+  },
+  "protocol_id": "crispseg_v0_1",
+  "reference_sha256": {
+    "LAG README.md": "8a16d24aea54089ba61c4e9ca3b145961b70a94a24a793a1e2a4670b939911b0",
+    "LAG run.py": "b497112755ffcd75be5cd9f302a746698c684bc1ef6bb57f363d8ae0acb0896b",
+    "LAG utils/contrastive_learning.py": "a91112a7b6d92510e6a63e3b53615ed267f71a2e7351d1740cc3e6aecb8e65e4",
+    "STAR models/loss.py": "a346d8c6c3680d65cf347bf06e0800d87c6ce4f3e14476a647f82539bc889e21",
+    "STAR models/model.py": "14f0a45028ea65a3c9612686fbcf67e5c3d55e43d992713da6cbd54aaf951889",
+    "STAR trainer/trainer_voc.py": "fa7ad3620d3c18d227418a3f0b7d42b5658e359a620df12fa8e1a69543d5ef37"
+  },
+  "star": {
+    "adopted_idea": "partial rather than global feature stabilization",
+    "commit": "6c9203aa0c91e9a2d4e40664c97754ae02226675",
+    "not_adopted": [
+      "prototype replay",
+      "background repetition",
+      "STAR region rule",
+      "STAR MSE formula"
+    ],
+    "paper": "https://ieeexplore.ieee.org/document/10904177",
+    "repository": "https://github.com/jinpeng0528/STAR-TPAMI"
+  },
+  "status": "CRISP_SOURCE_AUDIT_PASSED"
+}

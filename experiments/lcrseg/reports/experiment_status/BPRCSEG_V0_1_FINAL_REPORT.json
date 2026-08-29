@@ -1,0 +1,101 @@
+{
+  "protocol_id": "bprcseg_v0_1",
+  "generated_at": "2026-08-28T14:12:46Z",
+  "status": "BPRC_GRADIENT_SCALE_NOT_SUPPORTED",
+  "part_b_authorized": false,
+  "optimizer_steps": 0,
+  "hidden_gt_training_usage": "none",
+  "engineering_checks_passed": 18,
+  "engineering_checks_total": 18,
+  "tests": {
+    "passed": 196,
+    "failed": 0,
+    "duration_seconds": 19.58,
+    "log": "reports/experiment_status/BPRC_AUDIT_FULL_TESTS.log",
+    "log_sha256": "4e0ffae17a6f7ba522be0c0b31b93530af3d3346ed59794f6fe2eb3ca741e988"
+  },
+  "gates": {
+    "gradient_scale": {
+      "passed": false,
+      "median_b3_to_b0": 3.5308377735091927,
+      "p10_b3_to_b0": 1.956722571345011,
+      "p90_b3_to_b0": 6.808759859258404,
+      "comparisons": 192,
+      "nonfinite_count": 0
+    },
+    "previous_utility": {
+      "passed": false,
+      "fraction_b3_better_than_b0": 0.515625,
+      "median_b0_delta": -0.0004639141261577606,
+      "median_b3_delta": -0.00036555808037519455
+    },
+    "current_safety": {
+      "passed": true,
+      "median_current_loss_delta_b0": -0.000147942453622818,
+      "median_current_loss_delta_b3": -0.0006766896694898605,
+      "median_current_dice_delta_b0": 0.00008694827556610107,
+      "median_current_dice_delta_b3": 0.0002924315631389618
+    },
+    "disc_rim_margin": {
+      "passed": false,
+      "fraction_b3_better_than_b0": 0.4270833333333333,
+      "median_b3_minus_b0": -0.0000580597434472474
+    },
+    "pairwise_beyond_class_balance": {
+      "passed": false,
+      "median_previous_delta_b1": -0.0005124900490045547,
+      "median_previous_delta_b3": -0.00036555808037519455,
+      "disc_rim_b3_minus_b1": 0.00010106711859769746
+    },
+    "all_competitors": {
+      "passed": false,
+      "median_previous_delta_b2": -0.0006722845137119293,
+      "median_previous_delta_b3": -0.00036555808037519455,
+      "minimum_class_median_margin_b3_minus_b2": -0.00004630271646227646
+    }
+  },
+  "row_counts": {
+    "gradient": 768,
+    "virtual_step": 768,
+    "margin": 6912
+  },
+  "artifacts": {
+    "feasibility_json": {
+      "path": "reports/experiment_status/BPRC_FEASIBILITY_AUDIT.json",
+      "sha256": "c1c98bfc16412a42360cf696f3d57d56645cb2d911da41c04c9c60e788695677"
+    },
+    "feasibility_markdown": {
+      "path": "reports/experiment_status/BPRC_FEASIBILITY_AUDIT.md",
+      "sha256": "6e747f72b64a27049bdca2c6ba32f9f16003ddbf869608917399936a1153a01f"
+    },
+    "stop_json": {
+      "path": "reports/experiment_status/STOP_NEW_RELATION_METHODS.json",
+      "sha256": "5f5ac4bfc1baa85f261e410d8d50c3735ee87ebfe0febabbcc1ce53c9d85f383"
+    },
+    "stop_markdown": {
+      "path": "reports/experiment_status/STOP_NEW_RELATION_METHODS.md",
+      "sha256": "e7ed033774d28cff1d9ebae7dd8137ab4e810f4a4eeceb9d8beee2cd732b4454"
+    },
+    "gradient_csv": {
+      "path": "reports/analysis/bprcseg_v0_1/feasibility_gradient_scale.csv",
+      "sha256": "f2051b02f547ae4ebc511d53c33c23677f83f6673fefab2e1b9d2fe06d6178e6"
+    },
+    "virtual_csv": {
+      "path": "reports/analysis/bprcseg_v0_1/feasibility_virtual_steps.csv",
+      "sha256": "e567855871cb325b0c4bb6d33fe20ff2b8a7b2069755b9cb972341401baed32e"
+    },
+    "margin_csv": {
+      "path": "reports/analysis/bprcseg_v0_1/feasibility_margin_analysis.csv",
+      "sha256": "bb7b405e0e186ab4662bcf1e30efe143c71bcc565aea486ad56ff1fa0cc4f0b5"
+    }
+  },
+  "unexecuted": [
+    "BPRC method registration",
+    "BPRC training configs",
+    "B0 golden and bridge",
+    "pilots and full runs",
+    "pair-shuffle",
+    "external and prostate experiments"
+  ],
+  "protocol_consequence": "STOP_NEW_RELATION_METHODS; no BPRC method/config/training is authorized."
+}

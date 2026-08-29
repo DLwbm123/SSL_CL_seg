@@ -1,0 +1,46 @@
+{
+  "status": "SRGAS_A1_PARENT_GATE_PASSED",
+  "parent_run": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_srgas_a1_cosine_site1",
+  "a0_run": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+  "parent_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_srgas_a1_cosine_site1/checkpoint_final_site0_REFUGE.pt",
+  "parent_checkpoint_sha256": "8f188ba27074ecb09a689377982774e6cf59e8c1c652d3927be54fd7c377bf55",
+  "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "completed_steps": 8000,
+  "amp_skip_count": 0.0,
+  "hidden_gt_training_usage": 0.0,
+  "checkpoint_deterministic_max_abs_error": 0.0,
+  "overfit_foreground_dice": 0.9912042617797852,
+  "metrics": {
+    "mean_foreground_dice": {
+      "a0": 0.8276463802256635,
+      "a1_parent": 0.8321454405740687,
+      "drop": -0.004499060348405193,
+      "maximum_drop": 0.015
+    },
+    "dice_class_1": {
+      "a0": 0.8292733530487055,
+      "a1_parent": 0.8359720309613017,
+      "drop": -0.0066986779125961515,
+      "maximum_drop": 0.02
+    },
+    "dice_class_2": {
+      "a0": 0.8260194074026215,
+      "a1_parent": 0.8283188501868356,
+      "drop": -0.002299442784214123,
+      "maximum_drop": 0.02
+    }
+  },
+  "checks": {
+    "parent_run_summary_present": true,
+    "completed_exact_8000_steps": true,
+    "all_losses_finite": true,
+    "amp_skip_zero": true,
+    "hidden_gt_training_usage_zero": true,
+    "checkpoint_resume_deterministic": true,
+    "overfit_foreground_dice_ge_0_95": true,
+    "mean_foreground_dice_drop_within_gate": true,
+    "dice_class_1_drop_within_gate": true,
+    "dice_class_2_drop_within_gate": true
+  }
+}

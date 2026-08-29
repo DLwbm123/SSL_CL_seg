@@ -1,0 +1,58 @@
+{
+  "protocol_id": "lcrseg_v0_2a",
+  "status": "FUNDUS_V0_2A_GATE_FAILED",
+  "engineering_gate_passed": true,
+  "research_gate_evaluated": true,
+  "research_gate_passed": false,
+  "numeric_thresholds": {
+    "final": false,
+    "bwt": true,
+    "incoming": false,
+    "previous": true
+  },
+  "pareto_non_dominated": true,
+  "retained_better_than_rejected": true,
+  "no_foreground_class_drop_over_0_01": false,
+  "audits": {
+    "R1": {
+      "finite": true,
+      "hidden_gt_training_usage_max": 0,
+      "optimizer_steps_skipped": 0,
+      "maximum_rejection_fraction": 0.0,
+      "minimum_relation_ess_ratio": 1.0
+    },
+    "R2": {
+      "finite": true,
+      "hidden_gt_training_usage_max": 0,
+      "optimizer_steps_skipped": 0,
+      "maximum_rejection_fraction": 0.19986979166666666,
+      "minimum_relation_ess_ratio": 0.9529695510864258
+    },
+    "R3": {
+      "finite": true,
+      "hidden_gt_training_usage_max": 0,
+      "optimizer_steps_skipped": 0,
+      "maximum_rejection_fraction": 0.1999782986111111,
+      "minimum_relation_ess_ratio": 0.9529459211561415
+    }
+  },
+  "run_directories": {
+    "R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+    "R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r1_progressive_uniform_full200e",
+    "R2": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r2_legacy_teacherreject_full200e",
+    "R3": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r3_progressive_teacherreject_full200e",
+    "U0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2_r0_uniform_full200e"
+  },
+  "artifact_counts": {
+    "main_results": 5,
+    "factorial_effects": 4,
+    "site_matrix_rows": 45,
+    "classwise_rows": 90,
+    "forgetting_rows": 15,
+    "admission_rows": 3600,
+    "teacher_calibration_rows": 282,
+    "ess_rows": 800,
+    "gradient_rows": 33
+  },
+  "prostate_allowed": false
+}

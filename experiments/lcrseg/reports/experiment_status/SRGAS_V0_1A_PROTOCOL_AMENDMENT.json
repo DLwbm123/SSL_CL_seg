@@ -1,0 +1,59 @@
+{
+  "protocol_id": "srgas_v0_1a",
+  "generated_at": "2026-08-28T16:31:40+08:00",
+  "status": "SRGAS_V0_1A_PROTOCOL_AMENDMENT_FROZEN",
+  "upstream_status": "HARD_STOP_NO_SHARED_SEMANTIC_FEATURE",
+  "hypothesis_id": "SRGAS_V0_1A_H1_RELATION_TO_CLASSIFIER_CLASS_SPACE_BRIDGE",
+  "declarations": {
+    "original_hard_stop_was_correct": true,
+    "prior_srgas_training_run_count": 0,
+    "introduces_64_to_16_mapping": false,
+    "changes_architecture": false,
+    "a5_sensitivity_amendment": "class_space_relation_to_classifier_proxy_only",
+    "all_unrelated_v0_1_settings_frozen": true
+  },
+  "bridge_contract": {
+    "old_target": "frozen_previous_model_plus_historical_anchors_relation_distribution",
+    "current_source": "current_clean_segmentation_logits",
+    "space": "fixed_fundus_class_probability_space",
+    "temperature": 1.0,
+    "resize_mode": "bilinear",
+    "align_corners": false,
+    "loss": "KL(stopgrad(q_old_relation) || softmax(downsample(current_clean_logits)))",
+    "added_to_training_objective": false,
+    "supervised_source_weight": 0.5,
+    "r2c_source_weight": 0.5,
+    "noise_variance": 0.1,
+    "channel_mapping": "none"
+  },
+  "permanent_upstream_evidence": {
+    "SRGAS_MODEL_PATH_AUDIT.md": "45a49f31e3285ec6e5e995bae0241b841fb9137dad4d54fceef36c52e65a33c4",
+    "SRGAS_BLOCKER_NO_SHARED_SEMANTIC_FEATURE.md": "0531c84dcd02aeddd5f9a8ebbf838b483be8bf4b99494b6227e342d62a27e972",
+    "V0_4A_FREEZE_FOR_SRGAS.md": "6a8bd0b8e416139671179bf1a4452bc7d37fe5154c781c8980f862fd6c406ae2",
+    "JASCL_GAS_SOURCE_AUDIT.md": "baf69d38e9d9777f81b53608e506e0675b92a1cdbbbd5da25bc515a848756f8e"
+  },
+  "protocol_sha256": {
+    "CODEX_PROMPT_SRGAS_V0_1A_RELATION_TO_CLASSIFIER_BRIDGE.md": "6bc81954705d9a518cf82fc1b3d7e0d0d6462a3e804f3278046ce2baca7accc9",
+    "SRGAS_V0_1A_RELATION_TO_CLASSIFIER_BRIDGE_PLAN.md": "a6dfc3e16f64a91a2fc1c7258c8a950ebb29ee43e9174f3868357a5621d55239",
+    "SRGAS_V0_1_STABLE_RELATION_GAS_EXPERIMENT_PLAN.md": "14fa7a1ad5e3d12f7138125967a91a24d68d740ef82c08e5cce574a3b66d6a49"
+  },
+  "frozen_bans": [
+    "64_to_16_mapping",
+    "move_relation_projection_head",
+    "modify_unet",
+    "learned_adapter",
+    "upsample_q_old",
+    "current_relation_target",
+    "r2c_in_total_objective",
+    "compatibility_or_teacher_rejection",
+    "temperature_tuning",
+    "source_weight_tuning",
+    "noise_variance_tuning",
+    "routing_or_sra",
+    "pas",
+    "third_teacher",
+    "gpm_or_rgm",
+    "multi_agent",
+    "ric_or_ewc_proposed"
+  ]
+}

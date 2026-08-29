@@ -1,0 +1,13 @@
+name: unet2d
+base_channels: 16
+relation_dim: 128
+normalization: groupnorm
+relation_feature_resolution: quarter
+in_channels:
+  fundus: 3
+  prostate: 1
+  mnms: 1
+num_classes:
+  fundus: 3
+  prostate: 2
+  mnms: 4

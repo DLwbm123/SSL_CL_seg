@@ -1,0 +1,184 @@
+{
+  "protocol_id": "crispseg_v0_1",
+  "status": "CRISP_STYLE_PROBE_AUDIT_PASSED",
+  "generated_at": "2026-08-29T02:02:55.620594+00:00",
+  "optimizer_steps": 0,
+  "hidden_gt_usage": "none",
+  "pseudo_label_usage": "none",
+  "contract": {
+    "protocol_id": "crispseg_v0_1",
+    "purpose": "audit_only_channel_role_estimation",
+    "seed_components": [
+      "protocol_seed",
+      "site_id",
+      "case_id"
+    ],
+    "geometry": {
+      "operators": [
+        "horizontal_flip",
+        "vertical_flip"
+      ],
+      "flip_probability": 0.5,
+      "paired_views_share_exact_geometry": true
+    },
+    "appearance": {
+      "operators_in_order": [
+        "contrast",
+        "brightness",
+        "gaussian_noise"
+      ],
+      "contrast_delta": 0.1,
+      "brightness_delta": 0.1,
+      "strong_noise_std": 0.03,
+      "source": "existing WeakStrongTransform strong appearance path"
+    },
+    "datasets": {
+      "fundus": "three-channel intensity path; shared scalar contrast/brightness and elementwise Gaussian noise",
+      "prostate": "single-channel MRI intensity path; scalar contrast/brightness and elementwise Gaussian noise"
+    },
+    "cutout": false,
+    "new_augmentation": false,
+    "uses_global_rng": false,
+    "hidden_gt_usage": "none",
+    "contract_sha256": "7d9c2f9a43b0a6c688de8c9543713bd78779231a32f7d4669d98ffd560399ec3"
+  },
+  "frozen_config": {
+    "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/configs/experiments/lcrseg_v0_2_r0_uniform.yaml",
+    "sha256": "17cb922f536e0aa7233784da2aa4f720db2f194415f05f4e727f383055d081ce",
+    "values": {
+      "labeled_flip_probability": 0.5,
+      "flip_probability": 0.5,
+      "strong_noise_std": 0.03,
+      "brightness_delta": 0.1,
+      "contrast_delta": 0.1,
+      "cutout_probability": 0.5,
+      "cutout_fraction": 0.2
+    }
+  },
+  "source_files": {
+    "existing_transform": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/lcrseg/data/transforms.py",
+      "sha256": "7d7540e30478fbf300cb87626d24875e3796affbe4378f16338081fd9e6f42cb"
+    },
+    "continual_runner": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/lcrseg/engine/continual_runner.py",
+      "sha256": "25a392a5ac5981264bec8bcfc2b362981fcd6c64dbb11a206e35804656111c62"
+    },
+    "style_probe": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/lcrseg/representation/style_probe.py",
+      "sha256": "9669030f70111d6609e71eb5fc4bfa41c9d25ac6de28622db6823b37c257c256"
+    }
+  },
+  "dataset_operators": {
+    "fundus": {
+      "channels": 3,
+      "clean": "same deterministic horizontal/vertical flips only",
+      "style": "existing scalar contrast, scalar brightness, and elementwise Gaussian noise",
+      "color_specific_operator": "none"
+    },
+    "prostate": {
+      "channels": 1,
+      "clean": "same deterministic horizontal/vertical flips only",
+      "style": "existing scalar contrast, scalar brightness, and elementwise Gaussian noise",
+      "color_specific_operator": "not applicable"
+    }
+  },
+  "probes": {
+    "fundus": {
+      "input_shape": [
+        3,
+        31,
+        29
+      ],
+      "geometry_record": {
+        "hflip": false,
+        "vflip": true,
+        "cutout": false,
+        "cutout_box": null
+      },
+      "style_record": {
+        "dataset": "fundus",
+        "site_id": "audit_site",
+        "case_id": "fundus_audit_case",
+        "case_seed": 2978978955931344536,
+        "brightness": 0.9201259016990662,
+        "contrast": 0.91319580078125,
+        "strong_noise_std": 0.03,
+        "contract_sha256": "7d9c2f9a43b0a6c688de8c9543713bd78779231a32f7d4669d98ffd560399ec3"
+      },
+      "clean_mean": 0.5,
+      "style_mean": 0.46098896861076355,
+      "paired_mean_absolute_difference": 0.04597015306353569
+    },
+    "prostate": {
+      "input_shape": [
+        1,
+        31,
+        29
+      ],
+      "geometry_record": {
+        "hflip": true,
+        "vflip": false,
+        "cutout": false,
+        "cutout_box": null
+      },
+      "style_record": {
+        "dataset": "prostate",
+        "site_id": "audit_site",
+        "case_id": "prostate_audit_case",
+        "case_seed": 4630278539813757849,
+        "brightness": 0.9139856815338134,
+        "contrast": 1.0719089269638062,
+        "strong_noise_std": 0.03,
+        "contract_sha256": "7d9c2f9a43b0a6c688de8c9543713bd78779231a32f7d4669d98ffd560399ec3"
+      },
+      "clean_mean": 0.5,
+      "style_mean": 0.4584878981113434,
+      "paired_mean_absolute_difference": 0.044033195823431015
+    }
+  },
+  "checks": {
+    "formal_r0_frozen_values_exact": true,
+    "contract_flip_exact": true,
+    "contract_noise_exact": true,
+    "contract_brightness_exact": true,
+    "contract_contrast_exact": true,
+    "contract_no_cutout": true,
+    "contract_no_new_augmentation": true,
+    "contract_same_geometry": true,
+    "contract_case_deterministic": true,
+    "call_interface_has_no_label": true,
+    "fundus_input_immutable": true,
+    "fundus_global_rng_immutable": true,
+    "fundus_repeat_clean_bitwise": true,
+    "fundus_repeat_style_bitwise": true,
+    "fundus_repeat_records_equal": true,
+    "fundus_clean_is_exact_shared_geometry": true,
+    "fundus_paired_shapes_equal": true,
+    "fundus_style_differs_by_appearance": true,
+    "fundus_cutout_disabled": true,
+    "fundus_all_pixels_valid": true,
+    "fundus_finite": true,
+    "prostate_input_immutable": true,
+    "prostate_global_rng_immutable": true,
+    "prostate_repeat_clean_bitwise": true,
+    "prostate_repeat_style_bitwise": true,
+    "prostate_repeat_records_equal": true,
+    "prostate_clean_is_exact_shared_geometry": true,
+    "prostate_paired_shapes_equal": true,
+    "prostate_style_differs_by_appearance": true,
+    "prostate_cutout_disabled": true,
+    "prostate_all_pixels_valid": true,
+    "prostate_finite": true,
+    "existing_transform_contains_noise": true,
+    "existing_transform_contains_brightness": true,
+    "existing_transform_contains_contrast": true,
+    "existing_transform_uses_shared_geometry": true,
+    "runner_defaults_match_noise": true,
+    "runner_defaults_match_brightness": true,
+    "runner_defaults_match_contrast": true,
+    "audit_optimizer_steps_zero": true,
+    "audit_hidden_gt_usage_none": true
+  },
+  "failed_checks": []
+}

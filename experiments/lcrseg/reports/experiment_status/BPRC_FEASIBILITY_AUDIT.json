@@ -1,0 +1,188 @@
+{
+  "protocol_id": "bprcseg_v0_1",
+  "generated_at": "2026-08-28T14:11:44.966979+00:00",
+  "status": "BPRC_GRADIENT_SCALE_NOT_SUPPORTED",
+  "part_b_authorized": false,
+  "optimizer_steps": 0,
+  "hidden_gt_training_usage": "none",
+  "engineering_checks": {
+    "tarc_freeze_status_exact": true,
+    "exact_tarc_metric_reuse_audit_passed": true,
+    "descriptive_pairwise_postmortem_complete": true,
+    "three_seed_summaries_complete": true,
+    "row_counts_exact": true,
+    "variant_rows_exact": true,
+    "fixed_comparison_keys_exact": true,
+    "seed_summary_row_counts_exact": true,
+    "fixed_batch_manifest_sha_valid": true,
+    "models_and_checkpoints_not_mutated": true,
+    "old_model_gradient_zero": true,
+    "optimizer_steps_zero": true,
+    "hidden_gt_post_hoc_only": true,
+    "exact_tarc_margin_function_reused": true,
+    "b0_exact_r0_loss_equivalence": true,
+    "virtual_step_norm_exact": true,
+    "all_gradient_scales_finite": true,
+    "all_virtual_metrics_finite": true,
+    "all_margin_metrics_finite": true
+  },
+  "gates": {
+    "gradient_scale": {
+      "passed": false,
+      "metrics": {
+        "median_b3_to_b0_gradient_norm_ratio": 3.5308377735091927,
+        "p10_b3_to_b0_gradient_norm_ratio": 1.956722571345011,
+        "p90_b3_to_b0_gradient_norm_ratio": 6.808759859258404,
+        "nonfinite_count": 0,
+        "comparisons": 192
+      },
+      "checks": {
+        "median_ratio_in_0_5_to_2_0": false,
+        "p10_ratio_ge_0_25": true,
+        "p90_ratio_le_4_0": false,
+        "nonfinite_count_zero": true
+      }
+    },
+    "previous_utility": {
+      "passed": false,
+      "metrics": {
+        "fraction_b3_delta_lower_than_b0": 0.515625,
+        "median_previous_loss_delta": {
+          "B0": -0.0004639141261577606,
+          "B1": -0.0005124900490045547,
+          "B2": -0.0006722845137119293,
+          "B3": -0.00036555808037519455
+        },
+        "comparisons": 192
+      },
+      "checks": {
+        "b3_better_than_b0_in_at_least_60pct": false,
+        "median_b3_le_b0_minus_1e_4": false
+      }
+    },
+    "current_safety": {
+      "passed": true,
+      "metrics": {
+        "median_current_loss_delta": {
+          "B0": -0.000147942453622818,
+          "B1": -0.0006854701787233353,
+          "B2": -0.0006698807701468468,
+          "B3": -0.0006766896694898605
+        },
+        "median_current_dice_delta": {
+          "B0": 8.694827556610107e-05,
+          "B1": 0.0002874806523323059,
+          "B2": 0.00028942152857780457,
+          "B3": 0.0002924315631389618
+        },
+        "b0_loss_2pct_safety_bound": -0.00014498360455036163,
+        "b0_dice_minus_0_002_bound": -0.001913051724433899
+      },
+      "checks": {
+        "median_b3_loss_within_b0_2pct_abs_bound": true,
+        "median_b3_dice_ge_b0_minus_0_002": true
+      }
+    },
+    "disc_rim_margin": {
+      "passed": false,
+      "metrics": {
+        "fraction_b3_disc_rim_margin_gt_b0": 0.4270833333333333,
+        "median_disc_rim_b3_minus_b0": -5.80597434472474e-05,
+        "class_median_b3_minus_b0": {
+          "0": -2.200681587438691e-05,
+          "1": -5.80597434472474e-05,
+          "2": 0.00019748651775486348
+        },
+        "comparisons": 192
+      },
+      "checks": {
+        "b3_improves_disc_rim_in_at_least_60pct": false,
+        "median_disc_rim_b3_minus_b0_ge_0_005": false,
+        "no_class_median_below_minus_0_005": true
+      }
+    },
+    "pairwise_beyond_class_balance": {
+      "passed": false,
+      "metrics": {
+        "median_previous_loss_delta": {
+          "B0": -0.0004639141261577606,
+          "B1": -0.0005124900490045547,
+          "B2": -0.0006722845137119293,
+          "B3": -0.00036555808037519455
+        },
+        "median_disc_rim_margin_agreement_after": {
+          "B0": 0.7797529219077834,
+          "B1": 0.7793142041815522,
+          "B2": 0.7792655504959956,
+          "B3": 0.7794152713001499
+        },
+        "disc_rim_b3_minus_b1": 0.00010106711859769746
+      },
+      "checks": {
+        "median_previous_b3_le_b1_minus_5e_5": false,
+        "median_disc_rim_b3_ge_b1_plus_0_003": false
+      }
+    },
+    "all_competitors": {
+      "passed": false,
+      "metrics": {
+        "median_previous_loss_delta": {
+          "B0": -0.0004639141261577606,
+          "B1": -0.0005124900490045547,
+          "B2": -0.0006722845137119293,
+          "B3": -0.00036555808037519455
+        },
+        "class_median_margin_b3_minus_b2": {
+          "0": 5.629075462032507e-06,
+          "1": 8.400508509248672e-05,
+          "2": -4.630271646227646e-05
+        }
+      },
+      "checks": {
+        "median_previous_b3_le_b2_plus_5e_5": false,
+        "no_class_margin_b3_below_b2_by_more_than_0_003": true
+      }
+    }
+  },
+  "protocol_consequence": "Protocol hard stop before BPRC method/config implementation or training. STOP_NEW_RELATION_METHODS is binding.",
+  "seed_summaries": [
+    {
+      "seed": 0,
+      "summary_path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/seed0/feasibility_summary.json",
+      "summary_sha256": "563015870fa32c7d9afde6c5f649f782eae08bd3c8811556bb071ed8a6b34ba7",
+      "fixed_batch_manifest_path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/seed0/fixed_batch_lists.json",
+      "fixed_batch_manifest_sha256": "33820e8aad89d15d422ef593276723fc0ad4ff1e1393905393a178afd4ab9043",
+      "batch_list_sha256": "a66024e10d802d3dc883f6205bac0d7bbf5e2d382cd052ed84d2ae8eca3425ef"
+    },
+    {
+      "seed": 1,
+      "summary_path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/seed1/feasibility_summary.json",
+      "summary_sha256": "d22234fc5f898357164b61523918a45f81e386f74dfbc209d5f1f8fc734d0ab6",
+      "fixed_batch_manifest_path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/seed1/fixed_batch_lists.json",
+      "fixed_batch_manifest_sha256": "18866874757056a9cabb2f0e899812b98c39d5d28c7ed23fdd301277a6a995ed",
+      "batch_list_sha256": "e422f7c4fd997e818dc1036db6dc5bcb9149b4f3599f6f6f9078b33e14b19f65"
+    },
+    {
+      "seed": 2,
+      "summary_path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/seed2/feasibility_summary.json",
+      "summary_sha256": "714ea9b502af7375e3c809c8b0bceb341e1a4facdc3c75dbff3d593ed14b8483",
+      "fixed_batch_manifest_path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/seed2/fixed_batch_lists.json",
+      "fixed_batch_manifest_sha256": "c7b0b3a73d6e0d8ad0fa9d7caebdcc3b4a1ac0fff7d5f13c0a8ae884e85819d7",
+      "batch_list_sha256": "7779d9fdef194e9c6d0574f8669b060144f0ca98790c11bb6aa739e708d29a58"
+    }
+  ],
+  "artifacts": {
+    "feasibility_gradient_scale.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/feasibility_gradient_scale.csv",
+      "sha256": "f2051b02f547ae4ebc511d53c33c23677f83f6673fefab2e1b9d2fe06d6178e6"
+    },
+    "feasibility_virtual_steps.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/feasibility_virtual_steps.csv",
+      "sha256": "e567855871cb325b0c4bb6d33fe20ff2b8a7b2069755b9cb972341401baed32e"
+    },
+    "feasibility_margin_analysis.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_v0_1/feasibility_margin_analysis.csv",
+      "sha256": "bb7b405e0e186ab4662bcf1e30efe143c71bcc565aea486ad56ff1fa0cc4f0b5"
+    }
+  }
+}

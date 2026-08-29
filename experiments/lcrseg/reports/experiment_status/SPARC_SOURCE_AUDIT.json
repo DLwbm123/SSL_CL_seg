@@ -1,0 +1,95 @@
+{
+  "checks": {
+    "jascl_confidence_default_0_7": true,
+    "jascl_cross_case_mean": true,
+    "jascl_ema_alpha_0_99": true,
+    "jascl_exact_required_commit": true,
+    "jascl_filtered_map_consistency_mse": true,
+    "jascl_origin_official": true,
+    "jascl_per_pixel_normalize_then_mean": true,
+    "jascl_periodic_pas_schedule": true,
+    "jascl_prototype_function": true,
+    "jascl_similarity_default_0_7": true,
+    "jascl_strict_joint_filter": true,
+    "jascl_teacher_filtered_independently": true,
+    "star_bilinear_region_resize": true,
+    "star_elementwise_mse": true,
+    "star_feature_5_is_classifier_input": true,
+    "star_feature_index_5": true,
+    "star_mask_channel_reduction": true,
+    "star_old_class_region_rule": true,
+    "star_old_logit_threshold": true,
+    "star_origin_official": true
+  },
+  "generated_at": "2026-08-28T23:25:00+08:00",
+  "jascl": {
+    "commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+    "paper": "https://arxiv.org/abs/2605.20538",
+    "paper_explicit": [
+      "prototype-assisted pseudo-label validation",
+      "joint confidence/prototype validation",
+      "mean-teacher consistency"
+    ],
+    "repository": "https://github.com/prinshul/JASCL",
+    "required_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+    "required_commit_match": true,
+    "source_explicit": [
+      "per-pixel normalize then per-case mean",
+      "cross-case mean without explicit final normalize",
+      "strict confidence/similarity filters",
+      "independent student and teacher filtering",
+      "filtered-label-map MSE",
+      "EMA alpha=0.99"
+    ],
+    "source_paper_mismatch_or_underspecification": [
+      "no explicit student/teacher Boolean intersection in source",
+      "implementation-specific filtered integer-map MSE",
+      "no SPARC-style minimum-cell or final-normalization rule"
+    ]
+  },
+  "lag": {
+    "implemented_modules": [],
+    "paper": "https://arxiv.org/abs/2407.15429",
+    "role": "conceptual inspiration only"
+  },
+  "protocol_id": "sparcseg_v0_1",
+  "reference_sha256": {
+    "JASCL methods/trainer.py": "2f42c1a5ccdc950060d75d610b44223df96076164e3fb2a9ff4fc08dd83f495b",
+    "JASCL methods/utils.py": "59701733130bc003ca62beb0b3cb399bd6e0a401315d8edfdf71db428fbf09aa",
+    "JASCL run.py": "76913839f890b097c671b2399347132c347eb008346a4739c72624a92ae8ebc6",
+    "STAR models/loss.py": "a346d8c6c3680d65cf347bf06e0800d87c6ce4f3e14476a647f82539bc889e21",
+    "STAR models/model.py": "14f0a45028ea65a3c9612686fbcf67e5c3d55e43d992713da6cbd54aaf951889",
+    "STAR trainer/trainer_voc.py": "fa7ad3620d3c18d227418a3f0b7d42b5658e359a620df12fa8e1a69543d5ef37"
+  },
+  "sparc_adaptation": {
+    "copies_star_formula": false,
+    "cross_site_prototype_memory": false,
+    "ema_teacher": false,
+    "feature_maintaining": "dual-stable foreground channel-normalized cosine at dec3 and dec1",
+    "implements_lag_module": false,
+    "pseudo_target": "unchanged R0 hard CE",
+    "thresholds": {
+      "confidence": 0.7,
+      "similarity": 0.7,
+      "strict_comparison": true
+    },
+    "validators": [
+      "current",
+      "frozen_previous"
+    ]
+  },
+  "star": {
+    "all_feature_ablation_source_flag_found": false,
+    "commit": "6c9203aa0c91e9a2d4e40664c97754ae02226675",
+    "paper": "https://ieeexplore.ieee.org/document/10904177",
+    "repository": "https://github.com/jinpeng0528/STAR-TPAMI",
+    "source_explicit": [
+      "current-background and old-foreground region",
+      "old-logit threshold 0.5",
+      "classifier-input feature index 5",
+      "bilinear mask resize",
+      "masked channel-mean MSE"
+    ]
+  },
+  "status": "SPARC_SOURCE_AUDIT_PASSED"
+}

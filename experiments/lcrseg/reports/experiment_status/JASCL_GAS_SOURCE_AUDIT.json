@@ -1,0 +1,48 @@
+{
+  "protocol_id": "srgas_v0_1",
+  "generated_at": "2026-08-28T16:00:32+08:00",
+  "status": "JASCL_OFFICIAL_SOURCE_AUDITED",
+  "repository": {
+    "url": "https://github.com/prinshul/JASCL.git",
+    "commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+    "clone": "read-only shallow depth 1",
+    "root_license_present": false,
+    "license_note": "Only Detection/LICENSE exists; it is component-specific."
+  },
+  "source_sha256": {
+    "README.md": "3967ef6b0f8c3c11bcd23e2acfac71974d7212918b9ab662990ffdaa8ee79eb8",
+    "Med_FoSSIL-Mixed/inc/Medformer_inc/networks/med_former/medformer.py": "6e3a91ecb9ce9678f7efd288fabdfa15f148f39439a171e5f7e893f540602bb3",
+    "Med_FoSSIL-Mixed/inc/Medformer_inc/methods/trainer.py": "7ae61037bb3774cf65e6005c3ea4319ae04a934ad4486246f6dbaae40feb44fd",
+    "Natural-FoSSIL/inc/benchmark-vfm-ss_new/models/linear_decoder.py": "8602f2d315055a12a24d566ea3e5d411e3a0eccd4ade94a7df4ab87ee1cc3f2f"
+  },
+  "medical_source": {
+    "classifier_class": "StochasticClassifier / ProbabilisticClassifier",
+    "classifier_weight": "mu.weight of bias-free 1x1x1 Conv3d",
+    "declared_sigma": "A second bias-free Conv3d is declared but its weight is unused in the active GAS forward.",
+    "input_normalization": "F.normalize(x, p=2, dim=1)",
+    "weight_normalization": "F.normalize(weight, p=2, dim=1)",
+    "temperature": 10,
+    "noise_sampling": "torch.randn_like(mu) multiplied elementwise by inverse-minmax gradient scale",
+    "explicit_noise_sigma": null,
+    "gradient_state_type": "nn.Parameter grad_update accessed and assigned through .data",
+    "gradient_state_value": "squared mu.weight gradient",
+    "gradient_state_update_timing": "after backward and before optimizer.step; therefore used by the next forward",
+    "stochastic_switch": "forward(stochastic=True), but parent model calls classifier without overriding the default",
+    "evaluation_behavior": "stochastic by default even when model.eval() is set",
+    "bias_handling": "classifier bias disabled",
+    "layer_scope": "classifier mu weight only"
+  },
+  "natural_source": {
+    "classifier_class": "LinearDecoder",
+    "gradient_state_type": "registered buffer inverse_grad",
+    "gradient_state_value": "squared head_weight gradient copied by a backward hook",
+    "noise_scale": "1e-5 times inverse-minmax scale",
+    "evaluation_behavior": "forward always samples noise; no stochastic/eval switch in the audited file"
+  },
+  "comparison": {
+    "paper_readme": "README gives the conceptual claim that parameters with smaller/changing gradients receive less perturbation and saturated/overfit weights receive more; it does not define an executable update schedule.",
+    "actual_source": "Medical and natural paths differ in state container, noise magnitude, and control flow. The medical path uses the previous backward gradient; the natural path updates a buffer via a hook.",
+    "srgas_contract": "SR-GAS V0.1 remains authoritative: same-step clean autograd sensitivity, variance 0.1, explicit generator, detached sensitivity/noise, no master-weight mutation, and deterministic evaluation."
+  },
+  "framework_vendored_into_main_code": false
+}

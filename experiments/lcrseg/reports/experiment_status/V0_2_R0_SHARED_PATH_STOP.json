@@ -1,0 +1,60 @@
+{
+  "date": "2026-08-20",
+  "status": "hard_stop_pending_protocol_clarification",
+  "trigger": "R0 differs from the named legacy uniform-relation reference beyond normal deterministic tolerance",
+  "formal_gate_result": "not_evaluated",
+  "r0": {
+    "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2_r0_uniform_full200e",
+    "method": "lcrseg_v0_2",
+    "dataset": "fundus",
+    "seed": 0,
+    "evaluation_role": "val",
+    "completed_global_steps": 13400,
+    "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+    "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+    "summary": {
+      "final_average_dice": 0.6309953258534517,
+      "bwt": -0.11113814919048337,
+      "incoming_dice": 0.7050874253137739,
+      "previous_site_dice": 0.6687593930199944
+    },
+    "routing": {
+      "progressive_admission": false,
+      "compatibility_calibration": false,
+      "compatibility_rejection": false,
+      "assimilation": "unit weight for every valid pseudo-label",
+      "relation": "uniform relation KD"
+    }
+  },
+  "legacy_reference": {
+    "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+    "method": "lcrseg_v0_1",
+    "routing": {
+      "use_learnability": true,
+      "use_compatibility": false,
+      "assimilation": "continuous V0.1 learnability weighting",
+      "relation": "uniform relation KD"
+    },
+    "summary": {
+      "final_average_dice": 0.6551054533448878,
+      "bwt": -0.11846211039977567,
+      "incoming_dice": 0.7340801936114051,
+      "previous_site_dice": 0.6759458886019506
+    }
+  },
+  "r0_minus_legacy": {
+    "final_average_dice": -0.02411012749143604,
+    "bwt": 0.007323961209292296,
+    "incoming_dice": -0.0289927682976312,
+    "previous_site_dice": -0.007186495581956165
+  },
+  "diagnostics_dir": "reports/analysis/v0_2_r0",
+  "not_run": [
+    "fundus_r1",
+    "fundus_r2",
+    "fundus_r3",
+    "v0_2_aggregate_gate",
+    "prostate_a_to_b"
+  ],
+  "next_action": "Require an explicit protocol amendment or user direction before downstream formal runs."
+}

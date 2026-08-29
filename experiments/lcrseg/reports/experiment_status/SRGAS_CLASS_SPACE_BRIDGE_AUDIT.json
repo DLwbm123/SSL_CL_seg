@@ -1,0 +1,80 @@
+{
+  "checks": {
+    "architecture_unchanged": true,
+    "current_logits_downsample_shape_exact": true,
+    "experiment_config_class_count_is_three": true,
+    "experiment_dataset_is_fundus": true,
+    "frozen_label_map_confirmed": true,
+    "fundus_class_order_exact": true,
+    "historical_anchor_all_classes_available": true,
+    "historical_anchors_are_nonparametric": true,
+    "model_config_class_count_is_three": true,
+    "no_channel_mapping_declared": true,
+    "old_relation_from_frozen_previous_model": true,
+    "old_relation_probability_normalized": true,
+    "old_relation_target_detached": true,
+    "r2c_classifier_gradient_finite": true,
+    "r2c_classifier_gradient_nonzero": true,
+    "r2c_classifier_gradient_shape_exact": true,
+    "r2c_historical_anchor_gradient_absent": true,
+    "r2c_loss_finite": true,
+    "r2c_old_model_gradient_absent": true,
+    "r2c_projection_head_gradient_absent": true,
+    "r2c_valid_count_positive": true,
+    "raw_mapping_values_cover_three_classes": true,
+    "segmentation_and_relation_class_count_match": true,
+    "valid_mask_uses_strict_relation_grid_contract": true
+  },
+  "class_semantics_path": "reports/experiment_status/class_semantics.json",
+  "class_semantics_sha256": "5c52655356b11831820433035dad0adfe919219a4da2a9f70d2b18d784010200",
+  "passed": true,
+  "protocol_id": "srgas_v0_1a",
+  "provenance": {
+    "channel_mapping": "none",
+    "compatibility_used": false,
+    "current_source": "current clean UNet2D segmentation logits",
+    "hidden_gt_used": false,
+    "old_relation_target": "frozen previous UNet2D plus historical AnchorBank relation_field probabilities",
+    "teacher_rejection_used": false,
+    "valid_mask": "strict_relation_valid_mask AND finite q_old AND all historical class anchors available"
+  },
+  "runtime": {
+    "classifier_gradient_l1": 2.709261417388916,
+    "classifier_weight_shape": [
+      3,
+      16,
+      1,
+      1
+    ],
+    "current_logits_shape": [
+      2,
+      3,
+      64,
+      64
+    ],
+    "old_relation_shape": [
+      2,
+      3,
+      16,
+      16
+    ],
+    "r2c_loss": 0.1959574967622757,
+    "relation_valid_shape": [
+      2,
+      1,
+      16,
+      16
+    ],
+    "valid_count": 504
+  },
+  "source_sha256": {
+    "configs/data/fundus_label_map.yaml": "a3ddfa9000ffb9d2364fe3a39b98ce19f34813c309d2908d58aa59d2e35f3953",
+    "configs/experiments/lcrseg_v0_2_r0_uniform.yaml": "17cb922f536e0aa7233784da2aa4f720db2f194415f05f4e727f383055d081ce",
+    "configs/model/unet2d_v0_1.yaml": "9f94c27599b9f6ba464c5cbd1ab7489a9db110e656d93e1f5e102448f596a24b",
+    "lcrseg/methods/components/anchor_bank.py": "a21e8df6ccd5f7cfe863eb3361220ee3d35d31ae470e0a818ab677f0393a3744",
+    "lcrseg/methods/components/progressive_admission.py": "5d0039bd11c663a4aede75f0142aa0ef30c526229d16c398109be67bbce39588",
+    "lcrseg/methods/components/relation_field.py": "745d9bf8e0309b2f3a2cec395e362bf0d0d726e39f208136e872a9e144124716",
+    "lcrseg/models/unet.py": "6b1870f55b02424606bbe00aae471825bddc922c9099b8bc173dd9fb49b03cf7"
+  },
+  "status": "SRGAS_CLASS_SPACE_BRIDGE_AUDIT_PASSED"
+}

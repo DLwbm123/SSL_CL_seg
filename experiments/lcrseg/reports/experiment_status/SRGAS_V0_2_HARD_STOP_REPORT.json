@@ -1,0 +1,45 @@
+{
+  "status": "SRGAS_V0_2_SEED0_PILOT_FAILED",
+  "failed_gate": "original_worst_point_safety",
+  "parent_sha256": "8f188ba27074ecb09a689377982774e6cf59e8c1c652d3927be54fd7c377bf55",
+  "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "tests": {
+    "v0_2_contract": "23/23",
+    "complete_regression": "171/171"
+  },
+  "trajectory": {
+    "REFUGE": {
+      "worst_step": 350,
+      "worst_drop": 0.04637784266310119,
+      "threshold": 0.015,
+      "normalized_auc_delta": 0.01587290953935938,
+      "step_1000_delta": 0.027753323033884447,
+      "recovered_by_step": 400
+    },
+    "RIM_ONE_r3": {
+      "worst_step": 350,
+      "worst_drop": 0.0006851500350556483,
+      "threshold": 0.015,
+      "normalized_auc_delta": 0.006367812758830693,
+      "step_1000_delta": 0.005355231507574221
+    }
+  },
+  "gates": {
+    "engineering": true,
+    "original_worst_point_safety": false,
+    "auc_safety": true,
+    "endpoint": true,
+    "l4_vs_l3_relation": true,
+    "l3_vs_l1_adaptive": true,
+    "l4_vs_l2_total_gas": true
+  },
+  "unexecuted": [
+    "seed1_parent_and_independent_pilot",
+    "seed0_full_matrix",
+    "spatial_shuffle_full_control",
+    "fundus_multiseed",
+    "external_baselines",
+    "prostate_runmc_to_bmc"
+  ]
+}

@@ -1,0 +1,868 @@
+{
+  "protocol_id": "sparcseg_v0_1",
+  "status": "SPARC_PAS_NOT_SUPPORTED",
+  "optimizer_steps": 0,
+  "training_method_registered": false,
+  "training_configs_created": false,
+  "hidden_gt_training_usage": "none",
+  "hidden_gt_analysis_usage": "independent_post_hoc_only",
+  "engineering_checks": {
+    "passed": true,
+    "missing_artifacts": [],
+    "previous_method_freeze": true,
+    "source_audit_passed": true,
+    "model_path_audit_passed": true
+  },
+  "gates": {
+    "A1_current_pas": {
+      "passed": false,
+      "per_class": {
+        "1": {
+          "pair_count": 6,
+          "mean_precision_improvement": 0.01200512005946732,
+          "positive_pairs": 5,
+          "coverage_ge_0_05_pairs": 6,
+          "pairs": [
+            {
+              "seed": 0,
+              "transition": "REFUGE->RIM_ONE_r3",
+              "precision_improvement": 0.017215893627595902,
+              "coverage": 0.6388936778070586
+            },
+            {
+              "seed": 0,
+              "transition": "RIM_ONE_r3->Drishti_GS",
+              "precision_improvement": 0.031184450237566108,
+              "coverage": 0.47787265186630884
+            },
+            {
+              "seed": 1,
+              "transition": "REFUGE->RIM_ONE_r3",
+              "precision_improvement": -0.007986572692614824,
+              "coverage": 0.6879951690821257
+            },
+            {
+              "seed": 1,
+              "transition": "RIM_ONE_r3->Drishti_GS",
+              "precision_improvement": 0.00827192185013903,
+              "coverage": 0.5555027534732899
+            },
+            {
+              "seed": 2,
+              "transition": "REFUGE->RIM_ONE_r3",
+              "precision_improvement": 0.016530596268507614,
+              "coverage": 0.6209128311238361
+            },
+            {
+              "seed": 2,
+              "transition": "RIM_ONE_r3->Drishti_GS",
+              "precision_improvement": 0.006814431065610083,
+              "coverage": 0.5939812981633212
+            }
+          ],
+          "passed": false
+        },
+        "2": {
+          "pair_count": 6,
+          "mean_precision_improvement": 0.013930569028084946,
+          "positive_pairs": 3,
+          "coverage_ge_0_05_pairs": 6,
+          "pairs": [
+            {
+              "seed": 0,
+              "transition": "REFUGE->RIM_ONE_r3",
+              "precision_improvement": 0.04219284948315649,
+              "coverage": 0.4706224211076887
+            },
+            {
+              "seed": 0,
+              "transition": "RIM_ONE_r3->Drishti_GS",
+              "precision_improvement": -0.006314548683636789,
+              "coverage": 0.4264314632735685
+            },
+            {
+              "seed": 1,
+              "transition": "REFUGE->RIM_ONE_r3",
+              "precision_improvement": -0.024199282576791603,
+              "coverage": 0.5003977724741447
+            },
+            {
+              "seed": 1,
+              "transition": "RIM_ONE_r3->Drishti_GS",
+              "precision_improvement": 0.018470880815251944,
+              "coverage": 0.6184478530157542
+            },
+            {
+              "seed": 2,
+              "transition": "REFUGE->RIM_ONE_r3",
+              "precision_improvement": 0.05494599430576408,
+              "coverage": 0.5252865812542145
+            },
+            {
+              "seed": 2,
+              "transition": "RIM_ONE_r3->Drishti_GS",
+              "precision_improvement": -0.001512479175234449,
+              "coverage": 0.5754705670782879
+            }
+          ],
+          "passed": false
+        }
+      }
+    },
+    "A2_partition": {
+      "passed": false,
+      "per_class": {
+        "1": {
+          "pair_count": 6,
+          "median_stable_minus_plastic_precision": 0.016334234486705568,
+          "stable_gt_plastic_pairs": 4,
+          "stable_coverage_ge_0_02_pairs": 6,
+          "plastic_coverage_ge_0_02_pairs": 6,
+          "passed": false
+        },
+        "2": {
+          "pair_count": 6,
+          "median_stable_minus_plastic_precision": 0.11497806324017079,
+          "stable_gt_plastic_pairs": 6,
+          "stable_coverage_ge_0_02_pairs": 6,
+          "plastic_coverage_ge_0_02_pairs": 5,
+          "passed": true
+        }
+      }
+    },
+    "A3_spatial": {
+      "passed": true,
+      "per_class": {
+        "1": {
+          "stable_boundary_coverage": 0.19306469486422612,
+          "stable_interior_coverage": 0.34865298777368076,
+          "boundary_to_interior_ratio": 0.5537445587288332,
+          "plastic_boundary_correct_pixels": 20574,
+          "passed": true
+        },
+        "2": {
+          "stable_boundary_coverage": 0.1194666232143827,
+          "stable_interior_coverage": 0.26536986126206763,
+          "boundary_to_interior_ratio": 0.4501891158483996,
+          "plastic_boundary_correct_pixels": 4663,
+          "passed": true
+        }
+      }
+    },
+    "B_feature_separation": {
+      "passed": true,
+      "comparison_count": 24,
+      "expected_comparisons": 24,
+      "median_stable_minus_plastic_cosine": 0.14204654722325222,
+      "stable_distance_le_plastic_fraction": 0.7916666666666666,
+      "comparisons": [
+        {
+          "seed": 0,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec3",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.037556148351977625,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 0,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec3",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.028004424347440326,
+          "stable_l2_le_plastic": false
+        },
+        {
+          "seed": 0,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec1",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.38970206819757414,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 0,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec1",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.045305857588802345,
+          "stable_l2_le_plastic": false
+        },
+        {
+          "seed": 0,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec3",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.21960864839542638,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 0,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec3",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.04572270311768467,
+          "stable_l2_le_plastic": false
+        },
+        {
+          "seed": 0,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec1",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.4198446871788448,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 0,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec1",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.39897777107192106,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 1,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec3",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.042633810692971896,
+          "stable_l2_le_plastic": false
+        },
+        {
+          "seed": 1,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec3",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.020982014509841385,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 1,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec1",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.30459976066511096,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 1,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec1",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.2791136049655387,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 1,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec3",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.15730917017195734,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 1,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec3",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.027834472400986354,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 1,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec1",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.3972261778236237,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 1,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec1",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.5051139828225749,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 2,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec3",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": -0.06037994512134914,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 2,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec3",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.027215067181447727,
+          "stable_l2_le_plastic": false
+        },
+        {
+          "seed": 2,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec1",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.343374913533966,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 2,
+          "transition": "REFUGE->RIM_ONE_r3",
+          "layer": "dec1",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.1267839242745471,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 2,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec3",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.09088108313909993,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 2,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec3",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.024144376728210903,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 2,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec1",
+          "class_id": 1,
+          "stable_minus_plastic_cosine": 0.29572807354268105,
+          "stable_l2_le_plastic": true
+        },
+        {
+          "seed": 2,
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "layer": "dec1",
+          "class_id": 2,
+          "stable_minus_plastic_cosine": 0.4028316714003549,
+          "stable_l2_le_plastic": true
+        }
+      ]
+    },
+    "B_gradient_scale": {
+      "passed": true,
+      "row_count": 192,
+      "expected_rows": 192,
+      "median_ratio": 0.367363635541904,
+      "p10_ratio": 0.08489559281742838,
+      "p90_ratio": 1.3139548241491081,
+      "nonfinite_count": 0,
+      "localization_all_pass": true,
+      "old_model_gradient_all_zero": true
+    },
+    "C_virtual": {
+      "complete": true,
+      "row_count": 1152,
+      "expected_rows": 1152,
+      "paired_s3_better_than_s1_previous_fraction": 0.859375,
+      "variant_medians": {
+        "S0": {
+          "previous_loss_delta_median": -0.001992209814488888,
+          "current_loss_delta_median": -0.0003865165635943413,
+          "previous_dice_delta_median": 0.0006263218820095062,
+          "current_dice_delta_median": 9.025633335113525e-05
+        },
+        "S1": {
+          "previous_loss_delta_median": -0.0019528372213244438,
+          "current_loss_delta_median": -0.0003154948353767395,
+          "previous_dice_delta_median": 0.0006142035126686096,
+          "current_dice_delta_median": 6.69974833726883e-05
+        },
+        "S2": {
+          "previous_loss_delta_median": -0.0022552907466888428,
+          "current_loss_delta_median": -0.00035650376230478287,
+          "previous_dice_delta_median": 0.0007529221475124359,
+          "current_dice_delta_median": 9.88207757472992e-05
+        },
+        "S3": {
+          "previous_loss_delta_median": -0.0023004021495580673,
+          "current_loss_delta_median": -0.0003714049234986305,
+          "previous_dice_delta_median": 0.0007810201495885849,
+          "current_dice_delta_median": 0.0001101512461900711
+        },
+        "S4": {
+          "previous_loss_delta_median": -0.0025651920586824417,
+          "current_loss_delta_median": -0.0004987549036741257,
+          "previous_dice_delta_median": 0.0008664168417453766,
+          "current_dice_delta_median": 0.00018569082021713257
+        },
+        "S5": {
+          "previous_loss_delta_median": -0.0018528811633586884,
+          "current_loss_delta_median": -0.0004025539383292198,
+          "previous_dice_delta_median": 0.0006208457052707672,
+          "current_dice_delta_median": 9.614229202270508e-05
+        }
+      },
+      "previous_gate_passed": true,
+      "current_safety_gate_passed": true,
+      "targeting_and_complementarity_gate_passed": false
+    }
+  },
+  "seed_visible_summaries": [
+    {
+      "protocol_id": "sparcseg_v0_1",
+      "seed": 0,
+      "status": "SPARC_VISIBLE_FEASIBILITY_COMPLETE",
+      "optimizer_steps": 0,
+      "hidden_gt_usage": "none",
+      "transitions": [
+        {
+          "transition": "REFUGE->RIM_ONE_r3",
+          "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site0_REFUGE.pt",
+          "old_checkpoint_sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb",
+          "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+          "current_checkpoint_sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+          "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed0/prototype_bundle_0_1.pt",
+          "prototype_bundle_sha256": "00a0610ed1077c2a511692261b56c0f1d94067b3a35b0ad519704fc375425b6a",
+          "current_prototype_case_counts": [
+            16,
+            16,
+            16
+          ],
+          "previous_prototype_case_counts": [
+            16,
+            16,
+            16
+          ],
+          "current_prototype_pixel_counts": [
+            133446,
+            11276,
+            2734
+          ],
+          "previous_prototype_pixel_counts": [
+            133446,
+            11276,
+            2734
+          ],
+          "current_prototype_source_case_ids_sha256": "99622b0e2fc2ecec08079de156e7b1e156107071714872a6638b84bce8e3f049",
+          "previous_prototype_source_case_ids_sha256": "99622b0e2fc2ecec08079de156e7b1e156107071714872a6638b84bce8e3f049",
+          "update_batch_manifest_sha256": "a89d0ff0a04cce729ca1f17e4022d84541141761011c4cf86233d705db1d7384",
+          "model_sha256_before": "6b8c47688af1250ce19db7034397814a356856448d0b5a79649dc292bdb52cf7",
+          "model_sha256_after": "6b8c47688af1250ce19db7034397814a356856448d0b5a79649dc292bdb52cf7",
+          "old_model_sha256_before": "ec106e58ddba280f6c44a0734cc356a7399a0e061f013ca4490c7c725267f74e",
+          "old_model_sha256_after": "ec106e58ddba280f6c44a0734cc356a7399a0e061f013ca4490c7c725267f74e",
+          "previous_val_batches": 16,
+          "current_val_batches": 16
+        },
+        {
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+          "old_checkpoint_sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+          "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site2_Drishti_GS.pt",
+          "current_checkpoint_sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d",
+          "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed0/prototype_bundle_1_2.pt",
+          "prototype_bundle_sha256": "6ded890bab9cad856c5ff9f7afff47ad9ca34cf4291f7ae116e47cd1c9027d71",
+          "current_prototype_case_counts": [
+            10,
+            10,
+            10
+          ],
+          "previous_prototype_case_counts": [
+            10,
+            10,
+            10
+          ],
+          "current_prototype_pixel_counts": [
+            77492,
+            8529,
+            6139
+          ],
+          "previous_prototype_pixel_counts": [
+            77492,
+            8529,
+            6139
+          ],
+          "current_prototype_source_case_ids_sha256": "01418ad2e21bc1a58e991ee14e6d336f5d428d79a28efe36b4d638572843754d",
+          "previous_prototype_source_case_ids_sha256": "01418ad2e21bc1a58e991ee14e6d336f5d428d79a28efe36b4d638572843754d",
+          "update_batch_manifest_sha256": "58d17d94fb835e8a4676a53bfa7179edbbf8fecf803e0b9a19cdad5859ce2f76",
+          "model_sha256_before": "3006b83aecb931e864e80002b53a984eb27fd33de1f2b304dd76edd1f8d0b250",
+          "model_sha256_after": "3006b83aecb931e864e80002b53a984eb27fd33de1f2b304dd76edd1f8d0b250",
+          "old_model_sha256_before": "6b8c47688af1250ce19db7034397814a356856448d0b5a79649dc292bdb52cf7",
+          "old_model_sha256_after": "6b8c47688af1250ce19db7034397814a356856448d0b5a79649dc292bdb52cf7",
+          "previous_val_batches": 16,
+          "current_val_batches": 16
+        }
+      ],
+      "gradient_rows": 64,
+      "virtual_rows": 384,
+      "batch_manifest_sha256": "a7f2767335d68a6d55050fad0921e6bbcbe8ff1b65b275574d42a48e4716785c",
+      "environment": {
+        "physical_gpu": 5,
+        "cuda_visible_devices": "5",
+        "torch_device": "cuda",
+        "python": "3.10.6",
+        "torch": "2.2.1+cu121",
+        "cuda": "12.1",
+        "cudnn": 8902,
+        "uuid": "GPU-2052f3b4-88f8-4be9-d43c-5068fafb02a5",
+        "name": "NVIDIA GeForce RTX 3090",
+        "driver": "580.173.02"
+      },
+      "training_manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "workspace_hash": "8fc9da4a12ae535bc0a1b25142fbbc75e42d0afd842782a0f30dc22e8903e66b"
+    },
+    {
+      "protocol_id": "sparcseg_v0_1",
+      "seed": 1,
+      "status": "SPARC_VISIBLE_FEASIBILITY_COMPLETE",
+      "optimizer_steps": 0,
+      "hidden_gt_usage": "none",
+      "transitions": [
+        {
+          "transition": "REFUGE->RIM_ONE_r3",
+          "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+          "old_checkpoint_sha256": "c8a8c95e0fdddde88acdc42c3cbc62a3f20ac436a2cf00f76513ed29b410ab0b",
+          "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+          "current_checkpoint_sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd",
+          "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed1/prototype_bundle_0_1.pt",
+          "prototype_bundle_sha256": "9ab19022db44601a14668227c62ebf2c7d469c7d6502087055358f0adf399b46",
+          "current_prototype_case_counts": [
+            16,
+            16,
+            16
+          ],
+          "previous_prototype_case_counts": [
+            16,
+            16,
+            16
+          ],
+          "current_prototype_pixel_counts": [
+            133247,
+            10856,
+            3353
+          ],
+          "previous_prototype_pixel_counts": [
+            133247,
+            10856,
+            3353
+          ],
+          "current_prototype_source_case_ids_sha256": "6856a49d376bff6f2b2eefe1268628b28d64bc22cf0f9061fc8e2a2a0bd11639",
+          "previous_prototype_source_case_ids_sha256": "6856a49d376bff6f2b2eefe1268628b28d64bc22cf0f9061fc8e2a2a0bd11639",
+          "update_batch_manifest_sha256": "51f2d95ac4368b85a0c4c25f3b6460d8b1fe8638f22070dd5be7b5922c11b25f",
+          "model_sha256_before": "c301db464a822ab9136a9f57566b0a77f3030824be3f43338b2106bd50ad55b6",
+          "model_sha256_after": "c301db464a822ab9136a9f57566b0a77f3030824be3f43338b2106bd50ad55b6",
+          "old_model_sha256_before": "2cdd02c5f819b892e18b49b352cad1ed8e026e1f718e5385d24f2fb6e1309ddc",
+          "old_model_sha256_after": "2cdd02c5f819b892e18b49b352cad1ed8e026e1f718e5385d24f2fb6e1309ddc",
+          "previous_val_batches": 16,
+          "current_val_batches": 16
+        },
+        {
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+          "old_checkpoint_sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd",
+          "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+          "current_checkpoint_sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f",
+          "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed1/prototype_bundle_1_2.pt",
+          "prototype_bundle_sha256": "9446c0faaa872c88f41ffc257b1da5355d9786fe2734328cd8d1b1e55b226221",
+          "current_prototype_case_counts": [
+            10,
+            10,
+            10
+          ],
+          "previous_prototype_case_counts": [
+            10,
+            10,
+            10
+          ],
+          "current_prototype_pixel_counts": [
+            76890,
+            8267,
+            7003
+          ],
+          "previous_prototype_pixel_counts": [
+            76890,
+            8267,
+            7003
+          ],
+          "current_prototype_source_case_ids_sha256": "4ebfb2997d1727c16186e50d2d549f3e16d32436e7d5703f3434df225ad1bc7a",
+          "previous_prototype_source_case_ids_sha256": "4ebfb2997d1727c16186e50d2d549f3e16d32436e7d5703f3434df225ad1bc7a",
+          "update_batch_manifest_sha256": "b86e811ae79b782bf31ffb5fecae7e07af15cfc0e14ad8f4974bb23cbf244920",
+          "model_sha256_before": "b1cf6c1a0008e8acabbfbc90dd4081a37ac08d1115a9f3ec7ec5b588f57aaaee",
+          "model_sha256_after": "b1cf6c1a0008e8acabbfbc90dd4081a37ac08d1115a9f3ec7ec5b588f57aaaee",
+          "old_model_sha256_before": "c301db464a822ab9136a9f57566b0a77f3030824be3f43338b2106bd50ad55b6",
+          "old_model_sha256_after": "c301db464a822ab9136a9f57566b0a77f3030824be3f43338b2106bd50ad55b6",
+          "previous_val_batches": 16,
+          "current_val_batches": 16
+        }
+      ],
+      "gradient_rows": 64,
+      "virtual_rows": 384,
+      "batch_manifest_sha256": "cd55e1de10cf2270e566d78ecad25bb17ac0f6c8c4070818311bb5fb2071f1f6",
+      "environment": {
+        "physical_gpu": 6,
+        "cuda_visible_devices": "6",
+        "torch_device": "cuda",
+        "python": "3.10.6",
+        "torch": "2.2.1+cu121",
+        "cuda": "12.1",
+        "cudnn": 8902,
+        "uuid": "GPU-07e6f403-f306-3fc3-709a-37c245743ee3",
+        "name": "NVIDIA GeForce RTX 3090",
+        "driver": "580.173.02"
+      },
+      "training_manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+      "workspace_hash": "8fc9da4a12ae535bc0a1b25142fbbc75e42d0afd842782a0f30dc22e8903e66b"
+    },
+    {
+      "protocol_id": "sparcseg_v0_1",
+      "seed": 2,
+      "status": "SPARC_VISIBLE_FEASIBILITY_COMPLETE",
+      "optimizer_steps": 0,
+      "hidden_gt_usage": "none",
+      "transitions": [
+        {
+          "transition": "REFUGE->RIM_ONE_r3",
+          "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+          "old_checkpoint_sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb",
+          "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+          "current_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+          "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed2/prototype_bundle_0_1.pt",
+          "prototype_bundle_sha256": "71ef9447fb8201e5e2f71821c266d8bcf1b61e8703edefef2e56800bfaa2c778",
+          "current_prototype_case_counts": [
+            16,
+            16,
+            16
+          ],
+          "previous_prototype_case_counts": [
+            16,
+            16,
+            16
+          ],
+          "current_prototype_pixel_counts": [
+            133698,
+            9843,
+            3915
+          ],
+          "previous_prototype_pixel_counts": [
+            133698,
+            9843,
+            3915
+          ],
+          "current_prototype_source_case_ids_sha256": "fcff4f141edefe63173c806b87b14db74c214c22f6c9573204ea0ed9b4c6fb57",
+          "previous_prototype_source_case_ids_sha256": "fcff4f141edefe63173c806b87b14db74c214c22f6c9573204ea0ed9b4c6fb57",
+          "update_batch_manifest_sha256": "d7330cc05de3a8978d6bf4722de9bb5fe6cc129bbd080cf3d31a1cf63fc69dad",
+          "model_sha256_before": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+          "model_sha256_after": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+          "old_model_sha256_before": "d954cc2be99bb2b075b453eb7e80ff723ee04b9a729e64e1d51e03c1c8a4abf6",
+          "old_model_sha256_after": "d954cc2be99bb2b075b453eb7e80ff723ee04b9a729e64e1d51e03c1c8a4abf6",
+          "previous_val_batches": 16,
+          "current_val_batches": 16
+        },
+        {
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+          "old_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+          "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+          "current_checkpoint_sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283",
+          "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed2/prototype_bundle_1_2.pt",
+          "prototype_bundle_sha256": "59dd4f93b1900ddc52ea7366f908b9d52b103d2f8e3b6bc5b02e5a55b64c75ee",
+          "current_prototype_case_counts": [
+            10,
+            10,
+            10
+          ],
+          "previous_prototype_case_counts": [
+            10,
+            10,
+            10
+          ],
+          "current_prototype_pixel_counts": [
+            78385,
+            8055,
+            5720
+          ],
+          "previous_prototype_pixel_counts": [
+            78385,
+            8055,
+            5720
+          ],
+          "current_prototype_source_case_ids_sha256": "75a6ece19ed6f0bcdb8b5d70e0e11a09ba66d066a885e2c0c9dceaa0266a2efd",
+          "previous_prototype_source_case_ids_sha256": "75a6ece19ed6f0bcdb8b5d70e0e11a09ba66d066a885e2c0c9dceaa0266a2efd",
+          "update_batch_manifest_sha256": "ea9b339a3552817f4520dc429d2ed688a362f340a8f87c0a2317cc9a630cd942",
+          "model_sha256_before": "13c70778c9abfa6914a17b7ed3a539d3ee817385c9e19e7458d37b62e1fc2f4c",
+          "model_sha256_after": "13c70778c9abfa6914a17b7ed3a539d3ee817385c9e19e7458d37b62e1fc2f4c",
+          "old_model_sha256_before": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+          "old_model_sha256_after": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+          "previous_val_batches": 16,
+          "current_val_batches": 16
+        }
+      ],
+      "gradient_rows": 64,
+      "virtual_rows": 384,
+      "batch_manifest_sha256": "7d37ad4bfd57847b26d3e18854a441bcb1946d929a1977782068e07d357a7832",
+      "environment": {
+        "physical_gpu": 7,
+        "cuda_visible_devices": "7",
+        "torch_device": "cuda",
+        "python": "3.10.6",
+        "torch": "2.2.1+cu121",
+        "cuda": "12.1",
+        "cudnn": 8902,
+        "uuid": "GPU-885f8cbc-d6bd-3ba9-f65d-a34373a93c0c",
+        "name": "NVIDIA GeForce RTX 3090",
+        "driver": "580.173.02"
+      },
+      "training_manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+      "workspace_hash": "8fc9da4a12ae535bc0a1b25142fbbc75e42d0afd842782a0f30dc22e8903e66b"
+    }
+  ],
+  "seed_posthoc_summaries": [
+    {
+      "protocol_id": "sparcseg_v0_1",
+      "seed": 0,
+      "status": "SPARC_POSTHOC_FEASIBILITY_COMPLETE",
+      "optimizer_steps": 0,
+      "hidden_gt_usage": "independent_post_hoc_metrics_only",
+      "training_objective_hidden_gt_usage": "none",
+      "transitions": [
+        {
+          "transition": "REFUGE->RIM_ONE_r3",
+          "prototype_bundle_sha256": "00a0610ed1077c2a511692261b56c0f1d94067b3a35b0ad519704fc375425b6a",
+          "prototype_bundle_matches_visible": true,
+          "posthoc_unlabeled_manifest_sha256": "a0690bb8b5a7951aa24703736ae3d351b85658dbfa82eaf200188372688dd3b7",
+          "visible_update_manifest_sha256": "a89d0ff0a04cce729ca1f17e4022d84541141761011c4cf86233d705db1d7384",
+          "image_max_abs_vs_training_view": 0.0,
+          "hidden_gt_usage": "post_hoc_metrics_only"
+        },
+        {
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "prototype_bundle_sha256": "6ded890bab9cad856c5ff9f7afff47ad9ca34cf4291f7ae116e47cd1c9027d71",
+          "prototype_bundle_matches_visible": true,
+          "posthoc_unlabeled_manifest_sha256": "e4462a3ca87b37474de9ae2223412a9227d02c20eb1d1044711ac83a0021f7b8",
+          "visible_update_manifest_sha256": "58d17d94fb835e8a4676a53bfa7179edbbf8fecf803e0b9a19cdad5859ce2f76",
+          "image_max_abs_vs_training_view": 0.0,
+          "hidden_gt_usage": "post_hoc_metrics_only"
+        }
+      ],
+      "prototype_rows": 24,
+      "partition_rows": 18,
+      "feature_rows": 84,
+      "environment": {
+        "physical_gpu": 5,
+        "cuda_visible_devices": "5",
+        "torch_device": "cuda",
+        "python": "3.10.6",
+        "torch": "2.2.1+cu121",
+        "cuda": "12.1",
+        "cudnn": 8902,
+        "uuid": "GPU-2052f3b4-88f8-4be9-d43c-5068fafb02a5",
+        "name": "NVIDIA GeForce RTX 3090",
+        "driver": "580.173.02"
+      },
+      "diagnostics_manifest_sha256": "c0615aea7ed85d3794bdea931147c7ed207145aa3d7a62e4bf02f3c3e91d58b5",
+      "workspace_hash": "e53e37911f56c8ab3acc12399858f3672c7e7b2911113726b080750edf1287c5"
+    },
+    {
+      "protocol_id": "sparcseg_v0_1",
+      "seed": 1,
+      "status": "SPARC_POSTHOC_FEASIBILITY_COMPLETE",
+      "optimizer_steps": 0,
+      "hidden_gt_usage": "independent_post_hoc_metrics_only",
+      "training_objective_hidden_gt_usage": "none",
+      "transitions": [
+        {
+          "transition": "REFUGE->RIM_ONE_r3",
+          "prototype_bundle_sha256": "9ab19022db44601a14668227c62ebf2c7d469c7d6502087055358f0adf399b46",
+          "prototype_bundle_matches_visible": true,
+          "posthoc_unlabeled_manifest_sha256": "86e82638e51dcc1a75f94ea1ea722a3e674d8f1fa683dd4eb8ba51b92f2011a0",
+          "visible_update_manifest_sha256": "51f2d95ac4368b85a0c4c25f3b6460d8b1fe8638f22070dd5be7b5922c11b25f",
+          "image_max_abs_vs_training_view": 0.0,
+          "hidden_gt_usage": "post_hoc_metrics_only"
+        },
+        {
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "prototype_bundle_sha256": "9446c0faaa872c88f41ffc257b1da5355d9786fe2734328cd8d1b1e55b226221",
+          "prototype_bundle_matches_visible": true,
+          "posthoc_unlabeled_manifest_sha256": "0c1beb9cb13d4519899e9c5dee522971a33ba3a7a96bcb9e640363ea0bfe430c",
+          "visible_update_manifest_sha256": "b86e811ae79b782bf31ffb5fecae7e07af15cfc0e14ad8f4974bb23cbf244920",
+          "image_max_abs_vs_training_view": 0.0,
+          "hidden_gt_usage": "post_hoc_metrics_only"
+        }
+      ],
+      "prototype_rows": 24,
+      "partition_rows": 18,
+      "feature_rows": 84,
+      "environment": {
+        "physical_gpu": 6,
+        "cuda_visible_devices": "6",
+        "torch_device": "cuda",
+        "python": "3.10.6",
+        "torch": "2.2.1+cu121",
+        "cuda": "12.1",
+        "cudnn": 8902,
+        "uuid": "GPU-07e6f403-f306-3fc3-709a-37c245743ee3",
+        "name": "NVIDIA GeForce RTX 3090",
+        "driver": "580.173.02"
+      },
+      "diagnostics_manifest_sha256": "195c33a6d3893d45c4d46d31d537d9c7f841dab328f04d5e891f3e4dbb61d93e",
+      "workspace_hash": "e53e37911f56c8ab3acc12399858f3672c7e7b2911113726b080750edf1287c5"
+    },
+    {
+      "protocol_id": "sparcseg_v0_1",
+      "seed": 2,
+      "status": "SPARC_POSTHOC_FEASIBILITY_COMPLETE",
+      "optimizer_steps": 0,
+      "hidden_gt_usage": "independent_post_hoc_metrics_only",
+      "training_objective_hidden_gt_usage": "none",
+      "transitions": [
+        {
+          "transition": "REFUGE->RIM_ONE_r3",
+          "prototype_bundle_sha256": "71ef9447fb8201e5e2f71821c266d8bcf1b61e8703edefef2e56800bfaa2c778",
+          "prototype_bundle_matches_visible": true,
+          "posthoc_unlabeled_manifest_sha256": "d8633a82a23652e1aa6a78d9427c08ee3fab0f6b86d08534c0b16963b652bcbf",
+          "visible_update_manifest_sha256": "d7330cc05de3a8978d6bf4722de9bb5fe6cc129bbd080cf3d31a1cf63fc69dad",
+          "image_max_abs_vs_training_view": 0.0,
+          "hidden_gt_usage": "post_hoc_metrics_only"
+        },
+        {
+          "transition": "RIM_ONE_r3->Drishti_GS",
+          "prototype_bundle_sha256": "59dd4f93b1900ddc52ea7366f908b9d52b103d2f8e3b6bc5b02e5a55b64c75ee",
+          "prototype_bundle_matches_visible": true,
+          "posthoc_unlabeled_manifest_sha256": "2c20a3ae7a251195649bba06a97bf63409d0a7eb5614d8712337e3bfc8890843",
+          "visible_update_manifest_sha256": "ea9b339a3552817f4520dc429d2ed688a362f340a8f87c0a2317cc9a630cd942",
+          "image_max_abs_vs_training_view": 0.0,
+          "hidden_gt_usage": "post_hoc_metrics_only"
+        }
+      ],
+      "prototype_rows": 24,
+      "partition_rows": 18,
+      "feature_rows": 84,
+      "environment": {
+        "physical_gpu": 7,
+        "cuda_visible_devices": "7",
+        "torch_device": "cuda",
+        "python": "3.10.6",
+        "torch": "2.2.1+cu121",
+        "cuda": "12.1",
+        "cudnn": 8902,
+        "uuid": "GPU-885f8cbc-d6bd-3ba9-f65d-a34373a93c0c",
+        "name": "NVIDIA GeForce RTX 3090",
+        "driver": "580.173.02"
+      },
+      "diagnostics_manifest_sha256": "c7c68e8a7e31ff26896dabbf5ee15c7a6fc96138cd5efd44ccb477ac86f8e9fd",
+      "workspace_hash": "e53e37911f56c8ab3acc12399858f3672c7e7b2911113726b080750edf1287c5"
+    }
+  ],
+  "evidence_sha256": {
+    "reports/analysis/sparcseg_v0_1/prototype_validation_quality.csv": "24c542174e173807191132c076cb0ee56369a7b87408d9108db7ecaf6ce8935e",
+    "reports/analysis/sparcseg_v0_1/partition_quality.csv": "129366493c29a3191e5637aa0f6dc8df7a43b826ffd207d1c13165458ec3069e",
+    "reports/analysis/sparcseg_v0_1/feature_separation.csv": "6537ec6ac29e135df7df6748e4f9d863134ca4de50b2ca9f46c7df5464806bc2",
+    "reports/analysis/sparcseg_v0_1/gradient_scale.csv": "3e8cd20b15bc255428672f1e9d80881d19d20907ce9938e15b14f0ca3034642a",
+    "reports/analysis/sparcseg_v0_1/virtual_steps.csv": "a674f6dbf1ac6675d681ac81fd29d1c743b34bbbb2976ae2e00eef2fc602f82d"
+  },
+  "protocol_consequence": "Protocol hard stop before SPARC method/config implementation or training."
+}

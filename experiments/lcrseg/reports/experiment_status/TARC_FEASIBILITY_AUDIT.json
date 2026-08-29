@@ -1,0 +1,132 @@
+{
+  "protocol_id": "tarcseg_v0_1",
+  "generated_at": "2026-08-28T13:33:13.350311+00:00",
+  "status": "TARC_RELATION_FIDELITY_NOT_SUPPORTED",
+  "part_b_authorized": false,
+  "optimizer_steps": 0,
+  "hidden_gt_training_usage": "none",
+  "engineering_checks": {
+    "relation_space_passed": true,
+    "aspr_freeze_present": true,
+    "anchor_rows_exact_18": true,
+    "relation_rows_exact_48": true,
+    "virtual_rows_exact_768": true,
+    "virtual_variant_rows_exact": true,
+    "all_class_transport_only": true,
+    "optimizer_steps_zero": true,
+    "all_virtual_models_unchanged": true
+  },
+  "gates": {
+    "A_anchor_transport": {
+      "passed": true,
+      "anchor_checks": {
+        "median_ge_0_020": true,
+        "fraction_gt_static_ge_0_70": true,
+        "p10_ge_minus_0_020": true,
+        "every_class_positive_in_at_least_2_of_3_seeds": true,
+        "all_transports_valid_with_at_least_two_cases": true,
+        "historical_anchors_immutable": true
+      },
+      "background_checks": {
+        "background_median_ge_0_010": true,
+        "background_positive_in_at_least_2_of_3_seeds": true
+      },
+      "metrics": {
+        "median_class_minus_static": 0.8246325850486755,
+        "fraction_class_gt_static": 1.0,
+        "p10_class_minus_static": 0.25188661813735963,
+        "class_median_improvement": {
+          "0": 0.943351149559021,
+          "1": 0.5583382397890091,
+          "2": 0.6641884446144104
+        },
+        "class_positive_seed_count": {
+          "0": 3,
+          "1": 3,
+          "2": 3
+        },
+        "background_median_improvement": 0.943351149559021,
+        "background_positive_seed_count": 3,
+        "pairs": 18
+      }
+    },
+    "B_relation_fidelity": {
+      "passed": false,
+      "checks": {
+        "median_kl_reduction_ge_0_10": true,
+        "fraction_kl_lower_ge_0_70": true,
+        "median_top1_improvement_ge_0_010": true,
+        "no_class_median_margin_agreement_drop_gt_0_010": false,
+        "median_class_kl_le_global": true,
+        "median_class_top1_ge_global_minus_0_005": true,
+        "nonfinite_count_zero": true
+      },
+      "metrics": {
+        "median_kl_reduction_fraction_vs_static": 0.9660295078450281,
+        "fraction_class_kl_lower_than_static": 1.0,
+        "median_top1_improvement_vs_static": 0.8995171440972223,
+        "class_margin_agreement_median_delta_vs_static": {
+          "0": 0.006729375136203808,
+          "1": -0.03095356927428755,
+          "2": 0.025737242190682075
+        },
+        "median_class_kl": 0.15721677343050638,
+        "median_global_kl": 4.001424280802409,
+        "median_class_top1_agreement": 0.9541273328993056,
+        "median_global_top1_agreement": 0.05724338107638889,
+        "pairs": 6
+      }
+    },
+    "C_current_site_safety": {
+      "passed": false,
+      "checks": {
+        "every_pair_accuracy_ge_static_minus_0_005": true,
+        "every_pair_margin_ge_static_minus_0_010": false,
+        "nonfinite_count_zero": true
+      },
+      "metrics": {
+        "minimum_accuracy_delta_vs_static": 0.023766121031746024,
+        "minimum_margin_delta_vs_static": -0.011177887992253388,
+        "median_accuracy_delta_vs_static": 0.9064251612103175,
+        "median_margin_delta_vs_static": 0.008811838664705751,
+        "nonfinite_count": 0,
+        "pairs": 6
+      }
+    },
+    "D_virtual_step": {
+      "passed": false,
+      "checks": {
+        "t3_reduces_previous_loss_vs_t0_in_at_least_60pct": false,
+        "median_previous_t3_le_t0_minus_1e_4": false,
+        "median_current_t3_le_t0_plus_2pct_abs_t0": true,
+        "median_previous_t3_le_t2": true,
+        "old_model_gradient_zero": true,
+        "functional_state_never_mutated_checkpoint": true
+      },
+      "metrics": {
+        "fraction_t3_previous_delta_lower_than_t0": 0.3958333333333333,
+        "median_previous_delta_t0": -0.0016727205365896225,
+        "median_previous_delta_t2": -0.0010658316314220428,
+        "median_previous_delta_t3": -0.001654570922255516,
+        "median_current_delta_t0": -0.00047178100794553757,
+        "median_current_delta_t3": -0.0005273912101984024,
+        "update_comparisons": 192
+      }
+    }
+  },
+  "artifacts": {
+    "anchor": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/tarcseg_v0_1/anchor_transport_audit.csv",
+      "sha256": "0dc032c7c7792d7dc8510063cbdd983330b8301081fc2eadca45e8861a1e2892"
+    },
+    "relation": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/tarcseg_v0_1/relation_fidelity_audit.csv",
+      "sha256": "4c870c22bd4658a89ea71f81fdaae7bb613e3755e4c678e8399b6bb4c32c00ca"
+    },
+    "virtual": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/tarcseg_v0_1/virtual_step_audit.csv",
+      "sha256": "7a5f2c7c0882d761be80e37da95850308e06af4da04ae98b0b56a79d0b16eae9"
+    }
+  },
+  "protocol_consequence": "Protocol hard stop before TARC method implementation or training."
+}

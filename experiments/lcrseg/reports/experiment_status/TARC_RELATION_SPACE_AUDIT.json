@@ -1,0 +1,1020 @@
+{
+  "protocol_id": "tarcseg_v0_1",
+  "generated_at": "2026-08-28T13:22:09.806755+00:00",
+  "status": "TARC_RELATION_SPACE_AUDIT_PASSED",
+  "optimizer_steps": 0,
+  "hidden_gt_usage": "none",
+  "transport_contract": {
+    "feature_source": "UNet2D dec3 -> existing ProjectionHead(64, relation_dim)",
+    "feature_dimension": 128,
+    "relation_grid": [
+      64,
+      64
+    ],
+    "class_order": [
+      {
+        "class_id": 0,
+        "class_name": "background"
+      },
+      {
+        "class_id": 1,
+        "class_name": "optic_disc_rim"
+      },
+      {
+        "class_id": 2,
+        "class_name": "optic_cup"
+      }
+    ],
+    "background_id": 0,
+    "all_class_ids": [
+      0,
+      1,
+      2
+    ],
+    "relation_temperature": [
+      0.1
+    ],
+    "valid_mask": "strict_relation_valid_mask: adaptive-average-pool full-resolution valid mask and require cell mean == 1.0",
+    "anchor_lifecycle": "site0 current anchors only; incremental checkpoints carry current plus frozen historical class-anchor state",
+    "transport_data": "current_site_train_labeled_only",
+    "minimum_relation_pixels_per_case_class": 32,
+    "transport_all_classes_including_background": true,
+    "foreground_only_fallback": false
+  },
+  "current_labeled_cases": [
+    {
+      "seed": 0,
+      "site_id": "REFUGE",
+      "role": "train_labeled",
+      "case_count": 40,
+      "case_ids": [
+        "REFUGE_test_n0097",
+        "REFUGE_test_n0101",
+        "REFUGE_test_n0136",
+        "REFUGE_test_n0197",
+        "REFUGE_test_n0291",
+        "REFUGE_test_n0305",
+        "REFUGE_test_n0331",
+        "REFUGE_train_g0010",
+        "REFUGE_train_g0028",
+        "REFUGE_train_g0039",
+        "REFUGE_train_n0007",
+        "REFUGE_train_n0017",
+        "REFUGE_train_n0020",
+        "REFUGE_train_n0051",
+        "REFUGE_train_n0066",
+        "REFUGE_train_n0076",
+        "REFUGE_train_n0081",
+        "REFUGE_train_n0082",
+        "REFUGE_train_n0086",
+        "REFUGE_train_n0115",
+        "REFUGE_train_n0132",
+        "REFUGE_train_n0146",
+        "REFUGE_train_n0148",
+        "REFUGE_train_n0153",
+        "REFUGE_train_n0157",
+        "REFUGE_train_n0161",
+        "REFUGE_train_n0183",
+        "REFUGE_train_n0190",
+        "REFUGE_train_n0202",
+        "REFUGE_train_n0203",
+        "REFUGE_train_n0206",
+        "REFUGE_train_n0219",
+        "REFUGE_train_n0235",
+        "REFUGE_train_n0245",
+        "REFUGE_train_n0285",
+        "REFUGE_train_n0296",
+        "REFUGE_train_n0298",
+        "REFUGE_train_n0302",
+        "REFUGE_train_n0323",
+        "REFUGE_train_n0334"
+      ],
+      "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"
+    },
+    {
+      "seed": 0,
+      "site_id": "RIM_ONE_r3",
+      "role": "train_labeled",
+      "case_count": 16,
+      "case_ids": [
+        "RIM_ONE_r3_test_G-23-R",
+        "RIM_ONE_r3_test_N-20-R",
+        "RIM_ONE_r3_test_N-30-R",
+        "RIM_ONE_r3_test_N-42-R",
+        "RIM_ONE_r3_test_N-47-L",
+        "RIM_ONE_r3_test_S-33-R",
+        "RIM_ONE_r3_test_S-4-L",
+        "RIM_ONE_r3_test_S-8-R",
+        "RIM_ONE_r3_train_G-33-R",
+        "RIM_ONE_r3_train_N-10-R",
+        "RIM_ONE_r3_train_N-12-R",
+        "RIM_ONE_r3_train_N-62-R",
+        "RIM_ONE_r3_train_N-75-R",
+        "RIM_ONE_r3_train_N-81-L",
+        "RIM_ONE_r3_train_S-16-R",
+        "RIM_ONE_r3_train_S-17-L"
+      ],
+      "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"
+    },
+    {
+      "seed": 0,
+      "site_id": "Drishti_GS",
+      "role": "train_labeled",
+      "case_count": 10,
+      "case_ids": [
+        "Drishti_GS_test_gdrishtiGS_001",
+        "Drishti_GS_test_gdrishtiGS_056",
+        "Drishti_GS_test_gdrishtiGS_074",
+        "Drishti_GS_test_ndrishtiGS_100",
+        "Drishti_GS_train_gdrishtiGS_040",
+        "Drishti_GS_train_gdrishtiGS_058",
+        "Drishti_GS_train_gdrishtiGS_060",
+        "Drishti_GS_train_ndrishtiGS_041",
+        "Drishti_GS_train_ndrishtiGS_046",
+        "Drishti_GS_train_ndrishtiGS_094"
+      ],
+      "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"
+    },
+    {
+      "seed": 1,
+      "site_id": "REFUGE",
+      "role": "train_labeled",
+      "case_count": 40,
+      "case_ids": [
+        "REFUGE_test_n0050",
+        "REFUGE_test_n0054",
+        "REFUGE_test_n0064",
+        "REFUGE_test_n0072",
+        "REFUGE_test_n0128",
+        "REFUGE_test_n0200",
+        "REFUGE_test_n0291",
+        "REFUGE_test_n0356",
+        "REFUGE_train_g0013",
+        "REFUGE_train_g0039",
+        "REFUGE_train_n0002",
+        "REFUGE_train_n0010",
+        "REFUGE_train_n0014",
+        "REFUGE_train_n0016",
+        "REFUGE_train_n0057",
+        "REFUGE_train_n0089",
+        "REFUGE_train_n0105",
+        "REFUGE_train_n0126",
+        "REFUGE_train_n0130",
+        "REFUGE_train_n0143",
+        "REFUGE_train_n0150",
+        "REFUGE_train_n0166",
+        "REFUGE_train_n0167",
+        "REFUGE_train_n0168",
+        "REFUGE_train_n0172",
+        "REFUGE_train_n0179",
+        "REFUGE_train_n0188",
+        "REFUGE_train_n0189",
+        "REFUGE_train_n0203",
+        "REFUGE_train_n0213",
+        "REFUGE_train_n0219",
+        "REFUGE_train_n0223",
+        "REFUGE_train_n0238",
+        "REFUGE_train_n0270",
+        "REFUGE_train_n0280",
+        "REFUGE_train_n0304",
+        "REFUGE_train_n0309",
+        "REFUGE_train_n0319",
+        "REFUGE_train_n0320",
+        "REFUGE_train_n0330"
+      ],
+      "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9"
+    },
+    {
+      "seed": 1,
+      "site_id": "RIM_ONE_r3",
+      "role": "train_labeled",
+      "case_count": 16,
+      "case_ids": [
+        "RIM_ONE_r3_test_G-27-R",
+        "RIM_ONE_r3_test_N-1-L",
+        "RIM_ONE_r3_test_N-30-R",
+        "RIM_ONE_r3_test_N-40-R",
+        "RIM_ONE_r3_test_N-47-L",
+        "RIM_ONE_r3_test_N-50-R",
+        "RIM_ONE_r3_test_S-29-R",
+        "RIM_ONE_r3_test_S-4-L",
+        "RIM_ONE_r3_test_S-7-L",
+        "RIM_ONE_r3_test_S-9-L",
+        "RIM_ONE_r3_train_N-10-R",
+        "RIM_ONE_r3_train_N-25-L",
+        "RIM_ONE_r3_train_N-56-R",
+        "RIM_ONE_r3_train_N-7-L",
+        "RIM_ONE_r3_train_S-11-L",
+        "RIM_ONE_r3_train_S-15-L"
+      ],
+      "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9"
+    },
+    {
+      "seed": 1,
+      "site_id": "Drishti_GS",
+      "role": "train_labeled",
+      "case_count": 10,
+      "case_ids": [
+        "Drishti_GS_test_gdrishtiGS_027",
+        "Drishti_GS_test_gdrishtiGS_030",
+        "Drishti_GS_test_gdrishtiGS_034",
+        "Drishti_GS_test_gdrishtiGS_059",
+        "Drishti_GS_test_gdrishtiGS_065",
+        "Drishti_GS_test_gdrishtiGS_082",
+        "Drishti_GS_test_ndrishtiGS_013",
+        "Drishti_GS_train_gdrishtiGS_040",
+        "Drishti_GS_train_gdrishtiGS_069",
+        "Drishti_GS_train_ndrishtiGS_008"
+      ],
+      "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9"
+    },
+    {
+      "seed": 2,
+      "site_id": "REFUGE",
+      "role": "train_labeled",
+      "case_count": 40,
+      "case_ids": [
+        "REFUGE_test_n0128",
+        "REFUGE_test_n0140",
+        "REFUGE_test_n0154",
+        "REFUGE_test_n0170",
+        "REFUGE_test_n0228",
+        "REFUGE_test_n0243",
+        "REFUGE_test_n0278",
+        "REFUGE_test_n0305",
+        "REFUGE_test_n0328",
+        "REFUGE_train_g0006",
+        "REFUGE_train_g0014",
+        "REFUGE_train_g0025",
+        "REFUGE_train_g0028",
+        "REFUGE_train_n0013",
+        "REFUGE_train_n0029",
+        "REFUGE_train_n0035",
+        "REFUGE_train_n0051",
+        "REFUGE_train_n0074",
+        "REFUGE_train_n0130",
+        "REFUGE_train_n0134",
+        "REFUGE_train_n0146",
+        "REFUGE_train_n0163",
+        "REFUGE_train_n0192",
+        "REFUGE_train_n0203",
+        "REFUGE_train_n0204",
+        "REFUGE_train_n0205",
+        "REFUGE_train_n0226",
+        "REFUGE_train_n0234",
+        "REFUGE_train_n0237",
+        "REFUGE_train_n0242",
+        "REFUGE_train_n0253",
+        "REFUGE_train_n0261",
+        "REFUGE_train_n0263",
+        "REFUGE_train_n0270",
+        "REFUGE_train_n0296",
+        "REFUGE_train_n0333",
+        "REFUGE_train_n0340",
+        "REFUGE_train_n0342",
+        "REFUGE_train_n0359",
+        "REFUGE_train_n0360"
+      ],
+      "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727"
+    },
+    {
+      "seed": 2,
+      "site_id": "RIM_ONE_r3",
+      "role": "train_labeled",
+      "case_count": 16,
+      "case_ids": [
+        "RIM_ONE_r3_test_G-2-R",
+        "RIM_ONE_r3_test_N-1-L",
+        "RIM_ONE_r3_test_N-35-L",
+        "RIM_ONE_r3_test_N-39-L",
+        "RIM_ONE_r3_train_G-10-L",
+        "RIM_ONE_r3_train_G-13-R",
+        "RIM_ONE_r3_train_G-15-L",
+        "RIM_ONE_r3_train_G-39-L",
+        "RIM_ONE_r3_train_N-59-L",
+        "RIM_ONE_r3_train_N-61-L",
+        "RIM_ONE_r3_train_N-68-R",
+        "RIM_ONE_r3_train_N-72-R",
+        "RIM_ONE_r3_train_N-74-L",
+        "RIM_ONE_r3_train_N-8-L",
+        "RIM_ONE_r3_train_N-92-R",
+        "RIM_ONE_r3_train_S-17-L"
+      ],
+      "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727"
+    },
+    {
+      "seed": 2,
+      "site_id": "Drishti_GS",
+      "role": "train_labeled",
+      "case_count": 10,
+      "case_ids": [
+        "Drishti_GS_test_gdrishtiGS_074",
+        "Drishti_GS_test_ndrishtiGS_009",
+        "Drishti_GS_test_ndrishtiGS_085",
+        "Drishti_GS_train_gdrishtiGS_004",
+        "Drishti_GS_train_gdrishtiGS_012",
+        "Drishti_GS_train_gdrishtiGS_022",
+        "Drishti_GS_train_gdrishtiGS_076",
+        "Drishti_GS_train_ndrishtiGS_018",
+        "Drishti_GS_train_ndrishtiGS_098",
+        "Drishti_GS_train_ndrishtiGS_101"
+      ],
+      "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727"
+    }
+  ],
+  "checkpoint_rows": [
+    {
+      "seed": 0,
+      "site_index": 0,
+      "site_id": "REFUGE",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site0_REFUGE.pt",
+      "present": true,
+      "sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb",
+      "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "payload_manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "payload_split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "method_name": "lcrseg_v0_1",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": false,
+        "shape": [],
+        "valid": [],
+        "all_classes_valid": false
+      }
+    },
+    {
+      "seed": 0,
+      "site_index": 1,
+      "site_id": "RIM_ONE_r3",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "present": true,
+      "sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660",
+      "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "payload_manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "payload_split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "method_name": "lcrseg_v0_1",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      }
+    },
+    {
+      "seed": 0,
+      "site_index": 2,
+      "site_id": "Drishti_GS",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "present": true,
+      "sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d",
+      "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "payload_manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "payload_split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "method_name": "lcrseg_v0_1",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      }
+    },
+    {
+      "seed": 1,
+      "site_index": 0,
+      "site_id": "REFUGE",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+      "present": true,
+      "sha256": "c8a8c95e0fdddde88acdc42c3cbc62a3f20ac436a2cf00f76513ed29b410ab0b",
+      "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+      "payload_manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "payload_split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+      "method_name": "lcrseg_v0_3",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": false,
+        "shape": [],
+        "valid": [],
+        "all_classes_valid": false
+      }
+    },
+    {
+      "seed": 1,
+      "site_index": 1,
+      "site_id": "RIM_ONE_r3",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "present": true,
+      "sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd",
+      "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+      "payload_manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "payload_split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+      "method_name": "lcrseg_v0_3",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      }
+    },
+    {
+      "seed": 1,
+      "site_index": 2,
+      "site_id": "Drishti_GS",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "present": true,
+      "sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f",
+      "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+      "payload_manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+      "payload_split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+      "method_name": "lcrseg_v0_3",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      }
+    },
+    {
+      "seed": 2,
+      "site_index": 0,
+      "site_id": "REFUGE",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+      "present": true,
+      "sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb",
+      "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+      "payload_manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "payload_split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+      "method_name": "lcrseg_v0_3",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": false,
+        "shape": [],
+        "valid": [],
+        "all_classes_valid": false
+      }
+    },
+    {
+      "seed": 2,
+      "site_index": 1,
+      "site_id": "RIM_ONE_r3",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "present": true,
+      "sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+      "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+      "payload_manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "payload_split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+      "method_name": "lcrseg_v0_3",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      }
+    },
+    {
+      "seed": 2,
+      "site_index": 2,
+      "site_id": "Drishti_GS",
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "present": true,
+      "sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283",
+      "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+      "payload_manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+      "payload_split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+      "method_name": "lcrseg_v0_3",
+      "relation_dim": 128,
+      "relation_temperature": 0.1,
+      "current_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      },
+      "historical_anchor": {
+        "present": true,
+        "shape": [
+          3,
+          1,
+          128
+        ],
+        "valid": [
+          [
+            true
+          ],
+          [
+            true
+          ],
+          [
+            true
+          ]
+        ],
+        "all_classes_valid": true,
+        "finite": true,
+        "normalized_valid_anchors": true
+      }
+    }
+  ],
+  "old_current_pairs": [
+    {
+      "seed": 0,
+      "old_site_index": 0,
+      "current_site_index": 1,
+      "old_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "current_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "pairable": true
+    },
+    {
+      "seed": 0,
+      "old_site_index": 1,
+      "current_site_index": 2,
+      "old_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "current_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "pairable": true
+    },
+    {
+      "seed": 1,
+      "old_site_index": 0,
+      "current_site_index": 1,
+      "old_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "current_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "pairable": true
+    },
+    {
+      "seed": 1,
+      "old_site_index": 1,
+      "current_site_index": 2,
+      "old_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "current_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "pairable": true
+    },
+    {
+      "seed": 2,
+      "old_site_index": 0,
+      "current_site_index": 1,
+      "old_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "current_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "pairable": true
+    },
+    {
+      "seed": 2,
+      "old_site_index": 1,
+      "current_site_index": 2,
+      "old_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "current_relation_shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "pairable": true
+    }
+  ],
+  "checks": {
+    "label_map_frozen_and_confirmed": true,
+    "yaml_class_order_exact": true,
+    "json_class_order_exact": true,
+    "raw_mapping_exact": true,
+    "classifier_relation_anchor_axes_agree": true,
+    "seed0_manifest_present": true,
+    "seed0_split_present": true,
+    "seed0_site0_checkpoint_present": true,
+    "seed0_site0_site_identity_exact": true,
+    "seed0_site0_hash_lineage_exact": true,
+    "seed0_site0_fundus_model_contract": true,
+    "seed0_site0_current_anchor_contract": true,
+    "seed0_site0_historical_anchor_lifecycle": true,
+    "seed0_site1_checkpoint_present": true,
+    "seed0_site1_site_identity_exact": true,
+    "seed0_site1_hash_lineage_exact": true,
+    "seed0_site1_fundus_model_contract": true,
+    "seed0_site1_current_anchor_contract": true,
+    "seed0_site1_historical_anchor_lifecycle": true,
+    "seed0_site2_checkpoint_present": true,
+    "seed0_site2_site_identity_exact": true,
+    "seed0_site2_hash_lineage_exact": true,
+    "seed0_site2_fundus_model_contract": true,
+    "seed0_site2_current_anchor_contract": true,
+    "seed0_site2_historical_anchor_lifecycle": true,
+    "seed1_manifest_present": true,
+    "seed1_split_present": true,
+    "seed1_site0_checkpoint_present": true,
+    "seed1_site0_site_identity_exact": true,
+    "seed1_site0_hash_lineage_exact": true,
+    "seed1_site0_fundus_model_contract": true,
+    "seed1_site0_current_anchor_contract": true,
+    "seed1_site0_historical_anchor_lifecycle": true,
+    "seed1_site1_checkpoint_present": true,
+    "seed1_site1_site_identity_exact": true,
+    "seed1_site1_hash_lineage_exact": true,
+    "seed1_site1_fundus_model_contract": true,
+    "seed1_site1_current_anchor_contract": true,
+    "seed1_site1_historical_anchor_lifecycle": true,
+    "seed1_site2_checkpoint_present": true,
+    "seed1_site2_site_identity_exact": true,
+    "seed1_site2_hash_lineage_exact": true,
+    "seed1_site2_fundus_model_contract": true,
+    "seed1_site2_current_anchor_contract": true,
+    "seed1_site2_historical_anchor_lifecycle": true,
+    "seed2_manifest_present": true,
+    "seed2_split_present": true,
+    "seed2_site0_checkpoint_present": true,
+    "seed2_site0_site_identity_exact": true,
+    "seed2_site0_hash_lineage_exact": true,
+    "seed2_site0_fundus_model_contract": true,
+    "seed2_site0_current_anchor_contract": true,
+    "seed2_site0_historical_anchor_lifecycle": true,
+    "seed2_site1_checkpoint_present": true,
+    "seed2_site1_site_identity_exact": true,
+    "seed2_site1_hash_lineage_exact": true,
+    "seed2_site1_fundus_model_contract": true,
+    "seed2_site1_current_anchor_contract": true,
+    "seed2_site1_historical_anchor_lifecycle": true,
+    "seed2_site2_checkpoint_present": true,
+    "seed2_site2_site_identity_exact": true,
+    "seed2_site2_hash_lineage_exact": true,
+    "seed2_site2_fundus_model_contract": true,
+    "seed2_site2_current_anchor_contract": true,
+    "seed2_site2_historical_anchor_lifecycle": true,
+    "all_relation_dimensions_identical": true,
+    "relation_temperature_frozen": true,
+    "seed0_pair0_1_pairable": true,
+    "seed0_pair1_2_pairable": true,
+    "seed1_pair0_1_pairable": true,
+    "seed1_pair1_2_pairable": true,
+    "seed2_pair0_1_pairable": true,
+    "seed2_pair1_2_pairable": true,
+    "strict_relation_valid_mask_contract": true,
+    "relation_feature_source_is_projection_head_dec3": true,
+    "relation_grid_is_existing_quarter_resolution": true,
+    "aspr_freeze_present": true,
+    "all_class_ids_exact": true,
+    "background_id_exact": true,
+    "transport_all_classes_including_background": true,
+    "no_foreground_only_fallback": true,
+    "all_current_labeled_views_nonempty": true,
+    "minimum_relation_pixels_per_case_class_frozen": true
+  },
+  "environment": {
+    "physical_index": 5,
+    "cuda_visible_devices": "5",
+    "torch_device": "cuda",
+    "torch": "2.2.1+cu121",
+    "cuda": "12.1",
+    "cudnn": 8902,
+    "python": "3.10.6",
+    "uuid": "GPU-2052f3b4-88f8-4be9-d43c-5068fafb02a5",
+    "name": "NVIDIA GeForce RTX 3090",
+    "driver": "580.173.02"
+  },
+  "workspace_hash": "0afbfd541af70c994654a401a043e438a42adb1d862045f10a5fceb87b71dcf7",
+  "class_semantics_sha256": "5c52655356b11831820433035dad0adfe919219a4da2a9f70d2b18d784010200",
+  "label_map_sha256": "a3ddfa9000ffb9d2364fe3a39b98ce19f34813c309d2908d58aa59d2e35f3953"
+}

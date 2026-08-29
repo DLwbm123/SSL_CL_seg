@@ -1,0 +1,225 @@
+{
+  "protocol_id": "lcrseg_v0_3",
+  "status": "P0_SEED0_COMPLETE_RELATION_GATE_PASSED",
+  "engineering_gate_passed": true,
+  "relation_component_gate_passed": true,
+  "bridge_passed": true,
+  "lineage": {
+    "protocol_id": "lcrseg_v0_3",
+    "variant_id": "P0",
+    "seed": 0,
+    "completed_global_steps": 13400,
+    "completed_parent_steps": 8000,
+    "new_optimizer_steps": 5400,
+    "equivalent_full_run_steps": 13400,
+    "manifest_hash": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+    "split_hash": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88"
+  },
+  "lineage_passed": true,
+  "safety_audit": {
+    "finite_train_log": true,
+    "train_log_rows": 5400,
+    "train_log_rows_expected": 5400,
+    "optimizer_step_skipped_sum": 0,
+    "hidden_gt_training_usage_max": 0,
+    "old_model_gradient_detected_max": 0,
+    "historical_anchor_changed_max": 0,
+    "relation_zero_field_maxima": {
+      "loss_relation": 0.0,
+      "lambda_relation_effective": 0.0,
+      "relation_denominator": 0.0,
+      "relation_loss_numerator": 0.0,
+      "relation_backward_norm_declared": 0.0
+    },
+    "failure_bundle_absent": true
+  },
+  "checkpoint_audit": {
+    "records": [
+      {
+        "name": "checkpoint_final_site0_REFUGE.pt",
+        "exists": true,
+        "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32",
+        "readable": true
+      },
+      {
+        "name": "checkpoint_site_0_REFUGE.pt",
+        "exists": true,
+        "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32",
+        "readable": true
+      },
+      {
+        "name": "checkpoint_final_site1_RIM_ONE_r3.pt",
+        "exists": true,
+        "sha256": "efb69230568e1a705eb1408e8724e66e924474aed8192cd3d0e9e7822eb326fb",
+        "readable": true
+      },
+      {
+        "name": "checkpoint_site_1_RIM_ONE_r3.pt",
+        "exists": true,
+        "sha256": "efb69230568e1a705eb1408e8724e66e924474aed8192cd3d0e9e7822eb326fb",
+        "readable": true
+      },
+      {
+        "name": "checkpoint_final_site2_Drishti_GS.pt",
+        "exists": true,
+        "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305",
+        "readable": true
+      },
+      {
+        "name": "checkpoint_site_2_Drishti_GS.pt",
+        "exists": true,
+        "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305",
+        "readable": true
+      },
+      {
+        "name": "checkpoint_final.pt",
+        "exists": true,
+        "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305",
+        "readable": true
+      }
+    ],
+    "passed": true,
+    "site0_parent_hash_exact": true
+  },
+  "coverage_audit": {
+    "aggregation": "site_epoch_predicted_class",
+    "nonempty_groups": 1764,
+    "maximum_absolute_error": 0.015361317921578133,
+    "threshold": 0.05,
+    "passed": true,
+    "worst_groups": [
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 2,
+        "predicted_class": 2,
+        "target_fraction": 0.40487214511344133,
+        "realized_fraction": 0.42023346303501946,
+        "absolute_error": 0.015361317921578133,
+        "valid_count": 257
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 4,
+        "predicted_class": 2,
+        "target_fraction": 0.4091826886794201,
+        "realized_fraction": 0.41422333125389893,
+        "absolute_error": 0.0050406425744788375,
+        "valid_count": 1603
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 3,
+        "predicted_class": 2,
+        "target_fraction": 0.40695558345055743,
+        "realized_fraction": 0.4095052083333333,
+        "absolute_error": 0.0025496248827758805,
+        "valid_count": 3072
+      },
+      {
+        "site": "REFUGE",
+        "site_index": 0,
+        "epoch": 12,
+        "predicted_class": 2,
+        "target_fraction": 0.4254184345354939,
+        "realized_fraction": 0.42768823139765955,
+        "absolute_error": 0.002269796862165663,
+        "valid_count": 4529
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 6,
+        "predicted_class": 2,
+        "target_fraction": 0.4127672985441038,
+        "realized_fraction": 0.41496041496041497,
+        "absolute_error": 0.002193116416311147,
+        "valid_count": 3663
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 26,
+        "predicted_class": 2,
+        "target_fraction": 0.45319380953412636,
+        "realized_fraction": 0.4551916730134552,
+        "absolute_error": 0.001997863479328843,
+        "valid_count": 7878
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 5,
+        "predicted_class": 2,
+        "target_fraction": 0.4108625455929068,
+        "realized_fraction": 0.4127894156560088,
+        "absolute_error": 0.001926870063101993,
+        "valid_count": 4535
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 1,
+        "predicted_class": 2,
+        "target_fraction": 0.4027058514505689,
+        "realized_fraction": 0.40458015267175573,
+        "absolute_error": 0.0018743012211868137,
+        "valid_count": 3406
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 12,
+        "predicted_class": 2,
+        "target_fraction": 0.4249165240491869,
+        "realized_fraction": 0.42644057151829173,
+        "absolute_error": 0.001524047469104839,
+        "valid_count": 6369
+      },
+      {
+        "site": "RIM_ONE_r3",
+        "site_index": 1,
+        "epoch": 16,
+        "predicted_class": 2,
+        "target_fraction": 0.43294066833923694,
+        "realized_fraction": 0.4343855987477172,
+        "absolute_error": 0.0014449304084802606,
+        "valid_count": 7666
+      }
+    ]
+  },
+  "p0_metrics": {
+    "final_average_dice": 0.6101888640845982,
+    "bwt": -0.1969323207489076,
+    "incoming_dice": 0.7414770779172032,
+    "previous_site_dice": 0.602428088128554
+  },
+  "r1_metrics": {
+    "final_average_dice": 0.6616491375160981,
+    "bwt": -0.1162918644571595,
+    "incoming_dice": 0.7391770471542044,
+    "previous_site_dice": 0.6826418676928568
+  },
+  "r1_minus_p0": {
+    "final_average_dice": 0.05146027343149995,
+    "bwt": 0.0806404562917481,
+    "incoming_dice": -0.0023000307629987837,
+    "previous_site_dice": 0.08021377956430287
+  },
+  "relation_thresholds": {
+    "final": true,
+    "bwt": true,
+    "previous": true,
+    "incoming": true
+  },
+  "run_directories": {
+    "P0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_3_p0_progressive_norelation_full200e",
+    "R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r1_progressive_uniform_full200e"
+  },
+  "policy": {
+    "continue_r0_r1_multiseed_regardless_of_relation_gate": true,
+    "p0_seeds_1_2_allowed_by_relation_gate": true
+  }
+}

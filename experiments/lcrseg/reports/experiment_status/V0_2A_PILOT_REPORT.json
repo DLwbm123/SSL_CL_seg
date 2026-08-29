@@ -1,0 +1,133 @@
+{
+  "protocol_id": "lcrseg_v0_2a",
+  "status": "PASSED",
+  "thresholds": {
+    "admission_fraction_absolute_error": 0.05,
+    "rejection_fraction_per_class": 0.2,
+    "relation_ess_fraction_of_valid_uniform_count": 0.8,
+    "hidden_gt_training_usage": 0,
+    "current_old_js_gate_usage": 0
+  },
+  "records": [
+    {
+      "variant": "R1",
+      "run_dir": "/home/jiangsuiyang/SSL_CL/runs/pilot_v02a_r1_rimone_1000steps",
+      "status": "complete",
+      "train_rows": 1000,
+      "branch_rows": 3000,
+      "finite_losses_and_scalars": true,
+      "runtime_guards_zero": true,
+      "historical_anchor_max_abs": 0.0,
+      "checkpoint_resume_exact": true,
+      "global_step_sequence_exact": true,
+      "maximum_admission_fraction_error": 0.003622797231319197,
+      "admission_epoch_class_groups": 189,
+      "admission_passed": true,
+      "maximum_rejection_fraction_per_class_step": 0.0,
+      "rejection_passed": true,
+      "minimum_relation_ess_ratio": 1.0,
+      "relation_ess_passed": true,
+      "calibrator": {
+        "passed": true,
+        "status": "not_applicable_uniform_relation"
+      },
+      "modes_exact": true,
+      "parent_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/pilot_parent_v02a_progressive_refuge_8000steps/checkpoint_final_site0_REFUGE.pt",
+      "parent_checkpoint_sha256": "5e11846ab92507386014e81379ef846306a8de9e16809412dd3a4f6bbedb7fda",
+      "parent_hash_exact": true,
+      "final_checkpoint_sha256": "cf53119a6cd3cba72f866d7c5606ec52146774971144029d46cfc8299210def7",
+      "passed": true
+    },
+    {
+      "variant": "R2",
+      "run_dir": "/home/jiangsuiyang/SSL_CL/runs/pilot_v02a_r2_rimone_1000steps",
+      "status": "complete",
+      "train_rows": 1000,
+      "branch_rows": 3000,
+      "finite_losses_and_scalars": true,
+      "runtime_guards_zero": true,
+      "historical_anchor_max_abs": 0.0,
+      "checkpoint_resume_exact": true,
+      "global_step_sequence_exact": true,
+      "maximum_admission_fraction_error": 0.0,
+      "admission_epoch_class_groups": 189,
+      "admission_passed": true,
+      "maximum_rejection_fraction_per_class_step": 0.2,
+      "rejection_passed": true,
+      "minimum_relation_ess_ratio": 0.9930027304327556,
+      "relation_ess_passed": true,
+      "calibrator": {
+        "passed": true,
+        "status": "available_frozen_site_start",
+        "fit_count": 1,
+        "csv_rows": 80,
+        "mappings_monotonic": true,
+        "sample_counts_by_class": [
+          100000,
+          9745,
+          6264
+        ],
+        "provenance": {
+          "fit_scope": "current_site_train_labeled_only",
+          "old_model_only": true,
+          "hidden_gt_usage": 0,
+          "frozen_during_site_training": true
+        },
+        "json_sha256": "26c0fd6c65d844b376774e077c6a634332242855ef53a132e0140364cc053a84",
+        "csv_sha256": "60f2414a74f4037bc4cd3efc5a75c063046de32dcad2c3dbfa168a535444b446"
+      },
+      "modes_exact": true,
+      "parent_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site0_REFUGE.pt",
+      "parent_checkpoint_sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb",
+      "parent_hash_exact": true,
+      "final_checkpoint_sha256": "056100d6da3adeda6d8328b731a1da07fa08fa79156b531a0bf912de46f4d99e",
+      "passed": true
+    },
+    {
+      "variant": "R3",
+      "run_dir": "/home/jiangsuiyang/SSL_CL/runs/pilot_v02a_r3_rimone_1000steps",
+      "status": "complete",
+      "train_rows": 1000,
+      "branch_rows": 3000,
+      "finite_losses_and_scalars": true,
+      "runtime_guards_zero": true,
+      "historical_anchor_max_abs": 0.0,
+      "checkpoint_resume_exact": true,
+      "global_step_sequence_exact": true,
+      "maximum_admission_fraction_error": 0.002295832291395128,
+      "admission_epoch_class_groups": 189,
+      "admission_passed": true,
+      "maximum_rejection_fraction_per_class_step": 0.2,
+      "rejection_passed": true,
+      "minimum_relation_ess_ratio": 0.9917296678723643,
+      "relation_ess_passed": true,
+      "calibrator": {
+        "passed": true,
+        "status": "available_frozen_site_start",
+        "fit_count": 1,
+        "csv_rows": 80,
+        "mappings_monotonic": true,
+        "sample_counts_by_class": [
+          100000,
+          10995,
+          6425
+        ],
+        "provenance": {
+          "fit_scope": "current_site_train_labeled_only",
+          "old_model_only": true,
+          "hidden_gt_usage": 0,
+          "frozen_during_site_training": true
+        },
+        "json_sha256": "69cbd6efbee7cb0637a06fe5f14d7adef1b9ec7f0f286d2ce9694134c40d1705",
+        "csv_sha256": "12787afddb5b1490f827854c00439658f297012db57ec496523d66811e6fb7fe"
+      },
+      "modes_exact": true,
+      "parent_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/pilot_parent_v02a_progressive_refuge_8000steps/checkpoint_final_site0_REFUGE.pt",
+      "parent_checkpoint_sha256": "5e11846ab92507386014e81379ef846306a8de9e16809412dd3a4f6bbedb7fda",
+      "parent_hash_exact": true,
+      "final_checkpoint_sha256": "008074bc0e710390d6e9783f350504a5cec8b5cce8e05d8e1eba8fb63f335367",
+      "passed": true
+    }
+  ],
+  "passed": true
+}

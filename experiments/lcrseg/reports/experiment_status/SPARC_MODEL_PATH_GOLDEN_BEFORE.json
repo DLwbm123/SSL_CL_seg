@@ -1,0 +1,74 @@
+{
+  "protocol_id": "sparcseg_v0_1",
+  "status": "SPARC_MODEL_PATH_GOLDEN_CAPTURED_BEFORE_EXTENSION",
+  "generated_at": "2026-08-28T15:23:04.644698+00:00",
+  "optimizer_steps": 0,
+  "checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e/checkpoint_final_site0_REFUGE.pt",
+  "checkpoint_sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb",
+  "golden": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/experiment_status/SPARC_MODEL_PATH_GOLDEN_BEFORE.pt",
+  "golden_sha256": "07cb1d786a387c2ec9c69ed9d110787592c7c843153a55939a8be555a96fac98",
+  "workspace_hash": "9e064cb1a3bc8500774b32eb76983f208fbecadfeb5c1c66611119ac5dba467b",
+  "checks": {
+    "pre_extension_has_no_decoder_features": true,
+    "dec3_hook_unique": true,
+    "dec1_hook_unique": true,
+    "logits_shape": true,
+    "relation_shape": true,
+    "dec3_shape": true,
+    "dec1_shape": true
+  },
+  "tensors": {
+    "logits": {
+      "shape": [
+        1,
+        3,
+        256,
+        256
+      ],
+      "dtype": "torch.float32",
+      "device": "cuda:0",
+      "requires_grad": true,
+      "finite": true,
+      "storage_id": 134247181451264
+    },
+    "relation_features": {
+      "shape": [
+        1,
+        128,
+        64,
+        64
+      ],
+      "dtype": "torch.float32",
+      "device": "cuda:0",
+      "requires_grad": true,
+      "finite": true,
+      "storage_id": 134247190888448
+    },
+    "dec3_hook": {
+      "shape": [
+        1,
+        64,
+        64,
+        64
+      ],
+      "dtype": "torch.float32",
+      "device": "cuda:0",
+      "requires_grad": true,
+      "finite": true,
+      "storage_id": 134247182499840
+    },
+    "dec1_hook": {
+      "shape": [
+        1,
+        16,
+        256,
+        256
+      ],
+      "dtype": "torch.float32",
+      "device": "cuda:0",
+      "requires_grad": true,
+      "finite": true,
+      "storage_id": 134247218151424
+    }
+  }
+}

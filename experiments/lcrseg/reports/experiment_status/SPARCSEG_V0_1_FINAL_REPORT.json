@@ -1,0 +1,74 @@
+{
+  "protocol_id": "sparcseg_v0_1",
+  "generated_at": "2026-08-28T23:44:45+08:00",
+  "status": "SPARC_PAS_NOT_SUPPORTED",
+  "protocol_consequence": "hard_stop_before_method_registration_or_training",
+  "optimizer_steps": 0,
+  "training_method_registered": false,
+  "training_configs_created": false,
+  "hidden_gt_training_usage": "none",
+  "hidden_gt_analysis_usage": "independent_post_hoc_metrics_only",
+  "engineering_checks_passed": true,
+  "gates": {
+    "A1_current_pas": {
+      "passed": false,
+      "class_1_mean_precision_improvement": 0.01200512005946732,
+      "class_1_positive_pairs": 5,
+      "class_1_coverage_ge_0_05_pairs": 6,
+      "class_2_mean_precision_improvement": 0.013930569028084946,
+      "class_2_positive_pairs": 3,
+      "class_2_coverage_ge_0_05_pairs": 6
+    },
+    "A2_partition": {
+      "passed": false,
+      "class_1_median_stable_minus_plastic_precision": 0.016334234486705568,
+      "class_2_median_stable_minus_plastic_precision": 0.11497806324017079
+    },
+    "A3_spatial": {
+      "passed": true,
+      "class_1_boundary_to_interior_ratio": 0.5537445587288332,
+      "class_2_boundary_to_interior_ratio": 0.4501891158483996
+    },
+    "B_feature_separation": {
+      "passed": true,
+      "comparison_count": 24,
+      "median_stable_minus_plastic_cosine": 0.14204654722325222,
+      "stable_distance_le_plastic_fraction": 0.7916666666666666
+    },
+    "B_gradient_scale": {
+      "passed": true,
+      "row_count": 192,
+      "median_ratio": 0.367363635541904,
+      "p10_ratio": 0.08489559281742838,
+      "p90_ratio": 1.3139548241491081,
+      "nonfinite_count": 0,
+      "old_model_gradient_all_zero": true
+    },
+    "C_virtual": {
+      "row_count": 1152,
+      "previous_gate_passed": true,
+      "current_safety_gate_passed": true,
+      "targeting_and_complementarity_gate_passed": false,
+      "paired_s3_better_than_s1_previous_fraction": 0.859375
+    }
+  },
+  "tests": {
+    "targeted": "9 passed",
+    "project_regression": "204 passed in 17.31s"
+  },
+  "unexecuted": [
+    "training_method_registration",
+    "training_configs",
+    "S0_equivalence",
+    "optimizer_S0_to_S5_pilots",
+    "seed1_independent_pilot",
+    "seed0_full",
+    "mask_shuffle",
+    "multiseed_training",
+    "training_cost_analysis",
+    "external_JASCL_baseline",
+    "Prostate",
+    "M_and_Ms"
+  ],
+  "canonical_feasibility_report_sha256": "dc1b45e0db8833239b35a8e80317fec40013c7276610b13abcc2d849d6586502"
+}

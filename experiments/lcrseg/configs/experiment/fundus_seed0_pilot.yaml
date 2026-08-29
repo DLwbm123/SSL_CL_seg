@@ -1,0 +1,21 @@
+experiment:
+  seed: 0
+  deterministic: true
+  final_checkpoint_only: true
+data:
+  dataset: fundus
+  site_order: [REFUGE, RIM_ONE_r3, Drishti_GS]
+  evaluation_sites: [REFUGE, RIM_ONE_r3, Drishti_GS]
+  evaluation_role: val
+  preprocess_version: v1
+  require_readonly: true
+training:
+  epochs_per_site: 5
+  labeled_batch_size: 2
+  unlabeled_batch_size: 4
+  lr: 0.0005
+  weight_decay: 0.00001
+  amp: true
+  amp_init_scale: 1024.0
+  checkpoint_interval_steps: 100
+  gradient_cosine_interval: 100

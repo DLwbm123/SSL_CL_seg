@@ -1,0 +1,103 @@
+{
+  "protocol_id": "sparcseg_v0_1",
+  "seed": 2,
+  "status": "SPARC_VISIBLE_FEASIBILITY_COMPLETE",
+  "optimizer_steps": 0,
+  "hidden_gt_usage": "none",
+  "transitions": [
+    {
+      "transition": "REFUGE->RIM_ONE_r3",
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site0_REFUGE.pt",
+      "old_checkpoint_sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "current_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+      "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed2/prototype_bundle_0_1.pt",
+      "prototype_bundle_sha256": "71ef9447fb8201e5e2f71821c266d8bcf1b61e8703edefef2e56800bfaa2c778",
+      "current_prototype_case_counts": [
+        16,
+        16,
+        16
+      ],
+      "previous_prototype_case_counts": [
+        16,
+        16,
+        16
+      ],
+      "current_prototype_pixel_counts": [
+        133698,
+        9843,
+        3915
+      ],
+      "previous_prototype_pixel_counts": [
+        133698,
+        9843,
+        3915
+      ],
+      "current_prototype_source_case_ids_sha256": "fcff4f141edefe63173c806b87b14db74c214c22f6c9573204ea0ed9b4c6fb57",
+      "previous_prototype_source_case_ids_sha256": "fcff4f141edefe63173c806b87b14db74c214c22f6c9573204ea0ed9b4c6fb57",
+      "update_batch_manifest_sha256": "d7330cc05de3a8978d6bf4722de9bb5fe6cc129bbd080cf3d31a1cf63fc69dad",
+      "model_sha256_before": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+      "model_sha256_after": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+      "old_model_sha256_before": "d954cc2be99bb2b075b453eb7e80ff723ee04b9a729e64e1d51e03c1c8a4abf6",
+      "old_model_sha256_after": "d954cc2be99bb2b075b453eb7e80ff723ee04b9a729e64e1d51e03c1c8a4abf6",
+      "previous_val_batches": 16,
+      "current_val_batches": 16
+    },
+    {
+      "transition": "RIM_ONE_r3->Drishti_GS",
+      "old_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site1_RIM_ONE_r3.pt",
+      "old_checkpoint_sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093",
+      "current_checkpoint": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e/checkpoint_final_site2_Drishti_GS.pt",
+      "current_checkpoint_sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283",
+      "prototype_bundle": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/sparcseg_v0_1/seed2/prototype_bundle_1_2.pt",
+      "prototype_bundle_sha256": "59dd4f93b1900ddc52ea7366f908b9d52b103d2f8e3b6bc5b02e5a55b64c75ee",
+      "current_prototype_case_counts": [
+        10,
+        10,
+        10
+      ],
+      "previous_prototype_case_counts": [
+        10,
+        10,
+        10
+      ],
+      "current_prototype_pixel_counts": [
+        78385,
+        8055,
+        5720
+      ],
+      "previous_prototype_pixel_counts": [
+        78385,
+        8055,
+        5720
+      ],
+      "current_prototype_source_case_ids_sha256": "75a6ece19ed6f0bcdb8b5d70e0e11a09ba66d066a885e2c0c9dceaa0266a2efd",
+      "previous_prototype_source_case_ids_sha256": "75a6ece19ed6f0bcdb8b5d70e0e11a09ba66d066a885e2c0c9dceaa0266a2efd",
+      "update_batch_manifest_sha256": "ea9b339a3552817f4520dc429d2ed688a362f340a8f87c0a2317cc9a630cd942",
+      "model_sha256_before": "13c70778c9abfa6914a17b7ed3a539d3ee817385c9e19e7458d37b62e1fc2f4c",
+      "model_sha256_after": "13c70778c9abfa6914a17b7ed3a539d3ee817385c9e19e7458d37b62e1fc2f4c",
+      "old_model_sha256_before": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+      "old_model_sha256_after": "10f51539b78324602bf52ccef7c8af3b263a8a995c1715770532517de33527df",
+      "previous_val_batches": 16,
+      "current_val_batches": 16
+    }
+  ],
+  "gradient_rows": 64,
+  "virtual_rows": 384,
+  "batch_manifest_sha256": "7d37ad4bfd57847b26d3e18854a441bcb1946d929a1977782068e07d357a7832",
+  "environment": {
+    "physical_gpu": 7,
+    "cuda_visible_devices": "7",
+    "torch_device": "cuda",
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "cuda": "12.1",
+    "cudnn": 8902,
+    "uuid": "GPU-885f8cbc-d6bd-3ba9-f65d-a34373a93c0c",
+    "name": "NVIDIA GeForce RTX 3090",
+    "driver": "580.173.02"
+  },
+  "training_manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+  "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+  "workspace_hash": "8fc9da4a12ae535bc0a1b25142fbbc75e42d0afd842782a0f30dc22e8903e66b"
+}

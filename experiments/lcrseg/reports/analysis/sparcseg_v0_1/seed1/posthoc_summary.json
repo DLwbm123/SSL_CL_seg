@@ -1,0 +1,45 @@
+{
+  "protocol_id": "sparcseg_v0_1",
+  "seed": 1,
+  "status": "SPARC_POSTHOC_FEASIBILITY_COMPLETE",
+  "optimizer_steps": 0,
+  "hidden_gt_usage": "independent_post_hoc_metrics_only",
+  "training_objective_hidden_gt_usage": "none",
+  "transitions": [
+    {
+      "transition": "REFUGE->RIM_ONE_r3",
+      "prototype_bundle_sha256": "9ab19022db44601a14668227c62ebf2c7d469c7d6502087055358f0adf399b46",
+      "prototype_bundle_matches_visible": true,
+      "posthoc_unlabeled_manifest_sha256": "86e82638e51dcc1a75f94ea1ea722a3e674d8f1fa683dd4eb8ba51b92f2011a0",
+      "visible_update_manifest_sha256": "51f2d95ac4368b85a0c4c25f3b6460d8b1fe8638f22070dd5be7b5922c11b25f",
+      "image_max_abs_vs_training_view": 0.0,
+      "hidden_gt_usage": "post_hoc_metrics_only"
+    },
+    {
+      "transition": "RIM_ONE_r3->Drishti_GS",
+      "prototype_bundle_sha256": "9446c0faaa872c88f41ffc257b1da5355d9786fe2734328cd8d1b1e55b226221",
+      "prototype_bundle_matches_visible": true,
+      "posthoc_unlabeled_manifest_sha256": "0c1beb9cb13d4519899e9c5dee522971a33ba3a7a96bcb9e640363ea0bfe430c",
+      "visible_update_manifest_sha256": "b86e811ae79b782bf31ffb5fecae7e07af15cfc0e14ad8f4974bb23cbf244920",
+      "image_max_abs_vs_training_view": 0.0,
+      "hidden_gt_usage": "post_hoc_metrics_only"
+    }
+  ],
+  "prototype_rows": 24,
+  "partition_rows": 18,
+  "feature_rows": 84,
+  "environment": {
+    "physical_gpu": 6,
+    "cuda_visible_devices": "6",
+    "torch_device": "cuda",
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "cuda": "12.1",
+    "cudnn": 8902,
+    "uuid": "GPU-07e6f403-f306-3fc3-709a-37c245743ee3",
+    "name": "NVIDIA GeForce RTX 3090",
+    "driver": "580.173.02"
+  },
+  "diagnostics_manifest_sha256": "195c33a6d3893d45c4d46d31d537d9c7f841dab328f04d5e891f3e4dbb61d93e",
+  "workspace_hash": "e53e37911f56c8ab3acc12399858f3672c7e7b2911113726b080750edf1287c5"
+}

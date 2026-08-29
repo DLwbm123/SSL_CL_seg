@@ -1,0 +1,13 @@
+# User-authorized raw grayscale convention: 255 background, 128 disc rim, 0 cup.
+status: FROZEN_USER_AUTHORIZED_V1
+confirmed: true
+allowed_raw_values: [0, 128, 255]
+mapping:
+  255: 0
+  128: 1
+  0: 2
+class_names:
+  0: background
+  1: optic_disc_rim
+  2: optic_cup
+decision_source: CODEX_PROMPT_COMPLETE_LCRSEG_PREPROCESSING.md

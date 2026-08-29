@@ -1,0 +1,2079 @@
+{
+  "protocol_id": "lcrseg_v0_4_failure_audit",
+  "generated_at": "2026-08-28T02:55:15Z",
+  "v0_3_status": "FUNDUS_V0_3_INTERNAL_GATE_FAILED",
+  "v0_3_failure_level": "research_not_engineering",
+  "r2_r3_status": "frozen_negative_results",
+  "v0_4_mode": "diagnostic_first",
+  "internal_gate": {
+    "protocol_id": "lcrseg_v0_3",
+    "status": "FUNDUS_V0_3_INTERNAL_GATE_FAILED",
+    "internal_gate_passed": false,
+    "paired_summary": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "metrics": {
+        "final_average_dice": {
+          "mean": -0.0022128272271618363,
+          "std": 0.010769371344051993,
+          "positive_direction_count": 2,
+          "nonnegative_direction_count": 2
+        },
+        "bwt": {
+          "mean": -0.009276990747415467,
+          "std": 0.01123464389686278,
+          "positive_direction_count": 1,
+          "nonnegative_direction_count": 1
+        },
+        "incoming_dice": {
+          "mean": 0.003971833271115055,
+          "std": 0.01121285514454871,
+          "positive_direction_count": 2,
+          "nonnegative_direction_count": 2
+        },
+        "previous_site_dice": {
+          "mean": -0.005539645531946635,
+          "std": 0.010633324985545936,
+          "positive_direction_count": 1,
+          "nonnegative_direction_count": 1
+        }
+      }
+    },
+    "metric_thresholds": {
+      "mean_delta_final": false,
+      "mean_delta_bwt": false,
+      "mean_delta_incoming": true,
+      "mean_delta_previous": false,
+      "final_positive_2_of_3": true,
+      "previous_positive_2_of_3": false,
+      "bwt_nonnegative_2_of_3": false
+    },
+    "class_mean_deltas": {
+      "1": 0.0025014496419103346,
+      "2": -0.006927104096234179
+    },
+    "site_class_mean_deltas": {
+      "Drishti_GS:class_1": 0.03874053988791241,
+      "Drishti_GS:class_2": -0.0066803454670313345,
+      "REFUGE:class_1": -0.02535844307625279,
+      "REFUGE:class_2": -0.006794713531978247,
+      "RIM_ONE_r3:class_1": -0.005877747885928615,
+      "RIM_ONE_r3:class_2": -0.007306253289692958
+    },
+    "class_thresholds": {
+      "optic_disc_rim_mean_delta_ge_minus_0_010": true,
+      "optic_cup_mean_delta_ge_minus_0_010": true,
+      "no_site_class_cross_seed_mean_drop_gt_0_015": false
+    },
+    "coverage": {
+      "0": {
+        "groups": 1764,
+        "maximum_absolute_error": 0.022192341805378768,
+        "passed": true
+      },
+      "1": {
+        "groups": 1764,
+        "maximum_absolute_error": 0.0035437881122510895,
+        "passed": true
+      },
+      "2": {
+        "groups": 1763,
+        "maximum_absolute_error": 0.022553170728460636,
+        "passed": true
+      }
+    },
+    "coverage_passed": true,
+    "admission_gate": {
+      "1": {
+        "class_name": "optic_disc_rim",
+        "per_seed_accuracy_gap": [
+          0.04944304210799422,
+          0.043790108813683726,
+          0.041537203458225314
+        ],
+        "strictly_positive_seed_count": 3,
+        "mean_accuracy_gap": 0.044923451459967755,
+        "direction_passed": true,
+        "magnitude_passed": true
+      },
+      "2": {
+        "class_name": "optic_cup",
+        "per_seed_accuracy_gap": [
+          0.05029657274962873,
+          0.04338061727745024,
+          0.05030303978528328
+        ],
+        "strictly_positive_seed_count": 3,
+        "mean_accuracy_gap": 0.04799340993745408,
+        "direction_passed": true,
+        "magnitude_passed": true
+      }
+    },
+    "mechanism_passed": true,
+    "run_directories": {
+      "seed0_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+      "seed0_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r1_progressive_uniform_full200e",
+      "seed1_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e",
+      "seed1_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r1_progressive_uniform_full200e",
+      "seed2_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e",
+      "seed2_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r1_progressive_uniform_full200e"
+    }
+  },
+  "v0_3_completion": {
+    "protocol_id": "lcrseg_v0_3",
+    "status": "FUNDUS_V0_3_INTERNAL_GATE_FAILED",
+    "internal_gate_passed": false,
+    "paired_summary": {
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "metrics": {
+        "final_average_dice": {
+          "mean": -0.0022128272271618363,
+          "std": 0.010769371344051993,
+          "positive_direction_count": 2,
+          "nonnegative_direction_count": 2
+        },
+        "bwt": {
+          "mean": -0.009276990747415467,
+          "std": 0.01123464389686278,
+          "positive_direction_count": 1,
+          "nonnegative_direction_count": 1
+        },
+        "incoming_dice": {
+          "mean": 0.003971833271115055,
+          "std": 0.01121285514454871,
+          "positive_direction_count": 2,
+          "nonnegative_direction_count": 2
+        },
+        "previous_site_dice": {
+          "mean": -0.005539645531946635,
+          "std": 0.010633324985545936,
+          "positive_direction_count": 1,
+          "nonnegative_direction_count": 1
+        }
+      }
+    },
+    "metric_thresholds": {
+      "mean_delta_final": false,
+      "mean_delta_bwt": false,
+      "mean_delta_incoming": true,
+      "mean_delta_previous": false,
+      "final_positive_2_of_3": true,
+      "previous_positive_2_of_3": false,
+      "bwt_nonnegative_2_of_3": false
+    },
+    "class_mean_deltas": {
+      "1": 0.0025014496419103346,
+      "2": -0.006927104096234179
+    },
+    "site_class_mean_deltas": {
+      "Drishti_GS:class_1": 0.03874053988791241,
+      "Drishti_GS:class_2": -0.0066803454670313345,
+      "REFUGE:class_1": -0.02535844307625279,
+      "REFUGE:class_2": -0.006794713531978247,
+      "RIM_ONE_r3:class_1": -0.005877747885928615,
+      "RIM_ONE_r3:class_2": -0.007306253289692958
+    },
+    "class_thresholds": {
+      "optic_disc_rim_mean_delta_ge_minus_0_010": true,
+      "optic_cup_mean_delta_ge_minus_0_010": true,
+      "no_site_class_cross_seed_mean_drop_gt_0_015": false
+    },
+    "coverage": {
+      "0": {
+        "groups": 1764,
+        "maximum_absolute_error": 0.022192341805378768,
+        "passed": true
+      },
+      "1": {
+        "groups": 1764,
+        "maximum_absolute_error": 0.0035437881122510895,
+        "passed": true
+      },
+      "2": {
+        "groups": 1763,
+        "maximum_absolute_error": 0.022553170728460636,
+        "passed": true
+      }
+    },
+    "coverage_passed": true,
+    "admission_gate": {
+      "1": {
+        "class_name": "optic_disc_rim",
+        "per_seed_accuracy_gap": [
+          0.04944304210799422,
+          0.043790108813683726,
+          0.041537203458225314
+        ],
+        "strictly_positive_seed_count": 3,
+        "mean_accuracy_gap": 0.044923451459967755,
+        "direction_passed": true,
+        "magnitude_passed": true
+      },
+      "2": {
+        "class_name": "optic_cup",
+        "per_seed_accuracy_gap": [
+          0.05029657274962873,
+          0.04338061727745024,
+          0.05030303978528328
+        ],
+        "strictly_positive_seed_count": 3,
+        "mean_accuracy_gap": 0.04799340993745408,
+        "direction_passed": true,
+        "magnitude_passed": true
+      }
+    },
+    "mechanism_passed": true,
+    "run_directories": {
+      "seed0_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+      "seed0_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r1_progressive_uniform_full200e",
+      "seed1_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e",
+      "seed1_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r1_progressive_uniform_full200e",
+      "seed2_R0": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e",
+      "seed2_R1": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r1_progressive_uniform_full200e"
+    },
+    "hard_stop": true,
+    "conditional_baselines_executed": false,
+    "external_fundus_gate_evaluated": false,
+    "p0_seeds_1_2_executed": false,
+    "bootstrap_executed": false,
+    "prostate_executed": false,
+    "unexecuted_due_to_internal_gate": [
+      "Sequential-SSL seeds 1 and 2",
+      "Uniform-KD seeds 1 and 2",
+      "external Fundus gate",
+      "P0 seeds 1 and 2",
+      "patient-level bootstrap",
+      "Prostate RUNMC to BMC pilot"
+    ],
+    "p0_seed0_completion": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/experiment_status/V0_3_P0_SEED0_COMPLETION.json",
+    "admission_analysis": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/v0_3/fundus_admission_analysis.csv"
+  },
+  "runs": {
+    "R0_seed0": {
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+      "summary": {
+        "generated_at": "2026-08-19T20:42:00.003961+00:00",
+        "status": "complete",
+        "method": "lcrseg_v0_1",
+        "dataset": "fundus",
+        "seed": 0,
+        "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_uniform_relation_kd_full200e",
+        "summary": {
+          "trained_sites": [
+            "REFUGE",
+            "RIM_ONE_r3",
+            "Drishti_GS"
+          ],
+          "incoming_dice": 0.7340801936114051,
+          "final_average_dice": 0.6551054533448878,
+          "bwt": -0.11846211039977567,
+          "previous_site_dice": 0.6759458886019506,
+          "unseen_site_dice": null
+        },
+        "completed_global_steps": 13400,
+        "manifest_hash": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+        "split_hash": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88"
+      },
+      "tree_sha256": "4029d075eb549e1053bd9dd64ecd2408f5c3f6dc78c9e3777a9a93fedbd3fd10",
+      "artifact_count": 27,
+      "artifact_hashes": [
+        {
+          "path": "analysis/compatibility_bins.csv",
+          "size": 24,
+          "sha256": "25aef0e54cae45bedf1fdb04431f2477e42cb440ea912b2698e35888195007de"
+        },
+        {
+          "path": "analysis/gradient_cosine.csv",
+          "size": 522,
+          "sha256": "aab5fac7bb1af1e0ba3d0d046c4dc65a8de42ddf40d3eccdeb0b0fb0184d2bdf"
+        },
+        {
+          "path": "analysis/learnability_bins.csv",
+          "size": 27,
+          "sha256": "8d882ada4b7c0ff12a9b73425876893227438941f9dd3ad216fcfb1c6fe18967"
+        },
+        {
+          "path": "analysis/pseudo_source_counts.csv",
+          "size": 78,
+          "sha256": "32fa735bcabc1f0b37e85d3148b7bed51e41d56c02c09a8aa0213bde88ce32e6"
+        },
+        {
+          "path": "analysis/quadrant_stats.csv",
+          "size": 117,
+          "sha256": "ced17c2ea8551b174b7389ed30c966cfd29b810845d89451e1f48e73138d1067"
+        },
+        {
+          "path": "analysis/reliability_histograms.csv",
+          "size": 472,
+          "sha256": "5748b0896cfab113945bfe83216e9ddcab06a39c87ddf09e5568b42393a3553b"
+        },
+        {
+          "path": "checkpoint_final.pt",
+          "size": 8526177,
+          "sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 7161554,
+          "sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 8655265,
+          "sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 8526177,
+          "sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 8468871,
+          "sha256": "ae464c61f32b2832d5c58ce064e4d88a3f088217e60d5f66095aee0b57d18bc0"
+        },
+        {
+          "path": "command.txt",
+          "size": 367,
+          "sha256": "e7e06440da949901c9583872e08b631f1e6532a104e5875bf210530c15ade6b3"
+        },
+        {
+          "path": "config.yaml",
+          "size": 2300,
+          "sha256": "4bdbeb5f98ff8be2f73c3c9078313f65ca97e43d66e918676920e2af8e1f4c87"
+        },
+        {
+          "path": "environment.txt",
+          "size": 93,
+          "sha256": "cf6c1633d9185c6fe3d5dd8f86b4c2031bdf6c27b15393752c484afc45b6f084"
+        },
+        {
+          "path": "git_commit.txt",
+          "size": 16,
+          "sha256": "19dc4d55c265a9d92850717f2b137e0abb7951bf7b0d974d3f58ed8091d4e7a3"
+        },
+        {
+          "path": "manifest_hash.txt",
+          "size": 65,
+          "sha256": "0da7ec6f649e93ecc34ee8e429413777374db9e3e0f309d8c89a2f69ea9afb34"
+        },
+        {
+          "path": "per_case_metrics.csv",
+          "size": 112404,
+          "sha256": "d5bd7a92b9835f283c2531f17d6fdd4fe1e94e400ef7fa3cf05d3fbd30b5092c"
+        },
+        {
+          "path": "run_summary.json",
+          "size": 746,
+          "sha256": "16ee3623942644484ec5d42dd0ddcf6f921a8aceca6144f15a6f9d0182fc4cae"
+        },
+        {
+          "path": "site_matrix_asd.csv",
+          "size": 240,
+          "sha256": "828bfa84ed3e2072849033951115fb2233a89b0851b7954bd4e3996da74d3a49"
+        },
+        {
+          "path": "site_matrix_dice.csv",
+          "size": 247,
+          "sha256": "aa3d27db85a856789703f6e1b9b39b4ece46543767b7b6862231763569db2985"
+        },
+        {
+          "path": "site_matrix_hd95.csv",
+          "size": 244,
+          "sha256": "b4b443862a673a229586cf02a3fb4f4c402f5505283b3b8ead6ffe9319e8a990"
+        },
+        {
+          "path": "site_matrix_long.csv",
+          "size": 2028,
+          "sha256": "75910ca96258d1ef76013eaec7fd8327251a44424f39b2260291d359357ead2a"
+        },
+        {
+          "path": "site_summary_0_REFUGE.json",
+          "size": 1110,
+          "sha256": "4b5caf590bf0e151ac2561e3d143e8bd1064d73545558f42230615ce52a74e4e"
+        },
+        {
+          "path": "site_summary_1_RIM_ONE_r3.json",
+          "size": 1157,
+          "sha256": "22066a89c980258aec8c1c5352f28d535faa15bce69dedf6333382488371e5b3"
+        },
+        {
+          "path": "site_summary_2_Drishti_GS.json",
+          "size": 1158,
+          "sha256": "262cfd9411f76ba79f3c12422595f320248fb825f5ffb369aa1646169c81292b"
+        },
+        {
+          "path": "split_hash.txt",
+          "size": 65,
+          "sha256": "e0d56421d47ba517ce997efca8354c068e84f080479d92a6f2755043f55efbe3"
+        },
+        {
+          "path": "train_log.csv",
+          "size": 4786562,
+          "sha256": "551520bec706125c8c1b4c50c2970a5d1956abc36118351e07b02ef1a38df76b"
+        }
+      ],
+      "checkpoint_hashes": [
+        {
+          "path": "checkpoint_final.pt",
+          "size": 8526177,
+          "sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 7161554,
+          "sha256": "609410775b56f073bddecf4a482667bdcc7be31deb29e71d9a74931303f197bb"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 8655265,
+          "sha256": "1e7f0aad58c4e734d38899cc6be327494a4e762ab7889ec57c16c19cc33bf660"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 8526177,
+          "sha256": "82aae753208cf94e832ae80a1f5336c4238dbd6ba7845ab7e2e4ce857d8d339d"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 8468871,
+          "sha256": "ae464c61f32b2832d5c58ce064e4d88a3f088217e60d5f66095aee0b57d18bc0"
+        }
+      ]
+    },
+    "R1_seed0": {
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r1_progressive_uniform_full200e",
+      "summary": {
+        "generated_at": "2026-08-27T11:22:34.891386+00:00",
+        "status": "complete",
+        "method": "lcrseg_v0_2a",
+        "dataset": "fundus",
+        "seed": 0,
+        "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_2a_r1_progressive_uniform_full200e",
+        "summary": {
+          "trained_sites": [
+            "REFUGE",
+            "RIM_ONE_r3",
+            "Drishti_GS"
+          ],
+          "incoming_dice": 0.7391770471542044,
+          "final_average_dice": 0.6616491375160981,
+          "bwt": -0.1162918644571595,
+          "previous_site_dice": 0.6826418676928568,
+          "unseen_site_dice": null
+        },
+        "completed_global_steps": 13400,
+        "manifest_hash": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+        "split_hash": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+        "protocol_id": "lcrseg_v0_2a",
+        "variant_id": "R1"
+      },
+      "tree_sha256": "320f81bff1663c60c06c0b98b3dfcf3bab4d8688201ac8661f0421a216f379da",
+      "artifact_count": 33,
+      "artifact_hashes": [
+        {
+          "path": "analysis/compatibility_bins.csv",
+          "size": 24,
+          "sha256": "25aef0e54cae45bedf1fdb04431f2477e42cb440ea912b2698e35888195007de"
+        },
+        {
+          "path": "analysis/gradient_cosine.csv",
+          "size": 528,
+          "sha256": "42670bd74851736ede7a89856b62559d59a3c53d4ce73b6214d0f6234db3b788"
+        },
+        {
+          "path": "analysis/learnability_bins.csv",
+          "size": 27,
+          "sha256": "8d882ada4b7c0ff12a9b73425876893227438941f9dd3ad216fcfb1c6fe18967"
+        },
+        {
+          "path": "analysis/pseudo_source_counts.csv",
+          "size": 78,
+          "sha256": "11faf4cc82a9bc429d4ced619efdfa988252096be81754a10781898bfcbbc27f"
+        },
+        {
+          "path": "analysis/quadrant_stats.csv",
+          "size": 117,
+          "sha256": "e4a323937b8fe96f91a60c427a926f35c2da872f11e8cdfdc32b74ed94d0263a"
+        },
+        {
+          "path": "analysis/reliability_histograms.csv",
+          "size": 571,
+          "sha256": "5101104e1e43b5b3dd71309015d3f425e1a84e4075f019aff185078989d85f20"
+        },
+        {
+          "path": "branch_coverage.csv",
+          "size": 5634928,
+          "sha256": "1e72705bec0c770660fe37f3adfeb1cdbb8a8ad32bd6466b6fb14a2e1ae6386b"
+        },
+        {
+          "path": "branch_statistics_site0_REFUGE.json",
+          "size": 1391,
+          "sha256": "7f923a4784032029dc6049dc75709e4ce8f7223b97cf5fec819a72781d3d5644"
+        },
+        {
+          "path": "branch_statistics_site1_RIM_ONE_r3.json",
+          "size": 1402,
+          "sha256": "70fb854cb3e169af31653d9168bd52b3e38a98fb6ad0a1645233fcc2045b2d29"
+        },
+        {
+          "path": "branch_statistics_site2_Drishti_GS.json",
+          "size": 1399,
+          "sha256": "4cfa79311658711e77ac0f88ebc4f83f23e32bf2586cdc20893476a6da11931d"
+        },
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9457953,
+          "sha256": "657c74349ebbca8ee5fb9e0197f8ed8c8987782d9947cff308e003d5894ec853"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10517330,
+          "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10008929,
+          "sha256": "ab53213f9c9b5c7e7e48f1b8bc751f45ca55ad24937093d97f7f491b6cc30b6b"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9457953,
+          "sha256": "657c74349ebbca8ee5fb9e0197f8ed8c8987782d9947cff308e003d5894ec853"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9231623,
+          "sha256": "4fc3c5d5f96a90d7ee61b5a04e911089da3d558445cc2f2cb9a9cd292f7b4b4e"
+        },
+        {
+          "path": "command.txt",
+          "size": 82,
+          "sha256": "37cb1f12b74eb773ca8d9c9fb3ee8f4b8cf28e71ec2fe5b8f7cb3d66c1b4ab02"
+        },
+        {
+          "path": "config.yaml",
+          "size": 3694,
+          "sha256": "534357dd3f6d3582609ea98f727ee2bfdc35d8cf7cb3e3211bf423cab571b30f"
+        },
+        {
+          "path": "environment.txt",
+          "size": 184,
+          "sha256": "c746869f931b52db451228114c25a65c0967f11628b5fde5221a5359b4a599a2"
+        },
+        {
+          "path": "git_commit.txt",
+          "size": 16,
+          "sha256": "19dc4d55c265a9d92850717f2b137e0abb7951bf7b0d974d3f58ed8091d4e7a3"
+        },
+        {
+          "path": "manifest_hash.txt",
+          "size": 65,
+          "sha256": "0da7ec6f649e93ecc34ee8e429413777374db9e3e0f309d8c89a2f69ea9afb34"
+        },
+        {
+          "path": "parent_artifact.json",
+          "size": 287,
+          "sha256": "9ae90dd89791e5ea50adb8a514fa1ad981497e579ebeafd22142441d5585e1c4"
+        },
+        {
+          "path": "per_case_metrics.csv",
+          "size": 113091,
+          "sha256": "0ffbd2a11a781a9e68c29c922742b7726b906569ac8332588830d03e6235c304"
+        },
+        {
+          "path": "protocol.json",
+          "size": 946,
+          "sha256": "04d8993780ceff5fedb199c01547a92d382138994d84ad99fe50148ddc84ab1e"
+        },
+        {
+          "path": "run_summary.json",
+          "size": 810,
+          "sha256": "409885ccd5b5bd8f3db5e565b6fb311d58ccc2f619baafa6dfc350c49ff05110"
+        },
+        {
+          "path": "site_matrix_asd.csv",
+          "size": 240,
+          "sha256": "61b57eb4b2713b62f9c6471778cbc77719ddb96460df48be0c1de7f26a3834e7"
+        },
+        {
+          "path": "site_matrix_dice.csv",
+          "size": 247,
+          "sha256": "e5f636ecabf184949c05c57f298e128f8569ed7c05fcc79453ba1d329f6adeab"
+        },
+        {
+          "path": "site_matrix_hd95.csv",
+          "size": 240,
+          "sha256": "ef0e3eebba64f01090a40b1bb93886e321e1629d9d7f71c98019c2f81bbe0940"
+        },
+        {
+          "path": "site_matrix_long.csv",
+          "size": 2024,
+          "sha256": "ef36bee2cb3b01c807e36b0d5e681336f9ec531d8627483bd9356b27b5aee98e"
+        },
+        {
+          "path": "site_summary_0_REFUGE.json",
+          "size": 2504,
+          "sha256": "d54f770a87f9e85466ac674d786e36dfca716db21920c154435da037c5c56c3b"
+        },
+        {
+          "path": "site_summary_1_RIM_ONE_r3.json",
+          "size": 2560,
+          "sha256": "ca1e9ecc032054e77f6f5f4ba37395ecee9ef7d98faa73f6a728cd83d9dc7688"
+        },
+        {
+          "path": "site_summary_2_Drishti_GS.json",
+          "size": 2557,
+          "sha256": "28f46a0ae01abdc155e5732abe4c63e1c3982c7304852d660bd1f8b0e5e60a9f"
+        },
+        {
+          "path": "split_hash.txt",
+          "size": 65,
+          "sha256": "e0d56421d47ba517ce997efca8354c068e84f080479d92a6f2755043f55efbe3"
+        },
+        {
+          "path": "train_log.csv",
+          "size": 7396125,
+          "sha256": "5de414b1a19b49e0be6d76f391bdfb9e9a621ddddc1536e32603493ba574310c"
+        }
+      ],
+      "checkpoint_hashes": [
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9457953,
+          "sha256": "657c74349ebbca8ee5fb9e0197f8ed8c8987782d9947cff308e003d5894ec853"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10517330,
+          "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10008929,
+          "sha256": "ab53213f9c9b5c7e7e48f1b8bc751f45ca55ad24937093d97f7f491b6cc30b6b"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9457953,
+          "sha256": "657c74349ebbca8ee5fb9e0197f8ed8c8987782d9947cff308e003d5894ec853"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9231623,
+          "sha256": "4fc3c5d5f96a90d7ee61b5a04e911089da3d558445cc2f2cb9a9cd292f7b4b4e"
+        }
+      ]
+    },
+    "P0_seed0": {
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_3_p0_progressive_norelation_full200e",
+      "summary": {
+        "generated_at": "2026-08-27T14:02:33.131444+00:00",
+        "status": "complete",
+        "method": "lcrseg_v0_3",
+        "dataset": "fundus",
+        "seed": 0,
+        "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed0_lcrseg_v0_3_p0_progressive_norelation_full200e",
+        "summary": {
+          "trained_sites": [
+            "REFUGE",
+            "RIM_ONE_r3",
+            "Drishti_GS"
+          ],
+          "incoming_dice": 0.7414770779172032,
+          "final_average_dice": 0.6101888640845982,
+          "bwt": -0.1969323207489076,
+          "previous_site_dice": 0.602428088128554,
+          "unseen_site_dice": null
+        },
+        "completed_global_steps": 13400,
+        "manifest_hash": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+        "split_hash": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+        "protocol_id": "lcrseg_v0_3",
+        "variant_id": "P0",
+        "completed_parent_steps": 8000,
+        "new_optimizer_steps": 5400,
+        "equivalent_full_run_steps": 13400
+      },
+      "tree_sha256": "f7846ab6de9a8410cc414857d4c75fed85e6929671b7f0064dea294c654b8de9",
+      "artifact_count": 40,
+      "artifact_hashes": [
+        {
+          "path": "admission_coverage.csv",
+          "size": 5445529,
+          "sha256": "e3b983e8e89d6ee464c7e505e334497c70caa957a25afa337cd69c0c95441d8f"
+        },
+        {
+          "path": "analysis/compatibility_bins.csv",
+          "size": 24,
+          "sha256": "25aef0e54cae45bedf1fdb04431f2477e42cb440ea912b2698e35888195007de"
+        },
+        {
+          "path": "analysis/gradient_cosine.csv",
+          "size": 62,
+          "sha256": "ebef34aef9bf2d88dc9c9be0ed457bded3503e964894a7f4f4fdb441c80af4f8"
+        },
+        {
+          "path": "analysis/learnability_bins.csv",
+          "size": 27,
+          "sha256": "8d882ada4b7c0ff12a9b73425876893227438941f9dd3ad216fcfb1c6fe18967"
+        },
+        {
+          "path": "analysis/pseudo_source_counts.csv",
+          "size": 76,
+          "sha256": "ff0fa325651676737b2e12cb3a306a00a65d8a1bd0c1e8573692fd09b4ec4c7c"
+        },
+        {
+          "path": "analysis/quadrant_stats.csv",
+          "size": 113,
+          "sha256": "01b5b396852e88e183713ceadfd7a3f42255ce65c785a1947d826ddfdc15adac"
+        },
+        {
+          "path": "analysis/reliability_histograms.csv",
+          "size": 551,
+          "sha256": "670dfff874abf81996fc6813f8e7f9685da1459998954d4e12421c81dba5bc51"
+        },
+        {
+          "path": "branch_coverage.csv",
+          "size": 5445529,
+          "sha256": "e3b983e8e89d6ee464c7e505e334497c70caa957a25afa337cd69c0c95441d8f"
+        },
+        {
+          "path": "branch_statistics_site1_RIM_ONE_r3.json",
+          "size": 1163,
+          "sha256": "b41ce2f6ef0abe809df67e9e69a05e57353acc107e976540ff0af50d47580ff8"
+        },
+        {
+          "path": "branch_statistics_site2_Drishti_GS.json",
+          "size": 1160,
+          "sha256": "553296ca627171a9215a43532fab2c1a02001049a09603d1fad98706907e60d7"
+        },
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9459041,
+          "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10517330,
+          "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10008545,
+          "sha256": "efb69230568e1a705eb1408e8724e66e924474aed8192cd3d0e9e7822eb326fb"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9459041,
+          "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9232647,
+          "sha256": "843ba443e35ddd044a1c93a81ca7a42a800a43ce3c7c58892f870dc35171b509"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10517330,
+          "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10008545,
+          "sha256": "efb69230568e1a705eb1408e8724e66e924474aed8192cd3d0e9e7822eb326fb"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9459041,
+          "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305"
+        },
+        {
+          "path": "command.txt",
+          "size": 298,
+          "sha256": "006629dfa63a0b4745e7d6565c2b7b911c90cd5f7a09375e135f554d002aa8a8"
+        },
+        {
+          "path": "config.yaml",
+          "size": 4262,
+          "sha256": "2ecd4ef5b348bc9a5cc0c85a963a5b3e059ee277e52ca24bc3a6bba11723f44a"
+        },
+        {
+          "path": "environment.txt",
+          "size": 184,
+          "sha256": "ed6b9a3e28a9c0f5eb32e2a2308b3e9fb04fa158f740dd4c526cd8b87f087cb1"
+        },
+        {
+          "path": "git_commit.txt",
+          "size": 16,
+          "sha256": "19dc4d55c265a9d92850717f2b137e0abb7951bf7b0d974d3f58ed8091d4e7a3"
+        },
+        {
+          "path": "inherited_artifacts.json",
+          "size": 1375,
+          "sha256": "4df00f858ac937d3614dcc198db6e3203db00d0c870c3acb6c3f36a8f9ea74e6"
+        },
+        {
+          "path": "manifest_hash.txt",
+          "size": 65,
+          "sha256": "0da7ec6f649e93ecc34ee8e429413777374db9e3e0f309d8c89a2f69ea9afb34"
+        },
+        {
+          "path": "manifest_sha256.txt",
+          "size": 65,
+          "sha256": "0da7ec6f649e93ecc34ee8e429413777374db9e3e0f309d8c89a2f69ea9afb34"
+        },
+        {
+          "path": "parent_artifact.json",
+          "size": 624,
+          "sha256": "9f0ce71b2bdbb568e923e13f213a150d843ccf733c4e3f7bf26f4537e00ff5eb"
+        },
+        {
+          "path": "per_case_metrics.csv",
+          "size": 113331,
+          "sha256": "31e6a89a18a60e82e7d4f00174ff36b89b7d75fbbc592fc6254c236441953e41"
+        },
+        {
+          "path": "per_class_metrics.csv",
+          "size": 1575,
+          "sha256": "fe595219ea049dd735e4ac2ee7890da33481f3cacc2c9d6f897aae7a390859ae"
+        },
+        {
+          "path": "protocol.json",
+          "size": 713,
+          "sha256": "44308e0caaba07f37c8f0fe7ae7ac26b6ad792150fa9e0dd3ae590b0e2cb3002"
+        },
+        {
+          "path": "run_summary.json",
+          "size": 912,
+          "sha256": "09e5dfa2bd8f5e5b521a5d8bc99d0a8e75a455d8f35bef22012fcbc071dabccb"
+        },
+        {
+          "path": "site_matrix_asd.csv",
+          "size": 240,
+          "sha256": "19c1abae9aac36e5517af35fcffe80c9791e40e41246be1406b6f9e360e2f137"
+        },
+        {
+          "path": "site_matrix_dice.csv",
+          "size": 247,
+          "sha256": "08f31127b8fd4ccb6da59f5691fbd2782c68ea15671256d6183d04dc5bbbb1a8"
+        },
+        {
+          "path": "site_matrix_hd95.csv",
+          "size": 239,
+          "sha256": "397e6f557cc4c45175990696a5a0a303c25cf68e9faac6e5b6b861f9729ba8f5"
+        },
+        {
+          "path": "site_matrix_long.csv",
+          "size": 2016,
+          "sha256": "8b6207c5042b3df3c9073b2b71451259399fd39a3446e9439860e590c4369c12"
+        },
+        {
+          "path": "site_summary_0_REFUGE.json",
+          "size": 2504,
+          "sha256": "d54f770a87f9e85466ac674d786e36dfca716db21920c154435da037c5c56c3b"
+        },
+        {
+          "path": "site_summary_1_RIM_ONE_r3.json",
+          "size": 2332,
+          "sha256": "cbaa72a761c833ceb42c8e91f211f26e0d5e48347bd1940acd8a31339aac35a7"
+        },
+        {
+          "path": "site_summary_2_Drishti_GS.json",
+          "size": 2317,
+          "sha256": "f9e0441af445251a9c3ebb4acadf75de70ebd597d5b7164ec32ae3a0818f6a30"
+        },
+        {
+          "path": "split_hash.txt",
+          "size": 65,
+          "sha256": "e0d56421d47ba517ce997efca8354c068e84f080479d92a6f2755043f55efbe3"
+        },
+        {
+          "path": "split_sha256.txt",
+          "size": 65,
+          "sha256": "e0d56421d47ba517ce997efca8354c068e84f080479d92a6f2755043f55efbe3"
+        },
+        {
+          "path": "train_log.csv",
+          "size": 3208978,
+          "sha256": "abd516eb5e5e4c570808f0e6fdfbd829d2008686f6b944af009927c51a974b89"
+        }
+      ],
+      "checkpoint_hashes": [
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9459041,
+          "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10517330,
+          "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10008545,
+          "sha256": "efb69230568e1a705eb1408e8724e66e924474aed8192cd3d0e9e7822eb326fb"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9459041,
+          "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9232647,
+          "sha256": "843ba443e35ddd044a1c93a81ca7a42a800a43ce3c7c58892f870dc35171b509"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10517330,
+          "sha256": "9bdadf34a5a32d936b14cfff3f4c9ffa2ee62c5f24142ca12b4a3b9815c46b32"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10008545,
+          "sha256": "efb69230568e1a705eb1408e8724e66e924474aed8192cd3d0e9e7822eb326fb"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9459041,
+          "sha256": "c8c7f0a5ff812a699c34e392d840975a0ffee628d8946c4317ac108c86f83305"
+        }
+      ]
+    },
+    "R0_seed1": {
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e",
+      "summary": {
+        "generated_at": "2026-08-27T14:58:53.059586+00:00",
+        "status": "complete",
+        "method": "lcrseg_v0_3",
+        "dataset": "fundus",
+        "seed": 1,
+        "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r0_legacy_uniform_full200e",
+        "summary": {
+          "trained_sites": [
+            "REFUGE",
+            "RIM_ONE_r3",
+            "Drishti_GS"
+          ],
+          "incoming_dice": 0.7524641290290518,
+          "final_average_dice": 0.6740484328959672,
+          "bwt": -0.1176235441996269,
+          "previous_site_dice": 0.6528927820226977,
+          "unseen_site_dice": null
+        },
+        "completed_global_steps": 13400,
+        "manifest_hash": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+        "split_hash": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+        "protocol_id": "lcrseg_v0_3",
+        "variant_id": "R0",
+        "completed_parent_steps": 0,
+        "new_optimizer_steps": 13400,
+        "equivalent_full_run_steps": 13400
+      },
+      "tree_sha256": "2609907b7260c50b2e191089ac579e519b3f9770a37053d5057a1c78d9c67362",
+      "artifact_count": 40,
+      "artifact_hashes": [
+        {
+          "path": "admission_coverage.csv",
+          "size": 3776934,
+          "sha256": "561df941a01eaf902630d1d94c0dc6fad1948d69226137449ad13784f575a9da"
+        },
+        {
+          "path": "analysis/compatibility_bins.csv",
+          "size": 24,
+          "sha256": "25aef0e54cae45bedf1fdb04431f2477e42cb440ea912b2698e35888195007de"
+        },
+        {
+          "path": "analysis/gradient_cosine.csv",
+          "size": 526,
+          "sha256": "7b01c5351206ecbb84ae8ae63f3aeae6ffb4dcd9661d788b9cd1f1586af6b663"
+        },
+        {
+          "path": "analysis/learnability_bins.csv",
+          "size": 27,
+          "sha256": "8d882ada4b7c0ff12a9b73425876893227438941f9dd3ad216fcfb1c6fe18967"
+        },
+        {
+          "path": "analysis/pseudo_source_counts.csv",
+          "size": 77,
+          "sha256": "fb9c88f85fe1d4fb5bdc9bb18c40e1202239b9330f3d4fc85ec0bdc2c115ef18"
+        },
+        {
+          "path": "analysis/quadrant_stats.csv",
+          "size": 117,
+          "sha256": "3efcfccbb0a9e2f17e17715a105ca91d2d668681976612a016cdec557a1809d3"
+        },
+        {
+          "path": "analysis/reliability_histograms.csv",
+          "size": 560,
+          "sha256": "61bee0d0b98da292430ac7059b7ba3470741acb0befedd6cac88620c4ae119c3"
+        },
+        {
+          "path": "branch_coverage.csv",
+          "size": 3776934,
+          "sha256": "561df941a01eaf902630d1d94c0dc6fad1948d69226137449ad13784f575a9da"
+        },
+        {
+          "path": "branch_statistics_site0_REFUGE.json",
+          "size": 1164,
+          "sha256": "789ebd8b9b6121ebf0aba5f6619b68fbd9010ec9a3b8a9f8091e1969c4d17e77"
+        },
+        {
+          "path": "branch_statistics_site1_RIM_ONE_r3.json",
+          "size": 1176,
+          "sha256": "846ef851e81d7d3f52a37bf2c853df0880fe1fb3719ad4b2fdfa5f0219d86024"
+        },
+        {
+          "path": "branch_statistics_site2_Drishti_GS.json",
+          "size": 1172,
+          "sha256": "911ade0b485b701c6a659a59c654abcfb57dcba0a11ec918ebc0d5e3389ac50a"
+        },
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9452513,
+          "sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10496914,
+          "sha256": "c8a8c95e0fdddde88acdc42c3cbc62a3f20ac436a2cf00f76513ed29b410ab0b"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9452513,
+          "sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9227207,
+          "sha256": "b1f0e5e2ee8d478cf54f852fb5a0ae00835de1de606eb1c104a2e984b939e2b1"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10496914,
+          "sha256": "c8a8c95e0fdddde88acdc42c3cbc62a3f20ac436a2cf00f76513ed29b410ab0b"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9452513,
+          "sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f"
+        },
+        {
+          "path": "command.txt",
+          "size": 53,
+          "sha256": "deb34848808a8a2bd04c4e863773367ad158d5ebaecf5862b2d9813d7ea65e42"
+        },
+        {
+          "path": "config.yaml",
+          "size": 3895,
+          "sha256": "7735af5919dd2bd13cac9b348e4fa2df676f62046df5f9c2b237e409fee482d2"
+        },
+        {
+          "path": "environment.txt",
+          "size": 184,
+          "sha256": "ed6b9a3e28a9c0f5eb32e2a2308b3e9fb04fa158f740dd4c526cd8b87f087cb1"
+        },
+        {
+          "path": "git_commit.txt",
+          "size": 16,
+          "sha256": "19dc4d55c265a9d92850717f2b137e0abb7951bf7b0d974d3f58ed8091d4e7a3"
+        },
+        {
+          "path": "manifest_hash.txt",
+          "size": 65,
+          "sha256": "dafbef14e1debeacc9446205cd102783c2089142e85bed7776a0c457630b7158"
+        },
+        {
+          "path": "manifest_sha256.txt",
+          "size": 65,
+          "sha256": "dafbef14e1debeacc9446205cd102783c2089142e85bed7776a0c457630b7158"
+        },
+        {
+          "path": "parent_artifact.json",
+          "size": 348,
+          "sha256": "aec6a0470f5c43437f143d4c0f62dfade1c91c454412dc48c4f98bdee59d0706"
+        },
+        {
+          "path": "per_case_metrics.csv",
+          "size": 112110,
+          "sha256": "3118ba8eff32ca7c7211562e8f9ff39faf4c32c7bb909f7a772f4c6032e18ccd"
+        },
+        {
+          "path": "per_class_metrics.csv",
+          "size": 1582,
+          "sha256": "54d718f90565d479a1799de50d3dd25da5f5eff2561daa2ccf59a8f29d584ddb"
+        },
+        {
+          "path": "protocol.json",
+          "size": 725,
+          "sha256": "853c2e9f3311113e6ca4d4fc178c329151ac12a75a55e1545fa5f894b0a2e001"
+        },
+        {
+          "path": "run_summary.json",
+          "size": 903,
+          "sha256": "501edf9336e22fba005d4e9742c64f1bfaa51a231e660690da4db750e614c6f6"
+        },
+        {
+          "path": "site_matrix_asd.csv",
+          "size": 242,
+          "sha256": "7c16f22ee316fbc146011c558542b0d7c811c17f42680af431b902e5d537bd77"
+        },
+        {
+          "path": "site_matrix_dice.csv",
+          "size": 244,
+          "sha256": "fad99d990b405deadc7cb433aa221efed569e5d02d92a1303345f2a7dbf5a055"
+        },
+        {
+          "path": "site_matrix_hd95.csv",
+          "size": 240,
+          "sha256": "0ee4ebfa6504862dbe70e892345468e69730243d5bfcba38473bfb4b012c22d3"
+        },
+        {
+          "path": "site_matrix_long.csv",
+          "size": 2023,
+          "sha256": "460baa88e6ef7432f01c5b7af126910cefb11ac7fafd1f5639b8ed688111a199"
+        },
+        {
+          "path": "site_summary_0_REFUGE.json",
+          "size": 2276,
+          "sha256": "2124f8a8fc5d2a6f47be3989b610b7a7dab17e6f745d93cac17ce0f0a891f0ca"
+        },
+        {
+          "path": "site_summary_1_RIM_ONE_r3.json",
+          "size": 2328,
+          "sha256": "1295d4af4b4ee0f7cf81015b66fc84a10e3ed6276f8154eaa734a26bd6094a31"
+        },
+        {
+          "path": "site_summary_2_Drishti_GS.json",
+          "size": 2328,
+          "sha256": "6261a35d5ea848f958054516b6cd77e11fd88169d390ce3b275bf9a9038e536c"
+        },
+        {
+          "path": "split_hash.txt",
+          "size": 65,
+          "sha256": "4753d12ead768c20466ac1635ca21bf69fba31735d21b5672bc3980671d905de"
+        },
+        {
+          "path": "split_sha256.txt",
+          "size": 65,
+          "sha256": "4753d12ead768c20466ac1635ca21bf69fba31735d21b5672bc3980671d905de"
+        },
+        {
+          "path": "train_log.csv",
+          "size": 6455382,
+          "sha256": "d03901ae080c0244e7592df650bc3f6001bbe652df014965bcce98c6718c2896"
+        }
+      ],
+      "checkpoint_hashes": [
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9452513,
+          "sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10496914,
+          "sha256": "c8a8c95e0fdddde88acdc42c3cbc62a3f20ac436a2cf00f76513ed29b410ab0b"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9452513,
+          "sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9227207,
+          "sha256": "b1f0e5e2ee8d478cf54f852fb5a0ae00835de1de606eb1c104a2e984b939e2b1"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10496914,
+          "sha256": "c8a8c95e0fdddde88acdc42c3cbc62a3f20ac436a2cf00f76513ed29b410ab0b"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "b746eb3c6a2bb4aea731fdd0cb0b79bb09e231dda26962d162a329b19fe504cd"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9452513,
+          "sha256": "64c8b6c78d95c5ee196f40fd32797bb79674d14c8d578b3bb29511c32bae384f"
+        }
+      ]
+    },
+    "R1_seed1": {
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r1_progressive_uniform_full200e",
+      "summary": {
+        "generated_at": "2026-08-27T16:08:50.880535+00:00",
+        "status": "complete",
+        "method": "lcrseg_v0_3",
+        "dataset": "fundus",
+        "seed": 1,
+        "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed1_lcrseg_v0_3_r1_progressive_uniform_full200e",
+        "summary": {
+          "trained_sites": [
+            "REFUGE",
+            "RIM_ONE_r3",
+            "Drishti_GS"
+          ],
+          "incoming_dice": 0.7670438983297139,
+          "final_average_dice": 0.6751040479657299,
+          "bwt": -0.137909775545976,
+          "previous_site_dice": 0.642121167175974,
+          "unseen_site_dice": null
+        },
+        "completed_global_steps": 13400,
+        "manifest_hash": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+        "split_hash": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727",
+        "protocol_id": "lcrseg_v0_3",
+        "variant_id": "R1",
+        "completed_parent_steps": 0,
+        "new_optimizer_steps": 13400,
+        "equivalent_full_run_steps": 13400
+      },
+      "tree_sha256": "d4c2e96be967d7ccf65b6d1a991702c4ed2fcb47740e07f7e9e9d9e28bd02d3e",
+      "artifact_count": 40,
+      "artifact_hashes": [
+        {
+          "path": "admission_coverage.csv",
+          "size": 5633900,
+          "sha256": "1b395e28d0f70b876aa54fa404551768a9f4a1fd4d42e321ff610d48d3d9ecc4"
+        },
+        {
+          "path": "analysis/compatibility_bins.csv",
+          "size": 24,
+          "sha256": "25aef0e54cae45bedf1fdb04431f2477e42cb440ea912b2698e35888195007de"
+        },
+        {
+          "path": "analysis/gradient_cosine.csv",
+          "size": 521,
+          "sha256": "b99718b54f5758cdbb7eda6c2b4ab5af5b0da36ac3db8bbdd0bbdefa0813908f"
+        },
+        {
+          "path": "analysis/learnability_bins.csv",
+          "size": 27,
+          "sha256": "8d882ada4b7c0ff12a9b73425876893227438941f9dd3ad216fcfb1c6fe18967"
+        },
+        {
+          "path": "analysis/pseudo_source_counts.csv",
+          "size": 77,
+          "sha256": "93b4cfa76ed5071111bfde33fbbc56247605c9b627016afde46664f42d984324"
+        },
+        {
+          "path": "analysis/quadrant_stats.csv",
+          "size": 117,
+          "sha256": "5db931f8849e7bd71972f8b2655b3f4535ce10bbe2dbd2f32d8af6a421878e9b"
+        },
+        {
+          "path": "analysis/reliability_histograms.csv",
+          "size": 563,
+          "sha256": "814ffe6ea8a88f5876a1644e0de5b114adf2919a16bc3b0212474fd15808756a"
+        },
+        {
+          "path": "branch_coverage.csv",
+          "size": 5633900,
+          "sha256": "1b395e28d0f70b876aa54fa404551768a9f4a1fd4d42e321ff610d48d3d9ecc4"
+        },
+        {
+          "path": "branch_statistics_site0_REFUGE.json",
+          "size": 1164,
+          "sha256": "98c93b4b1ca24412157bb60b2337de83454fa838183588256b7c1bedf09f91b0"
+        },
+        {
+          "path": "branch_statistics_site1_RIM_ONE_r3.json",
+          "size": 1175,
+          "sha256": "766a1025455855a340754fc9306cfa42a6bac95ddcd29e40d3ff782011489feb"
+        },
+        {
+          "path": "branch_statistics_site2_Drishti_GS.json",
+          "size": 1172,
+          "sha256": "bdade85b7e68c08332caa6707591f0f26199fb0ec5799839d3c2f923a2dba9f5"
+        },
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9458721,
+          "sha256": "ee356eb78b7f9d10ea167b9494380708dd15dd787ef633cf025cdc6d0754641f"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10517010,
+          "sha256": "c92150508253ac1a468d61d1361bdac91b2722c86810fc2d8a51952571ec1a4f"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10009697,
+          "sha256": "3aa8614a20564d2cbbeb739cdaecb4720f744e01173aa72150f112b034503175"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9458721,
+          "sha256": "ee356eb78b7f9d10ea167b9494380708dd15dd787ef633cf025cdc6d0754641f"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9232263,
+          "sha256": "e75c32b354cc2c1fb94148bf5d313575779d89a11cc3ce8f7284d919afe601ee"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10517010,
+          "sha256": "c92150508253ac1a468d61d1361bdac91b2722c86810fc2d8a51952571ec1a4f"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10009697,
+          "sha256": "3aa8614a20564d2cbbeb739cdaecb4720f744e01173aa72150f112b034503175"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9458721,
+          "sha256": "ee356eb78b7f9d10ea167b9494380708dd15dd787ef633cf025cdc6d0754641f"
+        },
+        {
+          "path": "command.txt",
+          "size": 53,
+          "sha256": "66368d83fe1609d64413cee46204f0a8cf4a50828bebcfb1d53d408cac3aab37"
+        },
+        {
+          "path": "config.yaml",
+          "size": 3900,
+          "sha256": "33975c5f0833d904530dcc2a6b9bd6f058dafc95957f0c975c5936eed4d5617e"
+        },
+        {
+          "path": "environment.txt",
+          "size": 184,
+          "sha256": "ed6b9a3e28a9c0f5eb32e2a2308b3e9fb04fa158f740dd4c526cd8b87f087cb1"
+        },
+        {
+          "path": "git_commit.txt",
+          "size": 16,
+          "sha256": "19dc4d55c265a9d92850717f2b137e0abb7951bf7b0d974d3f58ed8091d4e7a3"
+        },
+        {
+          "path": "manifest_hash.txt",
+          "size": 65,
+          "sha256": "dafbef14e1debeacc9446205cd102783c2089142e85bed7776a0c457630b7158"
+        },
+        {
+          "path": "manifest_sha256.txt",
+          "size": 65,
+          "sha256": "dafbef14e1debeacc9446205cd102783c2089142e85bed7776a0c457630b7158"
+        },
+        {
+          "path": "parent_artifact.json",
+          "size": 348,
+          "sha256": "aec6a0470f5c43437f143d4c0f62dfade1c91c454412dc48c4f98bdee59d0706"
+        },
+        {
+          "path": "per_case_metrics.csv",
+          "size": 112606,
+          "sha256": "a6e6faf4330bc6866648a1ef31d47caa2156e74bab094561c047cfc3efef55e7"
+        },
+        {
+          "path": "per_class_metrics.csv",
+          "size": 1583,
+          "sha256": "b5ed4b39abdc4253386fdd2c107f1cb1ed9a8afbcac251233c54a599c72fc591"
+        },
+        {
+          "path": "protocol.json",
+          "size": 725,
+          "sha256": "4a5ca6294a9ab0f1eb4f2f10de35ab77e4190e85b5151c0652540f67c8061a8c"
+        },
+        {
+          "path": "run_summary.json",
+          "size": 906,
+          "sha256": "42d8d293a8df52f6e0da11b3312418293885f62b8c323bbacfad8a5a21620576"
+        },
+        {
+          "path": "site_matrix_asd.csv",
+          "size": 244,
+          "sha256": "108bf98cb1280fa2ec617e8f80e2594ecd8bad352ad78b06e7972d21ff26f0cc"
+        },
+        {
+          "path": "site_matrix_dice.csv",
+          "size": 247,
+          "sha256": "cd6097cd3d78e440bb42765222dbb2d5e5f59c28ff75138e159102cee3812b38"
+        },
+        {
+          "path": "site_matrix_hd95.csv",
+          "size": 240,
+          "sha256": "a3b05cc3829c8653027f4522789b945fd60ebaa153b70f1e4ae8f071fd39949f"
+        },
+        {
+          "path": "site_matrix_long.csv",
+          "size": 2029,
+          "sha256": "deadf3fa04311295780b7c4e191b79a8dff0b3a769710558cf4f873842f7cbb7"
+        },
+        {
+          "path": "site_summary_0_REFUGE.json",
+          "size": 2276,
+          "sha256": "358823d169be63212a0b856aa64087e0f264166df21e55372bfe4423269d89be"
+        },
+        {
+          "path": "site_summary_1_RIM_ONE_r3.json",
+          "size": 2345,
+          "sha256": "8785399d3e6143be3eaa27771a7573ff6146e7d233c348aadfd12cb81e6faf9c"
+        },
+        {
+          "path": "site_summary_2_Drishti_GS.json",
+          "size": 2329,
+          "sha256": "5a8cf0a1c0e0a8213685aaa6cae060f094da97c36b5c799891c756ae2b366ee4"
+        },
+        {
+          "path": "split_hash.txt",
+          "size": 65,
+          "sha256": "4753d12ead768c20466ac1635ca21bf69fba31735d21b5672bc3980671d905de"
+        },
+        {
+          "path": "split_sha256.txt",
+          "size": 65,
+          "sha256": "4753d12ead768c20466ac1635ca21bf69fba31735d21b5672bc3980671d905de"
+        },
+        {
+          "path": "train_log.csv",
+          "size": 7567543,
+          "sha256": "301e42f3fc610910e4d349a09a0fe186878bea202580456df863d679ddec1425"
+        }
+      ],
+      "checkpoint_hashes": [
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9458721,
+          "sha256": "ee356eb78b7f9d10ea167b9494380708dd15dd787ef633cf025cdc6d0754641f"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10517010,
+          "sha256": "c92150508253ac1a468d61d1361bdac91b2722c86810fc2d8a51952571ec1a4f"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10009697,
+          "sha256": "3aa8614a20564d2cbbeb739cdaecb4720f744e01173aa72150f112b034503175"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9458721,
+          "sha256": "ee356eb78b7f9d10ea167b9494380708dd15dd787ef633cf025cdc6d0754641f"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9232263,
+          "sha256": "e75c32b354cc2c1fb94148bf5d313575779d89a11cc3ce8f7284d919afe601ee"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10517010,
+          "sha256": "c92150508253ac1a468d61d1361bdac91b2722c86810fc2d8a51952571ec1a4f"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10009697,
+          "sha256": "3aa8614a20564d2cbbeb739cdaecb4720f744e01173aa72150f112b034503175"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9458721,
+          "sha256": "ee356eb78b7f9d10ea167b9494380708dd15dd787ef633cf025cdc6d0754641f"
+        }
+      ]
+    },
+    "R0_seed2": {
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e",
+      "summary": {
+        "generated_at": "2026-08-27T16:08:52.084165+00:00",
+        "status": "complete",
+        "method": "lcrseg_v0_3",
+        "dataset": "fundus",
+        "seed": 2,
+        "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r0_legacy_uniform_full200e",
+        "summary": {
+          "trained_sites": [
+            "REFUGE",
+            "RIM_ONE_r3",
+            "Drishti_GS"
+          ],
+          "incoming_dice": 0.7728407496145023,
+          "final_average_dice": 0.717026194427422,
+          "bwt": -0.08372183278062045,
+          "previous_site_dice": 0.6903552050217913,
+          "unseen_site_dice": null
+        },
+        "completed_global_steps": 13400,
+        "manifest_hash": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+        "split_hash": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+        "protocol_id": "lcrseg_v0_3",
+        "variant_id": "R0",
+        "completed_parent_steps": 0,
+        "new_optimizer_steps": 13400,
+        "equivalent_full_run_steps": 13400
+      },
+      "tree_sha256": "9e8b2e1ce467de28d363c46425a2fb3dcd424828400a0e644b8335c8dfa93dbb",
+      "artifact_count": 40,
+      "artifact_hashes": [
+        {
+          "path": "admission_coverage.csv",
+          "size": 3782436,
+          "sha256": "37f52ce9efebf41497f6d8fad7ce96b1720a1af0cd294ce847e13f91082ed116"
+        },
+        {
+          "path": "analysis/compatibility_bins.csv",
+          "size": 24,
+          "sha256": "25aef0e54cae45bedf1fdb04431f2477e42cb440ea912b2698e35888195007de"
+        },
+        {
+          "path": "analysis/gradient_cosine.csv",
+          "size": 530,
+          "sha256": "7b494f2374d7fff667d4e5cd7420c377ea128e40218fe969805434ff9c836958"
+        },
+        {
+          "path": "analysis/learnability_bins.csv",
+          "size": 27,
+          "sha256": "8d882ada4b7c0ff12a9b73425876893227438941f9dd3ad216fcfb1c6fe18967"
+        },
+        {
+          "path": "analysis/pseudo_source_counts.csv",
+          "size": 78,
+          "sha256": "cc93ee247543cd98ed244e27ccf5b4e3733b1f0bea9449945c8578f019f685cd"
+        },
+        {
+          "path": "analysis/quadrant_stats.csv",
+          "size": 117,
+          "sha256": "078257c1a9e1c1420a95ce73e602561bba8f8127c0c56270ccee982624a67534"
+        },
+        {
+          "path": "analysis/reliability_histograms.csv",
+          "size": 571,
+          "sha256": "aadac18e759daca4370190181cd47d3656deae35e8036e1726d7051c6b0ce59f"
+        },
+        {
+          "path": "branch_coverage.csv",
+          "size": 3782436,
+          "sha256": "37f52ce9efebf41497f6d8fad7ce96b1720a1af0cd294ce847e13f91082ed116"
+        },
+        {
+          "path": "branch_statistics_site0_REFUGE.json",
+          "size": 1164,
+          "sha256": "b74710be4a4c5704a107422e88ccb4d15fee3a28e64440283622fae294c88c66"
+        },
+        {
+          "path": "branch_statistics_site1_RIM_ONE_r3.json",
+          "size": 1176,
+          "sha256": "3ec01b268c83e2bb2a3c242489c00adef16aea09ccd45de3975fd6ed19c18d4c"
+        },
+        {
+          "path": "branch_statistics_site2_Drishti_GS.json",
+          "size": 1172,
+          "sha256": "1a8967fcfed357ae7dc7ed23106c130c333fc178f5b95f7269ed8abe9d360043"
+        },
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9452449,
+          "sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10496146,
+          "sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9452449,
+          "sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9227143,
+          "sha256": "b9afd132214d0a75d3d424ddedffd04bce081573a3a180c3041d5a5859acfdb0"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10496146,
+          "sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9452449,
+          "sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283"
+        },
+        {
+          "path": "command.txt",
+          "size": 53,
+          "sha256": "c9a0fb5464b8d3b83d86209584f2b47cd186b9cda85da3f7eb6c719526e5c043"
+        },
+        {
+          "path": "config.yaml",
+          "size": 3895,
+          "sha256": "cf91923ba6f3dfc677e2db35d8106d0d0037b89b2d32e96ec867dbeea192cb60"
+        },
+        {
+          "path": "environment.txt",
+          "size": 184,
+          "sha256": "f485eff59c007d17d3b1b4aa8d0b748aa4a39fa3237af765ba3bca7fa6603ca6"
+        },
+        {
+          "path": "git_commit.txt",
+          "size": 16,
+          "sha256": "19dc4d55c265a9d92850717f2b137e0abb7951bf7b0d974d3f58ed8091d4e7a3"
+        },
+        {
+          "path": "manifest_hash.txt",
+          "size": 65,
+          "sha256": "a1b5bf431623ec0020dfeab386db0ce0aa1cb347e5c688e76152043663fbd5c9"
+        },
+        {
+          "path": "manifest_sha256.txt",
+          "size": 65,
+          "sha256": "a1b5bf431623ec0020dfeab386db0ce0aa1cb347e5c688e76152043663fbd5c9"
+        },
+        {
+          "path": "parent_artifact.json",
+          "size": 348,
+          "sha256": "aec6a0470f5c43437f143d4c0f62dfade1c91c454412dc48c4f98bdee59d0706"
+        },
+        {
+          "path": "per_case_metrics.csv",
+          "size": 112435,
+          "sha256": "0df9a554dc7f06d00257bd56fa7ff86c8d58c8d91464e422ea9ebde60c7b9618"
+        },
+        {
+          "path": "per_class_metrics.csv",
+          "size": 1581,
+          "sha256": "e760e5d2464f5779d69904bbb2b47388b87e538a66f60b5bfa0b38d62f8009ce"
+        },
+        {
+          "path": "protocol.json",
+          "size": 725,
+          "sha256": "853c2e9f3311113e6ca4d4fc178c329151ac12a75a55e1545fa5f894b0a2e001"
+        },
+        {
+          "path": "run_summary.json",
+          "size": 903,
+          "sha256": "011ded3357dd246b47829ab1e7d42f6832b4fa7412a4f11843774cdea1f2bffd"
+        },
+        {
+          "path": "site_matrix_asd.csv",
+          "size": 240,
+          "sha256": "59fb63e90a31a34c9173ec1f6a8a183f5b0b011ee9ec6b38ba3e7bb78d216efb"
+        },
+        {
+          "path": "site_matrix_dice.csv",
+          "size": 246,
+          "sha256": "f25432bf68d4534be534707d91362a779728a7ead7c389d40deb365ba1c0deac"
+        },
+        {
+          "path": "site_matrix_hd95.csv",
+          "size": 242,
+          "sha256": "949306ab8958c30baa0058a28986a9e7cb220395d9854763a0e2627be949b784"
+        },
+        {
+          "path": "site_matrix_long.csv",
+          "size": 2024,
+          "sha256": "9453828aa82e69a57383e1800cf81acf90253ba4f081e5bce7df5e7328e40c12"
+        },
+        {
+          "path": "site_summary_0_REFUGE.json",
+          "size": 2276,
+          "sha256": "ef7e53f67268294ee657b31f4f553e7a47a5542f932dd9b7c8c62c5cc54f2b10"
+        },
+        {
+          "path": "site_summary_1_RIM_ONE_r3.json",
+          "size": 2331,
+          "sha256": "3ac451f918de1c794e07315e3b6b0914cf058bfbd668b634dae771929e05ac07"
+        },
+        {
+          "path": "site_summary_2_Drishti_GS.json",
+          "size": 2329,
+          "sha256": "30309987d2242aee38ec651314b2656a26e135049fb12a149e53bcfd99dcafe1"
+        },
+        {
+          "path": "split_hash.txt",
+          "size": 65,
+          "sha256": "b9dcf4691b39966ac53ab81ed663747d746328c417dcbbeda2b6bcd79b60f1c7"
+        },
+        {
+          "path": "split_sha256.txt",
+          "size": 65,
+          "sha256": "b9dcf4691b39966ac53ab81ed663747d746328c417dcbbeda2b6bcd79b60f1c7"
+        },
+        {
+          "path": "train_log.csv",
+          "size": 6447655,
+          "sha256": "6d9f4dc4598be9d8f1813a902fbd3cb4f415f5043cedf7bc4c10d3f801ef3739"
+        }
+      ],
+      "checkpoint_hashes": [
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9452449,
+          "sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10496146,
+          "sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9452449,
+          "sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9227143,
+          "sha256": "b9afd132214d0a75d3d424ddedffd04bce081573a3a180c3041d5a5859acfdb0"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10496146,
+          "sha256": "7f2645fc6ccae039004616ef9f68c36990ffb4f0b33dd606286ac0edc82617fb"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10001825,
+          "sha256": "8c955e6f37e1013e08c1007aeb7ff5f59a566d26371e828ce8aeeb31b5cf1093"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9452449,
+          "sha256": "53c52e720a7e6a51bd4207f0fee46b3f03f1598751372ee23d7b38aa0b6db283"
+        }
+      ]
+    },
+    "R1_seed2": {
+      "path": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r1_progressive_uniform_full200e",
+      "summary": {
+        "generated_at": "2026-08-27T14:58:18.486038+00:00",
+        "status": "complete",
+        "method": "lcrseg_v0_3",
+        "dataset": "fundus",
+        "seed": 2,
+        "run_dir": "/home/jiangsuiyang/SSL_CL/runs/fundus_seed2_lcrseg_v0_3_r1_progressive_uniform_full200e",
+        "summary": {
+          "trained_sites": [
+            "REFUGE",
+            "RIM_ONE_r3",
+            "Drishti_GS"
+          ],
+          "incoming_dice": 0.7650796265843861,
+          "final_average_dice": 0.7027884135049635,
+          "bwt": -0.09343681961913392,
+          "previous_site_dice": 0.6778119041817688,
+          "unseen_site_dice": null
+        },
+        "completed_global_steps": 13400,
+        "manifest_hash": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+        "split_hash": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+        "protocol_id": "lcrseg_v0_3",
+        "variant_id": "R1",
+        "completed_parent_steps": 0,
+        "new_optimizer_steps": 13400,
+        "equivalent_full_run_steps": 13400
+      },
+      "tree_sha256": "b6212e2f5b47f387def721b55d01e8554f8dbc243ca0be2ac47141f2fdfa6748",
+      "artifact_count": 40,
+      "artifact_hashes": [
+        {
+          "path": "admission_coverage.csv",
+          "size": 5631707,
+          "sha256": "96b32c1a728121d887c3f66541b1b74da1be24d9054d564599c77e39b67c2c54"
+        },
+        {
+          "path": "analysis/compatibility_bins.csv",
+          "size": 24,
+          "sha256": "25aef0e54cae45bedf1fdb04431f2477e42cb440ea912b2698e35888195007de"
+        },
+        {
+          "path": "analysis/gradient_cosine.csv",
+          "size": 526,
+          "sha256": "b3344c6c383d144aa9b2fb5f7c29052da4b0dad06d1ff504e2c30d8eedb6331b"
+        },
+        {
+          "path": "analysis/learnability_bins.csv",
+          "size": 27,
+          "sha256": "8d882ada4b7c0ff12a9b73425876893227438941f9dd3ad216fcfb1c6fe18967"
+        },
+        {
+          "path": "analysis/pseudo_source_counts.csv",
+          "size": 78,
+          "sha256": "993883969aa8596d80845fa6915e9d126ef0262c2ad0ce3946df106656a74035"
+        },
+        {
+          "path": "analysis/quadrant_stats.csv",
+          "size": 117,
+          "sha256": "ce78f97db11c7ca5d3adf1bdb05c03a05cdf8bf13ed0b60e7ecea63da1dc95a0"
+        },
+        {
+          "path": "analysis/reliability_histograms.csv",
+          "size": 571,
+          "sha256": "164d96bf7e96f84049499d40af31d8c7f377ec21d864103348fc3f76bac98d35"
+        },
+        {
+          "path": "branch_coverage.csv",
+          "size": 5631707,
+          "sha256": "96b32c1a728121d887c3f66541b1b74da1be24d9054d564599c77e39b67c2c54"
+        },
+        {
+          "path": "branch_statistics_site0_REFUGE.json",
+          "size": 1164,
+          "sha256": "41a74802d52df14d33a2130262848fb5a113ba63a6938affa6c8769c52123ca9"
+        },
+        {
+          "path": "branch_statistics_site1_RIM_ONE_r3.json",
+          "size": 1175,
+          "sha256": "27ae38e6d738e6d827a45bb13b2d5981e95161aa6732bc2973ed0a190e5a0b10"
+        },
+        {
+          "path": "branch_statistics_site2_Drishti_GS.json",
+          "size": 1172,
+          "sha256": "9f52706b3bb9fa4b6faef091a24d8dcc7bfb64c6acb70898cf33041155d2b192"
+        },
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9458593,
+          "sha256": "e90c8013f53d544f293051c6c613bd71e0fcfda68e4ec282a75d46a2d4d680a4"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10516626,
+          "sha256": "ba5e14b72e23699ed1c573ec2f347fae6065d3c9289a91fcf44947e38100ae8d"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10009633,
+          "sha256": "14088683ce0ac59e49dd6e598ffefded0e251d318b2b6a0bf93471e477bb64b9"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9458593,
+          "sha256": "e90c8013f53d544f293051c6c613bd71e0fcfda68e4ec282a75d46a2d4d680a4"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9232199,
+          "sha256": "0a047030871994596b1ead742f2b7689b7d0778a3a84e0fef8e6c845061a3c6f"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10516626,
+          "sha256": "ba5e14b72e23699ed1c573ec2f347fae6065d3c9289a91fcf44947e38100ae8d"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10009633,
+          "sha256": "14088683ce0ac59e49dd6e598ffefded0e251d318b2b6a0bf93471e477bb64b9"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9458593,
+          "sha256": "e90c8013f53d544f293051c6c613bd71e0fcfda68e4ec282a75d46a2d4d680a4"
+        },
+        {
+          "path": "command.txt",
+          "size": 53,
+          "sha256": "82a1e32f5999e9748d807ed76b38782f4feead05a58835b6beb727bb0b2ae53d"
+        },
+        {
+          "path": "config.yaml",
+          "size": 3900,
+          "sha256": "0821abcc83200a6bb34c2065fe5e888f6b91f22f992dc2d675454437faa67ad1"
+        },
+        {
+          "path": "environment.txt",
+          "size": 184,
+          "sha256": "f485eff59c007d17d3b1b4aa8d0b748aa4a39fa3237af765ba3bca7fa6603ca6"
+        },
+        {
+          "path": "git_commit.txt",
+          "size": 16,
+          "sha256": "19dc4d55c265a9d92850717f2b137e0abb7951bf7b0d974d3f58ed8091d4e7a3"
+        },
+        {
+          "path": "manifest_hash.txt",
+          "size": 65,
+          "sha256": "a1b5bf431623ec0020dfeab386db0ce0aa1cb347e5c688e76152043663fbd5c9"
+        },
+        {
+          "path": "manifest_sha256.txt",
+          "size": 65,
+          "sha256": "a1b5bf431623ec0020dfeab386db0ce0aa1cb347e5c688e76152043663fbd5c9"
+        },
+        {
+          "path": "parent_artifact.json",
+          "size": 348,
+          "sha256": "aec6a0470f5c43437f143d4c0f62dfade1c91c454412dc48c4f98bdee59d0706"
+        },
+        {
+          "path": "per_case_metrics.csv",
+          "size": 112491,
+          "sha256": "61cdb143744240f69dbb81cfb1605e47351877b66dcd6194288f9390e8541f61"
+        },
+        {
+          "path": "per_class_metrics.csv",
+          "size": 1581,
+          "sha256": "40a55786522facb58844723a0293f403d1d0aa8fab970b8ee0200dabf790c48c"
+        },
+        {
+          "path": "protocol.json",
+          "size": 725,
+          "sha256": "4a5ca6294a9ab0f1eb4f2f10de35ab77e4190e85b5151c0652540f67c8061a8c"
+        },
+        {
+          "path": "run_summary.json",
+          "size": 909,
+          "sha256": "77c576f28fb67f20b99ca18ab3bb071472a71adb2268193f7f164137b5185968"
+        },
+        {
+          "path": "site_matrix_asd.csv",
+          "size": 239,
+          "sha256": "d20a6920870fd341c3335c80275a74a3ead6565271a548fc460fd2835997da44"
+        },
+        {
+          "path": "site_matrix_dice.csv",
+          "size": 247,
+          "sha256": "02a5e6363bb6017031d0161e773db6e24ac2097a6cb07f899abd8b910feb654a"
+        },
+        {
+          "path": "site_matrix_hd95.csv",
+          "size": 242,
+          "sha256": "14b43cb9706a805eb56915edef916c0e70d0259ddc6d8abb2d0247e2c958405c"
+        },
+        {
+          "path": "site_matrix_long.csv",
+          "size": 2024,
+          "sha256": "cf6f8186b98142423bfd44459d30b6c0cdfb6a3a2c5b5d7cca9f128cf25d123b"
+        },
+        {
+          "path": "site_summary_0_REFUGE.json",
+          "size": 2276,
+          "sha256": "b1e2da626bcd4a6e0ca2f5b5b9d0c37f048ac07e632297ea1fb36f23ca3ad015"
+        },
+        {
+          "path": "site_summary_1_RIM_ONE_r3.json",
+          "size": 2331,
+          "sha256": "725a4f0aa4990f41638cf0aed7f72f17673013033e4fba6b22ba45a75b14795e"
+        },
+        {
+          "path": "site_summary_2_Drishti_GS.json",
+          "size": 2342,
+          "sha256": "01da26ba7b493a71bcd59986378f5d9e9987072b73391fd85fe0b8a95ff1bb11"
+        },
+        {
+          "path": "split_hash.txt",
+          "size": 65,
+          "sha256": "b9dcf4691b39966ac53ab81ed663747d746328c417dcbbeda2b6bcd79b60f1c7"
+        },
+        {
+          "path": "split_sha256.txt",
+          "size": 65,
+          "sha256": "b9dcf4691b39966ac53ab81ed663747d746328c417dcbbeda2b6bcd79b60f1c7"
+        },
+        {
+          "path": "train_log.csv",
+          "size": 7557840,
+          "sha256": "6cbee4304121066ecdded4128b80d3e655f8f19ca9b869d0c0bc8c25f7ebf7c7"
+        }
+      ],
+      "checkpoint_hashes": [
+        {
+          "path": "checkpoint_final.pt",
+          "size": 9458593,
+          "sha256": "e90c8013f53d544f293051c6c613bd71e0fcfda68e4ec282a75d46a2d4d680a4"
+        },
+        {
+          "path": "checkpoint_final_site0_REFUGE.pt",
+          "size": 10516626,
+          "sha256": "ba5e14b72e23699ed1c573ec2f347fae6065d3c9289a91fcf44947e38100ae8d"
+        },
+        {
+          "path": "checkpoint_final_site1_RIM_ONE_r3.pt",
+          "size": 10009633,
+          "sha256": "14088683ce0ac59e49dd6e598ffefded0e251d318b2b6a0bf93471e477bb64b9"
+        },
+        {
+          "path": "checkpoint_final_site2_Drishti_GS.pt",
+          "size": 9458593,
+          "sha256": "e90c8013f53d544f293051c6c613bd71e0fcfda68e4ec282a75d46a2d4d680a4"
+        },
+        {
+          "path": "checkpoint_last.pt",
+          "size": 9232199,
+          "sha256": "0a047030871994596b1ead742f2b7689b7d0778a3a84e0fef8e6c845061a3c6f"
+        },
+        {
+          "path": "checkpoint_site_0_REFUGE.pt",
+          "size": 10516626,
+          "sha256": "ba5e14b72e23699ed1c573ec2f347fae6065d3c9289a91fcf44947e38100ae8d"
+        },
+        {
+          "path": "checkpoint_site_1_RIM_ONE_r3.pt",
+          "size": 10009633,
+          "sha256": "14088683ce0ac59e49dd6e598ffefded0e251d318b2b6a0bf93471e477bb64b9"
+        },
+        {
+          "path": "checkpoint_site_2_Drishti_GS.pt",
+          "size": 9458593,
+          "sha256": "e90c8013f53d544f293051c6c613bd71e0fcfda68e4ec282a75d46a2d4d680a4"
+        }
+      ]
+    }
+  },
+  "conditional_stages_not_executed_in_v0_3": [
+    "Sequential-SSL seeds 1 and 2",
+    "Uniform-KD seeds 1 and 2",
+    "external Fundus gate",
+    "P0 seeds 1 and 2",
+    "patient-level bootstrap",
+    "Prostate RUNMC to BMC pilot"
+  ],
+  "immutability_contract": {
+    "existing_v0_3_artifacts_read_only": true,
+    "v0_4_will_not_overwrite_v0_3_runs": true,
+    "hidden_gt_training_usage_allowed": false
+  },
+  "source_report_hashes": {
+    "V0_3_FINAL_REPORT.md": "fe4ca0d36506b76fd203781f8f573d5660a61070912c91933b1b87b185de6c8d",
+    "V0_3_FUNDUS_INTERNAL_GATE.json": "351068f458f858502649ad683bde7fdb268ca266ddca956ac6d3548cc20cfc26",
+    "V0_3_FUNDUS_MULTISEED_COMPLETION.json": "1bd90fc9eb1c69ccd256d08af509b2e36db69db6f81b7ddd8939033ebd84aac3"
+  }
+}

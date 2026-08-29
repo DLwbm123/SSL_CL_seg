@@ -1,0 +1,58 @@
+{
+  "status": "SRGAS_PILOT_GATE_FAILED",
+  "protocol_id": "srgas_v0_1a",
+  "generated_at": "2026-08-28T18:19:21+08:00",
+  "hard_stop_stage": "A1_A6_RIM_ONE_1000_STEP_PILOTS",
+  "completed_stages": [
+    "V0.1a protocol amendment",
+    "class-space bridge audit",
+    "50 SR-GAS contract tests and 148 complete regression tests",
+    "A1 two-case overfit",
+    "A1 REFUGE 8000-step common parent and parent gate",
+    "A1-A6 RIM-ONE-r3 1000-step pilots"
+  ],
+  "engineering_gate": {
+    "passed": true,
+    "all_runs_exactly_1000_steps": true,
+    "nan_inf_count": 0,
+    "amp_skip_count": 0,
+    "hidden_gt_training_usage": 0,
+    "old_model_gradient_detected": 0,
+    "historical_anchor_changed": 0,
+    "a5_r2c_valid_positive": true,
+    "a5_r2c_sensitivity_finite_nonzero": true,
+    "a5_differs_from_a4_noise_scale": true,
+    "projection_head_proxy_gradient": 0,
+    "r2c_total_objective_coefficient": 0
+  },
+  "safety_gate": {
+    "passed": false,
+    "maximum_allowed_drop": 0.015,
+    "refuge": {
+      "maximum_a5_vs_a1_drop": 0.03144590033796735,
+      "failure_step": 350,
+      "a1_dice": 0.7300647137383359,
+      "a5_dice": 0.6986188134003686,
+      "final_step_drop": -0.032163069118657184
+    },
+    "rim_one_r3": {
+      "maximum_a5_vs_a1_drop": 0.016930847646963065,
+      "failure_step": 200,
+      "a1_dice": 0.7188293530934857,
+      "a5_dice": 0.7018985054465227,
+      "final_step_drop": 0.002011337673194169
+    }
+  },
+  "interpretation": "A5 recovered by step 1000, but the preregistered safety gate applies to the logged 1000-step trajectory. Both REFUGE and RIM-ONE-r3 exceeded the maximum permitted transient drop, so the failure cannot be overridden using the final point.",
+  "forbidden_followups_not_started": [
+    "A1-A5 seed-0 full runs",
+    "A5 spatial-shuffle",
+    "seeds 1 and 2",
+    "external baselines",
+    "Prostate A/B"
+  ],
+  "hyperparameters_changed_after_pilot": false,
+  "full_run_processes_active": false,
+  "authoritative_gate_report": "reports/experiment_status/SRGAS_PILOT_REPORT.json",
+  "nas_root": "/data_nas/jiangsuiyang/LCR-Seg/srgas_v0_1a"
+}

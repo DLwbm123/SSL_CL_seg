@@ -1,0 +1,83 @@
+{
+  "protocol_id": "bprcseg_x1_exploratory",
+  "generated_at": "2026-08-28T14:49:48Z",
+  "status": "BPRC_X1_PREVIOUS_UTILITY_NOT_SUPPORTED",
+  "epistemic_status": "user_authorized_exploratory_not_originally_preregistered",
+  "candidate": "X1=B2_top2_pairwise_class_balanced/3",
+  "pilot_authorized": false,
+  "optimizer_steps": 0,
+  "engineering_checks_passed": 17,
+  "engineering_checks_total": 17,
+  "tests": {
+    "passed": 198,
+    "failed": 0,
+    "duration_seconds": 19.89,
+    "log_sha256": "fb8653d04f9619cc3ac52964377f87baa8423b4786275ee6b18908e51e969043"
+  },
+  "gates": {
+    "gradient_scale": {
+      "passed": true,
+      "median_x1_to_x0": 1.9825342054338013,
+      "p10_x1_to_x0": 1.042117820131082,
+      "p90_x1_to_x0": 3.9574352131577566,
+      "nonfinite_count": 0
+    },
+    "previous_utility": {
+      "passed": false,
+      "fraction_x1_lower_than_x0": 0.5052083333333334,
+      "median_x0_delta": -0.0004644850268959999,
+      "median_x1_delta": -0.000531722791492939,
+      "median_paired_x1_minus_x0": -0.000025423243641853333
+    },
+    "current_safety": {
+      "passed": true,
+      "median_current_loss_delta_x0": -0.00014779716730117798,
+      "median_current_loss_delta_x1": -0.000570172443985939,
+      "median_current_dice_delta_x0": 0.00008690357208251953,
+      "median_current_dice_delta_x1": 0.00025519728660583496
+    },
+    "disc_rim_margin": {
+      "passed": false,
+      "fraction_x1_better_than_x0": 0.328125,
+      "median_x1_minus_x0": -0.0000742509572738137,
+      "class_medians": {
+        "0": -0.000016461910954446157,
+        "1": -0.0000742509572738137,
+        "2": 0.00018786472938381316
+      }
+    }
+  },
+  "row_counts": {
+    "gradient": 384,
+    "virtual_step": 384,
+    "margin": 3456
+  },
+  "artifacts": {
+    "protocol_json": {
+      "path": "reports/experiment_status/BPRC_X1_EXPLORATORY_PROTOCOL.json",
+      "sha256": "3863b40f767ac2c72dd2ef5c4fec9a464e55c26c6af23ada6f8066fb7c86161f"
+    },
+    "diagnostic_json": {
+      "path": "reports/experiment_status/BPRC_X1_DIAGNOSTIC_AUDIT.json",
+      "sha256": "2d6c1dddec483aa0a4fce95a69b424b0850470018c836a77372ab317d06c712e"
+    },
+    "stop_json": {
+      "path": "reports/experiment_status/BPRC_X1_EXPLORATORY_STOP.json",
+      "sha256": "85def4b25ecf8ee2eb82adfa2772c54a7eeaffbe862cd96b39cd38250f6c83e7"
+    },
+    "gradient_csv": {
+      "path": "reports/analysis/bprcseg_x1_exploratory/gradient_scale.csv",
+      "sha256": "93209a8b8f9f2c391eefeb94d7b206a4f64a28447809a732711ef23fb35316d0"
+    },
+    "virtual_csv": {
+      "path": "reports/analysis/bprcseg_x1_exploratory/virtual_steps.csv",
+      "sha256": "14968ff2173cfc5b646551fae28ee9527804b7a402323373860d8feea5b3e687"
+    },
+    "margin_csv": {
+      "path": "reports/analysis/bprcseg_x1_exploratory/margin_analysis.csv",
+      "sha256": "f2c5c874b757333cd4bf988a5fee556d749fce7e45e65b6a9142ab0ef6ff4eca"
+    }
+  },
+  "conclusion": "Fixed /3 normalization repaired gradient scale but did not establish previous-site utility or disc-rim improvement; no pilot was launched.",
+  "bprc_v0_1_unchanged": true
+}

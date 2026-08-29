@@ -1,0 +1,8 @@
+{
+  "experiment": {"run_name": "fundus_seed0_lcrseg_v0_3_r1_progressive_uniform_full200e", "run_root": "/home/jiangsuiyang/SSL_CL/runs", "seed": 0, "deterministic": true, "final_checkpoint_only": true, "device": "cuda"},
+  "data": {"data_root": "/home/jiangsuiyang/SSL_CL", "dataset": "fundus", "site_order": ["REFUGE", "RIM_ONE_r3", "Drishti_GS"], "evaluation_sites": ["REFUGE", "RIM_ONE_r3", "Drishti_GS"], "preprocess_version": "v1", "evaluation_role": "val", "require_readonly": true},
+  "model": {"name": "unet2d", "base_channels": 16, "relation_dim": 128, "in_channels": 3, "num_classes": 3},
+  "method": {"name": "lcrseg_v0_3", "version": "0.3", "protocol_id": "lcrseg_v0_3", "variant_id": "R1", "assimilation_mode": "progressive_admission", "consolidation_mode": "uniform_relation", "lambda_relation": 1.0, "multi_agent": false, "ric": false},
+  "training": {"epochs_per_site": 200, "steps_per_site": null, "labeled_batch_size": 2, "unlabeled_batch_size": 4, "evaluation_batch_size": 4, "lr": 0.0005, "weight_decay": 0.00001, "amp": true, "amp_init_scale": 1024.0, "grad_clip_norm": null, "checkpoint_interval_steps": 500, "gradient_cosine_interval": 500, "max_steps_this_invocation": null},
+  "transforms": {"labeled_flip_probability": 0.5, "flip_probability": 0.5, "strong_noise_std": 0.03, "brightness_delta": 0.1, "contrast_delta": 0.1, "cutout_probability": 0.5, "cutout_fraction": 0.2}
+}

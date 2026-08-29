@@ -1,0 +1,138 @@
+{
+  "protocol_id": "bprcseg_x1_exploratory",
+  "generated_at": "2026-08-28T14:48:58.878175+00:00",
+  "status": "BPRC_X1_PREVIOUS_UTILITY_NOT_SUPPORTED",
+  "epistemic_status": "exploratory_not_originally_preregistered",
+  "candidate": "X1=B2_top2_pairwise_class_balanced/3",
+  "pilot_authorized": false,
+  "optimizer_steps": 0,
+  "engineering_checks": {
+    "protocol_frozen_before_execution": true,
+    "three_seed_summaries_complete": true,
+    "protocol_id_exact": true,
+    "row_counts_exact": true,
+    "variant_counts_exact": true,
+    "comparison_keys_exact": true,
+    "seed_row_counts_exact": true,
+    "x1_scale_exact": true,
+    "exact_bprc_v01_batches_reused": true,
+    "models_unchanged": true,
+    "old_model_gradient_zero": true,
+    "optimizer_steps_zero": true,
+    "hidden_gt_not_used_for_update": true,
+    "exact_margin_function_reused": true,
+    "x0_exact_r0": true,
+    "virtual_step_norm_exact": true,
+    "all_values_finite": true
+  },
+  "gates": {
+    "gradient_scale": {
+      "passed": true,
+      "metrics": {
+        "median_x1_to_x0": 1.9825342054338013,
+        "p10_x1_to_x0": 1.042117820131082,
+        "p90_x1_to_x0": 3.9574352131577566,
+        "nonfinite_count": 0,
+        "comparisons": 192
+      },
+      "checks": {
+        "median_in_0_5_to_2_0": true,
+        "p10_ge_0_25": true,
+        "p90_le_4_0": true,
+        "nonfinite_zero": true
+      }
+    },
+    "previous_utility": {
+      "passed": false,
+      "metrics": {
+        "fraction_x1_lower_than_x0": 0.5052083333333334,
+        "median_previous_delta": {
+          "X0": -0.0004644850268959999,
+          "X1": -0.000531722791492939
+        },
+        "median_paired_x1_minus_x0": -2.5423243641853333e-05,
+        "comparisons": 192
+      },
+      "checks": {
+        "paired_better_fraction_ge_0_60": false,
+        "median_x1_le_x0_minus_1e_4": false
+      }
+    },
+    "current_safety": {
+      "passed": true,
+      "metrics": {
+        "median_current_loss_delta": {
+          "X0": -0.00014779716730117798,
+          "X1": -0.000570172443985939
+        },
+        "median_current_dice_delta": {
+          "X0": 8.690357208251953e-05,
+          "X1": 0.00025519728660583496
+        },
+        "x0_loss_bound": -0.0001448412239551544,
+        "x0_dice_bound": -0.0019130964279174805
+      },
+      "checks": {
+        "x1_loss_within_bound": true,
+        "x1_dice_within_bound": true
+      }
+    },
+    "disc_rim_margin": {
+      "passed": false,
+      "metrics": {
+        "fraction_x1_disc_rim_gt_x0": 0.328125,
+        "median_disc_rim_x1_minus_x0": -7.42509572738137e-05,
+        "class_median_x1_minus_x0": {
+          "0": -1.6461910954446157e-05,
+          "1": -7.42509572738137e-05,
+          "2": 0.00018786472938381316
+        },
+        "comparisons": 192
+      },
+      "checks": {
+        "disc_rim_better_fraction_ge_0_60": false,
+        "median_disc_rim_improvement_ge_0_005": false,
+        "no_class_median_below_minus_0_005": true
+      }
+    }
+  },
+  "consequence": "At least one frozen diagnostic gate failed; stop without method registration or training.",
+  "source_protocol": {
+    "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/experiment_status/BPRC_X1_EXPLORATORY_PROTOCOL.json",
+    "sha256": "3863b40f767ac2c72dd2ef5c4fec9a464e55c26c6af23ada6f8066fb7c86161f"
+  },
+  "seed_summaries": [
+    {
+      "seed": 0,
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_x1_exploratory/seed0/summary.json",
+      "sha256": "4901417551e110b0f36ad96d5545202c24920a161eae6ae500ae03cbf88c9650",
+      "batch_list_sha256": "a66024e10d802d3dc883f6205bac0d7bbf5e2d382cd052ed84d2ae8eca3425ef"
+    },
+    {
+      "seed": 1,
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_x1_exploratory/seed1/summary.json",
+      "sha256": "88309e31cacd979b850d288c0ef0753a07ea1caf8416521657efc3c54a175e98",
+      "batch_list_sha256": "e422f7c4fd997e818dc1036db6dc5bcb9149b4f3599f6f6f9078b33e14b19f65"
+    },
+    {
+      "seed": 2,
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_x1_exploratory/seed2/summary.json",
+      "sha256": "5544dbfb2990824bad0d32beb41979a82ad873ae3217f0f3d02a8af1bd2b452d",
+      "batch_list_sha256": "7779d9fdef194e9c6d0574f8669b060144f0ca98790c11bb6aa739e708d29a58"
+    }
+  ],
+  "artifacts": {
+    "gradient_scale.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_x1_exploratory/gradient_scale.csv",
+      "sha256": "93209a8b8f9f2c391eefeb94d7b206a4f64a28447809a732711ef23fb35316d0"
+    },
+    "virtual_steps.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_x1_exploratory/virtual_steps.csv",
+      "sha256": "14968ff2173cfc5b646551fae28ee9527804b7a402323373860d8feea5b3e687"
+    },
+    "margin_analysis.csv": {
+      "path": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/reports/analysis/bprcseg_x1_exploratory/margin_analysis.csv",
+      "sha256": "f2c5c874b757333cd4bf988a5fee556d749fce7e45e65b6a9142ab0ef6ff4eca"
+    }
+  }
+}

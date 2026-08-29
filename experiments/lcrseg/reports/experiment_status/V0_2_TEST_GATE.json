@@ -1,0 +1,41 @@
+{
+  "status": "passed",
+  "scope": "V0.2 implementation and regression preflight",
+  "remote": {
+    "host": "jiangsuiyang",
+    "python": "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+    "python_version": "3.10.6"
+  },
+  "all_tests_passed": true,
+  "pytest": {
+    "command": "CUDA_VISIBLE_DEVICES='' PYTHONPATH=. /home/jiangsuiyang/anaconda3/envs/py38/bin/python -m pytest -q",
+    "passed": 43,
+    "failed": 0
+  },
+  "hidden_gt_leakage_tests_passed": true,
+  "v0_1_golden_regression": {
+    "passed": true,
+    "site": "RIM_ONE_r3",
+    "array_max_abs_error": {
+      "model_logits": 0.0,
+      "relation_probabilities": 0.0,
+      "learnability": 0.0,
+      "compatibility": 0.0
+    },
+    "loss_relative_error": {
+      "loss_sup": 0.0,
+      "loss_seg_ce": 0.0,
+      "loss_seg_dice": 0.0,
+      "loss_anchor_sup": 0.0,
+      "loss_assim": 0.0,
+      "loss_relation": 0.0
+    }
+  },
+  "v0_2_golden_unit": {
+    "passed": true,
+    "kind": "synthetic R3 checkpoint create-and-independent-verify regression test",
+    "array_max_abs_error": 0.0,
+    "loss_relative_error": 0.0
+  },
+  "real_r3_golden": "pending until an actual R3 final checkpoint exists; the immutable create/verify CLI is implemented and must run before the final completion claim."
+}

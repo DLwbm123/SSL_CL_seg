@@ -1,0 +1,66 @@
+{
+  "protocol_id": "srgas_v0_1",
+  "generated_at": "2026-08-28T16:00:32+08:00",
+  "status": "HARD_STOP_NO_SHARED_SEMANTIC_FEATURE",
+  "model": "lcrseg.models.unet.UNet2D",
+  "source_sha256": {
+    "lcrseg/models/unet.py": "6b1870f55b02424606bbe00aae471825bddc922c9099b8bc173dd9fb49b03cf7",
+    "lcrseg/models/projection_head.py": "ad332c0234b8f657fa80ea5d090ad6a74ad415d343e94a7da778c96d742ed037",
+    "lcrseg/methods/lcrseg_v0_2a.py": "5de423510da01e5da8dcfb512acdbecc9ea9f502dea0ad053129da608d37071c"
+  },
+  "module_paths": {
+    "segmentation_classifier": "model.segmentation_head",
+    "relation_projection_head": "model.projection_head",
+    "anchor_update_feature_source": "SegModelOutput.relation_features from model.projection_head(dec3)"
+  },
+  "parameter_names": {
+    "segmentation_classifier": [
+      "segmentation_head.weight",
+      "segmentation_head.bias"
+    ],
+    "relation_projection_head": [
+      "projection_head.net.0.weight",
+      "projection_head.net.1.weight",
+      "projection_head.net.1.bias",
+      "projection_head.net.3.weight",
+      "projection_head.net.3.bias"
+    ]
+  },
+  "runtime_probe": {
+    "input_shape": [1, 3, 384, 384],
+    "dec3_shape": [1, 64, 96, 96],
+    "dec2_shape": [1, 32, 192, 192],
+    "dec1_shape": [1, 16, 384, 384],
+    "segmentation_head_input_shape": [1, 16, 384, 384],
+    "projection_head_input_shape": [1, 64, 96, 96],
+    "dec3_is_projection_input": true,
+    "dec1_is_segmentation_input": true,
+    "segmentation_input_is_projection_input": false
+  },
+  "gradient_paths": {
+    "L_sup": {
+      "dec3": true,
+      "dec2": true,
+      "dec1": true
+    },
+    "L_rel": {
+      "dec3": true,
+      "dec2": false,
+      "dec1": false
+    }
+  },
+  "candidate_analysis": {
+    "dec3": "Last common computational ancestor, but it has 64 channels while classifier W has 16 input channels; S_R[64] cannot be broadcast to W[C,16,1,1] under the registered formula.",
+    "dec1": "Direct classifier input with the required 16 classifier channels, but it is not an input or ancestor of the relation projection head.",
+    "relation_features": "128-channel projected feature used by anchors and relation loss, but it is downstream of projection_head and not on the segmentation-classifier path."
+  },
+  "gate_checks": {
+    "unique_tensor_directly_shared_by_segmentation_and_relation_heads": false,
+    "shared_tensor_channel_dimension_matches_classifier_weight_input": false,
+    "registered_relation_channel_sensitivity_broadcast_is_well_defined": false
+  },
+  "hard_stop_reason": "No existing tensor satisfies both the shared semantic-path requirement and the classifier-channel broadcast contract. Choosing or adding a projection would be an unregistered architectural decision.",
+  "code_changed": false,
+  "tests_started": false,
+  "training_started": false
+}
