@@ -12,6 +12,7 @@ from .binding import (require, finite, complete, H, sha256, check_hash, write_js
 from .reliability import banks, bank_identity, build, score_arrays, poe_target, CANDIDATES
 from .gradients import partition, supervised_gradient, consistency_gradients, isolation
 from .metrics import evaluate
+from .precision import attach_gradient_student, student_forward, compare, comparable
 
 CACHE_FIELDS = ('teacher_probability', 'R0', 'R1', 'R2', 'R3', 'raw_norms', 'active_mask',
                 'prototype_valid', 'current_scores', 'history_scores', 'history_gate')
@@ -139,10 +140,14 @@ def gradient_pair(models, legacy, current, history, p, pair, data_root, output, 
     require(phase in ('draw0', 'noise', 'posterior', 'poe'), 'unknown probe phase')
     output = Path(output); name = pair_name(pair); directory = output/'probes'/phase/name
     directory.mkdir(parents=True, exist_ok=False)
-    models['student'].requires_grad_(True); parts = partition(models['student'])
+    models['student'].requires_grad_(True)
+    shadow = models.get('gradient_student')
+    require((shadow is not None) == (p.get('diagnostic_precision') == 'float64_shadow'), 'gradient receiver/mode mismatch')
+    parts = partition(models['student'] if shadow is None else shadow)
     xu, xl, labels = pair_inputs(data_root, p, pair); xu, xl, labels = xu.to(device), xl.to(device), labels.to(device)
-    seed_after_load(pair['forward_seeds']['student_unlabeled']); sl, sf = models['student'](xu, stochastic_classifier=True)
-    finite(sl, sf); probability = sl.float().softmax(1)
+    sl, sf, gradient_sl, unlabeled_draw = student_forward(models, xu, pair['forward_seeds']['student_unlabeled'])
+    finite(sl, sf); native_probability = sl.float().softmax(1)
+    probability = native_probability if shadow is None else gradient_sl.softmax(1)
     primary = None; cached = None
     if phase == 'draw0':
         seed_after_load(pair['teacher_draw_seeds'][0])
@@ -156,8 +161,14 @@ def gradient_pair(models, legacy, current, history, p, pair, data_root, output, 
         require(np.array_equal(sl.detach().cpu().numpy(), cached['student_logits']), 'student logits not bitwise equal to cached forward')
         tl = torch.as_tensor(cached['teacher_logits_draw0'], device=device)
         tf = torch.as_tensor(cached['teacher_features'], device=device)
-    seed_after_load(pair['forward_seeds']['student_labeled']); ll, lf = models['student'](xl, stochastic_classifier=True)
-    finite(ll, lf); supervised_loss, supervised = supervised_gradient(ll, labels, parts)
+    ll, lf, gradient_ll, labeled_draw = student_forward(models, xl, pair['forward_seeds']['student_labeled'])
+    finite(ll, lf); supervised_loss, supervised = supervised_gradient(gradient_ll, labels, parts)
+    native_reference = None; supervised_comparisons = None
+    if shadow is not None:
+        native_parts = partition(models['student'])
+        native_supervised_loss, native_supervised = supervised_gradient(ll, labels, native_parts)
+        native_reference = dict(probability=native_probability, parts=native_parts, supervised=native_supervised, comparisons=[])
+        supervised_comparisons = {block: compare(native_supervised[block], supervised[block]) for block in native_supervised}
     sup_sha = array_hash(supervised['global'])
     if primary is not None:
         require(sup_sha == primary['supervised_gradient_sha256'] and tensor_hash(ll) == primary['labeled_logits_sha256'], 'fixed supervised forward/gradient changed')
@@ -169,6 +180,15 @@ def gradient_pair(models, legacy, current, history, p, pair, data_root, output, 
         teacher_features_sha256=original_teacher_feature_sha, supervised_loss=supervised_loss, supervised_gradient_sha256=sup_sha,
         parameter_inventory=parts['inventory'], fixed_student_cache_verified=primary is not None,
         no_optimizer=True, no_backward=True, no_parameter_grad_writes=True)
+    if native_reference is not None:
+        result.update(diagnostic_precision='float64_shadow', student_draw_replay=dict(unlabeled=unlabeled_draw, labeled=labeled_draw),
+            native_student_probability_sha256=tensor_hash(native_probability),
+            native_supervised_loss=native_supervised_loss, native_supervised_gradient_sha256=array_hash(native_supervised['global']),
+            supervised_precision_comparisons=supervised_comparisons,
+            supervised_precision_comparable=comparable(supervised_comparisons['global']))
+        if primary is not None:
+            require(primary['student_draw_replay'] == result['student_draw_replay'] and
+                    primary['native_supervised_gradient_sha256'] == result['native_supervised_gradient_sha256'], 'fixed native/shadow forward changed')
     if phase == 'poe':
         noise = read_json(output/'probes/noise'/name/'result.json')
         teacher_draws = read_arrays(noise['teacher_cache'])['teacher_probabilities']
@@ -184,7 +204,7 @@ def gradient_pair(models, legacy, current, history, p, pair, data_root, output, 
             else:
                 require(np.array_equal(available_for_draws, control['valid']), 'PoE directional support changed across draws')
             rr, cc, hh = consistency_gradients(probability, target, {'PoE': control['weights']}, parts, supervised,
-                candidates=('PoE',), draw=draw, teacher_kind='stochastic', decompose=draw == 0, context=context)
+                candidates=('PoE',), draw=draw, teacher_kind='stochastic', decompose=draw == 0, context=context, native_reference=native_reference)
             rows.extend(rr); components.extend(cc); gradient_hashes[str(draw)] = hh; targets.append(target)
             available = control['valid']; pred_t = pflat.argmax(1)
             changed.append(dict(draw_index=draw, available_count=int(available.sum()), null_count=int((~scores['active_mask']).sum()),
@@ -217,9 +237,11 @@ def gradient_pair(models, legacy, current, history, p, pair, data_root, output, 
             if phase == 'noise' and draw == 0:
                 rr, cc, hh = primary['alignment'], [], primary['gradient_hashes']['0']
                 require(array_hash(target_np) == primary['teacher_probability_sha256'], 'draw0 cached target changed')
+                if native_reference is not None:
+                    native_reference['comparisons'].extend(primary['native_precision_comparisons'])
             else:
                 rr, cc, hh = consistency_gradients(probability, target, scores, parts, supervised, draw=draw,
-                    teacher_kind='posterior_mean' if phase == 'posterior' else 'stochastic', decompose=phase == 'draw0', context=context)
+                    teacher_kind='posterior_mean' if phase == 'posterior' else 'stochastic', decompose=phase == 'draw0', context=context, native_reference=native_reference)
             rows.extend(rr); components.extend(cc); gradient_hashes[str(draw)] = hh
             if phase == 'draw0':
                 result['primary_cache'] = save_arrays(directory/'primary_cache.npz', dict(student_logits=sl.detach().cpu().numpy(),
@@ -244,6 +266,8 @@ def gradient_pair(models, legacy, current, history, p, pair, data_root, output, 
         else:
             result['teacher_forwards'] = 1
     result.update(alignment=rows, class_contribution=components, gradient_hashes=gradient_hashes)
+    if native_reference is not None:
+        result['native_precision_comparisons'] = native_reference['comparisons']
     require(all(q.grad is None for m in models.values() for q in m.parameters()), 'parameter.grad mutated')
     write_json(directory/'result.json', result)
     return result
@@ -257,16 +281,19 @@ def probe_unit(root, data_root, p, freeze, metadata, seed, stage, output, device
     if pair_indices is not None:
         pairs = [q for q in pairs if q['pair_index'] in pair_indices]
     models['student'].requires_grad_(True)
+    attach_gradient_student(models, p)
     with no_updates():
         for pair in pairs:
             context = dict(metadata, phase=phase, pair_id=pair['batch_id'], bank=bank_identity(freeze, seed, stage), legacy_prototypes_sha256=legacy_before)
             guard_path = output/'probe_models'/phase/pair_name(pair)
             with ImmutableModels(models, cp, guard_path, context):
-                result = gradient_pair(models, legacy, current, history, p, pair, data_root, output, metadata, phase=phase, device=device)
-                iso = isolation(models, legacy, before, current, history)
-                require(tensor_hash(legacy) == legacy_before, 'legacy PAS prototypes changed')
-                write_json(output/'probes'/phase/pair_name(pair)/'isolation.json', dict(metadata=context, **iso,
-                    legacy_prototypes_unchanged=True, current_history_banks_unchanged=True))
+                try:
+                    result = gradient_pair(models, legacy, current, history, p, pair, data_root, output, metadata, phase=phase, device=device)
+                finally:
+                    iso = isolation(models, legacy, before, current, history)
+                    require(tensor_hash(legacy) == legacy_before, 'legacy PAS prototypes changed')
+                    write_json(output/'probes'/phase/pair_name(pair)/'isolation.json', dict(metadata=context, **iso,
+                        legacy_prototypes_unchanged=True, current_history_banks_unchanged=True))
             print(f'probe complete {phase} {pair_name(pair)}', flush=True)
     models['student'].requires_grad_(False)
     del models, legacy

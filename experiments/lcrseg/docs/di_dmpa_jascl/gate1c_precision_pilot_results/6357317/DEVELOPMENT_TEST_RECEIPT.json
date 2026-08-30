@@ -1,0 +1,51 @@
+{
+  "scope": "SYNTHETIC_ONLY_NO_REAL_MODEL_FORWARDS",
+  "preregistration_commit": "6357317749b0ff904e3acd39023b86430d6263ee",
+  "development_checkout": "/root/SSL_CL_precision_dev_6357317",
+  "development_source_clean": false,
+  "passing_source_sha256": {
+    "di_dmpa_gate1c_v2/precision.py": "09e67054a67b26948e6041e9bdb535169643cbb9046534cce696e39081ff97d8",
+    "di_dmpa_gate1c_v2/precision_pilot.py": "e964889137b229307a4da20fcb4d54d7fee14817942a40d785d59a4f66e5d15a",
+    "di_dmpa_gate1c_v2/execution.py": "debb0ba493afb632da94c1ccf0df956071e37970c321c566a89460b0b42d8c9b",
+    "di_dmpa_gate1c_v2/gradients.py": "22392dd39ed0659bd4fa003dcdab63d3ceacc6a0b6c93623801693f80b2d5888",
+    "scripts/reference_gate1c_fp64.py": "13443a9599a932c843cbe2407f84901ed28e5510e2ddbef50ced61012c7d4e62",
+    "tests/di_dmpa_gate1c_v2/test_precision_pilot.py": "94efe35908906a3521a4027d2bec2efab10a164b165a2294af1278611f20e253"
+  },
+  "tests": {
+    "path": "tests/gate1c_precision_dev_all_6357317_attempt2.xml",
+    "sha256": "ae05e6b9bb6a9138c1793200e8506e11c74c04c10df0b729685b63f8655fa206",
+    "passed": 133,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 15.12
+  },
+  "earlier_checks": [
+    {
+      "path": "tests/gate1c_precision_dev_6357317_attempt1.xml",
+      "sha256": "2625f3510d73c08fae2a08f79f56bf3cb1fad91a5ce30f2c1cd26112101970c8",
+      "passed": 7,
+      "failed": 0
+    },
+    {
+      "path": "tests/gate1c_precision_dev_all_6357317_attempt1.xml",
+      "sha256": "92c67594d38bc618161be1c5ff5faddd9c172979c2f7a07ca04eb1b9b4ad1e7f",
+      "passed": 132,
+      "failed": 1,
+      "error": "MacOS AppleDouble sidecars from the development tar transfer matched the unchanged AST audit *.py glob; UnicodeDecodeError before code audit. Six sidecars were moved intact to /root/SSL_CL_precision_dev_6357317_transfer_sidecars. No test/guard relaxation."
+    }
+  ],
+  "coverage": [
+    "default FP32 full-phase outputs exactly equal frozen 44a2525 execution/gradient code on synthetic inputs",
+    "same native Gaussian values in isolated FP64 shadow, with no RNG advancement or source mutation",
+    "canonical FP32 PoE strata including rounding ties",
+    "all four synthetic phases, exact forward/VJP counts, PAS parity and completeness rejection",
+    "exception-path legacy/current/history/teacher/student/shadow audits",
+    "zero-gradient precision agreement is not scientific alignment credit",
+    "all previous Gate1C synthetic/reconstruction/forensic/reference regressions"
+  ],
+  "exact_command": "cd /root/SSL_CL_precision_dev_6357317/experiments/lcrseg && OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 LD_LIBRARY_PATH=/lib/x86_64-linux-gnu CUBLAS_WORKSPACE_CONFIG=:4096:8 CUDA_VISIBLE_DEVICES=0,1 PYTHONPATH=. /root/.venvs/lcrseg-py310/bin/python -m pytest -q tests/di_dmpa_gate1c_v2 --ignore=tests/di_dmpa_gate1c_v2/test_real.py --junitxml=/root/gate1c_precision_dev_all_6357317_attempt2.xml",
+  "next_barrier": "Publish code then repeat tests in a clean exact-code checkout; JUnit must attest that code SHA and source_clean=true before prepare.",
+  "method_registered": false,
+  "full_gate_retry_authorized": false
+}

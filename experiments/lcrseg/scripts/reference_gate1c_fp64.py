@@ -12,7 +12,6 @@ import sys
 import traceback
 from unittest.mock import patch
 
-import numpy as np
 import torch
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -21,9 +20,9 @@ if str(ROOT) not in sys.path:
 
 from scripts import inspect_gate1c_decomposition as inspector
 from di_dmpa_gate1.feature_extraction import state_groups, state_hash
-from di_dmpa_jascl.checkpoint import capture_rng_state
 from di_dmpa_gate1c_v2 import binding as b, gradients as g, execution as e
 from di_dmpa_gate1c_v2.runner import disk_hashes
+from di_dmpa_gate1c_v2.precision import rng_hash, replay_draw, compare
 
 PREREG = '136f19fd9b4ba75dc8f4891e4d7601c58d7d90fb'
 NAME = 'GATE1C_V21_FP64_REFERENCE_PREREGISTRATION'
@@ -41,12 +40,6 @@ def trace_values(error, module, function):
     raise b.ProtocolError('expected native traceback frame missing: '+function)
 
 
-def rng_hash():
-    state = capture_rng_state(); npstate = state['numpy']
-    return b.H(dict(python=state['python'], numpy=[npstate[0], npstate[1].tolist(), *npstate[2:]],
-        torch_cpu=b.tensor_hash(state['torch_cpu']), torch_cuda=[b.tensor_hash(x) for x in state['torch_cuda']]))
-
-
 @contextmanager
 def observe_draws(shape):
     original = torch.randn_like; draws = []
@@ -60,33 +53,6 @@ def observe_draws(shape):
 
     with patch.object(torch, 'randn_like', observe):
         yield draws
-
-
-@contextmanager
-def replay_draw(draw):
-    calls = 0
-    b.require(draw.dtype == torch.float32 and not draw.requires_grad, 'source draw must be detached float32')
-
-    def replay(value, *args, **kwargs):
-        nonlocal calls
-        b.require(calls == 0 and not args and not kwargs and value.shape == draw.shape and value.dtype == torch.float64, 'unexpected reference Gaussian call')
-        calls += 1
-        return draw.to(device=value.device, dtype=value.dtype)
-
-    with patch.object(torch, 'randn_like', replay):
-        yield
-    b.require(calls == 1, 'reference did not consume exactly one captured draw')
-
-
-def compare(native, reference):
-    native = np.asarray(native, np.float64).reshape(-1); reference = np.asarray(reference, np.float64).reshape(-1)
-    b.require(native.shape == reference.shape and native.size > 0, 'reference comparison geometry')
-    b.finite(native, reference)
-    nn = float(np.linalg.norm(native)); rn = float(np.linalg.norm(reference)); delta = native-reference
-    return dict(native_sha256=b.array_hash(native), reference_sha256=b.array_hash(reference),
-        max_abs_error=float(np.abs(delta).max()), native_l2_norm=nn, reference_l2_norm=rn,
-        relative_l2=None if rn == 0 else float(np.linalg.norm(delta))/rn,
-        cosine=None if nn == 0 or rn == 0 else float(np.clip(np.dot(native, reference)/(nn*rn), -1, 1)))
 
 
 def after_error_isolation(unit):

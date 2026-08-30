@@ -3,7 +3,8 @@ import numpy as np
 import torch
 from torch.nn import functional as F
 
-from .binding import require, finite, GradientPartitionError, array_hash
+from .binding import require, finite, GradientPartitionError, array_hash, tensor_hash
+from .precision import compare, comparable
 
 BLOCKS = {'encoder': ('enc1.', 'enc2.', 'enc3.'), 'bottleneck': ('bottleneck.',),
           'dec3': ('decoder.dec3.',), 'dec2': ('decoder.dec2.',), 'dec1': ('decoder.dec1.',),
@@ -85,9 +86,11 @@ def alignment(supervised, unsupervised):
 
 
 def consistency_gradients(student_probability, target_probability, scores, parts, supervised_vectors,
-                          *, candidates=('R0', 'R1', 'R2', 'R3'), draw=0, teacher_kind='stochastic', decompose=False, context=None):
+                          *, candidates=('R0', 'R1', 'R2', 'R3'), draw=0, teacher_kind='stochastic', decompose=False, context=None, native_reference=None):
     context = dict(context or {}); device = student_probability.device
     shape = student_probability.shape[:1]+student_probability.shape[2:]
+    if native_reference is not None:
+        target_probability = torch.as_tensor(target_probability, device=device, dtype=torch.float32)
     target = torch.as_tensor(target_probability, device=device, dtype=student_probability.dtype)
     require(target.shape == student_probability.shape, 'target probability geometry')
     predicted = target.detach().argmax(1)
@@ -100,6 +103,19 @@ def consistency_gradients(student_probability, target_probability, scores, parts
             gradient = grad(loss, parts); vector = vectors(gradient, parts)
             hashes[f'{candidate}/{normalization}'] = array_hash(vector['global'])
             identity = dict(context, candidate=candidate, normalization=normalization, draw_index=draw, teacher_kind=teacher_kind)
+            if native_reference is not None:
+                native_p = native_reference['probability']; native_target = target.to(native_p).detach()
+                require(native_p.dtype == torch.float32 and student_probability.dtype == torch.float64 and
+                        torch.equal(native_target.argmax(1), predicted), 'native target precision/strata changed')
+                native_loss = objective(native_p, native_target, weights, predicted, normalization)
+                native_vector = vectors(grad(native_loss, native_reference['parts']), native_reference['parts'])
+                input_hashes = dict(target_float32_sha256=tensor_hash(native_target), weights_sha256=tensor_hash(weights),
+                                    class_strata_sha256=tensor_hash(predicted))
+                for block in ('global', *BLOCKS):
+                    comparison = compare(native_vector[block], vector[block])
+                    native_reference['comparisons'].append(dict(identity, block=block, **comparison,
+                        precision_comparable=comparable(comparison), native_loss=float(native_loss.detach()),
+                        native_alignment=alignment(native_reference['supervised'][block], native_vector[block]), **input_hashes))
             for block in ('global', *BLOCKS):
                 rows.append(dict(identity, block=block, loss=float(loss.detach()), **alignment(supervised_vectors[block], vector[block])))
             if decompose:
