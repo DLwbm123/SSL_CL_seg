@@ -1,0 +1,29 @@
+conv2d Stochastic Classifier
+conv2d Stochastic Classifier
+features complete B0-student seed=0 stage=1 train_labeled
+features complete B0-student seed=0 stage=1 val
+features complete B0-EMA seed=0 stage=1 train_labeled
+features complete B0-EMA seed=0 stage=1 val
+conv2d Stochastic Classifier
+conv2d Stochastic Classifier
+features complete B0-student seed=1 stage=0 train_labeled
+features complete B0-student seed=1 stage=0 val
+features complete B0-EMA seed=1 stage=0 train_labeled
+Traceback (most recent call last):
+  File "/root/.venvs/lcrseg-py310/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/root/.venvs/lcrseg-py310/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/root/SSL_CL_gate1/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 226, in <module>
+    main()
+  File "/root/SSL_CL_gate1/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 218, in main
+    extraction_shard(args)
+  File "/root/SSL_CL_gate1/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 100, in extraction_shard
+    extract_checkpoint(ROOT,args.data_root,prereg,plan,checkpoint,args.output,metadata,device='cuda:0')
+  File "/root/SSL_CL_gate1/experiments/lcrseg/di_dmpa_gate1/feature_extraction.py", line 173, in extract_checkpoint
+    caches=_extract_loaded_models(models,data_root,plan,checkpoint,output,metadata,device=device)
+  File "/root/SSL_CL_gate1/experiments/lcrseg/di_dmpa_gate1/feature_extraction.py", line 186, in _extract_loaded_models
+    arrays,diagnostics=extract_unit(model,unit,data_root,device=device)
+  File "/root/SSL_CL_gate1/experiments/lcrseg/di_dmpa_gate1/feature_extraction.py", line 152, in extract_unit
+    raise NumericalError(f"decoder.dec1 feature norm <=1e-12: {current_min}")
+di_dmpa_gate1.binding.NumericalError: decoder.dec1 feature norm <=1e-12: 0.0
