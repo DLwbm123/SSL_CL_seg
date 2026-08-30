@@ -68,3 +68,20 @@ remain untouched. This run also recorded CUDA error 804 from the container
 compatibility library path; use the existing working system-library path
 above, without changing drivers or packages. An earlier rsync transfer could
 not start because rsync is absent remotely; tar transport is used instead.
+# Sampled-norm recovery scope
+
+The recovery branch is bound to numerical-scope clarification commit
+`e8336da9d7364f4b67912d03791195445318afc3`. Attempt1 remains blocked and immutable.
+Full-map NaN/Inf still blocks; finite unsampled zeros are only counted/hashed.
+Every registered vector and prototype center remains strictly nonzero; no eps,
+coordinate deletion, resampling or source change is permitted. Geometry code,
+K candidates, fixed bootstrap draws and A1–A6 are unchanged.
+
+`localize` audits B0 seed1 stage0 EMA val at all original registered coordinates,
+with batch_size=8 and complete before/after state hashes. A registered-zero
+result is a hard stop, even when the integration test correctly detects it.
+`run` requires a localization PASS from the same published recovery commit.
+Both paths copy the exact original sampling-plan bytes, mark the copy read-only
+and never invoke sampling-plan generation. Formal attempt2 creates fresh caches.
+Failed shards request cooperative cancellation; peers finish their current
+checkpoint guard, with forced SIGTERM allowed only after600 seconds.

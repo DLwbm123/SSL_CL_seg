@@ -11,7 +11,7 @@ import numpy as np
 import torch
 
 from .binding import H, NumericalError, ProtocolError, check_hash, require, safe_asset, sha256, write_json
-from .geometry_metrics import normalize
+from .registered_features import RegisteredFeatureNumericalError, inspect_registered_case, summarize_cases
 
 
 def state_hash(state):
@@ -129,11 +129,14 @@ def _images(cases,data_root):
     return torch.from_numpy(np.stack(images))
 
 
-def extract_unit(model, unit, data_root, *, device, batch_size=8):
+def extract_unit(model, unit, data_root, *, device, batch_size=8, context=None, collect_all_invalid=False):
     require(unit["role"] in ("train_labeled","val"),"forbidden extraction role")
+    require(not model.training,'feature extraction requires model.eval()')
     seed_after_load(unit["pixel_sampling_seed"])
     values={c:[] for c in range(3)}
-    min_norm=float("inf")
+    case_audits=[]
+    failures=[]
+    context={**(context or {}), 'sampling_unit_sha256':H(unit)}
     # Optimizer constructor guard is active, even though no optimizer code is
     # imported/called by this path. This is separate from a zero-step counter.
     with patch.object(torch.optim.Optimizer,"__init__",side_effect=ProtocolError("optimizer construction forbidden")):
@@ -143,23 +146,25 @@ def extract_unit(model, unit, data_root, *, device, batch_size=8):
                 images=_images(cases,data_root).to(device)
                 _,features=model(images,stochastic_classifier=False)
                 require(tuple(features.shape[1:])==(16,384,384),"wrong feature tensor")
-                if not torch.isfinite(features).all():
-                    raise NumericalError("nonfinite decoder.dec1 feature")
-                norms=torch.linalg.vector_norm(features.double(),dim=1)
-                current_min=float(norms.min())
-                min_norm=min(min_norm,current_min)
-                if current_min<=1e-12:
-                    raise NumericalError(f"decoder.dec1 feature norm <=1e-12: {current_min}")
+                require(features.dtype==torch.float32,'feature forward must remain float32')
                 for batch_index,case in enumerate(cases):
-                    for c in range(3):
-                        coords=case["classes"][c]["coordinates"]
-                        if not coords:
-                            continue
-                        y,x=np.asarray(coords).T
-                        selected=features[batch_index,:,y,x].T.detach().cpu().numpy()
-                        values[c].append(normalize(selected))
+                    try:
+                        arrays,audit=inspect_registered_case(features[batch_index].detach().cpu().numpy(),case,context)
+                        case_audits.append(audit)
+                        for c,array in arrays.items():
+                            values[c].append(array)
+                    except RegisteredFeatureNumericalError as error:
+                        case_audits.extend(error.case_audits)
+                        failures.append(error.provenance)
+                        error.case_audits=list(case_audits)
+                        if not collect_all_invalid:
+                            raise
+    if failures:
+        error=RegisteredFeatureNumericalError('registered/full-map failure in complete localization audit',failures[0],case_audits)
+        error.all_failures=failures
+        raise error
     require(all(p.grad is None for p in model.parameters()),"unexpected model gradient")
-    return {c:np.concatenate(values[c]) for c in range(3)},dict(minimum_full_feature_norm=min_norm,
+    return {c:np.concatenate(values[c]) for c in range(3)},dict(cases=case_audits,summary=summarize_cases(case_audits),
                 forward_dtype="float32",cache_dtype="float64",normalization_dtype="float64",
                 feature_shape_per_case=[16,384,384],batch_size=batch_size,forward_seed=unit["pixel_sampling_seed"],
                 stochastic_classifier=False,amp=False,model_eval=True,no_grad=True,optimizer_construction_guard=True)
@@ -183,7 +188,17 @@ def _extract_loaded_models(models,data_root,plan,checkpoint,output,metadata,*,de
         panel=checkpoint["baseline"]+("-EMA" if source=="ema_teacher" else "-student")
         for role in ("train_labeled","val"):
             unit=next(u for u in plan["units"] if u["seed"]==checkpoint["seed"] and u["stage_index"]==checkpoint["stage_index"] and u["role"]==role)
-            arrays,diagnostics=extract_unit(model,unit,data_root,device=device)
+            context=dict(panel_id=panel,baseline=checkpoint['baseline'],feature_source=source,
+                seed=checkpoint['seed'],stage_index=checkpoint['stage_index'],domain=checkpoint['domain'],role=role,
+                checkpoint_id=checkpoint['checkpoint_id'],checkpoint_sha256=checkpoint['sha256'],
+                sampling_plan_sha256=metadata['sampling_plan_sha256'])
+            try:
+                arrays,diagnostics=extract_unit(model,unit,data_root,device=device,context=context)
+            except RegisteredFeatureNumericalError as error:
+                write_json(Path(output)/'numerical_failures'/f'{panel}_seed{checkpoint["seed"]}_stage{checkpoint["stage_index"]}_{role}.json',
+                    dict(metadata=metadata,status=error.status,provenance=error.provenance,cases=error.case_audits,
+                         summary=summarize_cases(error.case_audits)))
+                raise
             entry=dict(panel_id=panel,seed=checkpoint["seed"],stage_index=checkpoint["stage_index"],domain=checkpoint["domain"],role=role,
                        checkpoint_sha256=checkpoint["sha256"],source=source,metadata={**metadata,"panel_id":panel},diagnostics=diagnostics,
                        sampling_unit_sha256=H(unit),class_caches=[],case_count=unit["case_count"])

@@ -9,7 +9,7 @@ from pathlib import Path
 
 PREREG = "cfb62554f1e6a2a36850547485b1857dc9a28a20"
 AUTHORIZATION = "25ec97c988af290a4fb7a637c4b7cdfe462deb87"
-BRANCH = "codex/di-dmpa-gate1-diagnostics"
+BRANCH = "codex/gate1a-sampled-norm-recovery"
 REMOTE = "https://github.com/DLwbm123/SSL_CL_seg.git"
 FILE_HASHES = {
     "md": "32acdc5c24bcc5763daa6cb3650fea91f46da7ae3845b1fd0615c781619fbf0a",
@@ -95,6 +95,8 @@ def verify_registration(lcrseg_root, code_commit, *, verify_remote=True):
     require(not git(gitroot, "status", "--porcelain"), "execution source is dirty or has untracked files")
     for ancestor in (PREREG, AUTHORIZATION):
         verify_ancestor(gitroot, ancestor, code_commit)
+    from .recovery import verify_clarification
+    clarification_receipt = verify_clarification(root, code_commit)
     for suffix, digest in FILE_HASHES.items():
         path = docs / f"DI_DMPA_GATE1_PREREGISTRATION.{suffix}"
         check_hash(path, digest)
@@ -115,7 +117,7 @@ def verify_registration(lcrseg_root, code_commit, *, verify_remote=True):
     prereg = read_json(docs / "DI_DMPA_GATE1_PREREGISTRATION.json")
     require(all(v is False for v in prereg["method_flags"].values()), "method switch was enabled")
     require(prereg["panels"]["primary_admission_panel"] == "B0-EMA", "primary panel changed")
-    return prereg, {"preregistration_git_commit": PREREG, "preregistration_remote_verified_commit": PREREG,
+    return prereg, {**clarification_receipt, "preregistration_git_commit": PREREG, "preregistration_remote_verified_commit": PREREG,
                     "authorization_git_commit": AUTHORIZATION, "diagnostic_code_git_commit": code_commit,
                     "remote_code_sha": remote_sha, "registration_files_verified": True,
                     "authorization_files_verified": True, "ancestor_checks": [PREREG, AUTHORIZATION]}
