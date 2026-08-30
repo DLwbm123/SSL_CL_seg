@@ -108,3 +108,29 @@ partial caches. Gate 1B remains `FAIL_TRANSPORT_NOT_SUPPORTED`.
 Progress reports are published only on `codex/sslcl-long-running-reproduction`;
 the code-validation branch remains at `01b3fd0`. The same-thread heartbeat now
 records this failure and will not relaunch the occupied attempt.
+
+## Prospective recovery preflight
+
+Published recovery feasibility plan:
+`05946f05484ab3bf612daf20a21e4fee541668ef`; this is not a Gate1C admission run.
+The [plan](GATE1C_LEGACY_PAS_RECOVERY_PREREGISTRATION.md) permits only two
+original-code replays, 200 supervised updates each, with unchanged numerical
+tolerances and a stop before any unsupervised update or test evaluation.
+
+The helper `scripts/recover_gate1c_legacy_pas.py` imports a clean detached
+`fb55e802` checkout instead of duplicating its training loop. Guard self-checks
+pass for trace identity/tolerance/nonfinite values, roles/domains, the exact
+capture budget and byte-exact replica comparison (including signed zero).
+Helper SHA256: `2ebfd491ac4fc119246300257116aef8fc8b04af75652f047c74bfb3ede03454`.
+
+Original-source regression: **25 passed**, 7.31 s, on CPU with synthetic data;
+the resume fixtures used their default TinySegNet and the separate model-contract
+tests exercised the real UNet/stochastic classifier. No real B0 checkpoint was
+trained in these tests. The selected files were `test_resume_v2.py`,
+`test_model_checkpoint.py`, `test_deterministic_supervised_smoke.py`,
+`test_pas_probability.py`, `test_classifier_stochasticity.py` and
+`test_official_model_contract.py` under `tests/gate0`.
+JUnit: `/root/gate1c_pas_recovery_source_tests_attempt1.xml`, SHA256
+`472e5c80df8f5a3a580042f95e01225abd9e037e57e7e754d62df7f5ab862b47`.
+These are engineering checks, not evidence that the missing historical bank
+has been reconstructed. Replay has not started at this preflight checkpoint.
