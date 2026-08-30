@@ -1,6 +1,6 @@
 # Gate 1C v2 execution progress
 
-Last observed: 2026-08-30 15:08:51 UTC. The formal run has **exited with code 1**:
+Last observed: 2026-08-30 15:22:22 UTC. The original formal run **exited with code 1**:
 one frozen checkpoint lacks the legacy PAS prototype required by R1. This is
 incomplete input evidence, not a scientific PASS or FAIL of reliability.
 
@@ -139,3 +139,21 @@ JUnit: `/root/gate1c_pas_recovery_source_tests_attempt1.xml`, SHA256
 `472e5c80df8f5a3a580042f95e01225abd9e037e57e7e754d62df7f5ab862b47`.
 These are engineering checks, not evidence that the missing historical bank
 has been reconstructed. Replay has not started at this preflight checkpoint.
+
+## Recovery completed; original v2 remains incomplete
+
+Both bounded replicas completed on GPUs 0/1 and exited with code 0, followed by
+a successful full-state bytewise comparison at 2026-08-30T15:22:22.180488+00:00.
+Each ran exactly 200 supervised steps, and all 200 original log rows matched
+with **zero observed loss/LR difference**. Candidate bank and complete capture
+checkpoint files also have identical SHA256 values across replicas. All nine
+frozen B0 checkpoints and the original trace remain unchanged. Test/hidden GT,
+unlabeled optimizer steps, method optimizer steps and transport updates: none.
+
+Outcome: `RECONSTRUCTION_SUPPORTED_NOT_HISTORICAL_HASH_VERIFIED`.
+[Recovery report](GATE1C_LEGACY_PAS_RECOVERY_REPORT.md) and
+[full metadata/comparison receipt](gate1c_legacy_pas_recovery_results/05946f0/RECOVERY_COMPARISON.json).
+There is no historical saved bank hash, so this does not certify bytewise
+identity to a missing old artifact and does not complete original Gate1C v2.
+Next: prospectively register v2.1 with this one explicit input reconstruction,
+unchanged diagnostics, and fresh complete caches before any diagnostic use.
