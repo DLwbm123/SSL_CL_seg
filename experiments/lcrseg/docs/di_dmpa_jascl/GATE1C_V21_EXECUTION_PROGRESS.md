@@ -7,6 +7,12 @@ pairs. All workers exited. Earlier RUNNING snapshots below are historical.
 See [bounded failure investigation](GATE1C_V21_DECOMPOSITION_INVESTIGATION_PREREGISTRATION.md).
 No full retry or scientific admission has occurred.
 
+Follow-up completed 2026-08-30T16:23:40 UTC: the same native failure reproduced
+once on each GPU, with identical numerical details. See the
+[fixed-pair investigation report](GATE1C_V21_DECOMPOSITION_REPORT.md).
+Both forensic processes have exited; none of the historical PIDs below is an
+instruction to resume or repeat an occupied attempt.
+
 Observed **2026-08-30T15:50:03.822113+00:00**: **RUNNING**, validation-cache
 phase. This is a dated operational snapshot, not a mechanism verdict or a claim
 that the method has reproduced successfully. Check live completion/failure files.
@@ -32,7 +38,7 @@ that the method has reproduced successfully. Check live completion/failure files
 Test receipt SHA256:
 `53452e7bc0f1b239bf851d87fd66afe104bdde2a5c0abaf38c018bebeef1eac8`.
 
-## Active run
+## Historical run snapshot (now terminal)
 
 - Execution checkout: `/root/SSL_CL_gate1c_v21_44a2525` (clean, detached exact code).
 - Run root: `/root/LCRSeg/runs/di_dmpa_gate1c_v21/9d8ecc65730bee5bec46a1f098c9fe96a67a59b9/gate1c_v21_44a25254697fa535d2b48b64e27ecb226436f7d0_attempt1`.
