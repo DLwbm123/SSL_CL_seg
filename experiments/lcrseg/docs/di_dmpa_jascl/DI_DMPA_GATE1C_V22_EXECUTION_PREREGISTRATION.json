@@ -1,0 +1,494 @@
+{
+  "registration_id": "DI_DMPA_GATE1C_V22_FULL_DIAGNOSTIC_FP64_IDENTITY_HISTORY",
+  "registered_at_utc": "2026-08-30T18:11:18.839Z",
+  "scope": "CURRENT_METHOD_FULL_OFFLINE_DIAGNOSTIC_NOT_TRAINING",
+  "diagnostic_version": "v2.2_fp64_full",
+  "input_contract_version": "v2.1",
+  "execution_authorization_status": "SEPARATE_AUTHORIZATION_AND_LIVE_PREFLIGHT_REQUIRED",
+  "launch_ready_at_registration": false,
+  "authority": {
+    "commit": "b6d70699599bd89faafb4a1dd22223575c62bbb6",
+    "path": "experiments/lcrseg/docs/di_dmpa_jascl/LONG_RUNNING_REPRODUCTION_20260830.md",
+    "sha256": "2e3732efd7f2f5f5ca02706d2fac83eae3b237175d9db8348477fe9c55e5c829",
+    "current_method_only": true
+  },
+  "original_science": {
+    "commit": "32d32ab5e491f2e14c3edde6b4f319f978217351",
+    "path": "experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_GATE1C_V2_PREREGISTRATION.json",
+    "sha256": "8b8dc8c56b60e27e3e1521053cd9307bf65d017ec9343476857b9508721c2f57"
+  },
+  "input_amendment": {
+    "commit": "9d8ecc65730bee5bec46a1f098c9fe96a67a59b9",
+    "path": "experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_GATE1C_V21_PREREGISTRATION.json",
+    "sha256": "9a517e48713e650da3c62e5cbdb9f2d12b58af14eff8ad0e690bf67b1554751e",
+    "sole_override": "B0/seed1/stage1 legacy PAS",
+    "historical_bank_hash_verified": false,
+    "recovery_status": "RECONSTRUCTION_SUPPORTED_NOT_HISTORICAL_HASH_VERIFIED",
+    "prior_baseline_recovery_optimizer_steps": 400
+  },
+  "engineering_prerequisite": {
+    "pilot_preregistration_commit": "6357317749b0ff904e3acd39023b86430d6263ee",
+    "pilot_preregistration_json_sha256": "2ceb37fc571b17373261fe631c8a2e416130912e2e882461b9e42795d495aeca",
+    "pilot_code_commit": "7fdd4312278eb64dbfb471107bb47e6b897c6859",
+    "pilot_report_commit": "3adc4fcb7d2b03d3cd2516323844740ec8f06597",
+    "pilot_report_path": "experiments/lcrseg/docs/di_dmpa_jascl/GATE1C_V22_PRECISION_PILOT_REPORT.md",
+    "pilot_report_sha256": "3fb9a72a7de25368ace6677236f7282c9cebeafe175bb07dd8716055d9bed1d7",
+    "pilot_status": "PASS_NUMERIC_PRECISION_PILOT",
+    "pilot_status_sha256": "0e6c3cbe66e460e411a5200fc191f4984223bf848bb1400e6bc943015d3911b0",
+    "pilot_manifest_sha256": "de3969652de90494fc9b7fbd7f0745cd6797cd6088d62d3a12318a909382866c",
+    "operator_repair_commit": "d6bd0707d7a889d7e42e00e61b3d242354335753",
+    "operator_repair_exact_tests": 135,
+    "source_preflight_commit": "16eb21343781cbc3556e046c3bd3a0f3c03896cf",
+    "source_preflight_script_sha256": "99d25e1d56b92ed439226c734a2ca41d4b6d3d85bb7702d8ed706c3e2718a90b"
+  },
+  "inherited_unchanged": [
+    "all 72 pair identities and four case IDs per pair",
+    "all student/teacher forward seeds and 8 teacher draw seeds",
+    "Fundus domain order, 3 classes, channels, normalization, resize, ignore label and roles",
+    "B0 EMA probability/features; student gradient receiver",
+    "Frozen medical UNet backbone and official stochastic 3x3 classifier",
+    "K=2 train-labeled original fit banks; identity history; no transport",
+    "R0/R1/R2/R3 formulas, native PAS strict >0.7 joint mask",
+    "null feature threshold 1e-12, null mass, GT isolation",
+    "teacher-target and PoE formulas and canonical float32 target/strata",
+    "case-balanced validation mass, deterministic tie, coverage points, all metrics",
+    "all original C1-C8 thresholds, full 18/72 unit denominators and undefined rules",
+    "R3 pixel primary; R3 class-balanced only independently against R1 pixel",
+    "R0/R2/PoE/posterior-mean/C0/student cannot rescue R3",
+    "original failed Gate1B and v2.1 formal attempt remain failed/incomplete"
+  ],
+  "core_byte_identity": {
+    "reference_commit": "7fdd4312278eb64dbfb471107bb47e6b897c6859",
+    "directory": "experiments/lcrseg/di_dmpa_gate1c_v2",
+    "files": {
+      "execution.py": "debb0ba493afb632da94c1ccf0df956071e37970c321c566a89460b0b42d8c9b",
+      "gradients.py": "22392dd39ed0659bd4fa003dcdab63d3ceacc6a0b6c93623801693f80b2d5888",
+      "precision.py": "09e67054a67b26948e6041e9bdb535169643cbb9046534cce696e39081ff97d8"
+    }
+  },
+  "allowed_implementation_change": "Shared-runner orchestration, explicit reused-artifact provenance, exact-code tests, create-only output and resource/precision guards only. Shared observer helpers may be extracted from the tested pilot without mathematical changes.",
+  "protected_science_paths": [
+    "experiments/lcrseg/di_dmpa_jascl",
+    "experiments/lcrseg/di_dmpa_gate1",
+    "experiments/lcrseg/di_dmpa_gate1_v2",
+    "experiments/lcrseg/di_dmpa_gate1b_v2",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/binding.py",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/reliability.py",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/metrics.py"
+  ],
+  "protected_reporting_functions": [
+    "candidate_conditions",
+    "select",
+    "reduction",
+    "grouped_gradient_statistics",
+    "noise_rows"
+  ],
+  "precision": {
+    "mode": "float64_shadow",
+    "native_scoring_dtype": "float32",
+    "same_native_gaussian_replayed_as_float64": true,
+    "canonical_target_and_class_strata_dtype": "float32",
+    "decomposition_atol": 0.000001,
+    "decomposition_rtol": 0.0001,
+    "global_relative_l2_maximum": 0.001,
+    "global_cosine_minimum": 0.9999,
+    "comparison_denominator": "float64 reference norm",
+    "every_global_objective_and_supervised_control_required": true,
+    "both_zero": "comparable only as numeric control; scientific alignment remains null",
+    "one_zero_only": "FAIL_NUMERIC_COMPARABILITY",
+    "failure_rescue_or_tolerance_relaxation_allowed": false
+  },
+  "validation_reuse": {
+    "status_at_registration": "NOT_YET_REVALIDATED_OR_APPROVED",
+    "source_root": "/root/LCRSeg/runs/di_dmpa_gate1c_v21/9d8ecc65730bee5bec46a1f098c9fe96a67a59b9/gate1c_v21_44a25254697fa535d2b48b64e27ecb226436f7d0_attempt1",
+    "source_code_commit": "44a25254697fa535d2b48b64e27ecb226436f7d0",
+    "source_input_contract_version": "v2.1",
+    "source_formal_status": "BLOCKED_INCOMPLETE_EVIDENCE",
+    "source_artifact_manifest": "GATE1C_V2_ARTIFACT_MANIFEST.json",
+    "source_artifact_manifest_sha256": "0d652551711e0a3ceff6ac8bdb0001355f4ec6083882460d740784ee837420d9",
+    "cache_manifest_sha256": "b9be53ebf580a296b9e99dd74c1864f3d7e3edacc12a583b81bd0e1093354720",
+    "support_census_sha256": "bc2b1fa421a7d1eb139bf08f2e18b00f31ac3cffd7776bc08cee722d54101d4f",
+    "validation_barrier_sha256": "633df387501e2a4dd8ab033f91db2011cb7bf5384eb8e8173bf679724974e51a",
+    "validation_model_audit_sha256": "170a8fe650954b3581ee1242e413742aa5ddddff5c724bfb2b413ad7588347c1",
+    "plans": [
+      {
+        "seed": 0,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "cases": 100
+      },
+      {
+        "seed": 0,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "cases": 40
+      },
+      {
+        "seed": 0,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "cases": 25
+      },
+      {
+        "seed": 1,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "cases": 100
+      },
+      {
+        "seed": 1,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "cases": 40
+      },
+      {
+        "seed": 1,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "cases": 25
+      },
+      {
+        "seed": 2,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "cases": 100
+      },
+      {
+        "seed": 2,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "cases": 40
+      },
+      {
+        "seed": 2,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "cases": 25
+      }
+    ],
+    "cases": 495,
+    "pixels": 72990720,
+    "raw_cache_files": 495,
+    "raw_cache_file_bytes": 4856574421,
+    "source_forward_count": 990,
+    "new_validation_forward_count": 0,
+    "source_records_must_keep_original_metadata": true,
+    "derived_indexes": "May reference original cache paths and add new-run metadata only alongside an explicit source file/hash/original metadata record; never relabel old forwards or guards as newly executed.",
+    "prior_model_guards": 9,
+    "new_full_probe_model_guards": 288,
+    "full_evidence_model_guards": 297,
+    "raw_cache_copy_to_new_remote_run": false,
+    "fresh_metric_evaluation": {
+      "reliability_units": 9,
+      "poe_units": 9,
+      "old_metric_rows_used_for_admission": false,
+      "old_metric_rows_may_be_compared_for_exact_parity": true
+    },
+    "mandatory_live_checks": [
+      "Every source file SHA256 and byte length against the frozen manifest; exact case membership and seeds, no additions/duplicates/missing cases",
+      "Original v2.1 run metadata, CP hashes, input audit, all9 original guards, banks, recovered PAS proof and source/target numeric/scoring code lineage",
+      "Use existing read_arrays and validate_scores on all495 caches: every array hash, dtype/shape, finite/structural-null status and support counts",
+      "Labels stay outside reliability builders; original raw cache field set unchanged; all current-role manifests and split/HDF5 image/visible-label identities rechecked",
+      "Original validation unit metadata remains explicitly source provenance; new wrapper/index content must equal the original except registered provenance additions",
+      "Known cached null: seed2/stage0/REFUGE_train_n0038 at [185,180], with original zero weight/structural-null behavior",
+      "Hash referenced input and cache files before integration, before formal phases and after completion; fail closed on any change"
+    ],
+    "reuse_failure_action": "Stop. No recomputation, replacement cache, alternate checkpoint, metric subset or additional forward without a new prospective version.",
+    "forbidden_reuse": [
+      "old v2 partial caches",
+      "old v2.1 partial gradient/probe rows",
+      "pilot gradient rows as formal evidence",
+      "old failure/STOP files as new pipeline state"
+    ]
+  },
+  "execution": {
+    "host": "root@162.14.139.38",
+    "port": 31192,
+    "python": "/root/.venvs/lcrseg-py310/bin/python",
+    "data_root": "/root/LCRSeg",
+    "gpu_ids": [
+      0,
+      1
+    ],
+    "gpu_type": "existing RTX3090 only",
+    "cpu_metric_workers": 2,
+    "threads_per_worker": 1,
+    "full_pair_count": 72,
+    "fixed_batch_pairs_sha256": "a0eaea7e6b79ee8fe202dd7b40337812afb2c12bd4f200c2230a136e20d006de",
+    "pairs_per_seed_stage": 8,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "assignment": "Original frozen 72-pair list index modulo2; ascending original pair order within each shard.",
+    "expected_pairs_per_gpu": 36,
+    "phases": [
+      "draw0",
+      "noise",
+      "posterior",
+      "poe"
+    ],
+    "order": [
+      "publish preregistration",
+      "complete live metadata/file-hash/resource precheck without checkpoint tensor loads or forwards",
+      "publish separate conditional execution authorization",
+      "implement and publish exact code",
+      "pass clean exact-code synthetic tests",
+      "pass exact-code input-payload and all-cache numeric audits after authorization/code publication; zero forwards",
+      "run create-only exact-code real integration",
+      "verify integration and unchanged inputs",
+      "create new formal attempt; bind reused validation indexes and original guards",
+      "fresh reliability metric evaluation and complete 9-unit barrier",
+      "72-pair draw0 and all-pair numeric/isolation barrier",
+      "72-pair 8-draw noise and barrier",
+      "72-pair posterior-mean and barrier",
+      "72-pair PoE plus fresh 9-unit PoE evaluator and barrier",
+      "complete model/bank/GT/cache/numeric/count audits",
+      "unchanged C1-C8 compiler",
+      "immutable manifests, private retention, public report and publication receipt"
+    ],
+    "counters_per_pair_phase": {
+      "draw0": {
+        "native_forwards": 3,
+        "shadow_forwards": 2,
+        "native_autograd": 9,
+        "shadow_autograd": 33
+      },
+      "noise": {
+        "native_forwards": 9,
+        "shadow_forwards": 2,
+        "native_autograd": 57,
+        "shadow_autograd": 57
+      },
+      "posterior": {
+        "native_forwards": 3,
+        "shadow_forwards": 2,
+        "native_autograd": 9,
+        "shadow_autograd": 9
+      },
+      "poe": {
+        "native_forwards": 2,
+        "shadow_forwards": 2,
+        "native_autograd": 17,
+        "shadow_autograd": 23
+      }
+    },
+    "full_count_totals": {
+      "native_forwards": 1224,
+      "shadow_forwards": 576,
+      "total_real_forwards": 1800,
+      "native_autograd": 6624,
+      "shadow_autograd": 8784
+    },
+    "full_coverage": {
+      "pair_phase_records": 288,
+      "alignment_rows": 48384,
+      "global_rows_and_precision_comparisons": 6912,
+      "blockwise_alignment_rows": 41472,
+      "class_component_rows": 15120,
+      "supervised_global_precision_comparisons": 288,
+      "teacher_draw_records": 576,
+      "native_PAS_parity_calls": 720,
+      "native_PAS_pixel_call_comparisons": 212336640
+    },
+    "full_timeout_seconds": 10800,
+    "full_gpu_worker_phase_timeout_seconds": 1800,
+    "cpu_metric_phase_timeout_seconds": 3600,
+    "shutdown_grace_seconds": 600,
+    "attempt_limit": 1,
+    "incomplete_or_failed_attempt": "Retain all files and true failure; no duplicate/retry launch. An SSH observation failure is not process termination.",
+    "new_method_flags": "All inherited method flags false; method_registered=false; no training or parameter.grad/backward/update."
+  },
+  "exact_code_real_integration": {
+    "new_create_only_attempt": true,
+    "pairs": [
+      {
+        "batch_id": "B0/seed0/stage0/REFUGE/pair00",
+        "seed": 0,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "pair_index": 0,
+        "sampler_seed": 20260830,
+        "labeled_case_ids": [
+          "REFUGE_train_g0039",
+          "REFUGE_train_n0007"
+        ],
+        "unlabeled_case_ids": [
+          "REFUGE_train_n0188",
+          "REFUGE_test_n0144"
+        ],
+        "checkpoint_id": "B0/seed0/stage0",
+        "checkpoint_sha256": "2bd834c0e0bb4183bfa5cc9a0319c9b796b67e5f2b7e2d746a5f5942596b3a3c",
+        "forward_seeds": {
+          "student_unlabeled": 1797666868,
+          "student_labeled": 1458870622
+        },
+        "teacher_draw_seeds": [
+          1022386612,
+          161776925,
+          1722183208,
+          104006526,
+          425722923,
+          888451287,
+          318254083,
+          1802571626
+        ]
+      },
+      {
+        "batch_id": "B0/seed1/stage1/RIM_ONE_r3/pair00",
+        "seed": 1,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "pair_index": 0,
+        "sampler_seed": 20260931,
+        "labeled_case_ids": [
+          "RIM_ONE_r3_test_G-27-R",
+          "RIM_ONE_r3_test_N-30-R"
+        ],
+        "unlabeled_case_ids": [
+          "RIM_ONE_r3_test_N-2-R",
+          "RIM_ONE_r3_train_N-52-R"
+        ],
+        "checkpoint_id": "B0/seed1/stage1",
+        "checkpoint_sha256": "fd61eb6c8c6b1b4e13ce16f9b442572f7c951e03b9403925ad5d898011201b11",
+        "forward_seeds": {
+          "student_unlabeled": 2146066916,
+          "student_labeled": 1401737669
+        },
+        "teacher_draw_seeds": [
+          1080093231,
+          468365677,
+          1592957183,
+          870208867,
+          46393325,
+          1742415215,
+          685487804,
+          1261776614
+        ]
+      },
+      {
+        "batch_id": "B0/seed0/stage2/Drishti_GS/pair01",
+        "seed": 0,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "pair_index": 1,
+        "sampler_seed": 20260832,
+        "labeled_case_ids": [
+          "Drishti_GS_train_ndrishtiGS_041",
+          "Drishti_GS_train_gdrishtiGS_040"
+        ],
+        "unlabeled_case_ids": [
+          "Drishti_GS_test_gdrishtiGS_073",
+          "Drishti_GS_train_gdrishtiGS_004"
+        ],
+        "checkpoint_id": "B0/seed0/stage2",
+        "checkpoint_sha256": "daa7129a8807dfe5880eca480107d3613f448d55a0079cede9e0282ac7d4d244",
+        "forward_seeds": {
+          "student_unlabeled": 1711877331,
+          "student_labeled": 1271293136
+        },
+        "teacher_draw_seeds": [
+          382211427,
+          1037229431,
+          252163649,
+          1525400971,
+          1349298177,
+          417482735,
+          1158824070,
+          622884740
+        ]
+      }
+    ],
+    "phases": [
+      "draw0",
+      "noise",
+      "posterior",
+      "poe"
+    ],
+    "assignment": {
+      "0": [
+        "B0/seed0/stage0/REFUGE/pair00",
+        "B0/seed1/stage1/RIM_ONE_r3/pair00"
+      ],
+      "1": [
+        "B0/seed0/stage2/Drishti_GS/pair01"
+      ]
+    },
+    "additional_new_validation_forwards": 0,
+    "counts": {
+      "native_forwards": 51,
+      "shadow_forwards": 24,
+      "total_real_forwards": 75,
+      "native_autograd": 276,
+      "shadow_autograd": 366,
+      "model_guards": 12
+    },
+    "maximum_worker_phase_seconds": 600,
+    "attempt_limit": 1,
+    "acceptance": "All tested pilot acceptance conditions, same native/FP64 hash goldens, every registered numeric comparison, fresh source/cache/input checks including the cached real null, exact PAS parity and complete after-error guards. No scientific admission.",
+    "pilot_output_use": "Read-only hash goldens only, not reused integration or formal rows.",
+    "combined_integration_and_full_real_forward_budget": 1875
+  },
+  "storage": {
+    "new_output_prefix": "/root/LCRSeg/runs/di_dmpa_gate1c_v22",
+    "integration_relative_path": "<preregistration-commit>/integration_attempt1",
+    "formal_relative_path": "<preregistration-commit>/attempt1",
+    "create_only": true,
+    "minimum_free_root_bytes_at_prepare": 8589934592,
+    "minimum_root_reserve_bytes": 2147483648,
+    "per_pair_headroom_bytes": 67108864,
+    "full_new_artifact_byte_budget": 6442450944,
+    "integration_artifact_byte_budget": 536870912,
+    "full_raw_gradient_payload_bound_bytes": 3906994176,
+    "budget_excludes_referenced_old_cache_bytes": 4856574421,
+    "recheck_before_each_pair_and_phase": true,
+    "oversize_or_insufficient_space": "Fail closed and retain evidence; no deletion, truncation, spillover, mount or batch change.",
+    "use_tmp_or_shm_or_overlay": false,
+    "local_private_archive_prefix": "/Users/bominwang/Desktop/codes/SSL_CL_seg/runs/di_dmpa_gate1c_v22",
+    "local_minimum_free_bytes_before_archive": 17179869184,
+    "retention": "Keep new full/integration outputs on the existing root volume, and original referenced validation source untouched. Make a separate hash-verified local private copy of new outputs plus all referenced old validation caches/units/guards/input metadata needed to interpret them; do not duplicate old cache tensors into the new remote run.",
+    "archive_partial_policy": "An incomplete local transfer is not a retained copy. Use a dedicated incoming directory, manifest-verify before promotion; retain and disclose partial failures. Do not overwrite a previously verified archive.",
+    "remote_and_local_mapping": "Keep original runtime descriptors unchanged; a separate archive receipt maps each remote root to the corresponding private local root and checks all bytes/hashes.",
+    "completed_artifact_claim_requires": "Remote terminal exit/status/manifests and independent referenced-file audit; separately record local-copy readiness. Method success cannot be claimed from presence or a final log line.",
+    "public_artifacts": "Code, registration, scrubbed JSON/CSV/MD, tests and manifests only. No checkpoints, raw NPZ, images, masks, credentials or private logs."
+  },
+  "required_tests": [
+    "All existing synthetic tests including native/frozen parity, zero-gradient/null rules, fixed PoE float32 ties and all original scientific gates; no failures/errors/skips",
+    "New full-run provenance: reject mixed source/new metadata, missing/extra/cache hash mismatches, wrong cases/seeds/roles/CP/bank/dtypes and unverified reuse",
+    "All72×4 phase completeness, counters and numeric comparability: duplicates, missing draws, changed strata and zero-gradient handling fail correctly",
+    "Shared runner old-mode parity and old native default unchanged; numeric execution/gradient/precision files byte-identical to pilot",
+    "Occupied/repeated/partial prepare/worker/barrier/report commands do not mutate sealed evidence; genuine failures retain tracebacks and guards",
+    "Budget checks and owned-worker cancellation; no other process termination, no resource/dependency changes",
+    "New exact-code real integration above, both GPUs; no prospective scientific score selection"
+  ],
+  "minimum_existing_synthetic_test_count": 138,
+  "required_metadata": [
+    "Original science/input preregistration identities",
+    "New v2.2 preregistration and execution authorization commit/file hashes",
+    "Exact diagnostic code commit, clean-source test receipt and independently verified public commit",
+    "Native pilot code and numeric engine file hashes",
+    "Original validation source run/code/metadata/manifests and explicit reused rows/guards/990 old forwards",
+    "Fresh integration/formal counts and original 72-case-pair/8-draw identities",
+    "Zero optimizer/update flags, current roles and hidden/test GT none",
+    "All paths, command argv, process IDs/exit status, dependency/device versions, resource/retention receipts"
+  ],
+  "required_outputs": [
+    "V22 run metadata and input/source/cache-reuse audit",
+    "Original+new model guard audit with reused/new counts separated",
+    "Reliability cache reference manifest and support census",
+    "All reliability, gradient, noise and PoE diagnostics/tables from the shared compiler",
+    "Complete native-vs-FP64 comparison summary and per-phase counters",
+    "GATE1C_V22_STATUS.json and GATE1C_V22_FINAL_REPORT.md; compatibility V2 filenames explicitly identify v2.2 execution with v2.1 input",
+    "Failures/warnings and exact executed commands",
+    "Clean-code test and real-integration reports",
+    "New-output and external-reference manifests, private archive audit, public publication receipt"
+  ],
+  "historical_states": {
+    "gate1a": "PASS_MULTI_MODALITY_SUPPORTED_K2",
+    "gate1b_and_original_overall_gate1": "FAIL_TRANSPORT_NOT_SUPPORTED",
+    "original_gate1c_v2": "INCOMPLETE_MISSING_LEGACY_PAS",
+    "original_gate1c_v21": "BLOCKED_INCOMPLETE_EVIDENCE"
+  },
+  "stopping_rule": "No new real execution before every launch prerequisite passes. No training/Gate2/Prostate/MnMS/full sweep/main merge. Publish complete outcome and analyze the next finite current-method-only step under existing user authority; scientific failure is not permission to tune a frozen gate."
+}

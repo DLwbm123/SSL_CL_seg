@@ -1,0 +1,70 @@
+{
+  "status": "REMOTE_ACCESS_UNAVAILABLE_INSTANCE_STATE_UNKNOWN",
+  "final_recheck_after_local_preflight": {
+    "exit_code": 255,
+    "error": "Connection closed by 162.14.139.38 port 31192",
+    "remote_command_executed": false,
+    "command": "ssh -o BatchMode=yes -o ConnectTimeout=12 -o ConnectionAttempts=1 -p 31192 root@162.14.139.38"
+  },
+  "recorded_at_utc": "2026-08-30T18:13:35.392Z",
+  "requested_host": "162.14.139.38",
+  "requested_port": 31192,
+  "requested_user": "root",
+  "checks": [
+    {
+      "kind": "default_ssh",
+      "attempts": 2,
+      "exit_code": 255,
+      "error": "Connection closed by 162.14.139.38 port 31192",
+      "remote_command_executed": false
+    },
+    {
+      "kind": "verbose_ssh",
+      "attempts": 1,
+      "exit_code": 255,
+      "tcp_connection_established": true,
+      "server_version_received": false,
+      "public_key_authentication_reached": false,
+      "error": "kex_exchange_identification: Connection closed by remote host",
+      "remote_command_executed": false
+    },
+    {
+      "kind": "single_connection_physical_interface_binding",
+      "attempts": 1,
+      "interface": "en0",
+      "exit_code": 255,
+      "error": "Connection refused",
+      "remote_command_executed": false,
+      "local_source_address_omitted_from_public_report": true
+    },
+    {
+      "kind": "original_jupyter_browser_navigation",
+      "result": "redirected_to_login",
+      "redirect_url": "https://cloud.luchentech.com/account/signin",
+      "authenticated_browser_available": false,
+      "platform_instance_state_observable": false
+    }
+  ],
+  "default_route_interface": "utun4",
+  "global_network_or_proxy_configuration_changed": false,
+  "instance_restarted": false,
+  "ssh_configuration_changed": false,
+  "credentials_read_or_modified": false,
+  "current_remote_process_and_gpu_status": "UNKNOWN_NO_SUCCESSFUL_REMOTE_COMMAND_THIS_PREFLIGHT",
+  "last_successful_remote_observation": {
+    "at_utc": "2026-08-30T17:51:54Z",
+    "historical_only": true,
+    "pilot_and_formal_workers_running": false,
+    "root_available_bytes": 9225658368,
+    "tmp_available_bytes": 209936281600
+  },
+  "cache_arrays_and_checkpoint_tensors_loaded_this_preflight": false,
+  "new_real_model_forwards": 0,
+  "user_attention_requested": "Confirm current instance running state and current platform SSH command.",
+  "not_inferred": [
+    "instance stopped",
+    "storage deleted",
+    "SSH key invalid",
+    "old experiment failed anew"
+  ]
+}
