@@ -19,6 +19,26 @@ isolation checks. See the [numerical reference report](GATE1C_V21_FP64_REFERENCE
 This changes neither the original failed formal attempt nor the scientific
 Gate1B/overall Gate1 failure. No formal retry or method training is running.
 
+Post-reference storage discovery (read-only, 2026-08-31 Asia/Shanghai): the
+compute node has a separate mounted ext4 filesystem at `/tmp`, with
+209,945,223,168 bytes available. `/root/LCRSeg` has 9,767,464,960 bytes available.
+The local project filesystem has 58,948,328 KiB available. These are measured
+capacities, **not** verified platform lifecycle/durability guarantees; the large
+host overlay and `/dev/shm` must not be treated as additional persistent space.
+No files were moved/deleted and no mount or permission settings were changed.
+
+Next iteration: independently preregister the diagnostic-precision amendment
+and a small stage-covering integration pilot before further real forwards.
+Keep native probabilities/features/PAS/targets/class strata and random draws,
+use an isolated same-draw float64 student gradient receiver, and preserve the
+original tolerances and C conditions. Publish code/tests first; no formal
+retry or method training is authorized by the completed reference alone.
+For any later full run, explicitly plan private scratch directories and
+hash-verified retained artifacts (not scratch as the sole evidence copy),
+recheck disk headroom and preserve every old failed attempt. The existing
+separate scratch mount may avoid unnecessary duplication in `/root`, but its
+use and artifact-retention policy must be in that prospective execution plan.
+
 Observed **2026-08-30T15:50:03.822113+00:00**: **RUNNING**, validation-cache
 phase. This is a dated operational snapshot, not a mechanism verdict or a claim
 that the method has reproduced successfully. Check live completion/failure files.
