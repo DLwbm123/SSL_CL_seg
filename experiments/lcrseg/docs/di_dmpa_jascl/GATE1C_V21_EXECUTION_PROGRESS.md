@@ -76,3 +76,41 @@ overall Gate1 remain `FAIL_TRANSPORT_NOT_SUPPORTED`, regardless of this outcome.
 No DI-DMPA method registration, new method optimizer training, full sweep or main
 merge has occurred. Reports advance only the continuation branch; the running
 checkout is never updated to a later report commit.
+
+## Read-only follow-up: 2026-08-31 00:02 Asia/Shanghai
+
+Observed **2026-08-30T16:02:14.830278+00:00**: runner PID88927 and its two CPU
+metric workers PID89216/PID89219 were live. Validation caches are complete:
+**9 units / 495 cases / 72,990,720 pixel rows**. Six of nine reliability metric
+unit files existed; no phase-completion, failure, final-status or execution-
+completion file existed. This remains a verified wait, not an admission result.
+
+A metadata-only independent check verified the exact v2.1 preregistration/code,
+all three hashes bound by the validation barrier, all nine validation-unit JSON
+hashes, unique case IDs within each unit, active+null row accounting, and nine
+passing model-immutability guards. It did not load arrays or labels, write into
+the formal run, change a worker, or inspect partial scientific scores. The
+validation barrier SHA256 is
+`633df387501e2a4dd8ab033f91db2011cb7bf5384eb8e8173bf679724974e51a`.
+The barrier attests the runner's completed cache/model checks; this follow-up
+does not claim to have independently rehashed every raw array or checkpoint.
+
+Resource check: available disk was **10,698,432,512 bytes** (about 9.96 GiB).
+The remaining stored arrays in the unchanged execution code have raw payload
+size `72 * 2 * 384 * 384 * 4 * (22 + 8*3) = 3,906,994,176 bytes` (3.64 GiB):
+22 float32 channels per draw0 pair, plus eight three-channel teacher probability
+draws. Gradient vectors are hashed, not persisted as full arrays. PoE validation
+reuses the existing caches. JSON/CSV/container overhead is additional, so this
+is a payload estimate, not a hard total-size guarantee. No cleanup, new storage,
+batch/precision change or extra experiment is needed at this checkpoint.
+The container's cgroup-v1 memory limit is 85,899,345,920 bytes (80 GiB), not the
+much larger host-wide RAM displayed by `free`.
+
+The next complete-evidence review must check 9 reliability units, four phases
+of 72 original pairs, 576 shared teacher-draw records, 72 posterior-mean
+controls, 9 PoE validation units and **297 model guards** (`9 + 4*72`). Expected
+gradient table coverage from the frozen Cartesian products is 6,912 global,
+41,472 blockwise and 15,120 class-contribution rows; these are completeness
+requirements, not values to fabricate or a replacement for checking pair/draw
+identity, hashes, numeric validity and the original C1-C8 conditions. The
+formal process and its output directory remain untouched.
