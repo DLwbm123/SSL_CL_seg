@@ -159,7 +159,11 @@ def artifact_manifest(output):
     output = Path(output); excluded = {'GATE1C_V2_ARTIFACT_MANIFEST.json', 'GATE1C_V2_ARTIFACT_MANIFEST.sha256'}
     files = [dict(path=str(p.relative_to(output)), bytes=p.stat().st_size, sha256=sha256(p))
              for p in sorted(output.rglob('*')) if p.is_file() and p.name not in excluded]
-    result = dict(scope='GATE1C_V2_ONLY', artifacts=files, file_count=len(files), total_bytes=sum(x['bytes'] for x in files),
+    metadata_path = output/'GATE1C_V2_RUN_METADATA.json'
+    metadata = read_json(metadata_path) if metadata_path.exists() else {}
+    result = dict(scope=metadata.get('execution_scope', 'GATE1C_V2_ONLY'),
+                  input_contract_version=metadata.get('input_contract_version', 'v2'),
+                  artifacts=files, file_count=len(files), total_bytes=sum(x['bytes'] for x in files),
                   raw_tensors='remote_only; public descriptors retain exact paths, bytes and hashes', manifest_excludes_self=True)
     digest = write_json(output/'GATE1C_V2_ARTIFACT_MANIFEST.json', result)
     write_text(output/'GATE1C_V2_ARTIFACT_MANIFEST.sha256', digest+'  GATE1C_V2_ARTIFACT_MANIFEST.json\n')
@@ -240,8 +244,11 @@ def compile_report(output, p, metadata, audit):
         model_checkpoint_immutability='PASS', model_immutability_guards=audit['guard_count'],
         training=False, final_test=False, main_merge=False, theory_final=False,
         posterior_mean_control_only=True, report_commit=None, report_commit_resolution='separate publication receipt after report commit; no self-referential hash')
+    version = metadata.get('input_contract_version', 'v2')
+    if version == 'v2.1':
+        status['next_action'] = metadata['next_action']
     write_json(output/'GATE1C_V2_STATUS.json', status)
-    lines = ['# Gate 1C v2: identity-history reliability', '', '**'+status['reliability_status']+'**', '',
+    lines = ['# Gate 1C '+version+': identity-history reliability', '', '**'+status['reliability_status']+'**', '',
         'The complete offline diagnostic uses frozen K=2 B0-EMA prototypes with identity history. R4 is unavailable. No T1/T2 output was used.', '',
         '| Gate | R3 pixel normalized | R3 class balanced |', '| --- | --- | --- |']
     for key in ('C1','C2','C3','C4','C5','C6','C7','C8'):
@@ -249,18 +256,27 @@ def compile_report(output, p, metadata, audit):
     lines += ['', 'Validation:9/9 units (18 foreground units); gradient probes:72/72; teacher draws:576/576. All candidate and control evidence is retained, with explicit unsupported coverage and undefined zero-gradient cosines.',
         '', 'Selected reliability: `'+str(status['selected_reliability'])+'`; normalization: `'+str(status['selected_normalization'])+'`.',
         'Reduced candidate: `'+status['reduced_candidate_status']+'`. **Overall Gate1 remains FAIL_TRANSPORT_NOT_SUPPORTED**.',
-        '', 'All numeric comparisons use unrounded values. Every gradient admission comparison uses original pixel-normalized R1. Shared validation points and all C1–C8 raw values are in the status/diagnostic JSON and tables.',
+        '', 'All numeric comparisons use unrounded values. Every gradient admission comparison uses pixel-normalized R1 under the active input contract. Shared validation points and all C1–C8 raw values are in the status/diagnostic JSON and tables.',
         '', f"Model/checkpoint immutability:{audit['guard_count']} complete guards PASS; all9 B0 checkpoint disk hashes unchanged. Model optimizer steps=0; transport optimizer steps this gate=0; no EMA/GAS/prototype update, backward or parameter.grad write.",
         '', 'GT is isolated: current labeled GT only for the supervised reference; current val GT only in the diagnostic evaluator; hidden unlabeled GT and test GT usage both none.',
         '', 'R0/R2, class-balanced controls, posterior-mean teacher and offline PoE are reported separately. Only independently passing R3 class balancing can be selected after pixel R3 fails. Controls never rescue an R3 failure and no method is registered.',
         '', f"Preregistration `{metadata['preregistration_commit']}`; authorization `{metadata['authorization_commit']}`; exact code `{metadata['diagnostic_code_commit']}`.",
         '', 'Report commit is resolved in a separate publication receipt. Exact commands, test evidence, all warnings, caches, model audits and SHA-256 artifact manifests accompany this report.',
-        '', '**STOP_FOR_INDEPENDENT_REVIEW**. No reduced-method implementation, DI-DMPA training, Gate2, theory final, Prostate/MnMS, full sweep or main merge.']
+        '', '**'+metadata.get('next_action', 'STOP_FOR_INDEPENDENT_REVIEW')+'**. No reduced-method implementation, DI-DMPA training, Gate2, theory final, Prostate/MnMS, full sweep or main merge in this diagnostic.']
+    if version == 'v2.1':
+        lines += ['', 'Input amendment: only B0/seed1/stage1 uses the independently reconstructed legacy PAS bank. '
+            'All nine original model checkpoints and the other eight legacy banks remain unchanged. '
+            'The original v2 attempt remains incomplete and none of its partial caches were reused. '
+            'The 400 prior baseline recovery optimizer updates are separate from this zero-update diagnostic. '
+            'There is no historical saved bank hash; reconstruction support is not historical artifact identity verification.']
     text = '\n'.join(lines)+'\n'
     for name in ('GATE1C_V2_FINAL_REPORT.md', 'RELIABILITY_DIAGNOSTIC_V2.md', 'GRADIENT_CONFLICT_DIAGNOSTIC_V2.md'):
         write_text(output/name, text)
+    if version == 'v2.1':
+        write_json(output/'GATE1C_V21_STATUS.json', status)
+        write_text(output/'GATE1C_V21_FINAL_REPORT.md', text)
     undefined = sum(r['cosine'] is None for r in rows['draw0'] if r['block'] == 'global')
-    warnings = ['# Gate 1C v2 failures and warnings', '', f'Primary global candidate/normalization rows with undefined zero-gradient cosine: {undefined}; these remain null and never pass a required comparison.',
+    warnings = ['# Gate 1C '+version+' failures and warnings', '', f'Primary global candidate/normalization rows with undefined zero-gradient cosine: {undefined}; these remain null and never pass a required comparison.',
         '', 'Unsupported validation points are explicit nulls, not extrapolated. Stage0/missing-history scores and null-feature scores are structural nulls, never fake normalized features.',
         '', 'Official classifier constructor/import RNG side effects are preserved; each registered forward reseeds afterwards. Inactive sigma/grad_update are inventoried, not silently dropped.',
         '', 'All raw stdout/stderr logs, test failures if any, and unit artifacts are retained. No result-driven retry, threshold adjustment, new transport fit or baseline update.']

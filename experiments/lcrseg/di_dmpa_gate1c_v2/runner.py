@@ -19,7 +19,7 @@ import yaml
 
 from di_dmpa_gate1.recovery import request_stop, stop_requested, SHUTDOWN_TIMEOUT_SECONDS
 from .binding import (PREREG, verify, require, complete, ModelMutation, checkpoint, records, read_json, write_json,
-    write_text, sha256, check_hash, git, read_arrays, no_updates)
+    write_text, sha256, check_hash, git, read_arrays, no_updates, legacy_input_audit)
 from .execution import validation_unit, evaluate_unit, probe_unit, validate_scores, unit_name, pair_name
 from .reporting import validate_probe_results, compile_report, artifact_manifest
 
@@ -50,6 +50,7 @@ def input_audit(root, data_root, p, metadata):
             counts = {role: len(records(data_root, p, seed, stage, role)) for role in ('train_labeled', 'train_unlabeled', 'val')}
             units.append(dict(seed=seed, stage_index=stage, counts=counts, current_domain_only=True, hidden_label_fields_empty=True))
     return dict(metadata=metadata, status='PASS', checkpoints=disk_hashes(p), units=units,
+        legacy_payload_readiness=legacy_input_audit(p),
         manifests_and_splits_unchanged=True, label_roles=('train_labeled_supervised_reference', 'val_evaluator_only'),
         hidden_gt_training_usage='none', test_gt_usage='none', test_role_constructions=0,
         historical_raw_data_loaded=False, T1_T2_output_reads=0)
@@ -57,6 +58,8 @@ def input_audit(root, data_root, p, metadata):
 
 def model_audit(output, p, metadata, *, final):
     output = Path(output); expected = {}
+    if p.get('legacy_prototype_reconstruction'):
+        spec = p['legacy_prototype_reconstruction']; check_hash(spec['bank_path'], spec['bank_sha256'])
     for seed in range(3):
         for stage in range(3):
             cp = checkpoint(p, seed, stage)
@@ -119,9 +122,12 @@ def phase_receipt(output, p, metadata, phase):
 
 
 def worker(args):
-    p, freeze, _ = verify(ROOT, args.code_commit, remote=False)
+    p, freeze, verified = verify(ROOT, args.code_commit, remote=False, input_contract=args.input_contract)
     meta = read_json(args.output/'GATE1C_V2_RUN_METADATA.json')
     require(meta['diagnostic_code_commit'] == args.code_commit, 'worker code changed')
+    require(meta['input_contract_version'] == args.input_contract and
+            meta['preregistration_commit'] == verified['preregistration_commit'] and
+            meta['preregistration_file_sha256'] == verified['preregistration_file_sha256'], 'mixed input contract')
     write_json(args.output/'shards'/f'{args.phase}_{args.shard}_metadata.json', dict(meta, phase=args.phase, shard=args.shard,
         physical_gpu=os.environ.get('CUDA_VISIBLE_DEVICES'), device='cuda:0'))
     previous = {'draw0': 'validation_metrics', 'noise': 'draw0', 'posterior': 'noise', 'poe': 'posterior'}
@@ -156,7 +162,8 @@ def gpu_workers(args, phase):
             env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(gpu), OMP_NUM_THREADS='1', MKL_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
                        CUBLAS_WORKSPACE_CONFIG=':4096:8', PYTHONPATH=str(ROOT))
             command = [sys.executable, '-m', 'di_dmpa_gate1c_v2.runner', 'worker', '--code-commit', args.code_commit,
-                '--output', str(args.output), '--data-root', str(args.data_root), '--phase', phase, '--shard', str(gpu)]
+                '--output', str(args.output), '--data-root', str(args.data_root), '--phase', phase, '--shard', str(gpu),
+                '--input-contract', args.input_contract]
             processes.append(subprocess.Popen(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT))
         while any(p.poll() is None for p in processes):
             if any(p.poll() not in (None, 0) for p in processes):
@@ -181,19 +188,26 @@ def metric_workers(args, p, *, poe=False):
 
 
 def run(args):
+    if args.input_contract == 'v2.1':
+        require(args.output.resolve().is_relative_to(Path('/root/LCRSeg/runs/di_dmpa_gate1c_v21')), 'v2.1 requires a separate output root')
     args.output.mkdir(parents=True, exist_ok=False)
     metadata = {}; started = datetime.now(timezone.utc).isoformat()
     try:
-        p, freeze, metadata = verify(ROOT, args.code_commit)
+        p, freeze, metadata = verify(ROOT, args.code_commit, input_contract=args.input_contract)
         tests = read_json(args.tests/'GATE1C_V2_UNIT_INTEGRATION_TEST_REPORT.json')
         require(tests['status'] == 'PASS' and tests['diagnostic_code_commit'] == args.code_commit and tests['tests_failed'] == 0 and
                 tests['tests_skipped'] == 0 and tests['tests_passed'] >= 56 and tests['real_integration_status'] == 'PASS', 'exact-code tests/integration barrier failed')
+        require(tests.get('input_contract_version', 'v2') == args.input_contract, 'tests used a different input contract')
+        if args.input_contract == 'v2.1':
+            require(tests['preregistration_commit'] == metadata['preregistration_commit'] and
+                    tests['preregistration_file_sha256'] == metadata['preregistration_file_sha256'], 'test registration mismatch')
         for name, digest in tests['files_sha256'].items():
             check_hash(args.tests/name, digest)
         for name in ('pytest.xml', 'pytest_output.txt', 'GATE1C_V2_UNIT_INTEGRATION_TEST_REPORT.json', 'GATE1C_V2_REAL_INTEGRATION.json'):
             shutil.copy2(args.tests/name, args.output/name)
         metadata.update(started_at_utc=started, python=sys.version, torch_version=torch.__version__, platform=platform.platform(),
-            gpu_workers=2, cpu_metric_workers=2, physical_gpus=[0, 1], execution_scope='GATE1C_V2_ONLY', method_flags=p['method_flags'])
+            gpu_workers=2, cpu_metric_workers=2, physical_gpus=[0, 1],
+            execution_scope='GATE1C_V21_ONLY' if args.input_contract == 'v2.1' else 'GATE1C_V2_ONLY', method_flags=p['method_flags'])
         write_json(args.output/'GATE1C_V2_RUN_METADATA.json', metadata)
         write_json(args.output/'GATE1C_V2_INPUT_AUDIT.json', input_audit(ROOT, args.data_root, p, metadata))
         gpu_workers(args, 'validation'); cache_audit(args.output, p, metadata)
@@ -210,11 +224,12 @@ def run(args):
         audit = model_audit(args.output, p, metadata, final=True)
         write_json(args.output/'GATE1C_V2_MODEL_IMMUTABILITY_AUDIT.json', audit)
         status = compile_report(args.output, p, metadata, audit)
-        write_text(args.output/'GATE1C_V2_EXACT_COMMANDS.md', '# Gate 1C v2 exact runtime command\n\n'
+        write_text(args.output/'GATE1C_V2_EXACT_COMMANDS.md', '# Gate 1C '+args.input_contract+' exact runtime command\n\n'
             'Existing Python environment; two GPU workers; no training/optimizer. See the report publication record for preparation/test commands.\n\n```sh\n'
             'cd '+str(ROOT)+'\nOMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 LD_LIBRARY_PATH=/lib/x86_64-linux-gnu '
             'CUBLAS_WORKSPACE_CONFIG=:4096:8 PYTHONPATH='+str(ROOT)+' '+sys.executable+' -m di_dmpa_gate1c_v2.runner run '
-            '--code-commit '+args.code_commit+' --output '+str(args.output)+' --tests '+str(args.tests)+' --data-root '+str(args.data_root)+'\n```\n\n'
+            '--code-commit '+args.code_commit+' --output '+str(args.output)+' --tests '+str(args.tests)+' --data-root '+str(args.data_root)
+            +' --input-contract '+args.input_contract+'\n```\n\n'
             'All phases are create-only and outcome-independent. No automatic retry. STOP_FOR_INDEPENDENT_REVIEW.\n')
         write_json(args.output/'EXECUTION_COMPLETION.json', dict(metadata=metadata, status='COMPLETE', started_at_utc=started,
             completed_at_utc=datetime.now(timezone.utc).isoformat(), scientific_status=status['reliability_status'], model_optimizer_steps=0, transport_optimizer_steps_this_gate=0))
@@ -228,6 +243,8 @@ def run(args):
         write_json(args.output/'GATE1C_V2_FAILURE.json', failure)
         if not (args.output/'GATE1C_V2_STATUS.json').exists():
             write_json(args.output/'GATE1C_V2_STATUS.json', failure)
+        if args.input_contract == 'v2.1' and not (args.output/'GATE1C_V21_STATUS.json').exists():
+            write_json(args.output/'GATE1C_V21_STATUS.json', dict(failure, input_contract_version='v2.1', original_gate1c_v2_completed=False))
         if not (args.output/'GATE1C_V2_ARTIFACT_MANIFEST.json').exists():
             artifact_manifest(args.output)
         raise
@@ -237,6 +254,7 @@ def main():
     parser = argparse.ArgumentParser(); parser.add_argument('action', choices=('run', 'worker'))
     parser.add_argument('--code-commit', required=True); parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--data-root', default='/root/LCRSeg', type=Path); parser.add_argument('--tests', type=Path)
+    parser.add_argument('--input-contract', choices=('v2', 'v2.1'), default='v2')
     parser.add_argument('--phase', choices=('validation', 'draw0', 'noise', 'posterior', 'poe')); parser.add_argument('--shard', type=int, choices=(0, 1))
     args = parser.parse_args()
     if args.action == 'run':

@@ -84,10 +84,16 @@ def test_all_four_probe_phases_share_forward_and_never_update(monkeypatch, tmp_p
         assert b.read_json(tmp_path/'audit'/phase/'immutability/synthetic_only.json')['bitwise_unchanged']
 
 
-def test_complete_report_compiler_with_all_72_pairs(tmp_path):
+@pytest.mark.parametrize('input_contract', ['v2', 'v2.1'])
+def test_complete_report_compiler_with_all_72_pairs(tmp_path, monkeypatch, input_contract):
     p = contract()[0]
     metadata = dict(preregistration_commit=b.PREREG, authorization_commit=b.AUTH, diagnostic_code_commit='synthetic-no-real-checkpoints',
         model_optimizer_steps=0, transport_optimizer_steps_this_gate=0, hidden_gt_training_usage='none', test_gt_usage='none', selected_K=2, R4_available=False)
+    if input_contract == 'v2.1':
+        metadata.update(input_contract_version='v2.1', preregistration_commit=b.PREREG_V21,
+            original_gate1c_v2_completed=False, historical_bank_hash_verified=False,
+            execution_scope='GATE1C_V21_ONLY', next_action='ANALYZE_VERSIONED_RESULT_WITHIN_LONG_RUNNING_SCOPE')
+        b.write_json(tmp_path/'GATE1C_V2_RUN_METADATA.json', metadata)
     scores, _ = toy_scores(null=True); cache = {k: scores[k] for k in e.CACHE_FIELDS}
     labels = np.repeat(np.arange(3), 4).reshape(3, 4)
     for seed in range(3):
@@ -115,7 +121,20 @@ def test_complete_report_compiler_with_all_72_pairs(tmp_path):
     status = rep.compile_report(tmp_path, p, metadata, audit)
     assert status['validation_units_completed'] == 9 and status['gradient_pairs_completed'] == 72
     assert status['teacher_draw_records_completed'] == 576 and status['gate1_overall_status'] == 'FAIL_TRANSPORT_NOT_SUPPORTED'
-    assert status['method_registered'] is False and status['next_action'] == 'STOP_FOR_INDEPENDENT_REVIEW'
+    assert status['method_registered'] is False and status['next_action'] == metadata.get('next_action', 'STOP_FOR_INDEPENDENT_REVIEW')
+    if input_contract == 'v2.1':
+        assert b.read_json(tmp_path/'GATE1C_V21_STATUS.json')['input_contract_version'] == 'v2.1'
+        assert 'original v2 attempt remains incomplete' in (tmp_path/'GATE1C_V21_FINAL_REPORT.md').read_text()
+        native_read = rep.read_json
+        def mixed_read(path):
+            value = native_read(path)
+            if Path(path).parent.name == 'reliability_units':
+                value['metadata']['input_contract_version'] = 'v2'
+            return value
+        with monkeypatch.context() as patcher:
+            patcher.setattr(rep, 'read_json', mixed_read)
+            with pytest.raises(b.ProtocolError, match='mixed validation provenance'):
+                rep.compile_report(tmp_path, p, metadata, audit)
     for name in ('RELIABILITY_DIAGNOSTIC_V2.json', 'GRADIENT_CONFLICT_DIAGNOSTIC_V2.json',
                  'TEACHER_TARGET_STOCHASTICITY_DIAGNOSTIC_V2.json', 'POE_TARGET_DIAGNOSTIC_V2.json', 'GATE1C_V2_FINAL_REPORT.md'):
         assert (tmp_path/name).is_file()
