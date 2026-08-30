@@ -19,6 +19,9 @@ GROUPS = (
     "stage_state",
     "sampler_state",
     "rng_state",
+    "prototypes",
+    "evaluation_matrices",
+    "best_metric",
 )
 
 

@@ -36,8 +36,10 @@ class TinySegNet(nn.Module):
         self.encoder = nn.Conv2d(3, 4, 3, padding=1)
         self.decoder = TinyDecoder()
 
-    def forward(self, image: torch.Tensor):
+    def forward(self, image: torch.Tensor, *, stochastic_classifier: bool):
         features = torch.tanh(self.encoder(image))
+        if stochastic_classifier:
+            features = features + torch.randn_like(features) * 0.02
         return self.decoder.conv_logit(features), features
 
 
@@ -55,7 +57,7 @@ def test_teacher_is_frozen_excluded_and_no_grad() -> None:
     assert all(not parameter.requires_grad for parameter in wrapper.teacher.parameters())
     wrapper.assert_optimizer_excludes_teacher(optimizer)
     with torch.no_grad():
-        teacher_logits, _ = wrapper.teacher(torch.randn(2, 3, 8, 8))
+        teacher_logits, _ = wrapper.teacher(torch.randn(2, 3, 8, 8), stochastic_classifier=True)
     assert teacher_logits.requires_grad is False
 
 
@@ -71,7 +73,7 @@ def test_checkpoint_roundtrip_restores_full_state_and_rng(tmp_path: Path) -> Non
     wrapper, optimizer, scheduler = _wrapper_optimizer_scheduler()
     image = torch.randn(2, 3, 8, 8)
     label = torch.randint(0, 3, (2, 8, 8))
-    logits, _ = wrapper.student(image)
+    logits, _ = wrapper.student(image, stochastic_classifier=True)
     loss = F.cross_entropy(logits, label)
     optimizer.zero_grad(set_to_none=True)
     loss.backward()

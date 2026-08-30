@@ -10,14 +10,14 @@ from .test_model_checkpoint import TinySegNet
 
 def _one_step(model, optimizer, image, label):
     optimizer.zero_grad(set_to_none=True)
-    logits, _ = model(image)
+    logits, _ = model(image, stochastic_classifier=False)
     loss = F.cross_entropy(logits, label)
     loss.backward()
     optimizer.step()
     return loss.detach(), copy.deepcopy(model.state_dict())
 
 
-def test_all_new_modules_off_is_gate0_repaired_parity() -> None:
+def test_identical_supervised_steps_are_deterministic_smoke() -> None:
     torch.manual_seed(13)
     baseline = TinySegNet()
     off_switch = TinySegNet()

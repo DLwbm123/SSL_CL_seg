@@ -16,6 +16,10 @@ def _git_output(root: Path, *args: str) -> str:
     return subprocess.check_output(["git", "-C", str(root), *args], text=True).strip()
 
 
+def git_revision(repo_root: str | Path) -> str:
+    return _git_output(Path(repo_root), "rev-parse", "HEAD")
+
+
 def assert_upstream_unchanged(reference_root: str | Path, upstream_path: str) -> None:
     """Require an independent, clean checkout of the pinned official JASCL source."""
 

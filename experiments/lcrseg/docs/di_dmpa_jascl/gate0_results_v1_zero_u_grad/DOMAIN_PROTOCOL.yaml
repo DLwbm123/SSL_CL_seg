@@ -1,0 +1,111 @@
+schema_version: 1
+protocol_name: LCRSeg_fixed_class_domain_incremental_v1
+benchmarks_are_independent: true
+method_registered: false
+final_test_gt_policy: evaluator_only
+ignore_label: 255
+role_contract:
+  train_labeled:
+    training_allowed: true
+    label_visible: true
+  train_unlabeled:
+    training_allowed: true
+    label_visible: false
+    required_empty_manifest_fields: [label_h5_relpath, label_sha256]
+  val:
+    training_allowed: false
+    evaluator_allowed: true
+    checkpoint_selection_allowed: true
+  test:
+    training_allowed: false
+    evaluator_allowed: true
+    checkpoint_selection_allowed: false
+    threshold_selection_allowed: false
+benchmarks:
+  fundus:
+    class_count: 3
+    input_channels: 3
+    domain_order: [REFUGE, RIM_ONE_r3, Drishti_GS]
+    domain_order_source:
+      type: frozen_lcrseg_config
+      path: experiments/lcrseg/configs/experiment/fundus_seed0_full.yaml
+      sha256: 71dd4a6e0158577386050127b6ba2e26a799120071aa0755af07804b57471100
+    class_mapping:
+      raw_to_train: {255: 0, 128: 1, 0: 2}
+      class_names: {0: background, 1: optic_disc_rim, 2: optic_cup}
+      source_sha256: a3ddfa9000ffb9d2364fe3a39b98ce19f34813c309d2908d58aa59d2e35f3953
+    spatial_preprocessing:
+      raw_center_crop_hw: [800, 800]
+      stored_resize_hw: [384, 384]
+      image_interpolation: bilinear
+      label_interpolation: nearest
+    normalization: uint8_rgb_0_255_scaled_to_0_1_in_loader
+    stage_evaluation:
+      role: test
+      matrix: lower_triangular
+      domains_after_stage_t: seen_domains_only
+      domain_id_at_inference: false
+  prostate:
+    class_count: 2
+    input_channels: 1
+    domain_order: [RUNMC, BMC, I2CVB, UCL, BIDMC, HK]
+    default_training_order: [RUNMC, BMC, I2CVB, UCL, BIDMC]
+    held_out_evaluation_domain: HK
+    domain_order_source:
+      type: frozen_lcrseg_protocol_code
+      path: experiments/lcrseg/lcrseg/engine/continual_runner.py
+      symbol: DATASET_SPECS.prostate
+    class_mapping:
+      raw_to_train: {0: 0, 1: 1, 2: 1}
+      class_names: {0: background, 1: whole_prostate}
+      source_sha256: 89487d472b77aa4802370a6f1cf8a20d69d4e9f83ffa09acd9105201ece1f26b
+    spatial_preprocessing:
+      stored_resize_hw: [256, 256]
+      image_interpolation: linear
+      label_interpolation: nearest
+    normalization: per_volume_nonzero_p0_5_p99_5_clip_to_minus1_1
+    stage_evaluation:
+      role: test
+      matrix: lower_triangular
+      domains_after_stage_t: seen_domains_only
+      domain_id_at_inference: false
+  mnms:
+    class_count: 4
+    input_channels: 1
+    domain_order: [Siemens, Philips, GE, Canon]
+    domain_order_source:
+      type: frozen_lcrseg_protocol_code
+      path: experiments/lcrseg/lcrseg/engine/continual_runner.py
+      symbol: DATASET_SPECS.mnms
+    class_mapping:
+      raw_to_train: {0: 0, 1: 1, 2: 2, 3: 3}
+      class_names: {0: background, 1: LV, 2: MYO, 3: RV}
+      source_sha256: 33433fe303d58b477e5c4ba7f943311b7bf7948c9516727dee42195249e52687
+    spatial_preprocessing:
+      target_inplane_spacing_mm: 1.0
+      fixed_crop_fov_mm: 320
+      stored_resize_hw: [384, 384]
+      image_interpolation: linear
+      label_interpolation: nearest
+    normalization: per_frame_nonzero_p0_5_p99_5_clip_to_minus1_1
+    stage_evaluation:
+      role: test
+      matrix: lower_triangular
+      domains_after_stage_t: seen_domains_only
+      domain_id_at_inference: false
+frozen_seed_assets:
+  0:
+    training_manifest_sha256: 0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3
+    fundus_split_sha256: f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88
+    prostate_split_sha256: 71782853e1b2a378eff6817ebbdad4825b540553976a073225849af5cbef4872
+    mnms_split_sha256: cfc5aabca8b3187d4fe3a6d2b05f570130870c796b0c0969457a2149d083ce06
+  1:
+    training_manifest_sha256: d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9
+    fundus_split_sha256: 87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727
+    prostate_split_sha256: 738e148bea342ad66623cebf681bd8fd12572fe5d7dbd5a7390f90759c5c4187
+    mnms_split_sha256: 818308130bda647287ff1fa3f82b46c1421e23f8a41cd51ea381965c4ff8d3ff
+  2:
+    training_manifest_sha256: 78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727
+    fundus_split_sha256: af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3
+    prostate_split_sha256: 5bf9c1b34a1b681dff3044416f5ae1fe10602a3324333c5a1d297dd07e150b50
+    mnms_split_sha256: e336704f870ddfaaeb3d56408123e3a463c78a037f9c2fdd29ebd994575d509c

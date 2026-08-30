@@ -2,19 +2,6 @@
 
 Date: 2026-08-29
 
-## 2026-08-30 superseding semantic review
-
-The v1 overall PASS is withdrawn. See `GATE0_V1_ZERO_U_GRAD_REVIEW.md`.
-V1 hard-label MSE has zero unlabeled gradient; its numbers are only an
-inert-unlabeled/labeled-cycle control with classifier RNG consumption.
-V2 implements the user-reviewed squared-L2 probability consistency on the
-intersection of detached student/teacher PAS validity. It is an explicit
-semantic repair, not a claim that released hard-index MSE was differentiable.
-Formal v2 validation/checkpoint selection/test use posterior-mean classification.
-Tests of teacher/prototype isolation and actual unsupervised gradients replace
-the misleading structural optimizer-step and off-switch-parity claims.
-All earlier audit paragraphs below are historical source observations.
-
 ## Provenance and scope
 
 - Upstream repository: `https://github.com/prinshul/JASCL`

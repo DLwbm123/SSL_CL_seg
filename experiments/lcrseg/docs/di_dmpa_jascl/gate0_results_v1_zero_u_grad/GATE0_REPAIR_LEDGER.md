@@ -7,10 +7,6 @@ Pinned upstream commit: `3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53`
 
 ## Boundary
 
-2026-08-30 amendment: v1 is archived and its overall PASS withdrawn. The
-current runner is semantic v2; the revised user protocol explicitly authorizes
-G0-R11 through G0-R14 below. No DI-DMPA method is implemented.
-
 The official JASCL files under
 `Semi-Supervised_Natural-FoSSIL/inc/deeplab_gaps_meanT` remain unchanged.
 Within `SSL_CL_seg`, that pinned repository is an ignored provenance dependency
@@ -67,8 +63,6 @@ geometry. This upstream quirk is recorded rather than silently repaired.
 
 ## Deliberately preserved upstream behavior
 
-The loss/evaluation exceptions in R11/R12 supersede v1 claims of preservation.
-
 - Official 3x3 stochastic classifier and its GAS behavior, attached to the
   frozen LCRSeg UNet2D medical body.
 - Adam with learning rate `1e-3` and weight decay `4e-5`.
@@ -103,16 +97,3 @@ The loss/evaluation exceptions in R11/R12 supersede v1 claims of preservation.
   hashes.
 - Final test GT is instantiated only by the evaluator and is never used for
   training, checkpoint selection, or threshold selection.
-
-## V2 semantic and evidence repairs
-
-| ID | Defect / source | Repair | Behavioral impact | Evidence |
-|---|---|---|---|---|
-| G0-R11 | v1 `runner._unsupervised_phase`: detached hard-index MSE | `compute_pas_validity` plus `masked_probability_consistency_loss` on joint valid pixels | Student probabilities retain gradients; teacher/prototypes/masks do not. Per-pixel squared L2 is not divided by C. C0 lambda=0 still executes all forwards/sampling. | formula, zero-mask, nonzero-gradient, lambda-zero, total-minus-supervised tests and real-batch audit |
-| G0-R12 | official classifier defaults to sampling even under eval | required explicit `stochastic_classifier` argument; true for training/teacher PAS, false for validation/test | Posterior-mean checkpoint selection and matrix; no classifier RNG consumed by formal evaluation | exact-repeat/RNG test and 20-draw vs 2-repeat v1 checkpoint audit |
-| G0-R13 | v1 structural step test and misleading TinySegNet parity label | actual `autograd.grad(L_cons, student)` audit; rename deterministic supervised smoke | Rejects zero unlabeled gradients and teacher/prototype leakage; method parity is NOT_APPLICABLE_METHOD_NOT_IMPLEMENTED | real three-domain PAS_GRADIENT_AUDIT plus unit/integration tests |
-| G0-R14 | compiler hard-coded resume/tests PASS | consumes real JSON/JUnit/transcript/checkpoint evidence and exact source/config hashes | Missing, stale, zero-gradient or detached-objective evidence blocks PASS. Stage-boundary phase is checkpointed before/after best load. | fail-closed compiler tests and four resume trajectories |
-
-The official all-zero GAS initialization can suffer float32 cancellation in
-its inverse-gradient noise scale. No repair to that source is authorized here;
-the positive stochastic-sampling unit test uses a nondegenerate GAS state.

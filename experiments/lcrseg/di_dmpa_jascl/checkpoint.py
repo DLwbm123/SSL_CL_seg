@@ -11,7 +11,7 @@ import torch
 from .modeling import assert_complete_classifier_load, classifier_gas_state, restore_gas_state
 
 
-CHECKPOINT_SCHEMA_VERSION = 1
+CHECKPOINT_SCHEMA_VERSION = 2
 
 
 def capture_rng_state() -> dict[str, Any]:
@@ -42,6 +42,7 @@ def build_checkpoint(
     config_hash: str,
     evaluation_matrices: dict[str, Any],
     best_metric: float,
+    git_commit: str = "unit_test",
 ) -> dict[str, Any]:
     return {
         "schema_version": CHECKPOINT_SCHEMA_VERSION,
@@ -55,6 +56,7 @@ def build_checkpoint(
         "rng_state": capture_rng_state(),
         "prototypes": None if prototypes is None else prototypes.detach().cpu().clone(),
         "config_hash": config_hash,
+        "git_commit": git_commit,
         "evaluation_matrices": evaluation_matrices,
         "best_metric": float(best_metric),
     }
@@ -75,6 +77,7 @@ def load_checkpoint(
     optimizer: torch.optim.Optimizer,
     scheduler,
     expected_config_hash: str,
+    expected_git_commit: str | None = None,
     restore_rng: bool = True,
 ) -> dict[str, Any]:
     payload = torch.load(Path(path), map_location="cpu", weights_only=False)
@@ -82,6 +85,8 @@ def load_checkpoint(
         raise RuntimeError("unsupported checkpoint schema")
     if payload.get("config_hash") != expected_config_hash:
         raise RuntimeError("checkpoint/config hash mismatch")
+    if expected_git_commit is not None and payload.get("git_commit") != expected_git_commit:
+        raise RuntimeError("checkpoint/source commit mismatch")
     assert_complete_classifier_load(payload["student"], wrapper.student)
     assert_complete_classifier_load(payload["ema_teacher"], wrapper.teacher)
     wrapper.student.load_state_dict(payload["student"], strict=True)

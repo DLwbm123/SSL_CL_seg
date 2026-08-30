@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import importlib
 import sys
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Callable
 
@@ -77,11 +78,13 @@ class LCRSegUNetDecoder(nn.Module):
         enc3: torch.Tensor,
         enc2: torch.Tensor,
         enc1: torch.Tensor,
+        *,
+        stochastic_classifier: bool,
     ) -> tuple[torch.Tensor, torch.Tensor]:
         dec3 = self.dec3(bottleneck, enc3)
         dec2 = self.dec2(dec3, enc2)
         dec1 = self.dec1(dec2, enc1)
-        return self.conv_logit(dec1), dec1
+        return self.conv_logit(dec1, stochastic=stochastic_classifier), dec1
 
 
 class LCRSegUNet2DJASCL(nn.Module):
@@ -105,7 +108,7 @@ class LCRSegUNet2DJASCL(nn.Module):
         self.pool = nn.MaxPool2d(kernel_size=2, stride=2)
         self.decoder = LCRSegUNetDecoder(classifier_type, self.num_classes)
 
-    def forward(self, image: torch.Tensor) -> tuple[torch.Tensor, torch.Tensor]:
+    def forward(self, image: torch.Tensor, *, stochastic_classifier: bool) -> tuple[torch.Tensor, torch.Tensor]:
         if image.ndim != 4:
             raise ValueError(f"expected [B,C,H,W], got {tuple(image.shape)}")
         if image.shape[1] != self.in_channels:
@@ -117,7 +120,9 @@ class LCRSegUNet2DJASCL(nn.Module):
         enc2 = self.enc2(self.pool(enc1))
         enc3 = self.enc3(self.pool(enc2))
         bottleneck = self.bottleneck(self.pool(enc3))
-        logits, features = self.decoder(bottleneck, enc3, enc2, enc1)
+        logits, features = self.decoder(
+            bottleneck, enc3, enc2, enc1, stochastic_classifier=stochastic_classifier
+        )
         logits = F.interpolate(logits, size=image.shape[-2:], mode="bilinear", align_corners=True)
         return logits, features
 
@@ -218,7 +223,7 @@ def compute_single_prototypes(
     for batch in batches:
         images = batch["image"].to(device)
         labels = batch["label"].to(device)
-        _, features = student(images)
+        _, features = student(images, stochastic_classifier=True)
         labels_down = F.interpolate(labels[:, None].float(), features.shape[-2:], mode="nearest").squeeze(1).long()
         flattened = F.normalize(features.float(), dim=1).permute(0, 2, 3, 1).reshape(-1, features.shape[1])
         labels_flat = labels_down.reshape(-1)
@@ -247,6 +252,7 @@ def upstream_pas_labels(
     similarity_threshold: float,
     invalid_token: int,
 ) -> torch.Tensor:
+    """Legacy v1 reproduction only; forbidden in the v2 training objective."""
     low_logits = F.interpolate(logits, features.shape[-2:], mode="bilinear", align_corners=False)
     probabilities = F.softmax(low_logits.float(), dim=1)
     confidence, labels = probabilities.max(dim=1)
@@ -261,6 +267,93 @@ def upstream_pas_labels(
     filtered = labels.clone()
     filtered[~keep] = invalid_token
     return F.interpolate(filtered[:, None].float(), logits.shape[-2:], mode="nearest").squeeze(1)
+
+
+@dataclass(frozen=True)
+class PASValidity:
+    valid_mask: torch.Tensor
+    predicted_class: torch.Tensor
+    confidence: torch.Tensor
+    similarity: torch.Tensor
+
+
+@torch.no_grad()
+def compute_pas_validity(
+    logits: torch.Tensor,
+    features: torch.Tensor,
+    prototypes: torch.Tensor,
+    confidence_threshold: float,
+    similarity_threshold: float,
+) -> PASValidity:
+    """Detached PAS decision at feature resolution, nearest-resized to logits.
+
+    Invalidity is represented only by a boolean mask, never by a void class.
+    The legacy bilinear logit resize (align_corners=False) is retained.
+    """
+    if prototypes.shape != (logits.shape[1], features.shape[1]):
+        raise ValueError("prototype class/feature dimensions differ from the model")
+    low_logits = F.interpolate(logits.detach().float(), features.shape[-2:], mode="bilinear", align_corners=False)
+    probability = low_logits.softmax(dim=1)
+    confidence, predicted_class = probability.max(dim=1)
+    pixels = features.detach().float().permute(0, 2, 3, 1)
+    selected_prototypes = prototypes.detach().float()[predicted_class]
+    similarity = F.cosine_similarity(pixels, selected_prototypes, dim=-1)
+    valid_mask = (confidence > confidence_threshold) & (similarity > similarity_threshold)
+
+    def resize(value: torch.Tensor) -> torch.Tensor:
+        return F.interpolate(value[:, None].float(), logits.shape[-2:], mode="nearest").squeeze(1)
+
+    return PASValidity(
+        valid_mask=resize(valid_mask).bool(),
+        predicted_class=resize(predicted_class).long(),
+        confidence=resize(confidence),
+        similarity=resize(similarity),
+    )
+
+
+def masked_probability_consistency_loss(
+    student_logits: torch.Tensor,
+    teacher_logits: torch.Tensor,
+    valid_mask: torch.Tensor,
+) -> torch.Tensor:
+    """Mean squared L2 probability distance per valid pixel (no division by C)."""
+    if student_logits.shape != teacher_logits.shape:
+        raise ValueError("student and teacher logits must have identical shapes")
+    if valid_mask.shape != student_logits.shape[:1] + student_logits.shape[2:]:
+        raise ValueError("PAS mask must have shape [B,H,W]")
+    student_probability = student_logits.float().softmax(dim=1)
+    teacher_probability = teacher_logits.detach().float().softmax(dim=1)
+    valid_float = valid_mask.detach().float()
+    if not torch.all((valid_float == 0) | (valid_float == 1)):
+        raise ValueError("PAS validity must be binary")
+    valid_count = valid_float.sum()
+    if valid_count.item() == 0:
+        return student_probability.sum() * 0.0
+    per_pixel_squared_l2 = (student_probability - teacher_probability).square().sum(dim=1)
+    return (per_pixel_squared_l2 * valid_float).sum() / valid_count
+
+
+def pas_probability_objective(student, teacher, images, prototypes, *, confidence_threshold=0.7, similarity_threshold=0.7):
+    """The shared production/audit path; both classifiers explicitly sample."""
+    student_logits, student_features = student(images, stochastic_classifier=True)
+    with torch.no_grad():
+        teacher_logits, teacher_features = teacher(images, stochastic_classifier=True)
+    student_validity = compute_pas_validity(
+        student_logits.detach(), student_features.detach(), prototypes,
+        confidence_threshold, similarity_threshold,
+    )
+    teacher_validity = compute_pas_validity(
+        teacher_logits, teacher_features, prototypes,
+        confidence_threshold, similarity_threshold,
+    )
+    joint_valid = student_validity.valid_mask & teacher_validity.valid_mask
+    loss = masked_probability_consistency_loss(student_logits, teacher_logits, joint_valid)
+    return loss, student_validity, teacher_validity, joint_valid
+
+
+def gradient_norm(gradients) -> float:
+    terms = [gradient.detach().double().square().sum() for gradient in gradients if gradient is not None]
+    return float(torch.stack(terms).sum().sqrt()) if terms else 0.0
 
 
 def assert_complete_classifier_load(state_dict: dict[str, torch.Tensor], student: nn.Module) -> None:

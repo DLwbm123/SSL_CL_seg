@@ -149,6 +149,6 @@ V0.2 downstream formal run is currently authorized.
 - Training manifests omit labels for unlabeled samples.
 - Run artifacts, checkpoints, diagnostics, and logs are written only beneath
   `/home/jiangsuiyang/SSL_CL/runs`, never beneath frozen inputs.
-- This workspace is not a Git repository, so requested milestone commits are
-  a documented blocker. No repository has been initialized and nothing has
-  been pushed.
+- This workspace is tracked in the public Git repository
+  `https://github.com/DLwbm123/SSL_CL_seg`. Gate 0 semantic repairs are reviewed
+  on `codex/gate0-pas-probability-mse`, not merged into `main` automatically.

@@ -12,7 +12,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def _payloads():
-    config = load_yaml(ROOT / "configs/gate0_repaired/fundus.yaml")
+    config = load_yaml(ROOT / "configs/gate0_repaired_v2/fundus_pas_probmse.yaml")
     protocol = load_yaml(ROOT / "docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml")
     return config, protocol
 
@@ -46,3 +46,19 @@ def test_three_benchmarks_are_independent_and_fixed_class() -> None:
         "prostate": 2,
         "mnms": 4,
     }
+
+
+def test_v1_status_and_matrices_are_preserved_byte_for_byte():
+    import subprocess
+    frozen = "46e892960240543c946c570a9378d409b226384b"
+    docs = ROOT / "docs/di_dmpa_jascl"
+    def original(relative):
+        return subprocess.check_output(["git", "-C", str(ROOT), "show",
+                                        f"{frozen}:experiments/lcrseg/docs/di_dmpa_jascl/{relative}"])
+    assert (docs / "GATE0_STATUS_V1_ARCHIVED.json").read_bytes() == original("GATE0_STATUS.json")
+    for path in (docs / "gate0_results").rglob("*"):
+        if path.is_file():
+            relative = path.relative_to(docs)
+            expected = original(relative.as_posix())
+            assert path.read_bytes() == expected
+            assert (docs / "gate0_results_v1_zero_u_grad" / relative).read_bytes() == expected

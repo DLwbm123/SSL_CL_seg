@@ -25,9 +25,11 @@ from .modeling import (
     compute_single_prototypes,
     restore_gas_state,
     update_gas_from_supervised_gradient,
-    upstream_pas_labels,
+    pas_probability_objective,
+    compute_pas_validity,
+    gradient_norm,
 )
-from .provenance import assert_upstream_unchanged
+from .provenance import assert_upstream_unchanged, git_revision
 
 
 def seed_everything(seed: int) -> None:
@@ -69,6 +71,7 @@ class Gate0RepairedRunner:
         self.protocol = protocol
         self.config = validate_gate0_config(config, protocol)
         self.config_hash = resolved_config_hash(self.config)
+        self.git_commit = git_revision(self.repo_root)
         self.seed = int(seed)
         if self.seed not in tuple(int(value) for value in self.config["seeds"]):
             raise ValueError(f"seed {seed} is not preregistered")
@@ -115,6 +118,7 @@ class Gate0RepairedRunner:
             "epoch": 0,
             "global_step": 0,
             "epoch_lr_initialized": False,
+            "transition": "running",
         }
         self.sampler_state = {"stage_index": 0, "epoch": 0, "phase": "supervised", "next_batch": 0}
         self.prototypes: torch.Tensor | None = None
@@ -141,6 +145,11 @@ class Gate0RepairedRunner:
         return optimizer, scheduler
 
     def _write_static_metadata(self) -> None:
+        metadata_path = self.output_dir / "run_metadata.json"
+        if metadata_path.exists():
+            previous = json.loads(metadata_path.read_text())
+            if previous["config_hash"] != self.config_hash or previous["git_commit"] != self.git_commit:
+                raise RuntimeError("refusing to overwrite a run with different config/source provenance")
         (self.output_dir / "resolved_config.yaml").write_text(
             yaml.safe_dump(self.config, sort_keys=False), encoding="utf-8"
         )
@@ -152,6 +161,10 @@ class Gate0RepairedRunner:
                 "benchmark": self.config["benchmark"],
                 "domain_order": self.domain_order,
                 "config_hash": self.config_hash,
+                "git_commit": self.git_commit,
+                "objective_name": self.config["objective_name"],
+                "evaluation_classifier": "posterior_mean",
+                "lambda_u": self.training["lambda_u"],
                 "method_registered": False,
                 "constant_patch_classifier_regularization": False,
                 "hidden_gt_training_usage": "none",
@@ -182,6 +195,8 @@ class Gate0RepairedRunner:
         )
 
     def _append_log(self, payload: dict[str, Any]) -> None:
+        payload.update(config_hash=self.config_hash, git_commit=self.git_commit,
+                       objective_name=self.config["objective_name"], lambda_u=self.training["lambda_u"])
         with (self.output_dir / "train.jsonl").open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(payload, sort_keys=True) + "\n")
 
@@ -194,6 +209,7 @@ class Gate0RepairedRunner:
             sampler_state=self.sampler_state,
             prototypes=self.prototypes,
             config_hash=self.config_hash,
+            git_commit=self.git_commit,
             evaluation_matrices=self.matrices,
             best_metric=self.best_metric,
         )
@@ -210,6 +226,7 @@ class Gate0RepairedRunner:
             optimizer=self.optimizer,
             scheduler=self.scheduler,
             expected_config_hash=self.config_hash,
+            expected_git_commit=self.git_commit,
             restore_rng=True,
         )
         self.stage_state = dict(payload["stage_state"])
@@ -259,7 +276,7 @@ class Gate0RepairedRunner:
             images = batch["image"].to(self.device)
             labels = batch["label"].to(self.device)
             self.optimizer.zero_grad(set_to_none=True)
-            logits, _ = self.wrapper.student(images)
+            logits, _ = self.wrapper.student(images, stochastic_classifier=True)
             loss = criterion(logits, labels)
             _finite_scalar("supervised loss", loss)
             loss.backward()
@@ -316,7 +333,6 @@ class Gate0RepairedRunner:
                 seed_parts=("gate0", self.seed, domain, epoch, "unlabeled_labeled_cycle"),
             )
         )
-        invalid_token = self.num_classes
         for batch_index, indices in batch_indices(
             len(unlabeled),
             int(self.training["unlabeled_batch_size"]),
@@ -329,39 +345,34 @@ class Gate0RepairedRunner:
                 raise RuntimeError("current-domain-only assertion failed in unlabeled batch")
             if "label" in unlabeled_batch:
                 raise RuntimeError("hidden GT tensor entered unlabeled training")
-            unlabeled_images = unlabeled_batch["image"].to(self.device)
-            with torch.no_grad():
-                student_logits, student_features = self.wrapper.student(unlabeled_images)
-                student_pseudo = upstream_pas_labels(
-                    student_logits,
-                    student_features,
-                    self.prototypes,
-                    confidence_threshold=float(self.training["confidence_threshold"]),
-                    similarity_threshold=float(self.training["similarity_threshold"]),
-                    invalid_token=invalid_token,
-                )
-                teacher_logits, teacher_features = self.wrapper.teacher(unlabeled_images)
-                teacher_pseudo = upstream_pas_labels(
-                    teacher_logits,
-                    teacher_features,
-                    self.prototypes,
-                    confidence_threshold=float(self.training["confidence_threshold"]),
-                    similarity_threshold=float(self.training["similarity_threshold"]),
-                    invalid_token=invalid_token,
-                )
-                pseudo_consistency = F.mse_loss(student_pseudo.float(), teacher_pseudo.float())
-
+            self.optimizer.zero_grad(set_to_none=True)
+            consistency_loss, student_validity, teacher_validity, joint_valid = pas_probability_objective(
+                self.wrapper.student, self.wrapper.teacher,
+                unlabeled_batch["image"].to(self.device), self.prototypes,
+                confidence_threshold=float(self.training["confidence_threshold"]),
+                similarity_threshold=float(self.training["similarity_threshold"]),
+            )
+            parameters = [parameter for parameter in self.wrapper.student.parameters() if parameter.requires_grad]
+            gradients_u = torch.autograd.grad(consistency_loss, parameters, allow_unused=True, retain_graph=True)
+            grad_u_norm = gradient_norm(gradients_u)
             _, labeled_indices = labeled_batches[batch_index % len(labeled_batches)]
             labeled_batch = collate(labeled, labeled_indices, require_label=True)
-            images = labeled_batch["image"].to(self.device)
-            labels = labeled_batch["label"].to(self.device)
-            self.optimizer.zero_grad(set_to_none=True)
-            logits, _ = self.wrapper.student(images)
-            supervised_loss = criterion(logits, labels)
-            total_loss = supervised_loss + float(self.training["unsupervised_consistency_weight"]) * pseudo_consistency.detach()
+            if set(labeled_batch["domain"]) != {domain} or set(labeled_batch["role"]) != {"train_labeled"}:
+                raise RuntimeError("labeled-cycle batch violated the current-domain train role")
+            logits, _ = self.wrapper.student(labeled_batch["image"].to(self.device), stochastic_classifier=True)
+            supervised_loss = criterion(logits, labeled_batch["label"].to(self.device))
+            total_loss = supervised_loss + float(self.training["lambda_u"]) * consistency_loss
+            _finite_scalar("consistency loss", consistency_loss)
             _finite_scalar("unlabeled-phase total loss", total_loss)
             total_loss.backward()
-            self.optimizer.step()  # repaired upstream defect: the released code omitted this step.
+            grad_total_norm = gradient_norm(parameter.grad for parameter in parameters)
+            if not math.isfinite(grad_u_norm) or not math.isfinite(grad_total_norm):
+                raise FloatingPointError("non-finite unlabeled gradient")
+            teacher_grad_count = sum(parameter.grad is not None for parameter in self.wrapper.teacher.parameters())
+            if teacher_grad_count or self.prototypes.requires_grad:
+                raise RuntimeError("teacher/prototype gradient isolation failed")
+            # GAS is deliberately NOT updated here. C0 still executes this entire path.
+            self.optimizer.step()
             self._append_log(
                 {
                     "stage_index": self.stage_state["stage_index"],
@@ -372,7 +383,17 @@ class Gate0RepairedRunner:
                     "global_step": self.stage_state["global_step"] + 1,
                     "loss_total": float(total_loss.detach()),
                     "loss_supervised": float(supervised_loss.detach()),
-                    "pseudo_consistency": float(pseudo_consistency.detach()),
+                    "loss_consistency": float(consistency_loss.detach()),
+                    "valid_student_pixels": int(student_validity.valid_mask.sum()),
+                    "valid_teacher_pixels": int(teacher_validity.valid_mask.sum()),
+                    "pas_joint_valid_pixels": int(joint_valid.sum()),
+                    "pas_joint_coverage": float(joint_valid.float().mean()),
+                    "consistency_requires_grad": consistency_loss.requires_grad,
+                    "student_unsupervised_gradient_norm": grad_u_norm,
+                    "student_total_gradient_norm": grad_total_norm,
+                    "teacher_nonnull_gradient_count": teacher_grad_count,
+                    "prototype_requires_grad": self.prototypes.requires_grad,
+                    "stochastic_classifier_train_mode": True,
                     "optimizer_step_executed": True,
                     "teacher_forward_no_grad": True,
                     "hidden_gt_training_usage": "none",
@@ -398,13 +419,14 @@ class Gate0RepairedRunner:
             seed_parts=("evaluate", self.seed, domain, role),
         ):
             batch = collate(dataset, indices, require_label=True)
-            logits, _ = self.wrapper.student(batch["image"].to(self.device))
+            logits, _ = self.wrapper.student(batch["image"].to(self.device), stochastic_classifier=False)
             prediction = logits.argmax(dim=1)
             metrics.update(prediction, batch["label"])
         if was_training:
             self.wrapper.student.train()
         summary = metrics.summary()
-        summary.update({"domain": domain, "role": role, "gt_consumer": "evaluator_only"})
+        summary.update({"domain": domain, "role": role, "gt_consumer": "evaluator_only",
+                        "evaluation_classifier": "posterior_mean"})
         return summary
 
     def _load_best_models(self, best_path: Path) -> None:
@@ -438,6 +460,7 @@ class Gate0RepairedRunner:
             raise RuntimeError(f"stage has no best checkpoint: {best_path}")
         self._load_best_models(best_path)
         self._evaluate_stage_matrix(stage_index, domain)
+        self._validation_pas_diagnostic(domain, stage_dir)
         write_json(
             stage_dir / "stage_completion.json",
             {
@@ -451,8 +474,43 @@ class Gate0RepairedRunner:
             },
         )
 
-    def run(self, *, resume_path: str | Path | None = None, stop_after_global_step: int | None = None) -> dict[str, Any]:
+    @torch.no_grad()
+    def _validation_pas_diagnostic(self, domain: str, stage_dir: Path) -> None:
+        """Validation-only precision; never feeds checkpoint/threshold selection."""
+        if self.prototypes is None:
+            raise RuntimeError("stage-end diagnostic requires the current-domain PAS prototype")
+        dataset = self._evaluation_dataset(domain, "val")
+        was_training = self.wrapper.student.training
+        self.wrapper.student.eval()
+        correct = valid_pixels = total_pixels = 0
+        for _, indices in batch_indices(len(dataset), int(self.training["labeled_batch_size"]),
+                                       shuffle=False, seed_parts=("val_pas", self.seed, domain)):
+            batch = collate(dataset, indices, require_label=True)
+            images = batch["image"].to(self.device)
+            logits_s, features_s = self.wrapper.student(images, stochastic_classifier=False)
+            logits_t, features_t = self.wrapper.teacher(images, stochastic_classifier=False)
+            validity_s = compute_pas_validity(logits_s, features_s, self.prototypes, 0.7, 0.7)
+            validity_t = compute_pas_validity(logits_t, features_t, self.prototypes, 0.7, 0.7)
+            label = batch["label"].to(self.device)
+            joint = validity_s.valid_mask & validity_t.valid_mask & (label != self.ignore_label)
+            valid_pixels += int(joint.sum())
+            total_pixels += int((label != self.ignore_label).sum())
+            correct += int(((validity_t.predicted_class == label) & joint).sum())
+        self.wrapper.student.train(was_training)
+        write_json(stage_dir / "validation_pas_precision.json", {
+            "domain": domain, "role": "val", "gt_consumer": "evaluator_only",
+            "checkpoint_selection_used": False, "threshold_selection_used": False,
+            "joint_valid_pixels": valid_pixels, "joint_coverage": valid_pixels / total_pixels,
+            "teacher_pseudo_label_precision": correct / valid_pixels if valid_pixels else None,
+            "evaluation_classifier": "posterior_mean",
+        })
+
+    def run(self, *, resume_path: str | Path | None = None, stop_after_global_step: int | None = None, stop_at_event: str | None = None) -> dict[str, Any]:
         start_time = time.time()
+        if resume_path is None and (self.output_dir / "train.jsonl").exists():
+            raise RuntimeError("existing run requires explicit --resume; refusing overwrite")
+        if stop_at_event not in {None, "before_stage_transition", "after_stage_transition"}:
+            raise ValueError("unknown stage-boundary interruption event")
         if resume_path is not None:
             self.resume(resume_path)
         while int(self.stage_state["stage_index"]) < len(self.domain_order):
@@ -504,7 +562,18 @@ class Gate0RepairedRunner:
                     write_json(stage_dir / "best_validation.json", validation)
                 epoch += 1
 
-            self._stage_end(stage_index, domain)
+            if self.stage_state["transition"] == "running":
+                self.stage_state["transition"] = "before_best"
+                self._save_last()
+                if stop_at_event == "before_stage_transition":
+                    return {"status": "INTERRUPTED", "checkpoint": str(self.output_dir / "last.pt")}
+            if self.stage_state["transition"] == "before_best":
+                self._stage_end(stage_index, domain)
+                self.stage_state["transition"] = "after_best"
+                self._save_last()
+                if stop_at_event == "after_stage_transition":
+                    return {"status": "INTERRUPTED", "checkpoint": str(self.output_dir / "last.pt")}
+            self.stage_state["transition"] = "running"
             self.stage_state["stage_index"] = stage_index + 1
             self.stage_state["epoch"] = 0
             self.stage_state["epoch_lr_initialized"] = False
@@ -518,7 +587,7 @@ class Gate0RepairedRunner:
             self.best_metric = -math.inf
             if stage_index + 1 < len(self.domain_order):
                 self.optimizer, self.scheduler = self._new_optimizer_scheduler()
-                self._save_last()
+            self._save_last()
 
         elapsed = time.time() - start_time
         final = {
@@ -528,6 +597,12 @@ class Gate0RepairedRunner:
             "domain_order": self.domain_order,
             "global_step": int(self.stage_state["global_step"]),
             "elapsed_seconds": elapsed,
+            "config_hash": self.config_hash,
+            "git_commit": self.git_commit,
+            "objective_name": self.config["objective_name"],
+            "evaluation_classifier": "posterior_mean",
+            "lambda_u": self.training["lambda_u"],
+            "di_dmpa_training_launched": False,
             "method_registered": False,
             "hidden_gt_training_usage": "none",
             "nan_detected": False,

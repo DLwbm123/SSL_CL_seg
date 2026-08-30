@@ -1,0 +1,71 @@
+schema_version: 2
+semantic_version: 2
+objective_name: probability_mse_on_joint_pas_validity
+evaluation_classifier: posterior_mean
+name: gate0_repaired
+upstream_commit: 3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53
+method_registered: false
+benchmark: fundus
+seeds: [0, 1, 2]
+data:
+  root: /root/LCRSeg
+  protocol: docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml
+  domain_order: [REFUGE, RIM_ONE_r3, Drishti_GS]
+  train_roles: [train_labeled, train_unlabeled]
+  validation_role: val
+  evaluation_role: test
+  test_gt_policy: evaluator_only
+  require_frozen_hashes: true
+model:
+  implementation: lcrseg_unet2d_jascl_3x3_stochastic_head
+  reference_root: third_party/JASCL_REFERENCE
+  upstream_path: Semi-Supervised_Natural-FoSSIL/inc/deeplab_gaps_meanT
+  base_channels: 16
+  normalization: groupnorm
+  input_channels: 3
+  num_classes: 3
+  classifier_kernel_size: 3
+  classifier_padding: 1
+training:
+  optimizer: adam
+  lr: 0.001
+  weight_decay: 0.00004
+  epochs_per_stage: 100
+  scheduler: polynomial
+  scheduler_power: 0.9
+  labeled_batch_size: 2
+  unlabeled_batch_size: 2
+  num_workers: 0
+  teacher_ema_alpha: 0.99
+  teacher_mode: upstream_eval
+  prototype_start_epoch: 25
+  pseudo_label_interval_epochs: 5
+  confidence_threshold: 0.7
+  similarity_threshold: 0.7
+  lambda_u: 0.5
+  weak_strong_augmentation: false
+  checkpoint_interval_steps: 50
+  deterministic: true
+  deterministic_unsupported_kernel_policy: warn_only
+  resume_equivalence_atol: 0.000001
+  resume_equivalence_rtol: 0.000001
+  ignore_label: 255
+augmentation:
+  labeled:
+    resize_to_stored_shape: true
+    horizontal_flip_probability: 0.5
+    translation_pixels: 2
+    label_fill: 255
+  unlabeled:
+    resize_to_stored_shape: true
+    stochastic_augmentation: false
+method:
+  use_multi_prototype: false
+  use_domain_indexed_bank: false
+  use_transport: false
+  use_soft_proto_fusion: false
+  use_history_gate: false
+  use_multi_proto_loss: false
+  use_proto_inference: false
+  use_constant_patch_classifier_regularization: false
+  constant_patch_regularization_in_gas: false

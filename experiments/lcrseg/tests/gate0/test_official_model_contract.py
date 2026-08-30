@@ -31,7 +31,7 @@ def test_lcrseg_unet_body_and_official_classifier_contract() -> None:
     assert classifier.mu.kernel_size == (3, 3)
     assert classifier.mu.padding == (1, 1)
     assert tuple(classifier.grad_update.shape[-2:]) == (3, 3)
-    logits, features = model(torch.randn(1, 3, 32, 32))
+    logits, features = model(torch.randn(1, 3, 32, 32), stochastic_classifier=False)
     assert logits.shape == (1, 3, 32, 32)
     assert features.shape == (1, 16, 32, 32)
 
@@ -43,6 +43,6 @@ def test_unet_supports_single_channel_medical_benchmarks() -> None:
         input_channels=1,
         num_classes=4,
     )
-    logits, features = model(torch.randn(1, 1, 32, 32))
+    logits, features = model(torch.randn(1, 1, 32, 32), stochastic_classifier=False)
     assert logits.shape == (1, 4, 32, 32)
     assert features.shape == (1, 16, 32, 32)

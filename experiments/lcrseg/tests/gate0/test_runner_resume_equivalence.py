@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[2]
 
 
 def _runner(output_dir: Path) -> Gate0RepairedRunner:
-    config = load_yaml(ROOT / "configs/gate0_repaired/fundus.yaml")
+    config = load_yaml(ROOT / "configs/gate0_repaired_v2/fundus_pas_probmse.yaml")
     protocol = load_yaml(ROOT / "docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml")
     return Gate0RepairedRunner(
         repo_root=ROOT,

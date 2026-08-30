@@ -19,12 +19,13 @@ from di_dmpa_jascl.runner import Gate0RepairedRunner  # noqa: E402
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run the protocol-bounded gate0_repaired baseline")
-    parser.add_argument("--config", default="configs/gate0_repaired/fundus.yaml")
+    parser.add_argument("--config", default="configs/gate0_repaired_v2/fundus_pas_probmse.yaml")
     parser.add_argument("--seed", type=int, required=True, choices=(0, 1, 2))
     parser.add_argument("--output-dir", required=True)
     parser.add_argument("--device", default="cuda")
     parser.add_argument("--resume")
     parser.add_argument("--stop-after-global-step", type=int)
+    parser.add_argument("--stop-at-event", choices=("before_stage_transition", "after_stage_transition"))
     args = parser.parse_args()
 
     config_path = (REPO_ROOT / args.config).resolve() if not Path(args.config).is_absolute() else Path(args.config)
@@ -41,7 +42,8 @@ def main() -> None:
         output_dir=args.output_dir,
         device=args.device,
     )
-    result = runner.run(resume_path=args.resume, stop_after_global_step=args.stop_after_global_step)
+    result = runner.run(resume_path=args.resume, stop_after_global_step=args.stop_after_global_step,
+                        stop_at_event=args.stop_at_event)
     print(json.dumps(result, indent=2, sort_keys=True))
 
 

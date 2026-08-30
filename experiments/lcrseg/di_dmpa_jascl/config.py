@@ -45,6 +45,14 @@ def validate_gate0_config(config: dict[str, Any], protocol: dict[str, Any]) -> d
     resolved = copy.deepcopy(config)
     if resolved.get("name") != "gate0_repaired":
         raise ValueError("only the gate0_repaired runner is authorized")
+    if resolved.get("semantic_version") != 2:
+        raise ValueError("v1 is archived; formal execution requires semantic_version=2")
+    if resolved.get("objective_name") != "probability_mse_on_joint_pas_validity":
+        raise ValueError("only the reviewed PAS probability objective is authorized")
+    if resolved.get("evaluation_classifier") != "posterior_mean":
+        raise ValueError("formal evaluation must use posterior-mean classifier")
+    if resolved.get("benchmark") != "fundus":
+        raise ValueError("only Fundus is authorized for Gate 0 v2")
     if resolved.get("upstream_commit") != UPSTREAM_COMMIT:
         raise ValueError("gate0_repaired must remain pinned to official commit 3c93ca7")
     if resolved.get("method_registered") is not False or METHOD_REGISTERED:
@@ -56,6 +64,8 @@ def validate_gate0_config(config: dict[str, Any], protocol: dict[str, Any]) -> d
             raise ValueError(f"{switch} must remain false during Gate 0")
     if method.get("use_constant_patch_classifier_regularization") is not False:
         raise ValueError("constant-patch classifier regularization is forbidden during Gate 0")
+    if method.get("constant_patch_regularization_in_gas") is not False:
+        raise ValueError("constant-patch regularization must never enter GAS")
 
     benchmark_name = resolved["benchmark"]
     benchmarks = protocol.get("benchmarks", {})
@@ -99,9 +109,15 @@ def validate_gate0_config(config: dict[str, Any], protocol: dict[str, Any]) -> d
         "pseudo_label_interval_epochs": 5,
         "confidence_threshold": 0.7,
         "similarity_threshold": 0.7,
-        "unsupervised_consistency_weight": 0.5,
+        "labeled_batch_size": 2,
+        "unlabeled_batch_size": 2,
+        "ignore_label": 255,
     }
     training = resolved["training"]
+    if training.get("lambda_u") not in (0.0, 0.5):
+        raise ValueError("only compute/RNG-matched C0=0.0 and B0=0.5 are authorized")
+    if "unsupervised_consistency_weight" in training:
+        raise ValueError("legacy loss-weight field is forbidden in v2")
     for key, expected in expected_training.items():
         if training.get(key) != expected:
             raise ValueError(f"Gate 0 may not change upstream {key}: {training.get(key)!r} != {expected!r}")
