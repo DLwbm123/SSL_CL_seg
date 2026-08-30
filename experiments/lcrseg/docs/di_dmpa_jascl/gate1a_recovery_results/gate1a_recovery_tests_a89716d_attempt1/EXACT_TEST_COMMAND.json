@@ -1,0 +1,24 @@
+{
+  "command": [
+    "/root/.venvs/lcrseg-py310/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/di_dmpa_gate1/test_gate1a_core.py",
+    "tests/di_dmpa_gate1/test_gate1a_recovery.py",
+    "tests/di_dmpa_gate1/test_gate1a_recovery_integration.py",
+    "--junitxml=/root/LCRSeg/runs/di_dmpa_gate1/cfb62554f1e6a2a36850547485b1857dc9a28a20/gate1a_recovery_tests_a89716d_attempt1/GATE1A_RECOVERY_PYTEST.xml"
+  ],
+  "cwd": "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LD_LIBRARY_PATH": "/lib/x86_64-linux-gnu",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "PYTHONPATH": ".",
+    "CUDA_VISIBLE_DEVICES": "0",
+    "GATE1A_CODE_COMMIT": "a89716ddbd2eccbe76c574e97e520d424aa923ab",
+    "GATE1A_RECOVERY_LOCALIZATION_OUTPUT": "/root/LCRSeg/runs/di_dmpa_gate1/cfb62554f1e6a2a36850547485b1857dc9a28a20/gate1a_known_failure_a89716d_attempt1"
+  }
+}

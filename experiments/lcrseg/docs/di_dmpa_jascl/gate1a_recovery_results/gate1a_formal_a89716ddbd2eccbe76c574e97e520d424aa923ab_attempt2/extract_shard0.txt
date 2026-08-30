@@ -1,0 +1,46 @@
+conv2d Stochastic Classifier
+conv2d Stochastic Classifier
+features complete B0-student seed=0 stage=0 train_labeled
+features complete B0-student seed=0 stage=0 val
+features complete B0-EMA seed=0 stage=0 train_labeled
+features complete B0-EMA seed=0 stage=0 val
+conv2d Stochastic Classifier
+conv2d Stochastic Classifier
+features complete B0-student seed=0 stage=2 train_labeled
+features complete B0-student seed=0 stage=2 val
+features complete B0-EMA seed=0 stage=2 train_labeled
+features complete B0-EMA seed=0 stage=2 val
+conv2d Stochastic Classifier
+conv2d Stochastic Classifier
+features complete B0-student seed=1 stage=1 train_labeled
+features complete B0-student seed=1 stage=1 val
+features complete B0-EMA seed=1 stage=1 train_labeled
+features complete B0-EMA seed=1 stage=1 val
+conv2d Stochastic Classifier
+conv2d Stochastic Classifier
+features complete B0-student seed=2 stage=0 train_labeled
+features complete B0-student seed=2 stage=0 val
+Traceback (most recent call last):
+  File "/root/.venvs/lcrseg-py310/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/root/.venvs/lcrseg-py310/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 281, in <module>
+    main()
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 271, in main
+    extraction_shard(args)
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 110, in extraction_shard
+    checkpoint_sequence(checkpoints,args.output,args.shard,
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 120, in checkpoint_sequence
+    execute(checkpoint)  # This returns/raises only AFTER ImmutabilityGuard.__exit__.
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py", line 111, in <lambda>
+    lambda checkpoint: extract_checkpoint(ROOT,args.data_root,prereg,plan,checkpoint,args.output,metadata,device='cuda:0'))
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/feature_extraction.py", line 178, in extract_checkpoint
+    caches=_extract_loaded_models(models,data_root,plan,checkpoint,output,metadata,device=device)
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/feature_extraction.py", line 196, in _extract_loaded_models
+    arrays,diagnostics=extract_unit(model,unit,data_root,device=device,context=context)
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/feature_extraction.py", line 152, in extract_unit
+    arrays,audit=inspect_registered_case(features[batch_index].detach().cpu().numpy(),case,context)
+  File "/root/SSL_CL_gate1_recovery_code/experiments/lcrseg/di_dmpa_gate1/registered_features.py", line 84, in inspect_registered_case
+    raise RegisteredFeatureNumericalError('registered feature nonfinite or norm <=1e-12', provenance, [audit])
+di_dmpa_gate1.registered_features.RegisteredFeatureNumericalError: registered feature nonfinite or norm <=1e-12; provenance={'panel_id': 'B0-EMA', 'baseline': 'B0', 'feature_source': 'ema_teacher', 'seed': 2, 'stage_index': 0, 'domain': 'REFUGE', 'role': 'train_labeled', 'checkpoint_id': 'B0/seed2/stage0', 'checkpoint_sha256': '244c87368f252a660bf0d1934bf0ccf512790dc698d04ede01196d14c34064ac', 'sampling_plan_sha256': '96277c841165d8cd84a63d3d4a9301b27c50dcdd87d0b0d215c162d95c345e24', 'sampling_unit_sha256': '5574b03230f7e724747174387edd1e96c70f565d52cfb61f9a53414ceb57a8d9', 'case_id': 'REFUGE_test_n0128', 'class_id': 1, 'coordinate_y': 125, 'coordinate_x': 212, 'invalid_count': 1, 'minimum_selected_norm': 0.0, 'total_invalid_count': 1}
