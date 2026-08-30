@@ -1,0 +1,755 @@
+{
+  "schema_version": 2,
+  "registration_id": "DI_DMPA_GATE1A_V2_NULL_AWARE_SPHERE",
+  "preregistration_version": "2.0.0",
+  "date": "2026-08-30",
+  "timezone": "Asia/Shanghai",
+  "repository": "DLwbm123/SSL_CL_seg",
+  "branch": "codex/gate1a-v2-null-aware-sphere",
+  "branch_base_commit": "606a5c53a37d0e4c9605415e8b38a1f177d1604f",
+  "v1_closure_commit": "b61f6db0ca9e746d005937e7dfc51c45078e1d80",
+  "historical_identities": {
+    "schema_version": 1,
+    "closure_id": "GATE1A_V1_CLOSURE",
+    "date": "2026-08-30",
+    "timezone": "Asia/Shanghai",
+    "branch": "codex/gate1a-v2-null-aware-sphere",
+    "branch_base_commit": "606a5c53a37d0e4c9605415e8b38a1f177d1604f",
+    "v1_preregistration_commit": "cfb62554f1e6a2a36850547485b1857dc9a28a20",
+    "attempt1": {
+      "code_commit": "8f4a71a5ea8d145183a3007ccd398ab79387478e",
+      "report_commit": "945b484072cb9f2757be98df34e5d72844596e84",
+      "status": "BLOCKED_NUMERICAL_FAILURE",
+      "geometry_jobs": 0,
+      "A1_A6_computed": false,
+      "selected_K": null
+    },
+    "scope_clarification_commit": "e8336da9d7364f4b67912d03791195445318afc3",
+    "attempt2": {
+      "code_commit": "a89716ddbd2eccbe76c574e97e520d424aa923ab",
+      "report_commit": "606a5c53a37d0e4c9605415e8b38a1f177d1604f",
+      "status": "BLOCKED_NUMERICAL_FAILURE",
+      "geometry_jobs": 0,
+      "A1_A6_computed": false,
+      "selected_K": null
+    },
+    "exact_registered_zero": {
+      "panel_id": "B0-EMA",
+      "baseline": "B0",
+      "feature_source": "ema_teacher",
+      "seed": 2,
+      "stage_index": 0,
+      "domain": "REFUGE",
+      "role": "train_labeled",
+      "case_id": "REFUGE_test_n0128",
+      "class_id": 1,
+      "coordinate_y": 125,
+      "coordinate_x": 212,
+      "norm": 0,
+      "checkpoint_id": "B0/seed2/stage0",
+      "checkpoint_sha256": "244c87368f252a660bf0d1934bf0ccf512790dc698d04ede01196d14c34064ac",
+      "sampling_unit_sha256": "5574b03230f7e724747174387edd1e96c70f565d52cfb61f9a53414ceb57a8d9",
+      "sampling_plan_sha256": "96277c841165d8cd84a63d3d4a9301b27c50dcdd87d0b0d215c162d95c345e24"
+    },
+    "root_cause_classification": "POST_RELU_FEATURE_SUPPORT_INCLUDES_EXACT_ZERO_ATOM",
+    "v1_feature_assumption": "all registered decoder.dec1 post-ReLU 16-D features have norm > 1e-12",
+    "v1_feature_assumption_status": "FALSIFIED",
+    "v1_additional_attempts_authorized": false,
+    "mechanism_geometry_results_observed": false,
+    "geometry_jobs_completed": 0,
+    "A1_A6_computed": false,
+    "selected_K": null,
+    "attempts_preserved": true,
+    "historical_bytes_modified": false,
+    "next_protocol": "GATE1A_V2_NULL_AWARE_SPHERE",
+    "closure_status": "CLOSED_V1_FEATURE_SUPPORT_ASSUMPTION_FALSIFIED",
+    "model_optimizer_steps": 0,
+    "transport_optimizer_steps": 0,
+    "method_registered": false,
+    "di_dmpa_training_launched": false
+  },
+  "inherited_normative_contract": {
+    "commit": "cfb62554f1e6a2a36850547485b1857dc9a28a20",
+    "path": "experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_GATE1_PREREGISTRATION.json",
+    "raw_sha256": "6f50bd9df404d987aa70e2035a5c3f3853aa59ce49d21ffface34172cf754cbf",
+    "md_raw_sha256": "32acdc5c24bcc5763daa6cb3650fea91f46da7ae3845b1fd0615c781619fbf0a",
+    "json_pointers": [
+      "/immutable_baseline",
+      "/benchmark",
+      "/shared_sampling",
+      "/gate1a/clustering",
+      "/gate1a/primary_gate_conditions",
+      "/panels"
+    ],
+    "rule": "Exact baseline, case plans, bootstrap draws, seeds, class mapping, preprocessing and thresholds are inherited byte-bound; only support, null-aware metrics and the explicit v2 override fields below differ. No old execution permission or v1 nonzero-feature assumption is inherited."
+  },
+  "immutable_baseline": {
+    "gate0_v2_status": "PASS_ACCEPTED_CORRECTNESS_ONLY",
+    "gate0_report_commit": "ea945382030e8eb2be070fa3d2ee20e5128f791d",
+    "gate0_training_source_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+    "upstream_jascl_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+    "freeze_path": "experiments/lcrseg/docs/di_dmpa_jascl/BASELINE_FREEZE.json",
+    "freeze_sha256": "e171a1d476ca626830541e80dbb1dff763ae02716a09463bb70ea5892da8231a",
+    "freeze_scope": "All six runs, completion/log/report/config hashes and 24 best/final checkpoint hashes remain immutable. Only the 18 enumerated stage-best checkpoints are mechanism inputs; six last.pt files are provenance only.",
+    "configs": {
+      "B0": {
+        "path": "experiments/lcrseg/configs/gate0_repaired_v2/fundus_pas_probmse.yaml",
+        "resolved_config_sha256": "37876e4a5dae85a31ff8d8a211e975e745cffe4c395f89407585bb9ede682b4c",
+        "file_sha256": "0ed4e7b1a3db0540f91f3a59acc6aa7e76ac09277038afd7b3037700487ca632",
+        "lambda_u": 0.5,
+        "objective": "probability_mse_on_joint_pas_validity"
+      },
+      "C0": {
+        "path": "experiments/lcrseg/configs/gate0_repaired_v2/fundus_lambda_u0.yaml",
+        "resolved_config_sha256": "074b9afeef0d7acbbda9a9e03c4bc479248a200ca1e4cf6e1b0eccc30116b000",
+        "file_sha256": "ed59c24d782ef9b475b35211a40bfc07303daca3b7a1f55b04eedfd8c026c315",
+        "lambda_u": 0,
+        "objective": "same raw probability consistency; zero multiplier in model update"
+      }
+    },
+    "checkpoint_inputs": [
+      {
+        "checkpoint_id": "B0/seed0/stage0",
+        "baseline": "B0",
+        "seed": 0,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed0/stage_0_REFUGE/best.pt",
+        "sha256": "2bd834c0e0bb4183bfa5cc9a0319c9b796b67e5f2b7e2d746a5f5942596b3a3c",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed0/stage1",
+        "baseline": "B0",
+        "seed": 0,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed0/stage_1_RIM_ONE_r3/best.pt",
+        "sha256": "a079413ebd0534de964fed034011cc559b59a937470b504c9fbc5fbad4d00bb0",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed0/stage2",
+        "baseline": "B0",
+        "seed": 0,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed0/stage_2_Drishti_GS/best.pt",
+        "sha256": "daa7129a8807dfe5880eca480107d3613f448d55a0079cede9e0282ac7d4d244",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed1/stage0",
+        "baseline": "B0",
+        "seed": 1,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed1/stage_0_REFUGE/best.pt",
+        "sha256": "1e3c99ab3fe39de9755401a31779b5670c624064a73e772938ae57cbb2c3a1b8",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed1/stage1",
+        "baseline": "B0",
+        "seed": 1,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed1/stage_1_RIM_ONE_r3/best.pt",
+        "sha256": "fd61eb6c8c6b1b4e13ce16f9b442572f7c951e03b9403925ad5d898011201b11",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed1/stage2",
+        "baseline": "B0",
+        "seed": 1,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed1/stage_2_Drishti_GS/best.pt",
+        "sha256": "f8915002599e8fae7cee4fdff0bc5212607010326c255e2f62e25962faf577d7",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed2/stage0",
+        "baseline": "B0",
+        "seed": 2,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed2/stage_0_REFUGE/best.pt",
+        "sha256": "244c87368f252a660bf0d1934bf0ccf512790dc698d04ede01196d14c34064ac",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed2/stage1",
+        "baseline": "B0",
+        "seed": 2,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed2/stage_1_RIM_ONE_r3/best.pt",
+        "sha256": "d7ca2081913a99acb94aeb6794b8cedd55958c2fd6d016ec6fd17e6f063e1be5",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "B0/seed2/stage2",
+        "baseline": "B0",
+        "seed": 2,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "path": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed2/stage_2_Drishti_GS/best.pt",
+        "sha256": "c7936dcf201076c66e2069f54044f59f8adbeed5326daf86fc94e5e0057fcab2",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed0/stage0",
+        "baseline": "C0",
+        "seed": 0,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed0/stage_0_REFUGE/best.pt",
+        "sha256": "79b3dfcfe494245e61cccbd94d6b9b06481a5093d7ba928bfee76449e50b263e",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed0/stage1",
+        "baseline": "C0",
+        "seed": 0,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed0/stage_1_RIM_ONE_r3/best.pt",
+        "sha256": "fcf5cd3041ece5caf7203954abe497883cd1d8626cd747dfc17ee0e364d2f2b2",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed0/stage2",
+        "baseline": "C0",
+        "seed": 0,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed0/stage_2_Drishti_GS/best.pt",
+        "sha256": "9f39ddc0931c792a89fee8709d43e6179dbe077b6b255cbe572f76ecc14a21f4",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed1/stage0",
+        "baseline": "C0",
+        "seed": 1,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed1/stage_0_REFUGE/best.pt",
+        "sha256": "117a5982085488fe9bcc9b11f9f4592b929a9ba129a33f2afb0b39daaf142900",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed1/stage1",
+        "baseline": "C0",
+        "seed": 1,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed1/stage_1_RIM_ONE_r3/best.pt",
+        "sha256": "63561c0e9e913fc96baee6afd6dfd7cdf64a07e21b0f75abccf7e84e22cdb37c",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed1/stage2",
+        "baseline": "C0",
+        "seed": 1,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed1/stage_2_Drishti_GS/best.pt",
+        "sha256": "0532926be6724f99b89f8da969da8acfd007e6cd870266a5ba94f4cca30f6cf9",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed2/stage0",
+        "baseline": "C0",
+        "seed": 2,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed2/stage_0_REFUGE/best.pt",
+        "sha256": "c2c29697aeb4f27258184db019aa99d3bcf1f888c56f0bfd65ff340f01ce348a",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed2/stage1",
+        "baseline": "C0",
+        "seed": 2,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed2/stage_1_RIM_ONE_r3/best.pt",
+        "sha256": "1de3299d9bf0d2b95da264e1af2a8970c2e10a769f2b9f1c8a81ecda5b7d0857",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      },
+      {
+        "checkpoint_id": "C0/seed2/stage2",
+        "baseline": "C0",
+        "seed": 2,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "path": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed2/stage_2_Drishti_GS/best.pt",
+        "sha256": "b6135dd905b1ec4649685f5c7eeee975e371561bb817b01f567a55fa28a456f7",
+        "student_key": "student",
+        "ema_key": "ema_teacher",
+        "legacy_pas_prototype_key": "prototypes"
+      }
+    ],
+    "rerun_baselines": false,
+    "config_hash_definition": "resolved_config_sha256 hashes parsed YAML as canonical JSON: sort_keys=true,separators=(',',':'),ensure_ascii=false; this is the historical checkpoint config_hash. file_sha256 hashes raw YAML bytes and is separately verified against the original training-source Git blob. Do not compare these different hash domains."
+  },
+  "benchmark": {
+    "name": "Fundus",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "domain_order": [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    "domain_order_source": {
+      "path": "experiments/lcrseg/docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml",
+      "sha256": "3e2da51b2aeb92a80f59fdf96b4a96a129cc937851230c2f920ad706ceb90359",
+      "key": "benchmarks.fundus.domain_order"
+    },
+    "benchmarks_are_independent": true,
+    "class_count": 3,
+    "class_names": {
+      "0": "background",
+      "1": "optic_disc_rim",
+      "2": "optic_cup"
+    },
+    "foreground_class_ids": [
+      1,
+      2
+    ],
+    "stored_labels_already_mapped": true,
+    "raw_to_train": {
+      "0": 2,
+      "128": 1,
+      "255": 0
+    },
+    "ignore_label": 255,
+    "input_channels": 3,
+    "raw_center_crop_hw": [
+      800,
+      800
+    ],
+    "stored_resize_hw": [
+      384,
+      384
+    ],
+    "normalization": "uint8 RGB / 255.0",
+    "diagnostic_resize_or_augmentation": "none; use stored 384x384 without flips/translations/new crops",
+    "data_root": "/root/LCRSeg",
+    "hdf5_root": "/root/LCRSeg/h5/v1",
+    "role_field": "primary_20pct_split",
+    "domain_field": "site_or_vendor",
+    "manifest_assets": [
+      {
+        "seed": 0,
+        "repository_path": "experiments/lcrseg/manifests/training/lcrseg_v1_seed0.csv",
+        "runtime_path": "/root/LCRSeg/manifests/training/lcrseg_v1_seed0.csv",
+        "sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+        "fundus_split_path": "experiments/lcrseg/splits/fundus_seed0.json",
+        "fundus_split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88"
+      },
+      {
+        "seed": 1,
+        "repository_path": "experiments/lcrseg/manifests/training/lcrseg_v1_seed1.csv",
+        "runtime_path": "/root/LCRSeg/manifests/training/lcrseg_v1_seed1.csv",
+        "sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+        "fundus_split_path": "experiments/lcrseg/splits/fundus_seed1.json",
+        "fundus_split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727"
+      },
+      {
+        "seed": 2,
+        "repository_path": "experiments/lcrseg/manifests/training/lcrseg_v1_seed2.csv",
+        "runtime_path": "/root/LCRSeg/manifests/training/lcrseg_v1_seed2.csv",
+        "sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+        "fundus_split_path": "experiments/lcrseg/splits/fundus_seed2.json",
+        "fundus_split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3"
+      }
+    ],
+    "role_contract": {
+      "train_labeled": "Current-domain labeled data only: prototype fits and fixed supervised gradient batches. Historical prototypes are immutable outputs of their own stage fits.",
+      "train_unlabeled": "Current-domain images only: transport fit/holdout and fixed unlabeled gradient batches. label_h5_relpath and label_sha256 must be empty; no hidden GT lookup.",
+      "val": "Diagnostic evaluator only: held-out geometry, reliability, historical oracle and prototype-only accuracy. Never model/transport fit, threshold search, checkpoint selection or training API.",
+      "test": "No construction or reads in Gate 1. Existing Gate 0 test matrix files are immutable pre-existing artifacts, not Gate 1 GT sources."
+    }
+  },
+  "panels": {
+    "primary_admission_panel": "B0-EMA",
+    "primary_feature_source": "ema_teacher",
+    "feature_source_selection_performed": false,
+    "units_per_panel": 18,
+    "unit_key": [
+      "seed",
+      "current_domain",
+      "foreground_class_id"
+    ],
+    "definitions": [
+      {
+        "panel_id": "B0-EMA",
+        "baseline": "B0",
+        "feature_source": "ema_teacher",
+        "role": "primary admission panel",
+        "can_determine_admission": true
+      },
+      {
+        "panel_id": "B0-student",
+        "baseline": "B0",
+        "feature_source": "student",
+        "role": "feature-source control",
+        "can_determine_admission": false
+      },
+      {
+        "panel_id": "C0-EMA",
+        "baseline": "C0",
+        "feature_source": "ema_teacher",
+        "role": "SSL-objective control",
+        "can_determine_admission": false
+      },
+      {
+        "panel_id": "C0-student",
+        "baseline": "C0",
+        "feature_source": "student",
+        "role": "joint control",
+        "can_determine_admission": false
+      }
+    ],
+    "all_panels_fully_computed_and_separately_reported": true,
+    "shared_exactly": [
+      "case IDs",
+      "pixel coordinates and sample multiplicities",
+      "class/case-balanced sampling",
+      "clustering seeds",
+      "bootstrap case draws/splits",
+      "K candidates",
+      "metric definitions"
+    ],
+    "prohibited": [
+      "pooling four panels into 72 admission units",
+      "cross-panel averages",
+      "cross-panel majority votes",
+      "post-run best-panel selection",
+      "control-panel rescue of primary failure",
+      "selecting K or feature source using controls"
+    ],
+    "control_performance_failure_changes_primary_admission": false,
+    "any_panel_provenance_leakage_numerical_or_sampling_failure_blocks_entire_gate1": true,
+    "primary_failure_with_control_success": "B0-EMA still fails; C0/student promotion requires a NEW preregistration version."
+  },
+  "sampling": {
+    "source": "/root/LCRSeg/runs/di_dmpa_gate1/cfb62554f1e6a2a36850547485b1857dc9a28a20/gate1a_formal_8f4a71a_attempt1/SHARED_GEOMETRY_SAMPLING_PLAN.json",
+    "raw_sha256": "96277c841165d8cd84a63d3d4a9301b27c50dcdd87d0b0d215c162d95c345e24",
+    "reuse_raw_bytes_only": true,
+    "rematerialization": false,
+    "coordinate_modification": false,
+    "old_feature_cache_reuse": false,
+    "chmod_read_only": true,
+    "uid_order_hash": "H(sample_layout.uids)",
+    "original_weight_order_hash": "SHA256 of C-contiguous little-endian float64 sample_layout.weights bytes",
+    "norm_summary_quantiles": "float64 linear p01/median over positive norms, diagnostics only"
+  },
+  "feature": {
+    "tap": "decoder.dec1 post-ReLU before official3x3 classifier",
+    "dimension": 16,
+    "stored_hw": [
+      384,
+      384
+    ],
+    "forward_dtype": "float32",
+    "norms_dtype": "float64",
+    "amp": false,
+    "model_eval": true,
+    "no_grad": true,
+    "stochastic_classifier": false,
+    "batch_size": 8,
+    "seed_reset": "registered pixel_sampling_seed AFTER model/classifier constructor and checkpoint load",
+    "threshold": 1e-12,
+    "active": "finite raw_norm > 1e-12",
+    "null": "finite raw_norm <= 1e-12",
+    "normalization": "directions[active] = raw[active] / raw_norms[active,None]; directions[null]=all-zero placeholder, never normalized or passed to cosine",
+    "unit_norm_max_abs_error_tolerance": 1e-12,
+    "model_and_checkpoint_state": "bitwise unchanged"
+  },
+  "distribution": {
+    "model": "pi_null * delta_null + (1-pi_null) * Q_directional",
+    "weights": "original equal-case weights per class; no case/UID deletion; pi_null=sum(original weights of null)/sum(original weights)",
+    "null_has_direction": false,
+    "null_is_prototype_slot": false
+  },
+  "fit": {
+    "algorithm": "case-weighted class-wise spherical K-means",
+    "compute": "CPU float64",
+    "restarts": 5,
+    "max_iterations": 100,
+    "angular_center_movement_tolerance": 0.000001,
+    "initializer": "spherical K-means++: first sample by normalized case/pixel weight; subsequent samples proportional to weight * nearest cosine distance (not squared again); random draws from numpy.random.Generator(PCG64(kmeans_seed))",
+    "kmeans_seed": "S(['kmeans-v1',seed,stage_index,class_id,K,replicate,restart]); original replicate=-1, bootstrap replicate=0..4, restart=0..4; panel ID is NEVER part of the seed",
+    "iteration": "maximum cosine assignment (lowest cluster index on ties); normalized weighted mean update",
+    "K1": "normalized original-weight active mean; if active mass0 use all inactive K slots; any claimed-active zero/nonfinite center blocks",
+    "empty_cluster": "reseed at largest weighted current quantization residual, pixel UID tie-break, without reusing an existing center; if no distinct sample remains, keep explicit inactive slot. Never secretly reduce K. Report active counts and dormant slots.",
+    "best_restart": "minimum weighted training cosine quantization error; lowest restart index on ties",
+    "degenerate_candidate": "Inactive/dormant K slots are reported explicitly; A1..A6 alone decide candidate admission. Nonfinite computations are global numerical blockers, not an opportunity to reduce K or resample.",
+    "K_reference": 1,
+    "K_candidates": [
+      2,
+      3,
+      5
+    ],
+    "support_override": "Fit only active directions with corresponding original weights; preserve UID ranks and all declared K slots.",
+    "all_null_original": "directional_support=NONE; all K slots inactive; Q/R95 worst-case=2; no numerical exception",
+    "all_null_bootstrap": "all K slots inactive, all matched cosine scores0, keep fixed draw and five replicates",
+    "inactive_slots": "Retain original K; no reroll and no silent K reduction",
+    "active_center_validation": "finite, norm>1e-12 and unit norm within1e-12"
+  },
+  "metrics": {
+    "schema": "NULL_AWARE_SPHERE_V2",
+    "active_cosine_distance": "1-max cosine with active centers, clipped to[-1,1]",
+    "active_euclidean": "sqrt(max(0,2-2*max cosine))",
+    "null_cosine_distance": 2,
+    "null_euclidean": 2,
+    "no_active_centers": "All predictions receive conservative distance2, including active validation directions; conditional directional metrics are null because no directional model exists. No cosine with inactive slots.",
+    "fields": [
+      "null_mass",
+      "active_direction_mass",
+      "null_count",
+      "active_count",
+      "Q_directional_conditional",
+      "cosine_distance_p95_directional",
+      "R95_directional",
+      "Q_null_worst_case",
+      "cosine_distance_p95_null_worst_case",
+      "R95_null_worst_case"
+    ],
+    "weights": "Same original complete UID/weight vector for worst-case means and weighted ECDF; divide by total input mass as in v1. Conditional metrics divide by active mass only and never drive radius admission.",
+    "weighted_ecdf": "Inherited v1 exact weighted ECDF: sort distance then UID, first cumulative normalized weight>=quantile; no interpolation",
+    "occupancy": "original training weights of active directional assignments divided by active-direction weight mass; null is not a cluster; inactive assignment slots excluded from A3 numerator/denominator; if pooled active occupancy denominator0 use fraction0",
+    "boundary_interior": "same frozen per-UID masks and v1 equal-case-within-stratum weights; preserve null observations in each stratum; same conservative metrics; empty stratum remains structurally null",
+    "Q_identity": "Q_wc(K1)-Q_wc(K)=active_mass*(Q_cond(K1)-Q_cond(K)); validate for every same-panel/seed/domain/class train/val pair with directional support; all-null/no-center cases validate K-independent Q_wc=2 separately",
+    "identity_atol": 1e-12,
+    "identity_rtol": 1e-10
+  },
+  "admission": {
+    "primary_panel": "B0-EMA",
+    "foreground_units_per_panel": 18,
+    "foreground_classes": [
+      1,
+      2
+    ],
+    "radius_field": "R95_null_worst_case",
+    "A1": "count(strict R95_wc(K)<R95_wc(K1))>=12 over18foreground units",
+    "A2": "median over9seed-domain equal-foreground-macro relative R95_wc decrease>=0.10",
+    "A3": "fraction of active directional clusters with occupancy>=0.05 >=0.90",
+    "A4": "foreground five-bootstrap Hungarian matched cosine median>=0.85; inactive/all-null replicate slots=0",
+    "A5": "at least2of3domains strictly lower cross-seed equal-foreground-macro R95_wc",
+    "A6": "background excluded from all admission stats",
+    "thresholds": [
+      {
+        "id": "A1",
+        "rule": "number of B0-EMA foreground units with R95_K < R95_1",
+        "operator": ">=",
+        "threshold": 12,
+        "denominator": 18
+      },
+      {
+        "id": "A2",
+        "rule": "median over 9 seed-domain pairs of (mean_fg(R95_1)-mean_fg(R95_K))/mean_fg(R95_1)",
+        "operator": ">=",
+        "threshold": 0.1
+      },
+      {
+        "id": "A3",
+        "rule": "fraction of active clusters with occupancy >= 0.05, pooled only across the 18 B0-EMA foreground units for this K",
+        "operator": ">=",
+        "threshold": 0.9
+      },
+      {
+        "id": "A4",
+        "rule": "foreground bootstrap/Hungarian matched cosine median",
+        "operator": ">=",
+        "threshold": 0.85
+      },
+      {
+        "id": "A5",
+        "rule": "number of domains with strictly lower mean-over-seeds foreground macro R95 than K1",
+        "operator": ">=",
+        "threshold": 2,
+        "denominator": 3
+      },
+      {
+        "id": "A6",
+        "rule": "all preceding admission statistics use foreground only; background-only improvement cannot pass"
+      }
+    ],
+    "round_before_decision": false,
+    "only_after_four_panels_complete": true,
+    "controls_can_rescue": false,
+    "select": "smallest passing K",
+    "no_passing_K": "K1 EXPLICIT_DOWNSTREAM_FALLBACK_ONLY and FAIL_MULTI_MODALITY_NOT_SUPPORTED",
+    "directional_support_failure_label": "FAIL_DIRECTIONAL_SUPPORT_NOT_SUPPORTED only if all18 primary original foreground train class-units have zero active mass; this is the no-direction special case of scientific failure, not an extra admission threshold. Partially null/unsupported units remain in the18unit denominator and add no separate gate.",
+    "conditional_radius_for_admission_forbidden": true
+  },
+  "cache": {
+    "rows": "N equals every original registered UID including null",
+    "arrays": {
+      "directions": {
+        "shape": "[N,16]",
+        "dtype": "float64",
+        "null_placeholder": "all-zero; never implicit cosine handling"
+      },
+      "active_mask": {
+        "shape": "[N]",
+        "dtype": "bool"
+      },
+      "raw_norms": {
+        "shape": "[N]",
+        "dtype": "float64"
+      }
+    },
+    "explicit_active_mask_required": true,
+    "uid_and_weight_order_hashes_required": true,
+    "each_array_raw_sha256_required": true,
+    "raw_tensors_git_policy": "remote only, publish shape/dtype/count/order/hash"
+  },
+  "support_census": {
+    "feature_units": 72,
+    "all_before_any_kmeans": true,
+    "clustering_jobs_started_before_census": 0,
+    "checkpoint_state_audits": 18,
+    "all_checkpoint_disk_hashes_unchanged": true,
+    "case_fields": [
+      "registered_count",
+      "active_count",
+      "null_count",
+      "null_fraction",
+      "weighted_null_mass",
+      "minimum_positive_norm",
+      "p01_positive_norm",
+      "median_positive_norm",
+      "max_positive_norm",
+      "full_map_exact_zero_count",
+      "full_map_nonfinite_count",
+      "registered_nonfinite_count",
+      "exact_coordinate_hash",
+      "null_coordinate_hash",
+      "first_null_coordinates_max32"
+    ],
+    "unit_panel_fields": [
+      "total_registered",
+      "total_active",
+      "total_null",
+      "null_mass_by_class",
+      "maximum_case_class_null_fraction",
+      "cases_with_no_active_directions",
+      "all_finite"
+    ],
+    "panel_aggregation": "Sum raw counts; null mass by class is equal mean over the18 seed/domain/role feature units in that panel; retain every unit statistic separately, never pool panels."
+  },
+  "execution": {
+    "separate_authorization_required": true,
+    "authorization_published_in_this_commit": false,
+    "new_checkpoint_tensor_reads_before_prereg_and_authorization_remote_verification": false,
+    "unique_formal_attempts_authorized": 1,
+    "namespace": "/root/LCRSeg/runs/di_dmpa_gate1_v2/<V2_PREREGISTRATION_COMMIT>/gate1a_v2_<EXACT_CODE_SHA>_attempt1",
+    "geometry_jobs": 432,
+    "geometry_cpu_float64": true,
+    "gpus": [
+      0,
+      1
+    ],
+    "workers": 16,
+    "cpu_blas_threads": 1,
+    "cooperative_shutdown_timeout_seconds": 600,
+    "postrun_stop": true
+  },
+  "statuses": {
+    "scientific": [
+      "PASS_MULTI_MODALITY_SUPPORTED",
+      "FAIL_MULTI_MODALITY_NOT_SUPPORTED",
+      "FAIL_DIRECTIONAL_SUPPORT_NOT_SUPPORTED"
+    ],
+    "engineering": [
+      "BLOCKED_PROTOCOL_OR_LEAKAGE",
+      "BLOCKED_NONFINITE_FEATURE",
+      "BLOCKED_MODEL_MUTATION",
+      "BLOCKED_INCOMPLETE_PANEL",
+      "BLOCKED_NONFINITE_OR_INVALID_CENTER"
+    ],
+    "finite_null_is_engineering_failure": false
+  },
+  "method_flags": {
+    "method_registered": false,
+    "di_dmpa_training_launched": false,
+    "use_multi_prototype": false,
+    "use_domain_indexed_bank": false,
+    "use_transport": false,
+    "use_soft_proto_fusion": false,
+    "use_history_gate": false,
+    "use_multi_proto_loss": false,
+    "use_proto_inference": false,
+    "use_constant_patch_classifier_regularization": false
+  },
+  "model_optimizer_steps": 0,
+  "transport_optimizer_steps": 0,
+  "hidden_gt_training_usage": "none",
+  "test_gt_usage": "none",
+  "forbidden": [
+    "v1 attempt3",
+    "historical artifact mutation",
+    "null UID deletion",
+    "null epsilon normalization",
+    "fake null direction",
+    "feature/source/panel changes",
+    "resampling",
+    "old raw feature cache reuse",
+    "Gate1B",
+    "Gate1C",
+    "transport",
+    "reliability",
+    "gradient-conflict",
+    "teacher-noise",
+    "theory final",
+    "training",
+    "Prostate",
+    "MnMS",
+    "Gate2",
+    "main merge"
+  ],
+  "next_action": "PUBLISH_SEPARATE_EXECUTION_AUTHORIZATION_BEFORE_ANY_NEW_TENSOR_READ"
+}
