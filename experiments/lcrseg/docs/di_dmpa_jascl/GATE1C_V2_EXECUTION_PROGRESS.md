@@ -1,8 +1,8 @@
 # Gate 1C v2 execution progress
 
-Last observed: 2026-08-30 14:55:56 UTC. This is a dated running-status snapshot,
-not a scientific verdict. Consult the remote completion/failure artifacts for
-current state; never infer success from an old PID or this file alone.
+Last observed: 2026-08-30 15:08:51 UTC. The formal run has **exited with code 1**:
+one frozen checkpoint lacks the legacy PAS prototype required by R1. This is
+incomplete input evidence, not a scientific PASS or FAIL of reliability.
 
 ## Long-running scope
 
@@ -41,7 +41,7 @@ Prior code `68dedea7ccaa9144913dfc50a096364d7d55f2cf` attempt1 (network) and
 attempt2 (fused CUDA mean-CE determinism) remain intact. Their evidence hashes
 are bound in the passing receipt and the deterministic-CE repair ledger.
 
-## Formal run started, not yet complete
+## Preserved launch observation
 
 Started 2026-08-30 14:53:58 UTC. Wrapper PID 87258; runner PID 87259;
 validation workers observed at PIDs 87280 and 87281 on physical GPUs 0 and 1.
@@ -53,7 +53,7 @@ not used for a gate decision.
 - Run root: `/root/LCRSeg/runs/di_dmpa_gate1c_v2/32d32ab5e491f2e14c3edde6b4f319f978217351/gate1c_v2_01b3fd0b6cc7648261e5cae03e84f2cef60c363a_attempt1`.
 - Process receipt: `/root/gate1c_v2_formal_01b3fd0_process.json`.
 - Parent log: `/root/gate1c_v2_formal_01b3fd0.log`.
-- Exit receipt (expected after exit): `/root/gate1c_v2_formal_01b3fd0_exit.json`.
+- Exit receipt: `/root/gate1c_v2_formal_01b3fd0_exit.json`.
 - Test root: `/root/LCRSeg/runs/di_dmpa_gate1c_v2_validation/01b3fd0b6cc7648261e5cae03e84f2cef60c363a/attempt1`.
 
 The detached launcher was `/root/.venvs/lcrseg-py310/bin/python
@@ -67,5 +67,44 @@ complete C1-C8 compilation. Inspect shard logs, phase receipts, failure files,
 `EXECUTION_COMPLETION.json` and the artifact manifest before reporting a verdict.
 No optimizer training, new method registration or main merge has occurred.
 
+## Formal failure and source audit
+
+The exit receipt records 2026-08-30T14:56:30.638492+00:00, exit code 1.
+The wrapper, runner and both workers have exited; both GPUs are idle. Validation
+cached 265 cases (seed0: 100/40/25; seed1 stage0: 100). No partial-cache admission
+decision is permitted. No gradient phase or optimizer training was launched.
+
+The first shard failed in `di_dmpa_gate1c_v2/binding.py::load_b0` with
+`ProtocolError: missing frozen legacy PAS prototypes`; the second shard stopped
+after the peer failure. Preserved formal artifact hashes:
+
+- `GATE1C_V2_FAILURE.json`:
+  `2b18fa984baeae99fb61afee480e0d58fab8db3c28062d1688ff49e51a241d02`.
+- `GATE1C_V2_ARTIFACT_MANIFEST.json`:
+  `5f6e63fb4193b417c298f9b70abcbecb8983b43c70390a2d5d38cb4169a4acfd`.
+
+[The nine-checkpoint payload audit](GATE1C_V2_LEGACY_PROTOTYPE_AVAILABILITY_AUDIT.json)
+finds eight finite `(3,16)` tensors and exactly one missing bank:
+`B0/seed1/stage1`, checkpoint SHA256
+`fd61eb6c8c6b1b4e13ce16f9b442572f7c951e03b9403925ad5d898011201b11`.
+It was saved after epoch 0 (`epoch=1`, global step 3208), whereas the frozen
+runner creates the bank only after the supervised phase of zero-based epoch 25.
+`prototypes=None` is real, not a malformed tensor or an overly strict guard.
+There is no independently saved stage1 prototype in the original run directory.
+All nine checkpoint file hashes are unchanged; the audit used CPU payload reads,
+zero model forwards, zero labels and zero prototype refits.
+
+The passing integration checked model hashes for all nine files but real payload
+semantics only for its preregistered cases. Future readiness must check required
+payload fields for every checkpoint before expensive cache generation.
+
+The original R1 explicitly requires `checkpoint['prototypes']`. Do not fill zeros,
+borrow another seed/domain/C0/K2 bank, replace a frozen checkpoint or remove the
+guard. A separate prospective bounded recovery feasibility plan may replay the
+original trajectory. Any later consumer of a recovered artifact requires a new
+input/protocol version; it cannot complete this frozen v2 attempt or reuse its
+partial caches. Gate 1B remains `FAIL_TRANSPORT_NOT_SUPPORTED`.
+
 Progress reports are published only on `codex/sslcl-long-running-reproduction`;
-the code-validation branch remains at `01b3fd0` while this execution is active.
+the code-validation branch remains at `01b3fd0`. The same-thread heartbeat now
+records this failure and will not relaunch the occupied attempt.
