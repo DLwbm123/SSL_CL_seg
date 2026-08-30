@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import copy
+import hashlib
 import json
 import math
 import shutil
@@ -46,6 +47,8 @@ def audit_matrix(matrix, domains):
 
 def audit_log(path, *, config_hash=None, git_commit=None, domains=None):
     errors, rows, unlabeled, coverage, gradients = [], [], 0, {}, {}
+    gradient_values, coverage_values = {}, {}
+    zero_coverage_by_domain, zero_gradient_by_domain = {}, {}
     for index, line in enumerate(path.read_text().splitlines(), 1):
         if not line.strip():
             continue
@@ -74,11 +77,22 @@ def audit_log(path, *, config_hash=None, git_commit=None, domains=None):
             domain = row.get("domain")
             count = row.get("pas_joint_valid_pixels")
             grad = row.get("student_unsupervised_gradient_norm")
+            cov = row.get("pas_joint_coverage")
             if not finite(count) or count < 0:
                 errors.append(prefix + "invalid PAS count")
                 count = 0
             coverage[domain] = coverage.get(domain, 0) + count
             gradients[domain] = max(gradients.get(domain, 0), grad if finite(grad) else 0)
+            if finite(grad):
+                gradient_values.setdefault(domain, []).append(grad)
+                if grad < 0:
+                    errors.append(prefix + "negative gradient norm")
+            if finite(cov):
+                coverage_values.setdefault(domain, []).append(cov)
+                if not 0 <= cov <= 1:
+                    errors.append(prefix + "coverage outside [0,1]")
+            zero_coverage_by_domain[domain] = zero_coverage_by_domain.get(domain, 0) + int(count == 0 or cov == 0)
+            zero_gradient_by_domain[domain] = zero_gradient_by_domain.get(domain, 0) + int(grad == 0)
             for field in ("loss_consistency", "pas_joint_coverage", "student_unsupervised_gradient_norm",
                           "student_total_gradient_norm"):
                 if not finite(row.get(field)):
@@ -99,10 +113,70 @@ def audit_log(path, *, config_hash=None, git_commit=None, domains=None):
             errors.append(f"{domain}: zero PAS coverage")
         if gradients.get(domain, 0) <= 1e-8:
             errors.append(f"{domain}: zero unlabeled gradient")
+        if zero_coverage_by_domain.get(domain, 0):
+            errors.append(f"{domain}: zero PAS coverage batch(es)")
+        if zero_gradient_by_domain.get(domain, 0):
+            errors.append(f"{domain}: zero unlabeled gradient batch(es)")
     if [row.get("global_step") for row in rows] != list(range(1, len(rows)+1)):
         errors.append("non-contiguous global-step trajectory")
+    def p01(values):
+        ordered = sorted(values)
+        position = (len(ordered)-1)*0.01
+        lo, hi = math.floor(position), math.ceil(position)
+        return ordered[lo] + (ordered[hi]-ordered[lo])*(position-lo)
     return {"rows": len(rows), "unlabeled_rows": unlabeled, "valid_pixels_by_domain": coverage,
-            "max_gradient_by_domain": gradients, "errors": errors}
+            "max_gradient_by_domain": gradients,
+            "zero_coverage_batch_count": sum(zero_coverage_by_domain.values()),
+            "zero_gradient_batch_count": sum(zero_gradient_by_domain.values()),
+            "zero_coverage_by_domain": zero_coverage_by_domain,
+            "zero_gradient_by_domain": zero_gradient_by_domain,
+            "min_gradient_by_domain": {d:min(v) for d,v in gradient_values.items()},
+            "p01_gradient_by_domain": {d:p01(v) for d,v in gradient_values.items()},
+            "min_coverage_by_domain": {d:min(v) for d,v in coverage_values.items()},
+            "p01_definition": "linear interpolation at (n-1)*0.01",
+            "errors": errors}
+
+
+def validate_frozen_baseline(path, evidence_dir, hashes):
+    """Recompile immutable historical outputs, not a new training claim."""
+    frozen = json.loads(Path(path).read_text())
+    if frozen.get("status") != "PASS" or frozen.get("config_hashes") != hashes:
+        raise RuntimeError("invalid baseline freeze/config hashes")
+    if frozen.get("method_registered") is not False or frozen.get("di_dmpa_training_launched") is not False:
+        raise RuntimeError("baseline freeze violates method boundary")
+    report_commit = frozen["gate0_report_commit"]
+    repo_prefix = subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "--show-prefix"], text=True).strip()
+    for name, expected in frozen["report_hashes"].items():
+        blob = subprocess.check_output(["git", "-C", str(ROOT), "show",
+            f"{report_commit}:{repo_prefix}docs/di_dmpa_jascl/{name}"])
+        if hashlib.sha256(blob).hexdigest() != expected or sha256_file(evidence_dir / name) != expected:
+            raise RuntimeError(f"frozen historical report hash mismatch: {name}")
+    old_status = json.loads((evidence_dir / "GATE0_STATUS.json").read_text())
+    if old_status["git_commit"] != frozen["gate0_training_source_commit"]:
+        raise RuntimeError("frozen training source mismatch")
+    count = 0
+    if set(frozen["runs"]) != {"C0", "B0"}:
+        raise RuntimeError("baseline freeze requires C0/B0")
+    for variant, runs in frozen["runs"].items():
+        if set(runs) != {"0", "1", "2"}:
+            raise RuntimeError("baseline freeze requires three seeds per variant")
+        for row in runs.values():
+            run = Path(row["run_dir"])
+            if row["config_hash"] != hashes[variant] or len(row["checkpoints"]) != 4:
+                raise RuntimeError("incomplete frozen run")
+            for name, field in (("run_completion.json", "run_completion_sha256"),
+                                ("run_metadata.json", "run_metadata_sha256"),
+                                ("train.jsonl", "train_log_sha256"),
+                                ("stage_by_domain_matrices.json", "matrices_sha256")):
+                if sha256_file(run / name) != row[field]:
+                    raise RuntimeError(f"frozen run hash mismatch: {run/name}")
+            for checkpoint, expected in row["checkpoints"].items():
+                if sha256_file(checkpoint) != expected:
+                    raise RuntimeError(f"frozen checkpoint hash mismatch: {checkpoint}")
+                count += 1
+    if count != 24:
+        raise RuntimeError("baseline freeze must include 24 checkpoints")
+    return frozen
 
 
 def validate_report(name, report, commit, hashes, domains):
@@ -189,20 +263,36 @@ def main():
     parser.add_argument("--seeds", type=int, nargs="+", default=[0, 1, 2])
     parser.add_argument("--preflight", action="store_true")
     parser.add_argument("--source-commit", help="audited code commit; later documentation-only commits are permitted")
+    parser.add_argument("--evidence-dir", type=Path, help="separate immutable report inputs")
+    parser.add_argument("--frozen-baseline", type=Path, help="verified historical freeze; no source or matrix overwrite")
     args = parser.parse_args()
     configs, hashes = config_contract()
+    evidence_dir = args.evidence_dir or args.output_dir
+    frozen = None
+    if args.frozen_baseline:
+        if args.preflight or sorted(args.seeds) != [0, 1, 2]:
+            raise RuntimeError("frozen recompilation requires all six runs")
+        if args.output_dir.resolve() in {evidence_dir.resolve(), (ROOT / "docs/di_dmpa_jascl").resolve()}:
+            raise RuntimeError("refusing to overwrite frozen report namespace")
+        if (args.output_dir / "GATE0_STATUS.json").exists():
+            raise RuntimeError("refusing to overwrite a prior recompilation")
+        frozen = validate_frozen_baseline(args.frozen_baseline, evidence_dir, hashes)
+        if args.source_commit and args.source_commit != frozen["gate0_training_source_commit"]:
+            raise RuntimeError("requested source disagrees with baseline freeze")
+        args.source_commit = frozen["gate0_training_source_commit"]
     domains, commit = configs["B0"]["data"]["domain_order"], args.source_commit or git_revision(ROOT)
-    subprocess.run(["git", "-C", str(ROOT), "diff", "--exit-code", commit, "--",
-                    "di_dmpa_jascl", "scripts", "tests/gate0", "configs/gate0_repaired_v2"], check=True)
+    if not frozen:
+        subprocess.run(["git", "-C", str(ROOT), "diff", "--exit-code", commit, "--",
+                        "di_dmpa_jascl", "scripts", "tests/gate0", "configs/gate0_repaired_v2"], check=True)
     errors, evidence, reports, results = [], {}, {}, {}
     for name in REPORTS:
-        path = args.output_dir / name
+        path = evidence_dir / name
         try:
             report = json.loads(path.read_text())
             failures = validate_report(name, report, commit, hashes, domains)
             if name == "UNIT_INTEGRATION_TEST_REPORT.json":
                 for artifact, hash_field in (("pytest_output.txt", "transcript_sha256"), ("pytest.xml", "junit_sha256")):
-                    if sha256_file(args.output_dir / artifact) != report.get(hash_field):
+                    if sha256_file(evidence_dir / artifact) != report.get(hash_field):
                         failures.append(f"unit report artifact hash mismatch: {artifact}")
             if name in ("PAS_GRADIENT_AUDIT.json", "EVAL_STOCHASTICITY_AUDIT.json"):
                 entries = report.get("domains", {}).values() if name.startswith("PAS") else [report]
@@ -226,6 +316,8 @@ def main():
             results[key] = {}
             for seed in args.seeds:
                 run = args.runs_root / f"gate0_v2_{prefix}_fundus_seed{seed}"
+                if frozen and run.resolve() != Path(frozen["runs"][key][str(seed)]["run_dir"]).resolve():
+                    raise RuntimeError("run path differs from baseline freeze")
                 run_errors = []
                 try:
                     if not (run / ".complete").is_file() or (run / ".exit").read_text().strip() != "0":
@@ -258,10 +350,11 @@ def main():
                         for required in ("best.pt", "stage_completion.json", "validation_pas_precision.json", "test_metrics.json"):
                             if not (stage / required).is_file():
                                 run_errors.append(f"missing {domain}/{required}")
-                    result_dir = args.output_dir / "gate0_results_v2" / key / f"seed{seed}"
-                    result_dir.mkdir(parents=True, exist_ok=True)
-                    for path in run.glob("stage_by_domain_*"):
-                        shutil.copyfile(path, result_dir / path.name)
+                    if not frozen:
+                        result_dir = args.output_dir / "gate0_results_v2" / key / f"seed{seed}"
+                        result_dir.mkdir(parents=True, exist_ok=True)
+                        for path in run.glob("stage_by_domain_*"):
+                            shutil.copyfile(path, result_dir / path.name)
                     summaries = {}
                     for metric, matrix in matrices.items():
                         final = matrix[domains[-1]]
@@ -291,6 +384,11 @@ def main():
         "git_commit": commit, "config_hashes": hashes, "evidence": evidence, "runs": results,
         "preflight_pass": preflight_pass, "errors": errors, "seeds_checked": args.seeds,
         "next_action": "STOP_FOR_INDEPENDENT_REVIEW" if full or errors else "SEED0_PAIR_GATES_ONLY"}
+    if frozen:
+        status.update(historical_recompilation_only=True, model_optimizer_steps=0,
+                      test_gt_usage="none", baseline_freeze_sha256=sha256_file(args.frozen_baseline),
+                      report_compiler_git_commit=git_revision(ROOT),
+                      original_gate0_report_commit=frozen["gate0_report_commit"])
     write_json(args.output_dir / "GATE0_STATUS.json", status)
     if full and not errors:
         paired = {metric: [results["B0"][str(seed)]["summary"][metric]["final_domain_mean"] -

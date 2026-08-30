@@ -30,6 +30,7 @@ from .modeling import (
     gradient_norm,
 )
 from .provenance import assert_upstream_unchanged, git_revision
+from .gradient_audit import GradientAuditPolicy
 
 
 def seed_everything(seed: int) -> None:
@@ -66,12 +67,15 @@ class Gate0RepairedRunner:
         output_dir: str | Path,
         device: str | torch.device = "cuda",
         model_factory: Callable[[], nn.Module] | None = None,
+        gradient_audit: dict[str, Any] | None = None,
     ) -> None:
         self.repo_root = Path(repo_root).resolve()
         self.protocol = protocol
         self.config = validate_gate0_config(config, protocol)
         self.config_hash = resolved_config_hash(self.config)
         self.git_commit = git_revision(self.repo_root)
+        self.gradient_audit = GradientAuditPolicy.from_mapping(
+            gradient_audit if gradient_audit is not None else self.config.get("gradient_audit"))
         self.seed = int(seed)
         if self.seed not in tuple(int(value) for value in self.config["seeds"]):
             raise ValueError(f"seed {seed} is not preregistered")
@@ -353,8 +357,13 @@ class Gate0RepairedRunner:
                 similarity_threshold=float(self.training["similarity_threshold"]),
             )
             parameters = [parameter for parameter in self.wrapper.student.parameters() if parameter.requires_grad]
-            gradients_u = torch.autograd.grad(consistency_loss, parameters, allow_unused=True, retain_graph=True)
-            grad_u_norm = gradient_norm(gradients_u)
+            audit_executed = self.gradient_audit.should_audit(
+                domain=domain, epoch=epoch, batch_index=batch_index,
+                global_step=self.stage_state["global_step"] + 1)
+            grad_u_norm = None
+            if audit_executed:
+                gradients_u = torch.autograd.grad(consistency_loss, parameters, allow_unused=True, retain_graph=True)
+                grad_u_norm = gradient_norm(gradients_u)
             _, labeled_indices = labeled_batches[batch_index % len(labeled_batches)]
             labeled_batch = collate(labeled, labeled_indices, require_label=True)
             if set(labeled_batch["domain"]) != {domain} or set(labeled_batch["role"]) != {"train_labeled"}:
@@ -366,7 +375,7 @@ class Gate0RepairedRunner:
             _finite_scalar("unlabeled-phase total loss", total_loss)
             total_loss.backward()
             grad_total_norm = gradient_norm(parameter.grad for parameter in parameters)
-            if not math.isfinite(grad_u_norm) or not math.isfinite(grad_total_norm):
+            if (grad_u_norm is not None and not math.isfinite(grad_u_norm)) or not math.isfinite(grad_total_norm):
                 raise FloatingPointError("non-finite unlabeled gradient")
             teacher_grad_count = sum(parameter.grad is not None for parameter in self.wrapper.teacher.parameters())
             if teacher_grad_count or self.prototypes.requires_grad:
@@ -390,6 +399,7 @@ class Gate0RepairedRunner:
                     "pas_joint_coverage": float(joint_valid.float().mean()),
                     "consistency_requires_grad": consistency_loss.requires_grad,
                     "student_unsupervised_gradient_norm": grad_u_norm,
+                    "gradient_audit_executed": audit_executed,
                     "student_total_gradient_norm": grad_total_norm,
                     "teacher_nonnull_gradient_count": teacher_grad_count,
                     "prototype_requires_grad": self.prototypes.requires_grad,
