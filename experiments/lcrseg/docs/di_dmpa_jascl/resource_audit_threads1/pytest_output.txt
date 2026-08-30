@@ -1,0 +1,19 @@
+....................................................                     [100%]
+=============================== warnings summary ===============================
+tests/gate0/test_resume_v2.py: 10 warnings
+tests/gate0/test_runner_resume_equivalence.py: 2 warnings
+  /root/.venvs/lcrseg-py310/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:143: UserWarning: Detected call of `lr_scheduler.step()` before `optimizer.step()`. In PyTorch 1.1.0 and later, you should call them in the opposite order: `optimizer.step()` before `lr_scheduler.step()`.  Failure to do this will result in PyTorch skipping the first value of the learning rate schedule. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+    warnings.warn("Detected call of `lr_scheduler.step()` before `optimizer.step()`. "
+
+tests/gate0/test_resume_v2.py: 12 warnings
+tests/gate0/test_runner_resume_equivalence.py: 2 warnings
+  /root/.venvs/lcrseg-py310/lib/python3.10/site-packages/torch/optim/lr_scheduler.py:156: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+    warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+
+tests/gate0/test_resume_v2.py: 12 warnings
+  /root/.venvs/lcrseg-py310/lib/python3.10/site-packages/torch/nn/functional.py:3059: UserWarning: nll_loss2d_forward_out_cuda_template does not have a deterministic implementation, but you set 'torch.use_deterministic_algorithms(True, warn_only=True)'. You can file an issue at https://github.com/pytorch/pytorch/issues to help us prioritize adding deterministic support for this operation. (Triggered internally at ../aten/src/ATen/Context.cpp:79.)
+    return torch._C._nn.cross_entropy_loss(input, target, weight, _Reduction.get_enum(reduction), ignore_index, label_smoothing)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: /root/LCRSeg/runs/gate0_v2_resource_audit_threads1/pytest.xml -
+52 passed, 38 warnings in 213.20s (0:03:33)

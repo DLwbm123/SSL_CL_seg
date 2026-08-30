@@ -1,32 +1,22 @@
-# Gate 0 resume equivalence report
+# Gate 0 v2 resume equivalence report
 
-Date: 2026-08-29
-Benchmark/seed: Fundus seed 0
-Model: LCRSeg UNet2D with official JASCL 3x3 stochastic classifier
-Device: NVIDIA GeForce RTX 3090, logical GPU 0
-Tolerance: `atol=1e-6`, `rtol=1e-6`
+Source commit: `fb55e8022bc379e2515a46214c6fdf45ea818de6`.
+Device: CUDA / RTX 3090. Model: production LCRSeg UNet2D plus official JASCL 3x3 classifier.
+Tolerance: `atol=rtol=1e-6`.
 
-Compared trajectories:
+| Interruption | Result | Maximum absolute state/output difference |
+|---|---|---:|
+| Mid-supervised | PASS | 0.0 |
+| Mid-unlabeled/PAS | PASS | 0.0 |
+| Before loading stage-best checkpoint | PASS | 0.0 |
+| After loading stage-best / before next-domain initialization | PASS | 0.0 |
 
-1. uninterrupted from initialization through global step 6;
-2. interrupted after global step 3, restored from the complete checkpoint, and
-   continued through global step 6.
+Each trajectory compares student, EMA teacher, optimizer, scheduler, GAS,
+prototype, Python/NumPy/CPU/CUDA RNG, sampler, stage state, matrices, best
+metric, and deterministic evaluation logits. Exact reference/candidate
+checkpoint paths and SHA-256 values are in `RESUME_EQUIVALENCE_REPORT.json`.
 
-Result: `PASS`.
-
-| State group | Within tolerance | Maximum absolute difference |
-|---|---:|---:|
-| student | yes | 0.0 |
-| EMA teacher | yes | 0.0 |
-| optimizer | yes | 0.0 |
-| scheduler | yes | 0.0 |
-| GAS `grad_update` | yes | 0.0 |
-| RNG state | exact | 0.0 |
-| stage state | exact | 0.0 |
-| sampler phase/offset | exact | 0.0 |
-
-The former DeepLab comparison is invalidated and excluded. This UNet comparison
-restored student, EMA teacher, optimizer, scheduler, stage/epoch/global step,
-GAS, Python/NumPy/CPU/CUDA RNG, sampler state, PAS prototype slot, config hash,
-and evaluation matrices. Machine-readable evidence is at
-`/root/LCRSeg/runs/gate0_repaired_unet_resume_equivalence.json`.
+Scope: production model and stage machine on synthetic hashed HDF5 fixtures.
+These tests cover the control-flow paths omitted by v1's six-step smoke test;
+they do not assert that a separate full-data 100-epoch interruption was run.
+Real-data gradient and formal C0/B0 evidence are separate gates.

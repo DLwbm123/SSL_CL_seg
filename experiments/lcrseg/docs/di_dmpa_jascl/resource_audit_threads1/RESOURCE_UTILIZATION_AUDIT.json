@@ -1,0 +1,283 @@
+{
+  "atol": 1e-06,
+  "baseline_observed_compute_threads_per_process": 56,
+  "candidate_environment": {
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  },
+  "candidate_test_count": 52,
+  "comparison_script_sha256": "071cc1b9a0e515bf70da2045d1c7471c22229e6713e85e3f8b26ecb980f19222",
+  "cpu_quota_cores": 16,
+  "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+  "real_batch_gradients": {
+    "Drishti_GS": {
+      "max_absolute_differences": {
+        "consistency_loss": 0.0,
+        "joint_coverage": 0.0,
+        "joint_valid_pixels": 0,
+        "student_total_gradient_norm": 0.0,
+        "student_unsupervised_gradient_norm": 0.0,
+        "teacher_nonnull_gradient_count": 0,
+        "total_minus_supervised_gradient_norm": 0.0,
+        "valid_student_pixels": 0,
+        "valid_teacher_pixels": 0
+      },
+      "within_tolerance": true
+    },
+    "REFUGE": {
+      "max_absolute_differences": {
+        "consistency_loss": 0.0,
+        "joint_coverage": 0.0,
+        "joint_valid_pixels": 0,
+        "student_total_gradient_norm": 0.0,
+        "student_unsupervised_gradient_norm": 0.0,
+        "teacher_nonnull_gradient_count": 0,
+        "total_minus_supervised_gradient_norm": 0.0,
+        "valid_student_pixels": 0,
+        "valid_teacher_pixels": 0
+      },
+      "within_tolerance": true
+    },
+    "RIM_ONE_r3": {
+      "max_absolute_differences": {
+        "consistency_loss": 0.0,
+        "joint_coverage": 0.0,
+        "joint_valid_pixels": 0,
+        "student_total_gradient_norm": 0.0,
+        "student_unsupervised_gradient_norm": 0.0,
+        "teacher_nonnull_gradient_count": 0,
+        "total_minus_supervised_gradient_norm": 0.0,
+        "valid_student_pixels": 0,
+        "valid_teacher_pixels": 0
+      },
+      "within_tolerance": true
+    }
+  },
+  "report_sha256": {
+    "candidate": {
+      "PAS_GRADIENT_AUDIT.json": "ae635ed0eac6563b6988d54e1e58c37fbfcf365db3c4399e5dbf6ba89edf9b84",
+      "RESUME_EQUIVALENCE_REPORT.json": "cd67e214a1564c8160d274e86209e584b02083e9ca0f6a3177744c11c62c7969",
+      "UNIT_INTEGRATION_TEST_REPORT.json": "917ddf921a5cb363d2c107f597318e92c2449c09396c9e7610bd03de6c70a783"
+    },
+    "reference": {
+      "PAS_GRADIENT_AUDIT.json": "ae635ed0eac6563b6988d54e1e58c37fbfcf365db3c4399e5dbf6ba89edf9b84",
+      "RESUME_EQUIVALENCE_REPORT.json": "d95436fc2cd1f7d563bddcb03374640936ab79ce0a151e611f0e50b192d62c92",
+      "UNIT_INTEGRATION_TEST_REPORT.json": "b6bff5ca1f79a11f3fde60341cd91b29cd9812ed02451735cfb074b347ef73cf"
+    }
+  },
+  "rtol": 1e-06,
+  "scope": "four synthetic actual-model trajectories plus three real-batch gradient audits",
+  "status": "PASS",
+  "training_code_or_config_changed": false,
+  "trajectories": {
+    "after_stage_transition": {
+      "candidate": "/root/LCRSeg/runs/gate0_v2_resource_audit_threads1/pytest_artifacts/test_resume_across_stage_bound1/reference/last.pt",
+      "candidate_sha256": "b872948a35433ea507984897b4fbe6a537745c4ba7653d72c99806eda1474b0f",
+      "groups": {
+        "best_metric": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "ema_teacher": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "evaluation_matrices": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "gas_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "optimizer": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "prototypes": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "rng_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "sampler_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "scheduler": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "stage_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "student": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        }
+      },
+      "reference": "/root/LCRSeg/runs/gate0_v2_audits/pytest_artifacts/test_resume_across_stage_bound1/reference/last.pt",
+      "reference_sha256": "7a155d555f0169688281727dccca25d5d523c7a32c6cae84ab822d24c3748973"
+    },
+    "before_stage_transition": {
+      "candidate": "/root/LCRSeg/runs/gate0_v2_resource_audit_threads1/pytest_artifacts/test_resume_across_stage_bound0/reference/last.pt",
+      "candidate_sha256": "4ed7e09219b5887b84cb4c9e920cb4b790da1454c00ce4e2382a8bcd8ea195d6",
+      "groups": {
+        "best_metric": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "ema_teacher": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "evaluation_matrices": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "gas_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "optimizer": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "prototypes": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "rng_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "sampler_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "scheduler": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "stage_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "student": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        }
+      },
+      "reference": "/root/LCRSeg/runs/gate0_v2_audits/pytest_artifacts/test_resume_across_stage_bound0/reference/last.pt",
+      "reference_sha256": "c555925b5806e571d25bf4bfb16a9eed1bbcd74ce77180e21e9eb0c710493639"
+    },
+    "mid_supervised": {
+      "candidate": "/root/LCRSeg/runs/gate0_v2_resource_audit_threads1/pytest_artifacts/test_resume_mid_supervised0/reference/last.pt",
+      "candidate_sha256": "568071b55f6f2ea304e3e1838e670533518212c2cb61956f834165a864dbe190",
+      "groups": {
+        "best_metric": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "ema_teacher": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "evaluation_matrices": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "gas_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "optimizer": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "prototypes": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "rng_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "sampler_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "scheduler": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "stage_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "student": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        }
+      },
+      "reference": "/root/LCRSeg/runs/gate0_v2_audits/pytest_artifacts/test_resume_mid_supervised0/reference/last.pt",
+      "reference_sha256": "8fbea63a5f07d6fb049a40fef3a59a57b6f26a6ff2786f54e62b3e2273d7533a"
+    },
+    "mid_unlabeled": {
+      "candidate": "/root/LCRSeg/runs/gate0_v2_resource_audit_threads1/pytest_artifacts/test_resume_inside_unlabeled_p0/reference/last.pt",
+      "candidate_sha256": "1d2f6f5a057e2d728c60bb20b527dbeb19acd4b9df5dcf9b96c505496fc75749",
+      "groups": {
+        "best_metric": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "ema_teacher": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "evaluation_matrices": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "gas_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "optimizer": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "prototypes": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "rng_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "sampler_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "scheduler": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "stage_state": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        },
+        "student": {
+          "max_abs_difference": 0.0,
+          "within_tolerance": true
+        }
+      },
+      "reference": "/root/LCRSeg/runs/gate0_v2_audits/pytest_artifacts/test_resume_inside_unlabeled_p0/reference/last.pt",
+      "reference_sha256": "9f0e381754484da892a70a7b21d49c8ef42a158b3e5f23e166ed0ba35ee471ba"
+    }
+  }
+}

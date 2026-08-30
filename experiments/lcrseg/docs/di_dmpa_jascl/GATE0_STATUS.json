@@ -1,14 +1,407 @@
 {
-  "status": "BLOCKED_PENDING_PAS_REPAIR_AND_RERUN",
-  "overall_status": "BLOCKED_PENDING_PAS_REPAIR_AND_RERUN",
+  "config_hashes": {
+    "B0": "37876e4a5dae85a31ff8d8a211e975e745cffe4c395f89407585bb9ede682b4c",
+    "C0": "074b9afeef0d7acbbda9a9e03c4bc479248a200ca1e4cf6e1b0eccc30116b000"
+  },
+  "di_dmpa_training_launched": false,
   "engineering_plumbing_status": "PASS",
-  "ssl_objective_status": "FAIL_ZERO_UNLABELED_GRADIENT",
-  "evaluation_semantics_status": "PENDING_DETERMINISTIC_EVALUATION",
-  "resume_status": "V1_LIMITED_TRAJECTORY_PASS_V2_PENDING",
-  "leakage_status": "V1_PASS_V2_PENDING",
+  "errors": [],
+  "evaluation_semantics_status": "PASS",
+  "evidence": {
+    "EVAL_STOCHASTICITY_AUDIT.json": {
+      "errors": [],
+      "sha256": "a51d6eed54efa1124de657a4894af48316bf8b45d429b60e9e4f49d91d3afa7e"
+    },
+    "LEAKAGE_AUDIT_REPORT.json": {
+      "errors": [],
+      "sha256": "e5e51c0991cd6ccbfaa08bd3aeda92e4b381832a79f11a09545d7c1a67d9f128"
+    },
+    "PAS_GRADIENT_AUDIT.json": {
+      "errors": [],
+      "sha256": "ae635ed0eac6563b6988d54e1e58c37fbfcf365db3c4399e5dbf6ba89edf9b84"
+    },
+    "RESUME_EQUIVALENCE_REPORT.json": {
+      "errors": [],
+      "sha256": "d95436fc2cd1f7d563bddcb03374640936ab79ce0a151e611f0e50b192d62c92"
+    },
+    "UNIT_INTEGRATION_TEST_REPORT.json": {
+      "errors": [],
+      "sha256": "b6bff5ca1f79a11f3fde60341cd91b29cd9812ed02451735cfb074b347ef73cf"
+    }
+  },
+  "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+  "leakage_status": "PASS",
   "method_off_switch_parity_status": "NOT_APPLICABLE_METHOD_NOT_IMPLEMENTED",
   "method_registered": false,
-  "di_dmpa_training_launched": false,
-  "frozen_v1_commit": "46e892960240543c946c570a9378d409b226384b",
-  "next_action": "PAS_SEMANTIC_REPAIR_AND_PRE_RUN_AUDITS"
+  "next_action": "STOP_FOR_INDEPENDENT_REVIEW",
+  "overall_status": "PASS",
+  "preflight_pass": true,
+  "resume_status": "PASS",
+  "runs": {
+    "B0": {
+      "0": {
+        "config_hash": "37876e4a5dae85a31ff8d8a211e975e745cffe4c395f89407585bb9ede682b4c",
+        "errors": [],
+        "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+        "log_audit": {
+          "errors": [],
+          "max_gradient_by_domain": {
+            "Drishti_GS": 5.059882325666762,
+            "REFUGE": 9.58686597342123,
+            "RIM_ONE_r3": 3.1367916020711366
+          },
+          "rows": 5295,
+          "unlabeled_rows": 1995,
+          "valid_pixels_by_domain": {
+            "Drishti_GS": 45292546,
+            "REFUGE": 53667283,
+            "RIM_ONE_r3": 54165785
+          }
+        },
+        "run_dir": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed0",
+        "summary": {
+          "mean_dice": {
+            "current_domain": 0.8650557416192662,
+            "final_domain_mean": 0.7404235056181957,
+            "forgetting": {
+              "REFUGE": 0.16494693286986284,
+              "RIM_ONE_r3": 0.17920021887581083
+            },
+            "historical_domains": {
+              "REFUGE": 0.720261122926952,
+              "RIM_ONE_r3": 0.6359536523083688
+            }
+          },
+          "mean_foreground_dice": {
+            "current_domain": 0.8017720621901985,
+            "final_domain_mean": 0.6209566001674768,
+            "forgetting": {
+              "REFUGE": 0.24013409776453376,
+              "RIM_ONE_r3": 0.25990065400068385
+            },
+            "historical_domains": {
+              "REFUGE": 0.5923953085359367,
+              "RIM_ONE_r3": 0.46870242977629506
+            }
+          },
+          "mean_iou": {
+            "current_domain": 0.7739172054680564,
+            "final_domain_mean": 0.6304761829907152,
+            "forgetting": {
+              "REFUGE": 0.20387338070020222,
+              "RIM_ONE_r3": 0.18961899991000652
+            },
+            "historical_domains": {
+              "REFUGE": 0.5988242690454441,
+              "RIM_ONE_r3": 0.5186870744586451
+            }
+          }
+        }
+      },
+      "1": {
+        "config_hash": "37876e4a5dae85a31ff8d8a211e975e745cffe4c395f89407585bb9ede682b4c",
+        "errors": [],
+        "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+        "log_audit": {
+          "errors": [],
+          "max_gradient_by_domain": {
+            "Drishti_GS": 4.246677383446371,
+            "REFUGE": 12.0043068003311,
+            "RIM_ONE_r3": 3.634358744631391
+          },
+          "rows": 5295,
+          "unlabeled_rows": 1995,
+          "valid_pixels_by_domain": {
+            "Drishti_GS": 44937750,
+            "REFUGE": 88449799,
+            "RIM_ONE_r3": 84161763
+          }
+        },
+        "run_dir": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed1",
+        "summary": {
+          "mean_dice": {
+            "current_domain": 0.848431841705536,
+            "final_domain_mean": 0.687408320092517,
+            "forgetting": {
+              "REFUGE": 0.2506023133929314,
+              "RIM_ONE_r3": 0.22391133062706614
+            },
+            "historical_domains": {
+              "REFUGE": 0.6385575011492036,
+              "RIM_ONE_r3": 0.5752356174228114
+            }
+          },
+          "mean_foreground_dice": {
+            "current_domain": 0.7779417063549647,
+            "final_domain_mean": 0.5439975150161752,
+            "forgetting": {
+              "REFUGE": 0.36459568300916523,
+              "RIM_ONE_r3": 0.325252193040801
+            },
+            "historical_domains": {
+              "REFUGE": 0.4732366019041112,
+              "RIM_ONE_r3": 0.3808142367894498
+            }
+          },
+          "mean_iou": {
+            "current_domain": 0.7516172160183228,
+            "final_domain_mean": 0.5813947288786713,
+            "forgetting": {
+              "REFUGE": 0.28691860504723365,
+              "RIM_ONE_r3": 0.2168158446577863
+            },
+            "historical_domains": {
+              "REFUGE": 0.521917124474348,
+              "RIM_ONE_r3": 0.470649846143343
+            }
+          }
+        }
+      },
+      "2": {
+        "config_hash": "37876e4a5dae85a31ff8d8a211e975e745cffe4c395f89407585bb9ede682b4c",
+        "errors": [],
+        "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+        "log_audit": {
+          "errors": [],
+          "max_gradient_by_domain": {
+            "Drishti_GS": 2.9843883317953592,
+            "REFUGE": 4.711957735684984,
+            "RIM_ONE_r3": 9.526853245205988
+          },
+          "rows": 5295,
+          "unlabeled_rows": 1995,
+          "valid_pixels_by_domain": {
+            "Drishti_GS": 37567614,
+            "REFUGE": 65337979,
+            "RIM_ONE_r3": 46959917
+          }
+        },
+        "run_dir": "/root/LCRSeg/runs/gate0_v2_pas_probmse_fundus_seed2",
+        "summary": {
+          "mean_dice": {
+            "current_domain": 0.8531174459153298,
+            "final_domain_mean": 0.7863131086998777,
+            "forgetting": {
+              "REFUGE": 0.09316620269739417,
+              "RIM_ONE_r3": 0.1099882317304659
+            },
+            "historical_domains": {
+              "REFUGE": 0.8093076726469977,
+              "RIM_ONE_r3": 0.6965142075373055
+            }
+          },
+          "mean_foreground_dice": {
+            "current_domain": 0.7836559145819095,
+            "final_domain_mean": 0.6885438744828021,
+            "forgetting": {
+              "REFUGE": 0.13732767399939227,
+              "RIM_ONE_r3": 0.15525683155001613
+            },
+            "historical_domains": {
+              "REFUGE": 0.7207009352216482,
+              "RIM_ONE_r3": 0.5612747736448486
+            }
+          },
+          "mean_iou": {
+            "current_domain": 0.7576075302145994,
+            "final_domain_mean": 0.6772568497326905,
+            "forgetting": {
+              "REFUGE": 0.12783432555358687,
+              "RIM_ONE_r3": 0.12336814811866714
+            },
+            "historical_domains": {
+              "REFUGE": 0.7007924074941738,
+              "RIM_ONE_r3": 0.5733706114892982
+            }
+          }
+        }
+      }
+    },
+    "C0": {
+      "0": {
+        "config_hash": "074b9afeef0d7acbbda9a9e03c4bc479248a200ca1e4cf6e1b0eccc30116b000",
+        "errors": [],
+        "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+        "log_audit": {
+          "errors": [],
+          "max_gradient_by_domain": {
+            "Drishti_GS": 6.5710562567903175,
+            "REFUGE": 13.10154194658683,
+            "RIM_ONE_r3": 5.688479464196109
+          },
+          "rows": 5295,
+          "unlabeled_rows": 1995,
+          "valid_pixels_by_domain": {
+            "Drishti_GS": 32795713,
+            "REFUGE": 37614742,
+            "RIM_ONE_r3": 41365238
+          }
+        },
+        "run_dir": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed0",
+        "summary": {
+          "mean_dice": {
+            "current_domain": 0.8868719662597803,
+            "final_domain_mean": 0.7326409428269414,
+            "forgetting": {
+              "REFUGE": 0.18010805368096416,
+              "RIM_ONE_r3": 0.2194268373450301
+            },
+            "historical_domains": {
+              "REFUGE": 0.7056760904941682,
+              "RIM_ONE_r3": 0.6053747717268757
+            }
+          },
+          "mean_foreground_dice": {
+            "current_domain": 0.8338427741512708,
+            "final_domain_mean": 0.6083030344698355,
+            "forgetting": {
+              "REFUGE": 0.2634487703245343,
+              "RIM_ONE_r3": 0.32179793889899366
+            },
+            "historical_domains": {
+              "REFUGE": 0.5699798374949452,
+              "RIM_ONE_r3": 0.42108649176329027
+            }
+          },
+          "mean_iou": {
+            "current_domain": 0.8056949290949343,
+            "final_domain_mean": 0.6284119028417748,
+            "forgetting": {
+              "REFUGE": 0.21898765622697236,
+              "RIM_ONE_r3": 0.2258068500570451
+            },
+            "historical_domains": {
+              "REFUGE": 0.5844820084004793,
+              "RIM_ONE_r3": 0.49505877102991097
+            }
+          }
+        }
+      },
+      "1": {
+        "config_hash": "074b9afeef0d7acbbda9a9e03c4bc479248a200ca1e4cf6e1b0eccc30116b000",
+        "errors": [],
+        "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+        "log_audit": {
+          "errors": [],
+          "max_gradient_by_domain": {
+            "Drishti_GS": 2.6508690281879,
+            "REFUGE": 37.125600438790826,
+            "RIM_ONE_r3": 4.446317503267079
+          },
+          "rows": 5295,
+          "unlabeled_rows": 1995,
+          "valid_pixels_by_domain": {
+            "Drishti_GS": 40187816,
+            "REFUGE": 88121274,
+            "RIM_ONE_r3": 61907308
+          }
+        },
+        "run_dir": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed1",
+        "summary": {
+          "mean_dice": {
+            "current_domain": 0.8518020965191985,
+            "final_domain_mean": 0.7102552953670171,
+            "forgetting": {
+              "REFUGE": 0.20945503307281088,
+              "RIM_ONE_r3": 0.20039727680808617
+            },
+            "historical_domains": {
+              "REFUGE": 0.6840230236752302,
+              "RIM_ONE_r3": 0.5949407659066229
+            }
+          },
+          "mean_foreground_dice": {
+            "current_domain": 0.7828435804254548,
+            "final_domain_mean": 0.5763518884055725,
+            "forgetting": {
+              "REFUGE": 0.3062694893331689,
+              "RIM_ONE_r3": 0.29137424648446325
+            },
+            "historical_domains": {
+              "REFUGE": 0.5377505706964668,
+              "RIM_ONE_r3": 0.408461514094796
+            }
+          },
+          "mean_iou": {
+            "current_domain": 0.7567965418487225,
+            "final_domain_mean": 0.6025336591117687,
+            "forgetting": {
+              "REFUGE": 0.2510414480957983,
+              "RIM_ONE_r3": 0.19690007333456722
+            },
+            "historical_domains": {
+              "REFUGE": 0.5642459127555014,
+              "RIM_ONE_r3": 0.4865585227310823
+            }
+          }
+        }
+      },
+      "2": {
+        "config_hash": "074b9afeef0d7acbbda9a9e03c4bc479248a200ca1e4cf6e1b0eccc30116b000",
+        "errors": [],
+        "git_commit": "fb55e8022bc379e2515a46214c6fdf45ea818de6",
+        "log_audit": {
+          "errors": [],
+          "max_gradient_by_domain": {
+            "Drishti_GS": 1.4223926442449304,
+            "REFUGE": 9.80641190951833,
+            "RIM_ONE_r3": 1.4127690590065742
+          },
+          "rows": 5295,
+          "unlabeled_rows": 1995,
+          "valid_pixels_by_domain": {
+            "Drishti_GS": 36538223,
+            "REFUGE": 76091652,
+            "RIM_ONE_r3": 52792711
+          }
+        },
+        "run_dir": "/root/LCRSeg/runs/gate0_v2_lambda0_fundus_seed2",
+        "summary": {
+          "mean_dice": {
+            "current_domain": 0.8529639691347256,
+            "final_domain_mean": 0.7855950530932256,
+            "forgetting": {
+              "REFUGE": 0.07606091186210706,
+              "RIM_ONE_r3": 0.1418013415613406
+            },
+            "historical_domains": {
+              "REFUGE": 0.8260868623896395,
+              "RIM_ONE_r3": 0.6777343277553117
+            }
+          },
+          "mean_foreground_dice": {
+            "current_domain": 0.7834543768073974,
+            "final_domain_mean": 0.6874692479192719,
+            "forgetting": {
+              "REFUGE": 0.11071479699797226,
+              "RIM_ONE_r3": 0.202532219360533
+            },
+            "historical_domains": {
+              "REFUGE": 0.7463499450547311,
+              "RIM_ONE_r3": 0.5326034218956872
+            }
+          },
+          "mean_iou": {
+            "current_domain": 0.7573651991473355,
+            "final_domain_mean": 0.677896382546927,
+            "forgetting": {
+              "REFUGE": 0.10748041507641526,
+              "RIM_ONE_r3": 0.15852467097446454
+            },
+            "historical_domains": {
+              "REFUGE": 0.7207939151849567,
+              "RIM_ONE_r3": 0.5555300333084888
+            }
+          }
+        }
+      }
+    }
+  },
+  "seeds_checked": [
+    0,
+    1,
+    2
+  ],
+  "ssl_objective_status": "PASS",
+  "status": "PASS"
 }

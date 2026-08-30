@@ -1,59 +1,39 @@
-# Gate 0 unit and integration test report
+# Gate 0 v2 unit and integration test report
 
-Date: 2026-08-29
-Environment: `/root/.venvs/lcrseg-py310`, Python 3.10.21, PyTorch
-2.2.1+cu121
-Command:
+Source commit: `fb55e8022bc379e2515a46214c6fdf45ea818de6`.
+Date: 2026-08-30. Environment: existing Python 3.10.21 / PyTorch 2.2.1+cu121.
 
-```bash
-cd /root/JASCL_gate0_sync
-LD_LIBRARY_PATH=/lib/x86_64-linux-gnu PYTHONPATH=. CUDA_VISIBLE_DEVICES= \
-  /root/.venvs/lcrseg-py310/bin/python -m pytest -q tests/gate0
-```
-
-Result: `17 passed in 3.62s`.
-
-The earlier DeepLab test result is invalidated and excluded. This result
-exercises the corrected LCRSeg UNet2D plus official JASCL 3x3 stochastic-head
-contract.
+Remote result: **52 passed**, 0 failed, 0 skipped, 38 warnings, 80.85 seconds.
+The actual JUnit cases and transcript hashes are recorded in
+`UNIT_INTEGRATION_TEST_REPORT.json`, `pytest.xml`, and `pytest_output.txt`.
+The compiler validates those artifacts rather than inserting a PASS constant.
 
 Covered contracts:
 
-- fixed independent benchmark/class protocol and all method switches off;
-- frozen LCRSeg UNet2D body, official commit subtree unchanged, and official
-  classifier kernel 3x3;
-- current-domain-only manifest views and hidden-GT isolation;
-- val/test rejection by the training adapter;
-- unlabeled batch schema without label tensors;
-- teacher frozen, optimizer exclusion, and no-grad forward;
-- complete classifier required at stage load;
-- full checkpoint and Python/NumPy/CPU/CUDA RNG round trip;
-- repaired optimizer step after the unlabeled backward;
-- off-switch one-step parity;
-- uninterrupted versus interrupted/resumed state trajectory.
-- report audit accepts intentionally absent LR on unlabeled rows while still
-  rejecting a missing or non-finite supervised LR.
+- exact probability squared-L2 formula, with no division by class count;
+- detached bool PAS validity and student/teacher intersection;
+- invalid-pixel zero contribution and graph-connected zero for empty masks;
+- nonzero student unlabeled gradients and total-minus-supervised gradient;
+- teacher/prototype/mask isolation; lambda=0 removes only the unlabeled gradient;
+- explicit classifier stochasticity, posterior-mean repeatability, and no eval RNG consumption;
+- real UNet/JASCL CUDA state restoration at mid-supervised, mid-PAS,
+  before-best stage boundary, and after-best stage boundary;
+- fail-closed reports rejecting zero gradients, hard-index MSE, detached
+  consistency, mismatched provenance, and bare PASS without real evidence;
+- byte-for-byte preservation of archived v1 status and matrices;
+- existing frozen Fundus adapter and real-data leakage/six-step smoke tests.
 
-The remaining scheduler warnings are expected evidence of the preserved
-upstream call order (`scheduler.step(epoch)` before the first optimizer step of
-an epoch); this Gate 0 repair does not change that schedule.
+The four extended resume trajectories use the production model and runner
+on explicitly synthetic, hashed 16x16 HDF5 fixtures. They are state-machine
+integration evidence, not formal Fundus performance or full-data resume claims.
+Real Fundus unlabeled-gradient evidence is independently reported in
+`PAS_GRADIENT_AUDIT.json`.
 
-The previous DeepLab GPU smoke checks are excluded. Corrected UNet GPU checks
-passed for:
+Local complete regression: **264 passed, 4 skipped**, 22 warnings, 27.48 seconds.
+The skips are the remote-data-only tests. A separate local actual-UNet
+classifier/resume run passed **8 tests** (CPU, 14.54 seconds).
 
-- 1-step supervised forward/backward/GAS/optimizer/checkpoint;
-- actual-model six-step uninterrupted versus interrupted/resumed equivalence;
-- current-domain PAS prototype shape `[3,16]`, unit norms, finite teacher
-  tensors, and unlabeled batch without a label key.
-
-## SSL_CL_seg merge validation
-
-After integration into `experiments/lcrseg`, the existing local environment
-(`/opt/miniconda3/bin/python`, PyTorch 2.6.0) produced:
-
-- Gate 0 subset: `13 passed, 4 skipped`;
-- complete `experiments/lcrseg/tests` suite: `229 passed, 4 skipped`.
-
-The four skips are the frozen-data tests guarded by the absence of
-`/root/LCRSeg` on the local macOS host. They are the same tests included in the
-remote formal result above, where all 17 Gate 0 tests passed.
+Expected warnings preserve the frozen scheduler order and PyTorch 2.2.1's
+undeclared deterministic CUDA NLL kernel; no schedule or tolerance was changed.
+The old supervised deterministic comparison is explicitly a smoke test.
+Method off-switch parity is NOT_APPLICABLE_METHOD_NOT_IMPLEMENTED.

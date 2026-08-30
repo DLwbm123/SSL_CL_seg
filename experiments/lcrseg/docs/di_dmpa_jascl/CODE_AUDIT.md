@@ -15,11 +15,19 @@ Tests of teacher/prototype isolation and actual unsupervised gradients replace
 the misleading structural optimizer-step and off-switch-parity claims.
 All earlier audit paragraphs below are historical source observations.
 
+Current audited v2 source is `fb55e8022bc379e2515a46214c6fdf45ea818de6` on
+`codex/gate0-pas-probability-mse`. Six Fundus C0/B0 runs are complete and the
+real-evidence compiler reports PASS. See `GATE0_V2_FINAL_REPORT.md` and
+`GATE0_STATUS.json`. B0 did not exceed C0 in the three-seed mean; this does not
+change the correctness gate. Method off-switch parity is NOT_APPLICABLE,
+not PASS. Even after Gate 0 passes, DI-DMPA requires separate authorization;
+the current action is STOP_FOR_INDEPENDENT_REVIEW, without a main merge.
+
 ## Provenance and scope
 
 - Upstream repository: `https://github.com/prinshul/JASCL`
 - Audited upstream commit: `3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53`
-- Local branch: `codex/di-dmpa-jascl`
+- Historical pre-v2 local branch: `codex/di-dmpa-jascl`
 - Primary upstream path audited:
   `Semi-Supervised_Natural-FoSSIL/inc/deeplab_gaps_meanT`
 - Paper checked: *Continual Segmentation under Joint Nonstationarity*,
@@ -129,7 +137,7 @@ manifest, split, and checksum directories are read-only. Training outputs belong
 under `/root/LCRSeg/runs`; diagnostic validation labels must remain isolated
 from the training objects.
 
-## Resolved protocol decisions
+## Historical v1 protocol decisions (superseded by the v2 review above)
 
 1. Use a separately named `gate0_repaired` runner with only the authorized
    plumbing repairs.
@@ -138,7 +146,7 @@ from the training objects.
 3. Use Fundus, Prostate, and MnMS as three independent LCRSeg benchmarks.
 4. Use the medical LCRSeg `UNet2D` body rather than the released DeepLab body.
 
-## Recommended implementation boundary
+## Historical implementation boundary (not current authorization)
 
 1. Keep all upstream scripts byte-for-byte unchanged.
 2. Add a new `di_dmpa_jascl` package and a single config-driven stage runner.
