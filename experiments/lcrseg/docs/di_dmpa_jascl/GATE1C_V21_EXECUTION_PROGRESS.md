@@ -27,8 +27,12 @@ tests:133/133. Observed real forwards:75; global objective comparisons:288;
 class-component rows:630; model guards:12. See the
 [precision pilot report](GATE1C_V22_PRECISION_PILOT_REPORT.md) and its sealed
 runtime/independent audit receipts. All pilot workers have exited. The private
-local archive transfer is still pending verification; do not mistake a partial
-directory for a retained full copy or repeat an occupied pilot worker. The next
+local archive independently passed at 2026-08-30T17:53:11.791970 UTC: all 66
+files / 122,825,857 bytes match the sealed remote evidence. See the
+[local archive audit](gate1c_precision_pilot_results/6357317/LOCAL_ARCHIVE_AUDIT.json).
+The separate post-run operator-refusal repair `d6bd0707d7a889d7e42e00e61b3d242354335753`
+passed 135/135 tests in a clean exact-code checkout; it did not rerun or relabel
+the completed pilot. Never repeat an occupied pilot worker. The next
 full diagnostic requires its own prospective execution/retention plan and
 complete hash-verified evidence. No scientific C verdict or method training
 follows automatically from a three-pair engineering pass.
@@ -113,11 +117,13 @@ Environment and full pytest arguments are in the test receipt. The operator
 launches `di_dmpa_gate1c_v2.runner run --input-contract v2.1` with the exact
 code/tests/data/output roots above. **Do not repeat these occupied attempts.**
 
-## Continuation and interpretation
+## Historical continuation rules (v2.1 attempt now terminal)
 
-The same-thread 15-minute follow-up `ssl-cl-seg` is active and points to this
-run; the native long-running goal remains active for the **current method only**.
-On completion, verify all 9/495 validation records, 72 gradient pairs, 576 teacher
+At this snapshot the same-thread 15-minute follow-up `ssl-cl-seg` pointed to
+this run. The native long-running goal remains active for the **current method
+only**; its latest completed work is reported at the top of this document.
+The original completion requirements were to verify all 9/495 validation records,
+72 gradient pairs, 576 teacher
 draw records, phase barriers, model/bank/data hashes, complete reports and exit
 status. Then analyze all results, record a finite evidence-based next plan and
 continue within the user's authorization. Do not call test success method success.

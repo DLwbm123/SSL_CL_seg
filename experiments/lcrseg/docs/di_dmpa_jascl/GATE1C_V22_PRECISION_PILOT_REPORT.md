@@ -70,11 +70,13 @@ replaying a command: execution code `7fdd431`'s generic exception logger can app
 failure marker when a completed non-worker command is mistakenly repeated.
 No such repeat occurred and the sealed manifest remains intact. Use the JSON
 receipts/read-only auditor for status, never the completed prepare/barrier/report
-commands. A separate post-run refusal-path repair now has 135/135 development
-tests, including no-mutation reentry and genuine-failure retention checks;
-see the [operator repair receipt](gate1c_precision_pilot_results/6357317/OPERATOR_REPAIR_DEVELOPMENT_RECEIPT.json).
-Clean-code retesting follows publication. The original execution checkout and
-numeric engine are unchanged; this is not a reason to rerun the pilot.
+commands. The separate post-run refusal-path repair was published as
+`d6bd0707d7a889d7e42e00e61b3d242354335753`, then passed **135/135** tests in its
+clean exact-code checkout (15.47 seconds), including no-mutation reentry and
+genuine-failure retention checks. See the [development receipt](gate1c_precision_pilot_results/6357317/OPERATOR_REPAIR_DEVELOPMENT_RECEIPT.json)
+and [exact-code test receipt](gate1c_precision_pilot_results/6357317/OPERATOR_REPAIR_EXACT_TEST_RECEIPT.json).
+The original execution checkout and numeric engine are unchanged; the new
+operator code was not used to rerun or relabel the completed pilot.
 
 | Phase | Alignment rows | Global objective comparisons | Class-component rows | Supervised global comparisons |
 | --- | ---: | ---: | ---: | ---: |
@@ -141,12 +143,16 @@ scientific verdict, feature-source/K reselection or method training was performe
   and [read-only auditor](gate1c_precision_pilot_results/6357317/audit_pilot.py).
 - Published runtime evidence contains **60 JSON files / 4,644,161 bytes**;
   all six raw NPZ files are excluded. [Publication audit](gate1c_precision_pilot_results/6357317/PUBLIC_METADATA_AUDIT.json).
-- The private local full archive is being copied to
+- The private local full archive is complete at
   `/Users/bominwang/Desktop/codes/SSL_CL_seg/runs/gate1c_v22_precision_pilot/6357317749b0ff904e3acd39023b86430d6263ee/attempt1`.
-  The existing root `/runs/` ignore rule was verified. **Transfer is pending;
-  this report does not yet claim a complete local backup.** Run the independent
-  auditor after transfer exits successfully; a premature check correctly failed
-  because the final manifest had not arrived. No remote evidence was changed.
+  SCP exited zero, then the independent local audit passed at
+  **2026-08-30T17:53:11.791970+00:00**: all **66 files / 122,825,857 bytes**
+  match the sealed manifest. [Local archive audit](gate1c_precision_pilot_results/6357317/LOCAL_ARCHIVE_AUDIT.json)
+  matches every remote-audit field except the expected root and audit timestamp.
+  The existing root `/runs/` ignore rule was verified; raw NPZ files remain
+  private. The first report correctly marked this transfer pending, and one
+  premature audit failed because the final manifest had not arrived. No remote
+  evidence was changed or replaced.
 
 GPU0/GPU1 worker durations in seconds were respectively 15.879/8.554 (draw0),
 36.314/20.208 (noise), 7.351/4.471 (posterior), and 20.398/11.941 (PoE), all below
@@ -155,18 +161,24 @@ one noise-phase sample at 17:22:53 UTC measured 69%/53% utilization and
 2,998/2,996 MiB. This is a point sample, not sustained-max-utilization evidence.
 Independent phases waited for their registered barriers. The 17:29:19 UTC
 post-run check found no pilot/formal worker and both GPUs at 0%/1 MiB.
+The final 17:51:54 UTC source/resource check again found no diagnostic worker
+or CUDA compute process, both GPUs at 0%/1 MiB, and both exact-code checkouts
+clean. Available storage was 9,225,658,368 bytes on `/root/LCRSeg` and
+209,936,281,600 bytes on `/tmp`; these are capacity observations, not durability
+guarantees.
 No paid resource, environment, global network, mount or permission change occurred.
 The pilot did not use the separate `/tmp` mount.
 
 ## Next finite iteration, not a full-run authorization
 
-1. Finish and independently verify the private local archive. Preserve all old
-   failed attempts and the sealed pilot; never rerun occupied pilot workers.
+1. The private local archive prerequisite is complete and independently verified.
+   Preserve all old failed attempts and the sealed pilot; never rerun occupied
+   pilot workers.
 2. Publish a separate prospective **full v2.2 diagnostic execution/retention
    plan** before any new real forward. Keep the original 72 pairs, three seeds,
    native B0-EMA scoring, K=2 identity history, all C1-C8 conditions and zero
-   model updates. Retain the native FP32 path and its old failed verdict. First
-   fix/test the operator refusal-logging limitation above on synthetic outputs.
+   model updates. Retain the native FP32 path and its old failed verdict, and
+   retain the separately tested operator refusal guards described above.
 3. First assess read-only reuse of the already complete 495-case v2.1 native
    validation caches: verify every hash and exact code/formula/input lineage;
    never relabel old forwards as newly executed v2.2 evidence. This is a
@@ -175,7 +187,7 @@ The pilot did not use the separate `/tmp` mount.
    two-GPU schedule in that new version. The full gradient cache raw payload
    bound is 3,906,994,176 bytes before JSON/container overhead; existing native
    validation caches occupy about 4.86 GB. Do not duplicate them blindly into
-   the roughly 9.37 GB free root volume or treat `/tmp` as the only evidence copy.
+   the roughly 9.23 GB free root volume or treat `/tmp` as the only evidence copy.
 5. Only complete, versioned evidence may be evaluated against unchanged C gates.
    A C result cannot rescue frozen Gate1B. Before any later performance run,
    preregister a comparable reference, the UNet medical-adaptation distinction,

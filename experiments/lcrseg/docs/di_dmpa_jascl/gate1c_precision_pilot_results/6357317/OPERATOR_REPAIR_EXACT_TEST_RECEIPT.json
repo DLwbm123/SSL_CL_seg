@@ -1,0 +1,25 @@
+{
+  "scope": "POST_RUN_OPERATOR_REFUSAL_ONLY_NO_REAL_FORWARDS",
+  "code_commit": "d6bd0707d7a889d7e42e00e61b3d242354335753",
+  "checkout": "/root/SSL_CL_precision_operator_d6bd070",
+  "source_clean": true,
+  "tests": 135,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 15.47,
+  "junit_path": "tests/gate1c_precision_operator_exact_d6bd070.xml",
+  "junit_sha256": "06affd6666cb8a02a637fbd229c60ca5dcb78a0ffb4b5977fe52cfb0e219e029",
+  "junit_properties": {
+    "diagnostic_code_commit": "d6bd0707d7a889d7e42e00e61b3d242354335753",
+    "source_clean": "true"
+  },
+  "exact_command": "cd /root/SSL_CL_precision_operator_d6bd070/experiments/lcrseg && OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 LD_LIBRARY_PATH=/lib/x86_64-linux-gnu CUBLAS_WORKSPACE_CONFIG=:4096:8 CUDA_VISIBLE_DEVICES=0,1 PYTHONPATH=. /root/.venvs/lcrseg-py310/bin/python -m pytest -q tests/di_dmpa_gate1c_v2 --ignore=tests/di_dmpa_gate1c_v2/test_real.py --junitxml=/root/gate1c_precision_operator_exact_d6bd070.xml",
+  "completed_pilot_code_commit": "7fdd4312278eb64dbfb471107bb47e6b897c6859",
+  "completed_pilot_replayed": false,
+  "numeric_engine_unchanged": true,
+  "additional_real_model_forwards": 0,
+  "optimizer_steps": 0,
+  "full_gate_retry_authorized": false,
+  "method_registered": false
+}

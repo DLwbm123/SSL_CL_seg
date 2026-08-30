@@ -28,5 +28,12 @@ cd /root/SSL_CL_precision_7fdd431/experiments/lcrseg && OMP_NUM_THREADS=1 MKL_NU
 
 /root/.venvs/lcrseg-py310/bin/python /root/audit_gate1c_precision_7fdd431.py /root/LCRSeg/runs/gate1c_v22_precision_pilot/6357317749b0ff904e3acd39023b86430d6263ee/attempt1 /root/SSL_CL_precision_7fdd431/experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_GATE1C_V22_PRECISION_PREREGISTRATION.json
 
-Local full-archive transfer (still running when first reported):
+Local full-archive transfer (pending in the first report; subsequently exited zero):
 scp -r -P 31192 -o BatchMode=yes -o ConnectTimeout=15 root@162.14.139.38:/root/LCRSeg/runs/gate1c_v22_precision_pilot/6357317749b0ff904e3acd39023b86430d6263ee/attempt1 runs/gate1c_v22_precision_pilot/6357317749b0ff904e3acd39023b86430d6263ee/
+
+Post-transfer read-only local audit, PASS at 2026-08-30T17:53:11.791970+00:00:
+python3 /tmp/sslcl-precision-pilot.bEa53A/audit_pilot.py /Users/bominwang/Desktop/codes/SSL_CL_seg/runs/gate1c_v22_precision_pilot/6357317749b0ff904e3acd39023b86430d6263ee/attempt1 /Users/bominwang/Desktop/codes/SSL_CL_seg/experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_GATE1C_V22_PRECISION_PREREGISTRATION.json
+The temporary audit script is byte-identical to the committed audit_pilot.py, SHA256 8cbba7840e9558cffbe15d73ccd632076b5cd44444d87fd27884600e1bdb0506.
+
+Separate post-run operator-only repair, clean exact-code tests 135/135; no new real forwards:
+cd /root/SSL_CL_precision_operator_d6bd070/experiments/lcrseg && OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 LD_LIBRARY_PATH=/lib/x86_64-linux-gnu CUBLAS_WORKSPACE_CONFIG=:4096:8 CUDA_VISIBLE_DEVICES=0,1 PYTHONPATH=. /root/.venvs/lcrseg-py310/bin/python -m pytest -q tests/di_dmpa_gate1c_v2 --ignore=tests/di_dmpa_gate1c_v2/test_real.py --junitxml=/root/gate1c_precision_operator_exact_d6bd070.xml
