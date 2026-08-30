@@ -13,6 +13,12 @@ once on each GPU, with identical numerical details. See the
 Both forensic processes have exited; none of the historical PIDs below is an
 instruction to resume or repeat an occupied attempt.
 
+Follow-up completed 2026-08-30T16:43:52 UTC: the independently preregistered
+same-draw float64 reference is supported on both GPUs, with complete after-error
+isolation checks. See the [numerical reference report](GATE1C_V21_FP64_REFERENCE_REPORT.md).
+This changes neither the original failed formal attempt nor the scientific
+Gate1B/overall Gate1 failure. No formal retry or method training is running.
+
 Observed **2026-08-30T15:50:03.822113+00:00**: **RUNNING**, validation-cache
 phase. This is a dated operational snapshot, not a mechanism verdict or a claim
 that the method has reproduced successfully. Check live completion/failure files.
