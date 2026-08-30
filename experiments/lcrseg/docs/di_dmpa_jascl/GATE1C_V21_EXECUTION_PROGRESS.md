@@ -1,5 +1,12 @@
 # Gate1C v2.1 execution progress
 
+Latest terminal observation: **BLOCKED_INCOMPLETE_EVIDENCE**, exit1 at
+2026-08-30T16:06:46.458937+00:00. The original decomposition guard failed on
+B0/seed0/stage2/Drishti_GS/pair01 after 9/9 validation metrics and 25/72 draw0
+pairs. All workers exited. Earlier RUNNING snapshots below are historical.
+See [bounded failure investigation](GATE1C_V21_DECOMPOSITION_INVESTIGATION_PREREGISTRATION.md).
+No full retry or scientific admission has occurred.
+
 Observed **2026-08-30T15:50:03.822113+00:00**: **RUNNING**, validation-cache
 phase. This is a dated operational snapshot, not a mechanism verdict or a claim
 that the method has reproduced successfully. Check live completion/failure files.

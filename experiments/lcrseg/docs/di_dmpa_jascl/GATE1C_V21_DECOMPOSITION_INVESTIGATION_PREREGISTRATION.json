@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "registration_id": "GATE1C_V21_SINGLE_PAIR_DECOMPOSITION_INVESTIGATION",
+  "registered_at_utc": "2026-08-30T16:15:00Z",
+  "authority": {
+    "commit": "b6d70699599bd89faafb4a1dd22223575c62bbb6",
+    "path": "experiments/lcrseg/docs/di_dmpa_jascl/LONG_RUNNING_REPRODUCTION_20260830.md",
+    "sha256": "2e3732efd7f2f5f5ca02706d2fac83eae3b237175d9db8348477fe9c55e5c829",
+    "current_method_only": true
+  },
+  "parent": {
+    "preregistration_commit": "9d8ecc65730bee5bec46a1f098c9fe96a67a59b9",
+    "diagnostic_code_commit": "44a25254697fa535d2b48b64e27ecb226436f7d0",
+    "input_contract_version": "v2.1",
+    "formal_attempt": "/root/LCRSeg/runs/di_dmpa_gate1c_v21/9d8ecc65730bee5bec46a1f098c9fe96a67a59b9/gate1c_v21_44a25254697fa535d2b48b64e27ecb226436f7d0_attempt1",
+    "status": "BLOCKED_INCOMPLETE_EVIDENCE",
+    "exit_code": 1,
+    "exited_at_utc": "2026-08-30T16:06:46.458937+00:00",
+    "failure_sha256": "533394ee242e654d2e928cf79e3db3365af8bb3ad75b9cf226428e5bab28a496",
+    "status_sha256": "69a1eabd7df308279a123e9b45e915784a5c676a84f9cfd7fbb30a691beb3f21",
+    "artifact_manifest_sha256": "0d652551711e0a3ceff6ac8bdb0001355f4ec6083882460d740784ee837420d9",
+    "validation_metrics_barrier_sha256": "f60fac1f86c70b6d8ceeeccf25beb4aa895205f5e0da367aae423b33bd603be3",
+    "independently_verified_artifact_files": 648,
+    "independently_verified_artifact_bytes": 5243626652,
+    "validation_units_completed": 9,
+    "validation_cases": 495,
+    "draw0_pairs_completed": 25,
+    "recorded_immutability_guards": 35,
+    "all_recorded_guards_bitwise_unchanged": true,
+    "guard_extractions_completed": 34,
+    "full_formal_retry_authorized": false
+  },
+  "pair": {
+    "batch_id": "B0/seed0/stage2/Drishti_GS/pair01",
+    "seed": 0,
+    "stage_index": 2,
+    "domain": "Drishti_GS",
+    "pair_index": 1,
+    "sampler_seed": 20260832,
+    "labeled_case_ids": [
+      "Drishti_GS_train_ndrishtiGS_041",
+      "Drishti_GS_train_gdrishtiGS_040"
+    ],
+    "unlabeled_case_ids": [
+      "Drishti_GS_test_gdrishtiGS_073",
+      "Drishti_GS_train_gdrishtiGS_004"
+    ],
+    "checkpoint_id": "B0/seed0/stage2",
+    "checkpoint_sha256": "daa7129a8807dfe5880eca480107d3613f448d55a0079cede9e0282ac7d4d244",
+    "forward_seeds": {
+      "student_unlabeled": 1711877331,
+      "student_labeled": 1271293136
+    },
+    "teacher_draw_seeds": [
+      382211427,
+      1037229431,
+      252163649,
+      1525400971,
+      1349298177,
+      417482735,
+      1158824070,
+      622884740
+    ]
+  },
+  "selection_rule": "The sole pair directory incomplete at the first worker failure; no performance-based pair selection or replacement.",
+  "question": "Does the unchanged native float32 decomposition failure reproduce on both devices, and is its residual already present at the detached probability-loss leaf or introduced by the network VJP?",
+  "native_probe": {
+    "physical_gpus": [
+      0,
+      1
+    ],
+    "replays_per_gpu": 1,
+    "phase": "draw0",
+    "teacher_draw_index": 0,
+    "maximum_model_forward_calls_total": 6,
+    "network_autograd_dtype": "float32",
+    "tf32_matmul": false,
+    "tf32_cudnn": false,
+    "amp": false,
+    "strict_determinism": true,
+    "atol": 0.000001,
+    "rtol": 0.0001,
+    "guard_must_raise_unchanged": true,
+    "engine_files_must_equal_parent": true,
+    "error_observation": "Capture the original exception traceback frame locals after the original guard raises; do not patch, suppress or replace the native decomposition predicate."
+  },
+  "leaf_only_audit": {
+    "only_if_original_decomposition_error_captured": true,
+    "input": "Detached copies of that same probability, target, weight and predicted-class tensors.",
+    "dtypes": [
+      "float32",
+      "float64"
+    ],
+    "weights_dtype": "float64 as in the original objective",
+    "model_forward_calls": 0,
+    "model_parameter_gradients": 0,
+    "checks": [
+      "total objective versus sum of the three original class components",
+      "gradient with respect to the detached probability leaf versus sum of class gradients"
+    ],
+    "new_GT_reads": 0,
+    "not_a_replacement_for_native_decomposition": true
+  },
+  "outputs": [
+    "native exception type/message and first failing candidate/normalization/block",
+    "unrounded max absolute error, tolerance-normalized error, failing-coordinate counts and vector norms for all seven blocks",
+    "worst-coordinate parameter name/index and three component scalar values",
+    "same-forward tensor hashes and backend flags",
+    "leaf-only float32/float64 algebra checks",
+    "input/model/bank immutability and original checkpoint/manifest hashes",
+    "exact commands, code and preregistration file hashes, outcomes for both GPUs"
+  ],
+  "boundaries": {
+    "model_optimizer_steps": 0,
+    "transport_optimizer_steps": 0,
+    "EMA_updates": 0,
+    "GAS_updates": 0,
+    "prototype_updates": 0,
+    "backward_calls": 0,
+    "parameter_grad_writes": 0,
+    "new_validation_units": 0,
+    "new_gradient_pairs": 0,
+    "hidden_gt_training_usage": "none",
+    "test_gt_usage": "none",
+    "new_performance_training": false,
+    "threshold_changes": false,
+    "original_failure_overwrite": false,
+    "original_partial_cache_reuse_for_admission": false,
+    "method_registered": false,
+    "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED"
+  },
+  "execution": {
+    "publication_branch": "codex/sslcl-long-running-reproduction",
+    "preregistration_published_before_inspector_implementation": true,
+    "inspector_and_tests_published_before_real_probe": true,
+    "output_root_prefix": "/root/LCRSeg/runs/gate1c_decomposition_investigation",
+    "create_only": true,
+    "existing_python": "/root/.venvs/lcrseg-py310/bin/python",
+    "prior_baseline_recovery_optimizer_steps": 400
+  },
+  "outcome_policy": "This is bounded engineering forensics, not a new Gate1C attempt or scientific admission. Retain both successes and failures. Do not select a favorable GPU or bypass the original guard. Analyze the complete two-device evidence and record a new finite plan before any additional real probe, precision change or full formal execution."
+}
