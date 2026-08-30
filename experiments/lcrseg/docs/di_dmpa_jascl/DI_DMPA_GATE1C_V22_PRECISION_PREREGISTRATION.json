@@ -1,0 +1,262 @@
+{
+  "schema_version": 1,
+  "registration_id": "DI_DMPA_GATE1C_V22_GRADIENT_PRECISION_PILOT",
+  "registered_at_utc": "2026-08-30T17:02:58.339Z",
+  "scope": "PILOT_ONLY_NOT_FULL_GATE1C",
+  "authority": {
+    "commit": "b6d70699599bd89faafb4a1dd22223575c62bbb6",
+    "path": "experiments/lcrseg/docs/di_dmpa_jascl/LONG_RUNNING_REPRODUCTION_20260830.md",
+    "sha256": "2e3732efd7f2f5f5ca02706d2fac83eae3b237175d9db8348477fe9c55e5c829",
+    "current_method_only": true
+  },
+  "evidence": {
+    "report_commit": "ee0b9dfeabcaba6e444d68cccd8bba54ecac073d",
+    "report_path": "experiments/lcrseg/docs/di_dmpa_jascl/GATE1C_V21_FP64_REFERENCE_REPORT.md",
+    "report_sha256": "89a0b8601672203b5d4b4a8e4b8459389cd103a4ba687a79bbb743414e025d4b",
+    "reference_code_commit": "d87b7cb7af2802a7d09cab7d4231794a0de69815",
+    "formal_code_commit": "44a25254697fa535d2b48b64e27ecb226436f7d0"
+  },
+  "inherited": {
+    "preregistration_commit": "32d32ab5e491f2e14c3edde6b4f319f978217351",
+    "json_path": "experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_GATE1C_V2_PREREGISTRATION.json",
+    "json_sha256": "8b8dc8c56b60e27e3e1521053cd9307bf65d017ec9343476857b9508721c2f57",
+    "input_contract": "v2.1",
+    "legacy_bank_reconstruction_unchanged": true,
+    "primary": "B0-EMA, K=2, identity history, R4 unavailable; student is the only gradient receiver.",
+    "all_C1_C8_conditions_unchanged": true,
+    "scientific_admission_in_pilot": false
+  },
+  "repair": {
+    "numeric_version": "v2.2_fp64_shadow_pilot",
+    "mode": "float64_shadow",
+    "defect": "Float32 network VJP component-sum error trips the frozen decomposition tolerance despite additive probability-leaf derivatives; same-draw FP64 reference supported on both GPUs.",
+    "native_path": "Keep original float32 student/teacher forwards and their grad modes, official 3x3 classifier, stochastic draws, logits/features, PAS, reliability and cached teacher outputs.",
+    "shadow_path": "Deep-copy the frozen student into float64; keep original class/parameter names and all inactive parameters; no original or teacher conversion.",
+    "same_draw": "Capture each original student torch.randn_like result without changing its return or RNG; replay those float32 Gaussian values cast to float64 in the corresponding shadow forward, with no RNG advance.",
+    "losses": "Use unchanged supervised mean CE and all unchanged pixel-normalized/class-balanced consistency objectives and class decompositions, now differentiated on the shared float64 shadow graph.",
+    "teacher_and_poe_targets": "Canonicalize gradient targets using the original float32 conversion before casting to float64; class strata must equal original float32 argmax. PoE reporting/probability arrays retain their existing independent precision and formula.",
+    "native_control": "Compute native float32 total gradients for every same-input objective and labeled CE as an engineering precision control. No native class decomposition is bypassed to declare an old run successful; the old native mode and its guard remain unchanged. The new control is not an admission source or a fallback.",
+    "off_switch": "Default native execution must remain output-equivalent to the frozen engine on synthetic full-phase tests; no training flags are enabled.",
+    "exception_audit": "Run model/teacher/legacy/current/history isolation checks also when a probe raises, recording original exceptions and preserving occupied output.",
+    "code_policy": "Reuse execution.py and gradients.py; share already-tested replay/RNG/comparison helpers in precision.py, and import them in the old forensic helper without changing its calculations. Do not change training, modeling, reliability, metrics, reporting, frozen input contracts or scientific gates."
+  },
+  "pilot": {
+    "pairs": [
+      {
+        "batch_id": "B0/seed0/stage0/REFUGE/pair00",
+        "seed": 0,
+        "stage_index": 0,
+        "domain": "REFUGE",
+        "pair_index": 0,
+        "sampler_seed": 20260830,
+        "labeled_case_ids": [
+          "REFUGE_train_g0039",
+          "REFUGE_train_n0007"
+        ],
+        "unlabeled_case_ids": [
+          "REFUGE_train_n0188",
+          "REFUGE_test_n0144"
+        ],
+        "checkpoint_id": "B0/seed0/stage0",
+        "checkpoint_sha256": "2bd834c0e0bb4183bfa5cc9a0319c9b796b67e5f2b7e2d746a5f5942596b3a3c",
+        "forward_seeds": {
+          "student_unlabeled": 1797666868,
+          "student_labeled": 1458870622
+        },
+        "teacher_draw_seeds": [
+          1022386612,
+          161776925,
+          1722183208,
+          104006526,
+          425722923,
+          888451287,
+          318254083,
+          1802571626
+        ]
+      },
+      {
+        "batch_id": "B0/seed1/stage1/RIM_ONE_r3/pair00",
+        "seed": 1,
+        "stage_index": 1,
+        "domain": "RIM_ONE_r3",
+        "pair_index": 0,
+        "sampler_seed": 20260931,
+        "labeled_case_ids": [
+          "RIM_ONE_r3_test_G-27-R",
+          "RIM_ONE_r3_test_N-30-R"
+        ],
+        "unlabeled_case_ids": [
+          "RIM_ONE_r3_test_N-2-R",
+          "RIM_ONE_r3_train_N-52-R"
+        ],
+        "checkpoint_id": "B0/seed1/stage1",
+        "checkpoint_sha256": "fd61eb6c8c6b1b4e13ce16f9b442572f7c951e03b9403925ad5d898011201b11",
+        "forward_seeds": {
+          "student_unlabeled": 2146066916,
+          "student_labeled": 1401737669
+        },
+        "teacher_draw_seeds": [
+          1080093231,
+          468365677,
+          1592957183,
+          870208867,
+          46393325,
+          1742415215,
+          685487804,
+          1261776614
+        ]
+      },
+      {
+        "batch_id": "B0/seed0/stage2/Drishti_GS/pair01",
+        "seed": 0,
+        "stage_index": 2,
+        "domain": "Drishti_GS",
+        "pair_index": 1,
+        "sampler_seed": 20260832,
+        "labeled_case_ids": [
+          "Drishti_GS_train_ndrishtiGS_041",
+          "Drishti_GS_train_gdrishtiGS_040"
+        ],
+        "unlabeled_case_ids": [
+          "Drishti_GS_test_gdrishtiGS_073",
+          "Drishti_GS_train_gdrishtiGS_004"
+        ],
+        "checkpoint_id": "B0/seed0/stage2",
+        "checkpoint_sha256": "daa7129a8807dfe5880eca480107d3613f448d55a0079cede9e0282ac7d4d244",
+        "forward_seeds": {
+          "student_unlabeled": 1711877331,
+          "student_labeled": 1271293136
+        },
+        "teacher_draw_seeds": [
+          382211427,
+          1037229431,
+          252163649,
+          1525400971,
+          1349298177,
+          417482735,
+          1158824070,
+          622884740
+        ]
+      }
+    ],
+    "selection_rule": "Previously registered stage0 integration pair, recovered-input stage1 integration pair, and the sole previously failed stage2 pair. Selected for stage/engineering coverage, not scientific scores.",
+    "assignment": {
+      "0": [
+        "B0/seed0/stage0/REFUGE/pair00",
+        "B0/seed1/stage1/RIM_ONE_r3/pair00"
+      ],
+      "1": [
+        "B0/seed0/stage2/Drishti_GS/pair01"
+      ]
+    },
+    "phases": [
+      "draw0",
+      "noise",
+      "posterior",
+      "poe"
+    ],
+    "phase_barrier": "All three pilot pairs and audits must finish a phase before any worker starts the next phase.",
+    "teacher_draws_per_pair": 8,
+    "posterior_mean_teacher_control": true,
+    "full_pairs": 3,
+    "model_forward_calls": 75,
+    "native_model_forward_calls": 51,
+    "shadow_model_forward_calls": 24,
+    "float64_autograd_calls": 366,
+    "float32_control_autograd_calls": 276,
+    "gradient_alignment_rows": 2016,
+    "global_objective_comparison_rows": 288,
+    "supervised_global_comparisons": 12,
+    "class_decomposition_rows": 630,
+    "model_immutability_guards": 12,
+    "new_validation_forwards": 0,
+    "new_validation_or_scientific_metric_selection": false
+  },
+  "native_goldens": [
+    {
+      "batch_id": "B0/seed0/stage0/REFUGE/pair00",
+      "path": "/root/LCRSeg/runs/di_dmpa_gate1c_v21/9d8ecc65730bee5bec46a1f098c9fe96a67a59b9/gate1c_v21_44a25254697fa535d2b48b64e27ecb226436f7d0_attempt1/probes/draw0/seed0_stage0_pair00/result.json",
+      "sha256": "00304841bd60850b7390f5617df928074b45f9c40adfead59eeac5478a8b1ae5"
+    },
+    {
+      "batch_id": "B0/seed1/stage1/RIM_ONE_r3/pair00",
+      "path": "/root/LCRSeg/runs/di_dmpa_gate1c_v21_validation/44a25254697fa535d2b48b64e27ecb226436f7d0/attempt1/integration/probes/draw0/seed1_stage1_pair00/result.json",
+      "sha256": "2d40d17f3135b5bbe35ca23872dfea2b6c89a44891f93c9328964df6f748960c"
+    }
+  ],
+  "failed_pair_reference": {
+    "batch_id": "B0/seed0/stage2/Drishti_GS/pair01",
+    "native_outcome_path": "experiments/lcrseg/docs/di_dmpa_jascl/gate1c_decomposition_results/6477a1c/replica_gpu0/INVESTIGATION_OUTCOME.json",
+    "native_outcome_sha256": "6d47a9bb584b8ffbf265858ccd99ab823fce34d049cdebf0cef90609b1fb4e2d",
+    "reference_details_path": "/root/LCRSeg/runs/gate1c_fp64_reference/136f19fd9b4ba75dc8f4891e4d7601c58d7d90fb/replica_gpu0/REFERENCE_DETAILS.json",
+    "reference_details_sha256": "be1f575fee52cf6594eb0aa050d2a25cca4e08098670b537b9707e7481b31109",
+    "expected_R2_class_balanced_FP64_global_sha256": "ef7a732d7fc57d827ad591118d951e239914ad2fd76f1f47ad8142e276bf85f0"
+  },
+  "acceptance": {
+    "decomposition": {
+      "atol": 0.000001,
+      "rtol": 0.0001,
+      "all_blocks_and_all_registered_components_required": true
+    },
+    "precision_comparability": {
+      "global_relative_l2_max": 0.001,
+      "global_cosine_min": 0.9999,
+      "relative_l2_definition": "norm(native-shadow)/norm(shadow)",
+      "both_exact_zero": "Precision control agrees, but alignment cosine stays null and cannot satisfy a scientific required comparison.",
+      "one_zero_only": "FAIL_NUMERIC_COMPARABILITY",
+      "required_for": "Every global total-objective gradient and every global labeled gradient, not an average or a selected candidate."
+    },
+    "native_golden": "Student logits/features, labeled logits, native supervised gradient and all eight draw0 total-gradient hashes must equal the two original golden receipts; the failed pair's available forward/target/weight and native R2-class-balanced hash must equal its forensic receipt.",
+    "fp64_golden": "Failed pair draw0 R2/class-balanced global hash must match the independently published FP64 reference.",
+    "PAS": "Per-pixel R1 must equal the unchanged Gate0 pas_probability_objective on all native scoring calls.",
+    "invariants": [
+      "same native forwards across candidates and phases",
+      "same shadow forwards across candidates and phases",
+      "exact teacher draw seeds and cache identities",
+      "canonical float32 teacher/PoE gradient-target strata",
+      "stage0 R3=R2; stage1/2 history membership",
+      "null support/zero weights/structural NaNs retained",
+      "no model/buffer/GAS/bank/RNG mutation by the shadow",
+      "all source and shadow parameter.grad fields None and teacher frozen",
+      "all nine original checkpoints and frozen provenance unchanged",
+      "no hidden or final-test GT",
+      "all expected pairs/phases/rows/guards and no extra units"
+    ]
+  },
+  "boundaries": {
+    "method_registered": false,
+    "di_dmpa_training_launched": false,
+    "model_optimizer_steps": 0,
+    "transport_optimizer_steps": 0,
+    "EMA_updates": 0,
+    "GAS_updates": 0,
+    "prototype_updates": 0,
+    "backward_calls": 0,
+    "parameter_grad_writes": 0,
+    "hidden_gt_training_usage": "none",
+    "test_gt_usage": "none",
+    "full_gate_retry_authorized": false,
+    "new_performance_training": false,
+    "old_Gate1C_v21_status": "BLOCKED_INCOMPLETE_EVIDENCE",
+    "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+    "prior_baseline_recovery_optimizer_steps": 400
+  },
+  "execution": {
+    "publication_branch": "codex/sslcl-long-running-reproduction",
+    "preregistration_published_before_implementation": true,
+    "code_and_synthetic_tests_published_before_real_work": true,
+    "existing_python": "/root/.venvs/lcrseg-py310/bin/python",
+    "output_root_prefix": "/root/LCRSeg/runs/gate1c_v22_precision_pilot",
+    "attempt": "attempt1",
+    "create_only": true,
+    "worker_minutes_per_phase": 10,
+    "max_parallel_workers": 2,
+    "minimum_available_root_bytes": 1073741824,
+    "pilot_artifact_byte_budget": 536870912,
+    "local_archive_prefix": "/Users/bominwang/Desktop/codes/SSL_CL_seg/runs/gate1c_v22_precision_pilot",
+    "raw_arrays_not_published": true,
+    "scratch_mount_not_used_by_this_pilot": true,
+    "no_new_dependencies": true
+  },
+  "outcome_policy": "Only complete passing engineering evidence can yield PASS_NUMERIC_PRECISION_PILOT; numeric-comparability failures, protocol failures and partial evidence are preserved, never dropped or repaired by selecting a candidate/device. No scientific Gate1C verdict from three pairs. After both workers and all phases finish, publish all evidence and a finite next plan; any full diagnostic needs its own prospective execution/retention authorization."
+}
