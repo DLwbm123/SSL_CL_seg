@@ -102,7 +102,8 @@ def run(args):
     require(git(ROOT, "rev-parse", "HEAD") == args.code_commit, "helper commit mismatch")
     require(not git(ROOT, "status", "--porcelain"), "helper checkout is dirty")
     git(ROOT, "merge-base", "--is-ancestor", PREREG, args.code_commit)
-    remote = git(ROOT, "ls-remote", "origin", "refs/heads/codex/sslcl-long-running-reproduction")
+    remote = git(ROOT, "ls-remote", "https://github.com/DLwbm123/SSL_CL_seg.git",
+                 "refs/heads/codex/sslcl-long-running-reproduction")
     require(remote.split()[0] == args.code_commit, "exact helper code is not published")
     source = Path(args.source_root).resolve()
     require(git(source, "rev-parse", "HEAD") == p["source_commit"], "original source mismatch")

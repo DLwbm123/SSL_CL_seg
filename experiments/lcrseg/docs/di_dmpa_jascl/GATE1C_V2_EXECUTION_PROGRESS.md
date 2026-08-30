@@ -121,7 +121,9 @@ The helper `scripts/recover_gate1c_legacy_pas.py` imports a clean detached
 `fb55e802` checkout instead of duplicating its training loop. Guard self-checks
 pass for trace identity/tolerance/nonfinite values, roles/domains, the exact
 capture budget and byte-exact replica comparison (including signed zero).
-Helper SHA256: `2ebfd491ac4fc119246300257116aef8fc8b04af75652f047c74bfb3ede03454`.
+Helper SHA256: `6619439ddaf94c4d03d7c04d321624ed313bf231e44e46dfa343b1dacbb6a37e`.
+The publication check names the public GitHub repository explicitly; the remote
+object store's `origin` is an older local bundle, not the public repository.
 
 Original-source regression: **25 passed**, 7.31 s, on CPU with synthetic data;
 the resume fixtures used their default TinySegNet and the separate model-contract
