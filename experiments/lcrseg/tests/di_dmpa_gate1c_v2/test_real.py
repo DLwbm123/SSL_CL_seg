@@ -9,6 +9,7 @@ import torch
 from di_dmpa_jascl.modeling import pas_probability_objective
 from di_dmpa_gate1c_v2 import binding as b, execution as e, reliability as r
 from .test_core import Cached
+from .test_pipeline import check_supervised_mean_reference
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -21,6 +22,8 @@ def test_real_three_stages_null_pas_and_registered_pair(monkeypatch):
     b.check_hash(source, '7a36401d2dabc2e58b7f3a5dcee344e1eed1944184bc9b5c75b5d24667d35700')
     known = next(c for c in b.read_json(source)['case_support'] if c['case_id'] == 'REFUGE_train_n0038' and c['null_count'])
     assert known['first_null_coordinates'] == [[185, 180]]
+    deterministic_ce = [check_supervised_mean_reference(f'cuda:{gpu}', pattern)
+                        for gpu in (0, 1) for pattern in ('mixed', 'single_valid')]
     parity = []; native = e.build
     def checked(sl, sf, tl, tf, legacy, current, history):
         result = native(sl, sf, tl, tf, legacy, current, history)
@@ -62,5 +65,6 @@ def test_real_three_stages_null_pas_and_registered_pair(monkeypatch):
         registered_full_pair=probe['pair'], alignment_rows=56, class_decomposition_rows=len(probe['class_contribution']),
         R1_exact_Gate0_parity=parity, R1_parity_all_exact=all(x['exact_equal'] for x in parity),
         model_immutability_guards=len(audits), all_model_states_bitwise_unchanged=True, all9_B0_checkpoint_hashes_unchanged=True,
-        model_optimizer_steps=0, transport_optimizer_steps_this_gate=0, no_optimizer=True, hidden_gt_training_usage='none', test_gt_usage='none')
+        model_optimizer_steps=0, transport_optimizer_steps_this_gate=0, no_optimizer=True, hidden_gt_training_usage='none', test_gt_usage='none',
+        deterministic_mean_ce_regression=deterministic_ce)
     b.write_json(output.parent/'GATE1C_V2_REAL_INTEGRATION.json', report)

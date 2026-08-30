@@ -3,11 +3,56 @@ import copy
 from pathlib import Path
 
 import numpy as np
+import pytest
 import torch
 
 from di_dmpa_gate1_v2.features import ImmutableModels
 from di_dmpa_gate1c_v2 import binding as b, execution as e, gradients as g, reliability as r, metrics as m, reporting as rep
 from .test_core import Tiny, contract, toy_scores, evidence
+
+
+def check_supervised_mean_reference(device, ignore_pattern):
+    """CPU native CE is an independent value/gradient reference; no real data."""
+    old = torch.are_deterministic_algorithms_enabled()
+    old_warn = torch.is_deterministic_algorithms_warn_only_enabled()
+    torch.use_deterministic_algorithms(True)
+    try:
+        torch.manual_seed(219); model = Tiny().eval().to(device); parts = g.partition(model)
+        images = torch.linspace(-1, 1, 2*3*8*8, device=device).reshape(2, 3, 8, 8)
+        labels = (torch.arange(128, device=device).reshape(2, 8, 8) % 3).long()
+        if ignore_pattern == 'mixed': labels.reshape(-1)[::3] = 255
+        if ignore_pattern in ('single_valid', 'all_ignored'):
+            labels.fill_(255)
+            if ignore_pattern == 'single_valid': labels[1, 3, 2] = 2
+        with b.no_updates():
+            logits, _ = model(images, stochastic_classifier=False)
+            if ignore_pattern == 'all_ignored':
+                with pytest.raises(b.ProtocolError, match='labeled reference shape/support'):
+                    g.supervised_gradient(logits, labels, parts)
+                return dict(device=device, ignore_pattern=ignore_pattern, all_ignored_rejected=True)
+            reference_logits = logits.detach().cpu().requires_grad_(True)
+            reference = torch.nn.functional.cross_entropy(reference_logits, labels.cpu(), ignore_index=255)
+            logit_gradient, = torch.autograd.grad(reference, reference_logits)
+            expected = torch.autograd.grad(logits, parts['params'], grad_outputs=logit_gradient.to(device),
+                retain_graph=True, allow_unused=True)
+            expected_vector = g.vectors(expected, parts)['global']
+            loss, vector = g.supervised_gradient(logits, labels, parts)
+            assert loss == pytest.approx(float(reference.detach()), abs=2e-7, rel=1e-6)
+            np.testing.assert_allclose(vector['global'], expected_vector, atol=1e-7, rtol=1e-5)
+            repeated_logits, _ = model(images, stochastic_classifier=False)
+            repeated_loss, repeated_vector = g.supervised_gradient(repeated_logits, labels, parts)
+            assert loss == repeated_loss and np.array_equal(vector['global'], repeated_vector['global'])
+            assert all(parameter.grad is None for parameter in model.parameters())
+            return dict(device=device, ignore_pattern=ignore_pattern, bitwise_repeat=True,
+                loss_abs_error=abs(loss-float(reference.detach())),
+                gradient_max_abs_error=float(np.max(np.abs(vector['global']-expected_vector))))
+    finally:
+        torch.use_deterministic_algorithms(old, warn_only=old_warn)
+
+
+@pytest.mark.parametrize('ignore_pattern', ['none', 'mixed', 'single_valid', 'all_ignored'])
+def test_supervised_reference_is_mean_ce_over_nonignored_pixels(ignore_pattern):
+    check_supervised_mean_reference('cpu', ignore_pattern)
 
 
 def test_all_four_probe_phases_share_forward_and_never_update(monkeypatch, tmp_path):

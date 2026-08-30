@@ -126,7 +126,9 @@ def consistency_gradients(student_probability, target_probability, scores, parts
 def supervised_gradient(student_logits, labels, parts):
     require(labels.shape == student_logits.shape[:1]+student_logits.shape[2:] and bool((labels != 255).any()), 'labeled reference shape/support')
     finite(student_logits)
-    loss = F.cross_entropy(student_logits, labels, ignore_index=255, reduction='mean')
+    # PyTorch 2.2 CUDA NLLLoss2d's fused mean uses atomicAdd; keep strict determinism.
+    per_pixel = F.cross_entropy(student_logits, labels, ignore_index=255, reduction='none')
+    loss = per_pixel.sum() / (labels != 255).sum()
     values = grad(loss, parts, retain=False)
     return float(loss.detach()), vectors(values, parts)
 
