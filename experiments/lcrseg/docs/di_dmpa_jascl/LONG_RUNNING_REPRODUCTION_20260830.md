@@ -9,6 +9,15 @@ The user instructed in the current conversation:
 
 > 将这个会话修改为长期运行的，结果出来后，你自动分析结果，并给出下一步的计划，然后你继续执行，直到几个方法能复现成功，不一定要和原文一样的数值和表现，接近就可以，如果原始代码有问题，你也可以对代码进行自己的修改
 
+The user subsequently narrowed the scope explicitly:
+
+> 几个方法我说错了，就是指你现在在跑的方法
+
+Only the current JASCL / DI-DMPA medical-segmentation research line is in scope.
+B0/C0 remain its controls, not additional reproduction targets. The older
+multi-method wording in the initially created Goal is superseded by this
+user clarification; there is no pending request for an additional method list.
+
 This authorizes continued monitoring, result analysis, planning, implementation,
 verification and subsequent in-scope experiments without waiting for approval
 after every step. Actual code defects may be repaired. It supersedes the prior
@@ -49,14 +58,14 @@ The frozen scientific identities remain:
 This document is published on `codex/sslcl-long-running-reproduction` so that
 the exact-code branch remains unchanged for the diagnostic publication check.
 
-## Reproduction queue and completion criteria
+## Current-method scope and completion criteria
 
-The user has not yet named the additional methods meant by “几个方法”. This
-was asked once in the conversation. Until clarified, continue the existing
-JASCL B0/C0 and Gate 1C work; do not count B0/C0 objective controls as successful
-reproductions of multiple papers or add unrelated methods/datasets/sweeps.
+Continue the current Gate 1C, analyze its full result and automatically propose
+and execute evidence-based repairs and versioned experiments for this method.
+Do not count B0/C0 controls as multiple paper reproductions or add other
+methods, projects or datasets. Validate a finite pilot before scaling up.
 
-For each confirmed target, record the upstream paper/commit, benchmark,
+Before new performance experiments, record the upstream paper/commit, benchmark,
 architecture, labels/splits, primary metric, acceptable numerical gap, seeds
 and a finite experiment budget before new performance experiments. Do not
 invent an already-agreed numerical tolerance. A UNet medical adaptation under
@@ -87,9 +96,9 @@ Do not change global network/storage settings, purchase resources, force-push,
 publish private data or merge main. Continue source/report publication only on
 the authorized experiment branches, with secret/data checks first.
 
-Only claim the long-running objective complete when all confirmed targets meet
-their predeclared acceptance rules with complete multi-seed and engineering
+Only claim the long-running objective complete when the current method meets
+its predeclared acceptance rules with complete multi-seed and engineering
 evidence. Scientific failure is reportable evidence, not permission for an
-unbounded search. Ask for direction if a missing method choice, unavailable
+unbounded search. Ask for direction if an unavailable
 resource or material change of scope blocks progress. Stop future launches if
 the user asks to stop; stop the follow-up automation after genuine completion.
