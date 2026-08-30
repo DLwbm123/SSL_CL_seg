@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "diagnostic_code_commit": "01b3fd0b6cc7648261e5cae03e84f2cef60c363a",
+  "preregistration_commit": "32d32ab5e491f2e14c3edde6b4f319f978217351",
+  "authorization_commit": "d6b651fd366dd304ab4d190f7eb5ce9d3afe23ea",
+  "continuation_authorization": {
+    "commit": "b6d70699599bd89faafb4a1dd22223575c62bbb6",
+    "file_path": "experiments/lcrseg/docs/di_dmpa_jascl/LONG_RUNNING_REPRODUCTION_20260830.md",
+    "file_sha256": "2e3732efd7f2f5f5ca02706d2fac83eae3b237175d9db8348477fe9c55e5c829",
+    "remote_verified_execution_commit": "01b3fd0b6cc7648261e5cae03e84f2cef60c363a",
+    "authorization_is_published_ancestor": true,
+    "prior_attempts_preserved": {
+      "attempt1/pytest.xml": "c6fa9931025a86f143f84671ddae7d551c089218576673f932251344ed9b687b",
+      "attempt1/pytest_output.txt": "fcc9c635d72c0ef12fec3a8619c5e3eb682671008792e0cbc7146a1b99701030",
+      "attempt2/pytest.xml": "38221f77008a3946bfe4805d6fc163ddad6171811d54c811604c04c599c10675",
+      "attempt2/pytest_output.txt": "17231e8e998076a907311c47823a1418b233ad88e4a33aad0b7ab61924753ef0"
+    },
+    "scientific_protocol_unchanged": true,
+    "current_method_only": true,
+    "repair": "deterministic unreduced CE sum divided by nonignore count"
+  },
+  "command": [
+    "/root/.venvs/lcrseg-py310/bin/python",
+    "-m",
+    "pytest",
+    "-q",
+    "tests/di_dmpa_gate1c_v2",
+    "--junitxml=/root/LCRSeg/runs/di_dmpa_gate1c_v2_validation/01b3fd0b6cc7648261e5cae03e84f2cef60c363a/attempt1/pytest.xml"
+  ],
+  "cwd": "/root/SSL_CL_gate1c_v2_ce_repaired/experiments/lcrseg",
+  "operator_helper_sha256": "d28ba8bf73a41f80bdc77249af0c82da22b825a05309bb9709d6fee600ef36c3",
+  "environment": {
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "LD_LIBRARY_PATH": "/lib/x86_64-linux-gnu",
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "PYTHONPATH": "/root/SSL_CL_gate1c_v2_ce_repaired/experiments/lcrseg",
+    "CUDA_VISIBLE_DEVICES": "0,1",
+    "GATE1C_V2_CODE_COMMIT": "01b3fd0b6cc7648261e5cae03e84f2cef60c363a",
+    "GATE1C_V2_INTEGRATION_OUTPUT": "/root/LCRSeg/runs/di_dmpa_gate1c_v2_validation/01b3fd0b6cc7648261e5cae03e84f2cef60c363a/attempt1/integration"
+  },
+  "started_at_utc": "2026-08-30T14:53:04.299781+00:00",
+  "completed_at_utc": "2026-08-30T14:53:25.370191+00:00",
+  "exit_code": 0,
+  "tests_passed": 99,
+  "tests_failed": 0,
+  "tests_skipped": 0,
+  "real_integration_status": "PASS",
+  "model_optimizer_steps": 0,
+  "transport_optimizer_steps_this_gate": 0,
+  "files_sha256": {
+    "pytest.xml": "9ee2fe63c084c8ba81ce3992599921999fab48ecb6fd9b08a9a7530ea16c457d",
+    "pytest_output.txt": "85853702fb1048de61dc28b164ec1093fc8491702e1ec0638e114bce7e676b82",
+    "GATE1C_V2_REAL_INTEGRATION.json": "5c7ec229f5dc023041d0dc83ab96271f285bab90e7fee6f9df6f86a691f2b7fc"
+  },
+  "formal_diagnostic_launched": false
+}
