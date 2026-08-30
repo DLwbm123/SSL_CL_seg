@@ -19,6 +19,20 @@ isolation checks. See the [numerical reference report](GATE1C_V21_FP64_REFERENCE
 This changes neither the original failed formal attempt nor the scientific
 Gate1B/overall Gate1 failure. No formal retry or method training is running.
 
+Latest follow-up completed 2026-08-30T17:26:30.873403 UTC: the separately
+preregistered v2.2 same-draw FP64 **three-pair numerical pilot passed all four
+phases**, with exact code `7fdd4312278eb64dbfb471107bb47e6b897c6859` and numeric
+preregistration `6357317749b0ff904e3acd39023b86430d6263ee`. Clean-code synthetic
+tests:133/133. Observed real forwards:75; global objective comparisons:288;
+class-component rows:630; model guards:12. See the
+[precision pilot report](GATE1C_V22_PRECISION_PILOT_REPORT.md) and its sealed
+runtime/independent audit receipts. All pilot workers have exited. The private
+local archive transfer is still pending verification; do not mistake a partial
+directory for a retained full copy or repeat an occupied pilot worker. The next
+full diagnostic requires its own prospective execution/retention plan and
+complete hash-verified evidence. No scientific C verdict or method training
+follows automatically from a three-pair engineering pass.
+
 Post-reference storage discovery (read-only, 2026-08-31 Asia/Shanghai): the
 compute node has a separate mounted ext4 filesystem at `/tmp`, with
 209,945,223,168 bytes available. `/root/LCRSeg` has 9,767,464,960 bytes available.
@@ -27,7 +41,8 @@ capacities, **not** verified platform lifecycle/durability guarantees; the large
 host overlay and `/dev/shm` must not be treated as additional persistent space.
 No files were moved/deleted and no mount or permission settings were changed.
 
-Next iteration: independently preregister the diagnostic-precision amendment
+Historical next-iteration plan after the reference, now implemented by the pilot
+above: independently preregister the diagnostic-precision amendment
 and a small stage-covering integration pilot before further real forwards.
 Keep native probabilities/features/PAS/targets/class strata and random draws,
 use an isolated same-draw float64 student gradient receiver, and preserve the
