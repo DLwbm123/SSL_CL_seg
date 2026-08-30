@@ -19,6 +19,7 @@ from scripts.compile_gate0_reports import config_contract
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output-dir", type=Path, required=True)
+    parser.add_argument("--resume-device", default="cuda")
     args = parser.parse_args()
     out = args.output_dir.resolve()
     out.mkdir(parents=True, exist_ok=True)
@@ -26,7 +27,8 @@ def main():
         raise RuntimeError("refusing to overwrite prior test evidence")
     _, hashes = config_contract()
     common = {"git_commit": git_revision(ROOT), "config_hashes": hashes}
-    env = dict(os.environ, PYTHONPATH=str(ROOT), GATE0_RESUME_REPORT_DIR=str(out / "resume_trajectories"))
+    env = dict(os.environ, PYTHONPATH=str(ROOT), GATE0_RESUME_REPORT_DIR=str(out / "resume_trajectories"),
+               GATE0_RESUME_ACTUAL_MODEL="1", GATE0_RESUME_DEVICE=args.resume_device)
     command = [sys.executable, "-m", "pytest", "-q", "tests/gate0", "--junitxml", str(out / "pytest.xml"),
                "--basetemp", str(out / "pytest_artifacts")]
     completed = subprocess.run(command, cwd=ROOT, env=env, text=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -51,7 +53,7 @@ def main():
     resume = {**common, "status": "PASS" if len(trajectories) == 4 and all(
         row["status"] == "PASS" for row in trajectories.values()) else "FAIL",
         "atol": 1e-6, "rtol": 1e-6, "trajectories": trajectories,
-        "scope": "production runner on hashed synthetic HDF5 fixtures; not a formal Fundus result"}
+        "scope": "production UNet/JASCL classifier and runner on hashed synthetic HDF5 fixtures; not a formal Fundus result"}
     write_json(out / "RESUME_EQUIVALENCE_REPORT.json", resume)
     if report["status"] != "PASS" or resume["status"] != "PASS":
         raise SystemExit(1)

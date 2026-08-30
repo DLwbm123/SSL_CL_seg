@@ -57,9 +57,11 @@ def synthetic_bundle(root):
 
 def check_trajectory(tmp_path, case, cut, target):
     config, protocol = synthetic_bundle(tmp_path / "data")
+    actual_model = os.environ.get("GATE0_RESUME_ACTUAL_MODEL") == "1"
+    device = os.environ.get("GATE0_RESUME_DEVICE", "cpu") if actual_model else "cpu"
     def runner(output):
         return Gate0RepairedRunner(repo_root=ROOT, config=config, protocol=protocol, seed=0,
-                                   output_dir=output, device="cpu", model_factory=TinySegNet)
+                                   output_dir=output, device=device, model_factory=None if actual_model else TinySegNet)
     reference = runner(tmp_path / "reference")
     reference.run(stop_after_global_step=target)
     first = runner(tmp_path / "candidate")
@@ -71,13 +73,13 @@ def check_trajectory(tmp_path, case, cut, target):
     resumed = runner(tmp_path / "candidate")
     resumed.run(resume_path=result["checkpoint"], stop_after_global_step=target)
     left_path, right_path = tmp_path / "reference/last.pt", tmp_path / "candidate/last.pt"
-    left, right = (torch.load(path, weights_only=False) for path in (left_path, right_path))
+    left, right = (torch.load(path, weights_only=False, map_location="cpu") for path in (left_path, right_path))
     groups = {}
     for group in GROUPS:
         matched, maximum = compare(left[group], right[group], atol=1e-6, rtol=1e-6)
         groups[group] = {"within_tolerance": matched, "max_abs_difference": maximum}
         assert matched, group
-    x = torch.arange(768).float().reshape(1, 3, 16, 16) / 768
+    x = (torch.arange(768).float().reshape(1, 3, 16, 16) / 768).to(device)
     with torch.no_grad():
         a, _ = reference.wrapper.student(x, stochastic_classifier=False)
         b, _ = resumed.wrapper.student(x, stochastic_classifier=False)
@@ -87,7 +89,8 @@ def check_trajectory(tmp_path, case, cut, target):
     report = {"status": "PASS", "groups": groups, "reference": str(left_path), "candidate": str(right_path),
               "reference_sha256": sha256_file(left_path), "candidate_sha256": sha256_file(right_path),
               "interruption": cut, "target_global_step": target, "config_hash": reference.config_hash,
-              "data_kind": "synthetic_hashed_hdf5", "model": "TinySegNet_with_explicit_stochastic_features"}
+              "data_kind": "synthetic_hashed_hdf5", "device": device,
+              "model": "lcrseg_unet2d_jascl_3x3_stochastic_head" if actual_model else "TinySegNet_with_explicit_stochastic_features"}
     if os.environ.get("GATE0_RESUME_REPORT_DIR"):
         write_json(Path(os.environ["GATE0_RESUME_REPORT_DIR"]) / f"{case}.json", report)
 

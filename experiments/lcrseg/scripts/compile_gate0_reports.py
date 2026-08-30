@@ -123,6 +123,8 @@ def validate_report(name, report, commit, hashes, domains):
             groups = result.get("groups", {})
             if result.get("status") != "PASS" or not result.get("reference") or not result.get("candidate"):
                 errors.append(f"resume trajectory missing/failed: {case}")
+            if result.get("model") != "lcrseg_unet2d_jascl_3x3_stochastic_head":
+                errors.append(f"resume {case}: real UNet/JASCL model evidence missing")
             for group in STATE_GROUPS:
                 value = groups.get(group, {})
                 if value.get("within_tolerance") is not True or not finite(value.get("max_abs_difference")):
