@@ -121,9 +121,12 @@ The helper `scripts/recover_gate1c_legacy_pas.py` imports a clean detached
 `fb55e802` checkout instead of duplicating its training loop. Guard self-checks
 pass for trace identity/tolerance/nonfinite values, roles/domains, the exact
 capture budget and byte-exact replica comparison (including signed zero).
-Helper SHA256: `6619439ddaf94c4d03d7c04d321624ed313bf231e44e46dfa343b1dacbb6a37e`.
-The publication check names the public GitHub repository explicitly; the remote
-object store's `origin` is an older local bundle, not the public repository.
+Helper SHA256: `1855c6525f1afb2b73a069c028ed2637deb120e9267d1e7aa7966e4f3daabe14`.
+The publication check reads the exact public branch ref from GitHub's HTTPS API,
+which the compute node can reach. Its `origin` is an older local Git bundle;
+Git smart-HTTP timed out, while the API returned the correct public ref. No
+network/proxy or shared-remote configuration was changed. Code is transferred
+as a verified incremental bundle, and the API response is recorded per replica.
 
 Original-source regression: **25 passed**, 7.31 s, on CPU with synthetic data;
 the resume fixtures used their default TinySegNet and the separate model-contract

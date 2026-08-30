@@ -13,6 +13,7 @@ import subprocess
 import sys
 import time
 from types import SimpleNamespace
+from urllib.request import Request, urlopen
 
 
 ROOT = Path(__file__).resolve().parents[3]
@@ -102,9 +103,13 @@ def run(args):
     require(git(ROOT, "rev-parse", "HEAD") == args.code_commit, "helper commit mismatch")
     require(not git(ROOT, "status", "--porcelain"), "helper checkout is dirty")
     git(ROOT, "merge-base", "--is-ancestor", PREREG, args.code_commit)
-    remote = git(ROOT, "ls-remote", "https://github.com/DLwbm123/SSL_CL_seg.git",
-                 "refs/heads/codex/sslcl-long-running-reproduction")
-    require(remote.split()[0] == args.code_commit, "exact helper code is not published")
+    publication_url = "https://api.github.com/repos/DLwbm123/SSL_CL_seg/git/ref/heads/codex/sslcl-long-running-reproduction"
+    with urlopen(Request(publication_url + "?expected=" + args.code_commit,
+                         headers={"User-Agent": "SSL_CL_seg-recovery", "Cache-Control": "no-cache"}), timeout=30) as response:
+        publication = json.load(response)
+    require(publication["ref"] == "refs/heads/codex/sslcl-long-running-reproduction"
+            and publication["object"]["type"] == "commit" and publication["object"]["sha"] == args.code_commit,
+            "exact helper code is not published")
     source = Path(args.source_root).resolve()
     require(git(source, "rev-parse", "HEAD") == p["source_commit"], "original source mismatch")
     require(not git(source, "status", "--porcelain"), "original source checkout is dirty")
@@ -155,6 +160,7 @@ def run(args):
         recovery_preregistration_sha256=PLAN_HASHES, recovery_helper_commit=args.code_commit,
         recovery_helper_sha256=sha(__file__), original_checkpoint_sha256=p["checkpoint_sha256"],
         original_trace_sha256=p["original_trace_sha256"], replica=replica, command=sys.argv,
+        publication_verification_url=publication_url, publication_verification=publication,
         purpose="candidate reconstruction only; not Gate1C admission", historical_bank_hash_available=False)
     write_json(output / "run_metadata.json", metadata)
     seen, matched_rows, case_hash, role_counts = [], 0, hashlib.sha256(), {}
