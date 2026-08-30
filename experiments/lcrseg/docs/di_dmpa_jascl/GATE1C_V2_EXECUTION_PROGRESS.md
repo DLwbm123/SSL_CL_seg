@@ -155,5 +155,7 @@ Outcome: `RECONSTRUCTION_SUPPORTED_NOT_HISTORICAL_HASH_VERIFIED`.
 [full metadata/comparison receipt](gate1c_legacy_pas_recovery_results/05946f0/RECOVERY_COMPARISON.json).
 There is no historical saved bank hash, so this does not certify bytewise
 identity to a missing old artifact and does not complete original Gate1C v2.
-Next: prospectively register v2.1 with this one explicit input reconstruction,
-unchanged diagnostics, and fresh complete caches before any diagnostic use.
+Subsequently, v2.1 was separately preregistered and its exact-code suite passed
+117 tests before a new full diagnostic started. See the separately dated
+[v2.1 execution progress](GATE1C_V21_EXECUTION_PROGRESS.md). This does not change
+the original v2 incomplete-input status or authorize reuse of its partial caches.
