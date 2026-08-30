@@ -27,6 +27,7 @@ HASHES = {'md': '2ec5ba23d8136bbb3870776345a0be229e6071ba9a1e58604884dda42b2a433
 PHASES = ('draw0', 'noise', 'posterior', 'poe')
 COUNTS = {'draw0': (3, 2, 9, 33), 'noise': (9, 2, 57, 57), 'posterior': (3, 2, 9, 9), 'poe': (2, 2, 17, 23)}
 COUNT_KEYS = ('native_forwards', 'shadow_forwards', 'native_autograd', 'shadow_autograd')
+OUTPUT = Path('/root/LCRSeg/runs/gate1c_v22_precision_pilot')/PREREG/'attempt1'
 
 
 def verify(code, *, remote):
@@ -289,26 +290,49 @@ def report(code):
     print(dict(output=str(output), status='PASS_NUMERIC_PRECISION_PILOT', counts=totals), flush=True)
 
 
+def dispatch(args):
+    """Reject invalid/repeated commands before entering run-failure logging."""
+    b.require(args.action in ('prepare', 'worker', 'barrier', 'report'), 'unknown pilot action')
+    if args.action == 'prepare': b.require(args.tests is not None, 'exact-code JUnit required')
+    if args.action in ('worker', 'barrier'): b.require(args.phase in PHASES, 'phase required')
+    if args.action == 'worker': b.require(args.gpu in (0, 1), 'GPU required')
+    output = OUTPUT
+    b.require(not (output/'PILOT_STATUS.json').exists() and not (output/'PILOT_ARTIFACT_MANIFEST.json').exists(), 'pilot already reported; use read-only artifact audit')
+    if args.action == 'prepare':
+        b.require(not output.exists(), 'occupied pilot output; no automatic replay')
+    else:
+        meta = b.read_json(output/'RUN_METADATA.json'); audit = b.read_json(output/'INPUT_AUDIT.json')
+        b.require(meta['diagnostic_code_commit'] == args.code_commit and meta['numeric_preregistration_commit'] == PREREG and
+            audit['metadata'] == meta and audit['status'] == 'PASS', 'pilot preparation/provenance incomplete')
+        b.require(not list(output.glob('FAILURE_*.json')), 'pilot already failed; no automatic replay')
+        if args.action == 'worker': b.require(not (output/f'WORKER_{args.phase}_gpu{args.gpu}_START.json').exists(), 'worker already attempted')
+        if args.action == 'barrier':
+            b.require(not (output/f'PHASE_{args.phase}.json').exists(), 'phase already sealed')
+            b.require(all((output/f'WORKER_{args.phase}_gpu{gpu}.json').exists() for gpu in (0, 1)), 'workers not complete')
+        if args.action == 'report': b.require(all((output/f'PHASE_{phase}.json').exists() for phase in PHASES), 'phases not complete')
+    try:
+        if args.action == 'prepare':
+            prepare(args.code_commit, args.tests)
+        elif args.action == 'worker':
+            worker(args.code_commit, args.phase, args.gpu)
+        elif args.action == 'barrier':
+            barrier(args.code_commit, args.phase)
+        else:
+            report(args.code_commit)
+    except Exception as error:
+        failure = output/f'FAILURE_{args.action}_{args.phase or "all"}.json'
+        sealed = all((output/name).exists() for name in ('PILOT_STATUS.json', 'PILOT_ARTIFACT_MANIFEST.json'))
+        phase_sealed = args.action == 'barrier' and (output/f'PHASE_{args.phase}.json').exists()
+        if args.action != 'worker' and not isinstance(error, FileExistsError) and not sealed and not phase_sealed and output.is_dir() and not failure.exists():
+            b.write_json(failure, dict(diagnostic_code_commit=args.code_commit, exact_command=sys.argv,
+                error=str(error), traceback=traceback.format_exc(), failed_at_utc=datetime.now(timezone.utc).isoformat(), scientific_admission=None))
+        raise
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action', choices=('prepare', 'worker', 'barrier', 'report'))
     parser.add_argument('--code-commit', required=True)
     parser.add_argument('--tests', type=Path)
     parser.add_argument('--phase', choices=PHASES); parser.add_argument('--gpu', type=int, choices=(0, 1))
-    args = parser.parse_args()
-    try:
-        if args.action == 'prepare':
-            b.require(args.tests is not None, 'exact-code JUnit required'); prepare(args.code_commit, args.tests)
-        elif args.action == 'worker':
-            b.require(args.phase is not None and args.gpu is not None, 'phase/GPU required'); worker(args.code_commit, args.phase, args.gpu)
-        elif args.action == 'barrier':
-            b.require(args.phase is not None, 'phase required'); barrier(args.code_commit, args.phase)
-        else:
-            report(args.code_commit)
-    except Exception as error:
-        output = Path('/root/LCRSeg/runs/gate1c_v22_precision_pilot')/PREREG/'attempt1'
-        failure = output/f'FAILURE_{args.action}_{args.phase or "all"}.json'
-        if args.action != 'worker' and output.is_dir() and not failure.exists():
-            b.write_json(failure, dict(diagnostic_code_commit=args.code_commit, exact_command=sys.argv,
-                error=str(error), traceback=traceback.format_exc(), failed_at_utc=datetime.now(timezone.utc).isoformat(), scientific_admission=None))
-        raise
+    dispatch(parser.parse_args())

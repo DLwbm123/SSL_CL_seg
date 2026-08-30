@@ -66,12 +66,15 @@ Those six files were moved intact outside the development checkout; no test
 was weakened. The next development run and the clean published-code run passed.
 
 One operator limitation was identified by post-run source inspection, without
-replaying a command: this pilot CLI's generic exception logger can append a
+replaying a command: execution code `7fdd431`'s generic exception logger can append a
 failure marker when a completed non-worker command is mistakenly repeated.
 No such repeat occurred and the sealed manifest remains intact. Use the JSON
 receipts/read-only auditor for status, never the completed prepare/barrier/report
-commands. Harden this refusal path and test it before reusing the operator for
-a full diagnostic; it is not a numerical result or a reason to rerun this pilot.
+commands. A separate post-run refusal-path repair now has 135/135 development
+tests, including no-mutation reentry and genuine-failure retention checks;
+see the [operator repair receipt](gate1c_precision_pilot_results/6357317/OPERATOR_REPAIR_DEVELOPMENT_RECEIPT.json).
+Clean-code retesting follows publication. The original execution checkout and
+numeric engine are unchanged; this is not a reason to rerun the pilot.
 
 | Phase | Alignment rows | Global objective comparisons | Class-component rows | Supervised global comparisons |
 | --- | ---: | ---: | ---: | ---: |

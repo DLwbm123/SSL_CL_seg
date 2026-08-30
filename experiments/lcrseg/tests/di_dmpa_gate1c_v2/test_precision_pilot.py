@@ -169,3 +169,46 @@ def test_zero_comparison_cannot_become_scientific_credit():
     assert pr.comparable(pr.compare(zero, zero))
     assert not pr.comparable(pr.compare(zero, one)) and not pr.comparable(pr.compare(one, zero))
     assert g.alignment(zero, zero)['cosine'] is None
+
+
+def test_cli_refusals_never_mutate_sealed_or_occupied_outputs(monkeypatch, tmp_path):
+    args = types.SimpleNamespace(action='report', phase='draw0', gpu=0, code_commit='synthetic', tests=tmp_path/'tests.xml')
+    meta = dict(diagnostic_code_commit='synthetic', numeric_preregistration_commit=pilot.PREREG)
+    def forbidden(*args): raise AssertionError('refused command reached an engine action')
+    for action in ('prepare', 'worker', 'barrier', 'report'): monkeypatch.setattr(pilot, action, forbidden)
+    scenarios = [('sealed', action) for action in ('prepare', 'worker', 'barrier', 'report')]
+    scenarios += [('occupied', 'prepare'), ('started', 'worker'), ('phase_sealed', 'barrier'),
+                  ('incomplete', 'barrier'), ('incomplete', 'report'), ('wrong_code', 'barrier')]
+    for index, (state, action) in enumerate(scenarios):
+        output = tmp_path/str(index); monkeypatch.setattr(pilot, 'OUTPUT', output)
+        b.write_json(output/'RUN_METADATA.json', meta); b.write_json(output/'INPUT_AUDIT.json', dict(metadata=meta, status='PASS'))
+        if state == 'sealed':
+            for name in ('PILOT_STATUS.json', 'PILOT_ARTIFACT_MANIFEST.json'): b.write_json(output/name, {'synthetic': True})
+        if state == 'started': b.write_json(output/'WORKER_draw0_gpu0_START.json', {'synthetic': True})
+        if state == 'phase_sealed': b.write_json(output/'PHASE_draw0.json', {'synthetic': True})
+        args.action = action; args.code_commit = 'wrong' if state == 'wrong_code' else 'synthetic'
+        before = {str(p.relative_to(output)): b.sha256(p) for p in output.rglob('*') if p.is_file()}
+        with pytest.raises(b.ProtocolError): pilot.dispatch(args)
+        assert before == {str(p.relative_to(output)): b.sha256(p) for p in output.rglob('*') if p.is_file()}
+
+
+def test_cli_preserves_genuine_failure_but_not_prepare_race(monkeypatch, tmp_path):
+    output = tmp_path/'failure'; monkeypatch.setattr(pilot, 'OUTPUT', output)
+    meta = dict(diagnostic_code_commit='synthetic', numeric_preregistration_commit=pilot.PREREG)
+    b.write_json(output/'RUN_METADATA.json', meta); b.write_json(output/'INPUT_AUDIT.json', dict(metadata=meta, status='PASS'))
+    for gpu in (0, 1): b.write_json(output/f'WORKER_draw0_gpu{gpu}.json', {'synthetic': True})
+    def failure(*args): raise b.ProtocolError('synthetic fresh-action failure')
+    monkeypatch.setattr(pilot, 'barrier', failure)
+    args = types.SimpleNamespace(action='barrier', phase='draw0', gpu=None, code_commit='synthetic', tests=None)
+    with pytest.raises(b.ProtocolError, match='fresh-action failure'): pilot.dispatch(args)
+    assert b.read_json(output/'FAILURE_barrier_draw0.json')['error'] == 'synthetic fresh-action failure'
+    prior = b.sha256(output/'FAILURE_barrier_draw0.json')
+    with pytest.raises(b.ProtocolError, match='already failed'): pilot.dispatch(args)
+    assert b.sha256(output/'FAILURE_barrier_draw0.json') == prior
+    output = tmp_path/'prepare_race'; monkeypatch.setattr(pilot, 'OUTPUT', output)
+    def race(*args):
+        b.write_json(output/'OTHER_OWNER.json', {'synthetic': True})
+        raise FileExistsError('synthetic concurrent create-only winner')
+    monkeypatch.setattr(pilot, 'prepare', race); args.action = 'prepare'; args.tests = tmp_path/'tests.xml'
+    with pytest.raises(FileExistsError): pilot.dispatch(args)
+    assert {p.name for p in output.iterdir()} == {'OTHER_OWNER.json'}

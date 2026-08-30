@@ -1,0 +1,36 @@
+{
+  "scope": "POST_RUN_OPERATOR_REFUSAL_REPAIR_ONLY",
+  "prior_report_commit": "771c9960b045f32f9dfa3e2773061101fcf46847",
+  "completed_pilot_code_commit": "7fdd4312278eb64dbfb471107bb47e6b897c6859",
+  "completed_pilot_status_sha256": "0e6c3cbe66e460e411a5200fc191f4984223bf848bb1400e6bc943015d3911b0",
+  "defect": "The generic CLI exception handler could append a failure marker after refusing a repeated prepare/barrier/report, corrupting the sealed artifact set despite no new model work.",
+  "detection": "Post-run source inspection, disclosed in the prior report before this repair. No real completed command was replayed.",
+  "repair": "Central dispatch validates arguments, output ownership/preparation, existing failures and occupied/completed receipts before entering runtime-failure logging. Late sealed/phase-sealed and FileExistsError refusals cannot append an error file. Genuine fresh-action failures still retain their original traceback.",
+  "changed_source_sha256": {
+    "di_dmpa_gate1c_v2/precision_pilot.py": "a2972467cb8addcf7578f46931f9de1aab838fe3c05e81d75134bad4c8f40571",
+    "tests/di_dmpa_gate1c_v2/test_precision_pilot.py": "a46ed7545612c2414f0a6270c4fe6a3219162e4567759c3c5e44d82ec863e47d"
+  },
+  "unchanged": "No edits to execution.py, gradients.py, precision.py, modeling, reliability, metrics, reporting, frozen inputs, thresholds or the original remote 7fdd431 checkout.",
+  "tests": {
+    "path": "tests/gate1c_precision_operator_dev_771c996.xml",
+    "sha256": "6309bf49a06be4e63bd21ff2b323ca84cc19a04603902044a3aa5f6cdcf5b1b7",
+    "passed": 135,
+    "failed": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 14.41,
+    "checkout": "/root/SSL_CL_precision_dev_6357317",
+    "checkout_head": "6357317749b0ff904e3acd39023b86430d6263ee",
+    "source_clean": false,
+    "new_checks": [
+      "All four commands refuse sealed outputs without byte/file changes; occupied prepare/worker/phase, incomplete barriers/reports and wrong-code commands also refuse before dispatch.",
+      "A genuine fresh-action failure retains its error; a repeat cannot change that failure; a simulated concurrent create-only winner is not marked failed."
+    ],
+    "exact_code_retest": "Pending clean checkout after publication; this is the development receipt, not a new diagnostic execution."
+  },
+  "additional_real_model_forwards": 0,
+  "additional_optimizer_updates": 0,
+  "old_pilot_replayed": false,
+  "full_gate_retry_authorized": false,
+  "method_registered": false
+}
