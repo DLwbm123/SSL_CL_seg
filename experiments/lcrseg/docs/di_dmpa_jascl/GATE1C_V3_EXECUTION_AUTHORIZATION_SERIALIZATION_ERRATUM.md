@@ -1,0 +1,11 @@
+# Gate1C v3 separate authorization after serialization erratum
+
+Authorized at 2026-08-31T09:59:32.261480+00:00, after separately published preregistration erratum `4a21799bc50e4e6c644a89b08808e59de525d6a9` (JSON `ad27b069121cfe41880a2da5429d8f9b688515d19942d14e2960212e4b192c06`). Exact execution code `db4af88eca0dca48025f8884bf7f85e068eabf2a`; verified runtime evidence `37e71ed414f443d246b2e115364ed0e28a3ff4c1`.
+
+Under the user's existing clean-regeneration and GPU4–7 authorization, permit one fresh launch into the newly registered validation directory after the administrative publication-hash correction. The prior command exited 1 in pre-forward authority validation, with zero workers, models, caches and forwards. That failed registration/authorization/output and all failure evidence remain immutable and archived. There is no retry into its occupied directory, no old v2.2 retry, and no integration has started.
+
+The reloaded corrected registration passes the unchanged 72-pair hash and full numerical contract checks. Values, pair order, seeds, B0 checkpoints/PAS, K2, C1-C8, controls, null/undefined handling and the 990+75+1800=2865 budget are unchanged. Only the representation digest, exact-code/test evidence, authority filenames and fresh validation output root differ. The original v3 registration and authorization remain available as superseded failed administrative evidence.
+
+All original phase barriers remain mandatory: all495 new caches/nine guards plus actual server-local exit 0 and local verified archive before integration; all3 integration pairs/four phases/75 forwards/12 guards plus every numerical test and verified archive before formal work. Exactly one integration attempt remains allowed. Failure of integration stops this line. No optimizer/backward/grad writes, hidden/test GT, transport, favorable selection, extra budget, automatic phase retries, C0 or method work.
+
+Use only physical GPUs4,5,6,7 without disturbing existing processes. Preserve and archive every byte and warning. Overall Gate1 remains FAIL_TRANSPORT_NOT_SUPPORTED. After report publication, commit/push/verify the branch SHA and stop for independent review; no C0, reduced-method implementation/training, Gate2, Prostate, MnMS, sweep or main merge.

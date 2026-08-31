@@ -1,0 +1,128 @@
+{
+  "all_real_commands_require_server_local_supervisor": true,
+  "allowed_physical_gpus": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "authority_scope": "One fresh administrative launch after the zero-forward serialization correction; no reexecution of the failed directory or old v2.2, no additional forward budget, no second integration attempt.",
+  "authorized_at": "2026-08-31T09:59:32.261480+00:00",
+  "baseline_manifest_sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d",
+  "branch": "codex/gate1c-v3-clean-regeneration",
+  "budget": {
+    "formal": 1800,
+    "integration": 75,
+    "total": 2865,
+    "validation": 990
+  },
+  "code_commit": "db4af88eca0dca48025f8884bf7f85e068eabf2a",
+  "forbidden": [
+    "old v2.2 retry or private input recovery",
+    "legacy PAS reconstruction",
+    "learned transport/T1/T2/R4/Gate1B",
+    "optimizer/backward/parameter.grad writes/EMA/GAS/prototype updates",
+    "hidden unlabeled GT/test GT in Gate1C",
+    "threshold/case/seed/draw/coverage changes or undefined-row deletion",
+    "C0 regeneration",
+    "reduced-method implementation/training",
+    "Gate2",
+    "Prostate",
+    "MnMS",
+    "full sweep",
+    "main merge",
+    "DI-DMPA reproduced/PASS_CORE_ADMISSION claims"
+  ],
+  "formal_authorized_only_after_new_integration_and_local_archive_PASS": true,
+  "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+  "k2_freeze_sha256": "f39d764832d7b88087fef9a25a618752ec2a8d0167efe24c55da16a4cfde5a7b",
+  "model_optimizer_steps": 0,
+  "next_action_after_report": "COMMIT_PUSH_VERIFY_REMOTE_SHA_AND_HARD_STOP_FOR_INDEPENDENT_REVIEW",
+  "old_v22_retry_authorized": false,
+  "original_authorization_preserved": true,
+  "output_roots": {
+    "formal": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/formal_v3_attempt1",
+    "integration": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/integration_v3_attempt1",
+    "validation": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/validation_v3_serialization_erratum"
+  },
+  "phase_gates": {
+    "automatic_retries": false,
+    "cpu_metric_workers": 2,
+    "create_only": true,
+    "formal_gpu_mapping": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "formal_order": [
+      "validation_metrics",
+      "draw0",
+      "noise",
+      "posterior",
+      "poe",
+      "poe_metrics"
+    ],
+    "integration_before_formal": "all 3 pairs x 4 phases, 75 forwards, 12 guards, all numerical gates, new goldens, actual parent exit 0, private archive verified",
+    "integration_gpu_mapping": [
+      4,
+      5,
+      6
+    ],
+    "maximum_integration_attempts": 1,
+    "maximum_worker_phase_seconds": 21600,
+    "minimum_free_bytes": 34359738368,
+    "no_automatic_second_integration": true,
+    "supervisor": "server-local parent writes actual child exit; SSH status is never experiment exit",
+    "validation_before_integration": "all 495 cases, 990 forwards, 9 guards, full byte manifest, actual parent exit 0, verified private archive",
+    "validation_evaluators": "nine primary reliability units plus nine zero-forward offline PoE evaluations of the same fresh caches",
+    "validation_gpu_mapping": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "worker_assignment": "fixed ordered units/pairs round-robin by shard; no result-based reassignment"
+  },
+  "preregistration_commit": "4a21799bc50e4e6c644a89b08808e59de525d6a9",
+  "preregistration_filename": "DI_DMPA_GATE1C_V3_PREREGISTRATION_SERIALIZATION_ERRATUM.json",
+  "preregistration_md_sha256": "7f5df05a7be3122dd0d823df05a2e6ec12328cb2b0399246790e6a9f610ce0d5",
+  "preregistration_sha256": "ad27b069121cfe41880a2da5429d8f9b688515d19942d14e2960212e4b192c06",
+  "protocol": "DI_DMPA_GATE1C_V3_CLEAN_REGEN_K2_IDENTITY_HISTORY",
+  "retry_authorized": false,
+  "runtime_evidence_commit": "37e71ed414f443d246b2e115364ed0e28a3ff4c1",
+  "schema_version": 3,
+  "scope": [
+    "fresh_validation",
+    "one_new_v3_integration",
+    "conditional_formal_diagnostic",
+    "archive_report_publish_hard_stop"
+  ],
+  "serialization_erratum": {
+    "corrected_published_representation_pair_hash": "d537e0f0fb7d44febf0d861a0384ce43f8c6d326cb5656e481b8882d79723958",
+    "failed_command_actual_child_exit": 1,
+    "failed_command_forwards": 0,
+    "failed_command_workers": 0,
+    "failed_output_preserved": true,
+    "failure_report_commit": "bf6b42cb28ebac7dce6660ce89bdbb108ffb65d9",
+    "failure_report_sha256": "49124b4795bd7042a8faf8c8888998802b07da3d6f3e40ce6ffa4ee44b07003f",
+    "forward_budget_change": false,
+    "hash_definition": "Unchanged H compact JSON hash of the reloaded published batch_pairs, with all values/order preserved.",
+    "integration_attempts_started_before_this_erratum": 0,
+    "new_B0_or_K2_training": false,
+    "new_command_scope": "First actual cache-generation forwards, under this prospectively published correction and separate authorization. No occupied output retry and no second integration attempt.",
+    "original_authorization_commit": "d11d706465ebc92015db12b47f2593daa6373efa",
+    "original_declared_pair_hash": "ed06201a53983f3a8892b59cc1352a3d5ec245b1071b3d27ff6b5a75045395a9",
+    "original_registration_commit": "60622e219db28ffb47c65e07929448b9c2b45e1d",
+    "original_registration_sha256": "3a191d18ce978da9313b05259f866660cc388ee5219c1b97532e3a03aa4ae407",
+    "reason": "PAIR_HASH_COMPUTED_BEFORE_SORTED_KEY_JSON_PUBLICATION",
+    "same_output_reexecution": false,
+    "scientific_change": false,
+    "source_change": "Allow exactly the two append-only serialization-erratum authority filenames; keep all contract/numeric/hash guards unchanged."
+  },
+  "shared_gpu_use_authorized": true,
+  "status": "AUTHORIZED_GATE1C_V3_CLEAN_REGEN_DIAGNOSTIC_ONLY",
+  "stop_or_reserve_existing_jobs": false,
+  "transport_optimizer_steps": 0,
+  "user_authority": "User clean-regeneration instructions plus explicit physical GPU4/5/6/7 shared-use permission in this task; no additional training/method authority implied."
+}
