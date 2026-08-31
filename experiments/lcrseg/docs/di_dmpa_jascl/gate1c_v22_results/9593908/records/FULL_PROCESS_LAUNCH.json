@@ -1,0 +1,31 @@
+{
+  "diagnostic_code_commit": "1cfd8235293e157afd6b40f0f091ce6bc6df9f9f",
+  "preregistration_commit": "9593908bd36f7f833e385a70b2b772b7a8c84d22",
+  "authorization_commit": "aabef38c473f281bef7717e77fa326a542266d76",
+  "output": "/root/LCRSeg/runs/di_dmpa_gate1c_v22/9593908bd36f7f833e385a70b2b772b7a8c84d22/attempt1",
+  "execution_scope": "GATE1C_V22_FULL",
+  "started_remote_utc": "2026-08-31T03:55:48.613808+00:00",
+  "controller_pid": 2802,
+  "ssh_tool_session_id": 4732,
+  "ssh_launch_chunk_id": "42c929",
+  "process_exit_observed": false,
+  "exact_remote_command": "cd '/root/LCRSeg/gate1c_v22_source/worktree_1cfd8235293e157afd6b40f0f091ce6bc6df9f9f/experiments/lcrseg' && test -d '/root/LCRSeg/gate1c_v22_tests/1cfd8235293e157afd6b40f0f091ce6bc6df9f9f_attempt1/runtime_tmp' && exec env -u GATE1C_V2_CODE_COMMIT -u GATE1C_V2_INPUT_CONTRACT PYTHONDONTWRITEBYTECODE=1 OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 LD_LIBRARY_PATH=/lib/x86_64-linux-gnu CUBLAS_WORKSPACE_CONFIG=:4096:8 CUDA_VISIBLE_DEVICES=0,1 PYTHONPATH=. TMPDIR='/root/LCRSeg/gate1c_v22_tests/1cfd8235293e157afd6b40f0f091ce6bc6df9f9f_attempt1/runtime_tmp' /root/.venvs/lcrseg-py310/bin/python -m di_dmpa_gate1c_v2.runner run --code-commit 1cfd8235293e157afd6b40f0f091ce6bc6df9f9f --input-contract v2.1 --execution-version v2.2 --scope full --tests '/root/LCRSeg/gate1c_v22_tests/1cfd8235293e157afd6b40f0f091ce6bc6df9f9f_attempt1/pytest.xml' --data-root /root/LCRSeg --output '/root/LCRSeg/runs/di_dmpa_gate1c_v22/9593908bd36f7f833e385a70b2b772b7a8c84d22/attempt1'",
+  "integration_prerequisite": {
+    "status": "PASS_EXACT_CODE_REAL_INTEGRATION",
+    "new_forwards": 75,
+    "manifest_sha256": "1dcbf3199afa0df92a4d5ffcc69940c7b4ef235e7b1dd3d425a31952eff48c0c",
+    "independent_process_exit_receipt_sha256": "93110cf611787c3b4c1e83f28aa29af5456e1c7106e2e75e992718c91ccceb53",
+    "direct_ssh_exit_code": 0
+  },
+  "scope_limits": {
+    "full_pairs": 72,
+    "pairs_per_gpu": 36,
+    "full_new_forward_budget": 1800,
+    "total_integration_plus_full_forward_budget": 1875,
+    "method_registered": false,
+    "optimizer_updates_allowed": 0
+  },
+  "observed_snapshot_remote_utc": "2026-08-31T03:56:53.733225+00:00",
+  "observed_state": "INPUT_PAYLOAD_AUDIT_PASS; full attempt cache re-audit in progress",
+  "forbidden_next_action": "Do not re-run this or integration command; inspect original process/session and read-only artifacts"
+}

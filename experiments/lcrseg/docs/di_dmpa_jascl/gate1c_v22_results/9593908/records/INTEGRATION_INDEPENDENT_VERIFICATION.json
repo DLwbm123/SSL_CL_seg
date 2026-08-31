@@ -1,0 +1,177 @@
+{
+  "status": "PASS_INDEPENDENT_INTEGRATION_ARTIFACT_AND_REFERENCE_VERIFICATION",
+  "observed_remote_utc": "2026-08-31T03:51:36.887106+00:00",
+  "output": "/root/LCRSeg/runs/di_dmpa_gate1c_v22/9593908bd36f7f833e385a70b2b772b7a8c84d22/integration_attempt1",
+  "code_commit": "1cfd8235293e157afd6b40f0f091ce6bc6df9f9f",
+  "controller_pid": 1222,
+  "controller_pid_absent": true,
+  "manifest_sha256": "1dcbf3199afa0df92a4d5ffcc69940c7b4ef235e7b1dd3d425a31952eff48c0c",
+  "manifest_indexed_files": 102,
+  "manifest_indexed_bytes": 126389395,
+  "physical_file_count": 104,
+  "physical_bytes": 126403893,
+  "integration_status": "PASS_EXACT_CODE_REAL_INTEGRATION",
+  "counts": {
+    "native_forwards": 51,
+    "shadow_forwards": 24,
+    "native_autograd": 276,
+    "shadow_autograd": 366
+  },
+  "coverage": {
+    "alignment_rows": 2016,
+    "global_comparisons": 288,
+    "class_components": 630,
+    "supervised_global_comparisons": 12
+  },
+  "phases": {
+    "draw0": {
+      "counts": {
+        "native_forwards": 9,
+        "shadow_forwards": 6,
+        "native_autograd": 27,
+        "shadow_autograd": 99
+      },
+      "totals": {
+        "alignment_rows": 168,
+        "global_comparisons": 24,
+        "class_components": 504,
+        "supervised_global_comparisons": 3
+      },
+      "native_PAS_calls": 3,
+      "worker_pids": [
+        1378,
+        1379
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "noise": {
+      "counts": {
+        "native_forwards": 27,
+        "shadow_forwards": 6,
+        "native_autograd": 171,
+        "shadow_autograd": 171
+      },
+      "totals": {
+        "alignment_rows": 1344,
+        "global_comparisons": 192,
+        "class_components": 0,
+        "supervised_global_comparisons": 3
+      },
+      "native_PAS_calls": 24,
+      "worker_pids": [
+        1716,
+        1717
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "posterior": {
+      "counts": {
+        "native_forwards": 9,
+        "shadow_forwards": 6,
+        "native_autograd": 27,
+        "shadow_autograd": 27
+      },
+      "totals": {
+        "alignment_rows": 168,
+        "global_comparisons": 24,
+        "class_components": 0,
+        "supervised_global_comparisons": 3
+      },
+      "native_PAS_calls": 3,
+      "worker_pids": [
+        2067,
+        2068
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "poe": {
+      "counts": {
+        "native_forwards": 6,
+        "shadow_forwards": 6,
+        "native_autograd": 51,
+        "shadow_autograd": 69
+      },
+      "totals": {
+        "alignment_rows": 336,
+        "global_comparisons": 48,
+        "class_components": 126,
+        "supervised_global_comparisons": 3
+      },
+      "native_PAS_calls": 0,
+      "worker_pids": [
+        2405,
+        2406
+      ],
+      "exit_codes": [
+        0,
+        0
+      ]
+    }
+  },
+  "new_probe_guards": 12,
+  "reused_validation_guards": 9,
+  "reference_files": 1686,
+  "reference_bytes": 5089788401,
+  "retain_reference_files": 567,
+  "retain_reference_bytes": 4932630373,
+  "cache_reuse_approved": true,
+  "known_null": {
+    "seed": 2,
+    "stage_index": 0,
+    "case_id": "REFUGE_train_n0038",
+    "rows": 147456,
+    "active": 147455,
+    "null": 1,
+    "all_null_rows_preserved": true,
+    "first_null_coordinates": [
+      [
+        185,
+        180
+      ]
+    ],
+    "raw_all_pixel_null_fraction": 0.000006781684027777777
+  },
+  "numerical_audit": {
+    "status": "PASS",
+    "counts": {
+      "native_forwards": 51,
+      "shadow_forwards": 24,
+      "native_autograd": 276,
+      "shadow_autograd": 366
+    },
+    "new_model_forwards": 75,
+    "coverage": {
+      "alignment_rows": 2016,
+      "global_comparisons": 288,
+      "class_components": 630,
+      "supervised_global_comparisons": 12
+    },
+    "native_PAS_calls": 30,
+    "native_PAS_pixel_call_comparisons": 8847360,
+    "maximum_objective_relative_l2": 0.00012594988782098875,
+    "minimum_objective_cosine": 0.999999992160753,
+    "maximum_supervised_relative_l2": 0.0000042237250813564015,
+    "minimum_supervised_cosine": 0.9999999999932037,
+    "maximum_component_sum_abs_residual": 4.440892098500626e-15,
+    "both_zero_global_comparisons": 0,
+    "optimizer_updates": 0,
+    "all_numerical_checks_passed_before_scientific_compilation": true
+  },
+  "elapsed_seconds": 202.8861446455121,
+  "gpus": "0, GPU-5c3ac040-658b-3b0a-b453-f982828142fe, NVIDIA GeForce RTX 3090, 1 MiB, 0 %\n1, GPU-18cea491-d992-932f-09da-3587c26480a6, NVIDIA GeForce RTX 3090, 1 MiB, 0 %\n",
+  "compute_apps": "",
+  "processes": [],
+  "available_bytes": 8690450432,
+  "formal_output_exists": false,
+  "optimizer_updates": 0,
+  "read_only_verification_script": "import hashlib,json,os,shutil,signal,subprocess\nfrom pathlib import Path\nfrom datetime import datetime,timezone\nsignal.signal(signal.SIGALRM,lambda *args:(_ for _ in ()).throw(TimeoutError(\"independent integration verification exceeded 180 seconds\"))); signal.alarm(180)\nroot=Path(\"/root/LCRSeg/runs/di_dmpa_gate1c_v22/9593908bd36f7f833e385a70b2b772b7a8c84d22/integration_attempt1\")\ndef read(p): return json.loads(p.read_text())\ndef sha(p):\n    h=hashlib.sha256()\n    with p.open(\"rb\") as f:\n        for chunk in iter(lambda:f.read(1048576),b\"\"): h.update(chunk)\n    return h.hexdigest()\nmanifest=root/\"GATE1C_V2_ARTIFACT_MANIFEST.json\"\nm=read(manifest); rows=m[\"artifacts\"]; names=[r[\"path\"] for r in rows]\nexcluded={manifest.name,\"GATE1C_V2_ARTIFACT_MANIFEST.sha256\"}\nassert sha(manifest)==(root/\"GATE1C_V2_ARTIFACT_MANIFEST.sha256\").read_text().split()[0]\nactual=[p for p in root.rglob(\"*\") if p.is_file()]\nassert not any(p.is_symlink() for p in root.rglob(\"*\"))\nassert len(names)==len(set(names))==m[\"file_count\"]\nassert {str(p.relative_to(root)) for p in actual if p.name not in excluded}==set(names)\nassert sum(r[\"bytes\"] for r in rows)==m[\"total_bytes\"]\nfor r in rows:\n    p=root/r[\"path\"]\n    assert p.resolve().is_relative_to(root.resolve())\n    assert p.stat().st_size==r[\"bytes\"] and sha(p)==r[\"sha256\"],str(p)\nmeta=read(root/\"GATE1C_V2_RUN_METADATA.json\"); status=read(root/\"GATE1C_V22_STATUS.json\"); done=read(root/\"EXECUTION_COMPLETION.json\")\nassert meta[\"diagnostic_code_commit\"]==meta[\"remote_verified_code_commit\"]==\"1cfd8235293e157afd6b40f0f091ce6bc6df9f9f\"\nassert meta[\"preregistration_commit\"]==\"9593908bd36f7f833e385a70b2b772b7a8c84d22\" and meta[\"authorization_commit\"]==\"aabef38c473f281bef7717e77fa326a542266d76\"\nassert meta==status[\"metadata\"]==done[\"metadata\"]\nassert status[\"status\"]==\"PASS_EXACT_CODE_REAL_INTEGRATION\" and status[\"scientific_admission\"] is None and not status[\"method_registered\"]\nassert status[\"counts\"]==dict(native_forwards=51,shadow_forwards=24,native_autograd=276,shadow_autograd=366)\nassert done[\"status\"]==\"COMPLETE\" and done[\"controller_result_code\"]==0\nassert not (root/\"STOP_REQUESTED.json\").exists() and not list(root.glob(\"FAILURE_*.json\"))\nassert not Path(\"/proc\") .joinpath(str(meta[\"controller_pid\"])).exists(),\"controller PID still exists; inspect\"\nphases={}\nfor phase in (\"draw0\",\"noise\",\"posterior\",\"poe\"):\n    r=read(root/f\"PHASE_{phase}.json\")\n    assert r[\"metadata\"]==meta and r[\"status\"]==\"PASS\" and r[\"numerical_checks_complete\"]\n    for path,digest in r[\"evidence_sha256\"].items(): assert sha(root/path)==digest\n    exits=read(root/f\"PROCESS_EXIT_{phase}.json\")\n    assert exits[\"exit_codes\"]==[0,0]\n    phases[phase]=dict(counts=r[\"counts\"],totals=r[\"totals\"],native_PAS_calls=r[\"native_PAS_calls\"],worker_pids=exits[\"worker_pids\"],exit_codes=exits[\"exit_codes\"])\naudit=read(root/\"CACHE_REUSE_AUDIT.json\")\nassert audit[\"status\"]==\"PASS\" and audit[\"cache_reuse_approved\"] and audit[\"cases\"]==495 and audit[\"pixels\"]==72990720 and audit[\"cache_bytes\"]==4856574421\nassert audit[\"known_real_null\"][\"null\"]==1 and audit[\"known_real_null\"][\"first_null_coordinates\"]==[[185,180]]\nrefs=audit[\"references\"]; assert len(refs)==len({r[\"path\"] for r in refs})\nfor r in refs:\n    p=Path(r[\"path\"]); assert p.stat().st_size==r[\"bytes\"] and sha(p)==r[\"sha256\"],str(p)\nassert read(root/\"INPUT_REFERENCES_after.json\")[\"status\"]==\"PASS\"\nguard=read(root/\"GATE1C_V2_MODEL_IMMUTABILITY_AUDIT.json\")\nassert guard[\"new_probe_guard_count\"]==12 and guard[\"reused_validation_guard_count\"]==9 and guard[\"all_model_states_bitwise_unchanged\"] and guard[\"all_grad_fields_None\"]\nnumbers=read(root/\"NUMERICAL_COMPARISON_AUDIT.json\")\ngpus=subprocess.check_output([\"nvidia-smi\",\"--query-gpu=index,uuid,name,memory.used,utilization.gpu\",\"--format=csv,noheader\"],text=True,timeout=10)\napps=subprocess.check_output([\"nvidia-smi\",\"--query-compute-apps=pid,process_name\",\"--format=csv,noheader\"],text=True,timeout=10)\nprocs=[]\nfor proc in Path(\"/proc\").iterdir():\n    if not proc.name.isdigit() or int(proc.name)==os.getpid(): continue\n    try: argv=[x.decode(errors=\"replace\") for x in (proc/\"cmdline\").read_bytes().split(b\"\\0\") if x]\n    except OSError: continue\n    if \"di_dmpa_gate1c_v2.runner\" in argv: procs.append(dict(pid=int(proc.name),argv=argv))\nassert not procs and not apps.strip()\nretain=[r for r in refs if r[\"retain_private_copy\"]]\nprint(json.dumps(dict(status=\"PASS_INDEPENDENT_INTEGRATION_ARTIFACT_AND_REFERENCE_VERIFICATION\",observed_remote_utc=datetime.now(timezone.utc).isoformat(),output=str(root),code_commit=meta[\"diagnostic_code_commit\"],controller_pid=meta[\"controller_pid\"],controller_pid_absent=True,manifest_sha256=sha(manifest),manifest_indexed_files=m[\"file_count\"],manifest_indexed_bytes=m[\"total_bytes\"],physical_file_count=len(actual),physical_bytes=sum(p.stat().st_size for p in actual),integration_status=status[\"status\"],counts=status[\"counts\"],coverage=status[\"coverage\"],phases=phases,new_probe_guards=12,reused_validation_guards=9,reference_files=len(refs),reference_bytes=sum(r[\"bytes\"] for r in refs),retain_reference_files=len(retain),retain_reference_bytes=sum(r[\"bytes\"] for r in retain),cache_reuse_approved=True,known_null=audit[\"known_real_null\"],numerical_audit={k:v for k,v in numbers.items() if k!=\"metadata\"},elapsed_seconds=done[\"elapsed_seconds\"],gpus=gpus,compute_apps=apps,processes=procs,available_bytes=shutil.disk_usage(\"/root/LCRSeg\").free,formal_output_exists=(root.parent/\"attempt1\").exists(),optimizer_updates=0),indent=2),flush=True)"
+}

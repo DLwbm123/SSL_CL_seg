@@ -1,0 +1,43 @@
+{
+  "status": "UNKNOWN_FULL_EXECUTION_AFTER_SSH_OBSERVATION_INTERRUPTION",
+  "heartbeat_utc": "2026-08-31T04:30:49.826Z",
+  "recorded_local_utc": "2026-08-31T04:41:14.874Z",
+  "code_commit": "1cfd8235293e157afd6b40f0f091ce6bc6df9f9f",
+  "output": "/root/LCRSeg/runs/di_dmpa_gate1c_v22/9593908bd36f7f833e385a70b2b772b7a8c84d22/attempt1",
+  "original_controller_pid": 2802,
+  "original_ssh_transport": {
+    "session_id": 4732,
+    "chunk_id": "d45df0",
+    "exit_code": 255,
+    "output": "Connection to ORIGINAL_INSTANCE_ADDRESS_REDACTED closed by remote host.\r\n",
+    "experiment_exit_code": null,
+    "experiment_status": "UNKNOWN_AFTER_SSH_OBSERVATION_INTERRUPTION"
+  },
+  "bounded_read_only_connection_attempt": {
+    "session_id": 54665,
+    "chunk_id": "b5522f",
+    "wall_time_seconds": 0.000003583,
+    "exit_code": 255,
+    "original_token_count": 12,
+    "output": "Connection closed by ORIGINAL_INSTANCE_ADDRESS_REDACTED port 31192\r\n",
+    "command_intent": "read-only JSON, complete existing runner argv, GPU and capacity snapshot; no run/prepare/barrier/report",
+    "remote_command_completed": false
+  },
+  "last_successful_remote_snapshot_utc": "2026-08-31T04:01:15.835003Z",
+  "last_successful_remote_snapshot": "INPUT_AUDIT and CACHE_REUSE_AUDIT PASS; validation_metrics CPU workers 2959/2960 live; no stage barrier, probe results or terminal failure then",
+  "current_remote_process_status": "UNKNOWN",
+  "current_remote_gpu_capacity_status": "UNKNOWN",
+  "current_remote_stage_status": "UNKNOWN",
+  "current_real_forward_count": null,
+  "full_controller_exit_code": null,
+  "full_manifest_independently_verified": false,
+  "full_scientific_conclusion": null,
+  "full_attempt_launched_again": false,
+  "recovery_or_retry_authorized": false,
+  "integration_and_full_attempt_opportunities_used": true,
+  "ssh_transport_exit_is_experiment_exit": false,
+  "environment_or_network_configuration_modified": false,
+  "next_action": "At the next scheduled wakeup or new user information, perform one bounded normal read-only connection attempt. If recovered, inspect the original hostname, PID/argv, persisted artifacts and exit evidence before any action. Do not rerun, reschedule workers, or infer success/failure from SSH 255 or logs alone.",
+  "verification_script": "import json,os,signal,subprocess,shutil\nfrom pathlib import Path\nfrom datetime import datetime,timezone\nsignal.signal(signal.SIGALRM,lambda *args:(_ for _ in ()).throw(TimeoutError(\"read-only status timeout\"))); signal.alarm(25)\nroot=Path(\"/root/LCRSeg/runs/di_dmpa_gate1c_v22/9593908bd36f7f833e385a70b2b772b7a8c84d22/attempt1\")\nout=dict(observed_remote_utc=datetime.now(timezone.utc).isoformat(),output_exists=root.exists(),receipts={},processes=[])\nfor name in (\"GATE1C_V2_RUN_METADATA.json\",\"GATE1C_V2_INPUT_AUDIT.json\",\"CACHE_REUSE_AUDIT.json\",\"PHASE_validation_metrics.json\",\"PHASE_poe_metrics.json\",\"PHASE_draw0.json\",\"PHASE_noise.json\",\"PHASE_posterior.json\",\"PHASE_poe.json\",\"NUMERICAL_COMPARISON_AUDIT.json\",\"EXECUTION_COMPLETION.json\",\"GATE1C_V22_STATUS.json\",\"FAILURE_controller.json\",\"FAILURE_after_error_audit.json\"):\n    path=root/name\n    if not path.exists(): continue\n    try:\n        r=json.loads(path.read_text())\n        out[\"receipts\"][name]={k:r[k] for k in (\"status\",\"started_at_utc\",\"controller_pid\",\"cases\",\"pixels\",\"cache_bytes\",\"cache_reuse_approved\",\"new_model_forwards\",\"counts\",\"new_probe_guards\",\"error\",\"elapsed_seconds\") if k in r}\n    except (ValueError,OSError): out[\"receipts\"][name]={\"read\":\"not complete yet\"}\nout[\"failures\"]=[p.name for p in root.glob(\"FAILURE_*.json\")]\nout[\"probe_result_files\"]=len(list(root.glob(\"probes/*/*/result.json\")))\nout[\"manifest_exists\"]=(root/\"GATE1C_V2_ARTIFACT_MANIFEST.json\").exists()\nlog=root/\"controller.log\"\nif log.exists():\n    with log.open(\"rb\") as h: h.seek(max(0,log.stat().st_size-1800)); out[\"controller_log_tail\"]=h.read().decode(errors=\"replace\")\nfor proc in Path(\"/proc\").iterdir():\n    if not proc.name.isdigit() or int(proc.name)==os.getpid(): continue\n    try: argv=[x.decode(errors=\"replace\") for x in (proc/\"cmdline\").read_bytes().split(b\"\\0\") if x]\n    except OSError: continue\n    if \"di_dmpa_gate1c_v2.runner\" in argv: out[\"processes\"].append(dict(pid=int(proc.name),argv=argv))\nout[\"gpus\"]=subprocess.check_output([\"nvidia-smi\",\"--query-gpu=index,memory.used,utilization.gpu\",\"--format=csv,noheader\"],text=True,timeout=10)\nout[\"disk_free_bytes\"]=shutil.disk_usage(\"/root/LCRSeg\").free\nout[\"phase_logs\"]={p.name:p.stat().st_size for p in root.glob(\"*.log\")}\nprint(json.dumps(out,indent=2),flush=True)"
+}
+

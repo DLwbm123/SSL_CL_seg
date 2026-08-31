@@ -1,5 +1,15 @@
 # Gate1C v2.2 execution progress
 
+## Latest handoff: 2026-08-31
+
+The user reported the original compute unavailable and requested a GitHub
+source/results handoff for jiangsuiyang. See the [current report and migration
+boundaries](GATE1C_V22_MIGRATION_HANDOFF_20260831.md). Exact-code synthetic tests
+and the new real integration subsequently passed; the full attempt was launched
+but its outcome is unverified after SSH observation loss. The old-node heartbeat
+is paused. The entries below are preserved historical snapshots, not current
+launch instructions. No historical `launch_ready=false` field is rewritten.
+
 ## Exact-code candidate: 2026-08-31
 
 The conditional authorization was published as

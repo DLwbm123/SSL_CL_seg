@@ -5,6 +5,14 @@ reproducibility metadata for semi-supervised continual segmentation experiments.
 
 The active implementation is under `experiments/lcrseg/`.
 
+## Current JASCL / DI-DMPA handoff
+
+For the current method, start with the [experiment report and jiangsuiyang
+migration handoff](experiments/lcrseg/docs/di_dmpa_jascl/GATE1C_V22_MIGRATION_HANDOFF_20260831.md).
+It distinguishes the tested code, verified integration, interrupted full-run
+observation, and missing private inputs. This is a source/results handoff,
+not permission to rerun an attempt or start method training on another server.
+
 ## Source-only repository
 
 This Git repository intentionally excludes raw datasets, checkpoints, runtime
