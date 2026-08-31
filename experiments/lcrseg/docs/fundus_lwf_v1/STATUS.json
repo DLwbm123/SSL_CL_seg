@@ -1,0 +1,68 @@
+{
+  "engineering_status": "PASS_ENGINEERING",
+  "formal_optimizer_steps_max": 80400,
+  "formal_runs": 6,
+  "formal_steps_per_run": 13400,
+  "heartbeat_minutes": 30,
+  "jobs": [
+    {
+      "arm": "sequential_ssl",
+      "child_pid": 2536932,
+      "config_matches_frozen_plan": true,
+      "gpu": 4,
+      "persisted_steps": 2500,
+      "seed": 0,
+      "state": "RUNNING"
+    },
+    {
+      "arm": "uniform_kd",
+      "gpu": 4,
+      "persisted_steps": 0,
+      "seed": 0,
+      "state": "QUEUED"
+    },
+    {
+      "arm": "sequential_ssl",
+      "child_pid": 2536927,
+      "config_matches_frozen_plan": true,
+      "gpu": 5,
+      "persisted_steps": 2500,
+      "seed": 1,
+      "state": "RUNNING"
+    },
+    {
+      "arm": "uniform_kd",
+      "gpu": 5,
+      "persisted_steps": 0,
+      "seed": 1,
+      "state": "QUEUED"
+    },
+    {
+      "arm": "sequential_ssl",
+      "child_pid": 2536928,
+      "config_matches_frozen_plan": true,
+      "gpu": 6,
+      "persisted_steps": 2500,
+      "seed": 2,
+      "state": "RUNNING"
+    },
+    {
+      "arm": "uniform_kd",
+      "gpu": 6,
+      "persisted_steps": 0,
+      "seed": 2,
+      "state": "QUEUED"
+    }
+  ],
+  "nas_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/fundus_lwf_v1_20260901",
+  "next_action": "Observe existing queues; after all six training_verified and actual exit 0, verify unchanged inputs and prepare the single separate preregistered test evaluation; never relaunch an active worker.",
+  "observed_at": "2026-08-31T18:00:10.982551+00:00",
+  "pmgc_execution_source_unchanged": true,
+  "prototype_derived_new_method_line": "ENDED",
+  "registration_commit": "6d89f39446840365cf709b414ed3c9d26ba5a297",
+  "registration_id": "FUNDUS_LWF_BASELINE_V1",
+  "scientific_result": "PENDING",
+  "status": "FORMAL_TRAINING_RUNNING",
+  "test_evaluation_started": false,
+  "training_code_commit": "4d4c2e4333fd0c75733b58d0c44227b15beedc6b"
+}
