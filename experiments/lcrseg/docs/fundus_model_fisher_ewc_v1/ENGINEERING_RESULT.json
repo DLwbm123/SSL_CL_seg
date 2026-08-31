@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "registration_id": "FUNDUS_MODEL_FISHER_EWC_V1",
+  "status": "FAIL_ENGINEERING_CLOSED",
+  "closed_at": "2026-08-31T23:02:25.811507+00:00",
+  "registration_commit": "eb52f226ff54d3aa0d8ddccf3f159db58dabe338",
+  "execution_commit": "eb641adfbea65e5ccefad2a695c1d7d6bc552071",
+  "engineering_attempts": 1,
+  "maximum_engineering_attempts": 1,
+  "actual_child_exit_code": 1,
+  "cause_category": "CUDA_DEVICE_IDENTITY_VALIDATION",
+  "cause": "The implementation compared an unindexed torch.device(cuda) with live parameter devices cuda:0 and rejected the valid mapped device before Fisher estimation. The shared formal runner would pass the same unindexed device.",
+  "observed_counts": {
+    "model_forward_calls": 18,
+    "fisher_model_forward_calls": 0,
+    "autograd_grad_calls": 0,
+    "optimizer_steps": 2
+  },
+  "registered_maximums": {
+    "model_forward_calls": 37,
+    "autograd_grad_calls": 768,
+    "optimizer_steps": 3,
+    "timeout_seconds": 900
+  },
+  "frozen_input_audit": {
+    "files_rehashed_after_failure": 1119,
+    "bytes_rehashed_after_failure": 157158028,
+    "bytes_unchanged": true,
+    "metadata_and_checksum_hashes_unchanged": true
+  },
+  "hidden_training_gt_used": false,
+  "test_role_used": false,
+  "formal_runs_launched": false,
+  "test_evaluation_started": false,
+  "retry_under_v1_registration": false,
+  "evidence_sha256": {
+    "engineering_launch": "95a8b0e6d13a523e78fb706404ae3e552ef5d27eb3b3185582b2fe4f88fd4419",
+    "input_audit": "7b89fa9313e52b08df91074bf0517d310d7d9cbdbc913eb1078dcdf52a4325d4",
+    "actual_child_exit": "3f17cf4a1bc25540d3f353dbb443e2f97857bc308d8736910df8b98a5a620346",
+    "private_engineering_report": "f0be599dfe0dbd455882f895e0d87cf8a8a4e8441a37e1410f39306904f20222",
+    "post_failure_zero_model_audit": "19c323a230483a8653ff2cdd264866f59de3735fd130d93b41ddc5f86546acba"
+  }
+}
