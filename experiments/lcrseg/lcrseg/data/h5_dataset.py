@@ -142,6 +142,11 @@ class _H5SliceDataset(Dataset[dict[str, Any]]):
             array = image[...] if sample.slice_index is None else image[sample.slice_index]
         return self._to_image_tensor(array, sample.row.get("dataset", ""))
 
+    def image_at(self, index: int) -> torch.Tensor:
+        """Return the normalized image without reading a label or applying transforms."""
+
+        return self._read_image(self.samples[index])
+
     def _read_label(self, sample: SliceRecord) -> torch.Tensor:
         label_rel = sample.row.get("label_h5_relpath", "")
         if not label_rel:
