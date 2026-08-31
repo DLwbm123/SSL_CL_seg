@@ -1,0 +1,21 @@
+{
+  "command": [
+    "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+    "-B",
+    "-c",
+    "from pathlib import Path\nimport pytest,sys,xml.etree.ElementTree as ET\nfrom di_dmpa_gate1c_v3.durable import write_new,sha256\nout=Path(sys.argv[1]); scratch=out/'scratch'\ncode=pytest.main(['-q','-p','no:cacheprovider','tests/di_dmpa_gate1_v2/test_core.py','tests/di_dmpa_gate1_v2/test_pipeline_synthetic.py','--junitxml',str(out/'pytest.xml'),'--basetemp',str(scratch)])\naliases=[]\nfor p in scratch.rglob('*'):\n if p.is_symlink():\n  target=p.resolve();assert p.name.endswith('current') and target.is_relative_to(scratch.resolve());aliases.append(dict(path=str(p.relative_to(scratch)),target=str(target.relative_to(scratch.resolve()))));p.unlink()\nwrite_new(out/'PYTEST_ALIASES.json',dict(aliases=aliases,actual_payloads_removed=0))\nsuites=list(ET.parse(out/'pytest.xml').getroot().iter('testsuite'))\npassed=code==0 and all(int(s.attrib[k])==0 for s in suites for k in ('failures','errors','skipped')) and sum(int(s.attrib['tests']) for s in suites)==33\nwrite_new(out/'K2_GEOMETRY_TEST_REPORT.json',dict(status='PASS' if passed else 'FAIL',tests=33,exit_code=int(code),code_commit='9a33734d3efdb13d93b6260b4476e2c9a3f32831',junit_sha256=sha256(out/'pytest.xml'),real_model_forwards=0,data='synthetic_only'))\nraise SystemExit(0 if passed else 1)\n",
+    "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/receipts/k2_geometry_tests_9a33734"
+  ],
+  "cwd": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_9a33734d3efdb13d93b6260b4476e2c9a3f32831/experiments/lcrseg",
+  "env": {
+    "CUDA_VISIBLE_DEVICES": "",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONPATH": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_9a33734d3efdb13d93b6260b4476e2c9a3f32831/experiments/lcrseg"
+  },
+  "phase": "k2_geometry_tests_9a33734",
+  "requested_at": "2026-08-31T09:20:17.421070+00:00",
+  "schema_version": 1,
+  "supervisor_file_sha256": "a155d60af798b9f8820ed529982272ed432f88959eebbe4110b5e2a54d291e99"
+}
