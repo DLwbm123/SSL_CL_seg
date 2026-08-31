@@ -1,0 +1,13 @@
+# MMPR-GS failures and warnings
+
+Scientific status: `FAIL_MATCHED_MASS_RANKING_NOT_SUPPORTED`. All failures: `FAIL_MATCHED_MASS_RANKING_NOT_SUPPORTED, FAIL_RAW_GRADIENT_COMPATIBILITY`. The complete fixed diagnostic budget was retained. No threshold, mass, pair, target, candidate or aggregation rule was changed after observing outcomes. There was no real-phase retry or rescue. Detailed failed subconditions are in the final F1–F5 table and `MMPR_GS_STATUS.json`.
+
+Before private input access, a local source-draft syntax error was fixed before publication/testing, and the source-transfer setup interpreter initially held a stale import path after checkout; a fresh interpreter fixed the setup import before any experiment launched. One expired SSH control connection was renewed without restarting an experiment. These were setup events, not failed real attempts. The 325-test development pass was superseded by the 326-test exact-source pass after adding the correctly case-weighted boundary summary and regression test, still before private array/tensor access. Both test runs and their fixtures are preserved.
+
+The old `tests/di_dmpa_gate1c_v2/test_real.py` requires old private inputs and extra real forwards; old `tests/di_dmpa_gate1c_v3/test_baseline.py` performs prohibited B0 training/backward/optimizer/GAS operations. Both exclusions were recorded prospectively, before collection. All other relevant reusable Gate1C v2/v3 diagnostics plus the new suite ran unchanged, with 0 skips. Old Gate0 training tests and their historical skip were not rerun or rewritten. The new three-pair integration is the only new real integration.
+
+Public operating rules about automatic push and generic backward/overfit testing are superseded here only by the user's explicit authorization to publish and prohibition on optimizer/backward/training. Frozen data and old reports remain protected. Scientific code, protocols and thresholds were not modified after private data access.
+
+Projection is global: negative local block/class dots do not imply a global constraint failure. Per-class output is a decomposition of the same objective, not class-balanced loss. Full-image exact mass includes ignore pixels; GT255 is removed only for evaluator quality metrics. Unit errors use the registered case weights and exactly18 foreground units.
+
+The archive is an integrity copy using separate files on the same NAS, not independent-device disaster recovery. Source evidence and old archives are preserved. No raw arrays/checkpoints are copied into Git. Public reports and archive/publication receipts are outside the sealed runtime bundle to avoid recursive hashing, with their own manifest/commit proof. No hard-stop limitation is waived by passing engineering checks or F4.
