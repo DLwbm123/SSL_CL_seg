@@ -135,14 +135,6 @@ class ModelFisherEWCSegMethod(SequentialSSLMethod):
             checked_fisher[name] = second.detach().clone().to(parameter.device)
         return checked_reference, checked_fisher, count
 
-    def _load_model_fisher_state(self, statistics: Mapping[str, Any]) -> None:
-        if statistics.get("old_model_state") or statistics.get("old_model_checksum"):
-            raise ValueError("model_fisher_ewc_v1 cannot restore an old teacher")
-        reference, fisher, count = self._validated_state(statistics.get("model_fisher_ewc_state"))
-        self.reference_parameters = reference
-        self.fisher_diagonal = fisher
-        self.completed_consolidations = count
-
     def _load_previous_model(self, previous_checkpoint):  # type: ignore[override]
         payload = load_checkpoint(previous_checkpoint, map_location="cpu")
         if payload["method_name"] != self.method_name or payload["method_version"] != self.method_version:
@@ -352,7 +344,12 @@ class ModelFisherEWCSegMethod(SequentialSSLMethod):
         statistics = state.get("method_statistics")
         if not isinstance(statistics, Mapping):
             raise ValueError("checkpoint lacks method_statistics")
-        self._load_model_fisher_state(statistics)
-        if self.site_index >= 0 and self.completed_consolidations not in {self.site_index, self.site_index + 1}:
+        if statistics.get("old_model_state") or statistics.get("old_model_checksum"):
+            raise ValueError("model_fisher_ewc_v1 cannot restore an old teacher")
+        reference, fisher, count = self._validated_state(statistics.get("model_fisher_ewc_state"))
+        if self.site_index >= 0 and count not in {self.site_index, self.site_index + 1}:
             raise ValueError("checkpoint consolidation count differs from active site")
         super().load_method_state_dict(state)
+        self.reference_parameters = reference
+        self.fisher_diagonal = fisher
+        self.completed_consolidations = count
