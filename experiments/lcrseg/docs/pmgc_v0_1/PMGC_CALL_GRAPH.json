@@ -1,0 +1,4628 @@
+{
+  "backward_called": false,
+  "code_commit": "c3e044f7359c89e157561cbdfe6c9cab0ac46bb5",
+  "data": "synthetic_only",
+  "exact_source_sha256": {
+    "experiments/lcrseg/pmgc_v0_1/__init__.py": "6b6d58ec55856caa9768f8abe00a98fd9562607cc6777b2ef6243ebe4a1c0e63",
+    "experiments/lcrseg/pmgc_v0_1/audit.py": "79c522c86755ff909d3639da0b44f013d5d11f83627ed69f623421e1859b1f7d",
+    "experiments/lcrseg/pmgc_v0_1/core.py": "5052d8fc2b7176c9586e30179c0eed222c710433e2123342c91bb15a2a18b50e",
+    "experiments/lcrseg/pmgc_v0_1/evaluator.py": "3f7b57a743e8ebf28727ba006016dcc01c90669102fb007bbea690cb8a47a648",
+    "experiments/lcrseg/pmgc_v0_1/modes.py": "fa533d81063295c1afe929c81690dd4f21917e87fd17bf798a20bdd0e28b1236",
+    "experiments/lcrseg/pmgc_v0_1/protocol.py": "f922dadba887a85e52347b694eea5134b3ed98584c8a5022d2dffb6d2e84b2c1",
+    "experiments/lcrseg/pmgc_v0_1/report.py": "05be4c0c313ad7161c646c788c5dbec80369a51603e1945fa0d3a2ea93981250",
+    "experiments/lcrseg/pmgc_v0_1/run.py": "74cec3f41fe0c5db75862cf2427cf44d2550e0e6ce74448612310661266016a7",
+    "experiments/lcrseg/pmgc_v0_1/testing.py": "5f617046c4fad848a8d97416d170378515fa656f6b5e74e901ab39ad824efa26",
+    "experiments/lcrseg/tests/pmgc_v0_1/__init__.py": "878ec1c82952c6948284517a79a7d8ed713be1d304319b0e7f559763bb23c941",
+    "experiments/lcrseg/tests/pmgc_v0_1/test_contract.py": "f01bd00476c60b2cd005a064dd5a1d94f3cd057db872132675ad5945b658e7f7",
+    "experiments/lcrseg/tests/pmgc_v0_1/test_gates.py": "1e3cd8686d65a77dd9d9c9e49e3ce5bf28ea0d49203ca079f218bdf587452b9f",
+    "experiments/lcrseg/tests/pmgc_v0_1/test_math.py": "af85f728c6a461c83e4702dc302cd492b70f84b69878eeae36ec6dd058acbe98"
+  },
+  "formal": {
+    "fp64_autograd": 96,
+    "fp64_forwards": 5496,
+    "native_autograd": 96,
+    "native_forwards": 144
+  },
+  "integration": {
+    "fp64_autograd": 12,
+    "fp64_forwards": 687,
+    "native_autograd": 12,
+    "native_forwards": 18
+  },
+  "model": "unchanged Gate1C Tiny synthetic model; real 51/484016 inventory guarded separately in tests and runtime",
+  "model_optimizer_steps": 0,
+  "observed": {
+    "1": {
+      "pair": {
+        "fp64_autograd": 2,
+        "fp64_forwards": 122,
+        "native_autograd": 2,
+        "native_forwards": 3
+      },
+      "pair_trace": [
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "native_forwards",
+          "model": "ema_teacher",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "native_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "native_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        }
+      ],
+      "preparation": {
+        "fp64_autograd": 96,
+        "fp64_forwards": 24,
+        "native_autograd": 0,
+        "native_forwards": 32
+      },
+      "preparation_trace": [
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        }
+      ]
+    },
+    "2": {
+      "pair": {
+        "fp64_autograd": 2,
+        "fp64_forwards": 107,
+        "native_autograd": 2,
+        "native_forwards": 3
+      },
+      "pair_trace": [
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "native_forwards",
+          "model": "ema_teacher",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "native_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "native_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        }
+      ],
+      "preparation": {
+        "fp64_autograd": 60,
+        "fp64_forwards": 21,
+        "native_autograd": 0,
+        "native_forwards": 26
+      },
+      "preparation_trace": [
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": true
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "elements": 1840,
+          "kind": "fp64_autograd",
+          "parameters": 17
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "native_forwards",
+          "model": "old",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        },
+        {
+          "kind": "fp64_forwards",
+          "model": "gradient_student",
+          "shape": [
+            2,
+            3,
+            8,
+            8
+          ],
+          "stochastic": false
+        }
+      ]
+    }
+  },
+  "preparation": {
+    "fp64_autograd": 468,
+    "fp64_forwards": 135,
+    "native_autograd": 0,
+    "native_forwards": 174
+  },
+  "real_model_forwards": 0,
+  "representative_units": "seed0_stage1 and seed0_stage2, identical real prepare/pair/evaluator kernels, real batch counts and shapes scaled to synthetic8x8",
+  "status": "PASS",
+  "total": {
+    "fp64_autograd": 576,
+    "fp64_forwards": 6318,
+    "native_autograd": 108,
+    "native_forwards": 336,
+    "total_forwards": 6654
+  },
+  "total_real_autograd_budget": 684,
+  "total_real_forward_budget": 6654
+}
