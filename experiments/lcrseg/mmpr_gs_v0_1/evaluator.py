@@ -1,6 +1,7 @@
 """Independent validation GT consumer; cannot construct or change MMPR masks."""
 import numpy as np
 
+from di_dmpa_gate1c_v2.binding import DOMAINS
 from .core import require
 
 
@@ -48,8 +49,8 @@ def evaluate_case(scores, masks, labels, *, seed, stage, case):
             require(weight.shape == y.shape and np.isfinite(weight).all() and (weight >= 0).all(), "evaluator weights")
             amount = float(weight[stratum].sum())
             error = float(weight[stratum & ~correct].sum())
-            context = dict(seed=seed, stage_index=stage, case_id=case, class_id=c, candidate=candidate)
-            rows.append(dict(context, level="case", valid_pixels=n, full_pixels=int(full_stratum.sum()),
+            context = dict(seed=seed, stage_index=stage, domain=DOMAINS[stage], case_id=case, class_id=c, candidate=candidate, level="case")
+            rows.append(dict(context, valid_pixels=n, full_pixels=int(full_stratum.sum()),
                              full_mass=float(weight[full_stratum].sum()), R1_full_mass=int(reference[full_stratum].sum()),
                              full_mass_difference=float(weight[full_stratum].sum()-reference[full_stratum].sum()),
                              selected_nonignore_mass=amount, error_mass=error,
@@ -63,7 +64,8 @@ def evaluate_case(scores, masks, labels, *, seed, stage, case):
                 mass = float(weight[selected].sum())
                 good = float(weight[selected & correct].sum())
                 regions.append(dict(context, region=region, valid_pixels=int(selected.sum()), selected_mass=mass,
-                                    correct_mass=good, precision=ratio(good, mass), weighted_error=ratio(mass-good, mass)))
+                                    correct_mass=good, precision=ratio(good, mass), weighted_error=ratio(mass-good, mass),
+                                    case_fraction_selected=mass/n if n else 0.0, case_fraction_correct=good/n if n else 0.0))
             if candidate in ("Q1", "Q2"):
                 chosen = weight.astype(bool)
                 added = stratum & chosen & ~reference
@@ -90,7 +92,7 @@ def aggregate(case_rows):
                     mass = sum(r["case_fraction_selected"] for r in rows)
                     error = sum(r["case_fraction_error"] for r in rows)
                     case_errors = [r["weighted_error"] for r in rows if r["weighted_error"] is not None]
-                    units.append(dict(seed=seed, stage_index=stage, class_id=c, candidate=candidate, level="unit",
+                    units.append(dict(seed=seed, stage_index=stage, domain=DOMAINS[stage], class_id=c, candidate=candidate, level="unit",
                                       cases=len(rows), valid_stratum_cases=sum(r["valid_pixels"] > 0 for r in rows),
                                       weighted_selected_mass=mass, weighted_error_mass=error,
                                       weighted_error=ratio(error, mass), precision=ratio(mass-error, mass),
@@ -105,3 +107,19 @@ def aggregate(case_rows):
         u["relative_error_reduction"] = relative(ref["weighted_error"], u["weighted_error"])
         u["precision_drop"] = ref["precision"]-u["precision"] if ref["precision"] is not None and u["precision"] is not None else None
     return units
+
+
+def aggregate_regions(rows):
+    result = []
+    keys = sorted({(r["seed"], r["stage_index"], r["class_id"], r["candidate"], r["region"]) for r in rows})
+    for seed, stage, cls, candidate, region in keys:
+        group = [r for r in rows if (r["seed"], r["stage_index"], r["class_id"], r["candidate"], r["region"]) ==
+                 (seed, stage, cls, candidate, region)]
+        mass = sum(r["case_fraction_selected"] for r in group)
+        correct = sum(r["case_fraction_correct"] for r in group)
+        result.append(dict(seed=seed, stage_index=stage, domain=DOMAINS[stage], class_id=cls, candidate=candidate,
+                           region=region, level="unit", cases=len(group), valid_pixels=sum(r["valid_pixels"] for r in group),
+                           selected_mass=sum(r["selected_mass"] for r in group), correct_mass=sum(r["correct_mass"] for r in group),
+                           weighted_selected_mass=mass, weighted_correct_mass=correct,
+                           precision=ratio(correct, mass), weighted_error=ratio(mass-correct, mass)))
+    return result

@@ -24,7 +24,7 @@ from lcrseg.acceptance import verify_checksums
 from . import REGISTRATION
 from .core import require, Blocked, mass_match
 from .diagnostic import compute_pair, LIMITS, ROW_COUNTS
-from .evaluator import evaluate_case, aggregate
+from .evaluator import evaluate_case, aggregate, aggregate_regions
 from .report import csv_new, adjudicate
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -225,7 +225,7 @@ def validation(args, reg, p):
         d.write_new(args.output/"MMPR_GS_VALIDATION_DIAGNOSTIC.json", result)
         csv_new(args.output/"mmpr_matched_mass_classwise.csv", case_rows+units)
         csv_new(args.output/"mmpr_selection_changes.csv", changes)
-        csv_new(args.output/"mmpr_boundary_interior.csv", regions)
+        csv_new(args.output/"mmpr_boundary_interior.csv", regions+aggregate_regions(regions))
         csv_new(args.output/"mmpr_selection_mass_and_ties.csv", selection)
         with (args.output/"MMPR_GS_VALIDATION_DIAGNOSTIC.md").open("x") as f:
             f.write("# MMPR-GS validation diagnostic\n\nAll495 old caches were read-only, original unrounded scores were reproduced, and Q1/Q2 masks were sealed before any validation GT read. Full-image class/case mass is exact. GT255 is ignored only in the independent evaluator. See the CSVs for every case, class, selection change and boundary/interior stratum. No model forward or optimizer operation was performed. Scientific F2 is adjudicated with all18 units in the final report.\n")

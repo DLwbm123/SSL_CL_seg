@@ -133,6 +133,15 @@ def test_boundary_ignore_and_interior():
     assert not boundary[0, 0]
 
 
+def test_boundary_unit_aggregation_keeps_case_weights():
+    context = dict(seed=0, stage_index=0, class_id=1, candidate="Q1", region="boundary")
+    rows = [dict(context, valid_pixels=100, selected_mass=90, correct_mass=90, case_fraction_selected=.9, case_fraction_correct=.9),
+            dict(context, valid_pixels=1000, selected_mass=10, correct_mass=0, case_fraction_selected=.01, case_fraction_correct=0.)]
+    unit = evaluator.aggregate_regions(rows)[0]
+    assert unit["cases"] == 2 and unit["precision"] == pytest.approx(90/91)
+    assert unit["selected_mass"] == 100 and unit["domain"] == "REFUGE"
+
+
 @pytest.mark.parametrize("zero", [False, True])
 def test_loss_formula_detach_and_graph_connected_zero(zero):
     logits = torch.randn(2, 3, 2, 4, dtype=torch.float64, requires_grad=True)
