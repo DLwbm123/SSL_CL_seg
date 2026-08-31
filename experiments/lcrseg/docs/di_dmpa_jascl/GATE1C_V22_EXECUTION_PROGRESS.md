@@ -1,5 +1,16 @@
 # Gate1C v2.2 execution progress
 
+## Recovery update: 2026-08-31
+
+SSH access has recovered. The [live byte/metadata precheck](gate1c_v22_preflight/LIVE_RECOVERY_PREFLIGHT.json)
+passed with the original failure and pilot artifacts intact; its initial
+overbroad bytecode-clean assertion and correction are both retained. The
+[independent conditional authorization](GATE1C_V22_EXECUTION_AUTHORIZATION.md)
+is now recorded for publication before implementation. **NOT_LAUNCH_READY**:
+no new full runner, exact-code synthetic suite, cache numerical audit or new
+real integration is complete. Zero new tensor/array loads, forwards or updates.
+The earlier connection-blocker account below is historical, not current.
+
 Recorded 2026-08-31 Asia/Shanghai. **NOT_LAUNCH_READY**. This is not a scientific
 Gate1C verdict. No new checkpoint tensor, cache array or GT has been loaded,
 and no new model forward, optimizer update or formal diagnostic has run in
