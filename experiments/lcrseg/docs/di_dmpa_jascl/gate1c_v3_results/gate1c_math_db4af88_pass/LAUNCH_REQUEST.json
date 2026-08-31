@@ -1,0 +1,22 @@
+{
+  "command": [
+    "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+    "-B",
+    "-c",
+    "from pathlib import Path\nimport sys,json,subprocess\nfrom di_dmpa_gate1c_v3.durable import write_new,sha256\ncode='db4af88eca0dca48025f8884bf7f85e068eabf2a'\nassert subprocess.check_output([\"git\",\"rev-parse\",\"HEAD\"],text=True).strip()==code\nassert not subprocess.check_output([\"git\",\"status\",\"--porcelain\",\"--untracked-files=no\"],text=True).strip()\nimport pytest,xml.etree.ElementTree as ET\nout=Path(sys.argv[1]);scratch=out/\"scratch\"\nwrite_new(out/\"RUNTIME_EXACT_CODE.json\",dict(code_commit=code,tracked_source_clean=True,python=sys.executable))\ncommand=[\"-q\",\"-p\",\"no:cacheprovider\",\"tests/di_dmpa_gate1c_v2\",\"tests/di_dmpa_gate1c_v3\",\"--ignore=tests/di_dmpa_gate1c_v2/test_real.py\",\"--junitxml\",str(out/\"pytest.xml\"),\"--basetemp\",str(scratch)]\nexit=pytest.main(command)\naliases=[]\nfor p in scratch.rglob(\"*\"):\n if p.is_symlink():\n  target=p.resolve();assert p.name.endswith(\"current\") and target.is_relative_to(scratch.resolve());aliases.append(dict(path=str(p.relative_to(scratch)),target=str(target.relative_to(scratch.resolve()))));p.unlink()\nwrite_new(out/\"PYTEST_ALIASES.json\",dict(aliases=aliases,actual_payloads_removed=0))\ntree=ET.parse(out/\"pytest.xml\");cases=list(tree.iter(\"testcase\"));suites=list(tree.iter(\"testsuite\"))\npassed=exit==0 and len(cases)==248 and all(int(s.get(k))==0 for s in suites for k in (\"failures\",\"errors\",\"skipped\"))\nwrite_new(out/\"GATE1C_MATH_TEST_REPORT.json\",dict(status=\"PASS\" if passed else \"FAIL\",testcases=len(cases),junit_total=sum(int(s.get(\"tests\")) for s in suites),exit_code=int(exit),code_commit=code,junit_sha256=sha256(out/\"pytest.xml\"),real_gate1c_forwards=0,data=\"synthetic_only\",excluded_module=\"test_real.py: historical private input forbidden\",pytest_arguments=command))\nraise SystemExit(0 if passed else 1)\n",
+    "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/receipts/gate1c_math_tests_db4af88"
+  ],
+  "cwd": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_db4af88eca0dca48025f8884bf7f85e068eabf2a/experiments/lcrseg",
+  "env": {
+    "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+    "CUDA_VISIBLE_DEVICES": "",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1",
+    "PYTHONPATH": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_db4af88eca0dca48025f8884bf7f85e068eabf2a/experiments/lcrseg"
+  },
+  "phase": "gate1c_math_tests_db4af88",
+  "requested_at": "2026-08-31T09:55:41.919378+00:00",
+  "schema_version": 1,
+  "supervisor_file_sha256": "a155d60af798b9f8820ed529982272ed432f88959eebbe4110b5e2a54d291e99"
+}
