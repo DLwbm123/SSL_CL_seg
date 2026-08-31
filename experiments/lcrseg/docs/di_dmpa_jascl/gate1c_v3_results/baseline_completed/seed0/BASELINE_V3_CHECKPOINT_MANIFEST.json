@@ -1,0 +1,417 @@
+{
+  "checkpoints": [
+    {
+      "best_metric": 0.8214337799313016,
+      "bytes": 7836544,
+      "checkpoint_id": "B0/seed0/stage0",
+      "classifier_sha256": {
+        "ema_teacher": "84d575e4a2e9fb6f8dd3eab1ca1478435d6e2beed798433153893656e4b8f478",
+        "student": "563dcb22efaa4a5984a1d96af3f1942ed8ada92d7804c44750033ade8c8a619e"
+      },
+      "domain": "REFUGE",
+      "field_sha256": {
+        "best_metric": "f1a3aa40d44ac513aa14f9d678e078c0a93f7ca74e9edcaa3cf9ad14fec61fe6",
+        "ema_teacher": "7013b20a6f560c17c54eae42d7594e6cd94a5c2a9117a72b58be8fe9b54a9003",
+        "gas_state": "e935167b6898b7be7411b6e66faeef7a5feaf1999dbf4757bbca63b4b2338420",
+        "optimizer": "a418308bba7058d20b764008afd76602ad4769d4cec9a9c6d9896a9dafb3df1a",
+        "prototype_counts": "b1ff884e855c2177fb88bda74f4de989a61e7a9a830cdbefa7c854172897a2b4",
+        "prototype_valid_mask": "1d7a3195505adb5bf59b872a2c251482ded55959c2544e84e2998273f7cff662",
+        "prototypes": "a1768f5bf7d3a10282732f3c5dc727995a3937bfad974b35c70dc03fae21b512",
+        "rng_state": "3429bf6d2198e8ceb0c53a26cae4d618afaa1e7e1ca0bbf1301ae3ec000abae2",
+        "sampler_state": "a622203e1c35b2c80490b178c2ee21437cb67f77990a8275e59853fb95356d2a",
+        "scheduler": "70fcaaeb2dcdef48e2b99437c5cdf3afbc0aa41498d3d240ff3175bc198cdc5a",
+        "stage_state": "46b939fdeced57ab50b765ce059adf328c71a170ebc7d4a46552a46bbbaeea5d",
+        "student": "234d7a45587230a28137f43385a2cc1bc214ee6e01a6ce1582697a91f3e6bc5c"
+      },
+      "independent_evaluation": {
+        "REFUGE": {
+          "confusion_matrix": [
+            [
+              12903347,
+              147551,
+              6160
+            ],
+            [
+              85970,
+              1074499,
+              85693
+            ],
+            [
+              6115,
+              67008,
+              369257
+            ]
+          ],
+          "domain": "REFUGE",
+          "evaluation_classifier": "posterior_mean",
+          "gt_consumer": "evaluator_only",
+          "mean_dice": 0.8852080557968148,
+          "mean_foreground_dice": 0.8325294063004705,
+          "mean_iou": 0.8026976497456463,
+          "per_class_dice": [
+            0.9905653547895038,
+            0.8476574025133914,
+            0.8174014100875494
+          ],
+          "per_class_iou": [
+            0.9813070707345718,
+            0.7355949561894435,
+            0.6911909223129233
+          ],
+          "role": "test"
+        }
+      },
+      "independent_load": true,
+      "legacy_pas_capture": {
+        "additional_model_forwards": 0,
+        "bank_sha256": "a1768f5bf7d3a10282732f3c5dc727995a3937bfad974b35c70dc03fae21b512",
+        "binding": {
+          "authorization_sha256": "10f0d89df6157881989a86e0e02dcb8148817fea4363c98045a492c8a72e5ba6",
+          "checksums_sha256": "e9c49329b1bbbd976f166efb605448eecd342173450fcd3e0681d472d0a1b768",
+          "code_commit": "4e3e2740e1ecd3285390a5f051c439a044fe3d9a",
+          "config_sha256": "4177f4534ea3ff1508ddb2cc3e7333e44a916166ca4cd00c17115f30e2bded9a",
+          "data_audit_sha256": "15ec42a522f946822177eb511f502c16cad561cd3abfb4653d6fd0c47522b837",
+          "domain_protocol_sha256": "3e2da51b2aeb92a80f59fdf96b4a96a129cc937851230c2f920ad706ceb90359",
+          "fundus_split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+          "official_jascl_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+          "preregistration_sha256": "2825986ae34122ddbc653c735849a72f94d8fab243e11104e7b5bb85769eb50c",
+          "seed": 0,
+          "training_manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"
+        },
+        "captured_at": "2026-08-31T08:45:26.289060+00:00",
+        "counts_sha256": "b1ff884e855c2177fb88bda74f4de989a61e7a9a830cdbefa7c854172897a2b4",
+        "domain": "REFUGE",
+        "epoch": 25,
+        "global_step": 520,
+        "prototype_forward_batches": 20,
+        "reconstruction": false,
+        "rng_after_sha256": "6c257c0c62ff3122113a9ab5d156d09372c594190f3bc3480b6531fb07f5a301",
+        "rng_before_sha256": "e52661800cf13130eac5c18b46021c2616a6302ee84e28eca23fdfc96678e193",
+        "seed": 0,
+        "source": "unchanged_compute_single_prototypes_live_return",
+        "source_role": "train_labeled",
+        "stage_index": 0,
+        "student_state_before_sha256": "252e38ec1ace091dc138729af24dfe43c9ce154aa69172cbd45cb2948a47f20f",
+        "valid_mask_sha256": "1d7a3195505adb5bf59b872a2c251482ded55959c2544e84e2998273f7cff662"
+      },
+      "model_and_rng_unchanged": true,
+      "path": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/B0_seed0/training/stage_0_REFUGE/best.pt",
+      "seed": 0,
+      "selected_epoch": 76,
+      "sha256": "9e09d93ddb4ee0176adc84c65d1d899a0c57822029085ce6ab34855133a675b0",
+      "stage_index": 0
+    },
+    {
+      "best_metric": 0.6932713032431647,
+      "bytes": 7836608,
+      "checkpoint_id": "B0/seed0/stage1",
+      "classifier_sha256": {
+        "ema_teacher": "831de677f68e64ac258cf7611c090b4f032271d5d6b8b2f537ffb3b433adbbd6",
+        "student": "c9d23650ae3efe21c82549a56fb22096c11e6dc47d77e8d52308b4de6f7ae83e"
+      },
+      "domain": "RIM_ONE_r3",
+      "field_sha256": {
+        "best_metric": "bbd568f7f0e0869a65b2afecf26193ebed72fe6859d811c8fc021ef6b3cbeb0d",
+        "ema_teacher": "434ac4e38870f7ef88851c87d702a44e5aca93cbfc4f8fa014e0da1f19155698",
+        "gas_state": "2d6a4fb1a81ab7d34c370d2079db12dce474a36b02843b68f43363b7d01a046d",
+        "optimizer": "3fb4ecd080abde18b1c751abf3a465d241a555a37c85c7d39704d2722256cd7d",
+        "prototype_counts": "0db79e91c180bcb8906878fa5c5c3402e1190c68bf3b878774eb702f3e05a8fa",
+        "prototype_valid_mask": "1d7a3195505adb5bf59b872a2c251482ded55959c2544e84e2998273f7cff662",
+        "prototypes": "d022c36a4597c0bf2fe498e454a74ef26a9bf555cfb66e0af93375744400737d",
+        "rng_state": "d8f0b29ace2a5918bce88fa3bba12476ffe06ce125034470a0fe2d079450df6c",
+        "sampler_state": "fb50e70adef600ee744de5ad470ab6a812d1321b5be585c9a21de9efd19d6cdb",
+        "scheduler": "1d7636234623a45f85ca97b858978aeef255407ca799d5474b87e09ca27abf9e",
+        "stage_state": "a5cdd254d10bf52b9824182b8d60957918595d387365b51f12f823b9e877c46d",
+        "student": "26b25608752980dd235605b59b8e9242bc5d26d6561cbbf7897d12cf79b2644b"
+      },
+      "independent_evaluation": {
+        "REFUGE": {
+          "confusion_matrix": [
+            [
+              13010651,
+              43024,
+              3383
+            ],
+            [
+              505112,
+              691327,
+              49723
+            ],
+            [
+              15521,
+              149832,
+              277027
+            ]
+          ],
+          "domain": "REFUGE",
+          "evaluation_classifier": "posterior_mean",
+          "gt_consumer": "evaluator_only",
+          "mean_dice": 0.781637168630683,
+          "mean_foreground_dice": 0.6831190729830541,
+          "mean_iou": 0.6659182521995944,
+          "per_class_dice": [
+            0.9786733599259405,
+            0.6490282090459526,
+            0.7172099369201554
+          ],
+          "per_class_iou": [
+            0.9582373762961611,
+            0.48041581133800965,
+            0.5591015689646125
+          ],
+          "role": "test"
+        },
+        "RIM_ONE_r3": {
+          "confusion_matrix": [
+            [
+              5260588,
+              50251,
+              1328
+            ],
+            [
+              72208,
+              328455,
+              41579
+            ],
+            [
+              1248,
+              42771,
+              99812
+            ]
+          ],
+          "domain": "RIM_ONE_r3",
+          "evaluation_classifier": "posterior_mean",
+          "gt_consumer": "evaluator_only",
+          "mean_dice": 0.8151538711841796,
+          "mean_foreground_dice": 0.7286030837769789,
+          "mean_iou": 0.7083060743686517,
+          "per_class_dice": [
+            0.9882554459985811,
+            0.7605598580093758,
+            0.6966463095445821
+          ],
+          "per_class_iou": [
+            0.9767835587452,
+            0.6136317779637711,
+            0.534502886396984
+          ],
+          "role": "test"
+        }
+      },
+      "independent_load": true,
+      "legacy_pas_capture": {
+        "additional_model_forwards": 0,
+        "bank_sha256": "d022c36a4597c0bf2fe498e454a74ef26a9bf555cfb66e0af93375744400737d",
+        "binding": {
+          "authorization_sha256": "10f0d89df6157881989a86e0e02dcb8148817fea4363c98045a492c8a72e5ba6",
+          "checksums_sha256": "e9c49329b1bbbd976f166efb605448eecd342173450fcd3e0681d472d0a1b768",
+          "code_commit": "4e3e2740e1ecd3285390a5f051c439a044fe3d9a",
+          "config_sha256": "4177f4534ea3ff1508ddb2cc3e7333e44a916166ca4cd00c17115f30e2bded9a",
+          "data_audit_sha256": "15ec42a522f946822177eb511f502c16cad561cd3abfb4653d6fd0c47522b837",
+          "domain_protocol_sha256": "3e2da51b2aeb92a80f59fdf96b4a96a129cc937851230c2f920ad706ceb90359",
+          "fundus_split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+          "official_jascl_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+          "preregistration_sha256": "2825986ae34122ddbc653c735849a72f94d8fab243e11104e7b5bb85769eb50c",
+          "seed": 0,
+          "training_manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"
+        },
+        "captured_at": "2026-08-31T08:52:34.411025+00:00",
+        "counts_sha256": "0db79e91c180bcb8906878fa5c5c3402e1190c68bf3b878774eb702f3e05a8fa",
+        "domain": "RIM_ONE_r3",
+        "epoch": 25,
+        "global_step": 3408,
+        "prototype_forward_batches": 8,
+        "reconstruction": false,
+        "rng_after_sha256": "8dbc918515924030e93831c13874aaa222119a85eeaa14ab11abd05468a9b507",
+        "rng_before_sha256": "d5ab31b49e9fac0854501205c31bdede0fbb10161e0e73306015d3d22b46a87e",
+        "seed": 0,
+        "source": "unchanged_compute_single_prototypes_live_return",
+        "source_role": "train_labeled",
+        "stage_index": 1,
+        "student_state_before_sha256": "205d7ded90bfc77c271e3e353694b98118e3bd73743f65d33e3ffe49bbfece43",
+        "valid_mask_sha256": "1d7a3195505adb5bf59b872a2c251482ded55959c2544e84e2998273f7cff662"
+      },
+      "model_and_rng_unchanged": true,
+      "path": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/B0_seed0/training/stage_1_RIM_ONE_r3/best.pt",
+      "seed": 0,
+      "selected_epoch": 48,
+      "sha256": "ae5fc61aa9927a642bf8660a30183b68bbcb6e30e40060f223667705770e249a",
+      "stage_index": 1
+    },
+    {
+      "best_metric": 0.7613465316689624,
+      "bytes": 7836736,
+      "checkpoint_id": "B0/seed0/stage2",
+      "classifier_sha256": {
+        "ema_teacher": "25728d87232843570f336cb8a0e524bd40df0f0c96a425932d232d4a7b1fd5b3",
+        "student": "d72543137aef716e4a7ecdd84a0fd609275a9addd7d5d9447150aaf29a8fad40"
+      },
+      "domain": "Drishti_GS",
+      "field_sha256": {
+        "best_metric": "809e7bcf24991205f797915392d0affe961d43b62c086d9cd48cc436a9a058bb",
+        "ema_teacher": "a05a7a565f7de53ca74ead640519a34d934f16443441e15246104429768a1f41",
+        "gas_state": "9a63199dbde03531d57be75ffc33cc19c7de9043660d0f9a0fa4c6037a342645",
+        "optimizer": "3fe6fe2e08b45986f78c6bdffe2aab6bf59cdfa2fb9522cbf6ee9843dee7565b",
+        "prototype_counts": "98d10a2a3813ac7486739cacbd9bdc1c38184cff1f573699401caa18da566fee",
+        "prototype_valid_mask": "1d7a3195505adb5bf59b872a2c251482ded55959c2544e84e2998273f7cff662",
+        "prototypes": "26243b6ae6f96df22cedff11cd357444874fb3e052217b645fa4a4adb3237d79",
+        "rng_state": "d309e6714c545eae5024faae1085f6d4de32b2b538bcbcd4ffe5e3e4c8be2872",
+        "sampler_state": "72c61a93c79a5bb75a69b87dcf3c56d41724db738ec309f6daf46d4b85c61d26",
+        "scheduler": "f51eaedfce0b87f5bd23251ab447b790945ccaccb75df5002e77ee48600beed1",
+        "stage_state": "bc193c6b6a17b1dbcc118c08e3584c0713e1a9fdde568d6d7b219f6f558e8f17",
+        "student": "226883f58d320fcab86e89a550229240bdf93ac560a2aaa5cc7677fc044b9ec1"
+      },
+      "independent_evaluation": {
+        "Drishti_GS": {
+          "confusion_matrix": [
+            [
+              3058360,
+              29834,
+              135
+            ],
+            [
+              21683,
+              282866,
+              22139
+            ],
+            [
+              20,
+              72127,
+              199236
+            ]
+          ],
+          "domain": "Drishti_GS",
+          "evaluation_classifier": "posterior_mean",
+          "gt_consumer": "evaluator_only",
+          "mean_dice": 0.8650557416192662,
+          "mean_foreground_dice": 0.8017720621901985,
+          "mean_iou": 0.7739172054680564,
+          "per_class_dice": [
+            0.9916231004774015,
+            0.7951090279192989,
+            0.808435096461098
+          ],
+          "per_class_iou": [
+            0.9833853799575053,
+            0.659901224545024,
+            0.6784650119016403
+          ],
+          "role": "test"
+        },
+        "REFUGE": {
+          "confusion_matrix": [
+            [
+              12578598,
+              457309,
+              21151
+            ],
+            [
+              135279,
+              669454,
+              441429
+            ],
+            [
+              5072,
+              24667,
+              412641
+            ]
+          ],
+          "domain": "REFUGE",
+          "evaluation_classifier": "posterior_mean",
+          "gt_consumer": "evaluator_only",
+          "mean_dice": 0.720261122926952,
+          "mean_foreground_dice": 0.5923953085359367,
+          "mean_iou": 0.5988242690454441,
+          "per_class_dice": [
+            0.9759927517089827,
+            0.5584386334288737,
+            0.6263519836429997
+          ],
+          "per_class_iou": [
+            0.9531111750798964,
+            0.38738457229688833,
+            0.4559770597595474
+          ],
+          "role": "test"
+        },
+        "RIM_ONE_r3": {
+          "confusion_matrix": [
+            [
+              5017538,
+              271401,
+              23228
+            ],
+            [
+              10845,
+              201059,
+              230338
+            ],
+            [
+              27,
+              10376,
+              133428
+            ]
+          ],
+          "domain": "RIM_ONE_r3",
+          "evaluation_classifier": "posterior_mean",
+          "gt_consumer": "evaluator_only",
+          "mean_dice": 0.6359536523083688,
+          "mean_foreground_dice": 0.46870242977629506,
+          "mean_iou": 0.5186870744586451,
+          "per_class_dice": [
+            0.970456097372516,
+            0.43468550760044017,
+            0.50271935195215
+          ],
+          "per_class_iou": [
+            0.9426077847635533,
+            0.2776985134368021,
+            0.3357549251755801
+          ],
+          "role": "test"
+        }
+      },
+      "independent_load": true,
+      "legacy_pas_capture": {
+        "additional_model_forwards": 0,
+        "bank_sha256": "26243b6ae6f96df22cedff11cd357444874fb3e052217b645fa4a4adb3237d79",
+        "binding": {
+          "authorization_sha256": "10f0d89df6157881989a86e0e02dcb8148817fea4363c98045a492c8a72e5ba6",
+          "checksums_sha256": "e9c49329b1bbbd976f166efb605448eecd342173450fcd3e0681d472d0a1b768",
+          "code_commit": "4e3e2740e1ecd3285390a5f051c439a044fe3d9a",
+          "config_sha256": "4177f4534ea3ff1508ddb2cc3e7333e44a916166ca4cd00c17115f30e2bded9a",
+          "data_audit_sha256": "15ec42a522f946822177eb511f502c16cad561cd3abfb4653d6fd0c47522b837",
+          "domain_protocol_sha256": "3e2da51b2aeb92a80f59fdf96b4a96a129cc937851230c2f920ad706ceb90359",
+          "fundus_split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+          "official_jascl_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+          "preregistration_sha256": "2825986ae34122ddbc653c735849a72f94d8fab243e11104e7b5bb85769eb50c",
+          "seed": 0,
+          "training_manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"
+        },
+        "captured_at": "2026-08-31T08:55:31.803401+00:00",
+        "counts_sha256": "98d10a2a3813ac7486739cacbd9bdc1c38184cff1f573699401caa18da566fee",
+        "domain": "Drishti_GS",
+        "epoch": 25,
+        "global_step": 4610,
+        "prototype_forward_batches": 5,
+        "reconstruction": false,
+        "rng_after_sha256": "c091748af8bb00a972ee6b777363a8a09c91b9d23e0f8957baa364d2d2f4eb1a",
+        "rng_before_sha256": "3c1e97826a928cd9dcb5b350b7be47a7b179456288a10e2c3dd1cd15176f8071",
+        "seed": 0,
+        "source": "unchanged_compute_single_prototypes_live_return",
+        "source_role": "train_labeled",
+        "stage_index": 2,
+        "student_state_before_sha256": "f9360db2e2a201d6bed5c6d3d45208897bb37a95d97bc6f6c720337b36851ed4",
+        "valid_mask_sha256": "1d7a3195505adb5bf59b872a2c251482ded55959c2544e84e2998273f7cff662"
+      },
+      "model_and_rng_unchanged": true,
+      "path": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/B0_seed0/training/stage_2_Drishti_GS/best.pt",
+      "seed": 0,
+      "selected_epoch": 37,
+      "sha256": "cf710e6ab0de5063fa097ac78c21316c546385d5239628f1fbec3b5cb85e36b9",
+      "stage_index": 2
+    }
+  ],
+  "seed": 0,
+  "status": "PASS"
+}

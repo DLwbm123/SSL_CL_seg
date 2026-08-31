@@ -1,0 +1,114 @@
+{
+  "code_root": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_4e3e2740e1ecd3285390a5f051c439a044fe3d9a/experiments/lcrseg",
+  "diagnostic_forward_budget_consumed": 0,
+  "frozen_config": {
+    "augmentation": {
+      "labeled": {
+        "horizontal_flip_probability": 0.5,
+        "label_fill": 255,
+        "resize_to_stored_shape": true,
+        "translation_pixels": 2
+      },
+      "unlabeled": {
+        "resize_to_stored_shape": true,
+        "stochastic_augmentation": false
+      }
+    },
+    "benchmark": "fundus",
+    "data": {
+      "domain_order": [
+        "REFUGE",
+        "RIM_ONE_r3",
+        "Drishti_GS"
+      ],
+      "evaluation_role": "test",
+      "protocol": "docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml",
+      "require_frozen_hashes": true,
+      "root": "/home/jiangsuiyang/SSL_CL",
+      "test_gt_policy": "evaluator_only",
+      "train_roles": [
+        "train_labeled",
+        "train_unlabeled"
+      ],
+      "validation_role": "val"
+    },
+    "evaluation_classifier": "posterior_mean",
+    "method": {
+      "constant_patch_regularization_in_gas": false,
+      "use_constant_patch_classifier_regularization": false,
+      "use_domain_indexed_bank": false,
+      "use_history_gate": false,
+      "use_multi_proto_loss": false,
+      "use_multi_prototype": false,
+      "use_proto_inference": false,
+      "use_soft_proto_fusion": false,
+      "use_transport": false
+    },
+    "method_registered": false,
+    "model": {
+      "base_channels": 16,
+      "classifier_kernel_size": 3,
+      "classifier_padding": 1,
+      "implementation": "lcrseg_unet2d_jascl_3x3_stochastic_head",
+      "input_channels": 3,
+      "normalization": "groupnorm",
+      "num_classes": 3,
+      "reference_root": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+      "upstream_path": "Semi-Supervised_Natural-FoSSIL/inc/deeplab_gaps_meanT"
+    },
+    "name": "gate0_repaired",
+    "objective_name": "probability_mse_on_joint_pas_validity",
+    "schema_version": 2,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "semantic_version": 2,
+    "training": {
+      "checkpoint_interval_steps": 50,
+      "confidence_threshold": 0.7,
+      "deterministic": true,
+      "deterministic_unsupported_kernel_policy": "warn_only",
+      "epochs_per_stage": 100,
+      "ignore_label": 255,
+      "labeled_batch_size": 2,
+      "lambda_u": 0.5,
+      "lr": 0.001,
+      "num_workers": 0,
+      "optimizer": "adam",
+      "prototype_start_epoch": 25,
+      "pseudo_label_interval_epochs": 5,
+      "resume_equivalence_atol": 1e-06,
+      "resume_equivalence_rtol": 1e-06,
+      "scheduler": "polynomial",
+      "scheduler_power": 0.9,
+      "similarity_threshold": 0.7,
+      "teacher_ema_alpha": 0.99,
+      "teacher_mode": "upstream_eval",
+      "unlabeled_batch_size": 2,
+      "weak_strong_augmentation": false,
+      "weight_decay": 4e-05
+    },
+    "upstream_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53"
+  },
+  "method_training": false,
+  "model": "unchanged_repaired_Gate0_UNet_JASCL",
+  "physical_gpu": 7,
+  "provenance": {
+    "authorization_sha256": "10f0d89df6157881989a86e0e02dcb8148817fea4363c98045a492c8a72e5ba6",
+    "checksums_sha256": "e9c49329b1bbbd976f166efb605448eecd342173450fcd3e0681d472d0a1b768",
+    "code_commit": "4e3e2740e1ecd3285390a5f051c439a044fe3d9a",
+    "config_sha256": "4177f4534ea3ff1508ddb2cc3e7333e44a916166ca4cd00c17115f30e2bded9a",
+    "data_audit_sha256": "15ec42a522f946822177eb511f502c16cad561cd3abfb4653d6fd0c47522b837",
+    "domain_protocol_sha256": "3e2da51b2aeb92a80f59fdf96b4a96a129cc937851230c2f920ad706ceb90359",
+    "fundus_split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3",
+    "official_jascl_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+    "preregistration_sha256": "2825986ae34122ddbc653c735849a72f94d8fab243e11104e7b5bb85769eb50c",
+    "seed": 2,
+    "training_manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727"
+  },
+  "seed": 2,
+  "shared_gpu": true,
+  "started_at": "2026-08-31T08:58:55.265139+00:00"
+}
