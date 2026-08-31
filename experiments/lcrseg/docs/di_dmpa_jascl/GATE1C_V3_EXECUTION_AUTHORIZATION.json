@@ -1,0 +1,103 @@
+{
+  "all_real_commands_require_server_local_supervisor": true,
+  "allowed_physical_gpus": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "authorized_at": "2026-08-31T09:48:31.881959+00:00",
+  "baseline_manifest_sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d",
+  "branch": "codex/gate1c-v3-clean-regeneration",
+  "budget": {
+    "formal": 1800,
+    "integration": 75,
+    "total": 2865,
+    "validation": 990
+  },
+  "code_commit": "90b9d87bb6b8d4d40850f6c05d641d519b8d8161",
+  "forbidden": [
+    "old v2.2 retry or private input recovery",
+    "legacy PAS reconstruction",
+    "learned transport/T1/T2/R4/Gate1B",
+    "optimizer/backward/parameter.grad writes/EMA/GAS/prototype updates",
+    "hidden unlabeled GT/test GT in Gate1C",
+    "threshold/case/seed/draw/coverage changes or undefined-row deletion",
+    "C0 regeneration",
+    "reduced-method implementation/training",
+    "Gate2",
+    "Prostate",
+    "MnMS",
+    "full sweep",
+    "main merge",
+    "DI-DMPA reproduced/PASS_CORE_ADMISSION claims"
+  ],
+  "formal_authorized_only_after_new_integration_and_local_archive_PASS": true,
+  "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+  "k2_freeze_sha256": "f39d764832d7b88087fef9a25a618752ec2a8d0167efe24c55da16a4cfde5a7b",
+  "model_optimizer_steps": 0,
+  "next_action_after_report": "COMMIT_PUSH_VERIFY_REMOTE_SHA_AND_HARD_STOP_FOR_INDEPENDENT_REVIEW",
+  "old_v22_retry_authorized": false,
+  "output_roots": {
+    "formal": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/formal_v3_attempt1",
+    "integration": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/integration_v3_attempt1",
+    "validation": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/validation_v3"
+  },
+  "phase_gates": {
+    "automatic_retries": false,
+    "cpu_metric_workers": 2,
+    "create_only": true,
+    "formal_gpu_mapping": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "formal_order": [
+      "validation_metrics",
+      "draw0",
+      "noise",
+      "posterior",
+      "poe",
+      "poe_metrics"
+    ],
+    "integration_before_formal": "all 3 pairs x 4 phases, 75 forwards, 12 guards, all numerical gates, new goldens, actual parent exit 0, private archive verified",
+    "integration_gpu_mapping": [
+      4,
+      5,
+      6
+    ],
+    "maximum_integration_attempts": 1,
+    "maximum_worker_phase_seconds": 21600,
+    "minimum_free_bytes": 34359738368,
+    "no_automatic_second_integration": true,
+    "supervisor": "server-local parent writes actual child exit; SSH status is never experiment exit",
+    "validation_before_integration": "all 495 cases, 990 forwards, 9 guards, full byte manifest, actual parent exit 0, verified private archive",
+    "validation_evaluators": "nine primary reliability units plus nine zero-forward offline PoE evaluations of the same fresh caches",
+    "validation_gpu_mapping": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "worker_assignment": "fixed ordered units/pairs round-robin by shard; no result-based reassignment"
+  },
+  "preregistration_commit": "60622e219db28ffb47c65e07929448b9c2b45e1d",
+  "preregistration_md_sha256": "0e01eea5b41dacdbc98dece65916ecceca0a636b52c78f766082cb9b28447782",
+  "preregistration_sha256": "3a191d18ce978da9313b05259f866660cc388ee5219c1b97532e3a03aa4ae407",
+  "protocol": "DI_DMPA_GATE1C_V3_CLEAN_REGEN_K2_IDENTITY_HISTORY",
+  "retry_authorized": false,
+  "runtime_evidence_commit": "d695ee5ad9d2211f907d3a63a668064f56962b8f",
+  "schema_version": 3,
+  "scope": [
+    "fresh_validation",
+    "one_new_v3_integration",
+    "conditional_formal_diagnostic",
+    "archive_report_publish_hard_stop"
+  ],
+  "shared_gpu_use_authorized": true,
+  "status": "AUTHORIZED_GATE1C_V3_CLEAN_REGEN_DIAGNOSTIC_ONLY",
+  "stop_or_reserve_existing_jobs": false,
+  "transport_optimizer_steps": 0,
+  "user_authority": "User clean-regeneration instructions plus explicit physical GPU4/5/6/7 shared-use permission in this task; no additional training/method authority implied."
+}
