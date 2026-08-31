@@ -1,5 +1,6 @@
 """Fresh cache observations preserve numerical values and reject contract drift."""
 import copy
+import json
 from pathlib import Path
 
 import numpy as np
@@ -10,6 +11,7 @@ from di_dmpa_gate1c_v2 import binding as b, execution as e
 from di_dmpa_gate1c_v3 import PROTOCOL
 from di_dmpa_gate1c_v3.binding import BUDGET, INTEGRATION_IDS, validate_contract
 from di_dmpa_gate1c_v3.validation import capture, validate_raw
+from di_dmpa_gate1c_v3.durable import canonical, write_new
 
 
 def test_new_contract_only_rebinds_checkpoint_identity():
@@ -37,6 +39,23 @@ def test_new_contract_only_rebinds_checkpoint_identity():
     changed["legacy_prototype_reconstruction"] = {}
     with pytest.raises(b.ProtocolError, match="reconstruction"):
         validate_contract(changed, old)
+
+
+def test_published_preregistration_hash_must_survive_create_only_serialization(tmp_path):
+    root = Path(__file__).resolve().parents[2] / "docs/di_dmpa_jascl"
+    old = b.read_json(root / "DI_DMPA_GATE1C_V2_PREREGISTRATION.json")
+    published = b.read_json(root / "DI_DMPA_GATE1C_V3_PREREGISTRATION.json")
+    with pytest.raises(b.ProtocolError, match="incomplete v3 fixed pairs"):
+        validate_contract(published, old)
+    corrected = json.loads(canonical(published))
+    corrected["fixed_batch_pairs_sha256"] = b.H(corrected["gradient_diagnostic"]["batch_pairs"])
+    path = tmp_path / "corrected.json"
+    write_new(path, corrected)
+    reloaded = b.read_json(path)
+    assert {k: v for k, v in reloaded.items() if k != "fixed_batch_pairs_sha256"} == {
+        k: v for k, v in published.items() if k != "fixed_batch_pairs_sha256"}
+    assert reloaded["gradient_diagnostic"]["batch_pairs"] == published["gradient_diagnostic"]["batch_pairs"]
+    validate_contract(reloaded, old)
 
 
 def test_capture_preserves_native_scores_pas_nulls_and_raw_values(tmp_path):

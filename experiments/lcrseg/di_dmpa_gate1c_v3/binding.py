@@ -51,12 +51,16 @@ def load_authority(args):
     b.check_hash(args.authorization, args.authorization_sha256)
     auth = read(args.authorization)
     b.require(auth["status"] == "AUTHORIZED_GATE1C_V3_CLEAN_REGEN_DIAGNOSTIC_ONLY", "missing v3 authorization")
-    reg_path = args.authorization.parent / "DI_DMPA_GATE1C_V3_PREREGISTRATION.json"
+    reg_name = auth.get("preregistration_filename", "DI_DMPA_GATE1C_V3_PREREGISTRATION.json")
+    b.require(reg_name in ("DI_DMPA_GATE1C_V3_PREREGISTRATION.json", "DI_DMPA_GATE1C_V3_PREREGISTRATION_SERIALIZATION_ERRATUM.json")
+              and args.authorization.name in ("GATE1C_V3_EXECUTION_AUTHORIZATION.json", "GATE1C_V3_EXECUTION_AUTHORIZATION_SERIALIZATION_ERRATUM.json"),
+              "unregistered authority filename")
+    reg_path = args.authorization.parent / reg_name
     b.check_hash(reg_path, auth["preregistration_sha256"])
     p = read(reg_path)
     b.require(git_revision(ROOT) == p["code_commit"] == auth["code_commit"], "wrong exact execution code")
-    for commit, filename, digest in ((auth["preregistration_commit"], "DI_DMPA_GATE1C_V3_PREREGISTRATION.json", auth["preregistration_sha256"]),
-                                     (args.authorization_commit, "GATE1C_V3_EXECUTION_AUTHORIZATION.json", args.authorization_sha256)):
+    for commit, filename, digest in ((auth["preregistration_commit"], reg_name, auth["preregistration_sha256"]),
+                                     (args.authorization_commit, args.authorization.name, args.authorization_sha256)):
         import hashlib
         blob = subprocess.check_output(["git", "-C", str(ROOT), "show", f"{commit}:experiments/lcrseg/docs/di_dmpa_jascl/{filename}"])
         b.require(hashlib.sha256(blob).hexdigest() == digest, "publication commit binding mismatch")
