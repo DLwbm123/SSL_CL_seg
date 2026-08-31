@@ -1,0 +1,110 @@
+{
+  "allowed_work": [
+    "MMPR score-to-mask",
+    "gradient-safe projection",
+    "synthetic/unit diagnostics and existing permitted Gate1C regressions",
+    "read-only full bundle audit and 495-cache evaluation",
+    "new fixed3-pair draw0 integration then fixed72-pair draw0 diagnostic",
+    "adjudication, private NAS archive and public source/reports"
+  ],
+  "authority": "Explicit user request pasted attachment 7f4a4b85-2e68-4961-844a-0f65d8862374; unchanged GPU4/5/6/7 and NAS storage instructions",
+  "authorized_at_utc": "2026-08-31T12:47:27.320495+00:00",
+  "base_commit": "ad0e1d47b76165beccd118db41242a3025044504",
+  "branch": "codex/mmpr-gs-v0-1-feasibility",
+  "closure_commit": "ac746fe8f1d335036ee35bb2f2f041aac3aae118",
+  "closure_remote_verified_commit": "ac746fe8f1d335036ee35bb2f2f041aac3aae118",
+  "destination": {
+    "NAS_write_probe_required": true,
+    "all_large_outputs_and_scratch_on_NAS": true,
+    "allowed_physical_gpus": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "host": "10.12.208.180",
+    "hostname": "zmic44",
+    "kill_or_reserve_other_jobs": false,
+    "no_HOME_fallback": true,
+    "phase_roots": {
+      "final_audit": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/final_audit",
+      "formal": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/formal",
+      "input_audit": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/input_audit",
+      "integration": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/integration",
+      "validation": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/validation"
+    },
+    "port": 22,
+    "private_archive": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/archives",
+    "root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831",
+    "shared_existing_jobs_allowed": true,
+    "storage_mount": "/data_nas",
+    "uid": 1006,
+    "user": "jiangsuiyang",
+    "wrapper": "/home/jiangsuiyang/SSL_CL/with_nas_storage.sh"
+  },
+  "exact_call_graph": {
+    "fp64_autograd": 6,
+    "fp64_forwards": 2,
+    "gradient_alignment_rows": 2,
+    "gradient_blockwise_rows": 12,
+    "gradient_class_component_rows": 21,
+    "model_guard": 1,
+    "native_autograd": 3,
+    "native_forwards": 3,
+    "precision_comparison_rows": 21,
+    "projection_retention_rows": 7,
+    "raw_mask_case_class_rows": 6,
+    "total_forwards": 5
+  },
+  "flags": {
+    "DI_DMPA_additional_attempts_authorized": false,
+    "method_registered": false,
+    "model_optimizer_steps": 0,
+    "training_launched": false,
+    "transport_optimizer_steps": 0
+  },
+  "forbidden": [
+    "C0 or B0 regeneration",
+    "segmentation optimizer step",
+    "backward()",
+    "parameter.grad writes",
+    "optimizer construction",
+    "EMA/GAS/prototype update",
+    "method training",
+    "online prototype lifecycle",
+    "Gate2",
+    "Prostate",
+    "MnMS",
+    "learned transport",
+    "PoE target",
+    "posterior mean rescue",
+    "teacher noise phase",
+    "class-balanced loss",
+    "prototype contrastive loss",
+    "replay",
+    "prototype inference",
+    "main merge"
+  ],
+  "hard_stop": "After report commit/push/remote SHA verification, stop for independent review. No method implementation/training/refresh/full sweep. If feasibility fails prototype pseudo-label selection remains stopped; relation-consolidation or any other method needs a separate registration.",
+  "pre_authorization_state": {
+    "checkpoint_tensor_reads": 0,
+    "gradient_computations": 0,
+    "model_forwards": 0,
+    "new_scientific_results": 0,
+    "private_cache_array_reads": 0
+  },
+  "preregistration_commit": "13494e175a2f5cd9a262c03c22d3ca45bfda7619",
+  "preregistration_json_sha256": "8dcd6091613150abbdf6b3621de921f2988475bee95f3248449353c04aa11018",
+  "preregistration_md_sha256": "ebdbe34d038d392f349552b9fa67c03c6ee0d74d2d10e343f869af09a4516483",
+  "preregistration_remote_verified_commit": "13494e175a2f5cd9a262c03c22d3ca45bfda7619",
+  "prerequisites": [
+    "This authorization must itself be pushed and remotely SHA-verified before any checkpoint tensor/cache-array/forward/gradient/new scientific result",
+    "Exact implementation and synthetic call graph must be committed/pushed and remotely verified before any real forward",
+    "Input content/manifest hash and all tests must pass before real execution",
+    "Integration must PASS before formal"
+  ],
+  "real_forward_ceiling": 375,
+  "registration_id": "MMPR_GS_V0_1_MASS_MATCHED_R3_RANKING",
+  "schema_version": 1,
+  "status": "AUTHORIZED_MMPR_GS_V0_1_FEASIBILITY_ONLY"
+}
