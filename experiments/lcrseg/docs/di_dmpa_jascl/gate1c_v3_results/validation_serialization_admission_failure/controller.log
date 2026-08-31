@@ -1,0 +1,16 @@
+Traceback (most recent call last):
+  File "/home/jiangsuiyang/anaconda3/envs/py38/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/home/jiangsuiyang/anaconda3/envs/py38/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_90b9d87bb6b8d4d40850f6c05d641d519b8d8161/experiments/lcrseg/di_dmpa_gate1c_v3/execution.py", line 460, in <module>
+    main()
+  File "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_90b9d87bb6b8d4d40850f6c05d641d519b8d8161/experiments/lcrseg/di_dmpa_gate1c_v3/execution.py", line 445, in main
+    p, freeze, meta = load_authority(args)
+  File "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_90b9d87bb6b8d4d40850f6c05d641d519b8d8161/experiments/lcrseg/di_dmpa_gate1c_v3/binding.py", line 69, in load_authority
+    validate_contract(p, read(inherited))
+  File "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_90b9d87bb6b8d4d40850f6c05d641d519b8d8161/experiments/lcrseg/di_dmpa_gate1c_v3/binding.py", line 38, in validate_contract
+    b.require(len(pairs) == 72 and b.H(pairs) == p["fixed_batch_pairs_sha256"], "incomplete v3 fixed pairs")
+  File "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_90b9d87bb6b8d4d40850f6c05d641d519b8d8161/experiments/lcrseg/di_dmpa_gate1/binding.py", line 32, in require
+    raise ProtocolError(message)
+di_dmpa_gate1.binding.ProtocolError: incomplete v3 fixed pairs
