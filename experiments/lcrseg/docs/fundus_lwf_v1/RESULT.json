@@ -1,0 +1,109 @@
+{
+  "status": "FAIL_BASELINE_FEASIBILITY",
+  "started_at": "2026-08-31T18:52:39Z",
+  "training_commit": "4d4c2e4333fd0c75733b58d0c44227b15beedc6b",
+  "readout_commit": "3ff05c22877436a8c6d18d02a6abfb40051e37da",
+  "registration_sha256": "70dc562b87c8d49740253d9c91b5497cdce637dcd1320f2edaf5341b27b07c09",
+  "forwards": 612,
+  "images": 2430,
+  "optimizer_steps": 0,
+  "cells": 36,
+  "per_seed_arm": [
+    {
+      "seed": 0,
+      "arm": "sequential_ssl",
+      "F": 0.6398402920597607,
+      "I": 0.7798685295516611,
+      "BWT": -0.2100423562378504
+    },
+    {
+      "seed": 0,
+      "arm": "uniform_kd",
+      "F": 0.6622701335626326,
+      "I": 0.7463182652864816,
+      "BWT": -0.12607219758577315
+    },
+    {
+      "seed": 1,
+      "arm": "sequential_ssl",
+      "F": 0.6380730241190803,
+      "I": 0.7584961320079153,
+      "BWT": -0.18063466183325266
+    },
+    {
+      "seed": 1,
+      "arm": "uniform_kd",
+      "F": 0.6938412267531632,
+      "I": 0.7654417649409293,
+      "BWT": -0.10740080728164925
+    },
+    {
+      "seed": 2,
+      "arm": "sequential_ssl",
+      "F": 0.6179421906567845,
+      "I": 0.7622273899328502,
+      "BWT": -0.21642779891409863
+    },
+    {
+      "seed": 2,
+      "arm": "uniform_kd",
+      "F": 0.7112047232940317,
+      "I": 0.7586384797987965,
+      "BWT": -0.07115063475714711
+    }
+  ],
+  "paired": [
+    {
+      "seed": 0,
+      "F": 0.022429841502871972,
+      "I": -0.033550264265179486,
+      "BWT": 0.08397015865207724
+    },
+    {
+      "seed": 1,
+      "F": 0.055768202634082886,
+      "I": 0.006945632933013979,
+      "BWT": 0.07323385455160342
+    },
+    {
+      "seed": 2,
+      "F": 0.09326253263724726,
+      "I": -0.0035889101340537133,
+      "BWT": 0.14527716415695152
+    }
+  ],
+  "gates": {
+    "mean_final_dice_improvement": {
+      "observed": 0.05715352559140071,
+      "minimum": 0.01,
+      "passed": true
+    },
+    "positive_final_dice_seeds": {
+      "observed": 3,
+      "minimum": 2,
+      "passed": true
+    },
+    "per_seed_final_dice_improvement": {
+      "observed": 0.022429841502871972,
+      "minimum": -0.01,
+      "passed": true
+    },
+    "mean_bwt_improvement": {
+      "observed": 0.10082705912021073,
+      "minimum": 0.01,
+      "passed": true
+    },
+    "mean_incoming_dice_improvement": {
+      "observed": -0.010064513822073073,
+      "minimum": -0.01,
+      "passed": false
+    }
+  },
+  "failed_gates": [
+    "mean_incoming_dice_improvement"
+  ],
+  "input_checkpoint_bytes_unchanged": true,
+  "test_role_usage": "evaluator_only",
+  "hidden_training_labels_used": false,
+  "finished_at": "2026-08-31T18:54:28Z"
+}

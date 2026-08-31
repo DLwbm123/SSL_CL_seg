@@ -1,68 +1,124 @@
 {
+  "archive": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/fundus_lwf_v1_20260901/archives/5b7227dab85f9329cda903f622c23034c390f96eb7ae38983320e062daa2c9a0",
+  "archive_content_sha256": "5b7227dab85f9329cda903f622c23034c390f96eb7ae38983320e062daa2c9a0",
+  "archive_exit_code": 0,
+  "archive_status": "PASS_PRIVATE_ARCHIVE",
+  "artifact_audit_exit_code": 0,
+  "artifact_audit_model_forwards": 0,
+  "artifact_audit_status": "PASS_ARTIFACT_AUDIT",
+  "artifact_auditor_commit": "1452fe5a612ce60954317732211d4bb07dd6e574",
   "engineering_status": "PASS_ENGINEERING",
+  "evidence_sha256": {
+    "operations/archive_1/ARCHIVE_RECEIPT.json": "b02ecf0d74eaa1225f86a1cbaef895cac43428271b26f451aa49e33131c381a2",
+    "operations/archive_1/exit.json": "39b63475a35a64cdf9a048f7847fe15f3f1ec541c091cf8d5ee3c099653538b5",
+    "operations/artifact_audit/AUDIT.json": "2c7127069cf37763ad2825861368a8fd98e1730943c9e1ab24cb0c954f2b79f7",
+    "operations/artifact_audit/exit.json": "f7e7ee0f1aa7acd183c21273564d39c8aef3831b40ecf609e57d45ecf9d57eff",
+    "operations/readout_tests_2/junit.xml": "b4fe9aa352becb40968414e61641f1b45b5fb8124fade2a7ac8859f5cb612d65",
+    "operations/test_evaluation/exit.json": "3423030f93bb1240754f6faf443d38e97081c8a7931b7ff4fd095e2d5646337f",
+    "operations/training_admission/PRE_TEST_ADMISSION.json": "793f608d3ddcff51cca3692a61df76b77877071e10863d35ad47ad7294cc5809",
+    "test_evaluation/ADMISSION.json": "65e84ed70cab6d0dac25c731b6718c04b8422a3a152cd8267d328f5fa9730027",
+    "test_evaluation/INPUT_HASHES.json": "883770a9e35604d69fd0434f0e3b8d5c463041b1d6d6224be1b6fc92d8d05400",
+    "test_evaluation/PREDICTIONS.json": "67e811a3b07a6191d16d9fd86a4fa2d633b1cf2b852715b53ea3f6ba17d8235a",
+    "test_evaluation/RESULT.json": "556adabdb85830b66f23d811861cdc8c01def096a8576a95cbd0f99e4368d568",
+    "test_evaluation/cells.csv": "938e6d3cd11427f55cf83be2c46c791ca9315c056d8c3078283a97339536b67b",
+    "test_evaluation/per_case.csv": "95df3b7c3a1e622669807ccacefcaa0a861948b567dfd56c2ba70c54b18e763f"
+  },
+  "failed_gates": [
+    "mean_incoming_dice_improvement"
+  ],
+  "formal_optimizer_steps": 80400,
   "formal_optimizer_steps_max": 80400,
   "formal_runs": 6,
   "formal_steps_per_run": 13400,
   "heartbeat_minutes": 30,
+  "independent_scientific_peer_review": false,
   "jobs": [
     {
       "arm": "sequential_ssl",
-      "child_pid": 2536932,
-      "config_matches_frozen_plan": true,
+      "completed_steps": 13400,
+      "exit_code": 0,
+      "exited_at": "2026-08-31T18:15:45.782977+00:00",
       "gpu": 4,
-      "persisted_steps": 2500,
+      "process_absent": true,
       "seed": 0,
-      "state": "RUNNING"
+      "verified": "PASS_TRAINING_ARTIFACTS"
     },
     {
       "arm": "uniform_kd",
+      "completed_steps": 13400,
+      "exit_code": 0,
+      "exited_at": "2026-08-31T18:38:21.107704+00:00",
       "gpu": 4,
-      "persisted_steps": 0,
+      "process_absent": true,
       "seed": 0,
-      "state": "QUEUED"
+      "verified": "PASS_TRAINING_ARTIFACTS"
     },
     {
       "arm": "sequential_ssl",
-      "child_pid": 2536927,
-      "config_matches_frozen_plan": true,
+      "completed_steps": 13400,
+      "exit_code": 0,
+      "exited_at": "2026-08-31T18:15:27.875984+00:00",
       "gpu": 5,
-      "persisted_steps": 2500,
+      "process_absent": true,
       "seed": 1,
-      "state": "RUNNING"
+      "verified": "PASS_TRAINING_ARTIFACTS"
     },
     {
       "arm": "uniform_kd",
+      "completed_steps": 13400,
+      "exit_code": 0,
+      "exited_at": "2026-08-31T18:37:37.097241+00:00",
       "gpu": 5,
-      "persisted_steps": 0,
+      "process_absent": true,
       "seed": 1,
-      "state": "QUEUED"
+      "verified": "PASS_TRAINING_ARTIFACTS"
     },
     {
       "arm": "sequential_ssl",
-      "child_pid": 2536928,
-      "config_matches_frozen_plan": true,
+      "completed_steps": 13400,
+      "exit_code": 0,
+      "exited_at": "2026-08-31T18:15:26.071424+00:00",
       "gpu": 6,
-      "persisted_steps": 2500,
+      "process_absent": true,
       "seed": 2,
-      "state": "RUNNING"
+      "verified": "PASS_TRAINING_ARTIFACTS"
     },
     {
       "arm": "uniform_kd",
+      "completed_steps": 13400,
+      "exit_code": 0,
+      "exited_at": "2026-08-31T18:37:46.058391+00:00",
       "gpu": 6,
-      "persisted_steps": 0,
+      "process_absent": true,
       "seed": 2,
-      "state": "QUEUED"
+      "verified": "PASS_TRAINING_ARTIFACTS"
     }
   ],
-  "nas_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/fundus_lwf_v1_20260901",
-  "next_action": "Observe existing queues; after all six training_verified and actual exit 0, verify unchanged inputs and prepare the single separate preregistered test evaluation; never relaunch an active worker.",
-  "observed_at": "2026-08-31T18:00:10.982551+00:00",
-  "pmgc_execution_source_unchanged": true,
+  "mean_paired_delta": {
+    "BWT": 0.10082705912021073,
+    "F": 0.05715352559140071,
+    "I": -0.010064513822073073
+  },
+  "next_action": "This registration is closed. Continue a bounded source and comparability audit of an external non-prototype method; register a separate finite study before any new real-data computation. Do not tune, repeat or rescue this fixed KD comparison.",
+  "observed_at": "2026-08-31T19:10:19.011203+00:00",
+  "overall_project_success": false,
+  "pmgc_status": "CLOSED_FAIL_PMGC_FEASIBILITY",
   "prototype_derived_new_method_line": "ENDED",
+  "queue_exit_codes": [
+    0,
+    0,
+    0
+  ],
+  "readout_code_commit": "3ff05c22877436a8c6d18d02a6abfb40051e37da",
   "registration_commit": "6d89f39446840365cf709b414ed3c9d26ba5a297",
   "registration_id": "FUNDUS_LWF_BASELINE_V1",
-  "scientific_result": "PENDING",
-  "status": "FORMAL_TRAINING_RUNNING",
-  "test_evaluation_started": false,
+  "scientific_result": "FAIL_BASELINE_FEASIBILITY",
+  "status": "CLOSED_FAIL_BASELINE_FEASIBILITY",
+  "test_case_predictions": 2430,
+  "test_cells": 36,
+  "test_evaluation_attempts": 1,
+  "test_evaluation_exit_code": 0,
+  "test_evaluation_started": true,
+  "test_forward_calls": 612,
   "training_code_commit": "4d4c2e4333fd0c75733b58d0c44227b15beedc6b"
 }
