@@ -19,7 +19,7 @@ class SequentialSSLMethod(ContinualSegMethod):
     def __init__(self, *args: Any, static: bool = False, **kwargs: Any) -> None:
         super().__init__(*args, **kwargs)
         self.static = bool(static)
-        self.method_name = "static_ssl" if self.static else "sequential_ssl"
+        self.method_name = "static_ssl" if self.static else type(self).method_name
 
     @torch.no_grad()
     def _weak_pseudo(self, unlabeled_batch: UnlabeledBatch) -> tuple[torch.Tensor, torch.Tensor]:
