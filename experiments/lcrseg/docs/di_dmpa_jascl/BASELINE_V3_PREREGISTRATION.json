@@ -1,0 +1,205 @@
+{
+  "allowed_physical_gpus": [
+    5,
+    6,
+    7
+  ],
+  "archive_policy": [
+    "server-local phase receipts with actual child exit",
+    "remote content-addressed full private bundle manifest",
+    "remote verify",
+    "private local incoming transfer",
+    "every byte and SHA verify",
+    "same-filesystem atomic promotion",
+    "retain remote copy"
+  ],
+  "base_commit": "70ba3dfb4fc989a5149a6343d857e7d10fd2017d",
+  "branch": "codex/gate1c-v3-clean-regeneration",
+  "checksums_sha256": "e9c49329b1bbbd976f166efb605448eecd342173450fcd3e0681d472d0a1b768",
+  "code_commit": "90b45990b70d67ce325d638a223a1e003ca06003",
+  "data_access": {
+    "gate1c_test_gt_usage": "none",
+    "hidden_gt_training_usage": "none",
+    "test": "unchanged original evaluator-only six-cell lower-triangular matrix, never selection/training/reliability fitting",
+    "test_gt_training_or_selection_usage": "none",
+    "training": "current-domain train_labeled/train_unlabeled only",
+    "validation": "unchanged posterior-mean model selection and diagnostic evaluator only"
+  },
+  "data_audit_sha256": "15ec42a522f946822177eb511f502c16cad561cd3abfb4653d6fd0c47522b837",
+  "destination": {
+    "data_root": "/home/jiangsuiyang/SSL_CL",
+    "hostname": "zmic44",
+    "jascl_reference": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+    "run_root": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs",
+    "uid": 1006
+  },
+  "diagnostic_forwards_authorized_by_this_registration": 0,
+  "drift_review": {
+    "comparison": "descriptive only against immutable old public B0",
+    "label": "REGEN_BASELINE_DRIFT_REVIEW",
+    "same_seed_final_fg_Dice_absolute_difference_pp_gt": 5,
+    "three_seed_mean_fg_Dice_absolute_difference_pp_gt": 3,
+    "tuning_to_recover_old_numbers": false
+  },
+  "expected_global_steps_per_seed": 5295,
+  "forbidden": [
+    "C0 regeneration",
+    "method training",
+    "learned transport",
+    "Gate1B",
+    "Gate2",
+    "Prostate",
+    "MnMS",
+    "full sweep",
+    "main merge",
+    "legacy PAS reconstruction",
+    "same-attempt old v2.2 retry"
+  ],
+  "frozen_payload_bytes": 1850621123,
+  "frozen_payload_files": 2962,
+  "frozen_source_sha256": {
+    "configs/gate0_repaired_v2/fundus_pas_probmse.yaml": "0ed4e7b1a3db0540f91f3a59acc6aa7e76ac09277038afd7b3037700487ca632",
+    "di_dmpa_jascl/checkpoint.py": "8f31d51c2a04b1a9abdd986f65abadeb88e8a1e765cf94d346f0461e982da625",
+    "di_dmpa_jascl/config.py": "80aa403e6830dd6bcd61045dda43f9c2a15602a0f6a00e6438859a995f1e4a38",
+    "di_dmpa_jascl/data.py": "3a2b13401813198b97095c82e57c0e2e76ce24632b3f0471c8c8d31ed83f7881",
+    "di_dmpa_jascl/manifest.py": "f49a9636e8d91bca23348dc177bfff5aa3bbdfa06859021510a7fe214ea82c14",
+    "di_dmpa_jascl/modeling.py": "3c6f0c1621eb90b53bfcbd814bc511342e6bf677847906bbe06769d1e77af190",
+    "di_dmpa_jascl/runner.py": "59f6dd744a4f208ea3ca435e656ce3ca039a8d03dd78948cf42917ac770f6410",
+    "docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml": "3e2da51b2aeb92a80f59fdf96b4a96a129cc937851230c2f920ad706ceb90359"
+  },
+  "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+  "minimum_free_bytes_before_seed": 10737418240,
+  "protocol": "BASELINE_V3_B0_CLEAN_REGENERATION",
+  "registered_at": "2026-08-31T08:26:19.069456+00:00",
+  "required_seed0_gates": [
+    "training_complete",
+    "independent_complete_checkpoint_load",
+    "complete_stage_by_domain_matrices",
+    "leakage",
+    "server_local_actual_exit_0",
+    "remote_bundle_verified",
+    "private_local_archive_every_byte_sha_verified"
+  ],
+  "resolved_config": {
+    "augmentation": {
+      "labeled": {
+        "horizontal_flip_probability": 0.5,
+        "label_fill": 255,
+        "resize_to_stored_shape": true,
+        "translation_pixels": 2
+      },
+      "unlabeled": {
+        "resize_to_stored_shape": true,
+        "stochastic_augmentation": false
+      }
+    },
+    "benchmark": "fundus",
+    "data": {
+      "domain_order": [
+        "REFUGE",
+        "RIM_ONE_r3",
+        "Drishti_GS"
+      ],
+      "evaluation_role": "test",
+      "protocol": "docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml",
+      "require_frozen_hashes": true,
+      "root": "/home/jiangsuiyang/SSL_CL",
+      "test_gt_policy": "evaluator_only",
+      "train_roles": [
+        "train_labeled",
+        "train_unlabeled"
+      ],
+      "validation_role": "val"
+    },
+    "evaluation_classifier": "posterior_mean",
+    "method": {
+      "constant_patch_regularization_in_gas": false,
+      "use_constant_patch_classifier_regularization": false,
+      "use_domain_indexed_bank": false,
+      "use_history_gate": false,
+      "use_multi_proto_loss": false,
+      "use_multi_prototype": false,
+      "use_proto_inference": false,
+      "use_soft_proto_fusion": false,
+      "use_transport": false
+    },
+    "method_registered": false,
+    "model": {
+      "base_channels": 16,
+      "classifier_kernel_size": 3,
+      "classifier_padding": 1,
+      "implementation": "lcrseg_unet2d_jascl_3x3_stochastic_head",
+      "input_channels": 3,
+      "normalization": "groupnorm",
+      "num_classes": 3,
+      "reference_root": "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+      "upstream_path": "Semi-Supervised_Natural-FoSSIL/inc/deeplab_gaps_meanT"
+    },
+    "name": "gate0_repaired",
+    "objective_name": "probability_mse_on_joint_pas_validity",
+    "schema_version": 2,
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "semantic_version": 2,
+    "training": {
+      "checkpoint_interval_steps": 50,
+      "confidence_threshold": 0.7,
+      "deterministic": true,
+      "deterministic_unsupported_kernel_policy": "warn_only",
+      "epochs_per_stage": 100,
+      "ignore_label": 255,
+      "labeled_batch_size": 2,
+      "lambda_u": 0.5,
+      "lr": 0.001,
+      "num_workers": 0,
+      "optimizer": "adam",
+      "prototype_start_epoch": 25,
+      "pseudo_label_interval_epochs": 5,
+      "resume_equivalence_atol": 1e-06,
+      "resume_equivalence_rtol": 1e-06,
+      "scheduler": "polynomial",
+      "scheduler_power": 0.9,
+      "similarity_threshold": 0.7,
+      "teacher_ema_alpha": 0.99,
+      "teacher_mode": "upstream_eval",
+      "unlabeled_batch_size": 2,
+      "weak_strong_augmentation": false,
+      "weight_decay": 4e-05
+    },
+    "upstream_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53"
+  },
+  "resolved_config_sha256": "4177f4534ea3ff1508ddb2cc3e7333e44a916166ca4cd00c17115f30e2bded9a",
+  "schema_version": 1,
+  "seed_order": {
+    "after_seed0_pass": [
+      1,
+      2
+    ],
+    "first": 0,
+    "seed1_seed2_may_share_separate_allowed_gpus": true
+  },
+  "shared_gpu_use": true,
+  "stage_bank_capture": {
+    "additional_model_forwards": 0,
+    "counts": "exact class counts observed from the same augmented labeled prototype batches",
+    "early_best": "preserve selected model/EMA/optimizer/scheduler/GAS/RNG/sampler/metric byte values; at stage completion seal that stage best with the actually captured live stage bank; record capture time and selection epoch",
+    "last_checkpoint_resume_semantics": "unchanged original engine; no automatic retry authority",
+    "reconstructed": false,
+    "sealed_stage_best_resume_allowed": false,
+    "valid_mask": "positive observed count and finite nonzero actual bank",
+    "when": "actual original epoch-index 25 prototype return"
+  },
+  "status": "PROSPECTIVELY_REGISTERED_NOT_YET_EXECUTION_AUTHORIZED",
+  "test_requirements": {
+    "disclosed_legacy_old_path_skip": "duplicate TinySegNet six-step /root/LCRSeg test; four production-model synthetic trajectories and v3 resume execute",
+    "fixed_batch_golden_backward_two_case_overfit": true,
+    "no_unexpected_failures_or_skips": true,
+    "production_UNet_CUDA_synthetic_resume": 4,
+    "source_commit": "90b45990b70d67ce325d638a223a1e003ca06003",
+    "v3_live_bank_early_best_three_stage_independent_audit": true
+  },
+  "upstream_commit": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53"
+}
