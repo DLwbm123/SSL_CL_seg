@@ -57,7 +57,7 @@ def resolve_method_config(name: str, config: Mapping[str, Any] | None = None) ->
         ewc_config = dict(EWC_DEFAULTS)
         ewc_config.update(provided)
         return merged_method_config(ewc_config)
-    if normalized == "model_fisher_ewc_v1":
+    if normalized in {"model_fisher_ewc_v1", "model_fisher_ewc_v2"}:
         from .model_fisher_ewc_v1 import resolve_model_fisher_config
 
         return resolve_model_fisher_config(provided)
@@ -92,6 +92,10 @@ def build_method(name: str, model: UNet2D, *, config: Mapping[str, Any] | None =
         from .model_fisher_ewc_v1 import ModelFisherEWCSegMethod
 
         return ModelFisherEWCSegMethod(model, config=config, static=False)
+    if normalized == "model_fisher_ewc_v2":
+        from .model_fisher_ewc_v2 import ModelFisherEWCV2SegMethod
+
+        return ModelFisherEWCV2SegMethod(model, config=config, static=False)
     if normalized in {"lcrseg_v0_1", "lcrseg", "lcr"}:
         from .lcrseg_v0_1 import LCRSegV01Method
 

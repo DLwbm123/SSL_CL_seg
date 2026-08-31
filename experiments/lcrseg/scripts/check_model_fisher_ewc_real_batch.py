@@ -36,6 +36,9 @@ from scripts.verify_resume_equivalence import compare
 
 
 REGISTRATION_SHA256 = "316bc9fefef0ce8ce433c28d156d35ecbc6f26991cfe459ffd37f42b4020183e"
+REGISTRATION_PATH = "docs/fundus_model_fisher_ewc_v1/registration.json"
+REGISTRATION_ID = "FUNDUS_MODEL_FISHER_EWC_V1"
+METHOD_ARM = "model_fisher_ewc_v1"
 
 
 def require(condition, message):
@@ -71,13 +74,20 @@ def referenced_files(data_root: Path, *datasets) -> list[Path]:
     return sorted(files)
 
 
-def main():
+def main(
+    *,
+    registration_path=REGISTRATION_PATH,
+    registration_sha256=REGISTRATION_SHA256,
+    registration_id=REGISTRATION_ID,
+    method_arm=METHOD_ARM,
+):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", required=True, type=Path)
     args = parser.parse_args()
-    registration = PROJECT_ROOT / "docs/fundus_model_fisher_ewc_v1/registration.json"
-    require(sha256(registration) == REGISTRATION_SHA256, "registration bytes differ")
+    registration = PROJECT_ROOT / registration_path
+    require(sha256(registration) == registration_sha256, "registration bytes differ")
     reg = json.loads(registration.read_text())
+    require(reg["registration_id"] == registration_id, "registration identity differs")
     output = args.output_dir.resolve()
     require(output == Path(reg["nas_root"]) / "real_batch", "unexpected output directory")
     require(
@@ -99,7 +109,7 @@ def main():
         "schema_version": 1,
         "status": "RUNNING",
         "registration_id": reg["registration_id"],
-        "registration_sha256": REGISTRATION_SHA256,
+        "registration_sha256": registration_sha256,
         "arms": [],
         "model_forward_calls": 0,
         "autograd_grad_calls": 0,
@@ -136,7 +146,7 @@ def main():
         for arm in reg["arms"]:
             seed_everything(0)
             config = dict(common)
-            if arm == "model_fisher_ewc_v1":
+            if arm == method_arm:
                 config.update(
                     ewc_lambda=reg["method"]["ewc_lambda"],
                     ewc_gamma=reg["method"]["ewc_gamma"],
