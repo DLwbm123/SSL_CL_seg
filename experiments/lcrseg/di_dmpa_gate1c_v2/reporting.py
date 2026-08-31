@@ -244,9 +244,15 @@ def compile_report(output, p, metadata, audit):
         model_checkpoint_immutability='PASS', model_immutability_guards=audit['guard_count'],
         training=False, final_test=False, main_merge=False, theory_final=False,
         posterior_mean_control_only=True, report_commit=None, report_commit_resolution='separate publication receipt after report commit; no self-referential hash')
-    version = metadata.get('input_contract_version', 'v2')
-    if version == 'v2.1':
+    input_version = metadata.get('input_contract_version', 'v2')
+    versioned = metadata.get('diagnostic_version') == 'v2.2_fp64_full'
+    version = 'v2.2' if versioned else input_version
+    if input_version == 'v2.1':
         status['next_action'] = metadata['next_action']
+    if versioned:
+        status.update(new_probe_guards=audit['new_probe_guard_count'], reused_validation_guards=audit['reused_validation_guard_count'],
+            reused_validation_forwards=990, new_validation_forwards=0,
+            old_gate1c_v21_status='BLOCKED_INCOMPLETE_EVIDENCE', numeric_execution='native FP32 scores; same-draw FP64 VJP')
     write_json(output/'GATE1C_V2_STATUS.json', status)
     lines = ['# Gate 1C '+version+': identity-history reliability', '', '**'+status['reliability_status']+'**', '',
         'The complete offline diagnostic uses frozen K=2 B0-EMA prototypes with identity history. R4 is unavailable. No T1/T2 output was used.', '',
@@ -263,18 +269,28 @@ def compile_report(output, p, metadata, audit):
         '', f"Preregistration `{metadata['preregistration_commit']}`; authorization `{metadata['authorization_commit']}`; exact code `{metadata['diagnostic_code_commit']}`.",
         '', 'Report commit is resolved in a separate publication receipt. Exact commands, test evidence, all warnings, caches, model audits and SHA-256 artifact manifests accompany this report.',
         '', '**'+metadata.get('next_action', 'STOP_FOR_INDEPENDENT_REVIEW')+'**. No reduced-method implementation, DI-DMPA training, Gate2, theory final, Prostate/MnMS, full sweep or main merge in this diagnostic.']
-    if version == 'v2.1':
+    if input_version == 'v2.1':
         lines += ['', 'Input amendment: only B0/seed1/stage1 uses the independently reconstructed legacy PAS bank. '
             'All nine original model checkpoints and the other eight legacy banks remain unchanged. '
             'The original v2 attempt remains incomplete and none of its partial caches were reused. '
             'The 400 prior baseline recovery optimizer updates are separate from this zero-update diagnostic. '
             'There is no historical saved bank hash; reconstruction support is not historical artifact identity verification.']
+    if versioned:
+        lines += ['', 'Execution version v2.2 with unchanged v2.1 inputs. The original v2.1 attempt remains '
+            'BLOCKED_INCOMPLETE_EVIDENCE. All new metrics were recalculated from the 495 hash-verified original native validation caches; '
+            'their source metadata is retained alongside new wrapper metadata. The 990 validation forwards and nine validation guards '
+            'are reused historical evidence, not new execution. The 288 probe guards and 1,800 native/shadow forwards are new formal '
+            'execution; the separate 75-forward integration is not included in these formal counts. Native FP32 scoring/PAS and '
+            'same-Gaussian FP64 VJPs use the unchanged tested numerical engine. Numeric comparison receipts precede C1-C8 selection.']
     text = '\n'.join(lines)+'\n'
     for name in ('GATE1C_V2_FINAL_REPORT.md', 'RELIABILITY_DIAGNOSTIC_V2.md', 'GRADIENT_CONFLICT_DIAGNOSTIC_V2.md'):
         write_text(output/name, text)
     if version == 'v2.1':
         write_json(output/'GATE1C_V21_STATUS.json', status)
         write_text(output/'GATE1C_V21_FINAL_REPORT.md', text)
+    if versioned:
+        write_json(output/'GATE1C_V22_STATUS.json', status)
+        write_text(output/'GATE1C_V22_FINAL_REPORT.md', text)
     undefined = sum(r['cosine'] is None for r in rows['draw0'] if r['block'] == 'global')
     warnings = ['# Gate 1C '+version+' failures and warnings', '', f'Primary global candidate/normalization rows with undefined zero-gradient cosine: {undefined}; these remain null and never pass a required comparison.',
         '', 'Unsupported validation points are explicit nulls, not extrapolated. Stage0/missing-history scores and null-feature scores are structural nulls, never fake normalized features.',

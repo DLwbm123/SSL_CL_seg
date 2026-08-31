@@ -1,5 +1,6 @@
 """Published, create-only three-pair engineering pilot; no scientific admission."""
 import argparse
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
 import os
@@ -89,6 +90,43 @@ def prepare(code, tests):
     print(dict(output=str(output), status='PREPARED_NO_FORWARDS'), flush=True)
 
 
+@contextmanager
+def observe_pair(active_pair, counts, parity, *, limits=None):
+    """The tested native/FP64 counters and PAS check, shared without new math."""
+    original_build = e.build
+    original_forward = LCRSegUNet2DJASCL.forward; original_grad = torch.autograd.grad
+
+    def count(key):
+        b.require(limits is None or counts[key] < limits[key], 'registered per-pair compute budget exceeded')
+        counts[key] += 1
+
+    def observed_forward(model, *args, **kwargs):
+        dtype = next(model.parameters()).dtype
+        b.require(dtype in (torch.float32, torch.float64), 'unexpected forward dtype')
+        count('native_forwards' if dtype == torch.float32 else 'shadow_forwards')
+        return original_forward(model, *args, **kwargs)
+
+    def observed_grad(loss, inputs, **kwargs):
+        dtype = inputs[0].dtype
+        b.require(dtype in (torch.float32, torch.float64), 'unexpected gradient dtype')
+        count('native_autograd' if dtype == torch.float32 else 'shadow_autograd')
+        return original_grad(loss, inputs, **kwargs)
+
+    def checked_build(sl, sf, tl, tf, legacy, current, history):
+        result = original_build(sl, sf, tl, tf, legacy, current, history)
+        with torch.no_grad():
+            _, _, _, valid = pas_probability_objective(lambda *a, **kw: (sl, sf), lambda *a, **kw: (tl, tf), None, legacy)
+        b.require(np.array_equal(result['R1'], valid.cpu().numpy().reshape(-1)), 'native Gate0 R1 parity failed')
+        e.validate_scores({k: result[k] for k in e.CACHE_FIELDS}, active_pair['stage_index'], valid.numel())
+        if active_pair['stage_index'] == 0: b.require(np.array_equal(result['R2'], result['R3']), 'stage0 R3/R2 mismatch')
+        parity.append(dict(batch_id=active_pair['batch_id'], pixels=valid.numel(), exact_R1_parity=True,
+                           null_pixels=int((~result['active_mask']).sum())))
+        return result
+
+    with patch.object(e, 'build', checked_build), patch.object(LCRSegUNet2DJASCL, 'forward', observed_forward), patch.object(torch.autograd, 'grad', observed_grad):
+        yield
+
+
 def worker(code, phase, gpu):
     spec, p, freeze, meta, output = load_run(code)
     b.require(os.environ.get('CUDA_VISIBLE_DEVICES') == str(gpu) and torch.cuda.device_count() == 1, 'GPU assignment changed')
@@ -103,42 +141,19 @@ def worker(code, phase, gpu):
     b.require(not start.exists(), 'worker already attempted; no automatic replay')
     b.write_json(start, dict(metadata=meta, phase=phase, gpu=gpu, pid=os.getpid(), device_name=torch.cuda.get_device_name(0),
         exact_command=sys.argv, started_at_utc=datetime.now(timezone.utc).isoformat()))
-    counts = dict.fromkeys(COUNT_KEYS, 0); parity = []; original_build = e.build
-    original_forward = LCRSegUNet2DJASCL.forward; original_grad = torch.autograd.grad
-
-    def observed_forward(model, *args, **kwargs):
-        dtype = next(model.parameters()).dtype
-        b.require(dtype in (torch.float32, torch.float64), 'unexpected forward dtype')
-        counts['native_forwards' if dtype == torch.float32 else 'shadow_forwards'] += 1
-        return original_forward(model, *args, **kwargs)
-
-    def observed_grad(loss, inputs, **kwargs):
-        dtype = inputs[0].dtype
-        b.require(dtype in (torch.float32, torch.float64), 'unexpected gradient dtype')
-        counts['native_autograd' if dtype == torch.float32 else 'shadow_autograd'] += 1
-        return original_grad(loss, inputs, **kwargs)
-
-    def checked_build(sl, sf, tl, tf, legacy, current, history):
-        result = original_build(sl, sf, tl, tf, legacy, current, history)
-        with torch.no_grad():
-            _, _, _, valid = pas_probability_objective(lambda *a, **kw: (sl, sf), lambda *a, **kw: (tl, tf), None, legacy)
-        b.require(np.array_equal(result['R1'], valid.cpu().numpy().reshape(-1)), 'native Gate0 R1 parity failed')
-        e.validate_scores({k: result[k] for k in e.CACHE_FIELDS}, active_pair['stage_index'], valid.numel())
-        if active_pair['stage_index'] == 0: b.require(np.array_equal(result['R2'], result['R3']), 'stage0 R3/R2 mismatch')
-        parity.append(dict(batch_id=active_pair['batch_id'], pixels=valid.numel(), exact_R1_parity=True,
-                           null_pixels=int((~result['active_mask']).sum())))
-        return result
+    counts = dict.fromkeys(COUNT_KEYS, 0); parity = []
 
     def timeout(signum, frame):
         raise TimeoutError('registered pilot worker/phase time budget exceeded')
 
     signal.signal(signal.SIGALRM, timeout); signal.alarm(spec['execution']['worker_minutes_per_phase']*60)
     try:
-        with b.no_updates(), patch.object(e, 'build', checked_build), patch.object(LCRSegUNet2DJASCL, 'forward', observed_forward), patch.object(torch.autograd, 'grad', observed_grad):
+        with b.no_updates():
             for active_pair in selected:
                 b.require(not list(output.glob('FAILURE_*.json')), 'another pilot worker failed')
-                e.probe_unit(ROOT, '/root/LCRSeg', p, freeze, meta, active_pair['seed'], active_pair['stage_index'], output,
-                             'cuda:0', phase, pair_indices=[active_pair['pair_index']])
+                with observe_pair(active_pair, counts, parity):
+                    e.probe_unit(ROOT, '/root/LCRSeg', p, freeze, meta, active_pair['seed'], active_pair['stage_index'], output,
+                                 'cuda:0', phase, pair_indices=[active_pair['pair_index']])
         expected = dict(zip(COUNT_KEYS, [n*len(selected) for n in COUNTS[phase]]))
         b.require(counts == expected, 'pilot forward/autograd count outside registration')
         flags = dict(deterministic_algorithms=torch.are_deterministic_algorithms_enabled(),

@@ -1,12 +1,37 @@
 # Gate1C v2.2 execution progress
 
+## Exact-code candidate: 2026-08-31
+
+The conditional authorization was published as
+`aabef38c473f281bef7717e77fa326a542266d76` before these implementation changes.
+The shared runner now has an explicit `--execution-version v2.2` path, with
+create-only integration/full outputs, original-cache provenance wrappers,
+complete pair/phase barriers, owned-worker exit receipts and versioned reports.
+The existing pilot observer is shared; the three protected numerical files and
+the five scientific decision functions remain unchanged. No dependency or
+training configuration was added.
+
+**NOT_LAUNCH_READY**: this is the code candidate, not a test or execution result.
+All existing synthetic tests plus the new refusal/provenance/counter checks must
+pass on its published exact commit, with no failures/errors/skips. The old
+opt-in real test is excluded; it is not the new real integration. Real input
+payload/cache audits, the new 75-forward integration and the 1,800-forward full
+run have not started. Zero new real checkpoint tensors/cache arrays, model
+forwards or optimizer updates have been used by this implementation work.
+
+The new full run also requires an independently observed zero exit code for the
+new integration, bound to its complete artifact manifest. Internal completion
+JSON or a final log line alone is insufficient. All original failures and sealed
+artifacts remain intact. Subsequent receipts must identify the candidate's exact
+commit and may not relabel earlier pilot/test evidence.
+
 ## Recovery update: 2026-08-31
 
 SSH access has recovered. The [live byte/metadata precheck](gate1c_v22_preflight/LIVE_RECOVERY_PREFLIGHT.json)
 passed with the original failure and pilot artifacts intact; its initial
 overbroad bytecode-clean assertion and correction are both retained. The
 [independent conditional authorization](GATE1C_V22_EXECUTION_AUTHORIZATION.md)
-is now recorded for publication before implementation. **NOT_LAUNCH_READY**:
+was recorded for publication before implementation. At that point **NOT_LAUNCH_READY**:
 no new full runner, exact-code synthetic suite, cache numerical audit or new
 real integration is complete. Zero new tensor/array loads, forwards or updates.
 The earlier connection-blocker account below is historical, not current.

@@ -153,20 +153,26 @@ def worker(args):
         request_stop(args.output, 'Gate1C worker failed; no automatic retry'); raise
 
 
-def gpu_workers(args, phase):
+def gpu_workers(args, phase, *, cpu=False):
     processes = []; handles = []; failed_at = None
+    versioned = getattr(args, 'execution_version', 'native') == 'v2.2'
+    started = time.monotonic()
     try:
         for gpu in (0, 1):
-            path = args.output/'logs'/f'{phase}_gpu{gpu}.log'; path.parent.mkdir(parents=True, exist_ok=True)
+            label = 'cpu' if cpu else 'gpu'
+            path = args.output/'logs'/f'{phase}_{label}{gpu}.log'; path.parent.mkdir(parents=True, exist_ok=True)
             log = path.open('x'); handles.append(log)
-            env = dict(os.environ, CUDA_VISIBLE_DEVICES=str(gpu), OMP_NUM_THREADS='1', MKL_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
+            env = dict(os.environ, CUDA_VISIBLE_DEVICES='' if cpu else str(gpu), OMP_NUM_THREADS='1', MKL_NUM_THREADS='1', OPENBLAS_NUM_THREADS='1',
                        CUBLAS_WORKSPACE_CONFIG=':4096:8', PYTHONPATH=str(ROOT))
             command = [sys.executable, '-m', 'di_dmpa_gate1c_v2.runner', 'worker', '--code-commit', args.code_commit,
                 '--output', str(args.output), '--data-root', str(args.data_root), '--phase', phase, '--shard', str(gpu),
                 '--input-contract', args.input_contract]
+            if versioned:
+                command += ['--execution-version', 'v2.2', '--scope', args.scope]
             processes.append(subprocess.Popen(command, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT))
         while any(p.poll() is None for p in processes):
-            if any(p.poll() not in (None, 0) for p in processes):
+            expired = versioned and time.monotonic() >= args.deadline_monotonic
+            if expired or any(p.poll() not in (None, 0) for p in processes):
                 if failed_at is None:
                     failed_at = time.monotonic(); request_stop(args.output, 'worker exit failure')
                 if time.monotonic()-failed_at > SHUTDOWN_TIMEOUT_SECONDS:
@@ -175,10 +181,30 @@ def gpu_workers(args, phase):
                             process.terminate()
                     break
             time.sleep(.2)
-        complete(all(p.wait() == 0 for p in processes), f'{phase}: worker failure; see preserved logs')
+        exits = [p.wait(timeout=10) for p in processes] if versioned else [p.wait() for p in processes]
+        complete(all(code == 0 for code in exits) and (not versioned or time.monotonic() < args.deadline_monotonic),
+                 f'{phase}: worker failure/time budget; see preserved logs')
+    except BaseException:
+        if versioned:
+            request_stop(args.output, 'v2.2 owned worker/controller failure; no replay')
+            deadline = (failed_at if failed_at is not None else time.monotonic())+SHUTDOWN_TIMEOUT_SECONDS
+            while any(p.poll() is None for p in processes) and time.monotonic() < deadline:
+                time.sleep(.2)
+            for process in processes:
+                if process.poll() is None:
+                    process.terminate()
+                try:
+                    process.wait(timeout=10)
+                except subprocess.TimeoutExpired:
+                    process.kill(); process.wait(timeout=10)
+        raise
     finally:
         for handle in handles:
             handle.close()
+        if versioned:
+            write_json(args.output/f'PROCESS_EXIT_{phase}.json', dict(phase=phase, cpu=cpu,
+                diagnostic_code_commit=args.code_commit, pid=os.getpid(), worker_pids=[p.pid for p in processes],
+                exit_codes=[p.poll() for p in processes], elapsed_seconds=time.monotonic()-started))
 
 
 def metric_workers(args, p, *, poe=False):
@@ -255,12 +281,19 @@ def main():
     parser.add_argument('--code-commit', required=True); parser.add_argument('--output', required=True, type=Path)
     parser.add_argument('--data-root', default='/root/LCRSeg', type=Path); parser.add_argument('--tests', type=Path)
     parser.add_argument('--input-contract', choices=('v2', 'v2.1'), default='v2')
-    parser.add_argument('--phase', choices=('validation', 'draw0', 'noise', 'posterior', 'poe')); parser.add_argument('--shard', type=int, choices=(0, 1))
+    parser.add_argument('--execution-version', choices=('native', 'v2.2'), default='native')
+    parser.add_argument('--scope', choices=('integration', 'full'), default='full')
+    parser.add_argument('--phase', choices=('validation', 'draw0', 'noise', 'posterior', 'poe', 'validation_metrics', 'poe_metrics')); parser.add_argument('--shard', type=int, choices=(0, 1))
     args = parser.parse_args()
+    if args.execution_version == 'v2.2':
+        from .full_precision import dispatch
+        dispatch(args)
+        return
     if args.action == 'run':
         require(args.tests is not None, 'tests receipt required'); run(args)
     else:
-        require(args.phase is not None and args.shard is not None, 'worker phase/shard required'); worker(args)
+        require(args.phase in ('validation', 'draw0', 'noise', 'posterior', 'poe') and args.shard is not None,
+                'native worker phase/shard required'); worker(args)
 
 
 if __name__ == '__main__':
