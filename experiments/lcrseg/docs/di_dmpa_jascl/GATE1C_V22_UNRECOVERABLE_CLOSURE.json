@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "record_type": "GATE1C_V22_UNRECOVERABLE_CLOSURE",
+  "record_date": "2026-08-31",
+  "timezone": "Asia/Shanghai",
+  "handoff_commit": "70ba3dfb4fc989a5149a6343d857e7d10fd2017d",
+  "source_branch": "codex/sslcl-long-running-reproduction",
+  "publication_branch": "codex/gate1c-v3-clean-regeneration",
+  "authority": "User supplied Gate1C v3 clean-regeneration instruction in this task; includes separate commit and push authorization.",
+  "old_full_status": "UNKNOWN_AFTER_SSH_OBSERVATION_INTERRUPTION",
+  "private_reference_recovery": "PERMANENTLY_UNAVAILABLE",
+  "full_C1_C8_conclusion": null,
+  "same_attempt_retry_authorized": false,
+  "old_outputs_preserved": true,
+  "old_outputs_preserved_scope": "No historical tracked file or available old private output was changed or deleted by this closure. Unavailable remote outputs were not inspected; their present existence is not asserted.",
+  "next_protocol": "GATE1C_V3_CLEAN_REGEN_K2_IDENTITY_HISTORY",
+  "frozen_scientific_state": {
+    "gate0_v2": {
+      "repaired_baseline_correctness": "PASS",
+      "B0_outperformed_C0_on_three_seed_mean": false
+    },
+    "gate1a_v2": {
+      "status": "PASS_MULTI_MODALITY_SUPPORTED",
+      "selected_K": 2
+    },
+    "gate1b_v2": {
+      "status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+      "failed_checks": ["B3", "B4", "B5"],
+      "learned_transport_allowed": false,
+      "selected_transport": "identity",
+      "R4_available": false,
+      "drift_calibrated_naming_allowed": false
+    },
+    "gate1c_v21": {
+      "status": "BLOCKED_INCOMPLETE_EVIDENCE"
+    },
+    "gate1c_v22_integration": {
+      "exact_code_commit": "1cfd8235293e157afd6b40f0f091ce6bc6df9f9f",
+      "tests_passed": 210,
+      "tests_total": 210,
+      "new_real_forwards_completed": 75,
+      "integration_status": "PASS",
+      "C1_C8_conclusion": null,
+      "evidence_scope": "Frozen historical integration evidence only; not v3 execution."
+    },
+    "gate1c_v22_full": {
+      "launched": true,
+      "final_status": null,
+      "controller_exit_code": null,
+      "completed_forwards": null,
+      "C1_C8_conclusion": null,
+      "manifest_independently_verified": false,
+      "planned_forward_budget": 1800,
+      "planned_budget_is_completed_work": false,
+      "ssh_observation_exit_code": 255,
+      "ssh_exit_is_experiment_exit_evidence": false
+    }
+  },
+  "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+  "DI_DMPA_reproduced": false,
+  "PASS_CORE_ADMISSION": false,
+  "historical_evidence": [
+    "GATE1C_V22_MIGRATION_HANDOFF_20260831.md",
+    "gate1c_v22_results/9593908/MIGRATION_STATE.json",
+    "gate1c_v22_results/9593908/integration_attempt1/GATE1C_V22_STATUS.json",
+    "gate1c_v22_results/9593908/records/"
+  ],
+  "closure_reopens_old_attempt": false,
+  "new_real_execution_requires_new_prospective_registration_and_separate_authorization": true,
+  "main_merged": false
+}
