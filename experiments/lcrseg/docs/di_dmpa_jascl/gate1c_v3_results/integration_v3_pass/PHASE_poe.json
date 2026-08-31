@@ -1,0 +1,221 @@
+{
+  "counts": {
+    "native_autograd": 51,
+    "native_forwards": 6,
+    "shadow_autograd": 69,
+    "shadow_forwards": 6
+  },
+  "coverage": {
+    "alignment_rows": 336,
+    "class_components": 126,
+    "global_comparisons": 48,
+    "supervised_global_comparisons": 3
+  },
+  "evidence_sha256": {
+    "PROCESS_EXIT_poe.json": "9d855f48e7b363b167f3a248eb15e719f8c1c4ab0d6326c064e44fe0ec70027a",
+    "WORKER_poe_0.json": "f3659b435276978c6b335ae15968d1727e570ff9d6ddb5ba85328d38c4368798",
+    "WORKER_poe_0.log": "da031bb021d03ec1106cacbd871755e6b4abbac5b13270ec7f068fa23e9c876d",
+    "WORKER_poe_0_START.json": "56a83e173cc35272a406e173539c7012275c348e71e7a0b5022e45553d6717e6",
+    "WORKER_poe_1.json": "599866c93c56f80b5744f450713ed126d0f5a9f932a00efc18296a30717d2035",
+    "WORKER_poe_1.log": "98fcff990eecd51d48ece91a16334f37f52bfb4e125745ec0147120591dfcb91",
+    "WORKER_poe_1_START.json": "4ac93752dd37e7a5d259cbaad1c19f0d29096610912a5fb756044843306d052b",
+    "WORKER_poe_2.json": "d86b8f014f68d0437d983c3910dac2ca54d94499d02bcf6502bd6e87deae9558",
+    "WORKER_poe_2.log": "903ff39315ce23782e726e73c3fd38007c71f716887e39d236e8fab6df48642c",
+    "WORKER_poe_2_START.json": "f96c772242f07860078480ba9886d27e0867935f14e6e390db30fd3f6c762439",
+    "probe_models/poe/seed0_stage0_pair00/immutability/B0_seed0_stage0.json": "5b63979e39b78e04945d7dc73986528ec9d4f63eb8c860d9a16ac499c6f20e6f",
+    "probe_models/poe/seed0_stage2_pair01/immutability/B0_seed0_stage2.json": "6b62101d4e3ec841d9157101d8b78f69b6438cd40f963bb5c3670a4e49ee1f5b",
+    "probe_models/poe/seed1_stage1_pair00/immutability/B0_seed1_stage1.json": "db707514ef1040516a40f2dcbfcbf2a682f9c2aad9efd13c953ab5c5544fe59a",
+    "probes/poe/seed0_stage0_pair00/isolation.json": "591f189f52c097cabd9c1400530b7cf18b98689b07c20a2f94f0e85ea538b128",
+    "probes/poe/seed0_stage0_pair00/result.json": "92d78fb68cfaa49be13eda4637d0a556368afa93f8f31e864a8a3370a8930e3b",
+    "probes/poe/seed0_stage2_pair01/isolation.json": "c47fec1b01930e7dc547d46b591b9f742544524766898a3912f35738a5aa8ed0",
+    "probes/poe/seed0_stage2_pair01/result.json": "5b7d82777b7c5071804a2a6cf11744b4314c1dc5c4e9bcff755ea9f73bd0f22a",
+    "probes/poe/seed1_stage1_pair00/isolation.json": "bb9e5f8ab68787884400ff5878c77a2fc7fb3fb8592fa9ad99e5c5ede69d060a",
+    "probes/poe/seed1_stage1_pair00/result.json": "db3757db3432bbc186d789403c0ede8120fdee6117e5ca0b5cc8f01d484abf12"
+  },
+  "guards": [
+    {
+      "after": {
+        "ema_teacher": {
+          "GAS": "65c49468cf7418126a2f3863869c2629b55879c7b944f258084cd5787f42c91a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2f2ee65b206fd43c4d55b5b46bcde3badac8e55cfd944fd1d4f8166ff0f59af8",
+          "complete": "8b16c4c7ff13f2f8c871cefe568a3ef5d31e29b83730a0ed707ed58c9edb0a3c"
+        },
+        "gradient_student": {
+          "GAS": "fc6646482c7f637327fa0f0bfd9ae8e2691f3bd0ea562b977133cac67f0bf767",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "a93b794603d889bcc574df846189c6f94f56f434ef2f577f75347f3f3b5009ae",
+          "complete": "5355ac310fc8b7b1abbe8b6ee875f640ae8dee42546b27ebece35f27fb164629"
+        },
+        "student": {
+          "GAS": "a1a67eb58f163325a5d3b36ffe8dd2c8ea1209802f6f79d66c97432095221d8a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "c01b68fd1c1f8ded6e5552d2d8b1e67e21a9ee817bae1ecc4d0cd54597ff1c1c",
+          "complete": "ed0fc864c5c6c7061c184fb4d0999ca7471dd37b9127c4a215f1db0162f87c57"
+        }
+      },
+      "before": {
+        "ema_teacher": {
+          "GAS": "65c49468cf7418126a2f3863869c2629b55879c7b944f258084cd5787f42c91a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2f2ee65b206fd43c4d55b5b46bcde3badac8e55cfd944fd1d4f8166ff0f59af8",
+          "complete": "8b16c4c7ff13f2f8c871cefe568a3ef5d31e29b83730a0ed707ed58c9edb0a3c"
+        },
+        "gradient_student": {
+          "GAS": "fc6646482c7f637327fa0f0bfd9ae8e2691f3bd0ea562b977133cac67f0bf767",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "a93b794603d889bcc574df846189c6f94f56f434ef2f577f75347f3f3b5009ae",
+          "complete": "5355ac310fc8b7b1abbe8b6ee875f640ae8dee42546b27ebece35f27fb164629"
+        },
+        "student": {
+          "GAS": "a1a67eb58f163325a5d3b36ffe8dd2c8ea1209802f6f79d66c97432095221d8a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "c01b68fd1c1f8ded6e5552d2d8b1e67e21a9ee817bae1ecc4d0cd54597ff1c1c",
+          "complete": "ed0fc864c5c6c7061c184fb4d0999ca7471dd37b9127c4a215f1db0162f87c57"
+        }
+      },
+      "checkpoint_id": "B0/seed0/stage0",
+      "newly_executed": true,
+      "path": "probe_models/poe/seed0_stage0_pair00/immutability/B0_seed0_stage0.json",
+      "reused": false,
+      "sha256": "5b63979e39b78e04945d7dc73986528ec9d4f63eb8c860d9a16ac499c6f20e6f"
+    },
+    {
+      "after": {
+        "ema_teacher": {
+          "GAS": "f1b01e4283912d73dfbf35e41b033f731ddf27c898c1e582613fd115fc74229c",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "22a277b3f4909468afd0ec05e85ea462914a403cf366d597f3a2fdf497a6371a",
+          "complete": "a1606a76b268abaf7e245c52f659512f5c1a802c5996198fe8663550de281c22"
+        },
+        "gradient_student": {
+          "GAS": "464698d708e726f530a754a86702e59484c7b0451a3097e8e648584c6897f28a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "bd81248b3b7a4df52e2db8ea1e49e0d0355a418c26643689a8e15e54a0f84cb2",
+          "complete": "14c5f78dbee847bff01f094bd0a065402d83ab8a323437fc8ddf2a8e0a927c14"
+        },
+        "student": {
+          "GAS": "b029079c9ab9a9c0dde3327efafaf0a8a9eed4a32ff467f92a6224449bd92dbb",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2e14be234d14fcff3c226c71986f17debd5fb29aa8caa0f90431a396d657dd5e",
+          "complete": "5ad4c300d21dffc1b41fb438f13d63091b404432f96ff1a2e8f8b751e5103a46"
+        }
+      },
+      "before": {
+        "ema_teacher": {
+          "GAS": "f1b01e4283912d73dfbf35e41b033f731ddf27c898c1e582613fd115fc74229c",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "22a277b3f4909468afd0ec05e85ea462914a403cf366d597f3a2fdf497a6371a",
+          "complete": "a1606a76b268abaf7e245c52f659512f5c1a802c5996198fe8663550de281c22"
+        },
+        "gradient_student": {
+          "GAS": "464698d708e726f530a754a86702e59484c7b0451a3097e8e648584c6897f28a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "bd81248b3b7a4df52e2db8ea1e49e0d0355a418c26643689a8e15e54a0f84cb2",
+          "complete": "14c5f78dbee847bff01f094bd0a065402d83ab8a323437fc8ddf2a8e0a927c14"
+        },
+        "student": {
+          "GAS": "b029079c9ab9a9c0dde3327efafaf0a8a9eed4a32ff467f92a6224449bd92dbb",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2e14be234d14fcff3c226c71986f17debd5fb29aa8caa0f90431a396d657dd5e",
+          "complete": "5ad4c300d21dffc1b41fb438f13d63091b404432f96ff1a2e8f8b751e5103a46"
+        }
+      },
+      "checkpoint_id": "B0/seed1/stage1",
+      "newly_executed": true,
+      "path": "probe_models/poe/seed1_stage1_pair00/immutability/B0_seed1_stage1.json",
+      "reused": false,
+      "sha256": "db707514ef1040516a40f2dcbfcbf2a682f9c2aad9efd13c953ab5c5544fe59a"
+    },
+    {
+      "after": {
+        "ema_teacher": {
+          "GAS": "d0a1110300790528c254cd1c535a157a2b973d777bd4ff6679a7fbfe0d456385",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "4c19e3f28a0a219a5b98be58a6be4c66b5c7e467c7869f2a1637408fd48cc187",
+          "complete": "91c3ff1e721c1cfa71b4e3129aba5fe35e402c89ad912295c16a8e0780ba678c"
+        },
+        "gradient_student": {
+          "GAS": "690766d93aa6af60f9ee9fa41d03b496d2533c8f6232efae523a00b7aae47771",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "d27c0b80d1738cf708c163ace2e58b2ab86cdadd49a42b33f60f4871c46c4eb4",
+          "complete": "5a49440c5ccc9193b9ffcbf10e1d6024bcf6326f12e3044a39261db4e3f29dbd"
+        },
+        "student": {
+          "GAS": "384134caa03ef8fb783239c02ddadcb73fa69ff29bb1e03d4e4570d154c44352",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "37df8f77a2ab2b624e69093d8969875635746bdda0863e5d9d9a0810581cd5cf",
+          "complete": "ac9635b7a6f40c0c11f72e5c710aa7f494ec79619d734cb43c1ec59705aef266"
+        }
+      },
+      "before": {
+        "ema_teacher": {
+          "GAS": "d0a1110300790528c254cd1c535a157a2b973d777bd4ff6679a7fbfe0d456385",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "4c19e3f28a0a219a5b98be58a6be4c66b5c7e467c7869f2a1637408fd48cc187",
+          "complete": "91c3ff1e721c1cfa71b4e3129aba5fe35e402c89ad912295c16a8e0780ba678c"
+        },
+        "gradient_student": {
+          "GAS": "690766d93aa6af60f9ee9fa41d03b496d2533c8f6232efae523a00b7aae47771",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "d27c0b80d1738cf708c163ace2e58b2ab86cdadd49a42b33f60f4871c46c4eb4",
+          "complete": "5a49440c5ccc9193b9ffcbf10e1d6024bcf6326f12e3044a39261db4e3f29dbd"
+        },
+        "student": {
+          "GAS": "384134caa03ef8fb783239c02ddadcb73fa69ff29bb1e03d4e4570d154c44352",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "37df8f77a2ab2b624e69093d8969875635746bdda0863e5d9d9a0810581cd5cf",
+          "complete": "ac9635b7a6f40c0c11f72e5c710aa7f494ec79619d734cb43c1ec59705aef266"
+        }
+      },
+      "checkpoint_id": "B0/seed0/stage2",
+      "newly_executed": true,
+      "path": "probe_models/poe/seed0_stage2_pair01/immutability/B0_seed0_stage2.json",
+      "reused": false,
+      "sha256": "6b62101d4e3ec841d9157101d8b78f69b6438cd40f963bb5c3670a4e49ee1f5b"
+    }
+  ],
+  "metadata": {
+    "authorization_commit": "9c673bd745a0d35a6c25f772c7aca58502d0e572",
+    "authorization_sha256": "7cd3a04c6f9fde02f2c59732d2250f99f9c22f6a8d290327687df610e72d5ffb",
+    "baseline_manifest_sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d",
+    "controller_pid": 2404185,
+    "diagnostic_code_commit": "db4af88eca0dca48025f8884bf7f85e068eabf2a",
+    "exact_command": [
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_db4af88eca0dca48025f8884bf7f85e068eabf2a/experiments/lcrseg/di_dmpa_gate1c_v3/execution.py",
+      "--scope",
+      "integration",
+      "--output",
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/integration_v3_attempt1",
+      "--authorization",
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/control/gate1c_v3_authority_serialization/GATE1C_V3_EXECUTION_AUTHORIZATION_SERIALIZATION_ERRATUM.json",
+      "--authorization-sha256",
+      "7cd3a04c6f9fde02f2c59732d2250f99f9c22f6a8d290327687df610e72d5ffb",
+      "--authorization-commit",
+      "9c673bd745a0d35a6c25f772c7aca58502d0e572",
+      "--prior-gate",
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/control/gate1c_v3_authority_serialization/VALIDATION_V3_VERIFIED_ARCHIVE_GATE.json",
+      "--prior-gate-sha256",
+      "7cf5de1a121468402fca2bb25d278193f70d5f9b66817ca506f4b759f67194f2"
+    ],
+    "execution_scope": "integration",
+    "fixed_batch_pairs_sha256": "d537e0f0fb7d44febf0d861a0384ce43f8c6d326cb5656e481b8882d79723958",
+    "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+    "hidden_gt_training_usage": "none",
+    "input_contract_version": "v3",
+    "k2_freeze_sha256": "f39d764832d7b88087fef9a25a618752ec2a8d0167efe24c55da16a4cfde5a7b",
+    "method_registered": false,
+    "model_optimizer_steps": 0,
+    "next_action": "REPORT_AND_HARD_STOP_NO_METHOD_IMPLEMENTATION",
+    "old_private_inputs_read": false,
+    "preregistration_commit": "4a21799bc50e4e6c644a89b08808e59de525d6a9",
+    "preregistration_sha256": "ad27b069121cfe41880a2da5429d8f9b688515d19942d14e2960212e4b192c06",
+    "registration_id": "DI_DMPA_GATE1C_V3_CLEAN_REGEN_K2_IDENTITY_HISTORY",
+    "started_at": "2026-08-31T10:15:58.425684+00:00",
+    "test_gt_usage": "none",
+    "transport_optimizer_steps_this_gate": 0
+  },
+  "numerical_checks_complete": true,
+  "phase": "poe",
+  "status": "PASS"
+}

@@ -1,0 +1,225 @@
+{
+  "counts": {
+    "native_autograd": 27,
+    "native_forwards": 9,
+    "shadow_autograd": 99,
+    "shadow_forwards": 6
+  },
+  "coverage": {
+    "alignment_rows": 168,
+    "class_components": 504,
+    "global_comparisons": 24,
+    "supervised_global_comparisons": 3
+  },
+  "evidence_sha256": {
+    "GATE1C_V3_GOLDENS.json": "31d855f736eb79d187ed32937b6d21354d709d49bfbc0de2557e86f781ab9efa",
+    "PROCESS_EXIT_draw0.json": "72dd01a450e2139303ff86aded8a5ec256bd67b2335fbc2dc234f08c7759f877",
+    "WORKER_draw0_0.json": "c3866498e5ad352f80f9a81107e514ba6f43f0709760e5d86e9d2b4f5bbedc36",
+    "WORKER_draw0_0.log": "ff5022503b788c67db09580e843cfe400598b1dcdd2117c9c736b81cc0f9b78e",
+    "WORKER_draw0_0_START.json": "169adad40e96b41e5205e782f2978eda1b20b8ffad6e26e48be4345bfc3b4ef3",
+    "WORKER_draw0_1.json": "d0ef2d05f0243ee897f0dbdfc0377d626ad65327185c3624fcfd208360962f6b",
+    "WORKER_draw0_1.log": "adba1994fed1ed2a197db03adffd8dc89289d32918b9dc7ab5036790a8e20f64",
+    "WORKER_draw0_1_START.json": "b2c0d76778da1516714f3bbaa264d92620519a34bb3724e0131bd48bd5e8efee",
+    "WORKER_draw0_2.json": "9ba1c4147dba1594f4a16c2f4c7c7bfc2e2b94f190a9ec49271f69931b9c26cf",
+    "WORKER_draw0_2.log": "9a41de82446a56f4f00f7ba25749da07bb1a987bbdeef36e296037bf608c6441",
+    "WORKER_draw0_2_START.json": "3cd6b4e15e0dce5db98b80e810a0aa588a68914215f7a5de5e31f35e167f5542",
+    "probe_models/draw0/seed0_stage0_pair00/immutability/B0_seed0_stage0.json": "d0d269855def382992b024d78bbcc65c417e90af0f7b163bc13cac38d30cb558",
+    "probe_models/draw0/seed0_stage2_pair01/immutability/B0_seed0_stage2.json": "5f7715ad18dacb363e866affb6879bdd24343393f7acf9b8364b7843196feede",
+    "probe_models/draw0/seed1_stage1_pair00/immutability/B0_seed1_stage1.json": "bc1c28ff7080d6c69353950f8ab0c50fc646f4731e34b896dbd8c0865b9b4a95",
+    "probes/draw0/seed0_stage0_pair00/isolation.json": "3e23966b29a5c077024f6066d39394a29013511c32a363f4739aadffad396685",
+    "probes/draw0/seed0_stage0_pair00/primary_cache.npz": "d9cadd5d57a7359892475c2d7542ace3973d4edf603bf5f67ecc3e53fdec2df1",
+    "probes/draw0/seed0_stage0_pair00/result.json": "7b27968748a29d230cafbac08c873b7a1ea3a9fb1e30e5451607e59c56b0f695",
+    "probes/draw0/seed0_stage2_pair01/isolation.json": "ce0c84b416a7b7e464acfc0010db0f66ba1965a78fd295971cf5f264d4388295",
+    "probes/draw0/seed0_stage2_pair01/primary_cache.npz": "06403de6b56b8fd87190f3b5d597bf7ebb53cda66272242583cae4b1084a3f65",
+    "probes/draw0/seed0_stage2_pair01/result.json": "a98a1841919eaa021e351cff3d77ce8bd0c90c9f7cf94e0e43bbfd37f651f9f0",
+    "probes/draw0/seed1_stage1_pair00/isolation.json": "7565c2ba4558362f27af72c77c9d461a95c1231adaeb25cb1ece60b360f958e4",
+    "probes/draw0/seed1_stage1_pair00/primary_cache.npz": "10c8bcbef5a8e86cd89702c5fa3dc3c7f4c2bb00641b9d1e3ccbedff4ee38e9b",
+    "probes/draw0/seed1_stage1_pair00/result.json": "664c3fe8bd326a1dd748797fe1bdbef81f19f792e720bd58bfcc5592a88c5bd4"
+  },
+  "guards": [
+    {
+      "after": {
+        "ema_teacher": {
+          "GAS": "65c49468cf7418126a2f3863869c2629b55879c7b944f258084cd5787f42c91a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2f2ee65b206fd43c4d55b5b46bcde3badac8e55cfd944fd1d4f8166ff0f59af8",
+          "complete": "8b16c4c7ff13f2f8c871cefe568a3ef5d31e29b83730a0ed707ed58c9edb0a3c"
+        },
+        "gradient_student": {
+          "GAS": "fc6646482c7f637327fa0f0bfd9ae8e2691f3bd0ea562b977133cac67f0bf767",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "a93b794603d889bcc574df846189c6f94f56f434ef2f577f75347f3f3b5009ae",
+          "complete": "5355ac310fc8b7b1abbe8b6ee875f640ae8dee42546b27ebece35f27fb164629"
+        },
+        "student": {
+          "GAS": "a1a67eb58f163325a5d3b36ffe8dd2c8ea1209802f6f79d66c97432095221d8a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "c01b68fd1c1f8ded6e5552d2d8b1e67e21a9ee817bae1ecc4d0cd54597ff1c1c",
+          "complete": "ed0fc864c5c6c7061c184fb4d0999ca7471dd37b9127c4a215f1db0162f87c57"
+        }
+      },
+      "before": {
+        "ema_teacher": {
+          "GAS": "65c49468cf7418126a2f3863869c2629b55879c7b944f258084cd5787f42c91a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2f2ee65b206fd43c4d55b5b46bcde3badac8e55cfd944fd1d4f8166ff0f59af8",
+          "complete": "8b16c4c7ff13f2f8c871cefe568a3ef5d31e29b83730a0ed707ed58c9edb0a3c"
+        },
+        "gradient_student": {
+          "GAS": "fc6646482c7f637327fa0f0bfd9ae8e2691f3bd0ea562b977133cac67f0bf767",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "a93b794603d889bcc574df846189c6f94f56f434ef2f577f75347f3f3b5009ae",
+          "complete": "5355ac310fc8b7b1abbe8b6ee875f640ae8dee42546b27ebece35f27fb164629"
+        },
+        "student": {
+          "GAS": "a1a67eb58f163325a5d3b36ffe8dd2c8ea1209802f6f79d66c97432095221d8a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "c01b68fd1c1f8ded6e5552d2d8b1e67e21a9ee817bae1ecc4d0cd54597ff1c1c",
+          "complete": "ed0fc864c5c6c7061c184fb4d0999ca7471dd37b9127c4a215f1db0162f87c57"
+        }
+      },
+      "checkpoint_id": "B0/seed0/stage0",
+      "newly_executed": true,
+      "path": "probe_models/draw0/seed0_stage0_pair00/immutability/B0_seed0_stage0.json",
+      "reused": false,
+      "sha256": "d0d269855def382992b024d78bbcc65c417e90af0f7b163bc13cac38d30cb558"
+    },
+    {
+      "after": {
+        "ema_teacher": {
+          "GAS": "f1b01e4283912d73dfbf35e41b033f731ddf27c898c1e582613fd115fc74229c",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "22a277b3f4909468afd0ec05e85ea462914a403cf366d597f3a2fdf497a6371a",
+          "complete": "a1606a76b268abaf7e245c52f659512f5c1a802c5996198fe8663550de281c22"
+        },
+        "gradient_student": {
+          "GAS": "464698d708e726f530a754a86702e59484c7b0451a3097e8e648584c6897f28a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "bd81248b3b7a4df52e2db8ea1e49e0d0355a418c26643689a8e15e54a0f84cb2",
+          "complete": "14c5f78dbee847bff01f094bd0a065402d83ab8a323437fc8ddf2a8e0a927c14"
+        },
+        "student": {
+          "GAS": "b029079c9ab9a9c0dde3327efafaf0a8a9eed4a32ff467f92a6224449bd92dbb",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2e14be234d14fcff3c226c71986f17debd5fb29aa8caa0f90431a396d657dd5e",
+          "complete": "5ad4c300d21dffc1b41fb438f13d63091b404432f96ff1a2e8f8b751e5103a46"
+        }
+      },
+      "before": {
+        "ema_teacher": {
+          "GAS": "f1b01e4283912d73dfbf35e41b033f731ddf27c898c1e582613fd115fc74229c",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "22a277b3f4909468afd0ec05e85ea462914a403cf366d597f3a2fdf497a6371a",
+          "complete": "a1606a76b268abaf7e245c52f659512f5c1a802c5996198fe8663550de281c22"
+        },
+        "gradient_student": {
+          "GAS": "464698d708e726f530a754a86702e59484c7b0451a3097e8e648584c6897f28a",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "bd81248b3b7a4df52e2db8ea1e49e0d0355a418c26643689a8e15e54a0f84cb2",
+          "complete": "14c5f78dbee847bff01f094bd0a065402d83ab8a323437fc8ddf2a8e0a927c14"
+        },
+        "student": {
+          "GAS": "b029079c9ab9a9c0dde3327efafaf0a8a9eed4a32ff467f92a6224449bd92dbb",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "2e14be234d14fcff3c226c71986f17debd5fb29aa8caa0f90431a396d657dd5e",
+          "complete": "5ad4c300d21dffc1b41fb438f13d63091b404432f96ff1a2e8f8b751e5103a46"
+        }
+      },
+      "checkpoint_id": "B0/seed1/stage1",
+      "newly_executed": true,
+      "path": "probe_models/draw0/seed1_stage1_pair00/immutability/B0_seed1_stage1.json",
+      "reused": false,
+      "sha256": "bc1c28ff7080d6c69353950f8ab0c50fc646f4731e34b896dbd8c0865b9b4a95"
+    },
+    {
+      "after": {
+        "ema_teacher": {
+          "GAS": "d0a1110300790528c254cd1c535a157a2b973d777bd4ff6679a7fbfe0d456385",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "4c19e3f28a0a219a5b98be58a6be4c66b5c7e467c7869f2a1637408fd48cc187",
+          "complete": "91c3ff1e721c1cfa71b4e3129aba5fe35e402c89ad912295c16a8e0780ba678c"
+        },
+        "gradient_student": {
+          "GAS": "690766d93aa6af60f9ee9fa41d03b496d2533c8f6232efae523a00b7aae47771",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "d27c0b80d1738cf708c163ace2e58b2ab86cdadd49a42b33f60f4871c46c4eb4",
+          "complete": "5a49440c5ccc9193b9ffcbf10e1d6024bcf6326f12e3044a39261db4e3f29dbd"
+        },
+        "student": {
+          "GAS": "384134caa03ef8fb783239c02ddadcb73fa69ff29bb1e03d4e4570d154c44352",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "37df8f77a2ab2b624e69093d8969875635746bdda0863e5d9d9a0810581cd5cf",
+          "complete": "ac9635b7a6f40c0c11f72e5c710aa7f494ec79619d734cb43c1ec59705aef266"
+        }
+      },
+      "before": {
+        "ema_teacher": {
+          "GAS": "d0a1110300790528c254cd1c535a157a2b973d777bd4ff6679a7fbfe0d456385",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "4c19e3f28a0a219a5b98be58a6be4c66b5c7e467c7869f2a1637408fd48cc187",
+          "complete": "91c3ff1e721c1cfa71b4e3129aba5fe35e402c89ad912295c16a8e0780ba678c"
+        },
+        "gradient_student": {
+          "GAS": "690766d93aa6af60f9ee9fa41d03b496d2533c8f6232efae523a00b7aae47771",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "d27c0b80d1738cf708c163ace2e58b2ab86cdadd49a42b33f60f4871c46c4eb4",
+          "complete": "5a49440c5ccc9193b9ffcbf10e1d6024bcf6326f12e3044a39261db4e3f29dbd"
+        },
+        "student": {
+          "GAS": "384134caa03ef8fb783239c02ddadcb73fa69ff29bb1e03d4e4570d154c44352",
+          "buffers": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "classifier": "37df8f77a2ab2b624e69093d8969875635746bdda0863e5d9d9a0810581cd5cf",
+          "complete": "ac9635b7a6f40c0c11f72e5c710aa7f494ec79619d734cb43c1ec59705aef266"
+        }
+      },
+      "checkpoint_id": "B0/seed0/stage2",
+      "newly_executed": true,
+      "path": "probe_models/draw0/seed0_stage2_pair01/immutability/B0_seed0_stage2.json",
+      "reused": false,
+      "sha256": "5f7715ad18dacb363e866affb6879bdd24343393f7acf9b8364b7843196feede"
+    }
+  ],
+  "metadata": {
+    "authorization_commit": "9c673bd745a0d35a6c25f772c7aca58502d0e572",
+    "authorization_sha256": "7cd3a04c6f9fde02f2c59732d2250f99f9c22f6a8d290327687df610e72d5ffb",
+    "baseline_manifest_sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d",
+    "controller_pid": 2404185,
+    "diagnostic_code_commit": "db4af88eca0dca48025f8884bf7f85e068eabf2a",
+    "exact_command": [
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/code/exact_db4af88eca0dca48025f8884bf7f85e068eabf2a/experiments/lcrseg/di_dmpa_gate1c_v3/execution.py",
+      "--scope",
+      "integration",
+      "--output",
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/integration_v3_attempt1",
+      "--authorization",
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/control/gate1c_v3_authority_serialization/GATE1C_V3_EXECUTION_AUTHORIZATION_SERIALIZATION_ERRATUM.json",
+      "--authorization-sha256",
+      "7cd3a04c6f9fde02f2c59732d2250f99f9c22f6a8d290327687df610e72d5ffb",
+      "--authorization-commit",
+      "9c673bd745a0d35a6c25f772c7aca58502d0e572",
+      "--prior-gate",
+      "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/control/gate1c_v3_authority_serialization/VALIDATION_V3_VERIFIED_ARCHIVE_GATE.json",
+      "--prior-gate-sha256",
+      "7cf5de1a121468402fca2bb25d278193f70d5f9b66817ca506f4b759f67194f2"
+    ],
+    "execution_scope": "integration",
+    "fixed_batch_pairs_sha256": "d537e0f0fb7d44febf0d861a0384ce43f8c6d326cb5656e481b8882d79723958",
+    "gate1_overall_status": "FAIL_TRANSPORT_NOT_SUPPORTED",
+    "hidden_gt_training_usage": "none",
+    "input_contract_version": "v3",
+    "k2_freeze_sha256": "f39d764832d7b88087fef9a25a618752ec2a8d0167efe24c55da16a4cfde5a7b",
+    "method_registered": false,
+    "model_optimizer_steps": 0,
+    "next_action": "REPORT_AND_HARD_STOP_NO_METHOD_IMPLEMENTATION",
+    "old_private_inputs_read": false,
+    "preregistration_commit": "4a21799bc50e4e6c644a89b08808e59de525d6a9",
+    "preregistration_sha256": "ad27b069121cfe41880a2da5429d8f9b688515d19942d14e2960212e4b192c06",
+    "registration_id": "DI_DMPA_GATE1C_V3_CLEAN_REGEN_K2_IDENTITY_HISTORY",
+    "started_at": "2026-08-31T10:15:58.425684+00:00",
+    "test_gt_usage": "none",
+    "transport_optimizer_steps_this_gate": 0
+  },
+  "numerical_checks_complete": true,
+  "phase": "draw0",
+  "status": "PASS"
+}
