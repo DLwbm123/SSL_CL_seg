@@ -1,0 +1,43 @@
+{
+  "existing_correctness_conclusion_changed": false,
+  "findings": [
+    {
+      "finding": "Schema 2 stores a nullable prototype tensor, but no prototype counts/valid mask, bank internal hash or full data-hash binding.",
+      "lines": [
+        34,
+        61
+      ],
+      "path": "experiments/lcrseg/di_dmpa_jascl/checkpoint.py",
+      "required_before_v3_training": "Capture the actual PAS tensor, counts, validity and provenance during the new baseline run, with direct independently loadable stage checkpoint storage."
+    },
+    {
+      "finding": "PAS creation begins at configured epoch 25; best checkpoint selection is already active before that. An early selected best can contain prototypes=null.",
+      "lines": [
+        545,
+        572
+      ],
+      "path": "experiments/lcrseg/di_dmpa_jascl/runner.py",
+      "required_before_v3_training": "Preserve checkpoint-selection and training semantics while sealing the actual newly captured historical PAS bank; never reconstruct it after the fact."
+    },
+    {
+      "finding": "compute_single_prototypes computes counts internally and returns only the normalized bank.",
+      "lines": [
+        212,
+        249
+      ],
+      "path": "experiments/lcrseg/di_dmpa_jascl/modeling.py",
+      "required_before_v3_training": "Preserve the original numeric path and RNG consumption while retaining counts and validity as checkpoint evidence."
+    }
+  ],
+  "implementation_tests_executed": 0,
+  "loss_or_numeric_engine_changes_made": false,
+  "scope": "READ_ONLY_SOURCE_COMPATIBILITY_AUDIT_NOT_IMPLEMENTATION",
+  "source_commit": "70ba3dfb4fc989a5149a6343d857e7d10fd2017d",
+  "source_hashes": {
+    "experiments/lcrseg/di_dmpa_jascl/checkpoint.py": "8f31d51c2a04b1a9abdd986f65abadeb88e8a1e765cf94d346f0461e982da625",
+    "experiments/lcrseg/di_dmpa_jascl/modeling.py": "3c6f0c1621eb90b53bfcbd814bc511342e6bf677847906bbe06769d1e77af190",
+    "experiments/lcrseg/di_dmpa_jascl/runner.py": "59f6dd744a4f208ea3ca435e656ce3ca039a8d03dd78948cf42917ac770f6410",
+    "experiments/lcrseg/docs/di_dmpa_jascl/DOMAIN_PROTOCOL.yaml": "3e2da51b2aeb92a80f59fdf96b4a96a129cc937851230c2f920ad706ceb90359"
+  },
+  "training_loop_changes_made": false
+}
