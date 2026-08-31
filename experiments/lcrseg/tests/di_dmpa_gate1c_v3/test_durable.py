@@ -7,6 +7,7 @@ import subprocess
 import pytest
 
 from di_dmpa_gate1c_v3 import durable as d
+from di_dmpa_gate1c_v3.archive import promote
 
 
 def test_detached_parent_and_archive_guards(tmp_path):
@@ -36,6 +37,9 @@ def test_detached_parent_and_archive_guards(tmp_path):
     assert d.read(output / "PROCESS_EXIT.json")["actual_child_exit_code"] == 7
     bundle = d.seal(output)
     assert d.verify(output)["content_sha256"] == bundle["content_sha256"]
+    manifest_sha = d.sha256(output / "PRIVATE_BUNDLE_MANIFEST.json")
+    with pytest.raises(RuntimeError, match="remote/local manifest"):
+        promote(output, tmp_path / "verified", "0" * 64)
     log = output / "controller.log"
     original = log.read_bytes()
     log.write_bytes(original + b"tampered")
@@ -45,3 +49,8 @@ def test_detached_parent_and_archive_guards(tmp_path):
     (output / "escaped").symlink_to(tmp_path)
     with pytest.raises(RuntimeError, match="symlink"):
         d.verify(output)
+    (output / "escaped").unlink()
+    receipt = promote(output, tmp_path / "verified", manifest_sha)
+    assert receipt["status"] == "PASS_PRIVATE_ARCHIVE"
+    assert not output.exists()
+    assert d.verify(receipt["archive"])["content_sha256"] == bundle["content_sha256"]

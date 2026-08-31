@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="2.801" timestamp="2026-08-31T16:17:40.575381+08:00" hostname="BomindeMac-mini.local"><testcase classname="tests.di_dmpa_gate1c_v3.test_baseline" name="test_live_pas_capture_resume_and_early_best_sealing" time="1.721"><failure message="assert 661 == ((3 * 16) * 16)&#10; +  where 661 = int(tensor(661))&#10; +    where tensor(661) = &lt;built-in method sum of Tensor object at 0x119cdc2d0&gt;()&#10; +      where &lt;built-in method sum of Tensor object at 0x119cdc2d0&gt; = tensor([235, 206, 220]).sum">tmp_path = PosixPath('/Users/bominwang/.codex/private_artifacts/SSL_CL_seg/gate1c_v3_access_j4rp3lbn/v3_local_03_tmp/test_live_pas_capture_resume_a0')
+
+    def test_live_pas_capture_resume_and_early_best_sealing(tmp_path):
+        torch.set_num_threads(1)
+        config, protocol = synthetic_bundle(tmp_path / "data")
+        actual = os.environ.get("V3_TEST_ACTUAL_MODEL") == "1"
+        device = os.environ.get("V3_TEST_DEVICE", "cpu") if actual else "cpu"
+    
+        def runner(output, regenerated):
+            cls = RegeneratedB0Runner if regenerated else Gate0RepairedRunner
+            kwargs = dict(provenance={"purpose": "synthetic_equivalence"}) if regenerated else {}
+            result = cls(repo_root=ROOT, config=config, protocol=protocol, seed=0,
+                         output_dir=tmp_path / output, device=device,
+                         model_factory=None if actual else TinySegNet, **kwargs)
+            # Test-only selection fixture: force the pre-PAS checkpoint to stay best.
+            evaluate = result.evaluate_domain
+            def fixed_val(domain, role):
+                report = evaluate(domain, role)
+                if role == "val":
+                    report["mean_iou"] = 0.5
+                return report
+            result.evaluate_domain = fixed_val
+            return result
+    
+        reference = runner("reference", False)
+        reference.run(stop_at_event="before_stage_transition")
+        expected = torch.load(tmp_path / "reference/last.pt", map_location="cpu", weights_only=False)
+        candidate = runner("candidate", True)
+        first = candidate.run(stop_after_global_step=53)
+        middle = torch.load(first["checkpoint"], map_location="cpu", weights_only=False)
+        assert middle["sampler_state"]["phase"] == "unlabeled"
+        assert middle["v3"]["legacy_pas_capture"]["additional_model_forwards"] == 0
+        candidate = runner("candidate", True)
+        candidate.run(resume_path=first["checkpoint"], stop_at_event="before_stage_transition")
+        observed = torch.load(tmp_path / "candidate/last.pt", map_location="cpu", weights_only=False)
+        for key in expected:
+            assert state_digest(expected[key]) == state_digest(observed[key]), key
+        best_path = tmp_path / "candidate/stage_0_REFUGE/best.pt"
+        early_best = torch.load(best_path, map_location="cpu", weights_only=False)
+        assert early_best["stage_state"]["epoch"] == 1 and early_best["prototypes"] is None
+        captured = torch.load(tmp_path / "candidate/legacy_pas_captures/stage0.pt", weights_only=False)
+        candidate._stage_end(0, "REFUGE")
+        sealed = torch.load(best_path, map_location="cpu", weights_only=False)
+        verify_payload(sealed)
+        for key in expected:
+            if key != "prototypes":
+                assert state_digest(early_best[key]) == state_digest(sealed[key]), key
+        assert state_digest(captured["bank"]) == state_digest(sealed["prototypes"])
+&gt;       assert int(sealed["prototype_counts"].sum()) == 3 * 16 * 16
+E       assert 661 == ((3 * 16) * 16)
+E        +  where 661 = int(tensor(661))
+E        +    where tensor(661) = &lt;built-in method sum of Tensor object at 0x119cdc2d0&gt;()
+E        +      where &lt;built-in method sum of Tensor object at 0x119cdc2d0&gt; = tensor([235, 206, 220]).sum
+
+experiments/lcrseg/tests/di_dmpa_gate1c_v3/test_baseline.py:60: AssertionError</failure></testcase><testcase classname="tests.di_dmpa_gate1c_v3.test_durable" name="test_detached_parent_and_archive_guards" time="0.343" /></testsuite></testsuites>
