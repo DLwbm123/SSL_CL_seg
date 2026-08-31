@@ -1,0 +1,112 @@
+{
+  "archive": {
+    "analytic_invocations": 1,
+    "archive": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/ewc_source_audit_v1_20260901/archives/f33eb83646f81acbf5165746d991878252003d830b9e4eed03da46ba7d64655f",
+    "atomic_promotion": true,
+    "bytes": 374085,
+    "content_sha256": "f33eb83646f81acbf5165746d991878252003d830b9e4eed03da46ba7d64655f",
+    "every_byte_and_sha_verified": true,
+    "files": 27,
+    "helper_sha256": {
+      "__init__.py": "72fa6906a4ed597cfc4482d8ed7e4d5c4db89ff1b186bb2728cdf3938998fdc8",
+      "archive.py": "21688752549c4349eede981ffe8d72b078e16e80952924f78a032a9ff3eef8af",
+      "durable.py": "a155d60af798b9f8820ed529982272ed432f88959eebbe4110b5e2a54d291e99"
+    },
+    "independent_device_backup": false,
+    "manifest_sha256": "2448043eb0b58e9b8e64cf61679fd0a6cbf8efa809a0a46ae8bc162796a97968",
+    "original_entries_reverified": 27,
+    "originals_preserved": true,
+    "remote_copy_deleted": false,
+    "source_check_actual_exit_code": 0,
+    "status": "PASS_PRIVATE_ARCHIVE",
+    "verified_at": "2026-08-31T20:13:47.902507+00:00"
+  },
+  "archive_count_scope": "27 evidence files; bytes exclude the manifest itself. Later report/publication receipts are additive supplements outside this sealed packet.",
+  "audit_id": "EWC_SOURCE_AUDIT_V1",
+  "branch": "codex/fundus-ewc-audit-v1",
+  "closed_studies": {
+    "fundus_lwf_v1": "FAIL_BASELINE_FEASIBILITY; closed, no rescue or rerun",
+    "pmgc_v0_1": "FAIL_PMGC_FEASIBILITY; closed, no rescue or rerun",
+    "prototype_derived_new_method_line": "ENDED"
+  },
+  "engineering_blockers": [
+    "Legacy estimator squares minibatch-aggregated CE-plus-Dice gradients, not individual categorical model-label log-probability gradients.",
+    "Segmentation sample unit, input selection, all-class expectation, normalization and actual point-count denominator are not registered.",
+    "Pinned 2025 reference has zero-based count/divisor edge cases; do not copy its counting logic unchanged.",
+    "Estimator RNG isolation, immutable estimation state, strict checkpoint validation and resumed shared-runner equivalence are not established.",
+    "Extra estimation forwards/gradient calls and terminal-stage policy need an explicit computation budget."
+  ],
+  "evidence_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/ewc_source_audit_v1_20260901",
+  "local_base_commit": "a4dd264e813dc477fcc7ceea21975d3d4a9850c5",
+  "next_bounded_work": {
+    "before_execution": "Write a separate explicit contract and finite synthetic-suite budget. Reuse shared engine/RNG helpers and existing environment, preserve the legacy estimator and historical code snapshots.",
+    "phase": "SEPARATE_SYNTHETIC_ENGINEERING_REGISTRATION",
+    "real_data_admission": "Only after engineering semantics and checks pass, prospectively register a separate finite Fundus comparison with coefficients, budgets, seeds, evaluation role, success gates and failure exit fixed before real computation.",
+    "real_model_forwards_authorized_by_this_audit": 0,
+    "requirements": [
+      "Declare categorical image-versus-pixel likelihood, sample/point selection, all three classes and exact normalization.",
+      "Use detached model probabilities to weight individual log-probability gradient squares; no Dice, true labels, confidence masks, prototypes, transport or replay in Fisher.",
+      "Validate tiny-model closed-form values/gradients, empty/one/two/capped/short-loader counts and minibatch partition invariance.",
+      "Verify finite nonnegative Fisher, immutable parameters/optimizer/reference, strict state keys/shapes/finite values, restored mode/RNG and uninterrupted-versus-resumed shared-runner equivalence."
+    ]
+  },
+  "operational_note": "One post-run metadata inspection preflight exited 1 because its suspected delimiter defect was absent. It stopped before any write. All five metadata files subsequently parsed successfully; all 13 captured files were unchanged. Requests, responses and explanation are retained in the NAS archive. No analytic re-execution or repair occurred.",
+  "overall_project_success": false,
+  "performance_protocol_registered": false,
+  "recorded_at": "2026-08-31T20:14:52.335348+00:00",
+  "schema_version": 1,
+  "scientific_performance_result": null,
+  "scope": "Pinned-source inspection and standard-library closed-form arithmetic only; no external reference implementation executed.",
+  "source_check": {
+    "actual_exit_code": 0,
+    "child_absent_verified_at": "2026-08-31T20:12:16.236256+00:00",
+    "failure_count": 0,
+    "invocations": 1,
+    "maximum_invocations": 2,
+    "proof_sha256": "881bb55303bccadc7d92cb6c9116d45e0b9420d20c53d53d6f363cc94d68ecee",
+    "result": {
+      "batch_mean_squared": 0.0,
+      "dataset_access": false,
+      "empirical_fisher": 0.6400000000000001,
+      "external_count_examples": [
+        {
+          "cap": null,
+          "dataset_length": 1,
+          "divisor": 0,
+          "processed": 1
+        },
+        {
+          "cap": null,
+          "dataset_length": 2,
+          "divisor": 1,
+          "processed": 2
+        },
+        {
+          "cap": 1,
+          "dataset_length": 3,
+          "divisor": 2,
+          "processed": 2
+        },
+        {
+          "cap": 500,
+          "dataset_length": 503,
+          "divisor": 501,
+          "processed": 501
+        }
+      ],
+      "gradient_calls": 0,
+      "mean_individual_squared": 0.25,
+      "model_fisher": 0.15999999999999998,
+      "optimizer_steps": 0,
+      "real_model_forwards": 0,
+      "source_files_verified": 9,
+      "status": "PASS_ANALYTIC_SOURCE_CHECK",
+      "synthetic_network_forwards": 0
+    },
+    "result_sha256": "88fd3c78fe83f215d1016f7998982236ea94f4ab832d422e6ae507da19574715",
+    "source_manifest_sha256": "e3b28e98afc2141db2b08958bfa8d8607a6c9addf95ea1bdc347436949f5386f",
+    "stderr_bytes": 0
+  },
+  "status": "COMPLETE_SOURCE_AUDIT_NOT_ADMITTED",
+  "training_admitted": false
+}
