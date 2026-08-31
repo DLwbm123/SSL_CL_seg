@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="1" skipped="0" tests="2" time="1.197" timestamp="2026-08-31T17:23:07.242132+08:00" hostname="BomindeMac-mini.local"><testcase classname="tests.di_dmpa_gate1c_v3.test_validation" name="test_new_contract_only_rebinds_checkpoint_identity" time="0.008" /><testcase classname="tests.di_dmpa_gate1c_v3.test_validation" name="test_capture_preserves_native_scores_pas_nulls_and_raw_values" time="0.059"><failure message="AssertionError: Regex pattern did not match.&#10;  Expected regex: 'hash'&#10;  Actual message: 'SHA mismatch: /private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-19/test_capture_preserves_native_0/validation_raw/seed0_stage1/synthetic.npz: ebe2ed373eb2af13225cfe8d2b529d2f6c4a12cd8e2e9f1751f9c76fb79d74e7 != cbdc1106f8c686a5eeaaf918bf1fc3cb33a5f59da0b9e8ff11432d9616c5dd29'">tmp_path = PosixPath('/private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-19/test_capture_preserves_native_0')
+
+    def test_capture_preserves_native_scores_pas_nulls_and_raw_values(tmp_path):
+        torch.manual_seed(7)
+        sl, tl = (torch.randn(1, 3, 3, 4) for _ in range(2))
+        sf, tf = (torch.rand(1, 16, 3, 4) for _ in range(2))
+        tf[:, :, 0, 0] = 0
+        legacy = torch.nn.functional.normalize(torch.rand(3, 16), dim=1)
+        raw = np.random.default_rng(5).uniform(0.01, 1, (3, 2, 16))
+        current = raw / np.linalg.norm(raw, axis=2, keepdims=True)
+        history = current.copy()
+        expected = e.build(sl, sf, tl, tf, legacy, current, history)
+        rng = torch.get_rng_state().clone()
+        with capture(tmp_path, maximum_forwards=0) as count:
+            actual = e.build(sl, sf, tl, tf, legacy, current, history)
+            desc = e.save_arrays(tmp_path / "validation_cache/seed0_stage1/synthetic.npz", {k: actual[k] for k in e.CACHE_FIELDS})
+        assert count == dict(native_forwards=0, cases=1, original_PAS_calls=2)
+        assert torch.equal(rng, torch.get_rng_state())
+        for key in expected:
+            np.testing.assert_array_equal(actual[key], expected[key])
+        case = dict(arrays=desc, **{name + "_sha256": b.tensor_hash(value) for name, value in
+            (("student_logits", sl), ("teacher_logits", tl), ("student_features", sf), ("teacher_features", tf))})
+        assert validate_raw(case, 1, height=3, width=4)["direct_PAS_parity"]
+        arrays = b.read_arrays(desc["raw_values"])
+        assert arrays["null_mask"].sum() == 1 and arrays["pixel_yx"].shape == (12, 2)
+        arrays["teacher_features"][0, 0, 0, 1] += 1
+        np.savez_compressed(desc["raw_values"]["path"], **arrays)
+        with pytest.raises(b.ProtocolError, match="hash"):
+&gt;           validate_raw(case, 1, height=3, width=4)
+
+tests/di_dmpa_gate1c_v3/test_validation.py:68: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+di_dmpa_gate1c_v3/validation.py:74: in validate_raw
+    raw = b.read_arrays(case["arrays"]["raw_values"])
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+di_dmpa_gate1c_v2/binding.py:324: in read_arrays
+    check_hash(desc['path'], desc['sha256'])
+di_dmpa_gate1/binding.py:58: in check_hash
+    require(observed == expected, f"SHA mismatch: {path}: {observed} != {expected}")
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ 
+
+condition = False
+message = 'SHA mismatch: /private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-19/test_capture_pre...13225cfe8d2b529d2f6c4a12cd8e2e9f1751f9c76fb79d74e7 != cbdc1106f8c686a5eeaaf918bf1fc3cb33a5f59da0b9e8ff11432d9616c5dd29'
+
+    def require(condition, message):
+        if not condition:
+&gt;           raise ProtocolError(message)
+E           di_dmpa_gate1.binding.ProtocolError: SHA mismatch: /private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-19/test_capture_preserves_native_0/validation_raw/seed0_stage1/synthetic.npz: ebe2ed373eb2af13225cfe8d2b529d2f6c4a12cd8e2e9f1751f9c76fb79d74e7 != cbdc1106f8c686a5eeaaf918bf1fc3cb33a5f59da0b9e8ff11432d9616c5dd29
+
+di_dmpa_gate1/binding.py:32: ProtocolError
+
+During handling of the above exception, another exception occurred:
+
+tmp_path = PosixPath('/private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-19/test_capture_preserves_native_0')
+
+    def test_capture_preserves_native_scores_pas_nulls_and_raw_values(tmp_path):
+        torch.manual_seed(7)
+        sl, tl = (torch.randn(1, 3, 3, 4) for _ in range(2))
+        sf, tf = (torch.rand(1, 16, 3, 4) for _ in range(2))
+        tf[:, :, 0, 0] = 0
+        legacy = torch.nn.functional.normalize(torch.rand(3, 16), dim=1)
+        raw = np.random.default_rng(5).uniform(0.01, 1, (3, 2, 16))
+        current = raw / np.linalg.norm(raw, axis=2, keepdims=True)
+        history = current.copy()
+        expected = e.build(sl, sf, tl, tf, legacy, current, history)
+        rng = torch.get_rng_state().clone()
+        with capture(tmp_path, maximum_forwards=0) as count:
+            actual = e.build(sl, sf, tl, tf, legacy, current, history)
+            desc = e.save_arrays(tmp_path / "validation_cache/seed0_stage1/synthetic.npz", {k: actual[k] for k in e.CACHE_FIELDS})
+        assert count == dict(native_forwards=0, cases=1, original_PAS_calls=2)
+        assert torch.equal(rng, torch.get_rng_state())
+        for key in expected:
+            np.testing.assert_array_equal(actual[key], expected[key])
+        case = dict(arrays=desc, **{name + "_sha256": b.tensor_hash(value) for name, value in
+            (("student_logits", sl), ("teacher_logits", tl), ("student_features", sf), ("teacher_features", tf))})
+        assert validate_raw(case, 1, height=3, width=4)["direct_PAS_parity"]
+        arrays = b.read_arrays(desc["raw_values"])
+        assert arrays["null_mask"].sum() == 1 and arrays["pixel_yx"].shape == (12, 2)
+        arrays["teacher_features"][0, 0, 0, 1] += 1
+        np.savez_compressed(desc["raw_values"]["path"], **arrays)
+&gt;       with pytest.raises(b.ProtocolError, match="hash"):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       AssertionError: Regex pattern did not match.
+E         Expected regex: 'hash'
+E         Actual message: 'SHA mismatch: /private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-19/test_capture_preserves_native_0/validation_raw/seed0_stage1/synthetic.npz: ebe2ed373eb2af13225cfe8d2b529d2f6c4a12cd8e2e9f1751f9c76fb79d74e7 != cbdc1106f8c686a5eeaaf918bf1fc3cb33a5f59da0b9e8ff11432d9616c5dd29'
+
+tests/di_dmpa_gate1c_v3/test_validation.py:67: AssertionError</failure></testcase></testsuite></testsuites>
