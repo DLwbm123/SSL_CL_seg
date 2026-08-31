@@ -1,0 +1,439 @@
+{
+  "admission": {
+    "F1": {
+      "all_formal_pairs": 72,
+      "all_teacher_predicted_classes": [
+        0,
+        1,
+        2
+      ],
+      "all_validation_cases": 495,
+      "mass_difference": 0,
+      "no_GT_or_reallocation": true
+    },
+    "F2": {
+      "foreground_macro_error_relative_reduction_min": 0.1,
+      "improving_units_min": 12,
+      "total_units": 18,
+      "unit_precision_absolute_drop_max": 0.02
+    },
+    "F3": {
+      "each_stage_median_worsening_max": 0.05,
+      "global_median_cosine_increase_min": 0.05,
+      "negative_cosine_count_max": 43,
+      "pairs": 72,
+      "undefined_required_comparisons_max": 0
+    },
+    "F4": {
+      "all_parameter_block_values_finite": true,
+      "each_stage_norm_ratio_median_min": 0.4,
+      "norm_ratio_median_min": 0.5,
+      "norm_ratio_p10_min": 0.2,
+      "projected_dot_min": -1e-10,
+      "satisfying_pairs": 72,
+      "zero_projected_gradients_max": 0
+    },
+    "F5": {
+      "bank_gradients": "None",
+      "hidden_gt_training_usage": "none",
+      "model_checkpoint_bitwise_unchanged": true,
+      "optimizer_steps": 0,
+      "teacher_gradients": "None",
+      "test_gt_usage": "none",
+      "validation_GT": "evaluator_only"
+    }
+  },
+  "base_commit": "ad0e1d47b76165beccd118db41242a3025044504",
+  "branch": "codex/mmpr-gs-v0-1-feasibility",
+  "call_graph": {
+    "FP64_forward_order": [
+      "student_unlabeled same Gaussian immediately after native student_unlabeled",
+      "student_labeled same Gaussian immediately after native student_labeled"
+    ],
+    "autograd": "Native and FP64 supervised+R1+MMPR (3 each); FP64 additionally3 MMPR class components; projection and metrics add0 calls",
+    "compile_before_real_forward": true,
+    "compiler": "Dry execution of the same pair kernel on deterministic synthetic tensors/models, dynamic counters plus source hash inventory; compare with frozen budget. No real checkpoint/array/forward required for compiler. Publish exact source commit and call-graph receipt before real execution",
+    "formal_forwards": 360,
+    "formal_pairs": 72,
+    "integration_forwards": 15,
+    "integration_pairs": 3,
+    "mismatch_status": "BLOCKED_CALL_GRAPH_MISMATCH",
+    "native_forward_order": [
+      "student_unlabeled",
+      "EMA_teacher_unlabeled_draw0",
+      "student_labeled"
+    ],
+    "no_additional_diagnostic_forwards": true,
+    "per_pair": {
+      "fp64_autograd": 6,
+      "fp64_forwards": 2,
+      "gradient_alignment_rows": 2,
+      "gradient_blockwise_rows": 12,
+      "gradient_class_component_rows": 21,
+      "model_guard": 1,
+      "native_autograd": 3,
+      "native_forwards": 3,
+      "precision_comparison_rows": 21,
+      "projection_retention_rows": 7,
+      "raw_mask_case_class_rows": 6,
+      "total_forwards": 5
+    },
+    "synthetic_tests": "Synthetic-only test forwards/grad calls are separate, never real data, no optimizer/backward/GAS/EMA updates; all calls guarded. Full real integration is the new registered3-pair phase only",
+    "total_real_forwards": 375
+  },
+  "closure": {
+    "commit": "ac746fe8f1d335036ee35bb2f2f041aac3aae118",
+    "json_path": "experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_V3_FINAL_CLOSURE.json",
+    "json_sha256": "6516cc4b8efdd00e73f6027e8e576ab54032d6d4154a0ca09a699830cb00fa96",
+    "md_sha256": "f823def980e204fb0e24bf13b9e9c1927a766d1a4cbac163bb5255994c23cc13",
+    "remote_verified_commit": "ac746fe8f1d335036ee35bb2f2f041aac3aae118"
+  },
+  "consistency": {
+    "formula": "sum_i(w_i * sum_c((p_student_i,c - stopgrad(p_teacher_i,c))**2)) / (sum_i(w_i)+1e-12)",
+    "loss_multiplier": 1.0,
+    "normalization": "pixel_normalized only",
+    "student_probability": "Native FP32 scoring remains unchanged; FP64 same-Gaussian shadow provides diagnostic softmax/VJP, with native comparison recorded",
+    "teacher_target": "Unchanged B0 native FP32 teacher probability from fixed draw0, detached and cast exactly to the diagnostic dtype",
+    "weights": "detached binary float64 MMPR or original binary R1",
+    "zero_mass": "probability.sum()*0.0, graph-connected"
+  },
+  "decision_policy": {
+    "F1_or_F5": "Engineering block; no scientific interpretation",
+    "all_failures_retained": true,
+    "engineering_precedence": [
+      "BLOCKED_PROTOCOL_OR_LEAKAGE",
+      "BLOCKED_PRIVATE_BUNDLE_MISMATCH",
+      "BLOCKED_MODEL_MUTATION",
+      "BLOCKED_CALL_GRAPH_MISMATCH",
+      "BLOCKED_NUMERICAL_FAILURE",
+      "BLOCKED_INCOMPLETE_EVIDENCE"
+    ],
+    "no_control_rescue": true,
+    "no_early_scientific_stop": "Complete authorized fixed diagnostics despite F2/F3/F4 scientific failure; stop immediately for engineering failure",
+    "pass": "PASS_MMPR_GS_FEASIBILITY only when F1-F5 all pass",
+    "quantile": "numpy.quantile method=linear; full exact72 and exact24/stage; no outlier removal",
+    "scientific_precedence": [
+      "FAIL_MATCHED_MASS_RANKING_NOT_SUPPORTED",
+      "FAIL_RAW_GRADIENT_COMPATIBILITY",
+      "FAIL_PROJECTED_SIGNAL_RETENTION"
+    ],
+    "threshold_tolerance": 0,
+    "undefined": "Keep all rows. Required undefined F2/F3/F4 comparisons fail the respective science gate; absent/truncated evidence is BLOCKED_INCOMPLETE_EVIDENCE"
+  },
+  "destination": {
+    "NAS_write_probe_required": true,
+    "all_large_outputs_and_scratch_on_NAS": true,
+    "allowed_physical_gpus": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "host": "10.12.208.180",
+    "hostname": "zmic44",
+    "kill_or_reserve_other_jobs": false,
+    "no_HOME_fallback": true,
+    "phase_roots": {
+      "final_audit": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/final_audit",
+      "formal": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/formal",
+      "input_audit": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/input_audit",
+      "integration": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/integration",
+      "validation": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/runs/validation"
+    },
+    "port": 22,
+    "private_archive": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831/archives",
+    "root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/mmpr_gs_v0_1_feasibility_20260831",
+    "shared_existing_jobs_allowed": true,
+    "storage_mount": "/data_nas",
+    "uid": 1006,
+    "user": "jiangsuiyang",
+    "wrapper": "/home/jiangsuiyang/SSL_CL/with_nas_storage.sh"
+  },
+  "flags": {
+    "DI_DMPA_additional_attempts_authorized": false,
+    "method_registered": false,
+    "model_optimizer_steps": 0,
+    "training_launched": false,
+    "transport_optimizer_steps": 0
+  },
+  "forbidden": [
+    "C0 or B0 regeneration",
+    "segmentation optimizer step",
+    "backward()",
+    "parameter.grad writes",
+    "optimizer construction",
+    "EMA/GAS/prototype update",
+    "method training",
+    "online prototype lifecycle",
+    "Gate2",
+    "Prostate",
+    "MnMS",
+    "learned transport",
+    "PoE target",
+    "posterior mean rescue",
+    "teacher noise phase",
+    "class-balanced loss",
+    "prototype contrastive loss",
+    "replay",
+    "prototype inference",
+    "main merge"
+  ],
+  "frozen_source_sha256": {
+    "experiments/lcrseg/di_dmpa_gate1/__init__.py": "aa714b87750065d14f2a8d2b4b0ccf5c7b71d9e573bb05bbe232cf12c5942049",
+    "experiments/lcrseg/di_dmpa_gate1/binding.py": "9b3800a52ebf6df360d4b1ebe64c5abfcbf34bdb4406985c6f173b7b1d2e6f9e",
+    "experiments/lcrseg/di_dmpa_gate1/bootstrap.py": "cdc68bdc2d9dc27cfdf4cc68f76cf99f9dc55a8d10335dcba3397f9cc9e65402",
+    "experiments/lcrseg/di_dmpa_gate1/feature_extraction.py": "8ac5d2349e3722739989eff05313846b1b15298b199ca6945a24d4d9c553beba",
+    "experiments/lcrseg/di_dmpa_gate1/gate1a_reporting.py": "5a275d37bb14f60718923adfb63156dec73f8b622a6e033d2298fe4e680cda1e",
+    "experiments/lcrseg/di_dmpa_gate1/gate1a_runner.py": "dfd0cf573791710c3885fdf4b68f79f17d3492932d88b577ecf7bb2772bbb17c",
+    "experiments/lcrseg/di_dmpa_gate1/geometry_metrics.py": "ea640e988364e82451cf4bfdf3d1ee800f311607889b0ebf9a2d852fa92803f5",
+    "experiments/lcrseg/di_dmpa_gate1/recovery.py": "96bc0e49a17817b4513d0f15e60e9b0aae490d91a40167cb378d9173562d1c2d",
+    "experiments/lcrseg/di_dmpa_gate1/registered_features.py": "545c3020adaa141c0cd136c21ae6ba1cbee025b04509e474c60f78361f73c2b7",
+    "experiments/lcrseg/di_dmpa_gate1/sampling.py": "10c5d8c1eba6720ee268833987d087c20781ca30011fa6a8d13907c7ff2c93b8",
+    "experiments/lcrseg/di_dmpa_gate1/spherical_kmeans.py": "dbe2e3042eb60771b3d79e38e673814c6de081bbe163c170ba190fffa81aa8e7",
+    "experiments/lcrseg/di_dmpa_gate1_v2/__init__.py": "04c7302cd7d710143db72db7f9db4c4fe40dee91f9ad85142c0d7a7891496bd3",
+    "experiments/lcrseg/di_dmpa_gate1_v2/binding.py": "f95367bfccded946ce541d4b7de1167ad96915bb5ae965502e509a419f093754",
+    "experiments/lcrseg/di_dmpa_gate1_v2/census.py": "3b296f463ce1306fd6ca9c2d8c5b8e45bcfda4ef639b8b708c3341e148b9d5e5",
+    "experiments/lcrseg/di_dmpa_gate1_v2/features.py": "e14a013d0f083edd762cbd92c004200ea4217969fed6b6c3cf84c3ebfdbd56dc",
+    "experiments/lcrseg/di_dmpa_gate1_v2/geometry.py": "959501552947aa233e728d5bac503c563672a79dfa33bab042b0128ef615b216",
+    "experiments/lcrseg/di_dmpa_gate1_v2/reporting.py": "dda26fcae2bcc214b6ab24b7b7ab799e53c34d46a7ba490e5502df1884fa161a",
+    "experiments/lcrseg/di_dmpa_gate1_v2/runner.py": "2f06e926f962fb56b69f441b86acb406652529eaeb02d4349e5ef4cf3e4b7d0e",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/__init__.py": "ae113ce78d145af9ba458807199ca92c99d45d7163395b0155efed2de03cfc7d",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/binding.py": "bd409f937b700a7f97d2bc080021474766e84d85469a601318d45c78e6bad961",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/cache_reuse.py": "3c062a28614af73de92cf4d5d5a4a14dc1cd0a3995604f8aa9c4243c2f8ee792",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/execution.py": "debb0ba493afb632da94c1ccf0df956071e37970c321c566a89460b0b42d8c9b",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/full_precision.py": "ac9af32b4f3c8334956c9bd137cb36efbc583b38621cd6f963302c673bbda080",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/gradients.py": "22392dd39ed0659bd4fa003dcdab63d3ceacc6a0b6c93623801693f80b2d5888",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/metrics.py": "c0800832964dc022fde855fbf09e2bee41d8d06fabe2c5c2ece8653be9dc5d36",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/precision.py": "09e67054a67b26948e6041e9bdb535169643cbb9046534cce696e39081ff97d8",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/precision_pilot.py": "55da0b02f8db3dcdc1d344e4bab0ead98aa89abfc866f475f46b1aafad122a44",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/reliability.py": "58810cdc801020d49872a3dcf2ae7b291b08dbaca420d547c8af8df90036dcd1",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/reporting.py": "aa0554707ce254ce1e6fc22c73c9b353193a16a051c18cb0f503214c9f3e0b95",
+    "experiments/lcrseg/di_dmpa_gate1c_v2/runner.py": "62656fdb21e1b4113417a73436e7068848f095bf80de4abbf04a9c3cf0732bb2",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/__init__.py": "72fa6906a4ed597cfc4482d8ed7e4d5c4db89ff1b186bb2728cdf3938998fdc8",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/archive.py": "21688752549c4349eede981ffe8d72b078e16e80952924f78a032a9ff3eef8af",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/baseline.py": "339bebda43f56578725cf2bd92cbaffcb5383745a04819716d83046479af3012",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/baseline_execution.py": "e07f8bfb64f4066d354873c74a4b829be0064ccc1cc86484bda203987d22b20c",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/binding.py": "b9883bc75421f2d07115f64a53a59f3864f2029bed21d04d5b5b782036ff687a",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/durable.py": "a155d60af798b9f8820ed529982272ed432f88959eebbe4110b5e2a54d291e99",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/execution.py": "14e8d55c0cd737b9bace8dca2d7da4f8ed89532026b2386ae7f185c7b729f714",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/inputs.py": "2f901810a7133ab192ae1f6b7851fe8110a33180a15b1b97b781f3e63b8de13c",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/k2_replication.py": "adb372d0cbe2cdf2ae51b6da013c03a280ffd3b4701ac3c4dfb718c3986ea8b1",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/runtime_tests.py": "9991bdd8957b51806ccd3f89f063d96922137ffd901b34500f20f3203ab7b2c0",
+    "experiments/lcrseg/di_dmpa_gate1c_v3/validation.py": "e5fe3ee89c7703bf141bfbe0db59ad30376a40c554e5b1a356c9851e7e7ec841",
+    "experiments/lcrseg/di_dmpa_jascl/__init__.py": "9f3e86571ccbd990894cf468726bea798baea183db1d1d5ac5b7cb8aa53c79f6",
+    "experiments/lcrseg/di_dmpa_jascl/checkpoint.py": "8f31d51c2a04b1a9abdd986f65abadeb88e8a1e765cf94d346f0461e982da625",
+    "experiments/lcrseg/di_dmpa_jascl/config.py": "80aa403e6830dd6bcd61045dda43f9c2a15602a0f6a00e6438859a995f1e4a38",
+    "experiments/lcrseg/di_dmpa_jascl/data.py": "3a2b13401813198b97095c82e57c0e2e76ce24632b3f0471c8c8d31ed83f7881",
+    "experiments/lcrseg/di_dmpa_jascl/gradient_audit.py": "9577b5d1831d40e6bf23f3d8c48cab3793dd8d9589f6a750bff37126016813c5",
+    "experiments/lcrseg/di_dmpa_jascl/manifest.py": "f49a9636e8d91bca23348dc177bfff5aa3bbdfa06859021510a7fe214ea82c14",
+    "experiments/lcrseg/di_dmpa_jascl/metrics.py": "8c9d18af8290bdba73e170ea14719bd1f2eb4652ed8d6a058e51349637912141",
+    "experiments/lcrseg/di_dmpa_jascl/modeling.py": "3c6f0c1621eb90b53bfcbd814bc511342e6bf677847906bbe06769d1e77af190",
+    "experiments/lcrseg/di_dmpa_jascl/provenance.py": "01ece3589045ec2ab66cd14ffe46d2b4d34c6540332aa9781a6197a2450e7cdf",
+    "experiments/lcrseg/di_dmpa_jascl/runner.py": "59f6dd744a4f208ea3ca435e656ce3ca039a8d03dd78948cf42917ac770f6410"
+  },
+  "hard_stop": "After report commit/push/remote SHA verification, stop for independent review. No method implementation/training/refresh/full sweep. If feasibility fails prototype pseudo-label selection remains stopped; relation-consolidation or any other method needs a separate registration.",
+  "inherited_numeric_inputs": {
+    "authorization_commit": "9c673bd745a0d35a6c25f772c7aca58502d0e572",
+    "inherited": [
+      "all 495 validation cases, seeds, native arrays and model provenance",
+      "all 72 labeled/unlabeled batch pairs, draw0 seeds, checkpoint identities",
+      "direct PAS K1, K2 current and identity-history banks",
+      "native feature/probability/null/score formulas, temperatures and logmeanexp",
+      "strict original four-threshold joint PAS and original supervised CE",
+      "deterministic same-Gaussian FP64 diagnostic VJP"
+    ],
+    "not_inherited": [
+      "old execution authorizations",
+      "old C1-C8 admission",
+      "class-balanced losses",
+      "noise/posterior/PoE phases",
+      "old training authorization"
+    ],
+    "path": "experiments/lcrseg/docs/di_dmpa_jascl/DI_DMPA_GATE1C_V3_PREREGISTRATION_SERIALIZATION_ERRATUM.json",
+    "preregistration_commit": "4a21799bc50e4e6c644a89b08808e59de525d6a9",
+    "read_only": true,
+    "sha256": "ad27b069121cfe41880a2da5429d8f9b688515d19942d14e2960212e4b192c06",
+    "source_commit": "db4af88eca0dca48025f8884bf7f85e068eabf2a"
+  },
+  "inputs": {
+    "baseline_manifest": {
+      "path": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/control/gate1c_v3_authority/BASELINE_V3_CHECKPOINT_MANIFEST.json",
+      "sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d"
+    },
+    "checksums_sha256": "e9c49329b1bbbd976f166efb605448eecd342173450fcd3e0681d472d0a1b768",
+    "data_root": "/home/jiangsuiyang/SSL_CL",
+    "dimensions": [
+      384,
+      384
+    ],
+    "fixed_batch_pairs_sha256": "d537e0f0fb7d44febf0d861a0384ce43f8c6d326cb5656e481b8882d79723958",
+    "foreground_units": 18,
+    "formal_pairs": 72,
+    "formal_reference_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/gate1c_v3_clean_regeneration_20260831/runs/formal_v3_attempt1",
+    "integration_pair_ids": [
+      "B0/seed0/stage0/REFUGE/pair00",
+      "B0/seed1/stage1/RIM_ONE_r3/pair00",
+      "B0/seed0/stage2/Drishti_GS/pair01"
+    ],
+    "k2_freeze": {
+      "path": "/home/jiangsuiyang/SSL_CL/gate1c_v3_clean_regeneration_20260831/runs/K2_replication/K2_REPLICATION_FREEZE.json",
+      "sha256": "f39d764832d7b88087fef9a25a618752ec2a8d0167efe24c55da16a4cfde5a7b"
+    },
+    "no_validation_cache_regeneration": true,
+    "validation_cases": 495,
+    "validation_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/gate1c_v3_clean_regeneration_20260831/runs/validation_v3_serialization_erratum"
+  },
+  "mass_matching": {
+    "active": "Frozen EMA raw norm >1e-12; exact cache active_mask",
+    "active_target": "M=sum(R1 over active pixels in this image and teacher-predicted class)",
+    "active_weight": "Binary top M; no positive-score filtering; zero scores participate and are tied by the frozen hash",
+    "class_balanced_loss": false,
+    "forbidden": [
+      "cross-image allocation",
+      "cross-class allocation",
+      "null deletion",
+      "resampling",
+      "GT tie break",
+      "epsilon fake direction",
+      "outcome-selected mass",
+      "score quantization",
+      "R1 count modification"
+    ],
+    "full_target": "Select every active stratum row",
+    "identity": "Per-image per-predicted-class integer mass difference exactly 0",
+    "null_weight": "Exactly R1; no null row removed or fake score/direction",
+    "ordering": [
+      "descending unrounded R3",
+      "ascending full 256-bit SHA256 H([reliability-tie-v1,seed,stage_index,case_id,y,x])",
+      "ascending y then x only for an identical 256-bit hash"
+    ],
+    "strata": "Each image independently, separately for teacher-predicted class 0,1,2, using every image pixel including evaluator-ignore pixels",
+    "tie_hash_serialization": "UTF-8 json.dumps(list, ensure_ascii=False, separators=(comma,colon)); existing metrics.tie_keys reused byte-for-byte",
+    "zero_target": "Select none of the active stratum"
+  },
+  "method_name": "Mass-Matched Multi-Prototype Ranking with Gradient-Safe Consistency",
+  "preregistration_barrier": {
+    "checkpoint_tensor_reads": 0,
+    "execution_permitted_only_after_both_documents_remote_verified": true,
+    "gradients": 0,
+    "new_scientific_results": 0,
+    "private_cache_array_reads": 0,
+    "real_model_forwards": 0
+  },
+  "private_bundle": {
+    "content_sha256": "8a82c7b8f0c72eb4faf619f51d7c1eae67a5f81059bc7f283b6b8df22d563526",
+    "logical_bytes": 17712127650,
+    "logical_files": 14470,
+    "manifest_filename": "PRIVATE_BUNDLE_MANIFEST.json",
+    "manifest_sha256": "480b627e0f63839ff5430d980020ca026c45838cf5eeb345f2b4cf7c4d578bb2",
+    "old_paths": "Existing HOME compatibility symlinks resolve to NAS; original metadata remains untouched",
+    "root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/gate1c_v3_clean_regeneration_20260831/runs/complete_v3_evidence_bundle",
+    "verification": "Full manifest SHA, canonical content hash, exact logical path/count/byte coverage and every file SHA256 before any private tensor/array use; recheck unchanged at final seal"
+  },
+  "process_and_archive": {
+    "durable": "Reuse di_dmpa_gate1c_v3.durable detached parent with actual child exit, command/log/PID receipts; SSH status is not experiment status",
+    "phases": [
+      "publication_gate",
+      "synthetic_tests_and_call_graph_freeze",
+      "complete_input_hash_audit",
+      "readonly_validation",
+      "new_integration",
+      "new_formal_draw0",
+      "final_immutability_audit",
+      "private_archive",
+      "report_publication",
+      "hard_stop"
+    ],
+    "private_archive": "All new large files stay on NAS. Seal full input/result/process evidence with canonical per-file SHA manifest, copy to a separate create-only content-addressed NAS archive, full SHA verify before atomic publication. Source remains. Record that this is same-NAS integrity copy, not independent-device disaster recovery. Local checkout receives source and small public diagnostics/receipts only; no raw arrays or checkpoints in Git",
+    "publication": "Separate final report commit/push and remote-SHA receipt; no main merge",
+    "state": "Every real phase is create-only; no resume, overwrite, replay or automatic retry after a real-forward failure"
+  },
+  "projection": {
+    "arithmetic": "float64 vectors and dot/norm statistics; no post-projection clipping/rescaling/repeated correction",
+    "blocks": [
+      "encoder",
+      "bottleneck",
+      "dec3",
+      "dec2",
+      "dec1",
+      "classifier.mu"
+    ],
+    "class_components": "Three teacher-predicted-class components of MMPR with the same global mass denominator; sum of vectors checked (atol1e-6 rtol1e-4). Use the total projection coefficient on each component: g_proj_c=g_u_c-alpha_c*g_s where alpha_c=alpha*dot(g_s,g_u_c)/dot(g_s,g_u) when projection is active; sum equals total projected vector. Report raw components and total projection blockwise; no per-class loss normalization",
+    "formula": "g_proj = g_u - min(0, dot(g_s,g_u)) / (dot(g_s,g_s)+1e-12) * g_s",
+    "native_comparisons": "Supervised, R1, MMPR: FP32 vs same-Gaussian FP64 all 6 blocks and global; finite values, required global relativeL2<=1e-3 and cosine>=0.9999 unless both zero; no precision rescue after real forward",
+    "parameter_set": "Every student trainable parameter passed to autograd.grad(allow_unused=True); complete full-order inventory; explicit zero placeholders for None; active if receives any supervised/R1/MMPR/component gradient; no hardcoded removal of sigma/classifier",
+    "required_dot_lower_bound": -1e-10,
+    "supervised": "Frozen fixed labeled-cycle batch CE, ignore_index255, sum non-ignore CE divided by non-ignore count",
+    "unpartitioned": "Any parameter with a non-None gradient outside the six registered blocks is BLOCKED_PROTOCOL_OR_LEAKAGE; known None-only sigma/grad_update are retained explicitly in the global vector and inventory"
+  },
+  "protocol": "MMPR_GS_V0_1_FEASIBILITY",
+  "registered_at_utc": "2026-08-31T12:47:03.273730+00:00",
+  "registration_id": "MMPR_GS_V0_1_MASS_MATCHED_R3_RANKING",
+  "relationship_to_DI_DMPA": "Independent prospective feasibility; not a continuation, attempt, repair or rescue",
+  "runtime": {
+    "cuda": "12.1",
+    "h5py": "3.16.0",
+    "no_installs": true,
+    "numpy": "1.26.4",
+    "python_executable": "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+    "python_version": "3.10.6",
+    "scipy": "1.13.0",
+    "torch": "2.2.1+cu121"
+  },
+  "schema_version": 1,
+  "score": {
+    "GT_in_builder": false,
+    "K": 2,
+    "R4_available": false,
+    "control": "R2 current-only ranking; Q2 descriptive control cannot rescue Q1",
+    "history_transform": "identity",
+    "native_inputs_unchanged": true,
+    "no_pseudolabel_or_target_change": true,
+    "primary": "Unrounded exact original Gate1C v3 R3 (float64 score derived from native FP32 inputs); ranking only",
+    "reuse_function": "di_dmpa_gate1c_v2.reliability.score_arrays/build",
+    "score_threshold_search": false
+  },
+  "short_name": "MMPR-GS-JASCL",
+  "tests": {
+    "errors": 0,
+    "excluded_before_collection": {
+      "tests/di_dmpa_gate1c_v2/test_real.py": "Historical private-input/old-contract integration invokes forbidden extra real forwards; replaced only by the new registered3-pair integration, old file unchanged",
+      "tests/di_dmpa_gate1c_v3/test_baseline.py": "B0 regeneration/PAS-capture training and overfit trajectory tests construct optimizers, backward and GAS updates; explicitly forbidden this round. Old B0 evidence frozen, direct bank identity/payload tests retained"
+    },
+    "existing_modules": "All tests/di_dmpa_gate1c_v2 and tests/di_dmpa_gate1c_v3 diagnostic regression modules, unchanged",
+    "failures": 0,
+    "gate0_runtime_training_suite": "Not rerun; optimizer/backward training suite is outside MMPR diagnostics. The old one skipped Gate0 legacy-root test remains historical; no skip is inherited into the new suite",
+    "minimum_coverage_items": 46,
+    "new_directory": "experiments/lcrseg/tests/mmpr_gs_v0_1",
+    "skips": 0,
+    "source_policy": "Do not modify old tests, source, reports or states"
+  },
+  "validation": {
+    "GT_boundary": "MMPR selection runs and is sealed before evaluator loads val GT. Builder accepts scores, probability-derived predicted classes, active/R1 masks and non-GT UID only. Never GT/valid/boundary masks.",
+    "boundary": "Independent evaluator only: one-pixel four-neighbor GT transition boundary, mark both valid pixels at each differing valid-neighbor edge; no boundary around ignore or image exterior; interior=non-ignore complement",
+    "candidates": {
+      "Q0": "R1 original binary mask",
+      "Q1": "R3 mass-matched binary primary",
+      "Q2": "R2 mass-matched binary current-only control",
+      "Q3": "Original uncalibrated soft R3 descriptive"
+    },
+    "case_weights": "Reuse Gate1C equal-case stratum weights: each non-ignore class-c pixel has mass 1/(number of cases containing c * count of non-ignore predicted-c pixels in its case)",
+    "foreground_macro": "Unweighted arithmetic mean of exactly18 defined unit errors; do not drop undefined units",
+    "ignore": "255 remains in builder and mass audit; ignored only in evaluator correctness metrics; full-image and non-ignore selected mass both reported",
+    "improving_unit": "Q1 weighted_error strictly lower than R1 at unrounded precision",
+    "precision_drop": "R1_precision-Q1_precision per exact unit",
+    "relative_reduction": "(macro_R1_error-macro_Q1_error)/macro_R1_error when reference>0; reference=candidate=0 gives0; positive candidate with zero reference or any undefined required metric fails F2; no epsilon manufacture",
+    "report": [
+      "case/class exact full-image mass and difference",
+      "case and weighted aggregate precision/error",
+      "relative reduction",
+      "selected/deselected counts and new/removed precision",
+      "boundary/interior",
+      "null counts and selected null equality",
+      "tie multiplicity/cutoff tie count/hash collisions",
+      "casewise distributions"
+    ],
+    "unit": "seed x current domain x teacher-predicted foreground class (1=rim,2=cup); exactly18",
+    "weighted_error": "sum(case_weight * candidate_weight * (prediction != GT))/sum(case_weight * candidate_weight); precision=1-error"
+  }
+}
