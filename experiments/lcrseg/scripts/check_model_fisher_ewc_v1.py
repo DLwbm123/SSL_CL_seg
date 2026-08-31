@@ -338,8 +338,8 @@ def check_state_and_rng(path: Path) -> dict[str, object]:
         "exp_avg_sq": torch.full_like(first_parameter, 2.0),
     }
     optimizer_before = copy.deepcopy(optimizer.state_dict())
-    rng_before = capture_rng_state()
     provider = ImageOnlyDataset([torch.randn(3, 2, 2, dtype=torch.float64) for _ in range(2)], consume_rng=True)
+    rng_before = capture_rng_state()
     method.estimate_fisher(batcher(provider), device="cpu")
     assert_same(rng_before, capture_rng_state())
     assert modes == [module.training for module in method.model.modules()]
@@ -398,8 +398,8 @@ def check_state_and_rng(path: Path) -> dict[str, object]:
     method.site_id = "B"
     old_reference = {name: value.detach().clone() for name, value in method.reference_parameters.items()}
     old_fisher = {name: value.detach().clone() for name, value in method.fisher_diagonal.items()}
-    rng_before_failure = capture_rng_state()
     failure_provider = ImageOnlyDataset([torch.randn(3, 2, 2, dtype=torch.float64)], consume_rng=True, fail_at=1)
+    rng_before_failure = capture_rng_state()
     try:
         method.estimate_fisher(batcher(failure_provider), device="cpu")
     except OSError as error:
