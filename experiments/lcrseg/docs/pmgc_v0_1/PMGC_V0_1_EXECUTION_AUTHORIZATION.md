@@ -1,0 +1,7 @@
+# Independent PMGC V0.1 execution authorization
+
+Registration `PMGC_V0_1_K2_MODE_GRADIENT_CONE` was independently pushed and verified at `efc187287b4b10b153867b20905cc3ddeefd94d9`; both git ls-remote and GitHub API agree. Its two file hashes are bound in the companion authorization JSON. The user authorizes only its one fixed preparation, new six-pair integration, one 48-pair formal gradient/virtual-step audit, artifact audits, NAS archive and final branch publication.
+
+This authorization is separate from preregistration and becomes operative only after its own push and remote verification. At creation: zero checkpoint tensor reads, private gradient array reads, real forwards and autograd calls. Next implement and test using synthetic inputs, publish exact code, freeze its compiler evidence, then execute the fixed graph. No extra real pilot, retry, training, optimizer, backward, parameter.grad write, mutable banks, selection/transport/relation method, sweep or main merge.
+
+GPU4/5/6/7 sharing and NAS-only artifacts are authorized. Historical files and private bundles remain immutable. All flags stay `model_optimizer_steps=0`, `transport_optimizer_steps=0`, `method_registered=false`, `training_launched=false`. All seven gates are required; controls cannot rescue P4. Publish and stop for independent review. On feasibility failure, end this project's prototype-derived new-method line; no new variants are authorized.

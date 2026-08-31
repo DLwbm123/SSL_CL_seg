@@ -1,0 +1,137 @@
+{
+  "schema_version": 1,
+  "registration_id": "PMGC_V0_1_K2_MODE_GRADIENT_CONE",
+  "protocol": "PMGC_V0_1_FEASIBILITY",
+  "document_kind": "INDEPENDENT_EXECUTION_AUTHORIZATION",
+  "base_commit": "3126e59a63b205f2a075f28efa9f5d83b3911792",
+  "branch": "codex/pmgc-v0-1-feasibility",
+  "preregistration_commit": "efc187287b4b10b153867b20905cc3ddeefd94d9",
+  "preregistration_remote_verified_commit": "efc187287b4b10b153867b20905cc3ddeefd94d9",
+  "preregistration_files_sha256": {
+    "PMGC_V0_1_FEASIBILITY_PREREGISTRATION.md": "98a52da221319054777f95100fd745821168632551d4572290f7af1e56f4fbe9",
+    "PMGC_V0_1_FEASIBILITY_PREREGISTRATION.json": "7731664cf715dd8b43e286f28c38a285d966b793490f07e488a9c1e22ab248aa"
+  },
+  "closure_commit": "e1e4ac3c29b1a39ee7fc19aa84851a42570a54e1",
+  "closure_remote_verified_commit": "e1e4ac3c29b1a39ee7fc19aa84851a42570a54e1",
+  "authorized_at_utc": "2026-08-31T15:14:07.089581+00:00",
+  "authorization_source": "User supplied PMGC-JASCL prospective feasibility task plus standing GPU4-7 shared-use and NAS-only instructions.",
+  "scope": [
+    "one fixed mode/guard preparation",
+    "synthetic/unit and compatible regression tests",
+    "one new 6-pair integration with independent audit/archive",
+    "one new 48-pair formal gradient and stateless virtual-step audit",
+    "historical/current val evaluator",
+    "G1-G7 feasibility adjudication",
+    "independent artifact audit",
+    "NAS private content-addressed archive",
+    "report/receipt commit and push to registered branch",
+    "hard stop"
+  ],
+  "forbidden": [
+    "C0 regeneration",
+    "segmentation optimizer construction or step",
+    "method training",
+    "backward",
+    "parameter.grad write",
+    "EMA/GAS/PAS or historical K2 update",
+    "pseudo-label reweighting/ranking/filtering",
+    "PoE",
+    "relation-coordinate loss",
+    "feature transport",
+    "prototype replay",
+    "prototype inference",
+    "Gate2",
+    "Prostate",
+    "MnMS",
+    "sweep",
+    "main merge",
+    "additional real pilot",
+    "automatic retry or replacement of any real phase"
+  ],
+  "flags": {
+    "model_optimizer_steps": 0,
+    "transport_optimizer_steps": 0,
+    "method_registered": false,
+    "training_launched": false
+  },
+  "call_graph": {
+    "compiler": "After exact code commit push and remote verification, run the same kernels on explicit synthetic models/tensors, including real inventory-shaped model if needed; dynamically count model forwards and torch.autograd.grad, bind source SHA, assert stage-specific graph. Freeze compiler receipt before any real forward.",
+    "preparation": {
+      "native_forwards": 174,
+      "fp64_forwards": 135,
+      "native_autograd": 0,
+      "fp64_autograd": 468,
+      "total_forwards": 309
+    },
+    "per_pair_by_stage": {
+      "1": {
+        "native_forwards": 3,
+        "fp64_forwards": 122,
+        "native_autograd": 2,
+        "fp64_autograd": 2,
+        "total_forwards": 125
+      },
+      "2": {
+        "native_forwards": 3,
+        "fp64_forwards": 107,
+        "native_autograd": 2,
+        "fp64_autograd": 2,
+        "total_forwards": 110
+      }
+    },
+    "integration": {
+      "native_forwards": 18,
+      "fp64_forwards": 687,
+      "native_autograd": 12,
+      "fp64_autograd": 12,
+      "total_forwards": 705
+    },
+    "formal": {
+      "native_forwards": 144,
+      "fp64_forwards": 5496,
+      "native_autograd": 96,
+      "fp64_autograd": 96,
+      "total_forwards": 5640
+    },
+    "total": {
+      "native_forwards": 336,
+      "fp64_forwards": 6318,
+      "native_autograd": 108,
+      "fp64_autograd": 576,
+      "total_forwards": 6654
+    },
+    "total_real_forwards": 6654,
+    "total_real_autograd_calls": 684,
+    "preparation_order": [
+      "old current-domain labeled feature/mean cache (39 native forwards)",
+      "one K2/K1 fit per class/unit (0 forwards/autograd)",
+      "current stochastic native+FP64 guard batches (39+39 forwards,468 FP64 VJPs)",
+      "isolated previous/current validation old mean and FP64 before cache (96+96 forwards,0 VJPs)"
+    ],
+    "pair_order": [
+      "native+FP64 unlabeled student",
+      "native draw0 EMA teacher",
+      "native+FP64 labeled student",
+      "native supervised,total and FP64 supervised,total (4 autograd calls)",
+      "five deterministic projections each with repeated KKT certification (0 forwards/autograd)",
+      "for each P0-P4:16 val FP64 stateless forwards + fixed8(stage1)/5(stage2) train guard FP64 stateless forwards under no_grad"
+    ],
+    "unsupported_mode_graph": "Every one of twelve guard VJP slots executes per guard batch, using a graph-connected zero when its selected support is empty; inactive/zero constraints remain explicit and do not add/remove calls.",
+    "scientific_zero_direction_graph": "Identity diagnostic still executes all preregistered evaluator forwards; step_valid=false and G6 fails.",
+    "no_extra_real_forward_or_autograd_allowed": true,
+    "mismatch_status": "BLOCKED_CALL_GRAPH_MISMATCH"
+  },
+  "no_private_or_model_access_before_this_authorization_remote_verification": true,
+  "exact_code_commit_remote_verification_and_compiler_required_before_real_forward": true,
+  "no_preview_changes_remaining_units": true,
+  "no_formal_retry": true,
+  "hard_stop": {
+    "next_action": "STOP_FOR_INDEPENDENT_REVIEW",
+    "on_failure": "End the prototype-derived new-method line in this project. Only later separately authorized strong baselines and external method comparisons; no new prototype ranking, relation, transport, memory or gradient variant.",
+    "training_authorized": false,
+    "performance_training_authorized": false,
+    "Gate2_authorized": false,
+    "additional_variants_authorized": false
+  },
+  "required_next_state": "IMPLEMENT_SYNTHETIC_TEST_PUBLISH_EXACT_CODE_COMPILE_GRAPH"
+}
