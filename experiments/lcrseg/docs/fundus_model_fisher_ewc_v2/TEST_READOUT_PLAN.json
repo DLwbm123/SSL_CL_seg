@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "registration_id": "FUNDUS_MODEL_FISHER_EWC_V2",
+  "status": "REGISTERED_SINGLE_TEST_READOUT_READY_AFTER_PUBLICATION_RECEIPT",
+  "registration_sha256": "cc86b8518de7ad622a41dc20db896310ebdcf59176d4b62ad58b7e6b6db4b670",
+  "training_source_commit": "c4b42859ed6d048e6f9860e81e69a5148d3086aa",
+  "formal_plan_sha256": "d2750c5314b6a7b55d804ebbf5876686070fb8a2ed1ba7e93601b02942e95369",
+  "post_training_audit": {
+    "status": "PASS_POST_TRAINING_ZERO_MODEL_AUDIT",
+    "sha256": "671506ff5a76c5bc58b0a2e7805aef0483be5cf2aef73fa637fd80cf220c522d",
+    "runs_verified": 6,
+    "formal_optimizer_steps": 80400,
+    "protected_input_files_rehashed": 1119,
+    "protected_input_bytes_rehashed": 157158028,
+    "test_role_used": false
+  },
+  "post_training_artifact_inventory_sha256": "8b24bb2ab20883476ff1dd7e9460975ac9d2c6e4ff61ce2f1c0d60be48d2cc96",
+  "readout_script": "experiments/lcrseg/scripts/evaluate_fundus_model_fisher_ewc_v2.py",
+  "readout_source_commit_policy": "exact containing commit recorded in the private publication receipt before test access",
+  "gpu": 7,
+  "attempts": 1,
+  "arms": [
+    "sequential_ssl",
+    "model_fisher_ewc_v2"
+  ],
+  "seeds": [
+    0,
+    1,
+    2
+  ],
+  "domain_order": [
+    "REFUGE",
+    "RIM_ONE_r3",
+    "Drishti_GS"
+  ],
+  "test_patients_per_domain": {
+    "REFUGE": 100,
+    "RIM_ONE_r3": 40,
+    "Drishti_GS": 25
+  },
+  "test_cells": 36,
+  "test_images": 2430,
+  "maximum_test_model_forwards": 612,
+  "optimizer_steps": 0,
+  "checkpoint_policy": "all 18 stage-final checkpoints on every seen test domain",
+  "metric": "patient-mean hard foreground Dice averaged across classes 1 and 2",
+  "success": {
+    "mean_final_dice_improvement_min": 0.01,
+    "positive_final_dice_seeds_min": 2,
+    "per_seed_final_dice_improvement_min": -0.01,
+    "mean_bwt_improvement_min": 0.01,
+    "mean_incoming_dice_improvement_min": -0.01
+  },
+  "success_status": "PASS_EWC_FEASIBILITY",
+  "valid_metric_failure_status": "FAIL_EWC_FEASIBILITY",
+  "engineering_failure_status": "FAIL_ENGINEERING",
+  "test_role_usage": "evaluator_only",
+  "hidden_training_labels_used": false,
+  "retry_after_result": false,
+  "threshold_or_sample_change_after_result": false,
+  "output_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/fundus_model_fisher_ewc_v2_20260901/test_evaluation"
+}
