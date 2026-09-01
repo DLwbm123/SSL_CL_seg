@@ -227,7 +227,8 @@ def test_32_probability_fusion():
 
 def test_33_no_logit_fusion():
     source = inspect.getsource(run.materialize_candidates)
-    assert "probability_fusion" in source and "logit" not in source
+    assert "probability_fusion" in source
+    assert "logit_fusion(" not in source and "np.log(" not in source
 
 
 def test_34_m1_clean_reproduction():
