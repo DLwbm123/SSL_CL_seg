@@ -1,0 +1,32 @@
+{
+  "binding": {
+    "authorization_commit": "8608353f0753a8a194799c9bc573f9f6962983c9",
+    "preregistration_commit": "cd797d55362fd997beb6a9b7d5878aa790392831",
+    "registration_id": "PRES_JASCL_V0_1_SNAPSHOT_DOMAIN_ROUTER"
+  },
+  "clarification": {
+    "bootstrap_routing": "Routing bootstrap metrics remain case-level. Each replicate computes per-domain case accuracy, averages equally over seeds within domain, then averages domains equally for macro accuracy.",
+    "cross_seed_domain_aggregation": "After each seed/domain segmentation metric is obtained from its aggregate pixel confusion matrix, seeds are averaged equally within each domain. Three-domain and historical-domain summaries then average domains equally.",
+    "domain_drop_checks": "The D1 and D3 no-domain-drop conditions are checked on every unrounded seed/domain metric, as already registered.",
+    "forgetting": "For each seed and historical domain, forgetting is fixed Oracle-snapshot foreground Dice minus Shared-final foreground Dice; Drishti_GS is current-domain performance and is not included in the historical forgetting average.",
+    "routing": "Routing observations are cases. Per-seed/domain accuracy is correct validation cases divided by validation cases; macro accuracy is the equal-domain mean after equal-seed aggregation.",
+    "segmentation": "The exact frozen regenerated-B0 evaluator has precedence: for each seed/domain/expert or policy, accumulate the 3x3 pixel confusion matrix over all authorized validation cases, ignore label 255, then derive per-class Dice/IoU, Mean Dice, Foreground Dice, and Mean IoU. Do not average case-level Dice or IoU."
+  },
+  "created_at": "2026-09-01T05:58:53Z",
+  "document_kind": "PREREGISTRATION_AGGREGATION_CLARIFICATION",
+  "reason": "Resolve the preregistration's generic case-mean phrase against its explicit requirement to reuse exact frozen regenerated-B0 evaluator arithmetic.",
+  "schema_version": 1,
+  "scientific_contract_change": false,
+  "status": "CLARIFIED_PENDING_REMOTE_VERIFICATION",
+  "unchanged": [
+    "data and role boundaries",
+    "expert and oracle mapping",
+    "router extractor and descriptor",
+    "M1 and M2 algorithms and seeds",
+    "bootstrap draws",
+    "D1-D5 numerical thresholds",
+    "candidate selection and failure statuses",
+    "zero-training isolation",
+    "required outputs and hard stop"
+  ]
+}
