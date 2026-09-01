@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "registration_id": "FUNDUS_MODEL_FISHER_EWC_V2",
+  "status": "FAIL_EWC_FEASIBILITY",
+  "valid_execution": true,
+  "overall_project_success": false,
+  "training_commit": "c4b42859ed6d048e6f9860e81e69a5148d3086aa",
+  "readout_commit": "7a4579ef3c1c709496ac019f26fab919f868f972",
+  "formal_training": {
+    "runs": 6,
+    "optimizer_steps": 80400,
+    "queue_exits_zero": 3,
+    "training_artifact_gates_passed": 6,
+    "model_fisher_images": 126,
+    "model_fisher_points": 2016,
+    "model_fisher_autograd_grad_calls": 6048
+  },
+  "test_readout": {
+    "attempts": 1,
+    "actual_child_exit_code": 0,
+    "cells": 36,
+    "case_rows": 2430,
+    "model_forwards": 612,
+    "optimizer_steps": 0,
+    "test_role_usage": "evaluator_only",
+    "hidden_training_labels_used": false
+  },
+  "paired_model_fisher_ewc_v2_minus_sequential_ssl": [
+    {
+      "seed": 0,
+      "F": -0.08031946124937617,
+      "I": -0.04934983944995164,
+      "BWT": -0.04645443269913696
+    },
+    {
+      "seed": 1,
+      "F": 0.027948925730400198,
+      "I": 0.00030973333431461025,
+      "BWT": 0.04145878859412849
+    },
+    {
+      "seed": 2,
+      "F": 0.06181017701812053,
+      "I": -0.00420178352996492,
+      "BWT": 0.09901794082212817
+    }
+  ],
+  "gates": {
+    "mean_final_dice_improvement": {
+      "observed": 0.003146547166381519,
+      "minimum": 0.01,
+      "passed": false
+    },
+    "positive_final_dice_seeds": {
+      "observed": 2,
+      "minimum": 2,
+      "passed": true
+    },
+    "per_seed_final_dice_improvement": {
+      "observed": -0.08031946124937617,
+      "minimum": -0.01,
+      "passed": false
+    },
+    "mean_bwt_improvement": {
+      "observed": 0.03134076557237323,
+      "minimum": 0.01,
+      "passed": true
+    },
+    "mean_incoming_dice_improvement": {
+      "observed": -0.01774729654853398,
+      "minimum": -0.01,
+      "passed": false
+    }
+  },
+  "failed_gates": [
+    "mean_final_dice_improvement",
+    "per_seed_final_dice_improvement",
+    "mean_incoming_dice_improvement"
+  ],
+  "integrity": {
+    "post_training_zero_model_audit": "PASS_POST_TRAINING_ZERO_MODEL_AUDIT",
+    "test_readout_zero_model_audit": "PASS_TEST_READOUT_ZERO_MODEL_AUDIT",
+    "input_hashes_reverified": 1307,
+    "input_bytes_reverified": 310307940,
+    "test_artifact_files": 618,
+    "test_artifact_bytes": 359588498,
+    "input_checkpoint_bytes_unchanged": true,
+    "gpu7_returned_idle": true
+  },
+  "evidence_sha256": {
+    "post_training_audit": "671506ff5a76c5bc58b0a2e7805aef0483be5cf2aef73fa637fd80cf220c522d",
+    "test_readout_publication_receipt": "d86921e1ba2bd347f7d9f08009f67d0c3b075e76a7c62441b9ec802a6c1edfba",
+    "test_readout_launch_once": "3361710b1d38369b4624fc2bdc9784839de6a70f742a7dd9e14f688a2cc4e582",
+    "actual_test_child_exit": "7a4d4cec4afbfde7096fd54ab2bdee8721151215dea61695a954b820e4f71d46",
+    "private_test_result": "ccb5983112492d20840390217e7be0f4ccf2e54297ac1c5c66b5bf011d0ced42",
+    "test_artifact_inventory": "a49021ba868573b6a5f086f1570770a26317ed41fade1fc7b05ebedeac36a0be",
+    "test_readout_audit": "01fa4d9175ec1b5571ed6e9cbb1eebf4675de8de4fe4934253ad82632623f502"
+  },
+  "retry_authorized": false,
+  "threshold_or_sample_change_authorized": false,
+  "clinical_validation": false
+}
