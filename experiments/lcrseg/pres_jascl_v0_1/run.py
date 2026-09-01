@@ -17,7 +17,7 @@ import torch
 from di_dmpa_gate1.binding import safe_asset
 from di_dmpa_gate1c_v2 import binding as b
 from di_dmpa_gate1c_v3 import durable as d
-from di_dmpa_gate1c_v3.inputs import load_models
+from di_dmpa_gate1c_v3.inputs import load_models as _load_models
 from di_dmpa_gate1_v2.features import ImmutableModels
 
 from .core import (Blocked, DOMAINS, ORACLE_EXPERT, adjudicate, array_sha256, bootstrap_draw,
@@ -25,6 +25,31 @@ from .core import (Blocked, DOMAINS, ORACLE_EXPERT, adjudicate, array_sha256, bo
                    route, routing_rows, routing_summary, segmentation_metrics, style_descriptors)
 from .protocol import (BATCH_SIZE, ROOT, compile_call_graph, execution_gate, gate1c_contract,
                        input_audit, isolation_guard, verify_call_graph)
+
+
+def deterministic_backend_state():
+    return dict(deterministic_algorithms=torch.are_deterministic_algorithms_enabled(),
+                cudnn_deterministic=bool(torch.backends.cudnn.deterministic),
+                cudnn_benchmark_disabled=not torch.backends.cudnn.benchmark,
+                matmul_tf32_disabled=not torch.backends.cuda.matmul.allow_tf32,
+                cudnn_tf32_disabled=not torch.backends.cudnn.allow_tf32,
+                autocast_disabled=not torch.is_autocast_enabled())
+
+
+def enforce_deterministic_backend():
+    """Restore the registered backend after the pinned JASCL import mutates cuDNN globals."""
+    torch.use_deterministic_algorithms(True)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+    torch.backends.cuda.matmul.allow_tf32 = False
+    torch.backends.cudnn.allow_tf32 = False
+    return deterministic_backend_state()
+
+
+def load_readonly_models(*args, **kwargs):
+    result = _load_models(*args, **kwargs)
+    enforce_deterministic_backend()
+    return result
 
 
 def text_new(path, value):
@@ -111,7 +136,7 @@ def extract_descriptors(output, image_plans, data_root, router_checkpoints, meta
     for seed in range(3):
         rows = image_plans[seed]
         cp = router_checkpoints[seed]
-        models, payload = load_models(ROOT, cp, device=device, sources=("ema_teacher",))
+        models, payload = load_readonly_models(ROOT, cp, device=device, sources=("ema_teacher",))
         model = models["ema_teacher"]
         descriptors, validity = [], []
         with ImmutableModels(models, cp, Path(output)/"router_models"/f"seed{seed}", metadata):
@@ -302,7 +327,7 @@ def predict_experts(output, plans, data_root, expert_checkpoints, metadata, devi
         images_only = [image_only(row) for row in rows]
         for expert in range(3):
             cp = expert_checkpoints[seed][expert]
-            models, payload = load_models(ROOT, cp, device=device, sources=("student",))
+            models, payload = load_readonly_models(ROOT, cp, device=device, sources=("student",))
             model = models["student"]
             batches = []
             with ImmutableModels(models, cp, Path(output)/"expert_models"/f"seed{seed}_expert{expert}", metadata):
@@ -576,11 +601,7 @@ def main():
         require(args.output.is_dir(), "durable create-only output was not initialized")
         os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
         torch.set_num_threads(1)
-        torch.use_deterministic_algorithms(True)
-        torch.backends.cudnn.deterministic = True
-        torch.backends.cudnn.benchmark = False
-        torch.backends.cuda.matmul.allow_tf32 = False
-        torch.backends.cudnn.allow_tf32 = False
+        enforce_deterministic_backend()
         metadata = execution_gate(args.output, args.code_commit, args.test_report)
         metadata["exact_command"] = sys.argv
         d.write_new(args.output/"PRES_JASCL_RUN_METADATA.json", metadata)
@@ -612,9 +633,9 @@ def main():
                                                            records, data_root, counters)
         counters["total_output_rows"] = sum(counters["output_rows"].values())
         d1, candidates = gate_inputs(routing, bootstrap, stability, banks, strategies)
-        deterministic = (torch.are_deterministic_algorithms_enabled() and torch.backends.cudnn.deterministic
-                         and not torch.backends.cudnn.benchmark and not torch.backends.cuda.matmul.allow_tf32
-                         and not torch.backends.cudnn.allow_tf32 and not torch.is_autocast_enabled())
+        backend = deterministic_backend_state()
+        counters["deterministic_backend"] = backend
+        deterministic = all(backend.values())
         d5 = (immutability_pass(args.output, counters) and counters["validation_GT_case_reads"] == 495
               and counters["total_output_rows"] == graph["total_output_rows"] and deterministic)
         decision = adjudicate(d1, candidates, d5)

@@ -449,3 +449,31 @@ def test_47_gate_aggregation_and_report_are_serializable(tmp_path: Path):
     metadata = dict(exact_test_command="python -m pytest", exact_command=["run", "--synthetic"])
     run.report(tmp_path, metadata, counters, d1, candidates, decision)
     assert d.read(tmp_path / "PRES_JASCL_STATUS.json")["D5"] is True
+
+
+def test_48_jascl_import_backend_side_effect_is_restored(monkeypatch: pytest.MonkeyPatch):
+    original = (torch.are_deterministic_algorithms_enabled(), torch.backends.cudnn.deterministic,
+                torch.backends.cudnn.benchmark, torch.backends.cuda.matmul.allow_tf32,
+                torch.backends.cudnn.allow_tf32)
+
+    def mutating_loader(*_args, **_kwargs):
+        torch.backends.cudnn.benchmark = True
+        return {"model": object()}, {"checkpoint": object()}
+
+    monkeypatch.setattr(run, "_load_models", mutating_loader)
+    try:
+        models, payload = run.load_readonly_models("unused")
+        assert models and payload and all(run.deterministic_backend_state().values())
+    finally:
+        torch.use_deterministic_algorithms(original[0])
+        torch.backends.cudnn.deterministic = original[1]
+        torch.backends.cudnn.benchmark = original[2]
+        torch.backends.cuda.matmul.allow_tf32 = original[3]
+        torch.backends.cudnn.allow_tf32 = original[4]
+
+
+def test_49_postflight_preserves_diagnosed_blocker():
+    blocked = {"scientific_status": "BLOCKED_PROTOCOL_OR_LEAKAGE", "D5": False}
+    assert postflight.validate_terminal_status(blocked) == "ENGINEERING_BLOCKED"
+    with pytest.raises(Blocked):
+        postflight.validate_terminal_status({"scientific_status": "PASS_PRES_ROUTING_FEASIBILITY", "D5": False})

@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 from pathlib import Path
+import subprocess
 
 from di_dmpa_gate1c_v2.full_precision import forbid_forwards
 from di_dmpa_gate1c_v3 import durable as d
@@ -21,18 +22,33 @@ def validate_durable_completion(output):
     return completion, process
 
 
+def validate_terminal_status(status):
+    scientific = status["scientific_status"]
+    adjudicated = scientific.startswith(("PASS_", "FAIL_")) and status["D5"] is True
+    diagnosed_blocker = scientific == "BLOCKED_PROTOCOL_OR_LEAKAGE" and status["D5"] is False
+    require(adjudicated or diagnosed_blocker, "final status/D5 unavailable", "BLOCKED_INCOMPLETE_EVIDENCE")
+    return "ADJUDICATED" if adjudicated else "ENGINEERING_BLOCKED"
+
+
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", required=True, type=Path)
     parser.add_argument("--code-commit", required=True)
+    parser.add_argument("--execution-code-commit")
     args = parser.parse_args()
     output = args.output.resolve()
     with forbid_forwards(), isolation_guard():
         publication = source_gate(args.code_commit)
         completion, process = validate_durable_completion(output)
         status = d.read(output/"PRES_JASCL_STATUS.json")
-        require(status["scientific_status"].startswith(("PASS_", "FAIL_")) and status["D5"] is True,
-                "final status/D5 unavailable", "BLOCKED_INCOMPLETE_EVIDENCE")
+        terminal_kind = validate_terminal_status(status)
+        execution_commit = args.execution_code_commit or args.code_commit
+        require(status["metadata"]["code_commit"] == execution_commit
+                and status["metadata"]["publication"]["code_commit"] == execution_commit,
+                "execution source identity changed")
+        require(subprocess.run(["git", "-C", str(Path(__file__).resolve().parents[3]), "merge-base",
+                                "--is-ancestor", execution_commit, args.code_commit]).returncode == 0,
+                "audit source does not descend from execution source")
         require(status["model_optimizer_steps"] == status["router_optimizer_steps"] == status["autograd_calls"]
                 == status["backward_calls"] == status["parameter_grad_writes"] == 0
                 and status["method_registered"] is False and status["training_launched"] is False,
@@ -52,8 +68,10 @@ def main():
         artifact = d.read(output/"PRES_JASCL_ARTIFACT_MANIFEST.json")
         require(artifact["status"] == "PASS_CONTROLLER_ARTIFACT_MANIFEST" and artifact["required_outputs_complete"],
                 "controller artifact manifest incomplete")
-        audit = dict(status="PASS_PRIVATE_ARCHIVE_AUDIT", audited_at=d.now(), code_commit=args.code_commit,
-                     publication=publication, scientific_status=status["scientific_status"], phase_manifest=str(phase_path),
+        audit = dict(status="PASS_PRIVATE_ARCHIVE_AUDIT", audited_at=d.now(),
+                     execution_code_commit=execution_commit, audit_code_commit=args.code_commit,
+                     audit_publication=publication, terminal_kind=terminal_kind,
+                     scientific_status=status["scientific_status"], D5=status["D5"], phase_manifest=str(phase_path),
                      phase_manifest_sha256=d.sha256(phase_path), phase_content_sha256=phase["content_sha256"],
                      phase_files=phase["files"], phase_bytes=phase["bytes"], durable_process_exit_verified=True,
                      all12_model_checkpoint_guards_pass=True, controller_artifact_manifest_complete=True,
