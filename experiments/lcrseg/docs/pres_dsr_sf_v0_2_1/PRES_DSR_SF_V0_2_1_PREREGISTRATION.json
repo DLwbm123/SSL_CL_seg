@@ -1,0 +1,187 @@
+{
+  "authorization": {
+    "formal_attempts_requested": 1,
+    "private_input_access_authorized_by_this_document": false,
+    "requires_separate_execution_authorization": true
+  },
+  "call_graph": {
+    "clean_control_bootstrap_operations": 60,
+    "clean_control_prototype_fits": 168,
+    "descriptor_case_passes": 1485,
+    "descriptor_forwards": 186,
+    "expert_probability_case_passes": 1485,
+    "expert_probability_forwards": 189,
+    "m1_cv_prototype_fits": 75,
+    "model_guards": 12,
+    "ridge_bootstrap_operations": 30,
+    "ridge_closed_form_fits": 936,
+    "total_model_forwards": 375,
+    "validation_GT_reads": 495
+  },
+  "combined_cv": {
+    "exact_keyset_required": true,
+    "families": {
+      "M1_temperature": 24,
+      "ridge_lambda": 30,
+      "ridge_temperature": 24
+    },
+    "sorting_key": [
+      "cv_family",
+      "router",
+      "seed",
+      "stage_index",
+      "kind",
+      "value"
+    ],
+    "split_files": [
+      "pres_dsr_m1_temperature_cv.csv",
+      "pres_dsr_ridge_cv.csv"
+    ],
+    "total_rows": 78
+  },
+  "engineering_blockers": [
+    "BLOCKED_SCIENCE_SOURCE_CHANGED",
+    "BLOCKED_CALLGRAPH_CARDINALITY_MISMATCH",
+    "BLOCKED_OUTPUT_KEYSET_MISMATCH",
+    "BLOCKED_BACKEND_STATE_MUTATION",
+    "BLOCKED_CONTROL_REPRODUCTION_MISMATCH",
+    "BLOCKED_PRIVATE_INPUT_MISMATCH",
+    "BLOCKED_PROTOCOL_OR_LEAKAGE",
+    "BLOCKED_MODEL_MUTATION",
+    "BLOCKED_NUMERICAL_FAILURE",
+    "BLOCKED_INCOMPLETE_EVIDENCE"
+  ],
+  "frozen_science": {
+    "combined_ast_sha256": "3acfbf968bbd52d417a13859e9de64d217de59433c962a5f4e2f78ac8d10526b",
+    "functions": {
+      "adjudicate": {
+        "ast_sha256": "01aaee9ae24f14de630bb838b1d7e8af8e88af3588719079dd15eeee4a25672c",
+        "source_sha256": "2aadcbde1b3e1331c62ca2377ec943dbb4962c0e73b2f15c23e2cab6e8a705f5"
+      },
+      "apply_standardizer": {
+        "ast_sha256": "90553134d29d602fabeecc149fd442ef78c5d842400f911df040947b7ce10332",
+        "source_sha256": "3cc14a26c0a8e2b30d85a3c2211cdcde0742e941e39de683475022e1e712f82a"
+      },
+      "bootstrap_multiplicity": {
+        "ast_sha256": "76d7ef2c5e376a6e7f0a22a229302beb586cfb18d7b049fcdc077ec325d34319",
+        "source_sha256": "0508a22fb4d79d43991648b403d32f6b2750d0a66b27ef197c0bc1185df9b0e6"
+      },
+      "fit_router": {
+        "ast_sha256": "e71600b007578bb040d1afa3b003ba0f3f8faa2a6eed25f71a0f5e5eaebb4233",
+        "source_sha256": "3b7c728045fce31546134fd22945c8dad999f07ff81d9ba733df1524d1c4cd8d"
+      },
+      "fit_standardizer": {
+        "ast_sha256": "74a95b90f0bab535045ac7902a65ed413289603a1e7183e6fb96638215dcf2cc",
+        "source_sha256": "770054d46b02a0764d36de20705a28d5da12cbf53defc1dd07e97a5000fb035e"
+      },
+      "hard_routes": {
+        "ast_sha256": "74c791d9ac9ad0973157e69221a144ac6a0704be5d01cad0d658847a2261a9d4",
+        "source_sha256": "2cb7fd4e852adb023d293b46481d3a5a09edbf0a98763ce8c7e4ccaac8a5bb30"
+      },
+      "probability_fusion": {
+        "ast_sha256": "3fb45628c010c2917200e313b12ee980afacb54cf12dc5b2f7d9e78fefbdbe35",
+        "source_sha256": "58b7bf9a2053b8cabfc0a186c07e39a68f4080b8a7959490fdb21a35706f7368"
+      },
+      "raw_style_block": {
+        "ast_sha256": "5b1f32ba05ba6f635a18d5c8426a664dddb7ef36f9de7f4bd9b6f46f8fc6b096",
+        "source_sha256": "e6b4dea63e4c741b7b85d384945d6aa34d846a43c66a68826c9d648bece55dbb"
+      },
+      "raw_style_descriptors": {
+        "ast_sha256": "917da9e76ca374886e5060054f13c87b3be70f0f7cc68c2e41f64734aa05fc2a",
+        "source_sha256": "eeb8cd549fa2aca6359c93d27f9ff84d77c9d5b9f382ac2a45067bd8ae991031"
+      },
+      "ridge_fit": {
+        "ast_sha256": "dd654c3697a0b42557bcb495bde3e3b3e38b7f3a79870a3459e501d2bf2c5625",
+        "source_sha256": "46b551ce2b10b3d1bfc7c45122cad27b93ba168125a889f4e490950472abb47d"
+      },
+      "router_probabilities": {
+        "ast_sha256": "5d3ef432f9295c229a2f3917fc408f4f11ff19333b759a1f08dd71d63b8bbbd4",
+        "source_sha256": "c8fd06b95de291650515606983069a4aa2fd081dd59a9a3c79315746f78126ce"
+      }
+    },
+    "reference_code_commit": "09f4600348f8708ca9e865f7d5c925b6472cd013"
+  },
+  "frozen_scientific_results": [
+    "PASS_PRES_DSR_SF_FEASIBILITY",
+    "FAIL_SNAPSHOT_EXPERT_VALUE",
+    "FAIL_DISCRIMINATIVE_DOMAIN_ROUTING",
+    "FAIL_SOFT_EXPERT_FUSION_VALUE",
+    "FAIL_ROUTER_STABILITY"
+  ],
+  "frozen_search": {
+    "descriptor_dimension": 102,
+    "lambda_candidates": [
+      0.0001,
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "memory_cap_per_domain": 512,
+    "router_units": 6,
+    "temperature_candidates": [
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ]
+  },
+  "hard_stop": {
+    "after_validation_report": true,
+    "forbidden": [
+      "test evaluation",
+      "second V0.2.1 attempt",
+      "C0 regeneration",
+      "router hyperparameter expansion",
+      "validation-based refit",
+      "expert fine-tuning",
+      "LoRA",
+      "adapter",
+      "performance training",
+      "Prostate",
+      "MnMS",
+      "full sweep",
+      "main merge"
+    ]
+  },
+  "lineage": {
+    "base_commit": "ff42db2ec2381aad176139ab788a9925eef9d147",
+    "branch": "codex/pres-dsr-sf-v0-2-1-callgraph-recovery",
+    "closure_commit": "de82bf94f27f91e071f9bab4e9432f1c0ee263d3",
+    "erratum_commit": "44a8870765d1ebb5efa38843f3c20b79aeb721ec",
+    "old_execution_code_commit": "09f4600348f8708ca9e865f7d5c925b6472cd013",
+    "old_report_commit": "53e35e351ab6e2e6a780edbdc1e8f1b04b05b3e7"
+  },
+  "output_key_counts": {
+    "bootstrap": 90,
+    "combined_cv": 78,
+    "cross_expert": 27,
+    "memory": 9,
+    "ridge_local_cv": 54,
+    "router_scores": 915,
+    "routing_confusion": 117,
+    "soft_fusion": 120,
+    "total_output_rows": 1356
+  },
+  "phase_order": [
+    "input_audit",
+    "descriptor_seal",
+    "memory_seal",
+    "clean_control_seal",
+    "ridge_router_seal",
+    "combined_cv_seal",
+    "expert_probability_seal",
+    "candidate_prediction_seal",
+    "validation_evaluation",
+    "bootstrap_evaluation",
+    "E1_E6_compile",
+    "artifact_audit",
+    "NAS_archive",
+    "report"
+  ],
+  "preregistered_at": "2026-09-01T11:18:38Z",
+  "registration_id": "PRES_DSR_SF_V0_2_1_CALLGRAPH_SCOPE_RECOVERY",
+  "schema_version": 1,
+  "scope": "validation-only call-graph evidence recovery; no scientific method change",
+  "validation_GT_policy": "candidate_prediction_seal must complete before any validation segmentation GT read"
+}
