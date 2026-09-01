@@ -1,0 +1,138 @@
+{
+  "additional_attempt_authorized": false,
+  "archive": {
+    "controller_artifacts": {
+      "bytes": 1215360674,
+      "files": 124,
+      "required_outputs_complete": true,
+      "status": "PASS_SHOR_ARTIFACT_MANIFEST"
+    },
+    "durable_phase": {
+      "bytes": 1215390173,
+      "content_sha256": "d6d01ad5a3f82a1986efdad114bfb7d2d7d380d4b3d271d6849005117816c041",
+      "files": 140,
+      "manifest_sha256": "928378a126318d7374766f12a0865cf78b358b121e04cbad77cc76d302c3637f"
+    },
+    "final_private_bundle": {
+      "bytes": 1215417402,
+      "content_sha256": "34dc1cf9f27d0adc47a6166e9310dd227c4aaaac37bb658badfabc21c61018ac",
+      "exact_path_coverage": true,
+      "files": 142
+    },
+    "frozen_private_input_unchanged": true,
+    "status": "PASS_SHOR_PRIVATE_ARCHIVE_AUDIT"
+  },
+  "completed_at": "2026-09-01T13:40:06.237052+00:00",
+  "counters": {
+    "bootstrap_candidate_case_predictions": 4575,
+    "bootstrap_metric_rows": 75,
+    "bootstrap_operations": 30,
+    "bootstrap_threshold_units": 45,
+    "checkpoint_tensor_reads": 0,
+    "failure_attribution_rows": 915,
+    "formal_candidate_case_predictions": 3660,
+    "formal_route_rows": 915,
+    "formal_threshold_units": 9,
+    "model_constructions": 0,
+    "new_model_forwards": 0,
+    "override_utility_rows": 15,
+    "ridge_closed_form_fits": 1116,
+    "segmentation_rows": 75,
+    "validation_GT_case_reads": 495
+  },
+  "durable_process": {
+    "actual_child_exit_code": 0,
+    "server_local_parent_receipt": true,
+    "ssh_exit_is_child_exit_evidence": false,
+    "status": "COMMAND_COMPLETED"
+  },
+  "evidence": {
+    "calibration": {
+      "all_finite": true,
+      "all_units_feasible": true,
+      "feasible_units": 9,
+      "total_units": 9
+    },
+    "current_safety": {
+      "current_domain_drop": 0.004435972312150464,
+      "maximum_current_class_drop": 0.005413765535633257,
+      "maximum_seed_domain_drop": 0.013307916936451392
+    },
+    "repair": {
+      "current_domain_drop_reduction": 0.026495087887968616,
+      "historical_gain_loss": 0.04221602560746593,
+      "maximum_seed_domain_drop_reduction": 0.026495087887968616,
+      "shared_gain_loss": 0.02157697053627633
+    },
+    "stability": {
+      "all_finite": true,
+      "current_domain_drop_p90": 0.02978419132657624,
+      "every_unit_feasible_in_at_least_4_of_5": false,
+      "feasible_replicates": {
+        "seed0_stage1_domain0": 5,
+        "seed0_stage2_domain0": 5,
+        "seed0_stage2_domain1": 4,
+        "seed1_stage1_domain0": 5,
+        "seed1_stage2_domain0": 5,
+        "seed1_stage2_domain1": 3,
+        "seed2_stage1_domain0": 5,
+        "seed2_stage2_domain0": 5,
+        "seed2_stage2_domain1": 2
+      },
+      "historical_gain_p10": 0.15102858269155076,
+      "maximum_seed_domain_drop_p90": 0.02978419132657624,
+      "shared_gain_p10": 0.09887379404977491
+    },
+    "value": {
+      "REFUGE_mean_gain": 0.2494106637729843,
+      "RIM_ONE_r3_mean_gain": 0.17041396494850422,
+      "historical_gain": 0.20991231436074428,
+      "oracle_gap": 0.02716435554209493,
+      "positive_seed_count": 3,
+      "three_domain_gain": 0.13846288546977936
+    }
+  },
+  "execution_code_commit": "b7f85c7deaccbb8dbeef1ef998ac0823db55e75d",
+  "formal_attempt": 1,
+  "gates": {
+    "H1_CALIBRATION": true,
+    "H2_CURRENT_SAFETY": true,
+    "H3_VALUE": true,
+    "H4_REPAIR_OF_SOFT_FAILURE": true,
+    "H5_STABILITY": false,
+    "H6_ISOLATION": true
+  },
+  "isolation": {
+    "all9_stage_barriers_pass": true,
+    "candidate_predictions_sealed_before_validation_GT": true,
+    "method_registered": false,
+    "model_autograd_calls": 0,
+    "model_backward_calls": 0,
+    "model_constructions": 0,
+    "model_forwards": 0,
+    "model_optimizer_steps": 0,
+    "parameter_grad_writes": 0,
+    "private_input_unchanged": true,
+    "router_optimizer_steps": 0,
+    "test_GT_reads": 0,
+    "threshold_builder_segmentation_GT_usage": "none",
+    "training_launched": false,
+    "validation_GT_usage": "evaluator_only_after_candidate_seal"
+  },
+  "predecessor": {
+    "old_v0_3_engineering_status_unchanged": "BLOCKED_NUMERICAL_FAILURE",
+    "old_v0_3_scientific_status": null,
+    "review_commit": "311c631476ba20bfce9a46ce2ff254db96cc82b9"
+  },
+  "protocol_status": "COMPLETED_VALIDATION_ONLY",
+  "registration_id": "SHOR_JASCL_V0_3_1_ACTIVE_SUPPORT_FIX",
+  "schema_version": 1,
+  "scientific_status": "FAIL_SELECTIVE_OVERRIDE_STABILITY",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "shor_cases": 58,
+    "skips": 0,
+    "total": 194
+  }
+}
