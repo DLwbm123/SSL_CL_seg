@@ -1,0 +1,116 @@
+{
+  "adaptation_to_jascl": {
+    "baseline_combination": "g_sup + 0.5 * g_pas_probability_mse",
+    "frozen_host_components": [
+      "UNet2D",
+      "official stochastic3x3 classifier",
+      "student and EMA teacher",
+      "supervised CE",
+      "single-prototype PAS",
+      "joint student/teacher validity",
+      "probability MSE consistency",
+      "GAS",
+      "augmentation",
+      "Adam optimizer",
+      "polynomial scheduler",
+      "stage and checkpoint semantics"
+    ],
+    "paper_unsupervised_objective_replaced_by_frozen_jascl_objective": true,
+    "paper_optimizer_defaults_adopted": false,
+    "reason": "The user protocol freezes regenerated B0 JASCL and changes only PAS-phase gradient combination."
+  },
+  "audit_time": "2026-09-01T03:26:42Z",
+  "blockers": [
+    "single-gradient-zero coefficient branch not specified",
+    "both-zero and identical-gradient deterministic coefficient tie not specified",
+    "MEO zero-POS-norm division not specified",
+    "official executable gradient parameter inventory not available",
+    "None-gradient handling not specified",
+    "official synthetic parity target not available",
+    "numerical boundary tolerance and epsilon rules not specified"
+  ],
+  "code_search": {
+    "author_profiles_checked": [
+      "https://github.com/yuisuen",
+      "https://github.com/mai556"
+    ],
+    "exact_method_code_matches": 0,
+    "exact_title_repository_matches": 0,
+    "official_code_commit": null,
+    "official_code_license": "NOT_PUBLICLY_VERIFIED",
+    "source_code_status": "NOT_PUBLICLY_VERIFIED"
+  },
+  "document_kind": "OFFICIAL_SOURCE_AUDIT",
+  "execution_gate": {
+    "execution_authorization_published": false,
+    "implementation_started": false,
+    "optimizer_steps": 0,
+    "preregistration_published": false,
+    "private_checkpoint_tensor_reads": 0,
+    "real_model_forwards": 0,
+    "training_launched": false
+  },
+  "formula_specification": {
+    "gradient_parameter_subset": "student-network parameters theta at paper level; executable inventory unresolved",
+    "meo": "Equation 13: unit POS direction multiplied by norm(0.5*g_unsup + 0.5*g_sup)",
+    "normalization": "L2 norm",
+    "optimizer_integration": "one weighted loss using the POS coefficients",
+    "pareto_coefficients": "Equation 6, subject to the unresolved boundary and zero cases",
+    "scheduler_interaction": "no POS-specific scheduler; host baseline scheduler retained",
+    "supervised_gradient": "gradient of mini-batch supervised loss with respect to student-network parameters",
+    "unsupervised_gradient": "gradient of mini-batch unsupervised loss with respect to student-network parameters"
+  },
+  "official_defaults": {
+    "pos_or_meo_hyperparameters": "none disclosed",
+    "unimatch_v1_optimizer": "SGD",
+    "unimatch_v1_initial_lr_pascal": 0.001,
+    "unimatch_v1_initial_lr_cityscapes": 0.005,
+    "unimatch_v2_optimizer": "AdamW",
+    "unimatch_v2_weight_decay": 0.01,
+    "learning_rate_policy": "polynomial decay"
+  },
+  "primary_source": {
+    "authors": [
+      "Rui Sun",
+      "Huayu Mai",
+      "Wangkai Li",
+      "Yujia Chen",
+      "Yuan Wang"
+    ],
+    "landing_page": {
+      "bytes": 6222,
+      "sha256": "f2c631c6a048d97b40fa3bec4005e2f8a5bc1c010bf2bd0cd222d5e8d5353887",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/html/Sun_Two_Losses_One_Goal_Balancing_Conflict_Gradients_for_Semi-supervised_Semantic_ICCV_2025_paper.html"
+    },
+    "pages": "20357-20367",
+    "paper_pdf": {
+      "bytes": 1482036,
+      "pages": 11,
+      "sha256": "f9b5510351a3ad1c2911ba20c2081a478300f471e665d595b4ae1af76438c2b7",
+      "url": "https://openaccess.thecvf.com/content/ICCV2025/papers/Sun_Two_Losses_One_Goal_Balancing_Conflict_Gradients_for_Semi-supervised_Semantic_ICCV_2025_paper.pdf"
+    },
+    "title": "Two Losses, One Goal: Balancing Conflict Gradients for Semi-supervised Semantic Segmentation",
+    "venue": "ICCV 2025"
+  },
+  "schema_version": 1,
+  "status": "BLOCKED_POS_SPECIFICATION_AMBIGUOUS",
+  "supplementary": {
+    "cvf_landing_page_has_supplement_link": false,
+    "http_checks": [
+      {
+        "status": 404,
+        "url_suffix": "_supplemental.pdf under ICCV2025/supplemental"
+      },
+      {
+        "status": 404,
+        "url_suffix": "_supp.pdf under ICCV2025/supplemental"
+      },
+      {
+        "status": 404,
+        "url_suffix": "_supplemental.pdf under ICCV2025/papers"
+      }
+    ],
+    "supplementary_status": "NOT_PUBLICLY_VERIFIED"
+  },
+  "unblock_requirement": "Attributable official code/supplement or attributable author rules for zero/tie/MEO-zero behavior, exact parameter inventory, None gradients, numerical boundaries, and synthetic parity."
+}
