@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "registration_id": "FUNDUS_MODEL_FISHER_EWC_V2",
+  "status": "PASS_ENGINEERING",
+  "admitted_at": "2026-09-01T00:05:57.357506+00:00",
+  "registration_commit": "4d14445dce4686230acfdd94caff10229630736b",
+  "execution_commit": "c4b42859ed6d048e6f9860e81e69a5148d3086aa",
+  "device_preflight": {
+    "status": "PASS_ZERO_REAL_DEVICE_ADMISSION",
+    "actual_child_exit_code": 0,
+    "real_data_access": false,
+    "model_forward_calls": 0,
+    "autograd_grad_calls": 0,
+    "optimizer_steps": 0
+  },
+  "real_engineering": {
+    "actual_child_exit_code": 0,
+    "elapsed_seconds": 10.593046226014849,
+    "model_forward_calls": 37,
+    "autograd_grad_calls": 768,
+    "optimizer_steps": 3,
+    "paired_first_stage_exact": true,
+    "same_deterministic_batch_as_v1": true,
+    "fisher_images": 16,
+    "fisher_points": 256,
+    "fisher_mean": 0.0006928071097761668,
+    "positive_penalty": 5.882831715098291e-07
+  },
+  "frozen_input_audit": {
+    "files_rehashed_after_engineering": 1119,
+    "bytes_rehashed_after_engineering": 157158028,
+    "bytes_unchanged": true,
+    "metadata_and_checksum_hashes_unchanged": true
+  },
+  "hidden_training_gt_used": false,
+  "test_role_used": false,
+  "formal_training_authorized": true,
+  "formal_training_started": false,
+  "evidence_sha256": {
+    "device_preflight_admission": "23fcb48c57451cb6e69e2ebb7747ea79ced9c0eb9ce1a7d894ece5ae9445ea9b",
+    "input_audit": "b0e2e5e7513d99e19c7dd02d3473c4b41355e6fadaa42f46d0078c0b1366d478",
+    "real_engineering_launch": "8e6e52028baa7fb64aeae6b8ed097488fd6bff1c8d26ba844694cef095a7e166",
+    "actual_child_exit": "2d80b484578f283e462f040ae9b2408ca9aaf614826ac6d6d809269331ef6d4f",
+    "private_real_engineering_report": "f61474cfdccfdffab805cafdad50092939b3529eb7e07755ad35ae5a1f94aee2",
+    "post_real_zero_model_audit": "8affd2f102a694b18656eb6bc591b6be3682ab8fd396668b2b5638a595e77dce"
+  }
+}
