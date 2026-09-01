@@ -1,0 +1,44 @@
+{
+  "attempt2_authorized": false,
+  "checkpoint_tensor_reads": 0,
+  "diagnosis": "The pinned official JASCL model import changed torch.backends.cudnn.benchmark from false to true after the registered backend was configured.",
+  "formal_execution_commit": "977e0139c6f8ee9ac795606a19ab155b9dd4bd72",
+  "guard_commit": "0c983666da4458d96450ef8121427a823cbaa3b4",
+  "guard_regression": {
+    "deselected": 47,
+    "failures": 0,
+    "passed": 2,
+    "skips": 0
+  },
+  "model_forwards": 0,
+  "private_HDF5_reads": 0,
+  "reproduction": {
+    "after_PRES_guard": {
+      "autocast_disabled": true,
+      "cudnn_benchmark_disabled": true,
+      "cudnn_deterministic": true,
+      "cudnn_tf32_disabled": true,
+      "deterministic_algorithms": true,
+      "matmul_tf32_disabled": true
+    },
+    "after_pinned_JASCL_import": {
+      "autocast_disabled": true,
+      "cudnn_benchmark_disabled": false,
+      "cudnn_deterministic": true,
+      "cudnn_tf32_disabled": true,
+      "deterministic_algorithms": true,
+      "matmul_tf32_disabled": true
+    },
+    "before_import": {
+      "autocast_disabled": true,
+      "cudnn_benchmark_disabled": true,
+      "cudnn_deterministic": true,
+      "cudnn_tf32_disabled": true,
+      "deterministic_algorithms": true,
+      "matmul_tf32_disabled": true
+    }
+  },
+  "schema_version": 1,
+  "status": "PASS_ROOT_CAUSE_REPRODUCTION",
+  "training_launched": false
+}
