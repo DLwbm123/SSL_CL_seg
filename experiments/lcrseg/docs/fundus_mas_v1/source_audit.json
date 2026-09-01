@@ -1,0 +1,36 @@
+{
+  "status": "PASS_SOURCE_AUDIT",
+  "completed_at": "2026-09-01T02:24:00Z",
+  "model_calls": 0,
+  "real_data_access": false,
+  "paper": {
+    "title": "Memory Aware Synapses: Learning what (not) to forget",
+    "venue": "ECCV 2018",
+    "url": "https://openaccess.thecvf.com/content_ECCV_2018/papers/Rahaf_Aljundi_Memory_Aware_Synapses_ECCV_2018_paper.pdf",
+    "sha256": "a09d51e56eca5c73a9f3866a2e42a0886073fb1b45b8e874b920fb2143f61593"
+  },
+  "author_code": {
+    "repository": "https://github.com/rahafaljundi/MAS-Memory-Aware-Synapses",
+    "commit": "c3e6a855cdde588fb74aeb876f84340eb6090ad5",
+    "files": {
+      "MAS_to_be_published/MAS.py": "8be8b5b3976b7af5c4fcb8e719efb840208068153b1c966b87a1146728972e4a",
+      "MAS_to_be_published/MAS_utils/MAS_based_Training.py": "60b8c29ab94edfd4edd752959c12703710a496690282798693e0a8fa3e250958",
+      "MAS_to_be_published/MAS_utils/Objective_based_SGD.py": "b937a0c1c2a84bfa9913daa1644f88bd5f81dd8d2ea46517a21dfcf1fd1f83ef"
+    }
+  },
+  "fixed_findings": {
+    "variant": "global_mas",
+    "output_objective": "squared_l2_norm",
+    "importance": "mean_absolute_parameter_gradient_per_data_point",
+    "importance_data": "training_images_without_labels",
+    "accumulation": "elementwise_sum_across_completed_tasks",
+    "lambda": 1.0,
+    "lambda_tuned_in_source_experiment": false,
+    "online_batch_size": 1
+  },
+  "excluded_candidates": {
+    "synaptic_intelligence": "requires additional damping and regularization settings not needed for the source-fixed MAS route",
+    "freeze_encoder": "not selected because the audited published MAS route already has a fully fixed identity and coefficient"
+  },
+  "prior_test_metrics_used_for_selection": false
+}
