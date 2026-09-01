@@ -1,0 +1,215 @@
+{
+  "base": {
+    "branch_head": "c854bd28b1a69ce001646201a824b8bb75141c67",
+    "closure_commit": "9feee43c5e34c427356ceaaafa6f691dd14186a3",
+    "closure_file_sha256": {
+      "json": "61375093d58c73727e1ae6500f9a6e3371e8bc2e566807c92e8d00c6972f841d",
+      "md": "055b4ee3bec5cdc4a4963ef3429e86f01782612fb060ed095e7cd59a66abf905"
+    },
+    "execution_code_commit": "58ee45b12aae662c8fe61595dc4068094c783f7c",
+    "report_commit": "5b6d8ce2bc40e0cccb936b1372052be4fa5d9d4b",
+    "scientific_status": "FAIL_SOFT_EXPERT_FUSION_VALUE"
+  },
+  "bootstrap": {
+    "formal_threshold_reuse": false,
+    "replicates": 5,
+    "resampling_unit": "within_seed_stage_domain_train_memory",
+    "ridge_grids": "unchanged",
+    "validation_cache_only": true
+  },
+  "engineering_blockers": [
+    "BLOCKED_BASE_COMMIT_AMBIGUOUS",
+    "BLOCKED_PRIVATE_BUNDLE_MISMATCH",
+    "BLOCKED_PROTOCOL_OR_LEAKAGE",
+    "BLOCKED_OUTPUT_KEYSET_MISMATCH",
+    "BLOCKED_NUMERICAL_FAILURE",
+    "BLOCKED_INCOMPLETE_EVIDENCE"
+  ],
+  "execution_budget": {
+    "authorized_by_this_document": false,
+    "create_only_namespace": "formal_01",
+    "formal_attempts_after_separate_authorization": 1,
+    "new_model_forwards": 0
+  },
+  "frozen_input": {
+    "allowed": [
+      "descriptor_cache",
+      "memory_cache",
+      "router_manifests",
+      "train_case_domain_metadata",
+      "validation_descriptor_cache",
+      "expert_probability_cache",
+      "validation_case_ordering",
+      "original_ridge_candidate_metadata",
+      "manifests_and_guards"
+    ],
+    "bundle": {
+      "bytes": 4386018614,
+      "content_sha256": "05c9008ad4496ccbdc51df6103638024d49fae4b3b4cdc2a9f829c5f3ab165bb",
+      "files": 183
+    },
+    "old_candidate_segmentation_metrics_as_primary_evidence": false,
+    "read_only": true
+  },
+  "gates": {
+    "H1_CALIBRATION": {
+      "accepted_count_min": 15,
+      "all_finite": true,
+      "current_false_override_max": 0.02,
+      "historical_recall_min": 0.35,
+      "precision_min": 0.98,
+      "scope": "every_required_seed_stage_historical_domain"
+    },
+    "H2_CURRENT_SAFETY": {
+      "any_current_foreground_class_drop_max": 0.015,
+      "comparison": "stage2_S3_vs_S0",
+      "current_domain_foreground_dice_drop_max": 0.01,
+      "maximum_seed_domain_drop_max": 0.02
+    },
+    "H3_VALUE": {
+      "comparison": "stage2_S3_vs_S0_and_S4",
+      "historical_domain_average_gain_min": 0.15,
+      "oracle_gap_max": 0.06,
+      "positive_seed_count": 3,
+      "refuge_mean_gain_strictly_positive": true,
+      "rim_one_r3_mean_gain_strictly_positive": true,
+      "three_domain_gain_min": 0.1
+    },
+    "H4_REPAIR_OF_SOFT_FAILURE": {
+      "comparison": "S3_vs_S2",
+      "current_domain_drop_reduction_min": 0.02,
+      "historical_gain_loss_max": 0.08,
+      "maximum_seed_domain_drop_reduction_min": 0.02,
+      "shared_gain_loss_max": 0.06
+    },
+    "H5_STABILITY": {
+      "all_finite": true,
+      "current_domain_drop_p90_max": 0.015,
+      "historical_domain_feasible_replicates_min": 4,
+      "historical_domain_feasible_replicates_total": 5,
+      "historical_gain_p10_min": 0.12,
+      "maximum_seed_domain_drop_p90_max": 0.025,
+      "shared_gain_p10_min": 0.08
+    },
+    "H6_ISOLATION": {
+      "all_output_archive_hashes_complete": true,
+      "autograd_backward_optimizer_grad_writes": 0,
+      "new_model_forwards": 0,
+      "private_input_unchanged": true,
+      "test_GT_reads": 0,
+      "threshold_builder_segmentation_GT_usage": "none",
+      "validation_GT": "evaluator_only"
+    }
+  },
+  "gt_isolation": {
+    "before_validation_GT": [
+      "train_OOF_rows_sealed",
+      "thresholds_sealed",
+      "validation_routes_sealed",
+      "policy_rows_sealed",
+      "candidate_predictions_sealed",
+      "case_order_and_hashes_sealed"
+    ],
+    "routing_labels": "train_domain_only",
+    "segmentation_GT_in_threshold_builder": false,
+    "test_object_construction": false,
+    "validation_domain_in_evaluator_only": true,
+    "validation_segmentation_GT_in_evaluator_only": true
+  },
+  "hard_stop": {
+    "forbidden_after_report": [
+      "test_evaluation",
+      "second_SHOR_attempt",
+      "threshold_rule_modification",
+      "validation_refit",
+      "C0_regeneration",
+      "snapshot_training",
+      "LoRA",
+      "adapter",
+      "Prostate",
+      "MnMS",
+      "sweep",
+      "main_merge"
+    ],
+    "scientific_failure_stops_image_only_domain_agnostic_snapshot_routing": true
+  },
+  "isolation": {
+    "checkpoint_tensor_load": "hash_audit_only",
+    "descriptor_change": false,
+    "expert_training_or_finetuning": false,
+    "model_autograd_calls": 0,
+    "model_construction": false,
+    "model_forwards": 0,
+    "model_optimizer_steps": 0,
+    "parameter_grad_writes": 0,
+    "ridge_lambda_expansion": false,
+    "router_optimizer_steps": 0,
+    "temperature_expansion": false
+  },
+  "outputs": [
+    "SHOR_INPUT_AUDIT.json",
+    "SHOR_OOF_THRESHOLD_MANIFEST.json",
+    "shor_oof_thresholds.csv",
+    "shor_oof_calibration.csv",
+    "SHOR_CANDIDATE_MANIFEST.json",
+    "shor_routes.csv",
+    "shor_failure_attribution.csv",
+    "shor_segmentation.csv",
+    "shor_override_utility.csv",
+    "shor_bootstrap.csv",
+    "SHOR_STATUS.json",
+    "SHOR_FINAL_REPORT.md",
+    "SHOR_FAILURES_AND_WARNINGS.md",
+    "SHOR_EXACT_COMMANDS.md",
+    "pytest.xml",
+    "pytest_output.txt",
+    "SHOR_ARTIFACT_MANIFEST.json",
+    "SHOR_PRIVATE_ARCHIVE_AUDIT.json",
+    "SHOR_PUBLICATION_RECEIPT.json"
+  ],
+  "policies": {
+    "S0_SHARED": "current_stage_expert",
+    "S1_RIDGE_HARD": "ordinary_ridge_top1_hard",
+    "S2_RIDGE_SOFT": "frozen_original_soft_fusion_control",
+    "S3_SHOR": "selective_historical_override_primary",
+    "S4_ORACLE": "fixed_true_domain_snapshot_upper_bound",
+    "controls_can_rescue_S3": false,
+    "probability_or_logit_averaging_in_S3": false
+  },
+  "registration_id": "SHOR_JASCL_V0_3_SELECTIVE_HISTORICAL_OVERRIDE",
+  "schema_version": 1,
+  "scientific_failures_in_precedence_order": [
+    "FAIL_SELECTIVE_OVERRIDE_CALIBRATION",
+    "FAIL_SELECTIVE_OVERRIDE_CURRENT_SAFETY",
+    "FAIL_SELECTIVE_OVERRIDE_VALUE",
+    "FAIL_SELECTIVE_OVERRIDE_STABILITY"
+  ],
+  "scientific_pass": "PASS_SHOR_JASCL_VALIDATION_FEASIBILITY",
+  "separate_execution_authorization_required": true,
+  "shor_prediction": {
+    "accepted_if": "d_star < stage and score_d_star >= selected_threshold",
+    "exact_top1_tie": "lowest_domain_index",
+    "fallback": {
+      "stage1": 1,
+      "stage2": 2
+    },
+    "fractional_historical_weight": false,
+    "threshold_equality_accepted": true
+  },
+  "threshold_selection": {
+    "candidate_thresholds": "unique_finite_OOF_scores_with_historical_top1_plus_positive_infinity",
+    "current_false_override_max": 0.02,
+    "historical_recall_min": 0.35,
+    "minimum_accepted_count": 15,
+    "precision_min": 0.98,
+    "score": "log(alpha_historical + 1e-12) - log(alpha_current + 1e-12)",
+    "selection_order": [
+      "highest_historical_recall",
+      "highest_precision",
+      "highest_threshold"
+    ],
+    "top1_required": true,
+    "train_only_five_fold_OOF": true,
+    "validation_data_usage": "none"
+  }
+}
