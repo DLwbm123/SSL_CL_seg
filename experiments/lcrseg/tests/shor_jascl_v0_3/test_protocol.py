@@ -12,7 +12,7 @@ from shor_jascl_v0_3 import REGISTRATION
 from shor_jascl_v0_3.core import (adjudicate, bootstrap_weights, calibration, historical_score, one_hot,
                                   reconstruct_oof, select_threshold, shor_routes, top1_lowest)
 from shor_jascl_v0_3.protocol import (AUTHORITY, PRIVATE_BYTES, PRIVATE_CONTENT_SHA, PRIVATE_FILES,
-                                      PHASES)
+                                      PHASES, compile_call_graph)
 
 ROOT = Path(__file__).resolve().parents[2]
 DOCS = ROOT / "docs/shor_jascl_v0_3"
@@ -316,3 +316,10 @@ def test_46_report_compiler_fail_closed():
     text = source("postflight.py")
     assert 'status["scientific_status"].startswith(("PASS_", "FAIL_"))' in text
     assert REGISTRATION == "SHOR_JASCL_V0_3_SELECTIVE_HISTORICAL_OVERRIDE" and len(PHASES) == 9
+
+
+def test_47_frozen_validation_cardinality(tmp_path):
+    graph = compile_call_graph(tmp_path, {1: 140, 2: 165}, "code")
+    assert (graph["formal_route_rows"], graph["formal_candidate_case_predictions"],
+            graph["bootstrap_candidate_case_predictions"], graph["failure_attribution_rows"]) == (
+                915, 3660, 4575, 915)

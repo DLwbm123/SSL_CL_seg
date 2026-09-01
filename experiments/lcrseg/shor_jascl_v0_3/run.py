@@ -79,7 +79,7 @@ def load_router_rows(private_root):
     for key in rows:
         rows[key].sort(key=lambda row: row["case_id"])
     require(set(rows) == {(seed, stage) for seed in range(3) for stage in (1, 2)}
-            and all(len(rows[(seed, 1)]) == 110 and len(rows[(seed, 2)]) == 165 for seed in range(3)),
+            and all(len(rows[(seed, 1)]) == 140 and len(rows[(seed, 2)]) == 165 for seed in range(3)),
             "frozen router score coverage changed", "BLOCKED_PRIVATE_BUNDLE_MISMATCH")
     return rows
 
@@ -313,7 +313,7 @@ def materialize_candidates(output, validation, experts, formal, boot, counters):
                 entries.append(dict(kind="bootstrap", seed=seed, stage_index=stage, replicate=replicate,
                                     cases=len(ids), route_sha256=array_sha256(state["routes"]), cache=path.name))
                 counters["bootstrap_candidate_case_predictions"] += len(ids)
-    require(len(route_rows) == 825 and len(entries) == 54, "candidate key set changed",
+    require(len(route_rows) == 915 and len(entries) == 54, "candidate key set changed",
             "BLOCKED_OUTPUT_KEYSET_MISMATCH")
     csv_new(Path(output) / "shor_routes.csv", route_rows)
     seal = d.seal(root)
@@ -430,7 +430,7 @@ def evaluate(output, contract, validation, experts, formal, boot, formal_predict
                                                oracle_gap=float(s4[domain]["mean_foreground_dice"]
                                                                 - value["mean_foreground_dice"])))
         del labels
-    require(len(segmentation_rows) == 75 and len(attribution_rows) == 825 and len(utility_rows) == 15
+    require(len(segmentation_rows) == 75 and len(attribution_rows) == 915 and len(utility_rows) == 15
             and len(bootstrap_rows) == 75 and counters["validation_GT_case_reads"] == 495,
             "evaluator output key set changed", "BLOCKED_OUTPUT_KEYSET_MISMATCH")
     csv_new(Path(output) / "shor_failure_attribution.csv", attribution_rows)

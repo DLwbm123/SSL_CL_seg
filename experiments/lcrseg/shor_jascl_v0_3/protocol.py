@@ -202,9 +202,9 @@ def compile_call_graph(output, stage_case_counts, code_commit):
                  validation_GT_case_reads=495, segmentation_rows=75,
                  failure_attribution_rows=3 * (stage1 + stage2), override_utility_rows=15,
                  bootstrap_metric_rows=75, compiled_at=d.now())
-    require(stage1 == 110 and stage2 == 165 and graph["formal_route_rows"] == 825
-            and graph["formal_candidate_case_predictions"] == 3300
-            and graph["bootstrap_candidate_case_predictions"] == 4125,
+    require(stage1 == 140 and stage2 == 165 and graph["formal_route_rows"] == 915
+            and graph["formal_candidate_case_predictions"] == 3660
+            and graph["bootstrap_candidate_case_predictions"] == 4575,
             "SHOR call graph cardinality changed", "BLOCKED_OUTPUT_KEYSET_MISMATCH")
     d.write_new(Path(output) / "SHOR_CALL_GRAPH.json", graph)
     return graph
