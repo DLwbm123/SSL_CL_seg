@@ -1,0 +1,214 @@
+{
+  "aggregation": {
+    "bootstrap_quantiles": "numpy.quantile with method=linear over five aggregate replicate values",
+    "routing_macro": "equal mean of per-domain accuracies after equal-seed aggregation",
+    "segmentation": "pool pixel confusion within each seed/domain/policy, derive metrics, then average seeds and domains equally"
+  },
+  "backend_protocol": {
+    "blocker": "BLOCKED_BACKEND_STATE_MUTATION",
+    "guard_commit": "0c983666da4458d96450ef8121427a823cbaa3b4",
+    "guard_file": "experiments/lcrseg/pres_jascl_v0_1/run.py",
+    "guard_file_sha256": "ca2786cf647d2e2e9d5726699da4d35d17f4ffb68847422655b7fe317ea878fb",
+    "order": [
+      "capture initial backend state before pinned JASCL import",
+      "import pinned JASCL classifier without constructing a model, reading a checkpoint, forwarding, or intentionally initializing CUDA",
+      "apply the registered deterministic backend configuration immediately",
+      "freeze the registered backend state",
+      "construct/load models",
+      "verify the registered state after every descriptor and expert phase"
+    ],
+    "registered_state": {
+      "autocast_disabled": true,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "cudnn_tf32": false,
+      "deterministic_algorithms": true,
+      "matmul_tf32": false
+    }
+  },
+  "base": {
+    "branch": "codex/pres-jascl-v0-1-routing-feasibility",
+    "closure_commit": "607a067319a6e8f0bfc1b8d6a305f014cd6ab676",
+    "closure_json_sha256": "cf80645489b5157e2cb664013746084e9745ecaa9b06173049b59e9560820135",
+    "closure_markdown_sha256": "658de0ee767e4f0a6508ab969fb55b4d8d318fece5a1623cd0a7648cb2ddd1b2",
+    "head": "ab71694ad6b3134fe1b45bd479658349e619fdc5",
+    "target_branch": "codex/pres-dsr-sf-v0-2-feasibility"
+  },
+  "bootstrap": {
+    "draw": "For replicate 0..4, within each seed/stage/domain resample N selected memory rows with replacement using numpy PCG64 and S([pres-dsr-sf-v0.2-bootstrap,seed,stage,domain,replicate]); retain formal case-hash folds and use draw multiplicities as weights.",
+    "model_forward_count": 0,
+    "refit": "Repeat lambda selection, temperature selection, and closed-form ridge fitting from resampled train memory; evaluate cached validation descriptors and expert probabilities.",
+    "replicates": [0, 1, 2, 3, 4]
+  },
+  "call_graph": {
+    "compile_after": "exact execution source commit and tests are pushed and remote-verified",
+    "compile_before": "first real model forward",
+    "frozen_counters": ["descriptor forwards", "expert-probability forwards", "case passes", "closed-form fits", "bootstraps", "model guards", "GT reads", "output rows"],
+    "mismatch_status": "BLOCKED_INCOMPLETE_EVIDENCE"
+  },
+  "controls": {
+    "C0_SHARED": "expert2 for every domain",
+    "C1_ORACLE": "fixed true-domain-to-snapshot mapping; never validation-best selection",
+    "C2_M1_HARD": "clean recomputation of the V0.1 normalized-block M1 cosine router",
+    "C3_M2_HARD": "clean recomputation of the V0.1 normalized-block M2 cosine router",
+    "C4_M1_SOFT": "softmax over clean M1 cosine scores with temperature selected on train_unlabeled-only five-fold logits",
+    "C5_RIDGE_HARD": "argmax of the selected ridge probabilities; exact ties choose the lowest domain index",
+    "C6_RIDGE_SOFT": "PRIMARY; probability-weighted expert fusion",
+    "C7_UNIFORM": "uniform probability ensemble over seen experts; descriptive only",
+    "rescue_rule": "No control can rescue C6 or change E4."
+  },
+  "data_roles": {
+    "descriptor_memory": ["train_labeled images", "train_unlabeled images"],
+    "descriptor_memory_segmentation_labels_read": false,
+    "evaluation": "validation only",
+    "hidden_training_GT_usage": "none",
+    "test_role_constructions": 0,
+    "validation_domain_id": "routing evaluator only after router output seal",
+    "validation_GT": "segmentation evaluator only after descriptor, router, lambda/temperature, expert-probability, and mixture seals"
+  },
+  "decision_gates": {
+    "E1_BACKEND_AND_CONTROL": {
+      "all_finite": true,
+      "backend_unchanged_after_freeze": true,
+      "clean_M1_M2_max_abs_metric_difference": 1e-6,
+      "models_and_checkpoints_unchanged": true
+    },
+    "E2_SNAPSHOT_ORACLE_VALUE": {
+      "historical_foreground_Dice_gain_min": 0.02,
+      "maximum_domain_drop": 0.005,
+      "positive_seed_count_min": 2,
+      "three_domain_foreground_Dice_gain_min": 0.015
+    },
+    "E3_DISCRIMINATIVE_ROUTING": {
+      "stage1_every_domain_accuracy_min": 0.9,
+      "stage1_macro_accuracy_min": 0.95,
+      "stage2_every_domain_accuracy_min": 0.85,
+      "stage2_macro_accuracy_min": 0.9
+    },
+    "E4_SOFT_EXPERT_FUSION": {
+      "current_Drishti_drop_vs_shared_max": 0.01,
+      "gain_over_clean_M1_hard_min": 0.01,
+      "gain_over_shared_min": 0.13,
+      "historical_gain_min": 0.2,
+      "maximum_seed_domain_drop_vs_shared": 0.02,
+      "oracle_gap_max": 0.02,
+      "positive_shared_gain_seed_count": 3
+    },
+    "E5_STABILITY": {
+      "all_domains_nonempty": true,
+      "all_finite": true,
+      "hard_stage2_macro_accuracy_p10_min": 0.85,
+      "soft_oracle_gap_p90_max": 0.03,
+      "soft_three_domain_gain_p10_min": 0.1
+    },
+    "E6_ISOLATION_AND_MEMORY": {
+      "all_artifact_hashes_complete": true,
+      "hidden_training_GT_usage": "none",
+      "memory_rows_per_domain_max": 512,
+      "model_autograd_calls": 0,
+      "model_backward_calls": 0,
+      "model_optimizer_steps": 0,
+      "parameter_grad_writes": 0,
+      "router_segmentation_GT_usage": "none",
+      "test_GT_reads": 0,
+      "validation_GT_usage": "evaluator_only"
+    }
+  },
+  "descriptor": {
+    "blocks": ["normalized_RGB", "enc1", "enc2"],
+    "dimension": 102,
+    "formula_per_block": "spatial channel mean concatenated with log(spatial population std + 1e-6)",
+    "forward": "stage0 REFUGE best EMA encoder per seed; eval, no_grad, AMP off, float32",
+    "forbidden_features": ["decoder", "logits", "segmentation prediction", "mask", "PAS", "filename", "path", "domain metadata", "expert-specific feature", "validation label", "test label"],
+    "per_block_L2_normalization": false,
+    "statistics_dtype": "float64",
+    "standardization": "fit global per-dimension mean/std on seen-domain train memory only; std<=1e-12 maps to zero and is recorded constant; validation uses frozen statistics"
+  },
+  "expert_bank": {
+    "classifier": "student posterior mean with stochastic_classifier=false",
+    "mapping": {
+      "Drishti_GS": "B0 stage2 best snapshot",
+      "REFUGE": "B0 stage0 best snapshot",
+      "RIM_ONE_r3": "B0 stage1 best snapshot"
+    },
+    "preprocessing_and_postprocessing": "exact frozen regenerated-B0 evaluator; no per-domain postprocessing",
+    "seeds": [0, 1, 2],
+    "shared_final": "expert2 for all domains"
+  },
+  "formal_attempts": 1,
+  "hard_stop": "After the validation report commit and publication receipt are pushed and remote-verified, stop for independent review.",
+  "input_scope": "Only the complete frozen Gate1C regenerated-B0 bundle, exact nine B0 stage-best checkpoints, and public PRES V0.1 diagnostic status; V0.1 raw metric rows are not V0.2 evidence.",
+  "memory": {
+    "case_hash": "sha256(UTF8(pres-dsr-sf-v0.2-memory\\0 + case_id))",
+    "cap_selection": "sort by case_hash then case_id and keep the first 512 when a domain exceeds 512 rows",
+    "contents_per_row": ["descriptor_float64", "domain_index", "case_hash"],
+    "historical_memory_byte_immutable": true,
+    "image_or_mask_storage": false,
+    "maximum_rows_per_domain": 512
+  },
+  "prohibited": [
+    "segmentation training", "segmentation optimizer step", "model autograd", "backward", "parameter.grad write",
+    "EMA/GAS/PAS update", "expert fine-tuning", "test evaluation", "C0 regeneration", "LoRA", "adapter",
+    "prototype pseudo-label", "feature transport", "relation loss", "gradient projection", "Prostate", "MnMS",
+    "full sweep", "main merge"
+  ],
+  "required_outputs": [
+    "PRES_JASCL_V0_1_FINAL_CLOSURE.md", "PRES_JASCL_V0_1_FINAL_CLOSURE.json",
+    "PRES_DSR_SF_V0_2_PREREGISTRATION.md", "PRES_DSR_SF_V0_2_PREREGISTRATION.json",
+    "PRES_DSR_SF_V0_2_EXECUTION_AUTHORIZATION.md", "PRES_DSR_SF_V0_2_EXECUTION_AUTHORIZATION.json",
+    "PRES_DSR_SF_INPUT_AUDIT.json", "PRES_DSR_SF_BACKEND_AUDIT.json", "PRES_DSR_SF_CALL_GRAPH.json",
+    "PRES_DSR_SF_DESCRIPTOR_MANIFEST.json", "PRES_DSR_SF_MEMORY_MANIFEST.json", "PRES_DSR_SF_ROUTER_MANIFEST.json",
+    "pres_dsr_cv.csv", "pres_dsr_router_scores.csv", "pres_dsr_routing_confusion.csv",
+    "pres_dsr_cross_expert.csv", "pres_dsr_soft_fusion.csv", "pres_dsr_bootstrap.csv", "pres_dsr_memory_cost.csv",
+    "PRES_DSR_SF_STATUS.json", "PRES_DSR_SF_FINAL_REPORT.md", "PRES_DSR_SF_FAILURES_AND_WARNINGS.md",
+    "PRES_DSR_SF_EXACT_COMMANDS.md", "pytest.xml", "pytest_output.txt", "PRES_DSR_SF_ARTIFACT_MANIFEST.json",
+    "PRES_DSR_SF_PRIVATE_ARCHIVE_AUDIT.json", "PRES_DSR_SF_PUBLICATION_RECEIPT.json"
+  ],
+  "registration_id": "PRES_DSR_SF_V0_2_DESCRIPTOR_MEMORY_SOFT_ROUTER",
+  "ridge_router": {
+    "bias_regularized": false,
+    "closed_form": "solve(X^T A X + lambda*R, X^T A Y) on CPU float64; X includes a constant bias column and R has zero at the bias coordinate",
+    "domain_weight": "within each fit, every seen domain has total mass 1/number_of_seen_domains",
+    "folds": "Within each seed/stage/domain, sort unique cases by sha256(UTF8(pres-dsr-sf-v0.2-fold\\0 + case_id)) then case_id and assign rank modulo 5; bootstrap multiplicities retain the formal case fold.",
+    "lambda_candidates": [0.0001, 0.001, 0.01, 0.1, 1.0],
+    "lambda_selection": ["highest pooled OOF equal-domain macro accuracy", "lowest pooled OOF equal-domain NLL", "largest lambda"],
+    "stage1_domains": [0, 1],
+    "stage2_domains": [0, 1, 2],
+    "temperature_candidates": [0.5, 1.0, 2.0, 4.0],
+    "temperature_selection": ["lowest selected-lambda pooled OOF equal-domain NLL", "smallest abs(log(T))", "smaller T"],
+    "validation_used_for_selection": false
+  },
+  "routing_and_fusion": {
+    "hard": "argmax softmax(router_logits/T), exact tie lowest domain index",
+    "probability_constraints": "finite, nonnegative, each row sums to one, no null/zero row",
+    "soft": "p_mix=sum_d alpha_d*p_expert_d; probability averaging only, never logit averaging",
+    "stage1_experts": [0, 1],
+    "stage2_experts": [0, 1, 2]
+  },
+  "schema_version": 1,
+  "scientific_statuses": {
+    "blockers": ["BLOCKED_BASE_COMMIT_AMBIGUOUS", "BLOCKED_BACKEND_STATE_MUTATION", "BLOCKED_CONTROL_REPRODUCTION_MISMATCH", "BLOCKED_PRIVATE_INPUT_MISMATCH", "BLOCKED_PROTOCOL_OR_LEAKAGE", "BLOCKED_MODEL_MUTATION", "BLOCKED_NUMERICAL_FAILURE", "BLOCKED_INCOMPLETE_EVIDENCE"],
+    "failures": ["FAIL_SNAPSHOT_EXPERT_VALUE", "FAIL_DISCRIMINATIVE_DOMAIN_ROUTING", "FAIL_SOFT_EXPERT_FUSION_VALUE", "FAIL_ROUTER_STABILITY"],
+    "pass": "PASS_PRES_DSR_SF_FEASIBILITY"
+  },
+  "status": "PREREGISTERED_NOT_EXECUTABLE_BEFORE_SEPARATE_AUTHORIZATION",
+  "test_contract": {
+    "minimum_pres_dsr_sf_categories": 55,
+    "related_suites": ["PRES V0.1", "Gate0 evaluator", "Gate0 readonly checkpoint"],
+    "required_errors": 0,
+    "required_failures": 0,
+    "required_skips": 0
+  },
+  "training_flags": {
+    "method_registered": false,
+    "model_autograd_calls": 0,
+    "model_optimizer_steps": 0,
+    "router_is_closed_form": true,
+    "training_launched": false
+  },
+  "V0_1_control_reproduction": {
+    "comparison_source": "public PRES_JASCL_STATUS.json at report commit 973c3aa72b8907b8bda92d7ad0066507b20444b9",
+    "evidence_rule": "Recompute descriptors and validation expert probabilities under V0.2; do not reuse V0.1 rows as V0.2 evidence.",
+    "maximum_absolute_metric_difference": 1e-6
+  }
+}
