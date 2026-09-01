@@ -24,9 +24,11 @@ from . import REGISTRATION
 ROOT = Path(__file__).resolve().parents[1]
 REPO = ROOT.parents[1]
 DOCS = ROOT / "docs/shor_jascl_v0_3"
-BRANCH = "codex/shor-jascl-v0-3-feasibility"
+RECOVERY_DOCS = ROOT / "docs/shor_jascl_v0_3_1"
+BRANCH = "codex/shor-jascl-v0-3-1-active-support-fix"
 REMOTE = "https://github.com/DLwbm123/SSL_CL_seg.git"
 BASE_HEAD = "c854bd28b1a69ce001646201a824b8bb75141c67"
+RECOVERY_BASE = "311c631476ba20bfce9a46ce2ff254db96cc82b9"
 NAS_ROOT = Path("/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg")
 PRIVATE_ROOT = NAS_ROOT / "protocols/pres_dsr_sf_v0_2_1_752e1ac/formal_01"
 PRIVATE_BUNDLE = PRIVATE_ROOT / "PRES_DSR_SF_V0_2_1_PRIVATE_BUNDLE_MANIFEST.json"
@@ -41,6 +43,12 @@ AUTHORITY = (
      "c9c4bfcc1d4ade83c98a5b7171f29b4b927166dfa4adbf7ef9235cbc7e9534b7"),
     ("9a229531cfb553aa4f44d7780b3b5110b6344f0f", "SHOR_JASCL_V0_3_EXECUTION_AUTHORIZATION.json",
      "2b526d4edf95a5f6d34d91455af0ccfa277a3c8ca24d4fbefac33a8e57d05aa3"),
+)
+RECOVERY_AUTHORITY = (
+    ("4e1529345f83ad2dd510f55f1c9623e2fe7674be", "SHOR_JASCL_V0_3_1_RECOVERY_PROTOCOL.md",
+     "ec903a59dff7de35ecd9e1972515593772613a48acba0311fbea4d387b9556e8"),
+    ("4e1529345f83ad2dd510f55f1c9623e2fe7674be", "SHOR_JASCL_V0_3_1_RECOVERY_PROTOCOL.json",
+     "7c0b9ef3ab3f60cf1e82d72d26e93d13dbb445111be022d208b3bbdae202e1ae"),
 )
 
 
@@ -60,7 +68,7 @@ def authority(code_commit=None):
     require(closure["soft_expert_fusion_status"] == "FAIL_SOFT_EXPERT_FUSION_VALUE"
             and closure["additional_soft_fusion_attempts_authorized"] is False
             and closure["next_protocol"] == "SHOR_JASCL_V0_3", "V0.2.1 closure changed")
-    require(prereg["registration_id"] == auth["registration_id"] == REGISTRATION
+    require(prereg["registration_id"] == auth["registration_id"] == "SHOR_JASCL_V0_3_SELECTIVE_HISTORICAL_OVERRIDE"
             and prereg["base"]["branch_head"] == BASE_HEAD, "SHOR identity changed")
     require(auth["preregistration_commit"] == AUTHORITY[1][0]
             and auth["formal_attempts_authorized"] == 1 and auth["zero_forward_required"] is True,
@@ -69,7 +77,27 @@ def authority(code_commit=None):
             and prereg["frozen_input"]["bundle"]["bytes"] == PRIVATE_BYTES
             and prereg["frozen_input"]["bundle"]["content_sha256"] == PRIVATE_CONTENT_SHA,
             "private bundle binding changed")
-    return prereg
+    for commit, name, digest in RECOVERY_AUTHORITY:
+        path = RECOVERY_DOCS / name
+        b.check_hash(path, digest)
+        blob = subprocess.check_output(["git", "-C", str(REPO), "show", f"{commit}:{path.relative_to(REPO)}"])
+        require(hashlib.sha256(blob).hexdigest() == digest, f"published recovery authority changed: {name}")
+        if code_commit:
+            require(subprocess.run(["git", "-C", str(REPO), "merge-base", "--is-ancestor", commit, code_commit],
+                                   stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode == 0,
+                    f"recovery authority is not an ancestor: {commit}")
+    recovery = d.read(RECOVERY_DOCS / "SHOR_JASCL_V0_3_1_RECOVERY_PROTOCOL.json")
+    require(recovery["registration_id"] == REGISTRATION
+            and recovery["base"]["review_commit"] == RECOVERY_BASE
+            and recovery["authorization"]["formal_attempts_authorized"] == 1
+            and recovery["authorization"]["old_v0_3_mutation_authorized"] is False
+            and recovery["fix"]["allowed_change"] == "bootstrap_OOF_active_support_only",
+            "V0.3.1 recovery authority changed")
+    require(recovery["frozen_input"]["files"] == PRIVATE_FILES
+            and recovery["frozen_input"]["bytes"] == PRIVATE_BYTES
+            and recovery["frozen_input"]["content_sha256"] == PRIVATE_CONTENT_SHA,
+            "V0.3.1 private bundle binding changed")
+    return recovery
 
 
 def source_gate(code_commit):
@@ -78,12 +106,19 @@ def source_gate(code_commit):
             "BLOCKED_BASE_COMMIT_AMBIGUOUS")
     require(not subprocess.check_output(["git", "-C", str(REPO), "status", "--porcelain"], text=True).strip(),
             "execution checkout is dirty", "BLOCKED_PROTOCOL_OR_LEAKAGE")
-    changes = subprocess.check_output(["git", "-C", str(REPO), "diff", "--name-status", BASE_HEAD, code_commit],
+    changes = subprocess.check_output(["git", "-C", str(REPO), "diff", "--name-status", RECOVERY_BASE, code_commit],
                                       text=True).splitlines()
-    prefixes = ("experiments/lcrseg/docs/shor_jascl_v0_3/", "experiments/lcrseg/shor_jascl_v0_3/",
-                "experiments/lcrseg/tests/shor_jascl_v0_3/")
-    require(changes and all(row.startswith("A\t") and row.split("\t", 1)[1].startswith(prefixes) for row in changes),
+    modified = {"experiments/lcrseg/shor_jascl_v0_3/__init__.py",
+                "experiments/lcrseg/shor_jascl_v0_3/core.py",
+                "experiments/lcrseg/shor_jascl_v0_3/protocol.py",
+                "experiments/lcrseg/tests/shor_jascl_v0_3/test_protocol.py"}
+    require(changes and all((row.startswith("A\t")
+                             and row.split("\t", 1)[1].startswith("experiments/lcrseg/docs/shor_jascl_v0_3_1/"))
+                            or (row.startswith("M\t") and row.split("\t", 1)[1] in modified) for row in changes),
             "unregistered SHOR source delta", "BLOCKED_PROTOCOL_OR_LEAKAGE")
+    require(subprocess.run(["git", "-C", str(REPO), "diff", "--quiet", RECOVERY_BASE, "--",
+                            "experiments/lcrseg/docs/shor_jascl_v0_3"], stdout=subprocess.DEVNULL).returncode == 0,
+            "frozen V0.3 public record changed", "BLOCKED_PROTOCOL_OR_LEAKAGE")
     require(subprocess.run(["git", "-C", str(REPO), "diff", "--quiet", "58ee45b12aae662c8fe61595dc4068094c783f7c",
                             "--", "experiments/lcrseg/pres_dsr_sf_v0_2"], stdout=subprocess.DEVNULL).returncode == 0,
             "frozen PRES-DSR-SF source changed", "BLOCKED_PROTOCOL_OR_LEAKAGE")

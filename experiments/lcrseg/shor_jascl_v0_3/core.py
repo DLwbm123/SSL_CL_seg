@@ -14,6 +14,18 @@ def finite(value, name="value"):
     require(bool(np.isfinite(np.asarray(value)).all()), f"nonfinite {name}", "BLOCKED_NUMERICAL_FAILURE")
 
 
+def active_support(alpha, labels, multiplicity=None):
+    alpha = np.asarray(alpha, dtype=np.float64)
+    labels = np.asarray(labels, dtype=np.int64)
+    mult = np.ones(len(labels), dtype=np.float64) if multiplicity is None else np.asarray(multiplicity, dtype=np.float64)
+    require(alpha.ndim == 2 and alpha.shape[0] == len(labels) and mult.shape == labels.shape
+            and bool(np.isfinite(mult).all()) and bool((mult >= 0).all()), "invalid active-support arrays")
+    active = mult > 0
+    require(bool(active.any()), "empty active support", "BLOCKED_INCOMPLETE_EVIDENCE")
+    finite(alpha[active], "active ridge alpha")
+    return alpha[active], labels[active], mult[active]
+
+
 def top1_lowest(alpha):
     alpha = np.asarray(alpha, dtype=np.float64)
     require(alpha.ndim == 2 and alpha.shape[1] in (2, 3) and len(alpha) > 0, "invalid ridge alpha")
@@ -33,26 +45,22 @@ def historical_score(alpha, stage, domain):
 
 
 def calibration(alpha, labels, *, stage, domain, threshold, multiplicity=None):
-    alpha = np.asarray(alpha, dtype=np.float64)
-    labels = np.asarray(labels, dtype=np.int64)
-    mult = np.ones(len(labels), dtype=np.float64) if multiplicity is None else np.asarray(multiplicity, dtype=np.float64)
-    require(alpha.shape == (len(labels), stage + 1) and mult.shape == labels.shape and bool((mult >= 0).all()),
-            "invalid calibration arrays")
+    alpha, labels, mult = active_support(alpha, labels, multiplicity)
+    require(alpha.shape == (len(labels), stage + 1), "invalid calibration arrays")
     require(np.isfinite(threshold) or threshold == np.inf, "invalid threshold")
-    active = mult > 0
-    require(bool(active.any()) and set(np.unique(labels[active])) == set(range(stage + 1)),
+    require(set(np.unique(labels)) == set(range(stage + 1)),
             "calibration domains incomplete", "BLOCKED_INCOMPLETE_EVIDENCE")
     top = top1_lowest(alpha)
     score = historical_score(alpha, stage, domain)
-    accepted = active & (top == domain) & (score >= threshold)
+    accepted = (top == domain) & (score >= threshold)
     accepted_count = float(mult[accepted].sum())
-    true_count = float(mult[active & (labels == domain)].sum())
+    true_count = float(mult[labels == domain].sum())
     correct_count = float(mult[accepted & (labels == domain)].sum())
     precision = correct_count / accepted_count if accepted_count else 0.0
     recall = correct_count / true_count
     false_rates = {}
     for other in range(stage + 1):
-        total = float(mult[active & (labels == other)].sum())
+        total = float(mult[labels == other].sum())
         false_rates[str(other)] = float(mult[accepted & (labels == other)].sum()) / total
     result = dict(threshold=float(threshold), accepted_count=accepted_count, precision=precision,
                   historical_recall=recall, current_false_override=false_rates[str(stage)],
@@ -64,13 +72,13 @@ def calibration(alpha, labels, *, stage, domain, threshold, multiplicity=None):
 
 
 def select_threshold(alpha, labels, *, stage, domain, multiplicity=None):
-    alpha = np.asarray(alpha, dtype=np.float64)
+    alpha, labels, mult = active_support(alpha, labels, multiplicity)
     top = top1_lowest(alpha)
     score = historical_score(alpha, stage, domain)
     candidates = sorted(set(float(x) for x in score[(top == domain) & np.isfinite(score)]))
     candidates.append(float("inf"))
     rows = [calibration(alpha, labels, stage=stage, domain=domain, threshold=value,
-                        multiplicity=multiplicity) for value in candidates]
+                        multiplicity=mult) for value in candidates]
     feasible = [row for row in rows if row["feasible"]]
     selected = max(feasible, key=lambda row: (row["historical_recall"], row["precision"], row["threshold"])) \
         if feasible else None
@@ -169,5 +177,5 @@ def adjudicate(evidence):
     return dict(scientific_status=status, H1=H1, H2=H2, H3=H3, H4=H4, H5=H5, H6=H6)
 
 
-__all__ = ["Blocked", "adjudicate", "bootstrap_weights", "calibration", "historical_score", "one_hot",
+__all__ = ["Blocked", "active_support", "adjudicate", "bootstrap_weights", "calibration", "historical_score", "one_hot",
            "reconstruct_oof", "select_threshold", "shor_routes", "top1_lowest"]

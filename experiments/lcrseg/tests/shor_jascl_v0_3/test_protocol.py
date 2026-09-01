@@ -9,10 +9,11 @@ import pytest
 
 from pres_dsr_sf_v0_2.core import fit_router
 from shor_jascl_v0_3 import REGISTRATION
-from shor_jascl_v0_3.core import (adjudicate, bootstrap_weights, calibration, historical_score, one_hot,
-                                  reconstruct_oof, select_threshold, shor_routes, top1_lowest)
+from shor_jascl_v0_3.core import (Blocked, active_support, adjudicate, bootstrap_weights, calibration,
+                                  historical_score, one_hot, reconstruct_oof, select_threshold,
+                                  shor_routes, top1_lowest)
 from shor_jascl_v0_3.protocol import (AUTHORITY, PRIVATE_BYTES, PRIVATE_CONTENT_SHA, PRIVATE_FILES,
-                                      PHASES, compile_call_graph)
+                                      PHASES, RECOVERY_AUTHORITY, compile_call_graph)
 
 ROOT = Path(__file__).resolve().parents[2]
 DOCS = ROOT / "docs/shor_jascl_v0_3"
@@ -61,6 +62,9 @@ def test_01_v021_closure_binding():
     assert AUTHORITY[0][0] == "9feee43c5e34c427356ceaaafa6f691dd14186a3"
     assert closure["status"] == "CLOSED" and closure["next_protocol"] == "SHOR_JASCL_V0_3"
     assert closure["soft_expert_fusion_status"] == "FAIL_SOFT_EXPERT_FUSION_VALUE"
+    recovery = json.loads((ROOT / "docs/shor_jascl_v0_3_1/SHOR_JASCL_V0_3_1_RECOVERY_PROTOCOL.json").read_text())
+    assert RECOVERY_AUTHORITY[0][0] == "4e1529345f83ad2dd510f55f1c9623e2fe7674be"
+    assert recovery["registration_id"] == REGISTRATION and recovery["authorization"]["formal_attempts_authorized"] == 1
 
 
 def test_02_private_bundle_hash_binding():
@@ -315,7 +319,7 @@ def test_45_private_archive_audit():
 def test_46_report_compiler_fail_closed():
     text = source("postflight.py")
     assert 'status["scientific_status"].startswith(("PASS_", "FAIL_"))' in text
-    assert REGISTRATION == "SHOR_JASCL_V0_3_SELECTIVE_HISTORICAL_OVERRIDE" and len(PHASES) == 9
+    assert REGISTRATION == "SHOR_JASCL_V0_3_1_ACTIVE_SUPPORT_FIX" and len(PHASES) == 9
 
 
 def test_47_frozen_validation_cardinality(tmp_path):
@@ -323,3 +327,52 @@ def test_47_frozen_validation_cardinality(tmp_path):
     assert (graph["formal_route_rows"], graph["formal_candidate_case_predictions"],
             graph["bootstrap_candidate_case_predictions"], graph["failure_attribution_rows"]) == (
                 915, 3660, 4575, 915)
+
+
+def test_48_bootstrap_inactive_nan_is_outside_threshold_support():
+    value, labels, ids, _ = oof_unit()
+    mult, _ = bootstrap_weights({0: ids[:20], 1: ids[20:]}, seed=0, stage=1, replicate=0)
+    _, alpha = reconstruct_oof(value, labels, ids, multiplicity=mult)
+    assert np.sum(mult == 0) > 0 and np.isnan(alpha[mult == 0]).all() and np.isfinite(alpha[mult > 0]).all()
+    selected, rows = select_threshold(alpha, labels, stage=1, domain=0, multiplicity=mult)
+    assert rows and (selected is None or selected["feasible"])
+
+
+def test_49_inactive_alpha_values_cannot_change_threshold_metrics():
+    alpha, labels = binary_unit()
+    mult = np.ones(len(labels)); mult[[0, 50]] = 0
+    first = alpha.copy(); first[mult == 0] = np.nan
+    second = alpha.copy(); second[mult == 0] = ((100., -99.), (-4., 5.))
+    assert select_threshold(first, labels, stage=1, domain=0, multiplicity=mult) == \
+        select_threshold(second, labels, stage=1, domain=0, multiplicity=mult)
+
+
+@pytest.mark.parametrize("nonfinite", [np.nan, np.inf])
+def test_50_active_nonfinite_still_blocks(nonfinite):
+    alpha, labels = binary_unit(); alpha[0, 0] = nonfinite
+    for call in (lambda: select_threshold(alpha, labels, stage=1, domain=0),
+                 lambda: calibration(alpha, labels, stage=1, domain=0, threshold=0)):
+        with pytest.raises(Blocked) as error:
+            call()
+        assert error.value.status == "BLOCKED_NUMERICAL_FAILURE"
+
+
+def test_51_all_one_multiplicity_is_exactly_unchanged():
+    alpha, labels = binary_unit()
+    legacy = select_threshold(alpha, labels, stage=1, domain=0)
+    repaired = select_threshold(alpha, labels, stage=1, domain=0, multiplicity=np.ones(len(labels)))
+    assert repaired == legacy
+    assert calibration(alpha, labels, stage=1, domain=0, threshold=0) == \
+        calibration(alpha, labels, stage=1, domain=0, threshold=0, multiplicity=np.ones(len(labels)))
+    assert np.array_equal(shor_routes(alpha, stage=1, thresholds={0: legacy[0]}),
+                          shor_routes(alpha, stage=1, thresholds={0: repaired[0]}))
+
+
+def test_52_complete_active_support_bootstrap_chain():
+    value, labels, ids, _ = oof_unit()
+    mult, _ = bootstrap_weights({0: ids[:20], 1: ids[20:]}, seed=0, stage=1, replicate=0)
+    _, oof = reconstruct_oof(value, labels, ids, multiplicity=mult)
+    selected, _ = select_threshold(oof, labels, stage=1, domain=0, multiplicity=mult)
+    active_alpha, _, _ = active_support(oof, labels, mult)
+    routes = shor_routes(active_alpha, stage=1, thresholds={0: selected})
+    assert routes.shape == (int(np.sum(mult > 0)),) and set(routes).issubset({0, 1})
