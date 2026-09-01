@@ -1,0 +1,134 @@
+{
+  "E1": true,
+  "E2": true,
+  "E3": true,
+  "E4": false,
+  "E5": true,
+  "E6": true,
+  "additional_attempt_authorized": false,
+  "archive": {
+    "all14_stage_barriers_pass": true,
+    "durable_phase": {
+      "bytes": 4385980959,
+      "content_sha256": "ec9bf17e16a368556fa3dc94f66b43ba5d082797d0a94cc3a09aa21f6dba5b49",
+      "files": 181,
+      "manifest_sha256": "11f44b5b735005c9b6dd7a47432dd32c4edc588df076ea081c37299673c0dea9"
+    },
+    "final_private_bundle": {
+      "bytes": 4386018614,
+      "content_sha256": "05c9008ad4496ccbdc51df6103638024d49fae4b3b4cdc2a9f829c5f3ab165bb",
+      "exact_path_coverage": true,
+      "files": 183
+    },
+    "status": "PASS_PRIVATE_ARCHIVE_AUDIT"
+  },
+  "call_graph": {
+    "bootstrap_operations": 30,
+    "clean_control_bootstrap_operations": 60,
+    "clean_control_prototype_fits": 168,
+    "descriptor_case_passes": 1485,
+    "descriptor_forwards": 186,
+    "expert_probability_case_passes": 1485,
+    "expert_probability_forwards": 189,
+    "m1_cv_prototype_fits": 75,
+    "output_rows": {
+      "bootstrap": 90,
+      "cross_expert": 27,
+      "cv": 78,
+      "memory_cost": 9,
+      "router_scores": 915,
+      "routing_confusion": 117,
+      "soft_fusion": 120,
+      "total": 1356
+    },
+    "ridge_closed_form_fits": 936,
+    "validation_GT_case_reads": 495
+  },
+  "clean_control": {
+    "maximum_absolute_metric_difference": 3.609010365557275e-08,
+    "status": "PASS_CLEAN_M1_M2_REPRODUCTION",
+    "tolerance": 1e-06
+  },
+  "completed_at": "2026-09-01T11:40:25.141958+00:00",
+  "durable_process": {
+    "actual_child_exit_code": 0,
+    "server_local_parent_receipt": true,
+    "ssh_exit_is_child_exit_evidence": false
+  },
+  "evidence": {
+    "oracle": {
+      "historical_gain": 0.24844086151781142,
+      "maximum_domain_drop": 0.0,
+      "positive_seed_count": 3,
+      "three_domain_gain": 0.16562724101187426
+    },
+    "ridge_hard": {
+      "stage1_macro": 0.9883333333333333,
+      "stage1_per_domain": [
+        0.9933333333333333,
+        0.9833333333333334
+      ],
+      "stage2_macro": 0.96,
+      "stage2_per_domain": [
+        0.9866666666666667,
+        0.9333333333333332,
+        0.96
+      ]
+    },
+    "ridge_soft": {
+      "current_domain_drop": 0.03980300482442001,
+      "gain_over_m1_hard": 0.04113733268656767,
+      "historical_gain": 0.2521283399682102,
+      "maximum_seed_domain_drop": 0.03980300482442001,
+      "oracle_gap": 0.00558738500581858,
+      "positive_seed_count": 3,
+      "shared_gain": 0.1600398560060557
+    },
+    "stability": {
+      "all_domains_nonempty": true,
+      "all_finite": true,
+      "hard_macro_p10": 0.953,
+      "soft_gain_p10": 0.15194745844069021,
+      "soft_oracle_gap_p90": 0.013679782571184072
+    }
+  },
+  "execution_code_commit": "58ee45b12aae662c8fe61595dc4068094c783f7c",
+  "formal_attempt": 1,
+  "isolation": {
+    "all12_model_guards_pass": true,
+    "all9_checkpoint_pre_post_checks_unchanged": true,
+    "method_registered": false,
+    "model_autograd_calls": 0,
+    "model_backward_calls": 0,
+    "model_optimizer_steps": 0,
+    "parameter_grad_writes": 0,
+    "router_is_closed_form": true,
+    "test_GT_reads": 0,
+    "training_launched": false,
+    "validation_GT_usage": "evaluator_only"
+  },
+  "memory_rows_per_domain": [
+    200,
+    79,
+    51,
+    200,
+    79,
+    51,
+    200,
+    79,
+    51
+  ],
+  "protocol_status": "COMPLETED_VALIDATION_ONLY",
+  "registration_id": "PRES_DSR_SF_V0_2_1_CALLGRAPH_SCOPE_RECOVERY",
+  "schema_version": 1,
+  "scientific_status": "FAIL_SOFT_EXPERT_FUSION_VALUE",
+  "tests": {
+    "errors": 0,
+    "failures": 0,
+    "junit_sha256": "8f80c672fe192280648d0c76ebeb99723c974206f88b5f38a31502d8ee3d02e3",
+    "pres_dsr_sf_cases": 83,
+    "pytest_output_sha256": "0ed0a65babf1b0f504b7d4721348d4af68d56bea389f70439df1515312433cbf",
+    "skips": 0,
+    "total": 136
+  }
+}
