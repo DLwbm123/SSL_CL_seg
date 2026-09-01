@@ -1,0 +1,3 @@
+"""SHOR-JASCL V0.3 zero-forward validation feasibility."""
+
+REGISTRATION = "SHOR_JASCL_V0_3_SELECTIVE_HISTORICAL_OVERRIDE"
