@@ -1,0 +1,57 @@
+{
+  "combined_cv": {
+    "M1_temperature_rows": 24,
+    "ridge_lambda_rows": 30,
+    "ridge_temperature_rows": 24,
+    "total_rows": 78
+  },
+  "erratum_id": "PRES_DSR_SF_V0_2_CALLGRAPH_SCOPE_ERRATUM",
+  "frozen_grid": {
+    "lambda_candidates": [
+      0.0001,
+      0.001,
+      0.01,
+      0.1,
+      1.0
+    ],
+    "router_units": 6,
+    "seeds": 3,
+    "stages": 2,
+    "temperature_candidates": [
+      0.5,
+      1.0,
+      2.0,
+      4.0
+    ]
+  },
+  "issued_at": "2026-09-01T11:17:37Z",
+  "other_output_rows": {
+    "bootstrap": 90,
+    "cross_expert": 27,
+    "memory_cost": 9,
+    "router_scores": 915,
+    "routing_confusion": 117,
+    "soft_fusion": 120
+  },
+  "required_recovery": {
+    "combined_csv_written_after_both_sources": true,
+    "combined_total_remains_78": true,
+    "fit_ridge_routers_local_oracle": 54,
+    "m1_rows_must_be_preserved": true,
+    "split_csvs_required": true
+  },
+  "ridge_local": {
+    "lambda_rows": 30,
+    "temperature_rows": 24,
+    "total_rows": 54
+  },
+  "root_cause": [
+    "fit_ridge_routers local list contained only 54 ridge rows",
+    "its local assertion incorrectly required the global combined total 78",
+    "pres_dsr_cv.csv was written before the 24 M1 temperature rows were added",
+    "final counters later counted M1 plus ridge rows as 78",
+    "local and global evidence scopes were inconsistent"
+  ],
+  "schema_version": 1,
+  "total_output_rows": 1356
+}
