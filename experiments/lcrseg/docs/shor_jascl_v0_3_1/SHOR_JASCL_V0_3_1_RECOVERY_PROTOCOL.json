@@ -1,0 +1,70 @@
+{
+  "authorization": {
+    "create_only_namespace": "formal_01",
+    "formal_attempts_authorized": 1,
+    "hard_stop_after_publication": true,
+    "old_v0_3_mutation_authorized": false
+  },
+  "base": {
+    "branch": "codex/shor-jascl-v0-3-1-active-support-fix",
+    "review_commit": "311c631476ba20bfce9a46ce2ff254db96cc82b9",
+    "v0_3_execution_commit": "4551d9311ab49927b55730c64085d4990a32fedc"
+  },
+  "fix": {
+    "active_definition": "multiplicity > 0",
+    "active_nonfinite_status": "BLOCKED_NUMERICAL_FAILURE",
+    "allowed_change": "bootstrap_OOF_active_support_only",
+    "all_one_multiplicity_equivalence_required": true,
+    "inactive_nan_sentinels_preserved": true,
+    "threshold_and_calibration_compress_before_scoring": true
+  },
+  "forbidden_actions": [
+    "modify_old_v0_3_artifacts",
+    "nan_to_num",
+    "fill_inactive_probabilities",
+    "recompute_inactive_probabilities",
+    "change_bootstrap_draws",
+    "change_ridge_equation_or_grids",
+    "change_fold_assignment",
+    "change_SHOR_score_ties_thresholds_or_fallback",
+    "change_S0_S4_or_H1_H6",
+    "validation_threshold_selection_or_refit",
+    "test_evaluation",
+    "second_attempt",
+    "C0_regeneration",
+    "model_training",
+    "LoRA_or_adapter",
+    "Prostate_or_MnMS",
+    "sweep",
+    "main_merge"
+  ],
+  "frozen_input": {
+    "bytes": 4386018614,
+    "content_sha256": "05c9008ad4496ccbdc51df6103638024d49fae4b3b4cdc2a9f829c5f3ab165bb",
+    "files": 183,
+    "mode": "read_only"
+  },
+  "preflight": {
+    "model_forwards": 0,
+    "replicate": 0,
+    "seed": 0,
+    "stage_index": 1,
+    "validation_GT_reads": 0
+  },
+  "registration_id": "SHOR_JASCL_V0_3_1_ACTIVE_SUPPORT_FIX",
+  "schema_version": 1,
+  "status": "AUTHORIZED_ONE_CREATE_ONLY_V0_3_1_VALIDATION_ATTEMPT",
+  "tests": {
+    "existing_related_tests_required": 188,
+    "new_core_tests": 5,
+    "required_errors": 0,
+    "required_failures": 0,
+    "required_skips": 0
+  },
+  "v0_3_frozen_status": {
+    "engineering_blocker": "BLOCKED_NUMERICAL_FAILURE",
+    "error": "nonfinite ridge alpha",
+    "protocol_status": "BLOCKED_BEFORE_VALIDATION_EVALUATION",
+    "scientific_status": null
+  }
+}
