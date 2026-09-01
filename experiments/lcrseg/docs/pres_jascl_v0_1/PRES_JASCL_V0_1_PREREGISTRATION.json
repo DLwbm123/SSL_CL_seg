@@ -1,0 +1,451 @@
+{
+  "adjudication": {
+    "blocker_precedence": [
+      "BLOCKED_BASE_COMMIT_AMBIGUOUS",
+      "BLOCKED_PRIVATE_BUNDLE_MISMATCH",
+      "BLOCKED_PROTOCOL_OR_LEAKAGE",
+      "BLOCKED_MODEL_MUTATION",
+      "BLOCKED_CALL_GRAPH_MISMATCH",
+      "BLOCKED_INCOMPLETE_EVIDENCE",
+      "BLOCKED_NUMERICAL_FAILURE"
+    ],
+    "failure_precedence": [
+      "FAIL_SNAPSHOT_EXPERT_VALUE",
+      "FAIL_DOMAIN_PROTOTYPE_ROUTING",
+      "FAIL_ROUTED_SEGMENTATION_VALUE",
+      "FAIL_ROUTER_STABILITY"
+    ],
+    "pass_status": "PASS_PRES_ROUTING_FEASIBILITY",
+    "passing_M": "M values with complete evidence that satisfy D2, D3, and D4",
+    "selected_M": "smallest passing_M",
+    "selection_requires": "D1 and D5 also pass",
+    "unrounded_validation_values_only": true
+  },
+  "base": {
+    "branch": "codex/pmgc-v0-1-feasibility",
+    "closure_commit": "c003e13cb14ee1b9c14c6b445ff66c364e6c68b7",
+    "closure_files": [
+      "experiments/lcrseg/docs/pres_jascl_v0_1/PMGC_V0_1_FINAL_CLOSURE.md",
+      "experiments/lcrseg/docs/pres_jascl_v0_1/PMGC_V0_1_FINAL_CLOSURE.json"
+    ],
+    "pmgc_commit": "06945fa738cf87a6cef22db949b627490e7847f1",
+    "pmgc_status": "FAIL_PMGC_FEASIBILITY"
+  },
+  "bootstrap": {
+    "case_draw": "For every seed, stage, role, domain and replicate, sort case_id, then draw N indices uniformly with replacement from N cases using numpy PCG64. The same draws are used for M1 and M2.",
+    "draw_seed": "S([\"pres-bootstrap-v1\", seed, stage_index, role, domain_index, replicate])",
+    "prototype_fit": "Rebuild each seen-domain prototype from train_unlabeled draw multiplicities; M2 passes replicate to the registered spherical K-means seed.",
+    "prototype_stability": "M1 cosine to the formal domain prototype; M2 Hungarian matched cosines to the two formal slots.",
+    "replicates": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "routing_evaluation": "Evaluate rebuilt prototypes on a same-replicate, domain-stratified validation case bootstrap and aggregate with the formal equal-seed/equal-domain rule."
+  },
+  "branch": "codex/pres-jascl-v0-1-routing-feasibility",
+  "authorization_scope": {
+    "allowed_only": [
+      "read frozen regenerated-B0 stage-best checkpoints",
+      "construct an immutable snapshot expert bank",
+      "construct frozen image-level style descriptors",
+      "construct domain prototypes from train_unlabeled descriptors",
+      "validation domain-routing evaluation",
+      "complete 3x3 cross-expert validation segmentation matrix",
+      "Oracle-snapshot, Prototype-routed, and Shared-final comparison",
+      "five case bootstraps",
+      "report, archive, commit, push, verify",
+      "hard stop"
+    ],
+    "prohibited": [
+      "any optimizer construction or step",
+      "autograd.grad",
+      "backward",
+      "parameter.grad write",
+      "model training",
+      "EMA update",
+      "GAS update",
+      "PAS update",
+      "K2 update",
+      "C0 regeneration",
+      "test GT read",
+      "LoRA",
+      "adapter",
+      "MILE reproduction claim",
+      "Prostate",
+      "MnMS",
+      "Gate2",
+      "full sweep",
+      "main merge"
+    ]
+  },
+  "call_graph": {
+    "compile_after": "exact source commit is pushed and remote verified",
+    "compile_before": "any real model forward",
+    "compiler_inputs": "the verified frozen manifest, exact nine-checkpoint bank, and exact execution source SHA",
+    "dynamic_counters": [
+      "router_extraction_forwards",
+      "cross_expert_segmentation_forwards",
+      "bootstrap_operations",
+      "model_guards",
+      "output_rows"
+    ],
+    "frozen_output": "PRES_JASCL_CALL_GRAPH.json",
+    "mismatch_status": "BLOCKED_CALL_GRAPH_MISMATCH",
+    "read_only_forwards": true
+  },
+  "created_at": "2026-09-01T05:48:49Z",
+  "descriptor": {
+    "block": "concat(spatial_channel_mean(F), sqrt(spatial_mean((F-mean)^2)))",
+    "block_order": [
+      "normalized_RGB",
+      "enc1",
+      "enc2"
+    ],
+    "block_rule": "If float64 block norm > 1e-12, divide by that norm; otherwise store an all-zero block and block_valid=false.",
+    "case_cardinality": "exactly one descriptor per case",
+    "dtype": {
+      "model_forward": "float32",
+      "statistics_and_normalization": "float64"
+    },
+    "final_rule": "Concatenate the three normalized blocks and normalize in float64. A final norm <= 1e-12 is BLOCKED_NUMERICAL_FAILURE.",
+    "forbidden_inputs": [
+      "filename",
+      "path token",
+      "domain metadata",
+      "segmentation GT",
+      "predicted mask",
+      "segmentation logits",
+      "decoder feature",
+      "PAS"
+    ]
+  },
+  "document_kind": "PREREGISTRATION",
+  "execution": {
+    "cross_expert_matrix": "For every seed, run all three fixed experts on every Stage2 validation case and report the complete 3 true domains x 3 experts matrix.",
+    "descriptor_barrier": "Seal all router descriptors before domain metadata is passed to the routing evaluator.",
+    "evaluations": [
+      "Stage1 two-domain routing",
+      "Stage2 three-domain routing",
+      "M1 and M2 routing confusion matrices",
+      "complete three-domain x three-expert validation segmentation matrix",
+      "Shared-final",
+      "Oracle-snapshot",
+      "Prototype-routed",
+      "five case bootstraps"
+    ],
+    "gt_boundary": "Validation GT is accepted only by the independent segmentation evaluator; router builder and router scorer APIs cannot receive GT.",
+    "role": "validation only",
+    "test_role_constructions": 0
+  },
+  "expert_bank": {
+    "expert0": "B0 stage0 REFUGE stage-best snapshot",
+    "expert1": "B0 stage1 RIM_ONE_r3 stage-best snapshot",
+    "expert2": "B0 stage2 Drishti_GS stage-best snapshot",
+    "fixed_oracle_mapping": {
+      "Drishti_GS": 2,
+      "REFUGE": 0,
+      "RIM_ONE_r3": 1
+    },
+    "inference_identity": "Use the exact student-or-EMA identity selected by the frozen regenerated-B0 final evaluator, its posterior-mean stochastic-classifier inference, and its deterministic preprocessing/evaluation; never reselect on PRES validation.",
+    "per_seed": [
+      0,
+      1,
+      2
+    ],
+    "shared_final": "expert2 for every domain",
+    "snapshot_count": 9
+  },
+  "gates": {
+    "D1_SNAPSHOT_ORACLE_VALUE": {
+      "all_seed_domain_oracle_drop_vs_shared_max": 0.005,
+      "historical_REFUGE_RIM_foreground_Dice_gain_min": 0.02,
+      "positive_three_domain_gain_seed_count_min": 2,
+      "stage2_three_domain_foreground_Dice_gain_min": 0.015
+    },
+    "D2_DOMAIN_ROUTING": {
+      "stage1_every_domain_accuracy_min": 0.9,
+      "stage1_macro_accuracy_min": 0.95,
+      "stage2_every_domain_accuracy_min": 0.85,
+      "stage2_macro_accuracy_min": 0.9
+    },
+    "D3_ROUTED_SEGMENTATION": {
+      "all_seed_domain_routed_drop_vs_shared_max": 0.01,
+      "historical_REFUGE_RIM_foreground_Dice_gain_min": 0.015,
+      "positive_three_domain_gain_seed_count_min": 2,
+      "stage2_foreground_Dice_gain_over_shared_min": 0.01,
+      "stage2_foreground_Dice_gap_to_oracle_max": 0.01
+    },
+    "D4_ROUTER_STABILITY": {
+      "M1_bootstrap_prototype_cosine_median_min": 0.95,
+      "M2_each_occupancy_min": 0.1,
+      "M2_matched_cosine_median_min": 0.9,
+      "all_prototype_score_margin_values_finite": true,
+      "selected_bootstrap_macro_p10_shortfall_max": 0.05
+    },
+    "D5_ISOLATION": {
+      "all_artifact_hashes_complete": true,
+      "all_model_and_checkpoint_states_bitwise_unchanged": true,
+      "autograd_calls": 0,
+      "backward_calls": 0,
+      "hidden_GT_usage": "none",
+      "model_optimizer_steps": 0,
+      "parameter_grad_writes": 0,
+      "router_has_trainable_parameters": false,
+      "router_optimizer_steps": 0,
+      "test_GT_usage": "none",
+      "validation_GT_usage": "segmentation_evaluator_only"
+    },
+    "aggregation": {
+      "domain_metric": "compute each seed/domain case mean, then average equally over seeds",
+      "historical_average": "equal mean of REFUGE and RIM_ONE_r3 domain metrics after equal-seed aggregation",
+      "routing_macro": "equal mean of per-domain routing accuracies after equal-seed aggregation",
+      "seed_gain": "equal-domain foreground Dice within one seed",
+      "three_domain_average": "equal mean of the three domain metrics after equal-seed aggregation"
+    },
+    "boundary_comparison": "All >= and <= comparisons include equality and use finite, unrounded float64 validation values.",
+    "bootstrap_p10": "numpy.quantile over the five aggregate bootstrap routing macro accuracies with method=linear and q=0.10"
+  },
+  "hard_stop": {
+    "after": "validation report commit, push, and exact remote SHA verification",
+    "forbidden_followups": [
+      "test evaluation",
+      "C0 regeneration",
+      "full-expert retraining",
+      "LoRA",
+      "adapters",
+      "MILE implementation",
+      "method performance training",
+      "Prostate",
+      "MnMS",
+      "full sweep",
+      "main merge"
+    ],
+    "review": "independent review required"
+  },
+  "input_freeze": {
+    "bundle": "complete verified Gate1C regenerated-B0 private bundle",
+    "required_components": [
+      "B0 seeds 0, 1, 2",
+      "three stage-best checkpoints per seed",
+      "complete EMA teacher state",
+      "fixed domain order",
+      "train_unlabeled images",
+      "validation images and labels",
+      "manifests, splits, and checksums",
+      "stage matrices",
+      "direct PAS banks",
+      "exact preprocessing"
+    ],
+    "required_verification": {
+      "bundle_content_sha256": 1,
+      "bundle_manifest_sha256": 1,
+      "checkpoint_sha256": 9,
+      "data_checksums": 2962
+    },
+    "source_of_expected_hashes": "frozen Gate1C regenerated-B0 reports",
+    "virtual_step_outputs_allowed": false
+  },
+  "method": {
+    "description": "no-training parameter-isolated snapshot-expert domain routing baseline",
+    "name": "Prototype-Routed Expert Snapshots JASCL",
+    "short_name": "PRES-JASCL"
+  },
+  "metrics": {
+    "routing": [
+      "routing accuracy",
+      "macro routing accuracy",
+      "per-domain routing accuracy",
+      "confusion matrix",
+      "true-domain score margin",
+      "score margin p05/p10/median",
+      "route entropy",
+      "prototype cosine separation",
+      "bootstrap prototype stability",
+      "bootstrap routing accuracy"
+    ],
+    "routing_definitions": {
+      "confusion": "integer true-domain x routed-domain case counts",
+      "margin": "true-domain score minus the maximum other seen-domain score",
+      "margin_quantiles": "numpy.quantile with method=linear",
+      "route_entropy": "Shannon entropy in nats of softmax over finite seen-domain cosine scores at unit temperature",
+      "routing_accuracy": "correct cases divided by cases",
+      "routing_macro_accuracy": "unweighted mean of per-domain accuracies"
+    },
+    "segmentation": [
+      "Mean Dice",
+      "Foreground Dice",
+      "Mean IoU",
+      "per-class Dice",
+      "per-domain Dice",
+      "final three-domain average",
+      "historical-domain average",
+      "current-domain performance",
+      "forgetting",
+      "oracle-routed gap",
+      "routed-shared gain"
+    ],
+    "segmentation_definition": "Reuse the exact frozen regenerated-B0 evaluator arithmetic and case/domain aggregation; no PRES-specific metric arithmetic may replace it."
+  },
+  "outputs": [
+    "PMGC_V0_1_FINAL_CLOSURE.md",
+    "PMGC_V0_1_FINAL_CLOSURE.json",
+    "PRES_JASCL_V0_1_PREREGISTRATION.md",
+    "PRES_JASCL_V0_1_PREREGISTRATION.json",
+    "PRES_JASCL_V0_1_EXECUTION_AUTHORIZATION.md",
+    "PRES_JASCL_V0_1_EXECUTION_AUTHORIZATION.json",
+    "PRES_JASCL_INPUT_AUDIT.json",
+    "PRES_JASCL_CALL_GRAPH.json",
+    "PRES_JASCL_ROUTER_DESCRIPTOR_MANIFEST.json",
+    "PRES_JASCL_DOMAIN_PROTOTYPE_MANIFEST.json",
+    "pres_router_scores.csv",
+    "pres_router_confusion.csv",
+    "pres_router_bootstrap.csv",
+    "pres_cross_expert_matrix.csv",
+    "pres_oracle_vs_routed.csv",
+    "PRES_JASCL_STATUS.json",
+    "PRES_JASCL_FINAL_REPORT.md",
+    "PRES_JASCL_FAILURES_AND_WARNINGS.md",
+    "PRES_JASCL_EXACT_COMMANDS.md",
+    "pytest.xml",
+    "pytest_output.txt",
+    "PRES_JASCL_ARTIFACT_MANIFEST.json",
+    "PRES_JASCL_PRIVATE_ARCHIVE_AUDIT.json",
+    "PRES_JASCL_PUBLICATION_RECEIPT.json"
+  ],
+  "pre_authorization_barrier": {
+    "checkpoint_tensor_reads": 0,
+    "formal_results": 0,
+    "model_forwards": 0,
+    "private_HDF5_reads": 0,
+    "router_prototypes": 0
+  },
+  "prototypes": {
+    "candidate_M": [
+      1,
+      2
+    ],
+    "domain_score": "max_m dot(style(x), prototype[d,m])",
+    "domain_identity_boundary": "Known incremental domain identity is used only to group train_unlabeled descriptors while fitting a domain bank; it is never a router input.",
+    "fit_data": "current domain train_unlabeled descriptors only",
+    "M1": "unit-normalized equal-case descriptor mean; zero resultant is BLOCKED_NUMERICAL_FAILURE",
+    "M2": {
+      "algorithm": "Reuse experiments/lcrseg/di_dmpa_gate1/spherical_kmeans.py fit directly",
+      "active_slot_requirement": "both slots active",
+      "case_weights": "formal fit uses one per case; bootstrap fit uses case draw multiplicity",
+      "cluster_deletion": false,
+      "domain_mixing": false,
+      "dtype": "float64 CPU",
+      "finite_unit_norm_required": true,
+      "formal_restart_seed": "clustering_seed(seed, domain_index, domain_index, 2, -1, restart)",
+      "minimum_occupancy": 0.1,
+      "replicate_restart_seed": "clustering_seed(seed, domain_index, domain_index, 2, replicate, restart)",
+      "restarts": 5,
+      "slot_tie": "lowest slot index"
+    },
+    "old_domain_immutability": "A domain prototype is fit once from that domain with domain_index used as both registered stage and class_id; its serialized float64 bytes and metadata must be identical when later domains are added.",
+    "route": "argmax over seen domain scores; exact ties choose the lowest domain index",
+    "seen_domains": {
+      "stage1": [
+        0,
+        1
+      ],
+      "stage2": [
+        0,
+        1,
+        2
+      ]
+    }
+  },
+  "registration_id": "PRES_JASCL_V0_1_SNAPSHOT_DOMAIN_ROUTER",
+  "registration_version": "0.1",
+  "router_extractor": {
+    "allowed_blocks": [
+      "normalized RGB input",
+      "enc1 feature",
+      "enc2 feature"
+    ],
+    "amp": false,
+    "checkpoint": "for each seed, B0 stage0 REFUGE stage-best EMA encoder",
+    "expert_specific_encoder": false,
+    "fixed_across_domains_and_stages": true,
+    "mode": "eval and torch.no_grad",
+    "stochastic_classifier": false
+  },
+  "seed_function": {
+    "S": "int(sha256(compact_json(parts))[0:8], 16) & 0x7fffffff",
+    "compact_json": "UTF-8 JSON with ensure_ascii=false, separators=(comma,colon), allow_nan=false"
+  },
+  "status": "PREREGISTERED_NOT_AUTHORIZED",
+  "storage": {
+    "canonical_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg",
+    "launch_wrapper": "bash experiments/lcrseg/scripts/with_nas_storage.sh COMMAND ...",
+    "run_directory": "new create-only NAS directory resolved after authorization",
+    "silent_home_fallback": false
+  },
+  "tests": {
+    "minimum_coverage": [
+      "PMGC closure binding",
+      "private bundle hashes",
+      "exact nine checkpoint identities",
+      "fixed expert-domain mapping",
+      "oracle does not select best expert",
+      "stagewise seen-domain bank",
+      "frozen router extractor",
+      "RGB style block",
+      "enc1 style block",
+      "enc2 style block",
+      "block normalization",
+      "final descriptor normalization",
+      "zero descriptor failure",
+      "descriptor determinism",
+      "no filename/path feature",
+      "no GT in router",
+      "M1 case-equal mean",
+      "M2 spherical K-means determinism",
+      "M2 occupancy",
+      "prototype normalization",
+      "old prototype immutability",
+      "cosine routing",
+      "domain tie handling",
+      "stage1 excludes future domain",
+      "stage2 includes three domains",
+      "routing confusion",
+      "cross-expert 3x3 matrix",
+      "shared-final definition",
+      "oracle fixed mapping",
+      "routed metric aggregation",
+      "bootstrap determinism",
+      "D1-D5 exact boundaries",
+      "smallest passing M",
+      "controls cannot rescue",
+      "validation GT isolation",
+      "no test construction",
+      "no optimizer",
+      "no autograd",
+      "no backward",
+      "model/checkpoint immutability",
+      "call-graph compiler",
+      "create-only state machine",
+      "durable process-exit receipt",
+      "artifact manifest",
+      "private archive audit",
+      "report compiler fail-closed"
+    ],
+    "required_gate0_regressions": "relevant evaluator and checkpoint regression tests",
+    "required_outcome": {
+      "errors": 0,
+      "failures": 0,
+      "skips": 0
+    }
+  },
+  "training_flags": {
+    "autograd_calls": 0,
+    "method_registered": false,
+    "model_optimizer_steps": 0,
+    "router_optimizer_steps": 0,
+    "training_launched": false
+  }
+}
