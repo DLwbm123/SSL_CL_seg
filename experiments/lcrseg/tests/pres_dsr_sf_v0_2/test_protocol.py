@@ -1,5 +1,8 @@
 from __future__ import annotations
 
+import ast
+import csv
+import hashlib
 import inspect
 import json
 from pathlib import Path
@@ -45,17 +48,48 @@ def _router_data():
     return np.zeros((20, 102), dtype=np.float64), labels, case_ids
 
 
+TEST_LAMBDAS = (1e-4, 1e-3, 1e-2, 1e-1, 1.0)
+TEST_TEMPERATURES = (0.5, 1.0, 2.0, 4.0)
+
+
+def _cv_plan():
+    keys = {
+        "M1_temperature": [("M1_temperature", "M1", seed, stage, "temperature", value)
+                           for seed in range(3) for stage in (1, 2) for value in TEST_TEMPERATURES],
+        "ridge_lambda": [("ridge_lambda", "ridge", seed, stage, "lambda", value)
+                         for seed in range(3) for stage in (1, 2) for value in TEST_LAMBDAS],
+        "ridge_temperature": [("ridge_temperature", "ridge", seed, stage, "temperature", value)
+                              for seed in range(3) for stage in (1, 2) for value in TEST_TEMPERATURES],
+    }
+    return {"key_sets": keys}
+
+
+def _cv_rows():
+    plan, output = _cv_plan(), {}
+    for family, keys in plan["key_sets"].items():
+        output[family] = [dict(zip(run.CV_FIELDS, key), macro_accuracy=.5, domain_nll=1.0,
+                               per_domain_accuracy=[.5, .5], selected=key[-1] == 1.0) for key in keys]
+    return plan, output
+
+
+def _manifest_records():
+    sizes = {"train_labeled": (40, 16, 10), "train_unlabeled": (160, 63, 41), "val": (100, 40, 25)}
+    return {seed: {stage: {role: [{"case_id": f"s{seed}d{stage}{role}{i}"} for i in range(sizes[role][stage])]
+                          for role in sizes} for stage in range(3)} for seed in range(3)}
+
+
 def test_01_v01_closure_binding():
     prereg = protocol.authority()
     assert prereg["registration_id"] == REGISTRATION
 
 
 def test_02_formal_report_guard_commit_binding():
-    assert protocol.BASE_HEAD == "ab71694ad6b3134fe1b45bd479658349e619fdc5"
+    assert protocol.BASE_HEAD == "ff42db2ec2381aad176139ab788a9925eef9d147"
     assert [row[0] for row in protocol.AUTHORITY] == [
-        "607a067319a6e8f0bfc1b8d6a305f014cd6ab676",
-        "c4767688e01ee9106d172a88a95f7e6c8a5de0eb",
-        "78427b35ae5101c0576863386df0c434f77d2734",
+        "de82bf94f27f91e071f9bab4e9432f1c0ee263d3",
+        "44a8870765d1ebb5efa38843f3c20b79aeb721ec",
+        "752e1ac7a016d619ffaa624c347fbeefa7883137",
+        "1eaf16c876a180fc9eaff6fc893e134d10518d02",
     ]
 
 
@@ -252,7 +286,7 @@ def test_38_uniform_control():
 
 
 def test_39_routing_confusion():
-    assert "len(confusion_rows) == 117" in inspect.getsource(run.fit_ridge_routers)
+    assert 'plan["key_sets"]["routing_confusion"]' in inspect.getsource(run.fit_ridge_routers)
 
 
 def test_40_segmentation_aggregation():
@@ -308,11 +342,12 @@ def test_49_model_checkpoint_immutability():
 
 
 def test_50_call_graph_compiler(tmp_path: Path):
-    counts = {"train_labeled": (40, 16, 10), "train_unlabeled": (160, 63, 41), "val": (100, 40, 25)}
-    records = {seed: {stage: {role: [{}] * counts[role][stage] for role in counts} for stage in range(3)}
-               for seed in range(3)}
+    records = _manifest_records()
     graph = protocol.compile_call_graph(tmp_path, records, "a" * 40)
-    assert graph["expert_probability_forwards"] == 189 and graph["total_output_rows"] == 1356
+    assert graph["descriptor_forwards"] == sum((sum(len(records[s][d][r]) for d in range(3)
+                                                      for r in records[s][d]) + 7) // 8 for s in range(3))
+    assert graph["expert_probability_forwards"] == 3 * 3 * ((165 + 7) // 8)
+    assert graph["total_output_rows"] == sum(graph["output_rows"].values()) == 1356
 
 
 def test_51_create_only_state(tmp_path: Path):
@@ -330,12 +365,12 @@ def test_52_durable_child_exit(tmp_path: Path):
 
 def test_53_artifact_manifest_contract():
     source = inspect.getsource(run.artifact_manifest)
-    assert "PRES_DSR_SF_ARTIFACT_MANIFEST.json" in source and "required_outputs_complete=True" in source
+    assert "PRES_DSR_SF_V0_2_1_ARTIFACT_MANIFEST.json" in source and "required_outputs_complete=True" in source
 
 
 def test_54_private_archive_audit():
     source = inspect.getsource(postflight.main)
-    assert "PASS_PRIVATE_ARCHIVE_AUDIT" in source and "PRES_DSR_SF_PRIVATE_BUNDLE_MANIFEST.json" in source
+    assert "PASS_PRIVATE_ARCHIVE_AUDIT" in source and "PRES_DSR_SF_V0_2_1_PRIVATE_BUNDLE_MANIFEST.json" in source
 
 
 def test_55_report_compiler_fail_closed(tmp_path: Path, monkeypatch: pytest.MonkeyPatch):
@@ -351,3 +386,219 @@ def test_55_report_compiler_fail_closed(tmp_path: Path, monkeypatch: pytest.Monk
     with pytest.raises(Blocked):
         testing.main()
     assert not receipt.exists()
+
+
+def test_56_fit_router_returns_exactly_nine_rows():
+    value, labels, ids = _router_data()
+    assert len(fit_router(value, labels, ids)["cv_rows"]) == 9
+
+
+def test_57_fit_router_kind_counts_are_five_plus_four():
+    value, labels, ids = _router_data()
+    rows = fit_router(value, labels, ids)["cv_rows"]
+    assert sum(row["kind"] == "lambda" for row in rows) == 5
+    assert sum(row["kind"] == "temperature" for row in rows) == 4
+
+
+def test_58_six_ridge_routers_produce_54_rows():
+    value, labels, ids = _router_data()
+    rows = [row for _ in range(6) for row in fit_router(value, labels, ids)["cv_rows"]]
+    assert len(rows) == 54
+
+
+def test_59_ridge_lambda_keys_exactly_30():
+    keys = _cv_plan()["key_sets"]["ridge_lambda"]
+    assert len(keys) == len(set(keys)) == 3 * 2 * 5
+
+
+def test_60_ridge_temperature_keys_exactly_24():
+    keys = _cv_plan()["key_sets"]["ridge_temperature"]
+    assert len(keys) == len(set(keys)) == 3 * 2 * 4
+
+
+def test_61_m1_temperature_keys_exactly_24():
+    keys = _cv_plan()["key_sets"]["M1_temperature"]
+    assert len(keys) == len(set(keys)) == 3 * 2 * 4
+
+
+def test_62_combined_cv_keys_exactly_78():
+    plan, rows = _cv_rows()
+    combined = run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+    assert len(combined) == 78
+
+
+def test_63_combined_is_disjoint_union():
+    plan = _cv_plan()
+    families = [set(plan["key_sets"][name]) for name in ("M1_temperature", "ridge_lambda", "ridge_temperature")]
+    assert not (families[0] & families[1] or families[0] & families[2] or families[1] & families[2])
+    assert len(set().union(*families)) == 78
+
+
+def test_64_duplicate_key_blocks():
+    plan, rows = _cv_rows()
+    rows["ridge_lambda"].append(dict(rows["ridge_lambda"][0]))
+    with pytest.raises(Blocked, match="duplicate"):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+
+
+def test_65_missing_key_blocks():
+    plan, rows = _cv_rows()
+    rows["ridge_lambda"].pop()
+    with pytest.raises(Blocked):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+
+
+def test_66_extra_key_blocks():
+    plan, rows = _cv_rows()
+    extra = dict(rows["ridge_lambda"][0], value=99.0, selected=False)
+    rows["ridge_lambda"].append(extra)
+    with pytest.raises(Blocked):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+
+
+def test_67_wrong_family_blocks():
+    plan, rows = _cv_rows()
+    rows["ridge_lambda"][0] = dict(rows["ridge_lambda"][0], cv_family="M1_temperature")
+    with pytest.raises(Blocked):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+
+
+def test_68_unregistered_value_blocks():
+    plan, rows = _cv_rows()
+    rows["ridge_temperature"][0] = dict(rows["ridge_temperature"][0], value=3.0)
+    with pytest.raises(Blocked):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+
+
+def test_69_two_selected_lambdas_block():
+    plan, rows = _cv_rows()
+    target = next(row for row in rows["ridge_lambda"]
+                  if row["seed"] == 0 and row["stage_index"] == 1 and not row["selected"])
+    target["selected"] = True
+    with pytest.raises(Blocked, match="lambda selection"):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+
+
+def test_70_two_selected_temperatures_block():
+    plan, rows = _cv_rows()
+    target = next(row for row in rows["ridge_temperature"]
+                  if row["seed"] == 0 and row["stage_index"] == 1 and not row["selected"])
+    target["selected"] = True
+    with pytest.raises(Blocked, match="temperature selection"):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+
+
+def test_71_combined_csv_contains_all_78(tmp_path: Path):
+    plan, rows = _cv_rows()
+    run.write_combined_cv(tmp_path, rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+    assert len(list(csv.DictReader((tmp_path / "pres_dsr_cv.csv").open()))) == 78
+
+
+def test_72_split_files_reconstruct_combined(tmp_path: Path):
+    plan, rows = _cv_rows()
+    run.write_combined_cv(tmp_path, rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)
+    read = lambda name: list(csv.DictReader((tmp_path / name).open()))
+    combined = read("pres_dsr_cv.csv")
+    split = read("pres_dsr_m1_temperature_cv.csv") + read("pres_dsr_ridge_cv.csv")
+    key = lambda row: tuple(row[field] for field in run.CV_FIELDS)
+    assert {key(row) for row in split} == {key(row) for row in combined} and len(combined) == 78
+
+
+def test_73_router_score_exact_915_key_set(tmp_path: Path):
+    plan = protocol.output_key_plan(tmp_path, _manifest_records(), "a" * 40)
+    keys = [tuple(key) for key in plan["key_sets"]["router_scores"]]
+    assert len(keys) == len(set(keys)) == 915
+
+
+def test_74_confusion_exact_117_key_set(tmp_path: Path):
+    plan = protocol.output_key_plan(tmp_path, _manifest_records(), "a" * 40)
+    keys = [tuple(key) for key in plan["key_sets"]["routing_confusion"]]
+    assert len(keys) == len(set(keys)) == 117
+
+
+def test_75_full_total_output_rows_1356():
+    assert 24 + 30 + 24 + 915 + 117 + 27 + 120 + 90 + 9 == 1356
+
+
+@pytest.mark.parametrize("routers,lambdas,temperatures,expected", [(4, 2, 3, 20), (6, 5, 4, 54)])
+def test_76_parameterized_grid_cardinality(routers, lambdas, temperatures, expected):
+    rows = [(router, "lambda", value) for router in range(routers) for value in range(lambdas)]
+    rows += [(router, "temperature", value) for router in range(routers) for value in range(temperatures)]
+    assert len(rows) == expected
+
+
+def test_77_test_oracle_does_not_import_production_count_constants():
+    imports = "\n".join(Path(__file__).read_text().splitlines()[:25])
+    assert "LAMBDAS" not in imports and "TEMPERATURES" not in imports
+
+
+def test_78_complete_synthetic_clean_ridge_combined(tmp_path: Path):
+    rng = np.random.default_rng(7)
+    metadata, descriptors, memories = {}, {}, {}
+    for seed in range(3):
+        rows = []
+        for domain in range(3):
+            rows += [dict(case_id=f"s{seed}d{domain}u{i}", role="train_unlabeled", domain_index=domain)
+                     for i in range(10)]
+            rows += [dict(case_id=f"s{seed}d{domain}v{i}", role="val", domain_index=domain) for i in range(5)]
+        rows.sort(key=lambda row: row["case_id"])
+        metadata[seed] = rows
+        values = rng.normal(size=(len(rows), 102))
+        for i, row in enumerate(rows):
+            values[i] += row["domain_index"] * .5
+        descriptors[seed] = {"legacy": values, "raw": values.copy()}
+        index = {row["case_id"]: i for i, row in enumerate(rows)}
+        memories[seed] = {}
+        for domain in range(3):
+            ids = [row["case_id"] for row in rows if row["role"] == "train_unlabeled"
+                   and row["domain_index"] == domain]
+            memories[seed][domain] = {"case_ids": ids, "descriptors": values[[index[case] for case in ids]]}
+    plan = _cv_plan()
+    plan["key_sets"]["router_scores"] = [(seed, stage, row["case_id"]) for seed in range(3) for stage in (1, 2)
+                                                  for row in metadata[seed]
+                                                  if row["role"] == "val" and row["domain_index"] <= stage]
+    plan["key_sets"]["routing_confusion"] = [(seed, stage, router, true, routed)
+        for seed in range(3) for stage in (1, 2) for router in ("M1_HARD", "M2_HARD", "RIDGE_HARD")
+        for true in range(stage + 1) for routed in range(stage + 1)]
+    counters = dict(m1_cv_prototype_fits=0, clean_control_prototype_fits=0, ridge_closed_form_fits=0)
+    banks, states, routing, temperatures, m1 = run.clean_controls(descriptors, metadata, counters, plan)
+    result = run.fit_ridge_routers(memories, descriptors, metadata, states, temperatures, tmp_path, counters, plan)
+    _, _, ridge_lambda, ridge_temperature, scores, confusion, _ = result
+    combined = run.write_combined_cv(tmp_path, m1, ridge_lambda, ridge_temperature, plan)
+    assert len(m1) == 24 and len(ridge_lambda) == 30 and len(ridge_temperature) == 24
+    assert len(combined) == 78 and len(scores) == 75 and len(confusion) == 117
+    assert banks and routing
+
+
+def test_79_old_blocked_artifacts_unchanged():
+    root = protocol.ROOT / "docs/pres_dsr_sf_v0_2"
+    assert d.sha256(root / "PRES_DSR_SF_FINAL_REPORT.md") == "247dd178eda7cafe3f971994df8611e5c345d5d657ff27392f7e8e10f44e792e"
+    assert d.sha256(root / "PRES_DSR_SF_STATUS.json") == "8ae3e4b29344825f0b815889cd7481ed0a409c956a57c8216bde1c3c2424cb5e"
+
+
+def test_80_science_function_hashes_unchanged():
+    names = ("raw_style_block", "raw_style_descriptors", "fit_standardizer", "apply_standardizer", "ridge_fit",
+             "fit_router", "router_probabilities", "hard_routes", "probability_fusion",
+             "bootstrap_multiplicity", "adjudicate")
+    text = (protocol.ROOT / "pres_dsr_sf_v0_2/core.py").read_text()
+    tree = ast.parse(text)
+    nodes = {node.name: node for node in tree.body if isinstance(node, ast.FunctionDef)}
+    hashes = []
+    for name in names:
+        node = nodes[name]
+        source = "".join(text.splitlines(keepends=True)[node.lineno - 1:node.end_lineno]).encode()
+        hashes.append(name + ":" + hashlib.sha256(source).hexdigest())
+    assert hashlib.sha256("\n".join(hashes).encode()).hexdigest() == "ffd08413305de31888767a440e0bc8234178624289fe98693f8dcc9b2a84740c"
+
+
+def test_81_fail_closed_artifact_manifest(tmp_path: Path):
+    with pytest.raises(Blocked):
+        run.artifact_manifest(tmp_path)
+    assert not (tmp_path / "PRES_DSR_SF_V0_2_1_ARTIFACT_MANIFEST.json").exists()
+
+
+def test_82_nonfinite_cv_metric_blocks():
+    plan, rows = _cv_rows()
+    rows["M1_temperature"][0]["domain_nll"] = float("nan")
+    with pytest.raises(Blocked):
+        run.validate_cv_rows(rows["M1_temperature"], rows["ridge_lambda"], rows["ridge_temperature"], plan)

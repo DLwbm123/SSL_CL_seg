@@ -25,10 +25,10 @@ def main():
     totals = {name: sum(int(suite.attrib.get(name, 0)) for suite in suites)
               for name in ("tests", "failures", "errors", "skipped")}
     cases = [case for case in root.iter("testcase") if "pres_dsr_sf_v0_2" in case.attrib.get("classname", "")]
-    require(len(cases) >= 55 and totals["failures"] == totals["errors"] == totals["skipped"] == 0,
+    require(len(cases) >= 82 and totals["failures"] == totals["errors"] == totals["skipped"] == 0,
             "PRES-DSR-SF/PRES/Gate0 test admission failed", "BLOCKED_INCOMPLETE_EVIDENCE")
     result = dict(status="PASS", code_commit=args.code_commit, publication=publication,
-                  pres_dsr_sf_test_cases=len(cases), required_pres_dsr_sf_categories=55, **totals,
+                  pres_dsr_sf_test_cases=len(cases), required_pres_dsr_sf_categories=82, **totals,
                   junit_path=str(args.junit.resolve()), junit_sha256=d.sha256(args.junit),
                   pytest_output_path=str(args.pytest_output.resolve()), pytest_output_sha256=d.sha256(args.pytest_output),
                   exact_test_command=args.exact_command, created_at=d.now(), skips=0)

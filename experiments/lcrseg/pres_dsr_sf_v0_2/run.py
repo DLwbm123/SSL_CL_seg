@@ -25,11 +25,72 @@ from .core import (Blocked, LAMBDAS, TEMPERATURES, adjudicate, bootstrap_multipl
                    domain_metrics, fit_router, hard_routes, probability_fusion, raw_style_descriptors,
                    router_probabilities, salted_hash, select_memory, softmax)
 from .protocol import (BATCH_SIZE, ROOT, backend_import_gate, compile_call_graph, execution_gate,
-                       gate1c_contract, input_audit, isolation_guard, require_backend, verify_call_graph)
+                       gate1c_contract, input_audit, isolation_guard, output_key_plan, phase_barrier,
+                       require_backend, verify_call_graph)
 
 POLICIES = ("C0_SHARED", "C1_ORACLE", "C2_M1_HARD", "C3_M2_HARD",
             "C4_M1_SOFT", "C5_RIDGE_HARD", "C6_RIDGE_SOFT", "C7_UNIFORM")
 V1_STATUS_SHA = "25d2e96bd16f379dbcf13910a0264d6fd86df36ed40a6838a81117b3520a894f"
+CV_FIELDS = ("cv_family", "router", "seed", "stage_index", "kind", "value")
+
+
+def row_key(row, fields):
+    return tuple(row[field] for field in fields)
+
+
+def require_exact_keys(rows, expected, fields, name):
+    keys = [row_key(row, fields) for row in rows]
+    expected = {tuple(key) for key in expected}
+    require(len(keys) == len(set(keys)), f"duplicate {name} key", "BLOCKED_OUTPUT_KEYSET_MISMATCH")
+    require(set(keys) == expected, f"{name} key set changed", "BLOCKED_OUTPUT_KEYSET_MISMATCH")
+    return keys
+
+
+def validate_cv_rows(m1_rows, ridge_lambda_rows, ridge_temperature_rows, plan):
+    families = ((m1_rows, "M1_temperature"), (ridge_lambda_rows, "ridge_lambda"),
+                (ridge_temperature_rows, "ridge_temperature"))
+    for rows, family in families:
+        require_exact_keys(rows, plan["key_sets"][family], CV_FIELDS, family)
+        for row in rows:
+            metrics = [row["macro_accuracy"], row["domain_nll"], *row["per_domain_accuracy"]]
+            require(bool(np.isfinite(np.asarray(metrics, dtype=np.float64)).all())
+                    and isinstance(row["selected"], bool), "invalid CV evidence", "BLOCKED_NUMERICAL_FAILURE")
+    for seed in range(3):
+        for stage in (1, 2):
+            require(sum(row["selected"] for row in m1_rows
+                        if row["seed"] == seed and row["stage_index"] == stage) == 1,
+                    "M1 temperature selection changed", "BLOCKED_OUTPUT_KEYSET_MISMATCH")
+            require(sum(row["selected"] for row in ridge_lambda_rows
+                        if row["seed"] == seed and row["stage_index"] == stage) == 1,
+                    "ridge lambda selection changed", "BLOCKED_OUTPUT_KEYSET_MISMATCH")
+            require(sum(row["selected"] for row in ridge_temperature_rows
+                        if row["seed"] == seed and row["stage_index"] == stage) == 1,
+                    "ridge temperature selection changed", "BLOCKED_OUTPUT_KEYSET_MISMATCH")
+    combined = sorted([*m1_rows, *ridge_lambda_rows, *ridge_temperature_rows],
+                      key=lambda row: row_key(row, CV_FIELDS))
+    expected = [*plan["key_sets"]["M1_temperature"], *plan["key_sets"]["ridge_lambda"],
+                *plan["key_sets"]["ridge_temperature"]]
+    require_exact_keys(combined, expected, CV_FIELDS, "combined CV")
+    return combined
+
+
+def write_combined_cv(output, m1_rows, ridge_lambda_rows, ridge_temperature_rows, plan):
+    combined = validate_cv_rows(m1_rows, ridge_lambda_rows, ridge_temperature_rows, plan)
+    ridge = sorted([*ridge_lambda_rows, *ridge_temperature_rows], key=lambda row: row_key(row, CV_FIELDS))
+    m1 = sorted(m1_rows, key=lambda row: row_key(row, CV_FIELDS))
+    v1run.csv_new(Path(output) / "pres_dsr_m1_temperature_cv.csv", m1)
+    v1run.csv_new(Path(output) / "pres_dsr_ridge_cv.csv", ridge)
+    v1run.csv_new(Path(output) / "pres_dsr_cv.csv", combined)
+    return combined
+
+
+def require_bootstrap_keys(rows, plan):
+    keys = [(row["kind"], row["seed"], row["stage_index"], row["M"], row["replicate"])
+            if row["kind"] == "clean_control"
+            else (row["kind"], row["seed"], row["stage_index"], row["replicate"]) for row in rows]
+    expected = {tuple(key) for key in plan["key_sets"]["bootstrap"]}
+    require(len(keys) == len(set(keys)) and set(keys) == expected, "bootstrap key set changed",
+            "BLOCKED_OUTPUT_KEYSET_MISMATCH")
 
 
 def npz_new(path, **arrays):
@@ -198,14 +259,14 @@ def fit_m1_temperature(legacy, rows, *, seed, stage, counters):
     require(bool(np.isfinite(oof).all()), "M1 OOF scores incomplete")
     rows_out = []
     for temperature in TEMPERATURES:
-        rows_out.append(dict(kind="m1_temperature", value=temperature,
+        rows_out.append(dict(kind="temperature", value=temperature,
                              **domain_metrics(oof, labels, temperature=temperature)))
     selected_temperature = min(TEMPERATURES, key=lambda value: (
         next(row["domain_nll"] for row in rows_out if row["value"] == value), abs(np.log(value)), value))
     return selected_temperature, rows_out
 
 
-def clean_controls(descriptors, metadata, counters):
+def clean_controls(descriptors, metadata, counters, plan):
     banks, states, routing, temperatures, cv_rows = {}, {}, {}, {}, []
     for seed in range(3):
         index = {row["case_id"]: i for i, row in enumerate(metadata[seed])}
@@ -221,7 +282,8 @@ def clean_controls(descriptors, metadata, counters):
         for stage in (1, 2):
             temperatures[seed][stage], temp_rows = fit_m1_temperature(
                 descriptors[seed]["legacy"], metadata[seed], seed=seed, stage=stage, counters=counters)
-            cv_rows.extend(dict(seed=seed, stage_index=stage, router="M1", **row) for row in temp_rows)
+            cv_rows.extend(dict(cv_family="M1_temperature", router="M1", seed=seed, stage_index=stage,
+                                selected=row["value"] == temperatures[seed][stage], **row) for row in temp_rows)
         for M in (1, 2):
             states[seed][M], routing[seed][M] = {}, {}
             for stage in (1, 2):
@@ -236,6 +298,7 @@ def clean_controls(descriptors, metadata, counters):
                                      route_entropy=float(entropy[i])) for i in range(len(ids))]
                 routing[seed][M][stage] = routing_summary(summary_rows, stage + 1)
                 states[seed][M][stage] = dict(case_ids=ids, truth=truth, routed=routed, scores=scores)
+    require_exact_keys(cv_rows, plan["key_sets"]["M1_temperature"], CV_FIELDS, "M1 temperature")
     return banks, states, routing, temperatures, cv_rows
 
 
@@ -278,8 +341,8 @@ def clean_control_bootstraps(descriptors, metadata, formal_banks, counters):
     return rows, stability
 
 
-def fit_ridge_routers(memories, descriptors, metadata, clean_states, m1_temperatures, output, counters):
-    models, states, cv_rows, score_rows, confusion_rows, manifest_rows = {}, {}, [], [], [], []
+def fit_ridge_routers(memories, descriptors, metadata, clean_states, m1_temperatures, output, counters, plan):
+    models, states, lambda_rows, temperature_rows, score_rows, confusion_rows, manifest_rows = {}, {}, [], [], [], [], []
     for seed in range(3):
         models[seed], states[seed] = {}, {}
         index = {row["case_id"]: i for i, row in enumerate(metadata[seed])}
@@ -291,7 +354,13 @@ def fit_ridge_routers(memories, descriptors, metadata, clean_states, m1_temperat
             model = fit_router(train, labels, ids)
             counters["ridge_closed_form_fits"] += 26
             models[seed][stage] = model
-            cv_rows.extend(dict(seed=seed, stage_index=stage, router="ridge", **row) for row in model["cv_rows"])
+            for row in model["cv_rows"]:
+                family = "ridge_" + row["kind"]
+                target = lambda_rows if row["kind"] == "lambda" else temperature_rows
+                selected = row["value"] == (model["selected_lambda"] if row["kind"] == "lambda"
+                                             else model["selected_temperature"])
+                target.append(dict(cv_family=family, router="ridge", seed=seed, stage_index=stage,
+                                   selected=selected, **row))
             selected = [row for row in metadata[seed] if row["role"] == "val" and row["domain_index"] <= stage]
             selected.sort(key=lambda row: row["case_id"])
             val_ids = [row["case_id"] for row in selected]
@@ -324,12 +393,15 @@ def fit_ridge_routers(memories, descriptors, metadata, clean_states, m1_temperat
                         confusion_rows.append(dict(seed=seed, stage_index=stage, router=name, true_domain=true,
                                                    routed_domain=route_to,
                                                    count=int(np.sum((truth == true) & (predicted == route_to)))))
-    require(len(cv_rows) == 78 and len(score_rows) == 915 and len(confusion_rows) == 117,
-            "router output coverage changed", "BLOCKED_INCOMPLETE_EVIDENCE")
-    v1run.csv_new(Path(output) / "pres_dsr_cv.csv", cv_rows)
+    require_exact_keys(lambda_rows, plan["key_sets"]["ridge_lambda"], CV_FIELDS, "ridge lambda")
+    require_exact_keys(temperature_rows, plan["key_sets"]["ridge_temperature"], CV_FIELDS, "ridge temperature")
+    require_exact_keys(score_rows, plan["key_sets"]["router_scores"], ("seed", "stage_index", "case_id"),
+                       "router score")
+    require_exact_keys(confusion_rows, plan["key_sets"]["routing_confusion"],
+                       ("seed", "stage_index", "router", "true_domain", "routed_domain"), "routing confusion")
     v1run.csv_new(Path(output) / "pres_dsr_router_scores.csv", score_rows)
     v1run.csv_new(Path(output) / "pres_dsr_routing_confusion.csv", confusion_rows)
-    return models, states, cv_rows, score_rows, confusion_rows, manifest_rows
+    return models, states, lambda_rows, temperature_rows, score_rows, confusion_rows, manifest_rows
 
 
 def fit_ridge_bootstraps(memories, descriptors, metadata, counters):
@@ -498,7 +570,7 @@ def materialize_candidates(output, expert_probability, expert_orders, clean_stat
                                          alpha_sha256=array_sha256(boot_alpha)))
                 counters["bootstrap_soft_case_predictions"] += len(ids)
     seal = d.seal(cache_root)
-    d.write_new(Path(output) / "PRES_DSR_SF_CANDIDATE_OUTPUT_MANIFEST.json",
+    d.write_new(Path(output) / "PRES_DSR_SF_CANDIDATE_MANIFEST.json",
                 dict(status="PASS_ALL_CANDIDATE_OUTPUTS_SEALED_BEFORE_GT", formal=formal_entries,
                      bootstrap=boot_entries, validation_GT_reads=0, probability_fusion=True, logit_fusion=False,
                      content_sha256=seal["content_sha256"],
@@ -507,7 +579,7 @@ def materialize_candidates(output, expert_probability, expert_orders, clean_stat
 
 
 def evaluate_segmentation(output, records, data_root, expert_probability, expert_orders, formal, boot,
-                          bootstrap_rows, counters):
+                          bootstrap_rows, counters, plan):
     cross_rows, policy_rows = [], []
     boot_lookup = {(row["seed"], row["stage_index"], row["replicate"]): row for row in bootstrap_rows}
     for seed in range(3):
@@ -557,8 +629,12 @@ def evaluate_segmentation(output, records, data_root, expert_probability, expert
                 row["soft_three_domain_gain"] = float(np.mean(np.asarray(soft_metrics) - shared))
                 row["soft_oracle_gap"] = float(np.mean(np.asarray(oracle) - soft_metrics))
         del labels
-    require(len(cross_rows) == 27 and len(policy_rows) == 120 and counters["validation_GT_case_reads"] == 495,
-            "segmentation output coverage changed", "BLOCKED_INCOMPLETE_EVIDENCE")
+    require_exact_keys(cross_rows, plan["key_sets"]["cross_expert"], ("seed", "true_domain", "expert"),
+                       "cross expert")
+    require_exact_keys(policy_rows, plan["key_sets"]["soft_fusion"],
+                       ("seed", "stage_index", "true_domain", "policy"), "soft fusion")
+    require(counters["validation_GT_case_reads"] == 495, "validation GT coverage changed",
+            "BLOCKED_OUTPUT_KEYSET_MISMATCH")
     v1run.csv_new(Path(output) / "pres_dsr_cross_expert.csv", cross_rows)
     v1run.csv_new(Path(output) / "pres_dsr_soft_fusion.csv", policy_rows)
     return cross_rows, policy_rows, bootstrap_rows
@@ -688,8 +764,8 @@ def report(output, metadata, counters, decision, evidence, control, memory_rows,
                   parameter_grad_writes=0, router_is_closed_form=True, method_registered=False,
                   training_launched=False, validation_GT_usage="evaluator_only", test_GT_reads=0,
                   report_commit=None, report_commit_resolution="first Git commit adding these exact public report bytes")
-    d.write_new(Path(output) / "PRES_DSR_SF_STATUS.json", status)
-    lines = ["# PRES-DSR-SF V0.2 final report", "",
+    d.write_new(Path(output) / "PRES_DSR_SF_V0_2_1_STATUS.json", status)
+    lines = ["# PRES-DSR-SF V0.2.1 final report", "",
              f"Scientific status: `{decision['scientific_status']}`.", "",
              "## E1-E6", "",
              f"E1={decision['E1']}; E2={decision['E2']}; E3={decision['E3']}; E4={decision['E4']}; E5={decision['E5']}; E6={decision['E6']}.", "",
@@ -702,38 +778,41 @@ def report(output, metadata, counters, decision, evidence, control, memory_rows,
              f"Clean M1/M2 reproduction maximum absolute difference was {control['maximum_absolute_metric_difference']:.12g} (limit 1e-6).", "",
              "Model optimizer, autograd, backward, parameter-grad-write, EMA/GAS/PAS-update and training counts are zero. Router fitting was closed-form CPU float64. No test object or GT was constructed.", "",
              "Execution hard-stops for independent review. No test evaluation, regeneration, retraining, validation refit, expert fine-tuning, adapter, other benchmark, sweep, or main merge is authorized.", ""]
-    v1run.text_new(Path(output) / "PRES_DSR_SF_FINAL_REPORT.md", "\n".join(lines))
-    warnings = ["# PRES-DSR-SF failures and warnings", "", f"Final status: `{decision['scientific_status']}`.", ""]
+    v1run.text_new(Path(output) / "PRES_DSR_SF_V0_2_1_FINAL_REPORT.md", "\n".join(lines))
+    warnings = ["# PRES-DSR-SF V0.2.1 failures and warnings", "", f"Final status: `{decision['scientific_status']}`.", ""]
     if decision["scientific_status"] == "PASS_PRES_DSR_SF_FEASIBILITY":
         warnings.append("PASS is validation feasibility only; it is not a trained-method or test-set claim.")
     else:
         warnings.append("The first failed registered gate determines the scientific failure; controls cannot rescue C6.")
     warnings.extend(["", "Private paths, case IDs, descriptors, probabilities, masks, checkpoints, and raw CSV rows are omitted from public reporting.", ""])
-    v1run.text_new(Path(output) / "PRES_DSR_SF_FAILURES_AND_WARNINGS.md", "\n".join(warnings))
-    v1run.text_new(Path(output) / "PRES_DSR_SF_EXACT_COMMANDS.md", "\n".join([
-        "# PRES-DSR-SF exact commands", "", "## Tests", "", "```sh", metadata["exact_test_command"], "```", "",
+    v1run.text_new(Path(output) / "PRES_DSR_SF_V0_2_1_FAILURES_AND_WARNINGS.md", "\n".join(warnings))
+    v1run.text_new(Path(output) / "PRES_DSR_SF_V0_2_1_EXACT_COMMANDS.md", "\n".join([
+        "# PRES-DSR-SF V0.2.1 exact commands", "", "## Tests", "", "```sh", metadata["exact_test_command"], "```", "",
         "## Durable child argv", "", "```sh", shlex.join(metadata["exact_command"]), "```", "",
         "Both commands ran through the NAS storage wrapper. No package installation, optimizer, backward, or training command ran.", ""]))
 
 
 def artifact_manifest(output):
-    excluded = ("PRES_DSR_SF_ARTIFACT_MANIFEST.json", "controller.log", "supervisor.log", "LAUNCH_REQUEST.json",
+    excluded = ("PRES_DSR_SF_V0_2_1_ARTIFACT_MANIFEST.json", "controller.log", "supervisor.log", "LAUNCH_REQUEST.json",
                 "LAUNCH_RECEIPT.json", "PROCESS_START.json", "PROCESS_PID.json", "PROCESS_EXIT.json",
-                "EXECUTION_COMPLETION.json", "PHASE_pres_dsr_sf.json", "PHASE_pres_dsr_sf_MANIFEST.json")
+                "EXECUTION_COMPLETION.json", "PHASE_pres_dsr_sf_v0_2_1.json", "PHASE_pres_dsr_sf_v0_2_1_MANIFEST.json")
     entries = d.file_entries(output, exclude=excluded)
-    required = {"PRES_DSR_SF_INPUT_AUDIT.json", "PRES_DSR_SF_BACKEND_AUDIT.json", "PRES_DSR_SF_CALL_GRAPH.json",
+    required = {"PRES_DSR_SF_V0_2_1_INPUT_AUDIT.json", "PRES_DSR_SF_V0_2_1_BACKEND_AUDIT.json",
+                "PRES_DSR_SF_V0_2_1_OUTPUT_KEY_PLAN.json", "PRES_DSR_SF_V0_2_1_CALL_GRAPH.json",
                 "PRES_DSR_SF_DESCRIPTOR_MANIFEST.json", "PRES_DSR_SF_MEMORY_MANIFEST.json",
-                "PRES_DSR_SF_ROUTER_MANIFEST.json", "pres_dsr_cv.csv", "pres_dsr_router_scores.csv",
+                "PRES_DSR_SF_ROUTER_MANIFEST.json", "PRES_DSR_SF_EXPERT_PROBABILITY_MANIFEST.json",
+                "PRES_DSR_SF_CANDIDATE_MANIFEST.json", "pres_dsr_m1_temperature_cv.csv",
+                "pres_dsr_ridge_cv.csv", "pres_dsr_cv.csv", "pres_dsr_router_scores.csv",
                 "pres_dsr_routing_confusion.csv", "pres_dsr_cross_expert.csv", "pres_dsr_soft_fusion.csv",
-                "pres_dsr_bootstrap.csv", "pres_dsr_memory_cost.csv", "PRES_DSR_SF_STATUS.json",
-                "PRES_DSR_SF_FINAL_REPORT.md", "PRES_DSR_SF_FAILURES_AND_WARNINGS.md",
-                "PRES_DSR_SF_EXACT_COMMANDS.md", "pytest.xml", "pytest_output.txt"}
+                "pres_dsr_bootstrap.csv", "pres_dsr_memory_cost.csv", "PRES_DSR_SF_V0_2_1_STATUS.json",
+                "PRES_DSR_SF_V0_2_1_FINAL_REPORT.md", "PRES_DSR_SF_V0_2_1_FAILURES_AND_WARNINGS.md",
+                "PRES_DSR_SF_V0_2_1_EXACT_COMMANDS.md", "pytest.xml", "pytest_output.txt"}
     names = {entry["path"] for entry in entries}
     require(required.issubset(names), "required artifact missing", "BLOCKED_INCOMPLETE_EVIDENCE")
     result = dict(status="PASS_CONTROLLER_ARTIFACT_MANIFEST", artifacts=entries, file_count=len(entries),
                   total_bytes=sum(row["bytes"] for row in entries), required_outputs_complete=True,
                   excludes_live_supervisor_receipts=True, created_at=d.now())
-    d.write_new(Path(output) / "PRES_DSR_SF_ARTIFACT_MANIFEST.json", result)
+    d.write_new(Path(output) / "PRES_DSR_SF_V0_2_1_ARTIFACT_MANIFEST.json", result)
     return result
 
 
@@ -750,11 +829,16 @@ def main():
         metadata = execution_gate(args.output, args.code_commit, args.test_report)
         metadata["exact_command"] = sys.argv
         backend = backend_import_gate(args.output)
-        d.write_new(args.output / "PRES_DSR_SF_RUN_METADATA.json", metadata)
+        d.write_new(args.output / "PRES_DSR_SF_V0_2_1_RUN_METADATA.json", metadata)
         v1run.link_test_evidence(args.output, args.test_report)
         contract = gate1c_contract()
         records = input_audit(args.output, contract, metadata)
-        graph = compile_call_graph(args.output, records, args.code_commit)
+        plan = output_key_plan(args.output, records, args.code_commit)
+        graph = compile_call_graph(args.output, records, args.code_commit, plan)
+        phase_barrier(args.output, "input_audit", (
+            "PRES_DSR_SF_V0_2_1_RUN_METADATA.json", "PRES_DSR_SF_V0_2_1_BACKEND_AUDIT.json",
+            "PRES_DSR_SF_V0_2_1_INPUT_AUDIT.json", "PRES_DSR_SF_V0_2_1_OUTPUT_KEY_PLAN.json",
+            "PRES_DSR_SF_V0_2_1_CALL_GRAPH.json", "pytest.xml", "pytest_output.txt"))
         data_root = Path(contract["destination"]["data_root"])
         router_checkpoints = {seed: v1run.checkpoint(contract, seed, 0) for seed in range(3)}
         expert_checkpoints = {seed: {expert: v1run.checkpoint(contract, seed, expert) for expert in range(3)}
@@ -773,35 +857,58 @@ def main():
         with isolation_guard():
             plans = {seed: descriptor_plan(records, seed) for seed in range(3)}
             descriptors = extract_descriptors(args.output, plans, data_root, router_checkpoints, metadata, device, counters)
+            phase_barrier(args.output, "descriptor_seal", ("PRES_DSR_SF_DESCRIPTOR_MANIFEST.json",))
             backend_checks.append(require_backend("after_descriptors"))
             released = release_metadata(args.output, records, plans)
             memories, memory_cost = build_memory(args.output, descriptors, released, data_root)
-            banks, clean_states, clean_routing, m1_temperatures, m1_cv = clean_controls(descriptors, released, counters)
+            require_exact_keys(memory_cost, plan["key_sets"]["memory"], ("seed", "domain_index"), "memory")
+            phase_barrier(args.output, "memory_seal", ("PRES_DSR_SF_MEMORY_MANIFEST.json", "pres_dsr_memory_cost.csv"))
+            banks, clean_states, clean_routing, m1_temperatures, m1_cv = clean_controls(
+                descriptors, released, counters, plan)
             clean_bootstrap, clean_stability = clean_control_bootstraps(descriptors, released, banks, counters)
-            ridge_models, ridge_states, ridge_cv, router_scores, routing_confusion, router_manifest = fit_ridge_routers(
-                memories, descriptors, released, clean_states, m1_temperatures, args.output, counters)
+            d.write_new(args.output / "PRES_DSR_SF_CLEAN_CONTROL_MANIFEST.json",
+                        dict(status="PASS_CLEAN_CONTROLS_SEALED", M1_temperature_cv=m1_cv,
+                             M1_temperature_rows=len(m1_cv), clean_bootstrap_rows=len(clean_bootstrap),
+                             segmentation_GT_fields=0, created_at=d.now()))
+            phase_barrier(args.output, "clean_control_seal", ("PRES_DSR_SF_CLEAN_CONTROL_MANIFEST.json",))
+            (ridge_models, ridge_states, ridge_lambda_cv, ridge_temperature_cv, router_scores,
+             routing_confusion, router_manifest) = fit_ridge_routers(
+                memories, descriptors, released, clean_states, m1_temperatures, args.output, counters, plan)
             bootstrap_states, bootstrap_rows, bootstrap_manifest = fit_ridge_bootstraps(
                 memories, descriptors, released, counters)
             d.write_new(args.output / "PRES_DSR_SF_ROUTER_MANIFEST.json",
                         dict(status="PASS_ROUTER_AND_SELECTION_SEALED_BEFORE_GT", formal=router_manifest,
                              bootstrap=bootstrap_manifest, ridge_closed_form=True, CPU_float64=True,
                              validation_used_for_lambda_or_temperature=False, segmentation_GT_fields=0,
-                             M1_temperature_train_unlabeled_only=True))
+                             M1_temperature_train_unlabeled_only=True,
+                             ridge_lambda_cv_rows=len(ridge_lambda_cv),
+                             ridge_temperature_cv_rows=len(ridge_temperature_cv)))
+            phase_barrier(args.output, "ridge_router_seal", (
+                "PRES_DSR_SF_ROUTER_MANIFEST.json", "pres_dsr_router_scores.csv",
+                "pres_dsr_routing_confusion.csv"))
+            combined_cv = write_combined_cv(args.output, m1_cv, ridge_lambda_cv, ridge_temperature_cv, plan)
+            phase_barrier(args.output, "combined_cv_seal", (
+                "pres_dsr_m1_temperature_cv.csv", "pres_dsr_ridge_cv.csv", "pres_dsr_cv.csv"))
             probabilities, orders = predict_expert_probabilities(args.output, records, data_root, expert_checkpoints,
                                                                   metadata, device, counters)
+            phase_barrier(args.output, "expert_probability_seal", ("PRES_DSR_SF_EXPERT_PROBABILITY_MANIFEST.json",))
             backend_checks.append(require_backend("after_expert_probabilities"))
             formal_predictions, bootstrap_predictions = materialize_candidates(
                 args.output, probabilities, orders, clean_states, m1_temperatures, ridge_states, bootstrap_states, counters)
+            phase_barrier(args.output, "candidate_prediction_seal", ("PRES_DSR_SF_CANDIDATE_MANIFEST.json",))
         backend_checks.append(require_backend("after_all_forwards"))
         cross_rows, policy_rows, bootstrap_rows = evaluate_segmentation(
             args.output, records, data_root, probabilities, orders, formal_predictions, bootstrap_predictions,
-            bootstrap_rows, counters)
+            bootstrap_rows, counters, plan)
+        phase_barrier(args.output, "validation_evaluation", ("pres_dsr_cross_expert.csv", "pres_dsr_soft_fusion.csv"))
         all_bootstrap_rows = [*clean_bootstrap, *bootstrap_rows]
+        require_bootstrap_keys(all_bootstrap_rows, plan)
         v1run.csv_new(args.output / "pres_dsr_bootstrap.csv", all_bootstrap_rows)
+        phase_barrier(args.output, "bootstrap_evaluation", ("pres_dsr_bootstrap.csv",))
         control = control_reproduction(clean_routing, clean_bootstrap, clean_stability, banks, policy_rows)
         oracle, ridge_hard, ridge_soft, stability = gate_evidence(policy_rows, ridge_states, bootstrap_rows)
         memory_counts = [len(memories[seed][domain]["case_ids"]) for seed in range(3) for domain in range(3)]
-        counters["output_rows"].update(cv=len(m1_cv) + len(ridge_cv), router_scores=len(router_scores),
+        counters["output_rows"].update(cv=len(combined_cv), router_scores=len(router_scores),
                                        routing_confusion=len(routing_confusion), cross_expert=len(cross_rows),
                                        soft_fusion=len(policy_rows), bootstrap=len(all_bootstrap_rows),
                                        memory_cost=len(memory_cost))
@@ -816,18 +923,31 @@ def main():
         decision = adjudicate(evidence)
         verify_call_graph(graph, counters)
         report(args.output, metadata, counters, decision, evidence, control, memory_counts, backend_checks)
+        d.write_new(args.output / "PRES_DSR_SF_V0_2_1_E1_E6.json",
+                    dict(status="PASS_E1_E6_COMPILED", decision=decision, evidence=evidence,
+                         controls_cannot_rescue_primary_C6=True, compiled_at=d.now()))
+        phase_barrier(args.output, "E1_E6_compile", (
+            "PRES_DSR_SF_V0_2_1_E1_E6.json", "PRES_DSR_SF_V0_2_1_STATUS.json"))
         manifest = artifact_manifest(args.output)
+        phase_barrier(args.output, "artifact_audit", ("PRES_DSR_SF_V0_2_1_ARTIFACT_MANIFEST.json",))
+        phase_barrier(args.output, "NAS_archive", (
+            "PRES_DSR_SF_V0_2_1_ARTIFACT_MANIFEST.json", "PRES_DSR_SF_V0_2_1_STATUS.json"))
+        phase_barrier(args.output, "report", (
+            "PRES_DSR_SF_V0_2_1_STATUS.json", "PRES_DSR_SF_V0_2_1_FINAL_REPORT.md",
+            "PRES_DSR_SF_V0_2_1_FAILURES_AND_WARNINGS.md", "PRES_DSR_SF_V0_2_1_EXACT_COMMANDS.md"))
         print(json.dumps(dict(status=decision["scientific_status"], artifacts=manifest["file_count"],
                               counters=counters), sort_keys=True), flush=True)
     except BaseException as error:
         status = getattr(error, "status", "BLOCKED_INCOMPLETE_EVIDENCE")
-        allowed = {"BLOCKED_BASE_COMMIT_AMBIGUOUS", "BLOCKED_BACKEND_STATE_MUTATION",
+        allowed = {"BLOCKED_BASE_COMMIT_AMBIGUOUS", "BLOCKED_SCIENCE_SOURCE_CHANGED",
+                   "BLOCKED_CALLGRAPH_CARDINALITY_MISMATCH", "BLOCKED_OUTPUT_KEYSET_MISMATCH",
+                   "BLOCKED_BACKEND_STATE_MUTATION",
                    "BLOCKED_CONTROL_REPRODUCTION_MISMATCH", "BLOCKED_PRIVATE_INPUT_MISMATCH",
                    "BLOCKED_PROTOCOL_OR_LEAKAGE", "BLOCKED_MODEL_MUTATION",
                    "BLOCKED_NUMERICAL_FAILURE", "BLOCKED_INCOMPLETE_EVIDENCE"}
         if status not in allowed:
             status = "BLOCKED_PROTOCOL_OR_LEAKAGE"
-        failure = args.output / f"PRES_DSR_SF_FAILURE_{os.getpid()}.json"
+        failure = args.output / f"PRES_DSR_SF_V0_2_1_FAILURE_{os.getpid()}.json"
         if args.output.is_dir() and not failure.exists():
             d.write_new(failure, dict(status=status, error=f"{type(error).__name__}: {error}",
                                       traceback=traceback.format_exc(), command=sys.argv, recorded_at=d.now(),
