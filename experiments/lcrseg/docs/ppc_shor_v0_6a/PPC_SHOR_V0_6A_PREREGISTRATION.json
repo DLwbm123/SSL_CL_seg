@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "registration_id": "PPC_SHOR_V0_6A_DEVELOPMENT_FEASIBILITY",
+  "method_name": "Partially Pooled Calibrated Selective Historical Override",
+  "base_commit": "71d7e164390e10cce1619df9fcd18c17dc677939",
+  "branch": "codex/ppc-shor-v0-6a-development",
+  "commit_sequence": ["single_freeze_commit", "final_report_commit"],
+  "formal_attempts_authorized": 1,
+  "scientific_question": "Can cross-seed partially pooled calibration stabilize the already effective frozen SHOR score without sacrificing historical value or current-domain safety?",
+  "scope": "development feasibility; not held-out testing and not a V0.4 reevaluation",
+  "immutable_history": {
+    "SHOR_V0_3_1": {"scientific_status": "FAIL_SELECTIVE_OVERRIDE_STABILITY", "H5": false},
+    "SHOR_V0_4": {"scientific_status": "PASS_FIXED_POLICY_TEST_EFFECTIVENESS"},
+    "RC_SHOR_V0_5": {"scientific_status": "FAIL_RC_SHOR_VALUE"},
+    "mutable": false
+  },
+  "inputs": {
+    "v0_4_formal_03": {"path": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/shor_v0_4_fixed_policy_test/formal_03", "reads_allowed": 0},
+    "oof_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/shor_jascl_v0_3_1_b7f85c7/formal_01",
+    "oof_bundle": {"manifest": "SHOR_PRIVATE_BUNDLE_MANIFEST.json", "manifest_sha256": "9568f779678c640b8b279ae6456d0370d86d78f8ce0d1ac353474680ccdd096c", "files": 142, "bytes": 1215417402, "content_sha256": "34dc1cf9f27d0adc47a6166e9310dd227c4aaaac37bb658badfabc21c61018ac"},
+    "stage2_oof": [
+      {"seed": 0, "path": "oof_cache/seed0_stage2.npz", "bytes": 10566, "sha256": "1be15e15c43b31ac638ce9f0fd83a32af2313824a324fc575f92b452c2fa005d"},
+      {"seed": 1, "path": "oof_cache/seed1_stage2.npz", "bytes": 10557, "sha256": "78c138ee4f4a1b21807196cd2bb70050c226cae5e2c8671af40c59c627402402"},
+      {"seed": 2, "path": "oof_cache/seed2_stage2.npz", "bytes": 10564, "sha256": "edbc517aa28f2572bcd621fc1f04fb9655c6c28406fc223bd760433863244899"}
+    ],
+    "frozen_shor_threshold_manifest": {"path": "SHOR_OOF_THRESHOLD_MANIFEST.json", "sha256": "a2ca127605d94e01a3f70da8477974d5cfde43230930a0dc5e1f94282621a8c4"},
+    "data_root": "/home/jiangsuiyang/SSL_CL",
+    "seed_manifests": [
+      {"seed": 0, "sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"},
+      {"seed": 1, "sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9"},
+      {"seed": 2, "sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727"}
+    ],
+    "baseline_snapshot_manifest": {"path": "experiments/lcrseg/docs/di_dmpa_jascl/BASELINE_V3_CHECKPOINT_MANIFEST.json", "sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d"}
+  },
+  "population": {
+    "all_existing_fundus_is_development_consumed": true,
+    "calibration": {"rows": 990, "unique_patients": 575, "rows_per_seed": [330, 330, 330], "rows_per_seed_domain": [[200, 79, 51], [200, 79, 51], [200, 79, 51]], "cross_seed_patient_overlap": [[330, 162, 171], [162, 330, 157], [171, 157, 330]]},
+    "segmentation_value": {"rule": "only rows whose own seed role is train_labeled", "rows": 198, "unique_patients": 177, "rows_per_seed": [66, 66, 66], "cross_seed_patient_overlap": [[66, 9, 8], [9, 66, 5], [8, 5, 66]], "val_test_seed_GT_reads": 0},
+    "outer_folds": 5,
+    "fold_rule": "sort segmentation-value patient_id by sha256('ppc-shor-v0.6a-fold\\0'+patient_id), then index modulo 5",
+    "outer_rows_per_fold": [41, 42, 37, 38, 40],
+    "outer_unique_patients_per_fold": [36, 36, 35, 35, 35],
+    "inner_calibration_rows_per_fold": [919, 918, 926, 926, 918],
+    "inner_calibration_unique_patients_per_fold": [539, 539, 540, 540, 540],
+    "grouping": "same patient across seeds stays in one outer fold; outer patient contributes no row, score target, or domain label to inner fitting; every patient has total analysis weight one"
+  },
+  "score": "s_h=log(alpha_h+1e-12)-log(alpha_stage2+1e-12); ridge top1 must equal h",
+  "features_forbidden": ["102-dimensional descriptor", "141-dimensional utility feature"],
+  "calibration": {
+    "algorithm": "deterministic weighted PAV isotonic regression",
+    "pooled": "one curve per historical expert across seeds",
+    "local": "one curve per seed and historical expert",
+    "active": "finite stage2 OOF rows with ridge top1 equal to historical expert",
+    "minimum_pooled_active_unique_patients": 30,
+    "minimum_local_active_unique_patients": 10,
+    "local_fallback": "use pooled curve when local support is insufficient or lacks both binary target classes",
+    "partial_probability": "w*p_local+(1-w)*p_pooled",
+    "weight": "n_eff/(n_eff+kappa); kappa infinity gives zero local weight",
+    "parameter_ratio": "PAV probability blocks divided by active unique patients, checked separately for every fitted pooled/local curve; maximum must be <=0.10"
+  },
+  "candidates": {
+    "kappa": [10, 30, 100, "inf"],
+    "tau": [0.9, 0.95, 0.98],
+    "rho": 0.8,
+    "tie": "probability tie picks lower historical expert; candidate tie prefers historical recall p10, lower current false-override p90, agreement, larger kappa, higher tau, then candidate_id"
+  },
+  "route": ["ridge top1 is historical h", "median calibrated probability_h >= tau", "finite feasible prediction consensus >=0.80", "pooled support sufficient", "local support sufficient or pooled fallback", "no nonfinite/OOD condition"],
+  "bootstrap": {
+    "primary": "patient Bayesian bootstrap independently within true dataset domain using Dirichlet(1,...,1); every observed patient positive; cross-seed rows share patient weight; patient total row weight normalized",
+    "replicates": 200,
+    "master_seed": 2026090601,
+    "consensus_denominator": "finite feasible predictions for that case",
+    "minimum_fits": 195,
+    "minimum_case_predictions": 190,
+    "sensitivities": {"delete_one_patient_jackknife": true, "ordinary_clustered_bootstrap": {"replicates": 200, "master_seed": 2026090602}}
+  },
+  "candidate_selection": {
+    "data": "inner-training domain labels only; no outer segmentation GT",
+    "gates": {"route_precision_p10_min": 0.98, "current_false_override_p90_max": 0.02, "historical_recall_p10_min": 0.3, "median_accepted_historical_patients_min": 30, "feasible_fits_per_expert_min": 195},
+    "historical_beneficial_definition": "historical-domain patient-row whose ridge top1 equals its true historical domain",
+    "no_candidate": "FAIL_PPC_SHOR_CALIBRATION and no segmentation-GT evaluation"
+  },
+  "design_preflight_gates": ["inner unique patients per fold >=80", "pooled active support per expert >=30", "Bayesian feasible fits per fold/expert >=195/200", "finite outer predictions per case >=190", "some candidate route frequency in [0.15,0.85]", "at least two route arrays differ", "not all candidates C0", "no global-feasibility early return before candidate comparison", "tau/kappa affects route or candidate is marked duplicate", "calibration parameter ratio <=0.10", "all candidate routes/models/bootstrap weights and hashes sealed before GT"],
+  "controls": {"C0": "stage2 current expert", "C1": "frozen ridge hard", "C2": "frozen ridge soft", "C3": "exact frozen SHOR", "C4": "pooled isotonic SHOR without local curve", "C5": "partially pooled isotonic SHOR without bootstrap consensus", "C6": "full PPC-SHOR", "C7": "true-domain snapshot oracle evaluator-only", "C8": "per-case best expert oracle evaluator-only"},
+  "development_gates": {
+    "nondegeneracy": {"C6_route_frequency": [0.15, 0.85], "historical_route_count_min": 30, "all_folds_route": true},
+    "value": {"three_domain_gain_min": 0.15, "historical_gain_min": 0.25, "REFUGE_gain_positive": true, "RIM_ONE_r3_gain_positive": true, "positive_seed_count": 3, "domain_oracle_gap_max": 0.06},
+    "C3_noninferiority": {"overall_gain_min": -0.01, "historical_gain_min": -0.02},
+    "safety": {"current_domain_drop_max": 0.01, "maximum_current_class_drop_max": 0.015, "maximum_seed_domain_drop_max": 0.02, "current_domain_drop_p90_max": 0.015, "maximum_seed_domain_drop_p90_max": 0.025},
+    "stability": {"feasible_per_fold_expert_min": 195, "historical_gain_p10_min": 0.2, "shared_gain_p10_min": 0.1, "route_disagreement_max": 0.15, "median_case_consensus_min": 0.8}
+  },
+  "status_precedence": ["BLOCKED_PROTOCOL_OR_LEAKAGE", "BLOCKED_REQUIRED_FROZEN_INPUT_MISSING", "BLOCKED_DESIGN_DEGENERATE_BEFORE_GT", "FAIL_PPC_SHOR_CALIBRATION", "FAIL_PPC_SHOR_CURRENT_SAFETY", "FAIL_PPC_SHOR_VALUE", "FAIL_PPC_SHOR_STABILITY", "PASS_PPC_SHOR_DEVELOPMENT_FEASIBILITY"],
+  "hard_stop": "one development outer-OOF execution; no retry, V0.4 formal_03 read, main merge, external confirmation, or segmentation/router update"
+}
