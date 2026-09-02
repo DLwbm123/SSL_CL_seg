@@ -1,0 +1,122 @@
+{
+  "schema_version": 1,
+  "registration_id": "SHOR_V0_4_FIXED_POLICY_HELD_OUT_TEST",
+  "question": "Does the exact frozen V0.3.1 S3 policy improve untouched stage-2 Fundus test segmentation versus S0?",
+  "base_commit": "3c11dac611bb5c7ab6c13a4a5cefde21dc2ccdd1",
+  "branch": "codex/shor-v0-4-fixed-policy-test",
+  "commits": [
+    "protocol_execution_code_and_tests_before_test_GT_or_domain_read",
+    "final_report"
+  ],
+  "predecessor": {
+    "scientific_status": "FAIL_SELECTIVE_OVERRIDE_STABILITY",
+    "H1": true,
+    "H2": true,
+    "H3": true,
+    "H4": true,
+    "H5": false,
+    "H6": true,
+    "mutable_by_this_protocol": false,
+    "status_file_sha256": "3bd9731146e113c8e437a189d672978d794c86ac8ee5a9e1ffe238873bec32cc"
+  },
+  "scope": {
+    "benchmark": "fundus",
+    "stage_index": 2,
+    "domains": ["REFUGE", "RIM_ONE_r3", "Drishti_GS"],
+    "seeds": [0, 1, 2],
+    "policies": ["S0_SHARED", "S1_RIDGE_HARD", "S2_RIDGE_SOFT", "S3_SHOR", "S4_ORACLE"],
+    "decision_comparison": ["S3_SHOR", "S0_SHARED"]
+  },
+  "frozen_policy": {
+    "descriptor": "raw_style_descriptors(rgb, enc1, enc2): per-block mean + log(population_std + 1e-6), no normalization",
+    "descriptor_snapshot": "B0/seed{seed}/stage0 ema_teacher",
+    "ridge": "PRES-DSR-SF V0.2.1 formal selected stage-2 CPU-float64 state; no fitting",
+    "top1_tie_rule": "numpy.argmax, lowest index wins",
+    "score": "log(alpha_historical + 1e-12) - log(alpha_stage2 + 1e-12)",
+    "S3": "override stage-2 only when ridge top1 is historical and its frozen historical score is at least its exact per-seed/domain threshold",
+    "expert_probability": "B0/seed{seed}/stage{expert} student, eval, stochastic_classifier=false, float32 softmax",
+    "preprocessing": "stored 3x384x384 uint8 Fundus image converted to float32 and divided by 255; no augmentation",
+    "determinism": {
+      "torch_deterministic_algorithms": true,
+      "cudnn_deterministic": true,
+      "cudnn_benchmark": false,
+      "matmul_tf32": false,
+      "cudnn_tf32": false,
+      "autocast": false
+    }
+  },
+  "frozen_inputs": {
+    "v0_3_1_threshold_manifest": {
+      "path": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/shor_jascl_v0_3_1_b7f85c7/formal_01/SHOR_OOF_THRESHOLD_MANIFEST.json",
+      "sha256": "a2ca127605d94e01a3f70da8477974d5cfde43230930a0dc5e1f94282621a8c4"
+    },
+    "ridge_state_manifest": {
+      "path": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/pres_dsr_sf_v0_2_1_752e1ac/formal_01/PRES_DSR_SF_ROUTER_MANIFEST.json",
+      "sha256": "7c83d299fa301f815bd85919e23c04924acf58efd4945be85ff093444704d8dd"
+    },
+    "baseline_snapshot_manifest": {
+      "path": "experiments/lcrseg/docs/di_dmpa_jascl/BASELINE_V3_CHECKPOINT_MANIFEST.json",
+      "sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d"
+    },
+    "data_root": "/home/jiangsuiyang/SSL_CL",
+    "seed_assets": [
+      {
+        "seed": 0,
+        "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+        "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88"
+      },
+      {
+        "seed": 1,
+        "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9",
+        "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727"
+      },
+      {
+        "seed": 2,
+        "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727",
+        "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3"
+      }
+    ]
+  },
+  "phase_order": [
+    "A_blind_test_images_descriptors_expert_probabilities_routes_candidates",
+    "TEST_CANDIDATE_SEAL",
+    "B_test_GT_and_domain_evaluation"
+  ],
+  "phase_A_forbidden_inputs": ["test_GT", "test_domain_ID"],
+  "phase_B_domain_uses": ["domain_aggregation", "S4_ORACLE", "post_hoc_attribution"],
+  "forbidden": [
+    "ridge_fit",
+    "temperature_fit",
+    "threshold_fit_or_change",
+    "validation_reuse",
+    "test_domain_input_to_S3",
+    "training",
+    "optimizer_construction",
+    "backward_or_autograd",
+    "snapshot_update",
+    "new_routing_feature",
+    "H1_H6_rerun"
+  ],
+  "primary_metric": "case-level mean of rim and cup Dice, then equal domain, seed, and class weighting",
+  "bootstrap": {
+    "replicates": 2000,
+    "seed": 20260902,
+    "paired": true,
+    "resampling": "cases within each seed/domain; identical sampled cases for S0 and S3",
+    "interval": "percentile_95"
+  },
+  "decision": {
+    "pass": "PASS_FIXED_POLICY_TEST_EFFECTIVENESS",
+    "fail": "FAIL_FIXED_POLICY_TEST_EFFECTIVENESS",
+    "conditions": [
+      "lower95(delta_all) > 0",
+      "lower95(delta_history) > 0",
+      "upper95(current_drop) <= 0.02",
+      "at least two of three seeds have delta_all > 0"
+    ]
+  },
+  "missing_input_status": "BLOCKED_REQUIRED_FROZEN_INPUT_MISSING",
+  "repeat_final_evaluation": "REFUSED_AFTER_STATUS_EXISTS",
+  "formal_attempts": 1,
+  "additional_attempt_authorized": false
+}
