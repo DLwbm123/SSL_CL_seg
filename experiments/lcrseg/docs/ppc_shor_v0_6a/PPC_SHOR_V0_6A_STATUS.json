@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "registration_id": "PPC_SHOR_V0_6A_DEVELOPMENT_FEASIBILITY",
+  "scientific_status": "BLOCKED_PROTOCOL_OR_LEAKAGE",
+  "raw_execution_status": "BLOCKED_DESIGN_DEGENERATE_BEFORE_GT",
+  "formal_attempt": 1,
+  "postflight_interpretation": {
+    "status": "PASS_DERIVED_ONLY_NON_ADJUDICATIVE_ACCOUNTING_AUDIT",
+    "conclusion": "The execution stopped on two false-negative accounting gates. The recorded preflight is retained unchanged, but it is not a valid design-degeneracy finding.",
+    "confirmed_code_bugs": [
+      "route_policy left prediction denominator at zero when ridge top1 was the current expert, although both historical calibrators produced finite predictions",
+      "PAV parameter count used raw adjacent blocks and did not coalesce equal fitted probability levels"
+    ],
+    "corrected_outer_finite_predictions": {
+      "minimum_per_case_expert": 200,
+      "maximum_per_case_expert": 200,
+      "required_minimum": 190,
+      "gate_pass": true
+    },
+    "corrected_parameter_ratio": {
+      "definition": "adjacent equal PAV fitted-probability levels coalesced before counting free probability levels",
+      "per_fold_max": [0.07792207792207792, 0.08108108108108109, 0.08641975308641975, 0.07692307692307693, 0.08108108108108109],
+      "overall_max": 0.08641975308641975,
+      "limit": 0.1,
+      "gate_pass": true
+    },
+    "corrected_design_gate_count": {"passed": 11, "total": 11},
+    "formal_resumed": false,
+    "reason_not_resumed": "The protocol authorizes one freeze commit and one development attempt; post-hoc correction cannot authorize a retry."
+  },
+  "development_population": {
+    "calibration_rows": 990,
+    "calibration_unique_patients": 575,
+    "calibration_rows_per_seed_domain": [[200, 79, 51], [200, 79, 51], [200, 79, 51]],
+    "calibration_cross_seed_patient_overlap": [[330, 162, 171], [162, 330, 157], [171, 157, 330]],
+    "segmentation_value_rows": 198,
+    "segmentation_value_unique_patients": 177,
+    "segmentation_rows_per_seed": [66, 66, 66],
+    "segmentation_cross_seed_patient_overlap": [[66, 9, 8], [9, 66, 5], [8, 5, 66]],
+    "outer_rows_per_fold": [41, 42, 37, 38, 40],
+    "outer_unique_patients_per_fold": [36, 36, 35, 35, 35],
+    "inner_calibration_rows_per_fold": [919, 918, 926, 926, 918],
+    "inner_calibration_unique_patients_per_fold": [539, 539, 540, 540, 540]
+  },
+  "calibration": {
+    "pooled_active_support_per_fold_h0": [334, 334, 331, 326, 327],
+    "pooled_active_support_per_fold_h1": [134, 134, 140, 141, 135],
+    "bayesian_feasible_per_fold_h0": [200, 200, 200, 200, 200],
+    "bayesian_feasible_per_fold_h1": [200, 200, 200, 200, 200],
+    "candidates_passing_calibration_per_fold": [8, 8, 8, 11, 11],
+    "candidate_selected": false,
+    "selection_not_reached_after_stop": true,
+    "candidate_raw_values": "PPC_SHOR_V0_6A_CALIBRATION.csv"
+  },
+  "candidate_route_frequency": {
+    "k010_tau090": 0.7878787878787878,
+    "k010_tau095": 0.7777777777777778,
+    "k010_tau098": 0.7222222222222222,
+    "k030_tau090": 0.7929292929292929,
+    "k030_tau095": 0.7777777777777778,
+    "k030_tau098": 0.6818181818181818,
+    "k100_tau090": 0.797979797979798,
+    "k100_tau095": 0.7474747474747475,
+    "k100_tau098": 0.6818181818181818,
+    "kinf_tau090": 0.803030303030303,
+    "kinf_tau095": 0.7575757575757576,
+    "kinf_tau098": 0.6767676767676768
+  },
+  "unique_candidate_route_arrays": 10,
+  "controls_C0_C8": null,
+  "value_metrics": null,
+  "safety_metrics": null,
+  "stability_metrics": null,
+  "not_evaluated_reason": "Execution stopped before candidate selection, frozen expert prediction materialization, and outer GT/domain access.",
+  "candidate_seal_reverification": {
+    "pre_GT_calibration_model_route_bootstrap_seals": 5,
+    "pre_GT_seals_reverified": 5,
+    "prediction_seals": 0,
+    "final_candidate_seals": 0
+  },
+  "sensitivity": {
+    "delete_one_patient_jackknife_runs": 0,
+    "ordinary_clustered_bootstrap_runs": 0,
+    "reason": "Candidate selection was not reached before the mandatory stop."
+  },
+  "isolation": {
+    "v0_4_formal_03_reads": 0,
+    "outer_GT_reads_before_verified_seal": 0,
+    "outer_domain_reads_before_verified_seal": 0,
+    "outer_GT_reads": 0,
+    "outer_domain_reads": 0,
+    "test_domain_inputs_to_C6": 0,
+    "segmentation_expert_forward_batches": 0,
+    "segmentation_training_steps": 0,
+    "segmentation_optimizer_steps": 0,
+    "segmentation_parameter_updates": 0,
+    "router_optimizer_steps": 0,
+    "router_parameter_updates": 0,
+    "old_artifact_mutations": 0
+  },
+  "tests": {
+    "freeze_server": {"tests": 10, "failures": 0, "errors": 0, "skips": 0},
+    "local_predecessor_compatibility": {"tests": 16, "failures": 0, "errors": 0, "skips": 0},
+    "freeze_commit": "04f11776ca7ee781d42e59ee9b6043c171807602"
+  },
+  "private_artifact_inventory": {
+    "files": 21,
+    "bytes": 44556824,
+    "calibration_model_files": 5,
+    "bayesian_weight_files": 5,
+    "candidate_route_files": 5,
+    "preseal_files": 5,
+    "execution_receipts": 1,
+    "private_artifacts_published": false
+  },
+  "publication": {
+    "branch": "codex/ppc-shor-v0-6a-development",
+    "freeze_commit": "04f11776ca7ee781d42e59ee9b6043c171807602",
+    "freeze_remote_sha": "04f11776ca7ee781d42e59ee9b6043c171807602",
+    "report_commit": null,
+    "report_commit_resolution": "second commit adding these exact report bytes"
+  },
+  "predecessor_statuses_changed": false,
+  "main_merged": false,
+  "external_test_launched": false
+}
