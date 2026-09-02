@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "registration_id": "RC_SHOR_V0_5_RISK_CONTROLLED_STABILITY",
+  "audited_at": "2026-09-02T09:08:09Z",
+  "status": "PASS_SOURCE_DATA_AND_LEAKAGE_AUDIT",
+  "base_commit": "6e42a04c4ea0547aeb89d430f96b551294cc3aaf",
+  "history": {
+    "v0_3_1": {
+      "scientific_status": "FAIL_SELECTIVE_OVERRIDE_STABILITY",
+      "H1": true,
+      "H2": true,
+      "H3": true,
+      "H4": true,
+      "H5": false,
+      "H6": true,
+      "current_domain_drop_p90": 0.02978419132657624,
+      "current_domain_drop_p90_limit": 0.015,
+      "maximum_seed_domain_drop_p90": 0.02978419132657624,
+      "maximum_seed_domain_drop_p90_limit": 0.025,
+      "seed1_stage2_domain1_feasible_replicates": 3,
+      "seed2_stage2_domain1_feasible_replicates": 2,
+      "replicates_per_unit": 5,
+      "status_sha256": "3bd9731146e113c8e437a189d672978d794c86ac8ee5a9e1ffe238873bec32cc"
+    },
+    "v0_4": {
+      "scientific_status": "PASS_FIXED_POLICY_TEST_EFFECTIVENESS",
+      "protocol_sha256": "aae89f552d91f8868249aa4be4aa86ea28d9c29a3203ac43685073a17f9d8fcd",
+      "execution_commit": "b0aec45da56676225858bce0344c3991b05b2b5b",
+      "report_commit": "6e42a04c4ea0547aeb89d430f96b551294cc3aaf",
+      "report_sha256": "a23fa4134d4ab2215a079143020e4f6f8c96cf639b6d03bee82a572ea4c3af64",
+      "status_sha256": "e30876fe0ac12fe06c44ad3180469fd0646391bf6f4abe92f157c71a48c2cf07",
+      "metrics_sha256": "6be723c7f2abaf3750c85be28703dcf6c66f31452370814e7eb32dbeb70d42f7",
+      "manifest_sha256": "ee97416d1c1a672d1b5f318f680d311f2ad3ea8c66743c4b859dc800027c481d",
+      "formal_03_content_reads": 0,
+      "aggregate_metrics_used_for_fitting_or_selection": false
+    }
+  },
+  "case_patient_audit": {
+    "fundus_unique_cases_per_seed": [660, 660, 660],
+    "fundus_unique_patients_per_seed": [660, 660, 660],
+    "all_case_seed_pair_overlap": [[660, 660, 660], [660, 660, 660], [660, 660, 660]],
+    "patient_id_available": true,
+    "missing_patient_ids": 0,
+    "patients_with_multiple_cases": 0,
+    "maximum_cases_per_patient": 1,
+    "raw_train_labeled_case_seed_pair_overlap": [[66, 9, 8], [9, 66, 5], [8, 5, 66]],
+    "raw_train_labeled_patient_seed_pair_overlap": [[66, 9, 8], [9, 66, 5], [8, 5, 66]],
+    "legal_train_labeled_case_seed_pair_overlap": [[14, 8, 2], [8, 18, 3], [2, 3, 17]],
+    "legal_train_labeled_patient_seed_pair_overlap": [[14, 8, 2], [8, 18, 3], [2, 3, 17]],
+    "grouping_rule": "patient_id is the primary group; case_id is also bound to that group; the same patient or case in multiple seeds is assigned to one fold",
+    "bilateral_rule": "both eyes would share patient_id and therefore a fold; no multi-case Fundus patient was observed"
+  },
+  "authorized_utility_labels": {
+    "rule": "A row is eligible only when its own seed role is train_labeled and neither its case_id nor patient_id is val or test in any of the three seed manifests.",
+    "legal_seed_case_rows": 49,
+    "legal_unique_cases": 37,
+    "legal_unique_patients": 37,
+    "rows_by_seed_domain": {
+      "seed0": {"REFUGE": 7, "RIM_ONE_r3": 5, "Drishti_GS": 2},
+      "seed1": {"REFUGE": 11, "RIM_ONE_r3": 5, "Drishti_GS": 2},
+      "seed2": {"REFUGE": 10, "RIM_ONE_r3": 3, "Drishti_GS": 4}
+    },
+    "unique_cases_by_domain": {"REFUGE": 21, "RIM_ONE_r3": 9, "Drishti_GS": 7},
+    "unique_patients_by_domain": {"REFUGE": 21, "RIM_ONE_r3": 9, "Drishti_GS": 7},
+    "unique_image_and_label_assets_verified": 74,
+    "all_label_references_present": true,
+    "asset_sha256_mismatches": 0,
+    "legal_pool_vs_any_validation_or_consumed_test_overlap": 0
+  },
+  "seed_manifests": [
+    {"seed": 0, "rows": 1466, "sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3", "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88"},
+    {"seed": 1, "rows": 1466, "sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9", "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727"},
+    {"seed": 2, "rows": 1466, "sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727", "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3"}
+  ],
+  "frozen_private_inputs": {
+    "private_bundle_files_verified": 183,
+    "private_bundle_bytes_verified": 4386018614,
+    "private_bundle_content_sha256": "05c9008ad4496ccbdc51df6103638024d49fae4b3b4cdc2a9f829c5f3ab165bb",
+    "private_bundle_manifest_sha256": "112084872173dc447b921c3ed602e61cbf0b2f8accd91eb99cf94a40de3498bc",
+    "descriptor_manifest_sha256": "90581446e7cd70e17d27ba5d2ba07d62a0c1a95a4f33c4558df4b1adcf707ecc",
+    "ridge_state_manifest_sha256": "7c83d299fa301f815bd85919e23c04924acf58efd4945be85ff093444704d8dd",
+    "expert_probability_manifest_sha256": "4226b29c4da0754228cdbfb31608e689ba4ade2ae658b6b60524b7c26e25c335",
+    "memory_manifest_sha256": "f2ee9ad370f665ea46e5ee9307eb500e7246e7dd68591a3d64f1557293578f94",
+    "v0_3_1_threshold_manifest_sha256": "a2ca127605d94e01a3f70da8477974d5cfde43230930a0dc5e1f94282621a8c4",
+    "all_entries_verified": true,
+    "mismatches": 0
+  },
+  "baseline_checkpoint_manifest_sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d",
+  "baseline_checkpoints_verified": 9,
+  "baseline_checkpoint_mismatches": 0,
+  "leakage_decision": {
+    "train_validation_consumed_test_isolation_proven": true,
+    "v0_4_formal_03_accessed": false,
+    "authorized_training_segmentation_labels_available": true,
+    "decision": "CONTINUE_TO_PREREGISTRATION"
+  }
+}

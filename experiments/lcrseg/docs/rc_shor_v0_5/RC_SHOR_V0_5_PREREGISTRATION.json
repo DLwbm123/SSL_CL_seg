@@ -1,0 +1,131 @@
+{
+  "schema_version": 1,
+  "registration_id": "RC_SHOR_V0_5_RISK_CONTROLLED_STABILITY",
+  "method_name": "Utility-aware, Risk-Controlled Selective Historical Override",
+  "base_commit": "6e42a04c4ea0547aeb89d430f96b551294cc3aaf",
+  "branch": "codex/shor-v0-5-rc-stability",
+  "commit_sequence": ["preregistration_implementation_tests", "final_report"],
+  "immutable_history": {
+    "SHOR_V0_3_1": {"scientific_status": "FAIL_SELECTIVE_OVERRIDE_STABILITY", "H1": true, "H2": true, "H3": true, "H4": true, "H5": false, "H6": true},
+    "SHOR_V0_4": {"scientific_status": "PASS_FIXED_POLICY_TEST_EFFECTIVENESS"},
+    "mutable": false
+  },
+  "data": {
+    "benchmark": "fundus",
+    "domains": ["REFUGE", "RIM_ONE_r3", "Drishti_GS"],
+    "seeds": [0, 1, 2],
+    "legal_row_rule": "seed role train_labeled; case_id and patient_id never val or test in any seed",
+    "legal_seed_case_rows": 49,
+    "unique_cases": 37,
+    "unique_patients": 37,
+    "patient_grouping": "patient_id primary, case_id bound; cross-seed duplicate stays in one fold",
+    "bilateral_grouping": "same patient_id; none observed",
+    "outer_folds": 5,
+    "fold_rule": "sort unique patient_id by sha256('rc-shor-v0.5-fold\\0'+patient_id), then index modulo 5",
+    "evaluator": "grouped five-fold outer OOF on the legal labeled train-memory population",
+    "validation_GT_utility_usage": 0,
+    "test_GT_utility_usage": 0,
+    "v0_4_formal_03_reads_before_status": 0
+  },
+  "frozen_inputs": {
+    "data_root": "/home/jiangsuiyang/SSL_CL",
+    "private_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/pres_dsr_sf_v0_2_1_752e1ac/formal_01",
+    "forbidden_v0_4_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/shor_v0_4_fixed_policy_test/formal_03",
+    "v0_3_1_threshold_manifest": {"path": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/shor_jascl_v0_3_1_b7f85c7/formal_01/SHOR_OOF_THRESHOLD_MANIFEST.json", "sha256": "a2ca127605d94e01a3f70da8477974d5cfde43230930a0dc5e1f94282621a8c4"},
+    "ridge_state_manifest": {"path": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/pres_dsr_sf_v0_2_1_752e1ac/formal_01/PRES_DSR_SF_ROUTER_MANIFEST.json", "sha256": "7c83d299fa301f815bd85919e23c04924acf58efd4945be85ff093444704d8dd"},
+    "descriptor_manifest_sha256": "90581446e7cd70e17d27ba5d2ba07d62a0c1a95a4f33c4558df4b1adcf707ecc",
+    "expert_probability_manifest_sha256": "4226b29c4da0754228cdbfb31608e689ba4ade2ae658b6b60524b7c26e25c335",
+    "private_bundle_content_sha256": "05c9008ad4496ccbdc51df6103638024d49fae4b3b4cdc2a9f829c5f3ab165bb",
+    "baseline_snapshot_manifest": {"path": "experiments/lcrseg/docs/di_dmpa_jascl/BASELINE_V3_CHECKPOINT_MANIFEST.json", "sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d"},
+    "seed_assets": [
+      {"seed": 0, "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3", "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88"},
+      {"seed": 1, "manifest_sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9", "split_sha256": "87affde62045894a8ce89701137f254ed56ba1f00951041bd2f6282cccbb5727"},
+      {"seed": 2, "manifest_sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727", "split_sha256": "af2f48281d8eb16d299871f12824a729d08cb3854b3753d69d42c0d842e34dd3"}
+    ]
+  },
+  "features": {
+    "dimension_per_historical_expert": 141,
+    "raw_descriptor": 102,
+    "ridge_alpha": 3,
+    "historical_log_alpha_contrast": 1,
+    "alpha_top1_top2_margin": 1,
+    "ridge_entropy": 1,
+    "per_expert_probability_statistics": ["mean_predictive_entropy", "mean_foreground_probability", "hard_rim_area", "hard_cup_area", "four_connected_foreground_component_count", "normalized_foreground_boundary_length"],
+    "pairwise_statistics_per_pair": ["mean_Jensen_Shannon_divergence", "hard_mask_disagreement", "rim_area_disagreement", "cup_area_disagreement", "boundary_disagreement"],
+    "expert_pairs": [[0,1],[0,2],[1,2]],
+    "forbidden": ["domain", "domain_index", "site", "vendor", "validation_GT", "test_GT"]
+  },
+  "utility": "foreground_dice(expert_h,y)-foreground_dice(stage2,y), h in {0,1}",
+  "model": {
+    "family": "deterministic weighted ridge with intercept and train-only standardization",
+    "lambda_grid": [0.0001,0.001,0.01,0.1,1,10,100],
+    "lambda_selection": "minimum grouped-five-fold OOF MSE; exact ties choose larger lambda",
+    "separate_predictors": [0,1],
+    "conformal_alpha": 0.10,
+    "conformal_residual": "prediction_minus_true_utility",
+    "conformal_quantile": "numpy higher quantile at 0.90 per nonempty seed/domain group; maximum group quantile",
+    "OOD_rule": "maximum absolute base-standardized feature > 8",
+    "minimum_active_unique_patients": 15
+  },
+  "router_bootstrap": {
+    "replicates": 100,
+    "master_seed": 2026090501,
+    "sampling": "unique patient clusters with replacement within dataset domain; all seed rows inherit patient multiplicity",
+    "inactive_sentinel": "NaN preserved; no fill, nan_to_num or recomputation",
+    "feasible_votes_required": 90,
+    "consensus_denominator": 100
+  },
+  "candidate_grid": {
+    "rho": [0.70,0.80,0.90],
+    "epsilon": [0.0,0.005,0.01],
+    "ids": ["rho070_eps000","rho070_eps005","rho070_eps010","rho080_eps000","rho080_eps005","rho080_eps010","rho090_eps000","rho090_eps005","rho090_eps010"],
+    "selection_order": ["all_inner_stability_and_safety_gates_true", "historical_gain_p10_desc", "current_domain_drop_p90_asc", "maximum_seed_domain_drop_p90_asc", "rho_desc", "epsilon_desc", "selected_lambda_desc", "candidate_id_asc"],
+    "no_feasible_candidate": "same total order selects a fail-closed primary; no threshold change or retry"
+  },
+  "route": {
+    "h_star": "lowest historical expert index attaining maximum median bootstrap LCB",
+    "override_conditions": ["median_LCB>epsilon", "consensus>=rho", "active_unique_patient_support>=15", "at_least_90_bootstraps_feasible", "all_required_values_finite", "not_OOD"],
+    "fallback": "stage2"
+  },
+  "controls": {
+    "C0": "S0_SHARED stage2",
+    "C1": "S1_RIDGE_HARD",
+    "C2": "S2_RIDGE_SOFT",
+    "C3": "exact frozen S3_SHOR",
+    "C4": "rho consensus across original five frozen SHOR bootstrap thresholds repeated to 100 votes; no utility predictor",
+    "C5": "base utility LCB with selected epsilon; no bootstrap consensus",
+    "C6": "full RC-SHOR, unique primary",
+    "C7": "true-domain snapshot oracle, evaluator-only",
+    "C8": "per-case best frozen expert utility oracle, evaluator-only"
+  },
+  "metrics": {
+    "primary": "equal foreground class, dataset domain, seed, and case weighting of rim/cup Dice",
+    "drop_definition": "max(0, negative paired gain)",
+    "stability_percentile_method": "numpy linear percentile",
+    "also": ["rim_dice","cup_dice","mean_iou"],
+    "strata": ["overall","seed","domain","seed_domain","foreground_class","route_decision","consensus_decile","utility_LCB_decile","support_size_bin"],
+    "required": ["current_domain_drop","maximum_current_class_drop","maximum_seed_domain_drop","shared_gain","historical_gain","REFUGE_gain","RIM_ONE_r3_gain","positive_seed_count","route_precision","historical_route_recall","current_false_override","historical_missed_override","feasible_bootstrap_fraction","route_disagreement_across_bootstraps","regret_to_domain_oracle","regret_to_per_case_utility_oracle"]
+  },
+  "evaluation_bootstrap": {
+    "draws": 2000,
+    "master_seed": 2026090502,
+    "primary": "unique-patient clustered, resampled within dataset domain with all seed rows retained; infeasible empty seed/domain draws excluded and counted",
+    "sensitivity": "ordinary cases resampled independently within seed/domain",
+    "interval": "percentile_95"
+  },
+  "gates": {
+    "isolation": {"v0_4_formal_reads": 0, "outer_GT_reads_before_seal": 0, "outer_domain_reads_before_seal": 0, "C6_test_domain_inputs": 0, "segmentation_optimizer_steps": 0, "segmentation_parameter_updates": 0, "old_artifact_mutations": 0},
+    "value": {"three_domain_gain_min": 0.10, "historical_gain_min": 0.15, "REFUGE_gain_strictly_positive": true, "RIM_ONE_r3_gain_strictly_positive": true, "positive_seed_count": 3, "domain_oracle_gap_max": 0.06},
+    "current_safety": {"current_domain_foreground_dice_drop_max": 0.010, "maximum_current_foreground_class_drop_max": 0.015, "maximum_seed_domain_drop_max": 0.020},
+    "stability": {"current_domain_drop_p90_max": 0.015, "maximum_seed_domain_drop_p90_max": 0.025, "shared_gain_p10_min": 0.08, "historical_gain_p10_min": 0.12, "required_feasible_replicates_per_seed_stage_historical_domain": 90, "replicates": 100, "all_metrics_finite": true, "inactive_support_fill_allowed": false},
+    "incremental": {"C6_minus_C3_historical_gain_min": -0.005, "C6_minus_C3_overall_gain_min": -0.005, "per_case_oracle_regret_reduction_min_fraction": 0.20, "C6_minus_C3_current_drop_p90_max": 0.002}
+  },
+  "status_precedence": ["BLOCKED_PROTOCOL_OR_LEAKAGE", "BLOCKED_REQUIRED_FROZEN_INPUT_MISSING", "FAIL_RC_SHOR_CURRENT_SAFETY", "FAIL_RC_SHOR_VALUE", "FAIL_RC_SHOR_STABILITY", "PASS_RC_SHOR_STABILITY_RECOVERY"],
+  "formal_attempts_authorized": 1,
+  "repeat_if_status_exists": "REFUSED",
+  "hard_stop": "No parameter, grid, feature, fold, candidate, status rule or threshold change after any outer candidate seal; no second formal evaluation.",
+  "public_files": ["RC_SHOR_V0_5_STATUS.json","RC_SHOR_V0_5_FINAL_REPORT.md","RC_SHOR_V0_5_METRICS.csv","RC_SHOR_V0_5_ROUTING.csv","RC_SHOR_V0_5_MANIFEST.json","RC_SHOR_V0_5_FAILURES_AND_WARNINGS.md","RC_SHOR_V0_5_EXACT_COMMANDS.md"],
+  "private_only": ["case_ids","patient_ids","absolute_paths","raw_features","utility_targets","model_states","conformal_states","bootstrap_draws","routes","candidate_predictions","case_metrics","grouped_metrics","calibration_curves","route_regret_tables","pytest_XML","pytest_output","execution_receipts","images","labels","checkpoints"],
+  "post_hoc_v0_4": "POST_HOC_NON_DECISION_DIAGNOSTIC only after immutable final status",
+  "next_stage": "V0.6 external test only if PASS_RC_SHOR_STABILITY_RECOVERY; not launched by this protocol"
+}
