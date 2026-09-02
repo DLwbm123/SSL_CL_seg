@@ -1,0 +1,351 @@
+{
+  "C3": {
+    "REFUGE_gain": 0.3399250900861954,
+    "RIM_ONE_r3_gain": 0.3113214524916819,
+    "current_domain_drop": 0.0,
+    "current_false_override": 0.0,
+    "historical_gain": 0.3256232712889387,
+    "historical_missed_override": 0.07317073170731707,
+    "historical_route_recall": 0.926829268292683,
+    "maximum_current_class_drop": 0.0,
+    "maximum_seed_domain_drop": 0.0,
+    "positive_seed_count": 3,
+    "route_frequency": 0.7755102040816326,
+    "route_precision": 1.0,
+    "shared_gain": 0.21708218085929243,
+    "three_domain_gain": 0.21708218085929243
+  },
+  "C3_C6_direct_comparison": {
+    "C6_minus_C3_current_drop_p90": 0.007657681896238897,
+    "C6_minus_C3_historical_gain": -0.3256232712889387,
+    "C6_minus_C3_overall_gain": -0.21708218085929243,
+    "per_case_oracle_regret_reduction_fraction": -6.86881890165812
+  },
+  "C6": {
+    "REFUGE_gain": 0.0,
+    "RIM_ONE_r3_gain": 0.0,
+    "current_domain_drop": 0.0,
+    "current_false_override": 0.0,
+    "historical_gain": 0.0,
+    "historical_missed_override": 1.0,
+    "historical_route_recall": 0.0,
+    "maximum_current_class_drop": 0.0,
+    "maximum_seed_domain_drop": 0.0,
+    "positive_seed_count": 0,
+    "route_frequency": 0.0,
+    "route_precision": 1.0,
+    "shared_gain": 0.0,
+    "three_domain_gain": 0.0
+  },
+  "H5_recovered": false,
+  "additional_attempt_authorized": false,
+  "clustered_bootstrap": {
+    "draw_sha256": "bb667a8283e311736d1fa9a194288156b65ac05b3ab66038b1b0de8c848b08ff",
+    "draws": 2000,
+    "estimate": 0.0,
+    "feasible_draws": 1622,
+    "lower95": 0.0,
+    "upper95": 0.0
+  },
+  "completed_at": "2026-09-02T10:02:24.673713+00:00",
+  "controls": {
+    "C0": {
+      "cup_dice": 0.6278511328462723,
+      "foreground_dice": 0.6019016152183915,
+      "mean_iou": 0.6449127290706341,
+      "rim_dice": 0.5759520975905108
+    },
+    "C1": {
+      "cup_dice": 0.7992098512009229,
+      "foreground_dice": 0.8229772604664852,
+      "mean_iou": 0.8150097200198885,
+      "rim_dice": 0.8467446697320475
+    },
+    "C2": {
+      "cup_dice": 0.7970824528034206,
+      "foreground_dice": 0.8233138824571807,
+      "mean_iou": 0.8105166772599876,
+      "rim_dice": 0.849545312110941
+    },
+    "C3": {
+      "cup_dice": 0.7937856473890393,
+      "foreground_dice": 0.818983796077684,
+      "mean_iou": 0.81251839346466,
+      "rim_dice": 0.8441819447663286
+    },
+    "C4": {
+      "cup_dice": 0.7308128112649158,
+      "foreground_dice": 0.7152099785804567,
+      "mean_iou": 0.7359768416451481,
+      "rim_dice": 0.6996071458959974
+    },
+    "C5": {
+      "cup_dice": 0.6332714500775589,
+      "foreground_dice": 0.6226492429581489,
+      "mean_iou": 0.6590270385703102,
+      "rim_dice": 0.6120270358387391
+    },
+    "C6": {
+      "cup_dice": 0.6278511328462723,
+      "foreground_dice": 0.6019016152183915,
+      "mean_iou": 0.6449127290706341,
+      "rim_dice": 0.5759520975905108
+    },
+    "C7": {
+      "cup_dice": 0.8172250304416605,
+      "foreground_dice": 0.8485028667872795,
+      "mean_iou": 0.8355193347662132,
+      "rim_dice": 0.8797807031328982
+    },
+    "C8": {
+      "cup_dice": 0.8219617856066181,
+      "foreground_dice": 0.8505878001964837,
+      "mean_iou": 0.836110377862285,
+      "rim_dice": 0.8792138147863493
+    }
+  },
+  "execution_code_commit": "61d53bca2725a46986c7c11e46565ca34308afdd",
+  "formal_attempt": 1,
+  "gates": {
+    "current_safety": {
+      "current_domain_drop": [
+        0.0,
+        0.01
+      ],
+      "maximum_current_class_drop": [
+        0.0,
+        0.015
+      ],
+      "maximum_seed_domain_drop": [
+        0.0,
+        0.02
+      ],
+      "pass": true
+    },
+    "incremental": {
+      "C6_minus_C3_current_drop_p90": 0.007657681896238897,
+      "C6_minus_C3_historical_gain": -0.3256232712889387,
+      "C6_minus_C3_overall_gain": -0.21708218085929243,
+      "pass": false,
+      "per_case_oracle_regret_reduction_fraction": -6.86881890165812
+    },
+    "isolation": {
+      "old_artifact_mutations": 0,
+      "outer_GT_reads_before_seal": 0,
+      "outer_domain_reads_before_seal": 0,
+      "pass": true,
+      "segmentation_optimizer_steps": 0,
+      "segmentation_parameter_updates": 0,
+      "test_domain_inputs_to_C6": 0,
+      "v0_4_formal_03_reads": 0
+    },
+    "stability": {
+      "current_domain_drop_p90": [
+        0.007657681896238897,
+        0.015
+      ],
+      "feasible_replicates": [
+        5,
+        90
+      ],
+      "historical_gain_p10": [
+        0.0,
+        0.12
+      ],
+      "maximum_seed_domain_drop_p90": [
+        0.022973045688716692,
+        0.025
+      ],
+      "pass": false,
+      "shared_gain_p10": [
+        0.0,
+        0.08
+      ]
+    },
+    "value": {
+      "REFUGE_gain": [
+        0.0,
+        0.0
+      ],
+      "RIM_ONE_r3_gain": [
+        0.0,
+        0.0
+      ],
+      "domain_oracle_gap": [
+        0.246601251568888,
+        0.06
+      ],
+      "historical_gain": [
+        0.0,
+        0.15
+      ],
+      "pass": false,
+      "positive_seed_count": [
+        0,
+        3
+      ],
+      "three_domain_gain": [
+        0.0,
+        0.1
+      ]
+    }
+  },
+  "isolation": {
+    "C6_domain_inputs": 0,
+    "candidate_seals": [
+      "b14a4dc336c6ca796fdd86d5067b7944be482d5d8ebd9f36652e1a0489782560",
+      "54d4828c873a4be811fc635495a27d7ca812586c2c68560860f67c59c05f114c",
+      "4cfd60dee6544ec4ea01ee696b376a5f843f0124087995ca0e913835a1a51220",
+      "ba9c10dd27e945250b1a7c631e0f57f29f001e019e11a60cc8e859a336e77e66",
+      "a79e129fef858b3e1dd75247bb32d3c5e061b74852e691ed28f77a5f577570f4"
+    ],
+    "frozen_cache_materialization_batches": 32,
+    "outer_GT_reads": 49,
+    "outer_domain_reads": 49,
+    "router_closed_form_fits_nonzero": true,
+    "router_optimizer_steps": 0,
+    "segmentation_expert_forward_batches": 24,
+    "segmentation_optimizer_steps": 0,
+    "segmentation_parameter_updates": 0,
+    "segmentation_training_steps": 0,
+    "training_GT_reads": 196,
+    "training_domain_reads": 196,
+    "v0_4_formal_03_reads": 0
+  },
+  "main_merged": false,
+  "next_stage_started": false,
+  "ordinary_case_bootstrap_sensitivity": {
+    "draw_sha256": "2da18ea57eb9aa587364fe4e1d905ddf1a2c688bdb2827d5d8e34dd5bf698984",
+    "draws": 2000,
+    "estimate": 0.0,
+    "feasible_draws": 2000,
+    "lower95": 0.0,
+    "upper95": 0.0
+  },
+  "predecessors_unchanged": true,
+  "private_artifact_inventory_before_public": {
+    "bytes": 327200294,
+    "files": 108
+  },
+  "registration_id": "RC_SHOR_V0_5_RISK_CONTROLLED_STABILITY",
+  "repeat_final_evaluation": "REFUSED_AFTER_STATUS_EXISTS",
+  "report_commit": null,
+  "report_commit_resolution": "second Git commit adding exact public report bytes",
+  "routing_stability": {
+    "current_domain_drop_p90": 0.007657681896238897,
+    "feasible_fraction": 0.05,
+    "feasible_replicates": 5,
+    "historical_gain_p10": 0.0,
+    "maximum_seed_domain_drop_p90": 0.022973045688716692,
+    "route_disagreement": 0.3877551020408163,
+    "shared_gain_p10": 0.0
+  },
+  "schema_version": 1,
+  "scientific_status": "FAIL_RC_SHOR_VALUE",
+  "selected_candidates": [
+    {
+      "all_inner_stability_and_safety_gates": false,
+      "candidate_id": "rho090_eps010",
+      "current_domain_drop_p90": 0.0,
+      "epsilon": 0.01,
+      "feasible_replicates": 59,
+      "fold": 0,
+      "historical_gain_p10": 0.0,
+      "maximum_seed_domain_drop_p90": 0.0,
+      "point_historical_gain": 0.0,
+      "point_shared_gain": 0.0,
+      "rho": 0.9,
+      "selected_lambdas": [
+        1.0,
+        10.0
+      ],
+      "shared_gain_p10": 0.0
+    },
+    {
+      "all_inner_stability_and_safety_gates": false,
+      "candidate_id": "rho090_eps010",
+      "current_domain_drop_p90": 0.0,
+      "epsilon": 0.01,
+      "feasible_replicates": 38,
+      "fold": 1,
+      "historical_gain_p10": 0.0,
+      "maximum_seed_domain_drop_p90": 0.0,
+      "point_historical_gain": 0.0,
+      "point_shared_gain": 0.0,
+      "rho": 0.9,
+      "selected_lambdas": [
+        10.0,
+        100.0
+      ],
+      "shared_gain_p10": 0.0
+    },
+    {
+      "all_inner_stability_and_safety_gates": false,
+      "candidate_id": "rho090_eps010",
+      "current_domain_drop_p90": 0.0,
+      "epsilon": 0.01,
+      "feasible_replicates": 74,
+      "fold": 2,
+      "historical_gain_p10": 0.0,
+      "maximum_seed_domain_drop_p90": 0.0,
+      "point_historical_gain": 0.0,
+      "point_shared_gain": 0.0,
+      "rho": 0.9,
+      "selected_lambdas": [
+        100.0,
+        100.0
+      ],
+      "shared_gain_p10": 0.0
+    },
+    {
+      "all_inner_stability_and_safety_gates": false,
+      "candidate_id": "rho090_eps010",
+      "current_domain_drop_p90": 0.0,
+      "epsilon": 0.01,
+      "feasible_replicates": 83,
+      "fold": 3,
+      "historical_gain_p10": 0.0,
+      "maximum_seed_domain_drop_p90": 0.0,
+      "point_historical_gain": 0.0,
+      "point_shared_gain": 0.0,
+      "rho": 0.9,
+      "selected_lambdas": [
+        100.0,
+        100.0
+      ],
+      "shared_gain_p10": 0.0
+    },
+    {
+      "all_inner_stability_and_safety_gates": false,
+      "candidate_id": "rho090_eps010",
+      "current_domain_drop_p90": 0.0,
+      "epsilon": 0.01,
+      "feasible_replicates": 44,
+      "fold": 4,
+      "historical_gain_p10": 0.0,
+      "maximum_seed_domain_drop_p90": 0.0,
+      "point_historical_gain": 0.0,
+      "point_shared_gain": 0.0,
+      "rho": 0.9,
+      "selected_lambdas": [
+        0.0001,
+        100.0
+      ],
+      "shared_gain_p10": 0.0
+    }
+  ],
+  "tests": {
+    "code_commit": "61d53bca2725a46986c7c11e46565ca34308afdd",
+    "errors": 0,
+    "exact_test_command": "PYTHONPATH=experiments/lcrseg /home/jiangsuiyang/anaconda3/envs/py38/bin/python -m pytest --import-mode=importlib -q experiments/lcrseg/tests/rc_shor_v0_5 experiments/lcrseg/tests/shor_jascl_v0_3 experiments/lcrseg/tests/shor_v0_4_test --junitxml=PYTEST_XML",
+    "failures": 0,
+    "junit_path": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/rc_shor_v0_5_61d53bc/formal_01/test_evidence/pytest.xml",
+    "junit_sha256": "3e9165e6cf0a5e9bbabc37a0f2de2464cdf53b7740b1c22d5e03cc355888042a",
+    "pytest_output_path": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/rc_shor_v0_5_61d53bc/formal_01/test_evidence/pytest_output.txt",
+    "pytest_output_sha256": "7e0faf351ef932a77c4b8356aedfad539dba168819d8bf74d2b6bd868495e7c2",
+    "skips": 0,
+    "status": "PASS",
+    "total": 84,
+    "warnings": 18
+  }
+}
