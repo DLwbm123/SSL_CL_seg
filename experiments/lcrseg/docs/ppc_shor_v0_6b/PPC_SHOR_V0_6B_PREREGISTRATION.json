@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "registration_id": "PPC_SHOR_V0_6B_EXECUTOR_ACCOUNTING_RECOVERY",
+  "method_name": "Partially Pooled Calibrated Selective Historical Override",
+  "scope": "executor-accounting recovery and development outer-OOF adjudication; not a V0.6A retry or external test",
+  "base_commit": "89e05bac567614137fade175f1edf5c434dd9461",
+  "branch": "codex/ppc-shor-v0-6b-accounting-recovery",
+  "commit_sequence": ["registration", "qualified_freeze", "final_report"],
+  "scientific_attempt_start": "atomic O_EXCL creation of FORMAL_GT_ACCESS_RESERVATION.json after remote qualified-freeze verification",
+  "formal_attempts_authorized": 1,
+  "immutable_history": {
+    "SHOR_V0_3_1": {"scientific_status": "FAIL_SELECTIVE_OVERRIDE_STABILITY", "H5": false},
+    "SHOR_V0_4": {"scientific_status": "PASS_FIXED_POLICY_TEST_EFFECTIVENESS"},
+    "RC_SHOR_V0_5": {"scientific_status": "FAIL_RC_SHOR_VALUE"},
+    "PPC_SHOR_V0_6A": {
+      "scientific_status": "BLOCKED_PROTOCOL_OR_LEAKAGE",
+      "raw_execution_status": "BLOCKED_DESIGN_DEGENERATE_BEFORE_GT",
+      "controls_value_safety_stability": null
+    },
+    "mutable": false
+  },
+  "v0_6a_recovery_binding": {
+    "private_root_from_execution_receipt": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/ppc_shor_v0_6a_04f1177/formal_01",
+    "execution_receipt": "EXECUTION_RECEIPT.json",
+    "source_commit": "04f11776ca7ee781d42e59ee9b6043c171807602",
+    "private_files": 21,
+    "preseals": 5,
+    "fixed_selected_candidates": [
+      "k010_tau095",
+      "k010_tau095",
+      "k010_tau095",
+      "k100_tau090",
+      "k100_tau090"
+    ],
+    "stitched_C6": {
+      "population": 198,
+      "route_count": 155,
+      "route_frequency": 0.7828282828282829,
+      "route_sha256": "c03c457d0b5ab7a529dd8ec07076b06c2fe41a22e7439265f24ab046687a41e7"
+    }
+  },
+  "inputs": {
+    "v0_4_formal_03_reads_allowed": 0,
+    "oof_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/shor_jascl_v0_3_1_b7f85c7/formal_01",
+    "oof_bundle": {
+      "manifest": "SHOR_PRIVATE_BUNDLE_MANIFEST.json",
+      "manifest_sha256": "9568f779678c640b8b279ae6456d0370d86d78f8ce0d1ac353474680ccdd096c",
+      "files": 142,
+      "bytes": 1215417402,
+      "content_sha256": "34dc1cf9f27d0adc47a6166e9310dd227c4aaaac37bb658badfabc21c61018ac"
+    },
+    "stage2_oof": [
+      {"seed": 0, "path": "oof_cache/seed0_stage2.npz", "bytes": 10566, "sha256": "1be15e15c43b31ac638ce9f0fd83a32af2313824a324fc575f92b452c2fa005d"},
+      {"seed": 1, "path": "oof_cache/seed1_stage2.npz", "bytes": 10557, "sha256": "78c138ee4f4a1b21807196cd2bb70050c226cae5e2c8671af40c59c627402402"},
+      {"seed": 2, "path": "oof_cache/seed2_stage2.npz", "bytes": 10564, "sha256": "edbc517aa28f2572bcd621fc1f04fb9655c6c28406fc223bd760433863244899"}
+    ],
+    "frozen_shor_threshold_manifest": {"path": "SHOR_OOF_THRESHOLD_MANIFEST.json", "sha256": "a2ca127605d94e01a3f70da8477974d5cfde43230930a0dc5e1f94282621a8c4"},
+    "data_root": "/home/jiangsuiyang/SSL_CL",
+    "seed_manifests": [
+      {"seed": 0, "sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"},
+      {"seed": 1, "sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9"},
+      {"seed": 2, "sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727"}
+    ],
+    "baseline_snapshot_manifest": {"path": "experiments/lcrseg/docs/di_dmpa_jascl/BASELINE_V3_CHECKPOINT_MANIFEST.json", "sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d"}
+  },
+  "population": {
+    "calibration": {"rows": 990, "unique_patients": 575, "rows_per_seed_domain": [[200, 79, 51], [200, 79, 51], [200, 79, 51]]},
+    "segmentation_value": {"rows": 198, "unique_patients": 177, "rows_per_seed": [66, 66, 66], "val_test_seed_GT_reads": 0},
+    "outer_folds": 5,
+    "fold_rule": "unchanged V0.6A patient-group fold assignment",
+    "outer_rows_per_fold": [41, 42, 37, 38, 40],
+    "outer_unique_patients_per_fold": [36, 36, 35, 35, 35],
+    "inner_calibration_rows_per_fold": [919, 918, 926, 926, 918],
+    "inner_calibration_unique_patients_per_fold": [539, 539, 540, 540, 540]
+  },
+  "method_frozen": {
+    "score": "s_h=log(alpha_h+1e-12)-log(alpha_stage2+1e-12); ridge top1 must equal h",
+    "calibration": "unchanged deterministic weighted PAV with pooled/local partial calibration",
+    "kappa": [10, 30, 100, "inf"],
+    "tau": [0.9, 0.95, 0.98],
+    "rho": 0.8,
+    "bayesian_bootstrap_replicates": 200,
+    "bayesian_master_seed": 2026090601,
+    "ordinary_bootstrap_replicates": 200,
+    "ordinary_bootstrap_master_seed": 2026090602,
+    "candidate_ids": [
+      "k010_tau090", "k010_tau095", "k010_tau098",
+      "k030_tau090", "k030_tau095", "k030_tau098",
+      "k100_tau090", "k100_tau095", "k100_tau098",
+      "kinf_tau090", "kinf_tau095", "kinf_tau098"
+    ],
+    "candidate_selection_rule": "unchanged V0.6A mechanical selection, fixed to v0_6a_recovery_binding.fixed_selected_candidates",
+    "controls": {
+      "C0": "stage-2 current expert",
+      "C1": "frozen ridge hard",
+      "C2": "frozen ridge soft",
+      "C3": "exact frozen SHOR",
+      "C4": "pooled isotonic SHOR",
+      "C5": "partially pooled base isotonic SHOR without ensemble consensus",
+      "C6": "full PPC-SHOR using fixed per-fold candidates",
+      "C7": "true-domain snapshot oracle, evaluator-only",
+      "C8": "per-case best frozen expert oracle, evaluator-only"
+    }
+  },
+  "qualified_accounting_repairs": {
+    "prediction_validity_count": "finite calibrated predictions across all 200 fits for each case and historical expert; used by design preflight",
+    "route_eligibility_count": "finite predictions for ridge-top1 historical expert; may be zero when ridge top1 is current; never used for prediction-validity design gate",
+    "effective_probability_levels": "contiguous runs of bitwise-identical float64 fitted probabilities",
+    "parameter_ratio": "effective_probability_levels / active_unique_patients; no tolerance; fitted model and predictions unchanged",
+    "constituent_bayesian_routes": "individual calibrator routes used for gain/drop quantiles",
+    "ensemble_stability": {
+      "modal_disagreement": "mean_case(1-max_route_frequency_across_constituent_draws)",
+      "any_flip_case_fraction": "diagnostic only",
+      "median_case_consensus": "median_case(max_route_frequency_across_constituent_draws)"
+    }
+  },
+  "role_isolation": {
+    "inner_calibration_cache": "fold-specific non-held-out rows with score, seed, domain, and patient group; no outer patient row or domain",
+    "outer_blind_cache": "case, patient, seed, alpha, image path/hash, row_index only; no domain or label fields",
+    "outer_domain_materialized_in_controller_before_seal": 0,
+    "outer_domain_used_for_fit": 0,
+    "outer_domain_used_for_selection": 0,
+    "outer_domain_evaluator_reads_before_verified_seal": 0
+  },
+  "recovery_qualification": {
+    "expected_calibration_pass_counts": [8, 8, 8, 11, 11],
+    "expected_bayesian_feasible_per_fold_expert": [[200, 200], [200, 200], [200, 200], [200, 200], [200, 200]],
+    "expected_prediction_validity_per_outer_case_expert": 200,
+    "expected_parameter_ratio_fold_maxima": [0.07792207792207792, 0.08108108108108109, 0.08641975308641975, 0.07692307692307693, 0.08108108108108109],
+    "expected_unique_candidate_route_arrays": 10,
+    "expected_corrected_design_preflight": "11/11",
+    "failure_status": "BLOCKED_RECOVERY_EQUIVALENCE"
+  },
+  "development_gates": {
+    "nondegeneracy": {"C6_route_frequency": [0.15, 0.85], "historical_route_count_min": 30, "all_folds_route": true},
+    "value": {"three_domain_gain_min": 0.15, "historical_gain_min": 0.25, "REFUGE_gain_positive": true, "RIM_ONE_r3_gain_positive": true, "positive_seed_count": 3, "domain_oracle_gap_max": 0.06},
+    "C3_noninferiority": {"overall_gain_min": -0.01, "historical_gain_min": -0.02},
+    "safety": {"current_domain_drop_max": 0.01, "maximum_current_class_drop_max": 0.015, "maximum_seed_domain_drop_max": 0.02, "current_domain_drop_p90_max": 0.015, "maximum_seed_domain_drop_p90_max": 0.025},
+    "stability": {"feasible_per_fold_expert_min": 195, "historical_gain_p10_min": 0.2, "shared_gain_p10_min": 0.1, "modal_disagreement_max": 0.15, "median_case_consensus_min": 0.8, "any_flip_case_fraction": "diagnostic_only"}
+  },
+  "status_precedence": [
+    "BLOCKED_PROTOCOL_OR_LEAKAGE",
+    "BLOCKED_REQUIRED_FROZEN_INPUT_MISSING",
+    "BLOCKED_RECOVERY_EQUIVALENCE",
+    "BLOCKED_DESIGN_DEGENERATE_BEFORE_GT",
+    "FAIL_PPC_SHOR_CALIBRATION",
+    "FAIL_PPC_SHOR_CURRENT_SAFETY",
+    "FAIL_PPC_SHOR_VALUE",
+    "FAIL_PPC_SHOR_STABILITY",
+    "PASS_PPC_SHOR_V0_6B_DEVELOPMENT_FEASIBILITY"
+  ],
+  "registration_lock": "after this commit, no population, folds, candidates, kappa/tau/rho, seeds, route rule, fixed selection, gates, controls, or precedence changes",
+  "hard_stop": "no V0.6A mutation/retry, V0.4 formal_03 read, main merge, external test, second reserved attempt, segmentation training, or router update"
+}
