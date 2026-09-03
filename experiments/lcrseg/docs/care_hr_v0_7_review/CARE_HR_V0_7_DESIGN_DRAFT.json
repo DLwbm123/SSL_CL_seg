@@ -1,0 +1,133 @@
+{
+  "schema_version": 1,
+  "method": "Current-Anchored Regional Risk-controlled Historical Revision",
+  "version": "CARe-HR V0.7",
+  "status": "BLOCKED_AWAITING_EXTERNAL_CODE_REVIEW",
+  "draft_state": "DRAFT_NOT_REGISTERED",
+  "training_authority": "NO_TRAINING_AUTHORITY",
+  "evaluation_authority": "NO_EVALUATION_AUTHORITY",
+  "base_commit": "943ab307cc5f1fded0eeb46392a71abe232523c3",
+  "review_scope": "public source, static inspection, and synthetic arrays only",
+  "proposal_contract": {
+    "classes": {"rim": 1, "cup": 2},
+    "add": "historical hard equals class and current hard differs",
+    "remove": "current hard equals class and historical hard differs",
+    "connectivity": 4,
+    "minimum_pixels": 8,
+    "maximum_per_case": 12,
+    "sort": ["area_desc", "centroid_row_asc", "centroid_col_asc", "class_asc", "add_before_remove"],
+    "uses_ground_truth": false,
+    "uses_source_identity": false
+  },
+  "revision_contract": {
+    "primary_blend_lambdas": [0.5, 0.75],
+    "primary_whole_case_replacement": false,
+    "outside_region_bitwise_current": true,
+    "outside_region_renormalization": false,
+    "outside_region_morphology": false,
+    "oracle_blend_lambda": 1.0,
+    "oracle_is_evaluator_only": true
+  },
+  "feature_names": [
+    "class_is_cup",
+    "direction_is_add",
+    "log_region_area_over_image",
+    "log_region_area_over_current_foreground",
+    "compactness",
+    "normalized_centroid_radius",
+    "mean_current_target_probability",
+    "mean_historical_target_probability",
+    "mean_target_probability_delta",
+    "p10_target_probability_delta",
+    "mean_current_entropy",
+    "mean_historical_entropy",
+    "mean_JS_divergence",
+    "mean_current_winning_margin",
+    "mean_historical_winning_margin",
+    "whole_case_hard_disagreement_fraction",
+    "PPC_calibrated_probability",
+    "PPC_consensus",
+    "raw_SHOR_log_alpha_contrast",
+    "ridge_top1_top2_margin"
+  ],
+  "ridge": {
+    "heads": ["gain", "harm"],
+    "lambda_grid": [0.001, 0.01, 0.1, 1.0, 10.0, 100.0],
+    "dtype": "float64",
+    "weighted_standardization": true,
+    "intercept_penalized": false,
+    "patient_grouped_oof": true,
+    "tie_break": "larger_lambda",
+    "optimizer": false,
+    "autograd": false
+  },
+  "conformal": {
+    "calibration_unit": "patient",
+    "gain_residual": "predicted_gain - true_gain",
+    "harm_residual": "true_harm - predicted_harm",
+    "patient_aggregation": "maximum_residual",
+    "quantile_method": "higher"
+  },
+  "bayesian_bootstrap": {
+    "replicates": 200,
+    "master_seed": 2026090701,
+    "unit": "patient",
+    "positive_dirichlet_weights": true,
+    "inactive_nan_sentinel": false,
+    "source_identity_free_fit_api": true
+  },
+  "candidate_grid": {
+    "blend_lambda": [0.5, 0.75],
+    "epsilon_gain": [0.0, 0.0025],
+    "delta_harm": [0.005, 0.01],
+    "rho": 0.8,
+    "count": 8
+  },
+  "budgets": {
+    "accepted_proposals_per_case": 4,
+    "accepted_proposals_per_class": 3,
+    "changed_fraction_of_current_foreground": 0.15,
+    "changed_fraction_of_image": 0.02
+  },
+  "draft_gates": {
+    "execution": "NOT_RUN_REVIEW_ONLY",
+    "safety": {
+      "current_domain_drop_max": 0.01,
+      "maximum_current_class_drop_max": 0.015,
+      "maximum_seed_domain_drop_max": 0.02,
+      "current_domain_drop_p90_max": 0.015,
+      "maximum_seed_domain_drop_p90_max": 0.025,
+      "current_domain_cases_with_delta_below_minus_0_10": 0,
+      "worst_current_domain_case_delta_min": -0.10
+    },
+    "value": {
+      "three_domain_gain_min": 0.17,
+      "historical_gain_min": 0.27,
+      "REFUGE_gain": "greater_than_zero",
+      "RIM_ONE_r3_gain": "greater_than_zero",
+      "positive_seed_count": 3,
+      "domain_oracle_gap_max": 0.08
+    },
+    "relative_to_frozen_ppc_v0_6b": {
+      "overall_gain_difference_min": -0.03,
+      "historical_gain_difference_min": -0.05,
+      "current_drop_reduction_min": 0.005,
+      "maximum_seed_domain_drop_reduction_min": 0.025,
+      "current_drop_p90_reduction_min": 0.015,
+      "maximum_seed_domain_drop_p90_reduction_min": 0.025
+    },
+    "stability": {
+      "bayesian_fits_per_fold_min": "195/200",
+      "shared_gain_p10_min": 0.15,
+      "historical_gain_p10_min": 0.25,
+      "modal_action_disagreement_max": 0.10,
+      "median_action_consensus_min": 0.80
+    }
+  },
+  "observed_real_data_reads": 0,
+  "observed_nas_reads": 0,
+  "observed_checkpoint_loads": 0,
+  "observed_model_forwards": 0,
+  "observed_real_data_training_fits": 0,
+  "observed_ground_truth_or_source_reads": 0
+}
