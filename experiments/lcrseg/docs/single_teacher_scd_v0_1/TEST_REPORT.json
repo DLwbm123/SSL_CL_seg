@@ -1,0 +1,116 @@
+{
+  "status": "PASS",
+  "source_sha": "057ce07fa7bd02f8319e0c2bdd9d4adbceff23d8",
+  "local": {
+    "source": "057ce07fa7bd02f8319e0c2bdd9d4adbceff23d8",
+    "python": "3.12.9",
+    "torch": "2.6.0",
+    "device": "cpu",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "unit_seconds": 5.35260683298111,
+    "formal_optimizer_updates": 0,
+    "synthetic_solver_benchmark": {
+      "pixels": 4096,
+      "seconds": 0.004226749995723367,
+      "conflicts": 1772,
+      "max_residual": 1.5931700403370996e-14,
+      "bracket_max": 3,
+      "peak_allocated": null,
+      "device_name": "arm64",
+      "cuda_visible_devices": null,
+      "block_size": 65536
+    },
+    "status": "PASS"
+  },
+  "server": {
+    "source": "057ce07fa7bd02f8319e0c2bdd9d4adbceff23d8",
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "device": "cuda:0",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "unit_seconds": 53.52909120602999,
+    "formal_optimizer_updates": 0,
+    "synthetic_solver_benchmark": {
+      "pixels": 294912,
+      "seconds": 0.0649342859396711,
+      "conflicts": 127609,
+      "max_residual": 1.5626389071599078e-14,
+      "bracket_max": 4,
+      "peak_allocated": 49452032,
+      "device_name": "NVIDIA GeForce RTX 3090",
+      "cuda_visible_devices": "4",
+      "block_size": 65536
+    },
+    "data_role_audit": {
+      "domains": [
+        {
+          "domain": "REFUGE",
+          "counts": {
+            "train_labeled": 40,
+            "train_unlabeled": 160,
+            "val": 100,
+            "test": 100
+          }
+        },
+        {
+          "domain": "RIM_ONE_r3",
+          "counts": {
+            "train_labeled": 16,
+            "train_unlabeled": 63,
+            "val": 40,
+            "test": 40
+          }
+        },
+        {
+          "domain": "Drishti_GS",
+          "counts": {
+            "train_labeled": 10,
+            "train_unlabeled": 41,
+            "val": 25,
+            "test": 25
+          }
+        }
+      ],
+      "role_patient_isolation": "PASS",
+      "seed": 0,
+      "hidden_gt_accesses": 0,
+      "test_asset_accesses": 0,
+      "future_stage_asset_accesses": 0
+    },
+    "real_two_case_smoke": {
+      "case_selection": "first two sorted current seed0 REFUGE train_labeled rows",
+      "steps": 50,
+      "posterior_ce_before": 1.1666109561920166,
+      "posterior_ce_after": 0.0854961946606636,
+      "loss_decreased": true,
+      "student_changed": true,
+      "teacher_frozen": true,
+      "counters": {
+        "forward": 50,
+        "gas_autograd": 50,
+        "diagnostic_autograd": 0,
+        "backward": 50,
+        "optimizer_steps": 50
+      },
+      "extra_posterior_forwards": 2,
+      "seconds": 7.348487190087326,
+      "checkpoint_used_for_formal_initialization": false,
+      "canonical_image_and_label_hashes_verified": true
+    },
+    "status": "PASS"
+  },
+  "prior_failed_qualification_preserved": true,
+  "exact_source_qualification_optimizer_updates": {
+    "local_synthetic": 101,
+    "server_synthetic": 101,
+    "server_real_smoke": 50,
+    "total": 252,
+    "formal": 0,
+    "derivation": "96 successful optimizer updates in synthetic stage/resume integration plus 5 matched arm steps per qualification suite, all tests PASS; real smoke counters=50",
+    "scope": "exact 057ce07 qualification only; exploratory pre-freeze engineering test invocations are not claimed as measured experiment compute"
+  }
+}
