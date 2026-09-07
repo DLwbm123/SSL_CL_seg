@@ -68,6 +68,8 @@ def enumerate_actions(proposals, current_hard, space="O_CAP", blend_lambda=None)
     lambdas = LAMBDAS if blend_lambda is None else (blend_lambda,)
     foreground = int(np.count_nonzero(current))
     yield (), None
+    if foreground == 0:
+        return
     maximum = len(proposals) if space == "O_FREE_SUBSET" else min(4, len(proposals))
     for count in range(1, maximum + 1):
         for indices in combinations(range(len(proposals)), count):

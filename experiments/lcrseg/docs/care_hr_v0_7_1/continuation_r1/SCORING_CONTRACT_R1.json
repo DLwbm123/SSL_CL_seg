@@ -1,0 +1,46 @@
+{
+  "all_ignore": {
+    "evidence_of_safety": false,
+    "gain_harm": 0,
+    "has_evaluable_gt": false,
+    "main_rows_retained": true,
+    "oracle": "no-op via exact tie",
+    "scores": 1
+  },
+  "baseline_serialization_tolerance": {
+    "atol": 1e-12,
+    "rtol": 0
+  },
+  "confusion_orientation": "int64 truth rows/prediction columns",
+  "dice": "2*TP/(P+T); empty=1; no epsilon",
+  "evaluable_only": "original seed/domain group weights preserved; empty group UNDEFINED and BLOCKED_NO_EVALUABLE_SUPPORT",
+  "foreground_dice": "alias macro_fg_dice",
+  "gain": "complete final combination score minus current",
+  "gt_mask_action_access": false,
+  "harm": "max(0,-gain_macro_fg,-gain_rim,-gain_cup)",
+  "iou": "TP/union; empty=1",
+  "lambda": [
+    0.5,
+    0.75
+  ],
+  "macro_fg_dice": "(rim_dice+cup_dice)/2",
+  "mean_iou": "mean of all three class IoUs",
+  "prediction_labels": [
+    0,
+    1,
+    2
+  ],
+  "reference": "shor_v0_4_test.case_metrics",
+  "resolution": "ADOPT_FROZEN_V0_6B_SCORER",
+  "safe0_tolerance": 0,
+  "shape": "nonempty same-shape 2D integer labels",
+  "source_sha256": "7b62332879985d831efdb90fa50a3f303a6e86bd1d97a04c59b451ca1a6fd997",
+  "support": "GT!=255 masks truth and prediction in evaluator only",
+  "truth_labels": [
+    0,
+    1,
+    2,
+    255
+  ],
+  "union_fg_dice": "auxiliary only"
+}

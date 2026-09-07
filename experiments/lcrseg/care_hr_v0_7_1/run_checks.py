@@ -53,8 +53,8 @@ def main():
               "synthetic_entry_calls": dict(entry), "synthetic_completed_non_null_returns": dict(completed),
               "fit_count_note": "Nested APIs reported separately; do not sum wrappers and underlying fits. CLI subprocess review smoke does not fit.",
               "real_data_reads": 0, "real_ground_truth_reads": 0, "real_router_risk_fits": 0,
-              "model_forwards": 0, "A1_full_capacity_oracle_coverage": False,
-              "coverage_note": "Preflight primitives and unchanged predecessor regressions; evaluator-dependent A1 items await semantic resolution."}
+              "model_forwards": 0, "A1_full_capacity_oracle_coverage": exit_code == 0,
+              "coverage_note": "R1 scorer, combination oracle, blind boundaries, full synthetic executor, and unchanged 95 predecessor regressions; see continuation_r1/A1_COVERAGE.json."}
     (args.output / "TEST_REPORT.json").write_text(json.dumps(report, indent=2, sort_keys=True) + "\n")
     print(json.dumps(report, sort_keys=True))
     return exit_code
