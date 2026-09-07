@@ -1,0 +1,25 @@
+{
+  "model": "di_dmpa_jascl.modeling.LCRSegUNet2DJASCL",
+  "body": "GroupNorm UNet 16/32/64/128, dec1 dimension16",
+  "upstream": "prinshul/JASCL@3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+  "classifier": "official stochastic 3x3; no functional padding; bilinear resize align_corners=True",
+  "parameters": 484016,
+  "gas": "same-forward supervised-only mu.weight gradient squared; after Adam copy for next step; .data GAS state explicitly requires_grad=False",
+  "sigma": "upstream unused sigma retained",
+  "A_ema": "alpha .99 over all parameters including GAS after step and GAS update, frozen helper",
+  "models": {
+    "S": 1,
+    "A": 2,
+    "B": 1,
+    "C": 2,
+    "D": 2,
+    "E": 2
+  },
+  "inference_models": 1,
+  "cpu_shadow_model_states_allowed": false,
+  "checkpoint": "rolling student_latest and prev_teacher; meta+assign loading; tensor-by-tensor hashing, no full CPU clone",
+  "stage2": "own stage1 last student only; evaluate before rolling old slots; reset prototype/Adam",
+  "precision": "FP32 network; FP64 teacher posterior, student log-softmax, KL/project; no AMP/TF32",
+  "teacher_probability": "FP64 posterior normalized before common eps smoothing",
+  "memory_measurement": "enumerate live complete modules; parameters/buffers/grads/Adam/prototype/target bytes; actual CUDA max allocated/reserved and RSS; experiment disk storage separate"
+}

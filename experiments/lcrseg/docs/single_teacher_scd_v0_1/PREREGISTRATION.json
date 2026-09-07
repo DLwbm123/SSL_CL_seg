@@ -1,0 +1,180 @@
+{
+  "protocol": "Single-Teacher SCD V0.1",
+  "base_commit": "c4edcfc08bad784ad4c26e12aaaf6a395cad2f95",
+  "branch": "codex/single-teacher-scd-v0-1-training",
+  "seed": 0,
+  "domains": [
+    "REFUGE",
+    "RIM_ONE_r3",
+    "Drishti_GS"
+  ],
+  "counts": [
+    [
+      40,
+      160
+    ],
+    [
+      16,
+      63
+    ],
+    [
+      10,
+      41
+    ]
+  ],
+  "epochs": 100,
+  "steps_per_epoch": [
+    80,
+    32,
+    21
+  ],
+  "updates_per_stage": [
+    8000,
+    3200,
+    2100
+  ],
+  "formal_total_updates": 39800,
+  "arms": [
+    "S",
+    "A",
+    "B",
+    "C",
+    "D",
+    "E"
+  ],
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.001,
+    "weight_decay": 0.00004,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-8,
+    "reset_each_stage": true,
+    "lr_formula": "lr0*(1-k/K)^0.9, zero-based k"
+  },
+  "lambda_u": ".5*min(1,max(0,(epoch-10)/10)), one-based epoch",
+  "lambda_kd": 1,
+  "tau_conf": 0.7,
+  "tau_sim": 0.7,
+  "strict_threshold": true,
+  "temperature": 1,
+  "eps_q": 1e-8,
+  "solver": {
+    "direction": "KL(r||q)",
+    "constraint": "<a,r><=<a,p>",
+    "exponent": "log(q)-eta*a",
+    "block": 65536,
+    "bracket_doublings": 60,
+    "bisections": 48,
+    "reference_bisections": 80,
+    "normalized_residual": 1e-9,
+    "endpoint": "feasible"
+  },
+  "gates": {
+    "ssl_N": 0.005,
+    "ssl_F": -0.005,
+    "main_F": 0.01,
+    "history_H": 0.01,
+    "current_macro": -0.01,
+    "current_class": -0.02,
+    "mechanism": "actual nondegenerate projection, norm(r-p) and norm(r-q) > 1e-8"
+  },
+  "prototype_epochs": [
+    11,
+    16,
+    21,
+    26,
+    31,
+    36,
+    41,
+    46,
+    51,
+    56,
+    61,
+    66,
+    71,
+    76,
+    81,
+    86,
+    91,
+    96
+  ],
+  "augmentation": {
+    "geometry": "paired H/V flip .5 each; rot90 uniform k 0..3",
+    "brightness": [
+      0.8,
+      1.2
+    ],
+    "contrast": [
+      0.8,
+      1.2
+    ],
+    "saturation": [
+      0.8,
+      1.2
+    ],
+    "blur": {
+      "probability": 0.5,
+      "kernel": 5,
+      "sigma": [
+        0.1,
+        1
+      ]
+    },
+    "noise": {
+      "probability": 0.5,
+      "std": 0.02
+    },
+    "order": [
+      "brightness",
+      "contrast",
+      "saturation",
+      "blur",
+      "noise",
+      "clip"
+    ],
+    "grayscale_weights": [
+      0.2989,
+      0.587,
+      0.114
+    ],
+    "contrast_definition": "center on global luminance mean after brightness",
+    "saturation_definition": "blend luminance after contrast",
+    "border": "reflect",
+    "clipping": "only final [0,1]"
+  },
+  "streams": "stable_seed(0,stage,epoch,step,stream); arm excluded; order cycles independently keyed",
+  "gpu_authorization": {
+    "indices": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "basis": "Latest direct user message overrides attachment GPU4/5 default",
+    "minimum_free_mib": 8192,
+    "one_training_process_per_gpu": true,
+    "kill_other_processes": false
+  },
+  "smoke": {
+    "stage": 0,
+    "selection": "first two sorted train_labeled",
+    "steps": 50,
+    "used_for_initialization": false
+  },
+  "forbidden": [
+    "test",
+    "future GT",
+    "unlabeled GT",
+    "historical train replay",
+    "old formal_03",
+    "expert caches",
+    "third model",
+    "EMA outside A",
+    "seed1/2",
+    "auto tuning",
+    "merge main"
+  ]
+}
