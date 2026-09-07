@@ -54,7 +54,8 @@ def generate(run,output):
     mechanism=0;solver_seconds=0.;max_residual=0.;max_bracket=0
     for arm,stage in [("common",0)]+[(a,t) for a in "SABCDE" for t in (1,2)]:
         root=run/arm/f"stage{stage}";receipt=read(root/"receipt.json");ev=read(root/"val.json")
-        if receipt["source"]!=reservation["source"] or receipt["status"]!="COMPLETE":raise RuntimeError("source/stage incomplete")
+        expected_source=reservation.get("stage_sources",{}).get(f"{arm}:{stage}",reservation["source"])
+        if receipt["source"]!=expected_source or receipt["status"]!="COMPLETE":raise RuntimeError("source/stage incomplete")
         if receipt["max_full_models"]!=(1 if arm in ("common","S","B") else 2):raise RuntimeError("model limit violated")
         if arm in "CDE" and receipt["teacher_initial_hash"]!=receipt["teacher_final_hash"]:raise RuntimeError("teacher changed")
         receipts.append(receipt);rows.extend(ev["rows"])
@@ -123,14 +124,19 @@ def generate(run,output):
     write_json(output/"SOLVER_DIAGNOSTICS.json",dict(failures=0,max_normalized_residual=max_residual,
         max_bracket_doublings=max_bracket,total_target_and_diagnostic_seconds=solver_seconds,real_nondegenerate_events=mechanism,
         timing_note="synchronized scalar diagnostic transfers included; not an isolated kernel speed claim"))
-    write_json(output/"EXPECTED_AND_ACTUAL_BUDGET.json",dict(expected=39800,actual=39800,stages=budget,qualification_updates_excluded=True))
+    discarded=reservation.get("discarded_formal_attempt_updates",0)
+    write_json(output/"EXPECTED_AND_ACTUAL_BUDGET.json",dict(expected_accepted_matrix=39800,actual_accepted_matrix=39800,
+        all_formal_attempt_optimizer_updates=39800+discarded,discarded_formal_attempt_updates=discarded,
+        engineering_diagnostic_replay_updates=reservation.get("engineering_diagnostic_replay_updates",0),
+        stages=budget,qualification_updates_excluded=True))
     write_json(output/"STAGE_LINEAGE.json",dict(stages=lineage))
     write_json(output/"MODEL_STATE_ACCESS_AUDIT.json",dict(stages=access))
     write_json(output/"TRAINING_COMPLETENESS.json",dict(status="COMPLETE",actual_stages=13,all_six_arms_complete=True,receipts=receipts))
     write_json(output/"STATUS.json",dict(status=terminal,source_sha=reservation["source"],all_six_arms_complete=True,
-        formal_optimizer_updates=39800,seed1_2_started=False,external_confirmation=False,test_used=False,
+        completed_matrix_optimizer_updates=39800,all_formal_attempt_optimizer_updates=39800+discarded,
+        stage_sources=reservation.get("stage_sources",{}),seed1_2_started=False,external_confirmation=False,test_used=False,
         simple_baseline_competitive=not gate_rows[2]["pass_gate"] and any(abs(scores[a]["F"]-scores["E"]["F"])<=.005 for a in "CD")))
-    lines=[f"# Single-Teacher SCD V0.1: {terminal}","", "All 13 real stages completed: shared stage0 and seed0 S/A/B/C/D/E stage1+2. Exactly 39,800 successful formal optimizer updates; no test GT, replay, seed1/2 or parameter search.","",
+    lines=[f"# Single-Teacher SCD V0.1: {terminal}","", f"All 13 real stages completed: shared stage0 and seed0 S/A/B/C/D/E stage1+2. The accepted fixed matrix contains 39,800 optimizer updates. Discarded failed-attempt updates: {discarded}; all formal attempts total {39800+discarded}. Engineering diagnostic reconstruction and qualifications are accounted separately. No historical training-data replay, test GT, seed1/2 or parameter search.","",
         "| Arm | F | H | N | BWT | Forget REFUGE | Forget RIM |","|---|---:|---:|---:|---:|---:|---:|"]
     for a in "SABCDE":lines.append("| "+a+" | "+" | ".join(f"{v:.9f}" for v in scores[a].values())+" |")
     lines += ["", "Gate failures: "+", ".join(r["gate"] for r in gate_rows if not r["pass_gate"])+".","",

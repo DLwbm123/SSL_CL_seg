@@ -186,6 +186,27 @@ class Contract(unittest.TestCase):
         zero=obj.kd(z2,raw,y,none,valid,"C")[0];zero.backward()
         self.assertLess(abs(float(zero)),1e-12);self.assertLess(float(z2.grad.norm()),1e-12)
 
+    def test_07_08_projected_zero_mass_entropy(self):
+        # Entirely synthetic confident logits, unrelated to any real case.
+        z=torch.tensor([0.,-46.05170186,-57.56462732],dtype=torch.float32,device=DEVICE).reshape(1,3,1,1).requires_grad_()
+        q=torch.tensor([.2,.3,.5],dtype=torch.double,device=DEVICE).reshape(1,3,1,1)
+        y=torch.zeros((1,1,1),dtype=torch.long,device=DEVICE);valid=torch.ones_like(y,dtype=torch.bool)
+        p=z.double().movedim(1,-1).reshape(1,3).log_softmax(-1).exp().detach()
+        qt=(1-obj.EPS_Q)*q.reshape(1,3)+obj.EPS_Q/3
+        target,_,_,residual,_=obj.project(p,qt,y.flatten(),valid.flatten())
+        self.assertTrue((target==0).any());self.assertLessEqual(float(residual.max()),1e-9)
+        loss,_=obj.kd(z,q,y,valid,valid,"E")
+        self.assertTrue(torch.isfinite(loss))
+        reference=torch.special.xlogy(target,target).sum()-(target*z.double().movedim(1,-1).reshape(1,3).log_softmax(-1)).sum()
+        self.assertTrue(torch.allclose(loss,reference,atol=1e-12,rtol=0))
+        loss.backward();self.assertTrue(torch.isfinite(z.grad).all())
+        self.assertTrue(torch.allclose(z.grad.flatten(),(p-target).float().flatten(),atol=1e-7,rtol=0))
+        positive=torch.tensor([[.1,.2,.7]],dtype=torch.double,device=DEVICE)
+        logp=torch.tensor([[-2.,-1.,-.5]],dtype=torch.double,device=DEVICE)
+        old=positive*(positive.log()-logp)
+        new=positive*(positive.log().masked_fill(positive==0,0.)-logp)
+        self.assertTrue(torch.equal(old,new))
+
     def test_04_06_09_models_gas_and_matched_zero_kd(self):
         student=model(REFERENCE,DEVICE);teacher=second_model(student,"C");teacher_hash=state_hash(teacher)
         optimizer=optimizer_for(student)

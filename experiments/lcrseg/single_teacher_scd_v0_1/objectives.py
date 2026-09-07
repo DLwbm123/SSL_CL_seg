@@ -78,7 +78,10 @@ def kd(logits, teacher_probability, reference, reliable, geometry, arm):
     else:
         target = q
     keep = valid & (~conflict if arm == "D" else torch.ones_like(valid))
-    per = (target * (target.log() - logp)).sum(-1)
+    # Projected FP64 probabilities can underflow to zero. KL's continuous
+    # extension is 0*log(0)=0; keep positive-target arithmetic bit-identical.
+    log_target = target.log().masked_fill(target == 0, 0.)
+    per = (target * (log_target - logp)).sum(-1)
     loss = (per * keep).sum() / valid.sum().clamp_min(1)
     # Small class-level sufficient statistics only; never retain pixel targets after the step.
     rows = []
