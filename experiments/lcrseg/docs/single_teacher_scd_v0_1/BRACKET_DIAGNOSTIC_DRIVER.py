@@ -45,4 +45,3 @@ try:
 except FloatingPointError as error:
  write_json(root/"receipt.json",dict(status="REPRODUCED",source="270e23985c8d78d0508fe6c4d43150f6ebffcc92",error=repr(error),checkpoint_updates=1504,failed_step=1508,formal_updates=0,engineering_replay_updates=c["optimizer_steps"],diagnostic=diagnostic))
  print((root/"receipt.json").read_text(),flush=True)
-
