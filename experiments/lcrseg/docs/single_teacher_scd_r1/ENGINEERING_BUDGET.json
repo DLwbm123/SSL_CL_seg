@@ -1,0 +1,29 @@
+{
+  "source_qualified_synthetic_updates": 448,
+  "local": 224,
+  "server": 224,
+  "real_diagnostic_replay_updates": 3,
+  "real_diagnostic_cap": 8,
+  "remaining_real_diagnostic_budget_unused": 5,
+  "formal_updates_in_qualification": 0,
+  "pre_freeze_development_suite_updates": 376,
+  "development_attempts": [
+    {
+      "suite": "initial four R1 tests",
+      "updates": 130,
+      "status": "PASS"
+    },
+    {
+      "suite": "five R1 tests before import isolation",
+      "updates": 123,
+      "status": "FIXTURE_FAILURE",
+      "reason": "upstream import-time RNG side effects changed the first synthetic initialization"
+    },
+    {
+      "suite": "five R1 tests with imported reference before matched initialization",
+      "updates": 123,
+      "status": "PASS"
+    }
+  ],
+  "development_repair": "test fixture import isolation only; no production solver or old source change"
+}
