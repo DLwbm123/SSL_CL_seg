@@ -1,0 +1,83 @@
+{
+  "ordered_features": [
+    "current_rim_area_fraction",
+    "current_cup_area_fraction",
+    "historical_rim_area_fraction",
+    "historical_cup_area_fraction",
+    "rim_log_area_ratio",
+    "cup_log_area_ratio",
+    "current_entropy",
+    "historical_entropy",
+    "current_max",
+    "historical_max",
+    "current_margin",
+    "historical_margin",
+    "JS",
+    "hard_disagreement",
+    "rim_softDice",
+    "cup_softDice",
+    "alpha_log_ratio",
+    "alpha_margin"
+  ],
+  "n_features": 18,
+  "dtype": "float64 extraction, scaling and Ridge; original probability dtype and argmax preserved",
+  "allowed_inputs": [
+    "current_probability",
+    "historical_probability",
+    "frozen_alpha",
+    "historical_expert"
+  ],
+  "forbidden_feature_inputs": [
+    "GT",
+    "true_domain",
+    "patient_id",
+    "case_id",
+    "seed",
+    "path",
+    "fold",
+    "oracle_action",
+    "past_evaluation_error"
+  ],
+  "support": "union of current/history hard rim/cup; whole image if empty",
+  "entropy": "natural log; zero log zero = zero",
+  "JS": "entropy of arithmetic mixture minus mean entropy",
+  "softDice": "2 sum(p*q)/(sum(p)+sum(q)); empty denominator 1",
+  "lambda_grid": [
+    0.1,
+    1,
+    10,
+    100
+  ],
+  "epsilon_grid": [
+    0,
+    0.005
+  ],
+  "harm_grid": [
+    0.01,
+    0.025,
+    0.05,
+    0.1
+  ],
+  "standardization": "fit-split patient-weighted mean and population variance; exactly constant columns scale 1",
+  "target_order": [
+    "d_rim",
+    "d_cup",
+    "H"
+  ],
+  "prediction_clips": [
+    [
+      -1,
+      1
+    ],
+    [
+      -1,
+      1
+    ],
+    [
+      0,
+      1
+    ]
+  ],
+  "lambda_selection": "clipped inner OOF patient-weighted 3-output MSE; exact tie larger lambda",
+  "independent_upstream": false
+}
