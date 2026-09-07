@@ -1,0 +1,159 @@
+{
+  "action_spaces": {
+    "O_CAP": "exhaust all strict-budget subsets and common lambda; unique no-op; at most 1587",
+    "O_FREE_SUBSET": "also remove case/class acceptance limits; same at most12 proposals; at most8191",
+    "O_NO_AREA": "only remove both area constraints; retain case/class limits",
+    "O_SAFE0": "same action space; require exact unrounded gain_rim>=0 and gain_cup>=0"
+  },
+  "all_terminal_states_stop": true,
+  "attachment_sha256": "b481630909a81ac749b6e761a48e05708c53a64ac382d08b8a6f93cbc265504c",
+  "authority_origin": "explicit user request and adopted attachment",
+  "authorized_physical_gpus": [
+    4,
+    5
+  ],
+  "authorized_scope": [
+    "A0 semantic repair",
+    "A1 synthetic regression",
+    "A2 allowlisted frozen development inference",
+    "A3 evaluator-only capacity diagnostic and publication"
+  ],
+  "auxiliary_metric": "union_fg_dice",
+  "base_commit": "61c1e302fae515fe51adf4e777887a1a489859be",
+  "branch": "codex/care-hr-v0-7-1-capacity-audit",
+  "budgets": {
+    "accepted_proposals_per_case": 4,
+    "accepted_proposals_per_class": 3,
+    "changed_fraction_of_current_foreground": 0.15,
+    "changed_fraction_of_image": 0.02
+  },
+  "conformal_rank": "ceil((n_patients+1)*(1-alpha)); infinity when rank exceeds n; patient maximum residual",
+  "formal_03_reads_allowed": 0,
+  "frozen_C6_route_binding": {
+    "population": 198,
+    "route_count": 155,
+    "route_frequency": 0.7828282828282829,
+    "route_sha256": "c03c457d0b5ab7a529dd8ec07076b06c2fe41a22e7439265f24ab046687a41e7"
+  },
+  "gain": "final combined metric minus current metric; never add proposal Dice gains",
+  "harm": "max(0,-gain_macro_fg,-gain_rim,-gain_cup)",
+  "ignore_and_empty_rule": "UNRESOLVED historical scorer/target mismatch; no new scoring rule selected",
+  "main_merge_allowed": false,
+  "max_sample_expert_forwards": 594,
+  "metric": "macro_fg_dice=(dice_rim+dice_cup)/2",
+  "next_stage_auto_start": false,
+  "no_op_always_legal": true,
+  "old_review_lock_unchanged": true,
+  "original_draft_gates_preserved": {
+    "execution": "NOT_RUN_REVIEW_ONLY",
+    "relative_to_frozen_ppc_v0_6b": {
+      "current_drop_p90_reduction_min": 0.015,
+      "current_drop_reduction_min": 0.005,
+      "historical_gain_difference_min": -0.05,
+      "maximum_seed_domain_drop_p90_reduction_min": 0.025,
+      "maximum_seed_domain_drop_reduction_min": 0.025,
+      "overall_gain_difference_min": -0.03
+    },
+    "safety": {
+      "current_domain_cases_with_delta_below_minus_0_10": 0,
+      "current_domain_drop_max": 0.01,
+      "current_domain_drop_p90_max": 0.015,
+      "maximum_current_class_drop_max": 0.015,
+      "maximum_seed_domain_drop_max": 0.02,
+      "maximum_seed_domain_drop_p90_max": 0.025,
+      "worst_current_domain_case_delta_min": -0.1
+    },
+    "stability": {
+      "bayesian_fits_per_fold_min": "195/200",
+      "historical_gain_p10_min": 0.25,
+      "median_action_consensus_min": 0.8,
+      "modal_action_disagreement_max": 0.1,
+      "shared_gain_p10_min": 0.15
+    },
+    "value": {
+      "REFUGE_gain": "greater_than_zero",
+      "RIM_ONE_r3_gain": "greater_than_zero",
+      "domain_oracle_gap_max": 0.08,
+      "historical_gain_min": 0.27,
+      "positive_seed_count": 3,
+      "three_domain_gain_min": 0.17
+    }
+  },
+  "population": {
+    "current": "B0 seed stage2 expert",
+    "generalization_claim_allowed": false,
+    "gt_role": "own-seed train_labeled only",
+    "patients": 177,
+    "rows": 198,
+    "rows_per_seed": [
+      66,
+      66,
+      66
+    ],
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "stage": 2
+  },
+  "post_GT_scoring_edits_allowed": false,
+  "pre_GT_barriers": [
+    "public source/protocol/input identities verified",
+    "exact source A1 passes remotely",
+    "allowlist and own-seed role proven",
+    "probability/route/proposal/action index and budget seal verified",
+    "isolated evaluator verifies ACTION_SPACE_SEAL"
+  ],
+  "preferred_cache": "hash-verified original probability arrays; no replacement inputs",
+  "proposal_contract": {
+    "add": "historical hard equals class and current hard differs",
+    "classes": {
+      "cup": 2,
+      "rim": 1
+    },
+    "connectivity": 4,
+    "maximum_per_case": 12,
+    "minimum_pixels": 8,
+    "remove": "current hard equals class and historical hard differs",
+    "sort": [
+      "area_desc",
+      "centroid_row_asc",
+      "centroid_col_asc",
+      "class_asc",
+      "add_before_remove"
+    ],
+    "uses_ground_truth": false,
+    "uses_source_identity": false
+  },
+  "real_router_risk_fitting_allowed": false,
+  "refit_stability": "NOT_EVALUATED",
+  "registration_id": "CARE_HR_V0_7_1_CAPACITY_AUDIT",
+  "runtime_admitted": false,
+  "schema_version": 1,
+  "scientific_precedence": [
+    "any engineering/protocol/lineage/regression/seal/baseline failure => BLOCKED",
+    "O_CAP envelope gain<0.17 or history<0.27 => FAIL_FROZEN_ACTION_SPACE_CAPACITY",
+    "O_SAFE0 envelope gains>=0.17/0.27, both history domain gains>0, all seed gains>0 => PASS_ACTION_SPACE_SCREEN_ONLY",
+    "otherwise CAPACITY_PRESENT_SAFETY_UNRESOLVED"
+  ],
+  "segmentation_training_allowed": false,
+  "shared_lambdas": [
+    0.5,
+    0.75
+  ],
+  "state": "PREFLIGHT_SEMANTICS_UNRESOLVED",
+  "tie_break": [
+    "higher unrounded macro Dice",
+    "lower mask union area",
+    "fewer proposals",
+    "lower common lambda",
+    "lexicographic proposal_id tuple",
+    "no-op wins zero-gain ties"
+  ],
+  "value_thresholds": {
+    "historical_gain_min": 0.27,
+    "three_domain_gain_min": 0.17
+  },
+  "zero_foreground_budget_floor": 0
+}
