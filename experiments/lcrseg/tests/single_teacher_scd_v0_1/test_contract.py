@@ -73,6 +73,10 @@ def fixture(root):
 
 class Contract(unittest.TestCase):
     def test_01_scoring(self):
+        z=torch.randn(2,3,8,8,requires_grad=True)
+        target=torch.randint(3,(2,8,8));target[0,0,0]=255
+        self.assertTrue(torch.allclose(obj.supervised(z,target),F.cross_entropy(z,target,ignore_index=255),atol=2e-7))
+        self.assertEqual(float(obj.supervised(z,torch.full_like(target,255))),0.)
         p=np.array([[2,1],[1,0]]);t=np.array([[255,1],[2,0]])
         r=case_metrics(p,t)
         self.assertAlmostEqual(r["rim_dice"],2/3);self.assertEqual(r["cup_dice"],0)

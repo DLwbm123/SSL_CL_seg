@@ -1,0 +1,14 @@
+{
+  "attempts": [
+    {
+      "source": "e33cef28040c92b28acd0ad2353144a8c119c7ec",
+      "local": "PASS",
+      "server": "FAILED_QUALIFICATION",
+      "reason": "Torch2.2 deterministic CUDA nll_loss2d spatial sum unsupported",
+      "formal_updates": 0,
+      "real_smoke_updates": 0,
+      "repair": "algebraically identical FP32 log_softmax + gather + fixed reduction; no objective or schedule change",
+      "nas_evidence": "qualification_e33cef2_exit.json"
+    }
+  ]
+}

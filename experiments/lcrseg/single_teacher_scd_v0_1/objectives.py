@@ -102,11 +102,14 @@ def kd(logits, teacher_probability, reference, reliable, geometry, arm):
 
 def supervised(logits, label):
     valid = label != 255
-    return F.cross_entropy(logits, label, ignore_index=255, reduction="sum") / valid.sum().clamp_min(1)
+    # Explicit gather avoids Torch2.2 CUDA nll_loss2d atomic spatial reduction.
+    pixels = -logits.log_softmax(1).gather(1,label.masked_fill(~valid,0)[:,None]).squeeze(1)
+    return (pixels * valid).sum() / valid.sum().clamp_min(1)
 
 
 def ssl_ce(logits, pseudo, mask, geometry):
-    return (F.cross_entropy(logits, pseudo.detach(), reduction="none") * mask.detach() * geometry).sum() / geometry.sum().clamp_min(1)
+    pixels = -logits.log_softmax(1).gather(1,pseudo.detach()[:,None]).squeeze(1)
+    return (pixels * mask.detach() * geometry).sum() / geometry.sum().clamp_min(1)
 
 
 @torch.no_grad()
