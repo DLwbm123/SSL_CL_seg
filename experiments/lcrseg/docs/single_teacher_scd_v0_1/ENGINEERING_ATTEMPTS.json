@@ -9,6 +9,37 @@
       "real_smoke_updates": 0,
       "repair": "algebraically identical FP32 log_softmax + gather + fixed reduction; no objective or schedule change",
       "nas_evidence": "qualification_e33cef2_exit.json"
+    },
+    {
+      "source": "057ce07fa7bd02f8319e0c2bdd9d4adbceff23d8",
+      "event": "INITIAL_RESOURCE_ADMISSION_REJECTION",
+      "affected_arms": [
+        "A",
+        "C",
+        "E"
+      ],
+      "updates_before_admission": 0,
+      "recovery": "same GPU lanes with measured 2072 MiB sufficient-memory floor; user authorized co-resident GPU4-7 use",
+      "original_receipts_preserved": true
+    },
+    {
+      "source": "057ce07fa7bd02f8319e0c2bdd9d4adbceff23d8",
+      "event": "E_ZERO_TARGET_ENTROPY_FAILURE",
+      "formal_successful_updates": 1,
+      "engineering_replay_updates": 1,
+      "repair_source": "270e23985c8d78d0508fe6c4d43150f6ebffcc92",
+      "evidence": "ENTROPY_FAILURE_REPRODUCTION.json"
+    },
+    {
+      "source": "270e23985c8d78d0508fe6c4d43150f6ebffcc92",
+      "event": "E_FIXED_BRACKET_CAPACITY_FAILURE",
+      "formal_successful_updates": 1507,
+      "durable_checkpoint_updates": 1504,
+      "attempted_failed_update": 1508,
+      "engineering_replay_updates": 3,
+      "evidence": "BRACKET_FAILURE_REPRODUCTION.json",
+      "terminal": "INCOMPLETE_TRAINING_MATRIX",
+      "additional_formal_runs_started": false
     }
   ]
 }
