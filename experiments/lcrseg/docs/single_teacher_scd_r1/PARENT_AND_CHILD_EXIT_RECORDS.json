@@ -1,0 +1,480 @@
+{
+  "parents": {
+    "U0": {
+      "arm": "U0",
+      "status": "COMPLETE",
+      "source": "f94be07a8a3db1c062035a9bc2e542af9d4b156b",
+      "successful_updates": 5300
+    },
+    "L05": {
+      "arm": "L05",
+      "status": "COMPLETE",
+      "source": "f94be07a8a3db1c062035a9bc2e542af9d4b156b",
+      "successful_updates": 5300
+    },
+    "L10": {
+      "arm": "L10",
+      "status": "COMPLETE",
+      "source": "f94be07a8a3db1c062035a9bc2e542af9d4b156b",
+      "successful_updates": 5300
+    },
+    "E_R1": {
+      "arm": "E_R1",
+      "status": "COMPLETE",
+      "source": "f94be07a8a3db1c062035a9bc2e542af9d4b156b",
+      "successful_updates": 5300
+    }
+  },
+  "children": {
+    "U0": {
+      "deploy_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.deploy",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage2/student_latest.pt",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE"
+        ],
+        "pid": 2617086,
+        "exit_code": 0,
+        "started_unix": 1788789389.4386554,
+        "finished_unix": 1788789392.8006554,
+        "cuda_visible_devices": "4"
+      },
+      "stage1_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage1/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage1/val.json"
+        ],
+        "pid": 2614498,
+        "exit_code": 0,
+        "started_unix": 1788789049.5243404,
+        "finished_unix": 1788789054.616675,
+        "cuda_visible_devices": "4"
+      },
+      "stage1_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage1",
+          "--arm",
+          "U0",
+          "--stage",
+          "1",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_scd_v0_1_20260908_01/run_01/common/stage0/student_latest.pt"
+        ],
+        "pid": 2609484,
+        "exit_code": 0,
+        "started_unix": 1788788554.0417452,
+        "finished_unix": 1788789049.5212166,
+        "cuda_visible_devices": "4"
+      },
+      "stage2_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage2/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage2/val.json"
+        ],
+        "pid": 2616891,
+        "exit_code": 0,
+        "started_unix": 1788789383.587109,
+        "finished_unix": 1788789389.4351847,
+        "cuda_visible_devices": "4"
+      },
+      "stage2_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage2",
+          "--arm",
+          "U0",
+          "--stage",
+          "2",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/U0/stage1/student_latest.pt"
+        ],
+        "pid": 2614697,
+        "exit_code": 0,
+        "started_unix": 1788789054.6196795,
+        "finished_unix": 1788789383.5842884,
+        "cuda_visible_devices": "4"
+      }
+    },
+    "L05": {
+      "deploy_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.deploy",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage2/student_latest.pt",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE"
+        ],
+        "pid": 2614060,
+        "exit_code": 0,
+        "started_unix": 1788789033.082546,
+        "finished_unix": 1788789036.5582054,
+        "cuda_visible_devices": "5"
+      },
+      "stage1_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage1/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage1/val.json"
+        ],
+        "pid": 2612037,
+        "exit_code": 0,
+        "started_unix": 1788788833.519132,
+        "finished_unix": 1788788839.48699,
+        "cuda_visible_devices": "5"
+      },
+      "stage1_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage1",
+          "--arm",
+          "L05",
+          "--stage",
+          "1",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_scd_v0_1_20260908_01/run_01/common/stage0/student_latest.pt"
+        ],
+        "pid": 2609485,
+        "exit_code": 0,
+        "started_unix": 1788788554.042618,
+        "finished_unix": 1788788833.5171113,
+        "cuda_visible_devices": "5"
+      },
+      "stage2_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage2/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage2/val.json"
+        ],
+        "pid": 2613720,
+        "exit_code": 0,
+        "started_unix": 1788789027.1949463,
+        "finished_unix": 1788789033.079697,
+        "cuda_visible_devices": "5"
+      },
+      "stage2_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage2",
+          "--arm",
+          "L05",
+          "--stage",
+          "2",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L05/stage1/student_latest.pt"
+        ],
+        "pid": 2612311,
+        "exit_code": 0,
+        "started_unix": 1788788839.4893723,
+        "finished_unix": 1788789027.192225,
+        "cuda_visible_devices": "5"
+      }
+    },
+    "L10": {
+      "deploy_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.deploy",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage2/student_latest.pt",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE"
+        ],
+        "pid": 2614131,
+        "exit_code": 0,
+        "started_unix": 1788789034.6231885,
+        "finished_unix": 1788789038.3033664,
+        "cuda_visible_devices": "6"
+      },
+      "stage1_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage1/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage1/val.json"
+        ],
+        "pid": 2611973,
+        "exit_code": 0,
+        "started_unix": 1788788833.4278595,
+        "finished_unix": 1788788839.3931324,
+        "cuda_visible_devices": "6"
+      },
+      "stage1_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage1",
+          "--arm",
+          "L10",
+          "--stage",
+          "1",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_scd_v0_1_20260908_01/run_01/common/stage0/student_latest.pt"
+        ],
+        "pid": 2609486,
+        "exit_code": 0,
+        "started_unix": 1788788554.0431268,
+        "finished_unix": 1788788833.422641,
+        "cuda_visible_devices": "6"
+      },
+      "stage2_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage2/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage2/val.json"
+        ],
+        "pid": 2613824,
+        "exit_code": 0,
+        "started_unix": 1788789029.2641976,
+        "finished_unix": 1788789034.6203332,
+        "cuda_visible_devices": "6"
+      },
+      "stage2_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage2",
+          "--arm",
+          "L10",
+          "--stage",
+          "2",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/ablations/L10/stage1/student_latest.pt"
+        ],
+        "pid": 2612310,
+        "exit_code": 0,
+        "started_unix": 1788788839.3959043,
+        "finished_unix": 1788789029.2611814,
+        "cuda_visible_devices": "6"
+      }
+    },
+    "E_R1": {
+      "deploy_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.deploy",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage2/student_latest.pt",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE"
+        ],
+        "pid": 2672904,
+        "exit_code": 0,
+        "started_unix": 1788793632.9996967,
+        "finished_unix": 1788793636.3832452,
+        "cuda_visible_devices": "7"
+      },
+      "stage1_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage1/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage1/val.json"
+        ],
+        "pid": 2629549,
+        "exit_code": 0,
+        "started_unix": 1788790134.3836155,
+        "finished_unix": 1788790142.0017579,
+        "cuda_visible_devices": "7"
+      },
+      "stage1_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage1",
+          "--arm",
+          "E_R1",
+          "--stage",
+          "1",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_scd_v0_1_20260908_01/run_01/common/stage0/student_latest.pt"
+        ],
+        "pid": 2610209,
+        "exit_code": 0,
+        "started_unix": 1788788564.2425687,
+        "finished_unix": 1788790134.3804355,
+        "cuda_visible_devices": "7"
+      },
+      "stage2_eval_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_v0_1.evaluate",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--checkpoint",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage2/student_latest.pt",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage2/val.json"
+        ],
+        "pid": 2672724,
+        "exit_code": 0,
+        "started_unix": 1788793626.9779274,
+        "finished_unix": 1788793632.9971142,
+        "cuda_visible_devices": "7"
+      },
+      "stage2_train_exit.json": {
+        "command": [
+          "/home/jiangsuiyang/anaconda3/envs/py38/bin/python",
+          "-m",
+          "experiments.lcrseg.single_teacher_scd_r1.engine",
+          "--data",
+          "/home/jiangsuiyang/SSL_CL",
+          "--reference",
+          "/home/jiangsuiyang/SSL_CL/code/SSL_CL_seg/experiments/lcrseg/third_party/JASCL_REFERENCE",
+          "--output",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage2",
+          "--arm",
+          "E_R1",
+          "--stage",
+          "2",
+          "--parent",
+          "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/single_teacher_r1_20260908_01/E_run/E_R1/stage1/student_latest.pt"
+        ],
+        "pid": 2629806,
+        "exit_code": 0,
+        "started_unix": 1788790142.004896,
+        "finished_unix": 1788793626.9746778,
+        "cuda_visible_devices": "7"
+      }
+    }
+  },
+  "timings": {
+    "U0": {
+      "parent_span_seconds": 838.7589101791382,
+      "train_process_seconds": 824.4440803527832,
+      "eval_and_deploy_process_seconds": 14.302410125732422
+    },
+    "L05": {
+      "parent_span_seconds": 482.5155873298645,
+      "train_process_seconds": 467.17734599113464,
+      "eval_and_deploy_process_seconds": 15.328268051147461
+    },
+    "L10": {
+      "parent_span_seconds": 484.26023960113525,
+      "train_process_seconds": 469.24479126930237,
+      "eval_and_deploy_process_seconds": 15.001586437225342
+    },
+    "E_R1": {
+      "parent_span_seconds": 5072.140676498413,
+      "train_process_seconds": 5055.107648611069,
+      "eval_and_deploy_process_seconds": 17.020877599716187
+    }
+  },
+  "parallel_formal_start_utc": "2026-09-07T13:42:34.041745+00:00",
+  "parallel_formal_end_utc": "2026-09-07T15:07:16.383245+00:00",
+  "parallel_formal_wall_seconds": 5082.341500043869,
+  "timing_note": "Includes actual changing co-resident GPU load. Epoch sums, process duration, qualification cost and parallel wall time are distinct."
+}
