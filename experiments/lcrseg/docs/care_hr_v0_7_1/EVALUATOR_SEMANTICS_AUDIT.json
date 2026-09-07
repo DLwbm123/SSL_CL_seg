@@ -1,0 +1,217 @@
+{
+  "actual_audit_process_exit_code": 2,
+  "call_path": "ppc_shor_v0_6b -> ppc_shor_v0_6a.v4.case_metrics",
+  "differences": [
+    "union foreground versus macro foreground target",
+    "GT=255 ignored by frozen V0.6B scorer but not V0.7 target helper",
+    "all-invalid image can produce spurious gain in V0.7 target helper"
+  ],
+  "matching_rule": "both return Dice=1 for a class with zero prediction and truth support",
+  "model_forwards": 0,
+  "new_scoring_rule_selected": false,
+  "real_GT_reads": 0,
+  "source_commit": "c98a4e8e46d133d1b51360410c43873a2c283de0",
+  "sources": [
+    {
+      "file_sha256": "67439227b900c3d4ed0a147a61c783827cc5015d7c8b1325a78dad6bbb9e0b01",
+      "functions": {
+        "_dice": {
+          "end_line": 13,
+          "line": 9
+        },
+        "proposal_targets": {
+          "end_line": 30,
+          "line": 16
+        }
+      },
+      "path": "care_hr_v0_7/targets.py"
+    },
+    {
+      "file_sha256": "7b62332879985d831efdb90fa50a3f303a6e86bd1d97a04c59b451ca1a6fd997",
+      "functions": {
+        "case_metrics": {
+          "end_line": 397,
+          "line": 381
+        }
+      },
+      "path": "shor_v0_4_test.py"
+    }
+  ],
+  "status": "BLOCKED_EVALUATOR_SEMANTICS_MISMATCH",
+  "witnesses": [
+    {
+      "current": [
+        [
+          1,
+          1,
+          2,
+          2
+        ]
+      ],
+      "name": "required_macro_counterexample",
+      "revised": [
+        [
+          1,
+          2,
+          2,
+          2
+        ]
+      ],
+      "synthetic_only": true,
+      "truth": [
+        [
+          1,
+          2,
+          2,
+          2
+        ]
+      ],
+      "v0_6b_after": {
+        "cup_dice": 1.0,
+        "foreground_dice": 1.0,
+        "mean_iou": 1.0,
+        "rim_dice": 1.0
+      },
+      "v0_6b_before": {
+        "cup_dice": 0.8,
+        "foreground_dice": 0.7333333333333334,
+        "mean_iou": 0.7222222222222222,
+        "rim_dice": 0.6666666666666666
+      },
+      "v0_6b_gain_macro_fg": 0.2666666666666666,
+      "v0_6b_gain_rim": 0.33333333333333337,
+      "v0_7_targets": {
+        "gain_cup": 0.19999999999999996,
+        "gain_fg": 0.0,
+        "gain_rim": 0.33333333333333337,
+        "harm": 0.0
+      }
+    },
+    {
+      "current": [
+        [
+          1,
+          0
+        ]
+      ],
+      "name": "ignore_pixel",
+      "revised": [
+        [
+          1,
+          1
+        ]
+      ],
+      "synthetic_only": true,
+      "truth": [
+        [
+          1,
+          255
+        ]
+      ],
+      "v0_6b_after": {
+        "cup_dice": 1.0,
+        "foreground_dice": 1.0,
+        "mean_iou": 1.0,
+        "rim_dice": 1.0
+      },
+      "v0_6b_before": {
+        "cup_dice": 1.0,
+        "foreground_dice": 1.0,
+        "mean_iou": 1.0,
+        "rim_dice": 1.0
+      },
+      "v0_6b_gain_macro_fg": 0.0,
+      "v0_6b_gain_rim": 0.0,
+      "v0_7_targets": {
+        "gain_cup": 0.0,
+        "gain_fg": -0.33333333333333337,
+        "gain_rim": -0.33333333333333337,
+        "harm": 0.33333333333333337
+      }
+    },
+    {
+      "current": [
+        [
+          1,
+          1
+        ]
+      ],
+      "name": "all_pixels_ignored",
+      "revised": [
+        [
+          0,
+          0
+        ]
+      ],
+      "synthetic_only": true,
+      "truth": [
+        [
+          255,
+          255
+        ]
+      ],
+      "v0_6b_after": {
+        "cup_dice": 1.0,
+        "foreground_dice": 1.0,
+        "mean_iou": 1.0,
+        "rim_dice": 1.0
+      },
+      "v0_6b_before": {
+        "cup_dice": 1.0,
+        "foreground_dice": 1.0,
+        "mean_iou": 1.0,
+        "rim_dice": 1.0
+      },
+      "v0_6b_gain_macro_fg": 0.0,
+      "v0_6b_gain_rim": 0.0,
+      "v0_7_targets": {
+        "gain_cup": 0.0,
+        "gain_fg": 1.0,
+        "gain_rim": 1.0,
+        "harm": 0.0
+      }
+    },
+    {
+      "current": [
+        [
+          1,
+          1
+        ]
+      ],
+      "name": "empty_cup_noop",
+      "revised": [
+        [
+          1,
+          1
+        ]
+      ],
+      "synthetic_only": true,
+      "truth": [
+        [
+          1,
+          1
+        ]
+      ],
+      "v0_6b_after": {
+        "cup_dice": 1.0,
+        "foreground_dice": 1.0,
+        "mean_iou": 1.0,
+        "rim_dice": 1.0
+      },
+      "v0_6b_before": {
+        "cup_dice": 1.0,
+        "foreground_dice": 1.0,
+        "mean_iou": 1.0,
+        "rim_dice": 1.0
+      },
+      "v0_6b_gain_macro_fg": 0.0,
+      "v0_6b_gain_rim": 0.0,
+      "v0_7_targets": {
+        "gain_cup": 0.0,
+        "gain_fg": 0.0,
+        "gain_rim": 0.0,
+        "harm": 0.0
+      }
+    }
+  ]
+}

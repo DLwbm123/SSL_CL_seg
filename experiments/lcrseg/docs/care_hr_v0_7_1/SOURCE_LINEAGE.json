@@ -1,0 +1,138 @@
+{
+  "actual_GT_inputs": [],
+  "actual_private_input_allowlist": null,
+  "base_commit": "61c1e302fae515fe51adf4e777887a1a489859be",
+  "branch": "codex/care-hr-v0-7-1-capacity-audit",
+  "expected_private_inputs_NOT_VERIFIED": {
+    "C6_route": {
+      "population": 198,
+      "route_count": 155,
+      "route_frequency": 0.7828282828282829,
+      "route_sha256": "c03c457d0b5ab7a529dd8ec07076b06c2fe41a22e7439265f24ab046687a41e7"
+    },
+    "baseline_snapshot_manifest": {
+      "path": "experiments/lcrseg/docs/di_dmpa_jascl/BASELINE_V3_CHECKPOINT_MANIFEST.json",
+      "sha256": "e6d3c833865a3c6773d28851c11e7da48b6496661eac34e34478ff01714a6f1d"
+    },
+    "frozen_shor_threshold_manifest": {
+      "path": "SHOR_OOF_THRESHOLD_MANIFEST.json",
+      "sha256": "a2ca127605d94e01a3f70da8477974d5cfde43230930a0dc5e1f94282621a8c4"
+    },
+    "population": {
+      "current": "B0 seed stage2 expert",
+      "generalization_claim_allowed": false,
+      "gt_role": "own-seed train_labeled only",
+      "patients": 177,
+      "rows": 198,
+      "rows_per_seed": [
+        66,
+        66,
+        66
+      ],
+      "seeds": [
+        0,
+        1,
+        2
+      ],
+      "stage": 2
+    },
+    "probability_cache_sha256": {
+      "seed0_expert0": "f7bb0bd9a3d5673d7cd02e189bfddbd17063b42d1360e65a7e57e17749872131",
+      "seed0_expert1": "6a5792b62266de740347ca88d09dc48a44d1f51a926dcd95f2ae943942ded43a",
+      "seed0_expert2": "3e335538961f7b378dd29fa5072a01f76ee26ed009abec46e4dad7a870e921f3",
+      "seed1_expert0": "f417d84876908bdc80f7f7b7d0e9799cde72dff3f35a68e9bc267b2a61ae98be",
+      "seed1_expert1": "e8f1d996176f03bcecec32f4f9136546ab1557e6eab73a23d00047e811a93eea",
+      "seed1_expert2": "130bfe302bf2e15a40d2fa69c297c5888723b70af66e5940e5e819f66c480658",
+      "seed2_expert0": "8fffd45b4ba423c6221cf1bf5eed8a72b76b4af27b99b94bffdd5fee30f77372",
+      "seed2_expert1": "97fa0adced45c469b1e702493f5899c5335896a32f8bfba8eb8e997008921c31",
+      "seed2_expert2": "e65c8cbfa3e4d6831738019a22d64d76f00d5469917d811996c40f6eecdfc1bc"
+    },
+    "seed_manifests": [
+      {
+        "seed": 0,
+        "sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3"
+      },
+      {
+        "seed": 1,
+        "sha256": "d5d2913054bc96f13b2baec0f21109a7da92c1a2f5b07f0cde234b35bbfd92a9"
+      },
+      {
+        "seed": 2,
+        "sha256": "78379dc43035259f41b0f598e0bda25a31e68b15600bb611758ccc61cd2a0727"
+      }
+    ],
+    "stage2_oof": [
+      {
+        "bytes": 10566,
+        "path": "oof_cache/seed0_stage2.npz",
+        "seed": 0,
+        "sha256": "1be15e15c43b31ac638ce9f0fd83a32af2313824a324fc575f92b452c2fa005d"
+      },
+      {
+        "bytes": 10557,
+        "path": "oof_cache/seed1_stage2.npz",
+        "seed": 1,
+        "sha256": "78c138ee4f4a1b21807196cd2bb70050c226cae5e2c8671af40c59c627402402"
+      },
+      {
+        "bytes": 10564,
+        "path": "oof_cache/seed2_stage2.npz",
+        "seed": 2,
+        "sha256": "edbc517aa28f2572bcd621fc1f04fb9655c6c28406fc223bd760433863244899"
+      }
+    ]
+  },
+  "historical_public_control_references_NOT_NEW_RESULTS": {
+    "current_B0_stage2": {
+      "cup_dice": 0.6133398609106141,
+      "foreground_dice": 0.6016731401004847,
+      "mean_iou": 0.6410333093069934,
+      "origin": "historical public reference, NOT_RECOMPUTED_THIS_ROUND",
+      "rim_dice": 0.590006419290355
+    },
+    "frozen_PPC_C6": {
+      "cup_dice": 0.7814541433009166,
+      "foreground_dice": 0.802187012880861,
+      "mean_iou": 0.7966557209696066,
+      "origin": "historical public reference, NOT_RECOMPUTED_THIS_ROUND",
+      "rim_dice": 0.8229198824608054
+    },
+    "frozen_Ridge_hard": {
+      "cup_dice": 0.7862204244619995,
+      "foreground_dice": 0.8156293208569301,
+      "mean_iou": 0.8064013169687628,
+      "origin": "historical public reference, NOT_RECOMPUTED_THIS_ROUND",
+      "rim_dice": 0.8450382172518605
+    },
+    "frozen_SHOR": {
+      "cup_dice": 0.7832340168247586,
+      "foreground_dice": 0.8052579174291238,
+      "mean_iou": 0.7986746918496165,
+      "origin": "historical public reference, NOT_RECOMPUTED_THIS_ROUND",
+      "rim_dice": 0.8272818180334889
+    }
+  },
+  "private_absolute_paths_published": false,
+  "private_patient_identifiers_published": false,
+  "public_protocol_files": [
+    {
+      "path": "experiments/lcrseg/docs/ppc_shor_v0_6b/PPC_SHOR_V0_6B_PREREGISTRATION.json",
+      "sha256": "7730982c377b2c1b30c29c0734a6b0f172f960d661d91da6882aa43decded498"
+    },
+    {
+      "path": "experiments/lcrseg/docs/ppc_shor_v0_6b/PPC_SHOR_V0_6B_STATUS.json",
+      "sha256": "2167c4dc577bf53cd31e787d10bd4248037ab2db57142bbbb12502076168f5ae"
+    },
+    {
+      "path": "experiments/lcrseg/docs/ppc_shor_v0_6b/PPC_SHOR_V0_6B_MANIFEST.json",
+      "sha256": "7eacca94d2951a3dffa3c95908e530b251dd3b28ced024bd0f50953cfd9388bc"
+    },
+    {
+      "path": "experiments/lcrseg/docs/care_hr_v0_7_review/CARE_HR_V0_7_REVIEW_LOCK.json",
+      "sha256": "8f0d8ccad330346bc15f3e8d642d3b4ea4bb6500ed86f43fc6cc1dc740fe51d4"
+    }
+  ],
+  "repository": "https://github.com/DLwbm123/SSL_CL_seg",
+  "server_verified_source_commit": "c98a4e8e46d133d1b51360410c43873a2c283de0",
+  "source_commit": "c98a4e8e46d133d1b51360410c43873a2c283de0"
+}
