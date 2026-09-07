@@ -1,0 +1,32 @@
+{
+  "A1_test_gap": "Synthetic HDF5 fixtures used the same incorrect root-relative layout; A1 did not catch missing inherited h5/v1 path binding.",
+  "GT_reads_raw_counter_interpretation": "1 is incremented before read_bytes, so it counts the failed attempt, not a successful read",
+  "baseline_comparisons_completed": 0,
+  "case_metrics_completed": 0,
+  "code_changed_after_domain_access": false,
+  "cohort_frozen_patients": 177,
+  "cohort_frozen_rows": 198,
+  "defective_expression": "safe_path(DATA, row[label_h5_relpath])",
+  "domain_reads_raw_counter_interpretation": "1 counts processed loop rows. Seed-0 projected dataframe materialized the 66 admitted rows before iteration. No other-seed dataframe was created.",
+  "execution_retried_after_terminal": false,
+  "expected_asset_stat_only": {
+    "bytes": 12489,
+    "exists": true,
+    "payload_opened": false
+  },
+  "failed_real_GT_file_open_attempts": 1,
+  "fault_owner": "R1 executor implementation",
+  "input_substitution": false,
+  "not_a_scoring_semantics_conflict": true,
+  "not_evidence_of_missing_frozen_dataset": true,
+  "oracle_rows_completed": 0,
+  "original_required_binding": "di_dmpa_gate1.binding.safe_asset(DATA, relative) = DATA / h5/v1 / relative",
+  "private_traceback_sha256": "104b0a1ad954b5c5997f542b1c4afd422de88a4d973d684bd994a1e8351363f3",
+  "raw_status_rows_patients_interpretation": "rows=1 and patients=1 are the revealed bookkeeping entry, not a completed evaluated cohort",
+  "reason": "FROZEN_EXECUTOR_ASSET_PATH_BINDING_ERROR",
+  "successful_real_GT_file_reads": 0,
+  "terminal_state": "INCOMPLETE_EVALUATION",
+  "traceback_publication": "redacted case-bearing path; exact log retained privately on NAS",
+  "true_domain_records_materialized": 66,
+  "true_domain_rows_processed_before_stop": 1
+}
