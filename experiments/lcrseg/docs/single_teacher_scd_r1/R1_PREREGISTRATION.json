@@ -1,0 +1,30 @@
+{
+  "base_commit": "bd29494153aa0175b5b52d360f87a44255293d9f",
+  "branch": "codex/single-teacher-r1-effectiveness-ablation",
+  "configuration": "experiments/lcrseg/single_teacher_scd_r1/config.json",
+  "protocol": "R1_AUTHORIZED_PROTOCOL.md",
+  "R1": {
+    "arms": [
+      "U0",
+      "L05",
+      "L10"
+    ],
+    "conditional_arm": "E_R1",
+    "new_ablation_updates": 15900,
+    "conditional_E_updates": 5300,
+    "total_new_limit": 21200,
+    "old_formal_attempts": 36008,
+    "solver_iterations": 64,
+    "solver_coordinate": "log1p(scaled eta)",
+    "solver_block": 65536,
+    "residual_tolerance": 1e-09,
+    "unchanged_target_tolerance": 1e-09,
+    "high_precision_target_atol": 1e-10,
+    "gpu_cpu_target_atol": 1e-09,
+    "real_diagnostic_update_limit": 8,
+    "planned_real_replay_updates": 3,
+    "numeric_diagnostic_epochs": "5,10,...,100",
+    "no_extra_seeds": true
+  },
+  "validation_feedback_used_for_changes": false
+}
