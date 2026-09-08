@@ -1,0 +1,87 @@
+{
+  "protocol": "L05_SSL factorial and fixed-split optimization-seed replication",
+  "base_commit": "f2c7bd366cf9bdf80ae52c35798ece6be2e3a60d",
+  "data_split_seed": 0,
+  "optimization_seeds": [
+    0,
+    1,
+    2
+  ],
+  "recipes": {
+    "S": {
+      "use_unlabeled_images": false,
+      "use_pseudo_ce": false,
+      "use_unlabeled_kd": false,
+      "labeled_kd": 0.0
+    },
+    "L05": {
+      "use_unlabeled_images": false,
+      "use_pseudo_ce": false,
+      "use_unlabeled_kd": false,
+      "labeled_kd": 0.5
+    },
+    "L05_SSL": {
+      "use_unlabeled_images": true,
+      "use_pseudo_ce": true,
+      "use_unlabeled_kd": false,
+      "labeled_kd": 0.5
+    }
+  },
+  "epochs": 100,
+  "updates_per_stage": [
+    8000,
+    3200,
+    2100
+  ],
+  "lambda_u": ".5*min(1,max(0,(epoch-10)/10))",
+  "random_stream": "replace the leading 0 only with optimization_seed in frozen stable_seed and batch seed_parts; arm excluded; seed0 mapping unchanged",
+  "upstream_import": "For seeds1/2 preload official classifier before initialization RNG context to avoid its import-time seed reset; seed0 retains original initialization behavior.",
+  "P_GATE": {
+    "F_vs_L05": 0.01,
+    "H_vs_L05": -0.01,
+    "current_macro_vs_S": -0.01,
+    "current_class_vs_S": -0.02
+  },
+  "replication": {
+    "seeds": [
+      1,
+      2
+    ],
+    "each_F_strictly_positive": true,
+    "mean_F": 0.01,
+    "L05_mean_H": 0.0,
+    "SSL_mean_H": -0.01,
+    "current_macro": -0.01,
+    "current_class": -0.02
+  },
+  "budget": {
+    "P1": 5300,
+    "P2": 37200,
+    "P3_if_admitted": 10600,
+    "base": 42500,
+    "limit": 53100,
+    "old_formal": 57208
+  },
+  "lanes": {
+    "P1": 4,
+    "seed1": 5,
+    "seed2": 6
+  },
+  "minimum_free_mib": 3072,
+  "nas_capacity_reservation_bytes": 5368709120,
+  "extra_val_pas_diagnostic": false,
+  "pseudo_label_precision": "NOT_EVALUATED; optional posterior PAS val diagnostic not executed",
+  "forbidden": [
+    "teacher U forward",
+    "U KD",
+    "SCD solver calls",
+    "EMA",
+    "third complete model",
+    "test",
+    "hidden train-U GT",
+    "historical train replay",
+    "data split seed1/2",
+    "tuning",
+    "main merge"
+  ]
+}
