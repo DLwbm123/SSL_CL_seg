@@ -1,73 +1,240 @@
 {
-  "status": "RUNNING_STARTUP_VERIFIED",
-  "parent_pid": 2947011,
-  "source": "53075d055cc78a10b03e6b1da4ca2b436c9a1cf7",
-  "run_id": "l05_ssl_replication_20260908_01",
-  "nas_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/l05_ssl_replication_20260908_01",
-  "observed_unix": 1788833429.803796,
-  "tasks": [
-    {
-      "optimization_seed": 0,
-      "arm": "L05_SSL",
-      "stage": 1,
-      "log": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/l05_ssl_replication_20260908_01/optimization_seed0/L05_SSL/stage1_train.log",
-      "latest_epoch": {
-        "arm": "D",
-        "stage": 1,
-        "epoch": 17,
-        "steps": 544,
-        "seconds": 4.471974759944715
-      },
-      "gpu": {
-        "status": "READY",
-        "gpu": 4,
-        "free_mib": 24124,
-        "required_mib": 3072,
-        "wait_seconds": 0.10522603988647461
-      }
+  "engineering": "COMPLETE",
+  "gates": {
+    "P_GATE": {
+      "kind": "P_GATE",
+      "status": "NOT_ADMITTED_BY_FROZEN_GATE",
+      "passed": false,
+      "entries": [
+        {
+          "gate": "F_vs_L05",
+          "value": -0.06874891833469954,
+          "threshold": 0.01,
+          "strict": false,
+          "passed": false
+        },
+        {
+          "gate": "H_vs_L05",
+          "value": -0.08835878433292799,
+          "threshold": -0.01,
+          "strict": false,
+          "passed": false
+        },
+        {
+          "gate": "seed0_stage1_macro_fg_dice_vs_S",
+          "value": -0.00257103872135489,
+          "threshold": -0.01,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed0_stage1_rim_dice_vs_S",
+          "value": 0.007442103191563576,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed0_stage1_cup_dice_vs_S",
+          "value": -0.012584180634273245,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed0_stage2_macro_fg_dice_vs_S",
+          "value": -0.006573522065240089,
+          "threshold": -0.01,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed0_stage2_rim_dice_vs_S",
+          "value": -0.013874330208551666,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed0_stage2_cup_dice_vs_S",
+          "value": 0.0007272860780714874,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "engineering",
+          "value": 1,
+          "threshold": 1,
+          "strict": false,
+          "passed": true
+        }
+      ],
+      "paired_differences": [
+        {
+          "seed": 0,
+          "F": -0.06874891833469954,
+          "H": -0.08835878433292799,
+          "N": -0.022031854180701638,
+          "BWT": -0.08109152332134761,
+          "forgetting_REFUGE": 0.06949348357868801,
+          "forgetting_RIM_ONE_r3": 0.09268956306400716
+        }
+      ],
+      "source": "53075d055cc78a10b03e6b1da4ca2b436c9a1cf7"
     },
-    {
-      "optimization_seed": 1,
-      "arm": "common",
-      "stage": 0,
-      "log": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/l05_ssl_replication_20260908_01/optimization_seed1/common/stage0_train.log",
-      "latest_epoch": {
-        "arm": "common",
-        "stage": 0,
-        "epoch": 13,
-        "steps": 1040,
-        "seconds": 5.694318342022598
-      },
-      "gpu": {
-        "status": "READY",
-        "gpu": 5,
-        "free_mib": 24124,
-        "required_mib": 3072,
-        "wait_seconds": 0.14782118797302246
-      }
+    "L05_replication": {
+      "kind": "L05_REPLICATION",
+      "status": "NOT_ESTABLISHED",
+      "passed": false,
+      "entries": [
+        {
+          "gate": "seed1_F_positive",
+          "value": 0.007136805006307645,
+          "threshold": 0.0,
+          "strict": true,
+          "passed": true
+        },
+        {
+          "gate": "seed1_stage1_macro_fg_dice_vs_S",
+          "value": 0.003075222345541029,
+          "threshold": -0.01,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed1_stage1_rim_dice_vs_S",
+          "value": 0.00013857260329486198,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed1_stage1_cup_dice_vs_S",
+          "value": 0.006011872087787529,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed1_stage2_macro_fg_dice_vs_S",
+          "value": 0.013678333947986898,
+          "threshold": -0.01,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed1_stage2_rim_dice_vs_S",
+          "value": 0.019052189817305276,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed1_stage2_cup_dice_vs_S",
+          "value": 0.00830447807866852,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed2_F_positive",
+          "value": -0.04153865071980034,
+          "threshold": 0.0,
+          "strict": true,
+          "passed": false
+        },
+        {
+          "gate": "seed2_stage1_macro_fg_dice_vs_S",
+          "value": 0.01771044929689891,
+          "threshold": -0.01,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed2_stage1_rim_dice_vs_S",
+          "value": 0.00011804202294651844,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed2_stage1_cup_dice_vs_S",
+          "value": 0.035302856570851304,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed2_stage2_macro_fg_dice_vs_S",
+          "value": 0.0031614992973371114,
+          "threshold": -0.01,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed2_stage2_rim_dice_vs_S",
+          "value": 0.004464623605163087,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "seed2_stage2_cup_dice_vs_S",
+          "value": 0.0018583749895110246,
+          "threshold": -0.02,
+          "strict": false,
+          "passed": true
+        },
+        {
+          "gate": "paired_F_mean",
+          "value": -0.017200922856746348,
+          "threshold": 0.01,
+          "strict": false,
+          "passed": false
+        },
+        {
+          "gate": "paired_H_mean",
+          "value": -0.03001134259645058,
+          "threshold": 0.0,
+          "strict": false,
+          "passed": false
+        },
+        {
+          "gate": "engineering",
+          "value": 1,
+          "threshold": 1,
+          "strict": false,
+          "passed": true
+        }
+      ],
+      "paired_differences": [
+        {
+          "seed": 1,
+          "F": 0.007136805006307645,
+          "H": 0.0038660405354679073,
+          "N": 0.008376778146763963,
+          "BWT": 0.0023284293626973374,
+          "forgetting_REFUGE": 0.005853036068224959,
+          "forgetting_RIM_ONE_r3": -0.01050989479361969
+        },
+        {
+          "seed": 2,
+          "F": -0.04153865071980034,
+          "H": -0.06388872572836907,
+          "N": 0.010435974297117956,
+          "BWT": -0.07274395037681847,
+          "forgetting_REFUGE": 0.05075524177241342,
+          "forgetting_RIM_ONE_r3": 0.09473265898122352
+        }
+      ]
     },
-    {
-      "optimization_seed": 2,
-      "arm": "common",
-      "stage": 0,
-      "log": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/l05_ssl_replication_20260908_01/optimization_seed2/common/stage0_train.log",
-      "latest_epoch": {
-        "arm": "common",
-        "stage": 0,
-        "epoch": 13,
-        "steps": 1040,
-        "seconds": 5.677245395025238
-      },
-      "gpu": {
-        "status": "READY",
-        "gpu": 6,
-        "free_mib": 24124,
-        "required_mib": 3072,
-        "wait_seconds": 0.13729405403137207
-      }
+    "SSL_replication": {
+      "status": "NOT_ADMITTED_BY_FROZEN_GATE",
+      "passed": false
     }
-  ],
-  "formal_results_complete": false,
-  "background_dependency_graph": "P1 seed0 SSL; mandatory seed1/2 common+S+L05; sealed P_GATE alone admits SSL seed1/2",
-  "codex_monitor_created": false
+  },
+  "source": "53075d055cc78a10b03e6b1da4ca2b436c9a1cf7",
+  "old_states_unchanged": true,
+  "stopped": true
 }
