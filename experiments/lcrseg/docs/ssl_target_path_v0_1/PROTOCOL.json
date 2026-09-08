@@ -1,0 +1,121 @@
+{
+  "base": "60843e85c110f31863299639822b080cf4c4ba9b",
+  "branch": "codex/ssl-teacher-target-path-v0-1",
+  "data_split_seed": 0,
+  "optimization_seeds": [
+    31,
+    32,
+    33
+  ],
+  "domains": {
+    "RIM_ONE_r3": {
+      "labeled": 16,
+      "unlabeled": 63,
+      "val": 40,
+      "steps": 32,
+      "updates": 3200
+    },
+    "Drishti_GS": {
+      "labeled": 10,
+      "unlabeled": 41,
+      "val": 25,
+      "steps": 21,
+      "updates": 2100
+    }
+  },
+  "arms": [
+    "SUP",
+    "J_MSE",
+    "T_MSE",
+    "J_SCE",
+    "T_SCE"
+  ],
+  "main_candidate": "T_SCE",
+  "all_seeds_unconditionally_admitted": true,
+  "total_tasks": 30,
+  "formal_updates": 79500,
+  "previous_formal_updates": 168608,
+  "historical_total": 248108,
+  "epochs": 100,
+  "batch_size": 2,
+  "drop_last": false,
+  "lr": 0.001,
+  "lr_power": 0.9,
+  "Adam": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05
+  },
+  "EMA": 0.99,
+  "head_mode": "raw_linear3_same_geometry",
+  "confidence": 0.7,
+  "strict_greater": true,
+  "lambda_cons": "0.5*min(1,max(0,(epoch-20)/20))",
+  "input_noise": 0.02,
+  "augmentation": "paired H/V flip each0.5 and rot90; student U Gaussian noise only",
+  "U_warmup_access": false,
+  "SUP_U_access": false,
+  "prototype": false,
+  "GAS": false,
+  "head_search": false,
+  "masks": {
+    "J": "geometry & teacher_pmax>0.7 & detached_student_pmax>0.7",
+    "T": "geometry & teacher_pmax>0.7"
+  },
+  "losses": {
+    "MSE": "sum(mask*sum_class((p-q)^2))/max(mask.sum,1)",
+    "SCE": "-sum(mask*sum_class(q*log_softmax(z)))/max(mask.sum,1)",
+    "target_entropy": "-sum(mask*sum_class(xlogy(q,q)))/max(mask.sum,1)",
+    "KL": "SCE-target_entropy",
+    "q": "detached EMA probability at temperature1"
+  },
+  "diagnostic_epochs": [
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "diagnostic_clean_draws": 1,
+  "diagnostic_training_draws": 4,
+  "diagnostic_snapshots": 150,
+  "diagnostic_near_equal_L1": 1e-06,
+  "diagnostic_GT_use": "post-seal correctness and local CE direction only; no backward",
+  "diagnostic_extra_real_backward": 0,
+  "bootstrap": "not performed; three-seed sample SD/range and fixed-cohort summaries reported; optional patient bootstrap is not a retraining confidence interval",
+  "GPUs": [
+    4,
+    5,
+    6
+  ],
+  "minimum_free_mib": 4096,
+  "qualification_synthetic_update_cap": 1000,
+  "qualification_per_attempt_cap": 200,
+  "real_smoke_update_cap": 10,
+  "real_smoke": "five recipes per domain, exactly one update each; first two sorted train-labeled images with labels removed for pseudo-U; separate initialization",
+  "gates": {
+    "mean_gain_SUP_min": 0.01,
+    "each_seed_gain_SUP_strictly_positive": true,
+    "mean_gain_J_MSE_min": 0.005,
+    "seed_domain_gain_SUP_min": -0.005,
+    "seed_domain_class_gain_SUP_min": -0.02,
+    "complete_tasks": 30,
+    "complete_snapshots": 150,
+    "complete_deployments": 30
+  },
+  "deployment": "epoch100 current student only; head_mode required; no teacher/prototype dependency",
+  "forbidden": [
+    "test/hidden GT",
+    "old formal_03",
+    "historical replay",
+    "best checkpoint selection",
+    "main merge",
+    "post-hoc tuning",
+    "CL",
+    "additional models"
+  ],
+  "protocol_sha": "cbb78b3cccd74df0792b61a26e4462e14f92966f6b15de654944be3b6a0e51ab"
+}

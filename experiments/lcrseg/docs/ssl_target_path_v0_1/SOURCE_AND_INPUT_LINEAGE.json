@@ -1,0 +1,26 @@
+{
+  "base": "60843e85c110f31863299639822b080cf4c4ba9b",
+  "previous_execution_source": "f478cc204a87a807858c76a95fc4246d301eeff2",
+  "previous_status": "SUPERVISED_HEAD_REFERENCE_NOT_REPLICATED; SSL_INCREMENT NOT_ESTABLISHED",
+  "previous_formal_updates": 168608,
+  "manifest_sha": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "upstream": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+  "upstream_path": "Semi-Supervised_Natural-FoSSIL/inc/deeplab_gaps_meanT",
+  "initialization": "qualified original constructor -> unchanged raw linear head; five arms matched within domain/seed; official mu seed1024 remains",
+  "data_paths": "safe_asset(DATA,relative)=DATA/h5/v1/relative; no fallback",
+  "history": "only new namespace and branch; old results, locks, data, source and reservations untouched",
+  "previous_strata_verified": {
+    "clean_raw_teacher_only_correct": 135.6,
+    "clean_actual_PAS_teacher_only_correct": 0,
+    "clean_actual_PAS_same_wrong": 6879.56,
+    "training_raw_teacher_only_correct": 674.42,
+    "training_actual_PAS_teacher_only_correct": 104.96,
+    "training_actual_PAS_same_wrong": 6384.35
+  },
+  "reference_scope": {
+    "FixMatch": "https://arxiv.org/abs/2001.07685; checked target-side high confidence on weak predictions supervising stronger view; this study does not reproduce full FixMatch",
+    "MeanTeacher": "https://arxiv.org/abs/1703.01780; checked weight-average teacher principle only",
+    "JASCL": "previous pinned paper2605.20538v1 and original source; joint probability-MSE relation retained only as baseline context"
+  }
+}
