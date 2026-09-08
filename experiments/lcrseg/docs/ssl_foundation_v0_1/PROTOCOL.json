@@ -1,0 +1,88 @@
+{
+  "base": "6eb48fd845f6192698c4d39893b2524447afb3df",
+  "branch": "codex/single-domain-ssl-foundation-v0-1",
+  "data_split_seed": 0,
+  "domains": {
+    "RIM_ONE_r3": [
+      16,
+      63,
+      40,
+      3200
+    ],
+    "Drishti_GS": [
+      10,
+      41,
+      25,
+      2100
+    ]
+  },
+  "optimization_seeds": [
+    11,
+    12,
+    13
+  ],
+  "arms": [
+    "SUP_G0",
+    "MT_CONF_G0",
+    "MT_PAS_G0",
+    "SUP_G1",
+    "MT_CONF_G1",
+    "MT_PAS_G1"
+  ],
+  "epochs": 100,
+  "batch_size": 2,
+  "lr": 0.001,
+  "lr_power": 0.9,
+  "Adam": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05
+  },
+  "EMA": 0.99,
+  "lambda_cons": "0.5*min(1,max(0,(epoch-20)/20))",
+  "confidence": 0.7,
+  "similarity": 0.7,
+  "strict_greater": true,
+  "input_noise": 0.02,
+  "prototype_epochs": [
+    21,
+    26,
+    31,
+    36,
+    41,
+    46,
+    51,
+    56,
+    61,
+    66,
+    71,
+    76,
+    81,
+    86,
+    91,
+    96
+  ],
+  "diagnostic_epochs": [
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "diagnostic_draws": 4,
+  "student_primary": true,
+  "GPUs": [
+    4,
+    5
+  ],
+  "minimum_free_mib": 4096,
+  "P1_updates": 31800,
+  "P2_updates_max": 42400,
+  "total_max": 74200,
+  "prior_formal_updates": 99708,
+  "source_freeze_required": true,
+  "plan_sha256": "619a0a8cec1fb0358fef43f07722bc06b4db1fd1bdff8e6c5ec695ada451d541"
+}
