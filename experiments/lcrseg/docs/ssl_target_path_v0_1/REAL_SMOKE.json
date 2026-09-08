@@ -1,0 +1,455 @@
+{
+  "status": "PASS",
+  "source": "098c9c73dc1b7dd1b723363e45cbe34e169fe354",
+  "updates": 10,
+  "maximum_total": 10,
+  "actual_per_domain": 5,
+  "counts": {
+    "student_l_forward": 10,
+    "student_l_images": 20,
+    "backward": 10,
+    "optimizer_steps": 10,
+    "ema_updates": 10,
+    "student_u_forward": 8,
+    "student_u_images": 16,
+    "ema_u_forward": 8,
+    "ema_u_images": 16
+  },
+  "rows": [
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "SUP",
+      "existing_backward_gradient_norm": 12.789740562086678,
+      "supervised": 1.2406872510910034,
+      "unsupervised": 0.0,
+      "loss": 1.2406872510910034,
+      "lambda_cons": 0.025,
+      "accepted": 0,
+      "u_pixels": 0,
+      "SCE": 0.0,
+      "target_entropy": 0.0,
+      "KL": 0.0,
+      "by_teacher_class": [],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "J_MSE",
+      "existing_backward_gradient_norm": 12.783542727888484,
+      "supervised": 1.2406872510910034,
+      "unsupervised": 0.009971239604055882,
+      "loss": 1.240936517715454,
+      "lambda_cons": 0.025,
+      "accepted": 4149,
+      "u_pixels": 294912,
+      "SCE": 0.5695162415504456,
+      "target_entropy": 0.545275092124939,
+      "KL": 0.024241149425506592,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 718,
+          "denominator": 4149,
+          "raw_loss_contribution": 0.0019095559440827938,
+          "weighted_loss_contribution": 4.7738898602069846e-05,
+          "SCE": 0.09209108387139597,
+          "target_entropy": 0.08763161910014085,
+          "KL": 0.0044594647712551255,
+          "local_logit_gradient_norm": 9.519226890945153e-06
+        },
+        {
+          "class_id": 1,
+          "accepted": 419,
+          "denominator": 4149,
+          "raw_loss_contribution": 0.0008687552385199183,
+          "weighted_loss_contribution": 2.1718880962997956e-05,
+          "SCE": 0.06714551240227314,
+          "target_entropy": 0.06478761207284511,
+          "KL": 0.0023579003294280226,
+          "local_logit_gradient_norm": 5.827348184494447e-06
+        },
+        {
+          "class_id": 2,
+          "accepted": 3012,
+          "denominator": 4149,
+          "raw_loss_contribution": 0.007192928896205458,
+          "weighted_loss_contribution": 0.00017982322240513648,
+          "SCE": 0.410279703128766,
+          "target_entropy": 0.3928558945397234,
+          "KL": 0.017423808589042578,
+          "local_logit_gradient_norm": 1.9123662838442906e-05
+        }
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "T_MSE",
+      "existing_backward_gradient_norm": 12.76577370592732,
+      "supervised": 1.2406872510910034,
+      "unsupervised": 0.035162851214408875,
+      "loss": 1.2415663003921509,
+      "lambda_cons": 0.025,
+      "accepted": 8553,
+      "u_pixels": 294912,
+      "SCE": 0.6689541935920715,
+      "target_entropy": 0.6150467991828918,
+      "KL": 0.05390739440917969,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 1213,
+          "denominator": 8553,
+          "raw_loss_contribution": 0.00530553697550156,
+          "weighted_loss_contribution": 0.000132638424387539,
+          "SCE": 0.08863965974109961,
+          "target_entropy": 0.08062866168120834,
+          "KL": 0.008010998059891264,
+          "local_logit_gradient_norm": 1.569567793569032e-05
+        },
+        {
+          "class_id": 1,
+          "accepted": 1186,
+          "denominator": 8553,
+          "raw_loss_contribution": 0.004995424343552016,
+          "weighted_loss_contribution": 0.0001248856085888004,
+          "SCE": 0.10232029788524494,
+          "target_entropy": 0.094553854344784,
+          "KL": 0.007766443540460938,
+          "local_logit_gradient_norm": 1.5030795094746186e-05
+        },
+        {
+          "class_id": 2,
+          "accepted": 6154,
+          "denominator": 8553,
+          "raw_loss_contribution": 0.02486188913749196,
+          "weighted_loss_contribution": 0.0006215472284372991,
+          "SCE": 0.4779942607400181,
+          "target_entropy": 0.43986433625263066,
+          "KL": 0.038129924487387445,
+          "local_logit_gradient_norm": 3.4197417748408746e-05
+        }
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "J_SCE",
+      "existing_backward_gradient_norm": 12.778589137127044,
+      "supervised": 1.2406872510910034,
+      "unsupervised": 0.5695162415504456,
+      "loss": 1.2549251317977905,
+      "lambda_cons": 0.025,
+      "accepted": 4149,
+      "u_pixels": 294912,
+      "SCE": 0.5695162415504456,
+      "target_entropy": 0.545275092124939,
+      "KL": 0.024241149425506592,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 718,
+          "denominator": 4149,
+          "raw_loss_contribution": 0.09209108387139597,
+          "weighted_loss_contribution": 0.0023022770967848992,
+          "SCE": 0.09209108387139597,
+          "target_entropy": 0.08763161910014085,
+          "KL": 0.0044594647712551255,
+          "local_logit_gradient_norm": 1.6960337711726104e-05
+        },
+        {
+          "class_id": 1,
+          "accepted": 419,
+          "denominator": 4149,
+          "raw_loss_contribution": 0.06714551240227314,
+          "weighted_loss_contribution": 0.0016786378100568284,
+          "SCE": 0.06714551240227314,
+          "target_entropy": 0.06478761207284511,
+          "KL": 0.0023579003294280226,
+          "local_logit_gradient_norm": 1.1439762706580534e-05
+        },
+        {
+          "class_id": 2,
+          "accepted": 3012,
+          "denominator": 4149,
+          "raw_loss_contribution": 0.410279703128766,
+          "weighted_loss_contribution": 0.010256992578219151,
+          "SCE": 0.410279703128766,
+          "target_entropy": 0.3928558945397234,
+          "KL": 0.017423808589042578,
+          "local_logit_gradient_norm": 3.291707003957673e-05
+        }
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "T_SCE",
+      "existing_backward_gradient_norm": 12.75656754081318,
+      "supervised": 1.2406872510910034,
+      "unsupervised": 0.6689541935920715,
+      "loss": 1.2574111223220825,
+      "lambda_cons": 0.025,
+      "accepted": 8553,
+      "u_pixels": 294912,
+      "SCE": 0.6689541935920715,
+      "target_entropy": 0.6150467991828918,
+      "KL": 0.05390739440917969,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 1213,
+          "denominator": 8553,
+          "raw_loss_contribution": 0.08863965974109961,
+          "weighted_loss_contribution": 0.00221599149352749,
+          "SCE": 0.08863965974109961,
+          "target_entropy": 0.08062866168120834,
+          "KL": 0.008010998059891264,
+          "local_logit_gradient_norm": 1.9689987118716527e-05
+        },
+        {
+          "class_id": 1,
+          "accepted": 1186,
+          "denominator": 8553,
+          "raw_loss_contribution": 0.10232029788524494,
+          "weighted_loss_contribution": 0.0025580074471311235,
+          "SCE": 0.10232029788524494,
+          "target_entropy": 0.094553854344784,
+          "KL": 0.007766443540460938,
+          "local_logit_gradient_norm": 1.910587677389776e-05
+        },
+        {
+          "class_id": 2,
+          "accepted": 6154,
+          "denominator": 8553,
+          "raw_loss_contribution": 0.4779942607400181,
+          "weighted_loss_contribution": 0.011949856518500453,
+          "SCE": 0.4779942607400181,
+          "target_entropy": 0.43986433625263066,
+          "KL": 0.038129924487387445,
+          "local_logit_gradient_norm": 4.262337480916928e-05
+        }
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "SUP",
+      "existing_backward_gradient_norm": 8.73204151417993,
+      "supervised": 0.9287475943565369,
+      "unsupervised": -0.0,
+      "loss": 0.9287475943565369,
+      "lambda_cons": 0.025,
+      "accepted": 0,
+      "u_pixels": 0,
+      "SCE": 0.0,
+      "target_entropy": 0.0,
+      "KL": 0.0,
+      "by_teacher_class": [],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "J_MSE",
+      "existing_backward_gradient_norm": 8.732803721548931,
+      "supervised": 0.9287475943565369,
+      "unsupervised": 0.002864444861188531,
+      "loss": 0.9288191795349121,
+      "lambda_cons": 0.025,
+      "accepted": 16844,
+      "u_pixels": 294912,
+      "SCE": 0.6113185882568359,
+      "target_entropy": 0.6045548915863037,
+      "KL": 0.0067636966705322266,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 12666,
+          "denominator": 16844,
+          "raw_loss_contribution": 0.001613950989813115,
+          "weighted_loss_contribution": 4.0348774745327876e-05,
+          "SCE": 0.45222656134046246,
+          "target_entropy": 0.44861216693444256,
+          "KL": 0.003614394406019905,
+          "local_logit_gradient_norm": 4.35419119002585e-06
+        },
+        {
+          "class_id": 1,
+          "accepted": 265,
+          "denominator": 16844,
+          "raw_loss_contribution": 8.996601371973491e-05,
+          "weighted_loss_contribution": 2.2491503429933728e-06,
+          "SCE": 0.011601691063722617,
+          "target_entropy": 0.01137126559346058,
+          "KL": 0.00023042547026203702,
+          "local_logit_gradient_norm": 7.866640261059406e-07
+        },
+        {
+          "class_id": 2,
+          "accepted": 3913,
+          "denominator": 16844,
+          "raw_loss_contribution": 0.001160527996823273,
+          "weighted_loss_contribution": 2.9013199920581827e-05,
+          "SCE": 0.1474903752588088,
+          "target_entropy": 0.14457145696353302,
+          "KL": 0.0029189182952757686,
+          "local_logit_gradient_norm": 3.388778503392875e-06
+        }
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "T_MSE",
+      "existing_backward_gradient_norm": 8.735199343897765,
+      "supervised": 0.9287475943565369,
+      "unsupervised": 0.006008078344166279,
+      "loss": 0.9288977980613708,
+      "lambda_cons": 0.025,
+      "accepted": 21507,
+      "u_pixels": 294912,
+      "SCE": 0.6417902112007141,
+      "target_entropy": 0.6307870745658875,
+      "KL": 0.01100313663482666,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 15122,
+          "denominator": 21507,
+          "raw_loss_contribution": 0.002582279382160187,
+          "weighted_loss_contribution": 6.455698455400467e-05,
+          "SCE": 0.4385134327631701,
+          "target_entropy": 0.4336558664039615,
+          "KL": 0.004857566359208643,
+          "local_logit_gradient_norm": 5.87814399670983e-06
+        },
+        {
+          "class_id": 1,
+          "accepted": 490,
+          "denominator": 21507,
+          "raw_loss_contribution": 0.0003352085849078911,
+          "weighted_loss_contribution": 8.380214622697277e-06,
+          "SCE": 0.017383219457800077,
+          "target_entropy": 0.016806851993319036,
+          "KL": 0.0005763674644810417,
+          "local_logit_gradient_norm": 2.2118900650449997e-06
+        },
+        {
+          "class_id": 2,
+          "accepted": 5895,
+          "denominator": 21507,
+          "raw_loss_contribution": 0.003090591207177823,
+          "weighted_loss_contribution": 7.726478017944558e-05,
+          "SCE": 0.18589360077532896,
+          "target_entropy": 0.18032434071247153,
+          "KL": 0.005569260062857434,
+          "local_logit_gradient_norm": 6.692086432083645e-06
+        }
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "J_SCE",
+      "existing_backward_gradient_norm": 8.73190556785506,
+      "supervised": 0.9287475943565369,
+      "unsupervised": 0.6113185882568359,
+      "loss": 0.9440305829048157,
+      "lambda_cons": 0.025,
+      "accepted": 16844,
+      "u_pixels": 294912,
+      "SCE": 0.6113185882568359,
+      "target_entropy": 0.6045548915863037,
+      "KL": 0.0067636966705322266,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 12666,
+          "denominator": 16844,
+          "raw_loss_contribution": 0.45222656134046246,
+          "weighted_loss_contribution": 0.011305664033511562,
+          "SCE": 0.45222656134046246,
+          "target_entropy": 0.44861216693444256,
+          "KL": 0.003614394406019905,
+          "local_logit_gradient_norm": 7.73860286876296e-06
+        },
+        {
+          "class_id": 1,
+          "accepted": 265,
+          "denominator": 16844,
+          "raw_loss_contribution": 0.011601691063722617,
+          "weighted_loss_contribution": 0.0002900422765930654,
+          "SCE": 0.011601691063722617,
+          "target_entropy": 0.01137126559346058,
+          "KL": 0.00023042547026203702,
+          "local_logit_gradient_norm": 1.8270761223882243e-06
+        },
+        {
+          "class_id": 2,
+          "accepted": 3913,
+          "denominator": 16844,
+          "raw_loss_contribution": 0.1474903752588088,
+          "weighted_loss_contribution": 0.00368725938147022,
+          "SCE": 0.1474903752588088,
+          "target_entropy": 0.14457145696353302,
+          "KL": 0.0029189182952757686,
+          "local_logit_gradient_norm": 6.562136006511523e-06
+        }
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "T_SCE",
+      "existing_backward_gradient_norm": 8.73548691511059,
+      "supervised": 0.9287475943565369,
+      "unsupervised": 0.6417902112007141,
+      "loss": 0.9447923302650452,
+      "lambda_cons": 0.025,
+      "accepted": 21507,
+      "u_pixels": 294912,
+      "SCE": 0.6417902112007141,
+      "target_entropy": 0.6307870745658875,
+      "KL": 0.01100313663482666,
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 15122,
+          "denominator": 21507,
+          "raw_loss_contribution": 0.4385134327631701,
+          "weighted_loss_contribution": 0.010962835819079253,
+          "SCE": 0.4385134327631701,
+          "target_entropy": 0.4336558664039615,
+          "KL": 0.004857566359208643,
+          "local_logit_gradient_norm": 8.662668699947463e-06
+        },
+        {
+          "class_id": 1,
+          "accepted": 490,
+          "denominator": 21507,
+          "raw_loss_contribution": 0.017383219457800077,
+          "weighted_loss_contribution": 0.00043458048644500196,
+          "SCE": 0.017383219457800077,
+          "target_entropy": 0.016806851993319036,
+          "KL": 0.0005763674644810417,
+          "local_logit_gradient_norm": 3.1210998660233927e-06
+        },
+        {
+          "class_id": 2,
+          "accepted": 5895,
+          "denominator": 21507,
+          "raw_loss_contribution": 0.18589360077532896,
+          "weighted_loss_contribution": 0.004647340019383224,
+          "SCE": 0.18589360077532896,
+          "target_entropy": 0.18032434071247153,
+          "KL": 0.005569260062857434,
+          "local_logit_gradient_norm": 9.47700004029894e-06
+        }
+      ],
+      "sigma_has_gradient": false
+    }
+  ],
+  "real_U_images_opened": 0,
+  "GT_scope": "only first two sorted current labeled cases per domain; labels stripped for pseudo-U",
+  "formal_initializations_reused": false
+}
