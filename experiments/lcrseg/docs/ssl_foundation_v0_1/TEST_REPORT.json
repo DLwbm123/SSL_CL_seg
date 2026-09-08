@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "execution_source": "d9542bd6f7b4acfe351bdaa8c8107bb875d40717",
+  "local": {
+    "status": "PASS",
+    "source": "d9542bd6f7b4acfe351bdaa8c8107bb875d40717",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "synthetic_optimizer_updates": 163,
+    "operation_counts": {
+      "backward": 164,
+      "model_forward": 350,
+      "image_forward": 512,
+      "autograd_grad_calls": 476
+    },
+    "real_diagnostic_updates": 0,
+    "formal_updates": 0,
+    "python": "3.12.9",
+    "torch": "2.6.0",
+    "device": "cpu",
+    "seconds": 7.733510255813599
+  },
+  "server": {
+    "status": "PASS",
+    "source": "d9542bd6f7b4acfe351bdaa8c8107bb875d40717",
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "synthetic_optimizer_updates": 163,
+    "operation_counts": {
+      "backward": 164,
+      "model_forward": 350,
+      "image_forward": 512,
+      "autograd_grad_calls": 476
+    },
+    "real_diagnostic_updates": 0,
+    "formal_updates": 0,
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "device": "cuda:0",
+    "seconds": 79.4307644367218
+  },
+  "synthetic_successful_updates_all_attempts": 815,
+  "exact_source_synthetic_updates": 326,
+  "real_diagnostic_updates": 12,
+  "formal_updates_in_qualification": 0,
+  "real_gradient_smoke_file": "REAL_GRADIENT_SMOKE.json",
+  "scope": {
+    "1_deployment_binding": "Literal h5/v1 succeeds with wrong-root decoy; missing canonical file raises ProtocolError.",
+    "2_roles": "No training val/test/REFUGE access; U records contain no GT fields. Formal SUP/warm-up counters enforce zero U images.",
+    "3_single_domain": "New random initializations; no predecessor checkpoint or cross-domain parent arguments.",
+    "4_rng": "Matched six-arm initialization; same-GAS warm-up update equality; new seeds change backbone; source-level stateless keys and diagnostic RNG preservation.",
+    "5_loss": "Independent probability MSE witness, pixel denominator, no C divisor, empty connected zero, student gradient and no teacher/mask gradient.",
+    "6_PAS": "Own predicted classes, strict thresholds, no class-agreement gate, unsupported and zero vectors, actual-model per-image equal prototype witness.",
+    "7_GAS_EMA": "Supervised-only squared gradient, frozen teacher excluded from Adam, post-step EMA and GAS copy; unused sigma gradient absent.",
+    "8_integration": "Real synthetic HDF5/model training through epoch26, warm-up, prototype refresh, snapshots, save/resume equality and fresh single-model deployment.",
+    "9_real_smoke": "First two labeled/U rows per domain; six registered arms, one diagnostic update each; nonzero real supervised and SSL gradients.",
+    "10_quality": "Class count/precision/coverage/recall zero-support witnesses; four repeats retain patient n.",
+    "11_state": "Snapshot compares model/GAS/prototype/RNG hashes and restores modes; optimizer never passed to evaluator.",
+    "12_source": "Exact frozen source local/server; canonical manifest/split hashes, private allowlist hash, protected historical namespaces and independent branch."
+  },
+  "limits": [
+    "First development missing-file test expected the wrong exception type; preserved as FAIL with 163 successful synthetic updates.",
+    "No real two-case overfit experiment beyond capped diagnostic updates; not required to predict final Dice.",
+    "No hidden-U, test or independent-patient validation; current val was previously exposed.",
+    "First development attempt did not instrument all forward/backward calls; those operation counts are unavailable, not zero."
+  ],
+  "observations": [
+    "At zero-initialized GAS state, G0/G1 first-step smoke values coincide. Pinned FP32 expression (1 + 1e8 - 1e8) evaluates to zero before division; official implementation is preserved. G1 still invokes sampled forward and later uses supervised-gradient state. This is not a reason to alter the head or tune parameters."
+  ]
+}
