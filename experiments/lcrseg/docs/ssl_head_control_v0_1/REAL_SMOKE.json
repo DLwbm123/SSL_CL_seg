@@ -1,0 +1,269 @@
+{
+  "status": "PASS",
+  "source": "f478cc204a87a807858c76a95fc4246d301eeff2",
+  "updates": 8,
+  "maximum_total": 12,
+  "actual_per_domain": 4,
+  "counts": {
+    "smoke_prototype_forward": 8,
+    "smoke_prototype_images": 16,
+    "student_l_forward": 8,
+    "student_l_images": 16,
+    "backward": 8,
+    "optimizer_steps": 8,
+    "ema_updates": 8,
+    "student_u_forward": 4,
+    "student_u_images": 8,
+    "ema_u_forward": 4,
+    "ema_u_images": 8,
+    "gas_autograd": 2
+  },
+  "rows": [
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "LIN_SUP",
+      "by_teacher_class": [],
+      "supervised": 1.3285495042800903,
+      "consistency": 0.0,
+      "loss": 1.3285495042800903,
+      "lambda_cons": 0.025,
+      "accepted": 0,
+      "u_pixels": 0,
+      "disagreement": 0,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 12.17347323754268
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "LIN_MT_CONF",
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 46521,
+          "squared_probability_sum": 129.5486297607422,
+          "probability_MSE_accepted_mean": 0.002784734415871159,
+          "MSE_loss_contribution": 0.002648931210091649,
+          "weighted_MSE_loss_contribution": 6.622328025229123e-05,
+          "weighted_local_logit_gradient_norm": 3.0973733948018213e-06,
+          "loss_denominator": 48906
+        },
+        {
+          "class_id": 1,
+          "accepted": 66,
+          "squared_probability_sum": 0.5136213898658752,
+          "probability_MSE_accepted_mean": 0.00778214227069508,
+          "MSE_loss_contribution": 1.050221628973695e-05,
+          "weighted_MSE_loss_contribution": 2.625554072434238e-07,
+          "weighted_local_logit_gradient_norm": 1.9036871710285376e-07,
+          "loss_denominator": 48906
+        },
+        {
+          "class_id": 2,
+          "accepted": 2319,
+          "squared_probability_sum": 27.851858139038086,
+          "probability_MSE_accepted_mean": 0.012010288115152258,
+          "MSE_loss_contribution": 0.0005694977740775791,
+          "weighted_MSE_loss_contribution": 1.423744435193948e-05,
+          "weighted_local_logit_gradient_norm": 1.5299639535969799e-06,
+          "loss_denominator": 48906
+        }
+      ],
+      "supervised": 1.3285495042800903,
+      "consistency": 0.0032289307564496994,
+      "loss": 1.3286302089691162,
+      "lambda_cons": 0.025,
+      "accepted": 48906,
+      "u_pixels": 294912,
+      "disagreement": 48460,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 12.168702537253438
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "LIN_MT_PAS",
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 11434,
+          "squared_probability_sum": 37.026954650878906,
+          "probability_MSE_accepted_mean": 0.0032383203297952517,
+          "MSE_loss_contribution": 0.003238037136062869,
+          "weighted_MSE_loss_contribution": 8.095092840157173e-05,
+          "weighted_local_logit_gradient_norm": 7.09019899439056e-06,
+          "loss_denominator": 11435
+        },
+        {
+          "class_id": 1,
+          "accepted": 0,
+          "squared_probability_sum": 0.0,
+          "probability_MSE_accepted_mean": null,
+          "MSE_loss_contribution": 0.0,
+          "weighted_MSE_loss_contribution": 0.0,
+          "weighted_local_logit_gradient_norm": 0.0,
+          "loss_denominator": 11435
+        },
+        {
+          "class_id": 2,
+          "accepted": 1,
+          "squared_probability_sum": 0.003831190522760153,
+          "probability_MSE_accepted_mean": 0.003831190522760153,
+          "MSE_loss_contribution": 3.3504071034194603e-07,
+          "weighted_MSE_loss_contribution": 8.376017758548652e-09,
+          "weighted_local_logit_gradient_norm": 6.30024913711265e-08,
+          "loss_denominator": 11435
+        }
+      ],
+      "supervised": 1.3285495042800903,
+      "consistency": 0.003238372504711151,
+      "loss": 1.3286304473876953,
+      "lambda_cons": 0.025,
+      "accepted": 11435,
+      "u_pixels": 294912,
+      "disagreement": 48460,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 12.170124404236669
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "SUP_G1",
+      "by_teacher_class": [],
+      "supervised": 5.656576156616211,
+      "consistency": 0.0,
+      "loss": 5.656576156616211,
+      "lambda_cons": 0.025,
+      "accepted": 0,
+      "u_pixels": 0,
+      "disagreement": 0,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 168.69103822842922
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "LIN_SUP",
+      "by_teacher_class": [],
+      "supervised": 0.958797037601471,
+      "consistency": -0.0,
+      "loss": 0.958797037601471,
+      "lambda_cons": 0.025,
+      "accepted": 0,
+      "u_pixels": 0,
+      "disagreement": 0,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 10.09417064967746
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "LIN_MT_CONF",
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 1015,
+          "squared_probability_sum": 6.039267539978027,
+          "probability_MSE_accepted_mean": 0.005950017280766529,
+          "MSE_loss_contribution": 0.0004299329066688992,
+          "weighted_MSE_loss_contribution": 1.0748322666722481e-05,
+          "weighted_local_logit_gradient_norm": 2.195732697322104e-06,
+          "loss_denominator": 14047
+        },
+        {
+          "class_id": 1,
+          "accepted": 9,
+          "squared_probability_sum": 0.04851050674915314,
+          "probability_MSE_accepted_mean": 0.00539005630546146,
+          "MSE_loss_contribution": 3.4534424965582072e-06,
+          "weighted_MSE_loss_contribution": 8.633606241395519e-08,
+          "weighted_local_logit_gradient_norm": 1.838490008340884e-07,
+          "loss_denominator": 14047
+        },
+        {
+          "class_id": 2,
+          "accepted": 13023,
+          "squared_probability_sum": 79.56166076660156,
+          "probability_MSE_accepted_mean": 0.006109318956200688,
+          "MSE_loss_contribution": 0.0056639610426853825,
+          "weighted_MSE_loss_contribution": 0.00014159902606713457,
+          "weighted_local_logit_gradient_norm": 8.891556332091625e-06,
+          "loss_denominator": 14047
+        }
+      ],
+      "supervised": 0.958797037601471,
+      "consistency": 0.006097346544265747,
+      "loss": 0.9589494466781616,
+      "lambda_cons": 0.025,
+      "accepted": 14047,
+      "u_pixels": 294912,
+      "disagreement": 59742,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 10.092064907802174
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "LIN_MT_PAS",
+      "by_teacher_class": [
+        {
+          "class_id": 0,
+          "accepted": 593,
+          "squared_probability_sum": 2.832505941390991,
+          "probability_MSE_accepted_mean": 0.0047765698843018406,
+          "MSE_loss_contribution": 0.00023667329055740235,
+          "weighted_MSE_loss_contribution": 5.916832263935059e-06,
+          "weighted_local_logit_gradient_norm": 1.6283021740019124e-06,
+          "loss_denominator": 11968
+        },
+        {
+          "class_id": 1,
+          "accepted": 0,
+          "squared_probability_sum": 0.0,
+          "probability_MSE_accepted_mean": null,
+          "MSE_loss_contribution": 0.0,
+          "weighted_MSE_loss_contribution": 0.0,
+          "weighted_local_logit_gradient_norm": 0.0,
+          "loss_denominator": 11968
+        },
+        {
+          "class_id": 2,
+          "accepted": 11375,
+          "squared_probability_sum": 66.18927764892578,
+          "probability_MSE_accepted_mean": 0.0058188375955099585,
+          "MSE_loss_contribution": 0.005530521193927622,
+          "weighted_MSE_loss_contribution": 0.00013826302984819056,
+          "weighted_local_logit_gradient_norm": 9.493544698964688e-06,
+          "loss_denominator": 11968
+        }
+      ],
+      "supervised": 0.958797037601471,
+      "consistency": 0.0057671950198709965,
+      "loss": 0.9589412212371826,
+      "lambda_cons": 0.025,
+      "accepted": 11968,
+      "u_pixels": 294912,
+      "disagreement": 59742,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 10.092055428703661
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "SUP_G1",
+      "by_teacher_class": [],
+      "supervised": 2.0625200271606445,
+      "consistency": -0.0,
+      "loss": 2.0625200271606445,
+      "lambda_cons": 0.025,
+      "accepted": 0,
+      "u_pixels": 0,
+      "disagreement": 0,
+      "gradients": {},
+      "sigma_has_gradient": false,
+      "existing_total_parameter_gradient_norm": 74.30954978827586
+    }
+  ],
+  "formal_initializations_reused": false,
+  "GT_scope": "first two current labeled rows per domain only; no U GT"
+}
