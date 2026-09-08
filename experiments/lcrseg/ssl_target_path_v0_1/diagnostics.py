@@ -24,15 +24,18 @@ def path_rows(p,q,g,j,t,gt,lam):
     gtg=p.copy()
     for c in range(3):gtg[c]-=(gt==c)
     gg=np.sqrt((gtg**2).sum(0));raws=dict(MSE=2*p*(delta-(p*delta).sum(0)),SCE=delta);paths=[];grads=[]
+    prepared={}
+    for candidate in ARMS[1:]:
+        mask=j if candidate[0]=='J' else t;loss=candidate.split('_')[1];raw=raws[loss];den=max(int(mask.sum()),1);weighted=raw*mask[None]*lam/den
+        prepared[candidate]=(mask,den,weighted,np.sqrt((raw**2).sum(0)),(raw*gtg).sum(0),(weighted*gtg).sum(0))
     for grouping,labels in [('teacher_predicted_class',yt),('true_class',gt)]:
         for cls in range(3):
             for name,st in strata.items():
                 support=v&g&(labels==cls)&st;raw_n=int(support.sum());tn=int((support&t).sum());jn=int((support&j).sum())
                 paths.append(dict(grouping=grouping,class_id=cls,stratum=name,raw_support=raw_n,T_accepted=tn,J_accepted=jn,teacher_rejected=raw_n-tn,student_further_rejected=tn-jn,teacher_reject_rate=(raw_n-tn)/raw_n if raw_n else None,student_further_reject_rate=(tn-jn)/tn if tn else None,T_retention=tn/raw_n if raw_n else None,J_retention=jn/raw_n if raw_n else None,same_argmax_different_distribution=int((support&(ys==yt)&(distance>NEAR_L1)).sum()),near_equal_distribution=int((support&(distance<=NEAR_L1)).sum()),probability_L1_mean=float(distance[support].mean()) if raw_n else None))
                 for candidate in ARMS[1:]:
-                    mask=j if candidate[0]=='J' else t;loss=candidate.split('_')[1];raw=raws[loss];selected=support&mask;n=int(selected.sum());den=max(int(mask.sum()),1);weighted=raw*mask[None]*lam/den
-                    norm=np.sqrt((raw**2).sum(0));dot=(raw*gtg).sum(0);valid_cos=selected&(norm>0)&(gg>0)
-                    grads.append(dict(grouping=grouping,class_id=cls,stratum=name,candidate=candidate,accepted=n,geometry_loss_denominator=den,lambda_cons=lam,raw_pixel_logit_norm_mean=float(norm[selected].mean()) if n else None,weighted_local_logit_norm=float(np.sqrt((weighted[:,support]**2).sum())),raw_dot_GT_mean=float(dot[selected].mean()) if n else None,weighted_dot_GT_sum=float((weighted*gtg).sum(0)[support].sum()),raw_cosine_GT_mean=float((dot[valid_cos]/(norm[valid_cos]*gg[valid_cos])).mean()) if valid_cos.any() else None,weighted_cosine_GT_mean=float((dot[valid_cos]/(norm[valid_cos]*gg[valid_cos])).mean()) if valid_cos.any() and lam>0 else None,raw_cosine_defined=int(valid_cos.sum()),weighted_cosine_defined=int(valid_cos.sum()) if lam>0 else 0,direction_conflict_count=int((selected&(dot<0)).sum())))
+                    mask,den,weighted,norm,dot,weighted_dot=prepared[candidate];selected=support&mask;n=int(selected.sum());valid_cos=selected&(norm>0)&(gg>0)
+                    grads.append(dict(grouping=grouping,class_id=cls,stratum=name,candidate=candidate,accepted=n,geometry_loss_denominator=den,lambda_cons=lam,raw_pixel_logit_norm_mean=float(norm[selected].mean()) if n else None,weighted_local_logit_norm=float(np.sqrt((weighted[:,support]**2).sum())),raw_dot_GT_mean=float(dot[selected].mean()) if n else None,weighted_dot_GT_sum=float(weighted_dot[support].sum()),raw_cosine_GT_mean=float((dot[valid_cos]/(norm[valid_cos]*gg[valid_cos])).mean()) if valid_cos.any() else None,weighted_cosine_GT_mean=float((dot[valid_cos]/(norm[valid_cos]*gg[valid_cos])).mean()) if valid_cos.any() and lam>0 else None,raw_cosine_defined=int(valid_cos.sum()),weighted_cosine_defined=int(valid_cos.sum()) if lam>0 else 0,direction_conflict_count=int((selected&(dot<0)).sum())))
     return paths,grads
 
 @torch.no_grad()
