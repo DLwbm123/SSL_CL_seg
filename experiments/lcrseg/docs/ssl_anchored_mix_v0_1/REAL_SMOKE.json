@@ -1,0 +1,440 @@
+{
+  "status": "PASS",
+  "source": "800cabe5e5dd69612738aaba45ad35121d63c0f2",
+  "updates": 8,
+  "maximum": 8,
+  "counts": {
+    "sample_train_labeled_attempts": 4,
+    "sample_access_attempts": 4,
+    "hdf5_mode_r": 8,
+    "hdf5_open_attempts": 8,
+    "hdf5_open": 8,
+    "sample_access": 4,
+    "sample_train_labeled": 4,
+    "model_forward_attempts": 18,
+    "model_forward": 18,
+    "image_forward": 30,
+    "backward_attempts": 8,
+    "backward": 8,
+    "optimizer_steps_attempts": 8,
+    "optimizer_steps": 8,
+    "ema_updates_attempts": 8,
+    "ema_updates": 8
+  },
+  "training_counters": {
+    "student_l_forward": 4,
+    "student_l_images": 8,
+    "backward": 8,
+    "optimizer_steps": 8,
+    "ema_updates": 8,
+    "student_u_forward": 2,
+    "student_u_images": 2,
+    "ema_u_forward": 4,
+    "ema_u_images": 4,
+    "student_mix_A_forward": 4,
+    "student_mix_A_images": 8,
+    "student_mix_B_forward": 4,
+    "student_mix_B_images": 8
+  },
+  "rows": [
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "SUP_CED",
+      "supervised": 2.1523215281759915,
+      "CE": 1.2406872510910034,
+      "GT_Dice": 0.911634277084988,
+      "dice_weight": 1,
+      "unsupervised": -0.0,
+      "SCE": -0.0,
+      "target_entropy": 0.0,
+      "KL": -0.0,
+      "loss": 2.1523215281759915,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        270368,
+        14983,
+        9561
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 0,
+      "unlabeled_context_records": 0,
+      "U_geometry_pixels": 0,
+      "U_accepted": null,
+      "U_class": [],
+      "mix_rectangles": [],
+      "U_source_index": [],
+      "U_loss_repeat_weights": [],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "MT_CED",
+      "supervised": 2.1523215281759915,
+      "CE": 1.2406872510910034,
+      "GT_Dice": 0.911634277084988,
+      "dice_weight": 1,
+      "unsupervised": 0.7161519492999846,
+      "SCE": 0.7161519492999846,
+      "target_entropy": 0.6598498837224075,
+      "KL": 0.05630206557757711,
+      "loss": 2.1702253269084912,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        270368,
+        14983,
+        9561
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 1,
+      "unlabeled_context_records": 1,
+      "U_geometry_pixels": 147456,
+      "U_accepted": 2856,
+      "U_class": [
+        {
+          "class_id": 0,
+          "predicted": 24795,
+          "accepted": 458
+        },
+        {
+          "class_id": 1,
+          "predicted": 26519,
+          "accepted": 1178
+        },
+        {
+          "class_id": 2,
+          "predicted": 96142,
+          "accepted": 1220
+        }
+      ],
+      "mix_rectangles": [],
+      "U_source_index": [],
+      "U_loss_repeat_weights": [],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "MIX_CTX",
+      "supervised": 2.335101051541113,
+      "CE": 1.4164174795150757,
+      "GT_Dice": 0.9186835720260373,
+      "dice_weight": 1,
+      "unsupervised": -0.0,
+      "SCE": -0.0,
+      "target_entropy": 0.0,
+      "KL": -0.0,
+      "loss": 2.335101051541113,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        270368,
+        14983,
+        9561
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 1,
+      "unlabeled_context_records": 2,
+      "U_geometry_pixels": 147456,
+      "U_accepted": null,
+      "U_class": [],
+      "mix_rectangles": [
+        [
+          66,
+          7,
+          256,
+          256
+        ],
+        [
+          72,
+          40,
+          256,
+          256
+        ]
+      ],
+      "U_source_index": [
+        0,
+        0
+      ],
+      "U_loss_repeat_weights": [
+        0.5,
+        0.5
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "arm": "MIX_CED",
+      "supervised": 2.335101051541113,
+      "CE": 1.4164174795150757,
+      "GT_Dice": 0.9186835720260373,
+      "dice_weight": 1,
+      "unsupervised": 0.9145765208380938,
+      "SCE": 0.9145765208380938,
+      "target_entropy": 0.6598498837224075,
+      "KL": 0.2547266371156863,
+      "loss": 2.3579654645620653,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        270368,
+        14983,
+        9561
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 1,
+      "unlabeled_context_records": 2,
+      "U_geometry_pixels": 147456,
+      "U_accepted": 2856,
+      "U_class": [
+        {
+          "class_id": 0,
+          "predicted": 24795,
+          "accepted": 458
+        },
+        {
+          "class_id": 1,
+          "predicted": 26519,
+          "accepted": 1178
+        },
+        {
+          "class_id": 2,
+          "predicted": 96142,
+          "accepted": 1220
+        }
+      ],
+      "mix_rectangles": [
+        [
+          66,
+          7,
+          256,
+          256
+        ],
+        [
+          72,
+          40,
+          256,
+          256
+        ]
+      ],
+      "U_source_index": [
+        0,
+        0
+      ],
+      "U_loss_repeat_weights": [
+        0.5,
+        0.5
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "SUP_CED",
+      "supervised": 1.7335474154283783,
+      "CE": 0.9287475943565369,
+      "GT_Dice": 0.8047998210718414,
+      "dice_weight": 1,
+      "unsupervised": -0.0,
+      "SCE": -0.0,
+      "target_entropy": 0.0,
+      "KL": -0.0,
+      "loss": 1.7335474154283783,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        237471,
+        30525,
+        26916
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 0,
+      "unlabeled_context_records": 0,
+      "U_geometry_pixels": 0,
+      "U_accepted": null,
+      "U_class": [],
+      "mix_rectangles": [],
+      "U_source_index": [],
+      "U_loss_repeat_weights": [],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "MT_CED",
+      "supervised": 1.7335474154283783,
+      "CE": 0.9287475943565369,
+      "GT_Dice": 0.8047998210718414,
+      "dice_weight": 1,
+      "unsupervised": 0.7083461670175432,
+      "SCE": 0.7083461670175432,
+      "target_entropy": 0.6885696406929921,
+      "KL": 0.01977652632455107,
+      "loss": 1.7512560696038169,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        237471,
+        30525,
+        26916
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 1,
+      "unlabeled_context_records": 1,
+      "U_geometry_pixels": 147456,
+      "U_accepted": 4914,
+      "U_class": [
+        {
+          "class_id": 0,
+          "predicted": 83195,
+          "accepted": 996
+        },
+        {
+          "class_id": 1,
+          "predicted": 34906,
+          "accepted": 312
+        },
+        {
+          "class_id": 2,
+          "predicted": 29355,
+          "accepted": 3606
+        }
+      ],
+      "mix_rectangles": [],
+      "U_source_index": [],
+      "U_loss_repeat_weights": [],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "MIX_CTX",
+      "supervised": 1.7673687380282188,
+      "CE": 0.9587453007698059,
+      "GT_Dice": 0.8086234372584128,
+      "dice_weight": 1,
+      "unsupervised": -0.0,
+      "SCE": -0.0,
+      "target_entropy": 0.0,
+      "KL": -0.0,
+      "loss": 1.7673687380282188,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        237471,
+        30525,
+        26916
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 1,
+      "unlabeled_context_records": 2,
+      "U_geometry_pixels": 147456,
+      "U_accepted": null,
+      "U_class": [],
+      "mix_rectangles": [
+        [
+          54,
+          26,
+          256,
+          256
+        ],
+        [
+          14,
+          86,
+          256,
+          256
+        ]
+      ],
+      "U_source_index": [
+        0,
+        0
+      ],
+      "U_loss_repeat_weights": [
+        0.5,
+        0.5
+      ],
+      "sigma_has_gradient": false
+    },
+    {
+      "domain": "Drishti_GS",
+      "arm": "MIX_CED",
+      "supervised": 1.7673687380282188,
+      "CE": 0.9587453007698059,
+      "GT_Dice": 0.8086234372584128,
+      "dice_weight": 1,
+      "unsupervised": 0.7121977282124755,
+      "SCE": 0.7121977282124755,
+      "target_entropy": 0.6885696406929921,
+      "KL": 0.02362808751948342,
+      "loss": 1.7851736812335306,
+      "lambda_cons": 0.025,
+      "all_ignore_L": 0,
+      "labeled_class_exposure": [
+        237471,
+        30525,
+        26916
+      ],
+      "labeled_source_pixels": 294912,
+      "labeled_source_scoring_multiplicity": 1,
+      "labeled_image_records": 2,
+      "unlabeled_unique_batch_sources": 1,
+      "unlabeled_context_records": 2,
+      "U_geometry_pixels": 147456,
+      "U_accepted": 4914,
+      "U_class": [
+        {
+          "class_id": 0,
+          "predicted": 83195,
+          "accepted": 996
+        },
+        {
+          "class_id": 1,
+          "predicted": 34906,
+          "accepted": 312
+        },
+        {
+          "class_id": 2,
+          "predicted": 29355,
+          "accepted": 3606
+        }
+      ],
+      "mix_rectangles": [
+        [
+          54,
+          26,
+          256,
+          256
+        ],
+        [
+          14,
+          86,
+          256,
+          256
+        ]
+      ],
+      "U_source_index": [
+        0,
+        0
+      ],
+      "U_loss_repeat_weights": [
+        0.5,
+        0.5
+      ],
+      "sigma_has_gradient": false
+    }
+  ],
+  "real_U_images_opened": 0,
+  "GT_scope": "first two sorted current labeled cases per domain; singleton pseudo-U has labels stripped",
+  "initializations_reused": false
+}
