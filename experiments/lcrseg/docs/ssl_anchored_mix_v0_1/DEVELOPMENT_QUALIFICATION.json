@@ -1,0 +1,67 @@
+{
+  "attempts": [
+    {
+      "status": "FAIL",
+      "source": "development",
+      "tests": 4,
+      "failures": 0,
+      "errors": 1,
+      "counts": {
+        "autograd_grad_attempts": 7,
+        "autograd_grad": 7,
+        "hdf5_mode_w": 18,
+        "hdf5_open_attempts": 20,
+        "hdf5_open": 20,
+        "sample_train_labeled_attempts": 2,
+        "sample_access_attempts": 2,
+        "hdf5_mode_r": 2,
+        "sample_access": 1,
+        "sample_train_labeled": 1
+      },
+      "synthetic_optimizer_updates": 0,
+      "device": "cpu",
+      "python": "3.12.9",
+      "torch": "2.6.0",
+      "seconds": 0.3047139644622803
+    },
+    {
+      "status": "PASS",
+      "source": "development",
+      "tests": 4,
+      "failures": 0,
+      "errors": 0,
+      "counts": {
+        "autograd_grad_attempts": 7,
+        "autograd_grad": 7,
+        "hdf5_mode_w": 18,
+        "hdf5_open_attempts": 614,
+        "hdf5_open": 614,
+        "sample_train_labeled_attempts": 268,
+        "sample_access_attempts": 314,
+        "hdf5_mode_r": 596,
+        "sample_access": 313,
+        "sample_train_labeled": 267,
+        "model_forward_attempts": 328,
+        "model_forward": 328,
+        "image_forward": 482,
+        "backward_attempts": 142,
+        "backward": 142,
+        "optimizer_steps_attempts": 142,
+        "optimizer_steps": 142,
+        "ema_updates_attempts": 142,
+        "ema_updates": 142,
+        "sample_train_unlabeled_attempts": 30,
+        "sample_train_unlabeled": 30,
+        "sample_val_attempts": 16,
+        "sample_val": 16
+      },
+      "synthetic_optimizer_updates": 142,
+      "device": "cpu",
+      "python": "3.12.9",
+      "torch": "2.6.0",
+      "seconds": 5.559110879898071
+    }
+  ],
+  "successful_updates": 142,
+  "note": "First test expected FileNotFoundError; canonical binding intentionally raises ProtocolError. Fixed assertion before real access; preserved zero-update failure. Second development passed. Exact frozen checks follow."
+}

@@ -1,0 +1,164 @@
+{
+  "data_split_seed": 0,
+  "domains": {
+    "RIM_ONE_r3": {
+      "labeled": 16,
+      "unlabeled": 63,
+      "val": 40,
+      "steps": 32,
+      "updates": 3200
+    },
+    "Drishti_GS": {
+      "labeled": 10,
+      "unlabeled": 41,
+      "val": 25,
+      "steps": 21,
+      "updates": 2100
+    }
+  },
+  "epochs": 100,
+  "batch_size": 2,
+  "drop_last": false,
+  "lr": 0.001,
+  "lr_power": 0.9,
+  "Adam": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05
+  },
+  "EMA": 0.99,
+  "head_mode": "raw_linear3_same_geometry",
+  "confidence": 0.7,
+  "strict_greater": true,
+  "lambda_cons": "0.5*min(1,max(0,(epoch-20)/20))",
+  "input_noise": 0.02,
+  "augmentation": "paired H/V flip each0.5 and rot90; student U Gaussian noise only",
+  "diagnostic_epochs": [
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "diagnostic_clean_draws": 1,
+  "diagnostic_training_draws": 4,
+  "deployment": "epoch100 current student only; head_mode required; no teacher/prototype dependency",
+  "minimum_free_mib": 4096,
+  "base": "61b13a171a992999f1908126f9a4313c64bac647",
+  "branch": "codex/ssl-anchored-mix-stability-v0-1",
+  "protocol": "SSL_ANCHORED_MIX_STABILITY_V0_1",
+  "P1_seeds": [
+    31,
+    32,
+    33
+  ],
+  "P2_seeds": [
+    41,
+    42
+  ],
+  "P1_arms": [
+    "SUP_CED",
+    "MT_CED",
+    "MIX_CTX",
+    "MIX_CED"
+  ],
+  "P2_arms_if_MT": [
+    "SUP_CE",
+    "SUP_CED",
+    "MT_CED"
+  ],
+  "P2_arms_if_MIX": [
+    "SUP_CE",
+    "SUP_CED",
+    "MIX_CTX",
+    "MIX_CED"
+  ],
+  "P1_updates": 63600,
+  "P2_MT_updates": 31800,
+  "P2_MIX_updates": 42400,
+  "maximum_formal_updates": 106000,
+  "historical_formal_updates": 248108,
+  "primary_candidate": "MIX_CED",
+  "simpler_alternative": "MT_CED",
+  "GPUs": [
+    3,
+    4,
+    5
+  ],
+  "gpu_authority": "Explicit user steering: experiment on GPUs 3/4/5",
+  "GT_Dice_weight": 1.0,
+  "GT_Dice_epsilon": 1e-05,
+  "GT_Dice_reduction": "spatial sums FP64; image then rim/cup equal mean; all-ignore images contribute graph zero while retaining batch denominator",
+  "supervised_CE": "same explicit log-softmax gather/reduction as predecessor, deterministic CUDA",
+  "mix_rectangle": [
+    256,
+    256
+  ],
+  "mix_top_left_inclusive": [
+    0,
+    128
+  ],
+  "mix_rng": "stable_seed(optimization_seed,domain,epoch,step,mix_rectangle,position); torch CPU generator",
+  "mix_source_collection": "where(M,log_softmax(z_A),log_softmax(z_B)) for L; complementary where for U",
+  "odd_U": "index arange(B_L)%B_U; inverse bincount per-context loss; denominator unique U accepted pixels",
+  "MIX_CTX_teacher_U_forward": false,
+  "MIX_CTX_U_target_loss": "graph-connected exact zero; U image context remains",
+  "U_Dice": false,
+  "warmup": "epochs1-20 identical supervised CE+Dice for new four arms; no U images",
+  "P1_gates": {
+    "mean_gain": 0.005,
+    "positive_seeds_min": 2,
+    "stronger_of_old_CE_and_CED_margin": 0.005,
+    "domain_mean_floor": -0.005,
+    "class_mean_floor": -0.02,
+    "single_class_floor": -0.05,
+    "amber_class_below": -0.02,
+    "MIX_CTX_margin": 0.003,
+    "engineering_complete": true
+  },
+  "selection_rule": "MT if eligible unless eligible MIX exceeds MT by >=0.003; otherwise eligible MIX; else none",
+  "P2_gates": {
+    "mean_gain_both_supervised": 0.01,
+    "domain_mean_floor": -0.005,
+    "class_mean_floor": -0.02,
+    "single_class_floor": -0.05,
+    "MIX_CTX_margin": 0.003
+  },
+  "P2_stability": "both new seed gains vs SUP_CED positive with class-mean guard, independent of mean-value status",
+  "bootstrap": {
+    "replicates": 2000,
+    "analysis_seed": 2026090807,
+    "patient": "resample within fixed domains; common patient weights all arms and all seeds",
+    "training_seed": "resample complete paired seed blocks",
+    "CI": "percentile 2.5/97.5; descriptive few-seed sensitivity",
+    "joint": false
+  },
+  "late_epoch_variation": [
+    60,
+    80,
+    100
+  ],
+  "synthetic_update_cap": 1000,
+  "synthetic_per_attempt_cap": 200,
+  "real_smoke_cap": 8,
+  "real_smoke": "first two sorted labeled cases per domain; four arms one update each at epoch21; singleton pseudo-U stripped of labels tests odd mixing; weights discarded",
+  "old_run_root": "/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/ssl_target_path_v0_1_20260908_02",
+  "old_execution_source": "098c9c73dc1b7dd1b723363e45cbe34e169fe354",
+  "old_GT_access": "none; authorized old private final patient score CSV only for paired bootstrap",
+  "additional_real_diagnostic_backward": 0,
+  "real_parameter_gradient_diagnostics": false,
+  "forbidden": [
+    "test and U hidden GT",
+    "old formal_03",
+    "old final model initialization",
+    "historical image replay",
+    "CL",
+    "main merge",
+    "hyperparameter or threshold search",
+    "new seed outside admission"
+  ],
+  "protocol_sha": "6cfbb9aff92025da592b69fb0944680505f33f9ca0c6731f8d70dc0a8a75e710"
+}
