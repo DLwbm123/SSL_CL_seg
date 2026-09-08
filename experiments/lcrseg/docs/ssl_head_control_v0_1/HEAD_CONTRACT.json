@@ -1,0 +1,49 @@
+{
+  "head_mode": "raw_linear3_same_geometry",
+  "forward": "F.conv2d(features, mu.weight, bias=None, stride=1, padding=0)",
+  "kernel": [
+    3,
+    3
+  ],
+  "mu_shape": [
+    3,
+    16,
+    3,
+    3
+  ],
+  "bias": false,
+  "normalize_features": false,
+  "normalize_weights": false,
+  "logit_multiplier": 1,
+  "GAS": false,
+  "output": "same original decoder and bilinear align_corners=True interpolation to input grid",
+  "initialization": "original constructor and RNG namespaces; mu internal seed1024; domain/optimization_seed backbone, no model checkpoint initialization",
+  "sigma": {
+    "shape": [
+      3,
+      16,
+      3,
+      3
+    ],
+    "bytes": 1728,
+    "requires_grad": false,
+    "gradient": false,
+    "update": false
+  },
+  "grad_update": {
+    "shape": [
+      3,
+      16,
+      3,
+      3
+    ],
+    "bytes": 1728,
+    "requires_grad": false,
+    "Adam": false,
+    "value": 0
+  },
+  "trainable": "all effective backbone, decoder and mu parameters",
+  "max_complete_models": 2,
+  "deployment": "one final student; head_mode mandatory and validated; no teacher/prototype dependency",
+  "SUP_G1": "unchanged Foundation original normalized feature/weight x10 classifier, GAS from preceding squared supervised mu gradient"
+}

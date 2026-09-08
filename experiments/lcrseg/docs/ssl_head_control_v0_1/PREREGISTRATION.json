@@ -1,0 +1,198 @@
+{
+  "base": "405337e71d22aef011a041664fbc1b4b72b60408",
+  "branch": "codex/ssl-classifier-head-control-v0-1",
+  "data_split_seed": 0,
+  "domains": {
+    "RIM_ONE_r3": [
+      16,
+      63,
+      40,
+      3200
+    ],
+    "Drishti_GS": [
+      10,
+      41,
+      25,
+      2100
+    ]
+  },
+  "optimization_seeds": [
+    11,
+    21,
+    22
+  ],
+  "arms": [
+    "LIN_SUP",
+    "LIN_MT_CONF",
+    "LIN_MT_PAS",
+    "SUP_G1"
+  ],
+  "epochs": 100,
+  "batch_size": 2,
+  "lr": 0.001,
+  "lr_power": 0.9,
+  "Adam": {
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05
+  },
+  "EMA": 0.99,
+  "lambda_cons": "0.5*min(1,max(0,(epoch-20)/20))",
+  "confidence": 0.7,
+  "similarity": 0.7,
+  "strict_greater": true,
+  "input_noise": 0.02,
+  "prototype_epochs": [
+    21,
+    26,
+    31,
+    36,
+    41,
+    46,
+    51,
+    56,
+    61,
+    66,
+    71,
+    76,
+    81,
+    86,
+    91,
+    96
+  ],
+  "diagnostic_epochs": [
+    20,
+    40,
+    60,
+    80,
+    100
+  ],
+  "diagnostic_draws": 4,
+  "student_primary": true,
+  "GPUs": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "minimum_free_mib": 4096,
+  "P1_updates": 15900,
+  "total_max": 58300,
+  "prior_formal_updates": 131508,
+  "source_freeze_required": true,
+  "plan_sha256": "e72d2248f1a1eb583701fac05691c11d57ac1c00a9a0683b7f5a88598bcb1074",
+  "P1_arms": [
+    "LIN_SUP",
+    "LIN_MT_CONF",
+    "LIN_MT_PAS"
+  ],
+  "P2_SSL_updates": 42400,
+  "P2_SUP_updates": 21200,
+  "P2_mutually_exclusive": true,
+  "P2_SSL_arms": [
+    "LIN_SUP",
+    "LIN_MT_CONF",
+    "LIN_MT_PAS",
+    "SUP_G1"
+  ],
+  "P2_SUP_arms": [
+    "LIN_SUP",
+    "SUP_G1"
+  ],
+  "P2_seeds": [
+    21,
+    22
+  ],
+  "forbidden_seeds": [
+    12,
+    13
+  ],
+  "real_smoke_max_updates": 12,
+  "real_smoke_fixed_updates": 8,
+  "P0": {
+    "arms": [
+      "MT_PAS_G0",
+      "MT_PAS_G1"
+    ],
+    "seed": 11,
+    "epoch": 100,
+    "prototype_epoch": 96,
+    "sample_model_forward_cap": 1300,
+    "clean_draws": 1,
+    "training_draws": 4,
+    "null_permutations": 4,
+    "batch_size": 1,
+    "updates": 0,
+    "prototype_refresh": 0,
+    "GT_free_masks": true,
+    "used_for_selection": false,
+    "topk": "descending min(pmax_student,pmax_teacher), ascending flat index tie",
+    "matching_class": "teacher argmax",
+    "missing": "record incomplete diagnostic; never substitute"
+  },
+  "head_mode": "raw_linear3_same_geometry",
+  "SUP_G1_head_mode": "official_normalized_gas",
+  "probability_quantiles": [
+    0,
+    0.25,
+    0.5,
+    0.75,
+    0.9,
+    0.99,
+    1
+  ],
+  "reliability_bins": 10,
+  "mask_for_statistics": "actual geometry mask, denominator and lambda; GT validity for evaluator scoring only",
+  "forbidden": [
+    "test/hidden GT",
+    "REFUGE training",
+    "old formal_03",
+    "historical prediction replay",
+    "SCD/KD/router",
+    "main merge",
+    "post-hoc tuning",
+    "automatic CL"
+  ],
+  "SSL_screen": {
+    "mean_gain_min": 0.01,
+    "domain_delta_min": -0.005,
+    "class_delta_min": -0.02,
+    "stronger_SUP_margin": 0.005,
+    "selection": [
+      "max minimum domain delta",
+      "max Q",
+      "CONF exact tie",
+      "ID"
+    ]
+  },
+  "SUP_screen": {
+    "mean_gain_over_stronger_old_min": 0.01,
+    "domain_delta_vs_old_SUP_G1_min": -0.005,
+    "class_delta_vs_old_SUP_G1_min": -0.02
+  },
+  "SSL_confirmation": {
+    "seeds": [
+      21,
+      22
+    ],
+    "each_seed_gain_strictly_positive": true,
+    "mean_gain_min": 0.01,
+    "each_domain_mean_gain_min": 0,
+    "seed_domain_delta_min": -0.005,
+    "class_delta_min": -0.02,
+    "stronger_SUP_margin": 0.005
+  },
+  "SUP_confirmation": {
+    "seeds": [
+      21,
+      22
+    ],
+    "each_seed_gain_strictly_positive": true,
+    "mean_gain_min": 0.01,
+    "seed_domain_delta_min": -0.005,
+    "class_delta_min": -0.02
+  }
+}
