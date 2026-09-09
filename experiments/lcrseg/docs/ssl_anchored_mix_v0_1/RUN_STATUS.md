@@ -1,11 +1,9 @@
-# Anchored mix stability is running
+# Anchored mix stability completed
 
-Execution source: `800cabe5e5dd69612738aaba45ad35121d63c0f2`.
+Terminal: **VALUE_REPRODUCED**, **ENGINEERING_COMPLETE**; fixed-split development replication, CL NOT_EVALUATED.
 
-GPU 3/4/5, one formal task per GPU. Parent PID 181437 is detached with PPID1. First startup check observed 781 actual optimizer updates across three live tasks, with no failures. This is a startup snapshot, not a current or final result.
+Execution source: `800cabe5e5dd69612738aaba45ad35121d63c0f2`. P1 completed 24 tasks / 63600 updates; selected MIX_CED; P2 completed 16 tasks / 42400 updates. Total 40 tasks / 106000 formal updates, 200 diagnostic snapshots and 40 single-student deployments. All 80 child exits succeeded. Exact-source CPU/CUDA qualification and final read-only phase verification passed. Qualification 426 synthetic updates and smoke 8 updates are separate from formal counts.
 
-P1: all 24 tasks, 63600 formal updates, seeds31/32/33 and both domains. P2: automatically admitted only by the frozen selection rule, then all fixed seed41/42 tasks run; maximum total formal updates106000. No CL, new hyperparameters or additional seeds.
+GPU 3/4/5 detached run finished in 160.96 minutes. Original launch evidence remains in LAUNCH_RECEIPT.json and CLOSEOUT_VERIFICATION.json. NAS root: `/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/ssl_anchored_mix_v0_1_20260908_01`.
 
-Qualification: four recorded attempts (one zero-update development assertion failure preserved), 426 successful synthetic optimizer updates; exact source CPU/CUDA passed. Real labeled-only smoke8 updates, four actual labeled sample opens, zero real U images opened; initialization discarded.
-
-NAS root: `/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg/protocols/ssl_anchored_mix_v0_1_20260908_01`. Parent log `runner.log`; individual logs and step records under `P1/seed*/<domain>/`. Qualification and source checks are complete; final metrics and scientific terminal are pending.
+See [FINAL_REPORT.md](FINAL_REPORT.md) for effect sizes, uncertainty and cup costs; [PUBLICATION_VERIFICATION.json](PUBLICATION_VERIFICATION.json) for public delivery. No further experiments, CL, tuning or new seeds were started. All historical states are preserved.
