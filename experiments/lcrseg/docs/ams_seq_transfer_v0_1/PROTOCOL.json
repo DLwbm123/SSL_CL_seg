@@ -1,0 +1,425 @@
+{
+  "experiment_id": "AMS_SEQ_TRANSFER_V0_1",
+  "base_commit": "77af53864fa116030c832d69e7a404c79de2456e",
+  "math_reference": "800cabe5e5dd69612738aaba45ad35121d63c0f2",
+  "old_ki_required": false,
+  "mode": "full_parameter_sequential_control",
+  "seeds": [
+    61,
+    62,
+    63
+  ],
+  "gpus": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "epochs": 100,
+  "batch_L": 2,
+  "batch_U": 2,
+  "shape": [
+    384,
+    384
+  ],
+  "optimizer": {
+    "name": "Adam",
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05,
+    "poly_power": 0.9
+  },
+  "EMA": 0.99,
+  "boundary": "student_only; reset_EMA_Adam_RNG",
+  "warmup_epochs": 20,
+  "ramp_epochs": 20,
+  "max_U_weight": 0.5,
+  "teacher_confidence": 0.7,
+  "confidence_comparison": "strict_greater",
+  "temperature": 1.0,
+  "noise_std": 0.02,
+  "GT_Dice_weight": 1.0,
+  "GT_Dice_eps": 1e-05,
+  "patch_fraction": "2/3",
+  "analysis_seed": 2026090901,
+  "bootstrap_replicates": 2000,
+  "scoring": "care_hr_v0_7_1.scoring_r1.case_metrics;patient_equal_rim_cup_macro",
+  "gates": {
+    "Final": 0.005,
+    "Incoming": 0.0,
+    "Old": -0.005,
+    "order_Final": 0.0,
+    "positive_seeds": 2,
+    "class_mean": -0.02,
+    "class_single": -0.05,
+    "Drishti_cup_amber": -0.01,
+    "pseudo_Final": 0.003
+  },
+  "source_scoring_gate": false,
+  "tasks": [
+    {
+      "task_id": "O1_s61_SRC_CE",
+      "order": "O1",
+      "seed": 61,
+      "arm": "SRC_CE",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": null,
+      "updates": 3200
+    },
+    {
+      "task_id": "O1_s61_T_CE",
+      "order": "O1",
+      "seed": 61,
+      "arm": "T_CE",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s61_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_T_CED",
+      "order": "O1",
+      "seed": 61,
+      "arm": "T_CED",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s61_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_T_LCTX",
+      "order": "O1",
+      "seed": 61,
+      "arm": "T_LCTX",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s61_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_T_UCTX",
+      "order": "O1",
+      "seed": 61,
+      "arm": "T_UCTX",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s61_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_T_AMS",
+      "order": "O1",
+      "seed": 61,
+      "arm": "T_AMS",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s61_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s61_SRC_CE",
+      "order": "O2",
+      "seed": 61,
+      "arm": "SRC_CE",
+      "domain": "Drishti_GS",
+      "source_domain": "Drishti_GS",
+      "source_task_id": null,
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s61_T_CE",
+      "order": "O2",
+      "seed": 61,
+      "arm": "T_CE",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s61_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_T_CED",
+      "order": "O2",
+      "seed": 61,
+      "arm": "T_CED",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s61_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_T_LCTX",
+      "order": "O2",
+      "seed": 61,
+      "arm": "T_LCTX",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s61_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_T_UCTX",
+      "order": "O2",
+      "seed": 61,
+      "arm": "T_UCTX",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s61_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_T_AMS",
+      "order": "O2",
+      "seed": 61,
+      "arm": "T_AMS",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s61_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O1_s62_SRC_CE",
+      "order": "O1",
+      "seed": 62,
+      "arm": "SRC_CE",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": null,
+      "updates": 3200
+    },
+    {
+      "task_id": "O1_s62_T_CE",
+      "order": "O1",
+      "seed": 62,
+      "arm": "T_CE",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s62_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_T_CED",
+      "order": "O1",
+      "seed": 62,
+      "arm": "T_CED",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s62_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_T_LCTX",
+      "order": "O1",
+      "seed": 62,
+      "arm": "T_LCTX",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s62_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_T_UCTX",
+      "order": "O1",
+      "seed": 62,
+      "arm": "T_UCTX",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s62_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_T_AMS",
+      "order": "O1",
+      "seed": 62,
+      "arm": "T_AMS",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s62_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s62_SRC_CE",
+      "order": "O2",
+      "seed": 62,
+      "arm": "SRC_CE",
+      "domain": "Drishti_GS",
+      "source_domain": "Drishti_GS",
+      "source_task_id": null,
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s62_T_CE",
+      "order": "O2",
+      "seed": 62,
+      "arm": "T_CE",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s62_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_T_CED",
+      "order": "O2",
+      "seed": 62,
+      "arm": "T_CED",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s62_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_T_LCTX",
+      "order": "O2",
+      "seed": 62,
+      "arm": "T_LCTX",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s62_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_T_UCTX",
+      "order": "O2",
+      "seed": 62,
+      "arm": "T_UCTX",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s62_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_T_AMS",
+      "order": "O2",
+      "seed": 62,
+      "arm": "T_AMS",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s62_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O1_s63_SRC_CE",
+      "order": "O1",
+      "seed": 63,
+      "arm": "SRC_CE",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": null,
+      "updates": 3200
+    },
+    {
+      "task_id": "O1_s63_T_CE",
+      "order": "O1",
+      "seed": 63,
+      "arm": "T_CE",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s63_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_T_CED",
+      "order": "O1",
+      "seed": 63,
+      "arm": "T_CED",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s63_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_T_LCTX",
+      "order": "O1",
+      "seed": 63,
+      "arm": "T_LCTX",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s63_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_T_UCTX",
+      "order": "O1",
+      "seed": 63,
+      "arm": "T_UCTX",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s63_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_T_AMS",
+      "order": "O1",
+      "seed": 63,
+      "arm": "T_AMS",
+      "domain": "Drishti_GS",
+      "source_domain": "RIM_ONE_r3",
+      "source_task_id": "O1_s63_SRC_CE",
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s63_SRC_CE",
+      "order": "O2",
+      "seed": 63,
+      "arm": "SRC_CE",
+      "domain": "Drishti_GS",
+      "source_domain": "Drishti_GS",
+      "source_task_id": null,
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s63_T_CE",
+      "order": "O2",
+      "seed": 63,
+      "arm": "T_CE",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s63_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_T_CED",
+      "order": "O2",
+      "seed": 63,
+      "arm": "T_CED",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s63_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_T_LCTX",
+      "order": "O2",
+      "seed": 63,
+      "arm": "T_LCTX",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s63_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_T_UCTX",
+      "order": "O2",
+      "seed": 63,
+      "arm": "T_UCTX",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s63_SRC_CE",
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_T_AMS",
+      "order": "O2",
+      "seed": 63,
+      "arm": "T_AMS",
+      "domain": "RIM_ONE_r3",
+      "source_domain": "Drishti_GS",
+      "source_task_id": "O2_s63_SRC_CE",
+      "updates": 3200
+    }
+  ]
+}
