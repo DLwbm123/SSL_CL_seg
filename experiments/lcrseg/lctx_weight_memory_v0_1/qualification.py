@@ -93,9 +93,24 @@ def smoke(output,base,data,reference,device):
                     del m,t,opt,load;gc.collect();torch.cuda.empty_cache()
     r=dict(status='PASS',source=source,counts=dict(op.counts),updates=op.counts['optimizer_steps'],U_image_reads=0,discarded=True,peak_allocated=peak,peak_reserved=reserved,admission_mib=max(2048,math.ceil(max(peak,reserved)/2**20*1.25+512)),rows=rows)
     c.write_json(b/'receipt.json',r);print(json.dumps(r))
+def cold(output,reference,device):
+    source=verify();b=Path(output);b.mkdir(parents=True,exist_ok=False);dev=torch.device(device)
+    if dev.type=='cuda' and torch.cuda.is_initialized():raise RuntimeError('cold-process regression requires uninitialized CUDA')
+    os.environ['SF_REFERENCE']=reference;os.environ['SF_DEVICE']=device
+    from experiments.lcrseg.tests.ams_seq_transfer_v0_1.test_contract import fixture
+    with tempfile.TemporaryDirectory() as tmp:
+        root=Path(tmp);data=root/'data';expected=fixture(data)
+        task=dict(task_id='cold_start',arm='F_FULL',seed=61,order='O1',source_domain=c.DOMAINS[0],domain=c.DOMAINS[1],source_task_id='synthetic',updates=2)
+        with Operations(b/'operations',update_cap=2) as op:
+            r=e.train(root,task['task_id'],data,reference,dev,fixture=dict(task=task,epochs=1,steps=2,expected=expected))
+        assert r['updates']==2 and r['merge_max_abs']<=1e-5 and r['U_opens']==0
+    receipt=dict(status='PASS',source=source,tests=1,counts=dict(op.counts),device=device,cold_start=True,optimizer_updates=2,python=platform.python_version(),torch=torch.__version__,inherited_full_regression_source='c097633ee08837bb4fc07ad3cc60cec71c463128',scope='current exact-source cold engine execution; prior complete math/resume qualification remains separately attributed')
+    c.write_json(b/'qualification.json',receipt);print(json.dumps(receipt))
+
 if __name__=='__main__':
-    p=argparse.ArgumentParser();p.add_argument('mode',choices=['synthetic','smoke'])
+    p=argparse.ArgumentParser();p.add_argument('mode',choices=['synthetic','smoke','cold'])
     for k in ['output','reference','device']:p.add_argument('--'+k,required=True)
     p.add_argument('--development',action='store_true');p.add_argument('--base');p.add_argument('--data');a=vars(p.parse_args());mode=a.pop('mode')
-    if mode=='synthetic':a.pop('base');a.pop('data');synthetic(**a)
+    if mode=='cold':a.pop('base');a.pop('data');a.pop('development');cold(**a)
+    elif mode=='synthetic':a.pop('base');a.pop('data');synthetic(**a)
     else:a.pop('development');smoke(**a)

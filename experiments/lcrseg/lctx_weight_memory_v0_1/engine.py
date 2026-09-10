@@ -47,7 +47,8 @@ def train(base,task_id,data,reference,device,*,resume=False,fixture=None,stop_af
     if (root/'receipt.json').exists():raise FileExistsError('complete task protected')
     root.mkdir(parents=True,exist_ok=resume);total=steps*epochs;position=0;counts=Counter();priorL=0;diag=[]
     if fixture is None:assert total==task['updates']
-    if device.type=='cuda':torch.cuda.reset_peak_memory_stats(device)
+    if device.type=='cuda':
+        torch.cuda.init();torch.cuda.reset_peak_memory_stats(device)
     with c.training_access(task['domain']):
         ds=c.DomainData(data,task['domain'],'train_labeled',expected=expected,shape=shape);patients=c.patients_for(data,task['domain'],expected)
         m,t,opt,load,entry,boundary=initial(base,task,reference,device,fixture);frozen=frozen_hash(m)
