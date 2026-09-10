@@ -1,0 +1,363 @@
+{
+  "formal_counts": {
+    "sample_train_labeled_attempts": 190800,
+    "sample_access_attempts": 242865,
+    "hdf5_mode_r": 435810,
+    "hdf5_open_attempts": 435810,
+    "hdf5_open": 435810,
+    "sample_access": 242865,
+    "sample_train_labeled": 190800,
+    "model_forward_attempts": 148425,
+    "model_forward": 148425,
+    "image_forward": 294225,
+    "backward_attempts": 95400,
+    "backward": 95400,
+    "optimizer_steps_attempts": 95400,
+    "optimizer_steps": 95400,
+    "ema_updates_attempts": 95400,
+    "ema_updates": 95400,
+    "sample_val_attempts": 2145,
+    "sample_val": 2145,
+    "sample_train_unlabeled_attempts": 49920,
+    "sample_train_unlabeled": 49920
+  },
+  "qualification_local": {
+    "status": "PASS",
+    "source": "f174cf2a68212cf04ad19b18d8203a6455c94aee",
+    "tests": 5,
+    "errors": 0,
+    "failures": 0,
+    "counts": {
+      "hdf5_mode_w": 60,
+      "hdf5_open_attempts": 1274,
+      "hdf5_open": 1274,
+      "sample_train_labeled_attempts": 594,
+      "sample_access_attempts": 616,
+      "hdf5_mode_r": 1214,
+      "sample_access": 616,
+      "sample_train_labeled": 594,
+      "model_forward_attempts": 348,
+      "model_forward": 348,
+      "image_forward": 684,
+      "backward_attempts": 313,
+      "backward": 313,
+      "optimizer_steps_attempts": 313,
+      "optimizer_steps": 313,
+      "ema_updates_attempts": 313,
+      "ema_updates": 313,
+      "sample_train_unlabeled_attempts": 18,
+      "sample_train_unlabeled": 18,
+      "sample_val_attempts": 4,
+      "sample_val": 4,
+      "autograd_grad_attempts": 7,
+      "autograd_grad": 7
+    },
+    "device": "cpu",
+    "python": "3.12.9",
+    "torch": "2.6.0",
+    "seconds": 8.122305154800415
+  },
+  "qualification_server": {
+    "status": "PASS",
+    "source": "f174cf2a68212cf04ad19b18d8203a6455c94aee",
+    "tests": 5,
+    "errors": 0,
+    "failures": 0,
+    "counts": {
+      "hdf5_mode_w": 60,
+      "hdf5_open_attempts": 1274,
+      "hdf5_open": 1274,
+      "sample_train_labeled_attempts": 594,
+      "sample_access_attempts": 616,
+      "hdf5_mode_r": 1214,
+      "sample_access": 616,
+      "sample_train_labeled": 594,
+      "model_forward_attempts": 348,
+      "model_forward": 348,
+      "image_forward": 684,
+      "backward_attempts": 313,
+      "backward": 313,
+      "optimizer_steps_attempts": 313,
+      "optimizer_steps": 313,
+      "ema_updates_attempts": 313,
+      "ema_updates": 313,
+      "sample_train_unlabeled_attempts": 18,
+      "sample_train_unlabeled": 18,
+      "sample_val_attempts": 4,
+      "sample_val": 4,
+      "autograd_grad_attempts": 7,
+      "autograd_grad": 7
+    },
+    "device": "cuda:0",
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "seconds": 83.6270694732666
+  },
+  "smoke": {
+    "status": "PASS",
+    "source": "f174cf2a68212cf04ad19b18d8203a6455c94aee",
+    "counts": {
+      "sample_train_labeled_attempts": 4,
+      "sample_access_attempts": 4,
+      "hdf5_mode_r": 8,
+      "hdf5_open_attempts": 8,
+      "hdf5_open": 8,
+      "sample_access": 4,
+      "sample_train_labeled": 4,
+      "model_forward_attempts": 16,
+      "model_forward": 16,
+      "image_forward": 30,
+      "backward_attempts": 8,
+      "backward": 8,
+      "optimizer_steps_attempts": 8,
+      "optimizer_steps": 8,
+      "ema_updates_attempts": 8,
+      "ema_updates": 8
+    },
+    "updates": 8,
+    "peak_allocated": 854500864,
+    "peak_reserved": 956301312,
+    "admission_mib": 2048,
+    "real_U_image_reads": 0,
+    "GT_scope": "first two authorized L cases per domain; pseudo-U label stripped; synthetic-role image reuse only",
+    "reused_for_formal": false,
+    "rows": [
+      {
+        "domain": "RIM_ONE_r3",
+        "arm": "T_CED",
+        "loss": 2.121569058901912
+      },
+      {
+        "domain": "RIM_ONE_r3",
+        "arm": "T_LCTX",
+        "loss": 1.986396639813037
+      },
+      {
+        "domain": "RIM_ONE_r3",
+        "arm": "T_UCTX",
+        "loss": 1.9796027991944163
+      },
+      {
+        "domain": "RIM_ONE_r3",
+        "arm": "T_AMS",
+        "loss": 2.0049882910402532
+      },
+      {
+        "domain": "Drishti_GS",
+        "arm": "T_CED",
+        "loss": 1.8417481593922453
+      },
+      {
+        "domain": "Drishti_GS",
+        "arm": "T_LCTX",
+        "loss": 1.821035694725815
+      },
+      {
+        "domain": "Drishti_GS",
+        "arm": "T_UCTX",
+        "loss": 1.8262576736913094
+      },
+      {
+        "domain": "Drishti_GS",
+        "arm": "T_AMS",
+        "loss": 1.8415951875523842
+      }
+    ]
+  },
+  "qualification_attempt_ledger": {
+    "attempts": [
+      {
+        "receipt": "development01/qualification.json",
+        "kind": "synthetic",
+        "status": "PASS",
+        "source": "development",
+        "tests": 5,
+        "errors": 0,
+        "failures": 0,
+        "counts": {
+          "hdf5_mode_w": 60,
+          "hdf5_open_attempts": 1274,
+          "hdf5_open": 1274,
+          "sample_train_labeled_attempts": 594,
+          "sample_access_attempts": 616,
+          "hdf5_mode_r": 1214,
+          "sample_access": 616,
+          "sample_train_labeled": 594,
+          "model_forward_attempts": 340,
+          "model_forward": 340,
+          "image_forward": 668,
+          "backward_attempts": 305,
+          "backward": 305,
+          "optimizer_steps_attempts": 305,
+          "optimizer_steps": 305,
+          "ema_updates_attempts": 305,
+          "ema_updates": 305,
+          "sample_train_unlabeled_attempts": 18,
+          "sample_train_unlabeled": 18,
+          "sample_val_attempts": 4,
+          "sample_val": 4,
+          "autograd_grad_attempts": 7,
+          "autograd_grad": 7
+        },
+        "device": "cpu",
+        "python": "3.12.9",
+        "torch": "2.6.0",
+        "seconds": 7.507467985153198
+      },
+      {
+        "receipt": "qualification_local/qualification.json",
+        "kind": "synthetic",
+        "status": "PASS",
+        "source": "f174cf2a68212cf04ad19b18d8203a6455c94aee",
+        "tests": 5,
+        "errors": 0,
+        "failures": 0,
+        "counts": {
+          "hdf5_mode_w": 60,
+          "hdf5_open_attempts": 1274,
+          "hdf5_open": 1274,
+          "sample_train_labeled_attempts": 594,
+          "sample_access_attempts": 616,
+          "hdf5_mode_r": 1214,
+          "sample_access": 616,
+          "sample_train_labeled": 594,
+          "model_forward_attempts": 348,
+          "model_forward": 348,
+          "image_forward": 684,
+          "backward_attempts": 313,
+          "backward": 313,
+          "optimizer_steps_attempts": 313,
+          "optimizer_steps": 313,
+          "ema_updates_attempts": 313,
+          "ema_updates": 313,
+          "sample_train_unlabeled_attempts": 18,
+          "sample_train_unlabeled": 18,
+          "sample_val_attempts": 4,
+          "sample_val": 4,
+          "autograd_grad_attempts": 7,
+          "autograd_grad": 7
+        },
+        "device": "cpu",
+        "python": "3.12.9",
+        "torch": "2.6.0",
+        "seconds": 8.122305154800415
+      },
+      {
+        "receipt": "qualification_server/qualification.json",
+        "kind": "synthetic",
+        "status": "PASS",
+        "source": "f174cf2a68212cf04ad19b18d8203a6455c94aee",
+        "tests": 5,
+        "errors": 0,
+        "failures": 0,
+        "counts": {
+          "hdf5_mode_w": 60,
+          "hdf5_open_attempts": 1274,
+          "hdf5_open": 1274,
+          "sample_train_labeled_attempts": 594,
+          "sample_access_attempts": 616,
+          "hdf5_mode_r": 1214,
+          "sample_access": 616,
+          "sample_train_labeled": 594,
+          "model_forward_attempts": 348,
+          "model_forward": 348,
+          "image_forward": 684,
+          "backward_attempts": 313,
+          "backward": 313,
+          "optimizer_steps_attempts": 313,
+          "optimizer_steps": 313,
+          "ema_updates_attempts": 313,
+          "ema_updates": 313,
+          "sample_train_unlabeled_attempts": 18,
+          "sample_train_unlabeled": 18,
+          "sample_val_attempts": 4,
+          "sample_val": 4,
+          "autograd_grad_attempts": 7,
+          "autograd_grad": 7
+        },
+        "device": "cuda:0",
+        "python": "3.10.6",
+        "torch": "2.2.1+cu121",
+        "seconds": 83.6270694732666
+      },
+      {
+        "receipt": "smoke/receipt.json",
+        "kind": "real_smoke",
+        "status": "PASS",
+        "source": "f174cf2a68212cf04ad19b18d8203a6455c94aee",
+        "counts": {
+          "sample_train_labeled_attempts": 4,
+          "sample_access_attempts": 4,
+          "hdf5_mode_r": 8,
+          "hdf5_open_attempts": 8,
+          "hdf5_open": 8,
+          "sample_access": 4,
+          "sample_train_labeled": 4,
+          "model_forward_attempts": 16,
+          "model_forward": 16,
+          "image_forward": 30,
+          "backward_attempts": 8,
+          "backward": 8,
+          "optimizer_steps_attempts": 8,
+          "optimizer_steps": 8,
+          "ema_updates_attempts": 8,
+          "ema_updates": 8
+        },
+        "updates": 8,
+        "peak_allocated": 854500864,
+        "peak_reserved": 956301312,
+        "admission_mib": 2048,
+        "real_U_image_reads": 0,
+        "GT_scope": "first two authorized L cases per domain; pseudo-U label stripped; synthetic-role image reuse only",
+        "reused_for_formal": false,
+        "rows": [
+          {
+            "domain": "RIM_ONE_r3",
+            "arm": "T_CED",
+            "loss": 2.121569058901912
+          },
+          {
+            "domain": "RIM_ONE_r3",
+            "arm": "T_LCTX",
+            "loss": 1.986396639813037
+          },
+          {
+            "domain": "RIM_ONE_r3",
+            "arm": "T_UCTX",
+            "loss": 1.9796027991944163
+          },
+          {
+            "domain": "RIM_ONE_r3",
+            "arm": "T_AMS",
+            "loss": 2.0049882910402532
+          },
+          {
+            "domain": "Drishti_GS",
+            "arm": "T_CED",
+            "loss": 1.8417481593922453
+          },
+          {
+            "domain": "Drishti_GS",
+            "arm": "T_LCTX",
+            "loss": 1.821035694725815
+          },
+          {
+            "domain": "Drishti_GS",
+            "arm": "T_UCTX",
+            "loss": 1.8262576736913094
+          },
+          {
+            "domain": "Drishti_GS",
+            "arm": "T_AMS",
+            "loss": 1.8415951875523842
+          }
+        ]
+      }
+    ],
+    "synthetic_optimizer_updates": 931,
+    "real_smoke_optimizer_updates": 8,
+    "failed_attempts": 0,
+    "formal_optimizer_updates_excluded": true
+  },
+  "historical_counts_reused": false
+}

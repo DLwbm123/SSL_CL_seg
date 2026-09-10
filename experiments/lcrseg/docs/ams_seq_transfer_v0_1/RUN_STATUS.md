@@ -1,3 +1,7 @@
+# Current status: completed
+
+All 36 tasks and 95,400 formal updates completed. See [FINAL_REPORT.md](FINAL_REPORT.md), [TERMINAL.json](TERMINAL.json) and [CLOSEOUT_VERIFICATION.json](CLOSEOUT_VERIFICATION.json). No additional experiment was launched. The original startup snapshot is retained below.
+
 # AMS Sequential Transfer V0.1 — launched, not completed
 
 Status at 2026-09-09 21:43:33 Asia/Shanghai: **RUNNING_P1**. This is an initial launch receipt, not a result report.
