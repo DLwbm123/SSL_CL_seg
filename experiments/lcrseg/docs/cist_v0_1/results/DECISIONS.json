@@ -1,0 +1,150 @@
+{
+  "terminal": {
+    "engineering": "ENGINEERING_COMPLETE",
+    "scientific_state": "NO_PRIMARY_ACCURACY_GAIN",
+    "primary": {
+      "arm": "ISO_COND_LU",
+      "baseline": "F_CONV",
+      "scientific_state": "NO_PRIMARY_ACCURACY_GAIN",
+      "mean": {
+        "Final": -0.043274734809638615,
+        "Incoming": -0.109655413707012,
+        "Old": 0.023105944087734743,
+        "Forget": -0.023105944087734743
+      },
+      "paired_seed_SD": {
+        "Final": 0.017485637211223447,
+        "Incoming": 0.035321247693257236,
+        "Old": 0.0011264955278648056,
+        "Forget": 0.0011264955278648056
+      },
+      "seed_Final_deltas": [
+        -0.032478711341214606,
+        -0.03389668764323539,
+        -0.06344880544446585
+      ],
+      "worst_order_averaged_seed_Final": -0.06344880544446585,
+      "patient_interval": {
+        "arm": "ISO_COND_LU",
+        "baseline": "F_CONV",
+        "order": "both",
+        "metric": "Final",
+        "lower_95": -0.06442973831417532,
+        "upper_95": -0.02292994887632524,
+        "contains_zero": false,
+        "replicates": 2000,
+        "analysis_seed": 2026091011,
+        "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+      },
+      "evidence_uncertain": false,
+      "secondary_outcomes_are_not_conjunctive_gates": true
+    },
+    "formal_tasks": 36,
+    "formal_updates": 95400,
+    "source_training_updates": 0,
+    "baseline_retraining_updates": 0,
+    "source": "76afab45389d217196942ccdff3efcbac86a9c10",
+    "stopped": true,
+    "further_experiments": false,
+    "old_terminal_unchanged": true
+  },
+  "component_comparisons": [
+    {
+      "control": "ISO_COND_L",
+      "claim": "unlabeled_view_increment",
+      "Final_delta": -0.00014321048721142407,
+      "positive_mean_increment": false,
+      "patient_interval": {
+        "arm": "ISO_COND_LU",
+        "baseline": "ISO_COND_L",
+        "order": "both",
+        "metric": "Final",
+        "lower_95": -0.000437499903496293,
+        "upper_95": 0.00016507617480037478,
+        "contains_zero": true,
+        "replicates": 2000,
+        "analysis_seed": 2026091011,
+        "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+      },
+      "affects_only_component_claim": true
+    },
+    {
+      "control": "ISO_GLOBAL_LU",
+      "claim": "image_conditioning",
+      "Final_delta": 0.007456311319570252,
+      "positive_mean_increment": true,
+      "patient_interval": {
+        "arm": "ISO_COND_LU",
+        "baseline": "ISO_GLOBAL_LU",
+        "order": "both",
+        "metric": "Final",
+        "lower_95": 0.001552369312370003,
+        "upper_95": 0.013259683051250378,
+        "contains_zero": false,
+        "replicates": 2000,
+        "analysis_seed": 2026091011,
+        "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+      },
+      "affects_only_component_claim": true
+    },
+    {
+      "control": "AFFINE_LU",
+      "claim": "isometry",
+      "Final_delta": 0.0032721963112250694,
+      "positive_mean_increment": true,
+      "patient_interval": {
+        "arm": "ISO_COND_LU",
+        "baseline": "AFFINE_LU",
+        "order": "both",
+        "metric": "Final",
+        "lower_95": -0.000824473396958904,
+        "upper_95": 0.007345329648991509,
+        "contains_zero": true,
+        "replicates": 2000,
+        "analysis_seed": 2026091011,
+        "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+      },
+      "affects_only_component_claim": true
+    },
+    {
+      "control": "ISO_RANDOM_LU",
+      "claim": "readout_coordinates",
+      "Final_delta": 0.013081253407224186,
+      "positive_mean_increment": true,
+      "patient_interval": {
+        "arm": "ISO_COND_LU",
+        "baseline": "ISO_RANDOM_LU",
+        "order": "both",
+        "metric": "Final",
+        "lower_95": 0.006322105505871267,
+        "upper_95": 0.019308505368239196,
+        "contains_zero": false,
+        "replicates": 2000,
+        "analysis_seed": 2026091011,
+        "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+      },
+      "affects_only_component_claim": true
+    },
+    {
+      "control": "SCALE_LU",
+      "claim": "beyond_fixed_scaling",
+      "Final_delta": 0.004734683802101236,
+      "positive_mean_increment": true,
+      "patient_interval": {
+        "arm": "ISO_COND_LU",
+        "baseline": "SCALE_LU",
+        "order": "both",
+        "metric": "Final",
+        "lower_95": -0.006550127301679231,
+        "upper_95": 0.016054300417841207,
+        "contains_zero": true,
+        "replicates": 2000,
+        "analysis_seed": 2026091011,
+        "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+      },
+      "affects_only_component_claim": true
+    }
+  ],
+  "new_primary_rule": true,
+  "old_negative_findings_preserved": true
+}

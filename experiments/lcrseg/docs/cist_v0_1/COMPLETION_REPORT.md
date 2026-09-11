@@ -1,0 +1,11 @@
+# CIST V0.1 completed
+
+Completed 2026-09-11T20:51:36.066735+08:00; elapsed detached execution5084.12 seconds (about1h25m). All36 training/evaluation pairs exited0;95400 formal optimizer updates and backward calls,36 final diagnostic PASS records and sealed deployments were verified. The parent is no longer running. Local and CUDA regression cost61 synthetic steps including the retained9-step failed test attempt; real smoke cost24 discarded steps. Source/baseline retraining0. Execution source:76afab45389d217196942ccdff3efcbac86a9c10.
+
+The scientific state is NO_PRIMARY_ACCURACY_GAIN. Main ISO_COND_LU Final0.563604 versus F_CONV0.606879 gives -0.043275 (paired development-patient95% interval[-0.064430,-0.022930]). Main Incoming drops0.109655 while Old improves0.023106; all three order-averaged seed Final effects are negative. This is the pre-specified primary mean comparison, without applying any historical class veto. These repeatedly exposed development patients do not establish independent confirmation.
+
+The U-view contribution relative to ISO_COND_L is -0.000143 with a zero-crossing interval. Conditional context versus GLOBAL (+0.007456) and readout coordinates versus RANDOM (+0.013081) have positive conditional patient intervals, but do not offset the gap to the strong F_CONV baseline. AFFINE/SCALE contrasts and domain/class costs remain fully disclosed in the report and tables.
+
+[Full report](results/FINAL_REPORT.md), [all arm results](results/ARM_SUMMARY.csv), [paired effects](results/PAIRED_EFFECTS.csv), [class costs](results/DOMAIN_CLASS_COSTS.csv), [patient-tail summaries](results/PATIENT_DELTA_DISTRIBUTIONS.csv), [cost/memory](results/MEMORY_AND_COMPUTE.json), [completion audit](results/COMPLETION_AUDIT.json), and [NAS archive evidence](results/NAS_ARCHIVE_RECEIPT.json).
+
+The NAS run retains the original20 generated public result files plus all36 deploy students and exact recovery evidence. Repository text exports normalize line endings only; no bytewise-copy claim is made. The original launch snapshot and old LCTX terminal remain unchanged. Source, final weights, optimizer/RNG states, raw data/labels, per-case scores and runtime logs stay private on NAS. No new experiment, seed, rank, domain or parameter search was started. GitHub publication is verified separately after pushing this completion payload.
