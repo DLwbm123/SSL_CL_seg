@@ -10,8 +10,12 @@ from experiments.lcrseg.single_teacher_scd_v0_1.engine import audit_live_models
 from experiments.lcrseg.ssl_anchored_mix_v0_1.telemetry import Operations
 
 @torch.no_grad()
-def evaluate(base,task_id,data,reference,device,fixture=None):
-    source=verify() if fixture is None else 'SYNTHETIC'
+def evaluate(base,task_id,data,reference,device,fixture=None,recovery=False):
+    verify_run,admit_run=verify,admit
+    if recovery:
+        from experiments.lcrseg.lctx_weight_memory_v0_1_1 import contract as rc
+        verify_run,admit_run=rc.verify,rc.admit
+    source=verify_run() if fixture is None else 'SYNTHETIC'
     static=task_id.endswith('_STATIC_SOURCE')
     if fixture is None and str(Path(data).resolve())!=read(Path(base)/'private_inputs.json')['data']:raise PermissionError('data binding')
     if static:
@@ -24,7 +28,7 @@ def evaluate(base,task_id,data,reference,device,fixture=None):
         receipt=entry['receipt'];payload=torch.load(parent/'deploy_student.pt',map_location=device,weights_only=False)
         if payload['source']!=PARENT_SOURCE or payload['task']!=receipt['task']:raise PermissionError('static source identity')
     else:
-        task=admit(base,task_id,source) if fixture is None else fixture['task'];root=Path(base)/'tasks'/task_id
+        task=admit_run(base,task_id,source) if fixture is None else fixture['task'];root=Path(base)/'tasks'/task_id
         receipt=read(root/'receipt.json')
         if receipt['status']!='TRAINING_COMPLETE' or receipt['source']!=source:raise PermissionError('unfinished trainer')
         payload=torch.load(root/'deploy_student.pt',map_location=device,weights_only=False)
@@ -50,5 +54,6 @@ def evaluate(base,task_id,data,reference,device,fixture=None):
 if __name__=='__main__':
     p=argparse.ArgumentParser()
     for k in ('base','task_id','data','reference'):p.add_argument('--'+k.replace('_','-'),required=True)
+    p.add_argument('--recovery',action='store_true')
     a=vars(p.parse_args());root=Path(a['base'])/'tasks'/a['task_id']
     with Operations(root.parent/(root.name+'_eval_operations')):evaluate(**a,device=torch.device('cuda:0'))
