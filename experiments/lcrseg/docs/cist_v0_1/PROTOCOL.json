@@ -1,0 +1,546 @@
+{
+  "experiment": "CIST_V0_1",
+  "base": "f54e793ce3a699ab48a21ce2c2d244437fec67fb",
+  "sources": [
+    {
+      "task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "domain": "RIM_ONE_r3",
+      "student_hash": "4e9310c073e7b8b5ce34d6cad01a73acb99e80553502bce03f12dd4c630e421a"
+    },
+    {
+      "task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "domain": "Drishti_GS",
+      "student_hash": "072c139af34818fecefb4bb96b0cdb062d470ce24ea39d53ee2537ab7f1ec3aa"
+    },
+    {
+      "task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "domain": "RIM_ONE_r3",
+      "student_hash": "b531e6171d5097badd6863cdde48d7141f1ffc8bedb6c5eda2c5d0418921ec02"
+    },
+    {
+      "task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "domain": "Drishti_GS",
+      "student_hash": "877a146319f5e5e7d4d0e6eea2a8bc7850e4b787471596394110f856d085fd47"
+    },
+    {
+      "task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "domain": "RIM_ONE_r3",
+      "student_hash": "d8883da08f329a28aa3d0d8f4739746ee387b8e99b991627cacd11d1d2ca69f9"
+    },
+    {
+      "task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "domain": "Drishti_GS",
+      "student_hash": "4632e0f40bdcd46dccdf272f870b1062e5be533252efa7b99584b248990d9e69"
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "O1_s61_SCALE_LU",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "SCALE_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_AFFINE_LU",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "AFFINE_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_ISO_GLOBAL_LU",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_GLOBAL_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_ISO_COND_L",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_COND_L",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_ISO_COND_LU",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_COND_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s61_ISO_RANDOM_LU",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_RANDOM_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s61_SCALE_LU",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "SCALE_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_AFFINE_LU",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "AFFINE_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_ISO_GLOBAL_LU",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_GLOBAL_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_ISO_COND_L",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_COND_L",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_ISO_COND_LU",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_COND_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s61_ISO_RANDOM_LU",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_RANDOM_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O1_s62_SCALE_LU",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "SCALE_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_AFFINE_LU",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "AFFINE_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_ISO_GLOBAL_LU",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_GLOBAL_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_ISO_COND_L",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_COND_L",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_ISO_COND_LU",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_COND_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s62_ISO_RANDOM_LU",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_RANDOM_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s62_SCALE_LU",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "SCALE_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_AFFINE_LU",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "AFFINE_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_ISO_GLOBAL_LU",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_GLOBAL_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_ISO_COND_L",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_COND_L",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_ISO_COND_LU",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_COND_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s62_ISO_RANDOM_LU",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_RANDOM_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O1_s63_SCALE_LU",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "SCALE_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_AFFINE_LU",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "AFFINE_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_ISO_GLOBAL_LU",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_GLOBAL_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_ISO_COND_L",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_COND_L",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_ISO_COND_LU",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_COND_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O1_s63_ISO_RANDOM_LU",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "ISO_RANDOM_LU",
+      "steps_per_epoch": 21,
+      "updates": 2100
+    },
+    {
+      "task_id": "O2_s63_SCALE_LU",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "SCALE_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_AFFINE_LU",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "AFFINE_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_ISO_GLOBAL_LU",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_GLOBAL_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_ISO_COND_L",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_COND_L",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_ISO_COND_LU",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_COND_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    },
+    {
+      "task_id": "O2_s63_ISO_RANDOM_LU",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "ISO_RANDOM_LU",
+      "steps_per_epoch": 32,
+      "updates": 3200
+    }
+  ],
+  "arms": [
+    "SCALE_LU",
+    "AFFINE_LU",
+    "ISO_GLOBAL_LU",
+    "ISO_COND_L",
+    "ISO_COND_LU",
+    "ISO_RANDOM_LU"
+  ],
+  "main": "ISO_COND_LU",
+  "seeds": [
+    61,
+    62,
+    63
+  ],
+  "split": 0,
+  "epochs": 100,
+  "formal_updates": 95400,
+  "source_training_updates": 0,
+  "baseline_retraining_updates": 0,
+  "GPUs": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "optimizer": {
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05
+  },
+  "poly_power": 0.9,
+  "batch_size": 2,
+  "resolution": [
+    384,
+    384
+  ],
+  "rank": 8,
+  "channel_dimension": 16,
+  "controller": [
+    16,
+    32,
+    72
+  ],
+  "GELU": "exact",
+  "controller_parameters": 2920,
+  "scale_parameters": 16,
+  "initial_final_layer": "zero weight and bias",
+  "basis": "FP64 convolution contrast Gram eigenspace; cached once per source",
+  "basis_sign": "largest absolute element in each column positive",
+  "basis_degeneracy": "reject numerical rank below8; record small cutoff gap without retuning",
+  "basis_hashes": "bound in create-only SOURCE_BINDING before GT",
+  "initialization_key": [
+    "CIST_V0_1",
+    "seed",
+    "source_domain",
+    "controller_init"
+  ],
+  "context": "mean(Z),sqrt(population_var(Z)+1e-6)",
+  "transport": "H+V@((Q-I)@S+b)",
+  "solve": "FP64 differentiable solve(I-A,I+A); Q cast FP32 for feature application",
+  "orthogonality64_limit": 1e-10,
+  "distance32_limit": 2e-05,
+  "distance_denominator": "max(source_pair_squared_distance,1e-6*mean_source_feature_energy+1e-12)",
+  "L": "clean CE+foreground Dice epochs1-20; original complementary LCTX source-once epochs21-100",
+  "U": "current train_unlabeled only after20; no labels, teacher, argmax or GT mask",
+  "appearance": {
+    "original_geometry": true,
+    "gamma": [
+      0.8,
+      1.2
+    ],
+    "gain_RGB": [
+      0.9,
+      1.1
+    ],
+    "Gaussian_RGB_sigma": 0.02,
+    "random_shape": "gamma scalar/image; gain and epsilon each3x1x1/image",
+    "clip": [
+      0,
+      1
+    ]
+  },
+  "view_energy": ".5*mean_valid(Sa^2+Sb^2).detach()+1e-4",
+  "lambda_view": "min(1,max(0,(epoch-20)/20))",
+  "EMA_models": 0,
+  "source_core_frozen": true,
+  "analysis_seed": 2026091011,
+  "bootstrap": 2000,
+  "bootstrap_unit": "paired patients within physical domain; shared across all arms/seeds/orders",
+  "primary": "order average within seed then three-seed mean Final(ISO_COND_LU)-Final(F_CONV)",
+  "signal_threshold": 0.005,
+  "secondary_veto": false,
+  "qualification_synthetic_cap": 128,
+  "real_smoke_updates": 24,
+  "deployment": "one original image; one frozen source core plus controller and V/N; no fixed-conv merge",
+  "stop_after_fixed_matrix": true
+}
