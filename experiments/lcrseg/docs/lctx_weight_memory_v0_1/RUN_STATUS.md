@@ -1,3 +1,7 @@
+# Current status: stopped, incomplete
+
+Live verification found18/36 tasks complete and45,920/95,400 formal updates. A left-projection residual gate stopped the run; STATIC_SOURCE was not admitted. See [FINAL_REPORT.md](FINAL_REPORT.md) and [TERMINAL.json](TERMINAL.json). The original startup snapshot is retained below.
+
 # LCTX Weight Memory V0.1 — running, not completed
 
 Verified at 2026-09-10T21:42:07.388203+08:00: four initial target tasks are training on GPUs4/5/6/7, with 2024 committed formal updates and no immediate failure. The detached parent PID1207073 has PPID1; this run does not depend on the Codex session or SSH connection. Run identifier: `lctx_weight_memory_v0_1_20260910_02`.
