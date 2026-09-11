@@ -57,12 +57,13 @@ def run(output,reference,device):
                     module=model.transport
                     if arm!='SCALE_LU':
                         with c.rng(dev,'CIST_geometry_fixture',arm):module.mlp[-1].weight.normal_(std=.1);module.mlp[-1].bias.normal_(std=.1)
-                        zz,dt=module(h);diag=c.mechanism(h,zz,dt)
+                        probe=h.clone();probe[1]+=module.N[:,0][None,:,None,None][0]*.25
+                        zz,dt=module(probe);diag=c.mechanism(probe,zz,dt)
                         if arm.startswith('ISO_'):assert diag['distance_relative_max']<=c.DISTANCE32_LIMIT
                         if arm=='ISO_GLOBAL_LU':assert torch.equal(dt['Q'][0],dt['Q'][1]) and torch.equal(dt['b'][0],dt['b'][1])
                         if arm==c.MAIN:
                             assert not torch.equal(dt['Q'][0],dt['Q'][1])
-                            one,_=module(h[:1]);assert torch.allclose(one,zz[:1],atol=2e-6,rtol=2e-6)
+                            one,_=module(probe[:1]);assert torch.allclose(one,zz[:1],atol=2e-6,rtol=2e-6)
                         torch.nn.init.zeros_(module.mlp[-1].weight);torch.nn.init.zeros_(module.mlp[-1].bias)
                 for index,epoch in enumerate((1,21)):
                     u=ub if epoch>20 and arm!='ISO_COND_L' else None
@@ -78,6 +79,13 @@ def run(output,reference,device):
                 rejected(lambda:c.DomainData(data,c.DOMAINS[0],'train_labeled',expected=expected))
                 rejected(lambda:c.DomainData(data,c.DOMAINS[1],'val',evaluator=True,expected=expected))
             tests.append('current_domain_capabilities_and_L_only_U_denial')
+            from experiments.lcrseg.cist_v0_1.results import primary_decision
+            import numpy as np
+            for delta,expected_state in ((-.01,'NO_PRIMARY_ACCURACY_GAIN'),(.001,'SMALL_POSITIVE_PRIMARY_SIGNAL'),(.006,'PRIMARY_FINAL_SIGNAL_AT_LEAST_0_005')):
+                values=np.zeros((2,3,4));values[:,:,0]=delta;values[:,:,2]=-.5
+                decision=primary_decision(values,{'contains_zero':True})
+                assert decision['scientific_state']==expected_state and decision['evidence_uncertain']
+            tests.append('primary_signal_separate_from_class_costs_and_CI_uncertainty')
             args=kw('overfit');model,opt,entry,bound=e.initial(root,args['fixture']['task'],reference,dev,args['fixture']);losses=[]
             for i in range(8):losses.append(c.step(model,opt,lb,None,args['fixture']['task'],1,i,Counter(),['p0','p1'])['loss'])
             assert losses[-1]<losses[0],losses
