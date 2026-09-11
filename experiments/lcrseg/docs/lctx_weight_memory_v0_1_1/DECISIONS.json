@@ -1,0 +1,182 @@
+{
+  "terminal": {
+    "engineering": "ENGINEERING_COMPLETE",
+    "scientific_state": "RETENTION_VALUE_NOT_ESTABLISHED",
+    "tasks": 36,
+    "formal_updates": 95400,
+    "source_recovery_updates": 0,
+    "static_evaluations": 6,
+    "source": "9dc9d6d5a44f113bfcabbcfef50f8ea7ee3075e5",
+    "stopped": true,
+    "further_experiments": false,
+    "new_formal_updates": 49900,
+    "reused_formal_updates": 45500,
+    "old_failed_attempt_updates": 420,
+    "physical_formal_updates": 95820,
+    "original_attempt_terminal_preserved": true,
+    "training_math_changed": false,
+    "publication": "NAS complete; GitHub publication verification separate"
+  },
+  "VALUE": {
+    "kind": "VALUE",
+    "arm": "LR_SRC_A",
+    "baseline": "F_FULL",
+    "passed": false,
+    "checks": {
+      "Final": false,
+      "Old": false,
+      "Incoming": false,
+      "order_Final": false,
+      "positive_seeds": false,
+      "class_single": false,
+      "order_Old": false,
+      "old_class_means": false,
+      "current_class_means": false
+    },
+    "mean": {
+      "Final": -0.01616454465502572,
+      "Incoming": -0.009272284087711377,
+      "Old": -0.023056805222340094,
+      "Forget": 0.023056805222340094
+    },
+    "paired_seed_SD": {
+      "Final": 0.032810618299125,
+      "Incoming": 0.031048819433084626,
+      "Old": 0.039946062653235526,
+      "Forget": 0.039946062653235526
+    }
+  },
+  "SOURCE_GEOMETRY": [
+    {
+      "kind": "SOURCE_GEOMETRY",
+      "arm": "LR_SRC_A",
+      "baseline": "LR_FREE",
+      "passed": false,
+      "checks": {
+        "Final": false,
+        "Old": false,
+        "Incoming": true,
+        "order_Final": false,
+        "positive_seeds": false,
+        "class_single": false
+      },
+      "mean": {
+        "Final": -0.012391670261514443,
+        "Incoming": 0.0004059095331856444,
+        "Old": -0.0251892500562145,
+        "Forget": 0.0251892500562145
+      },
+      "paired_seed_SD": {
+        "Final": 0.020721289773067725,
+        "Incoming": 0.017387705916163815,
+        "Old": 0.031710978854969006,
+        "Forget": 0.031710978854969006
+      }
+    },
+    {
+      "kind": "SOURCE_GEOMETRY",
+      "arm": "LR_SRC_A",
+      "baseline": "LR_RAND",
+      "passed": false,
+      "checks": {
+        "Final": false,
+        "Old": false,
+        "Incoming": true,
+        "order_Final": false,
+        "positive_seeds": true,
+        "class_single": false
+      },
+      "mean": {
+        "Final": -0.003549257701443228,
+        "Incoming": 0.007337987770328551,
+        "Old": -0.014436503173214951,
+        "Forget": 0.014436503173214951
+      },
+      "paired_seed_SD": {
+        "Final": 0.02169381466001547,
+        "Incoming": 0.008912163372463531,
+        "Old": 0.04725353504226962,
+        "Forget": 0.04725353504226962
+      }
+    }
+  ],
+  "control_minus_main": [
+    {
+      "arm": "F_FULL",
+      "mean": {
+        "Final": 0.01616454465502572,
+        "Incoming": 0.009272284087711377,
+        "Old": 0.023056805222340094,
+        "Forget": -0.023056805222340094
+      }
+    },
+    {
+      "arm": "F_CONV",
+      "mean": {
+        "Final": 0.022898638249048437,
+        "Incoming": 0.010871961810281272,
+        "Old": 0.034925314687815616,
+        "Forget": -0.034925314687815616
+      }
+    },
+    {
+      "arm": "LR_FREE",
+      "mean": {
+        "Final": 0.012391670261514443,
+        "Incoming": -0.0004059095331856444,
+        "Old": 0.0251892500562145,
+        "Forget": -0.0251892500562145
+      }
+    },
+    {
+      "arm": "LR_RAND",
+      "mean": {
+        "Final": 0.003549257701443228,
+        "Incoming": -0.007337987770328551,
+        "Old": 0.014436503173214951,
+        "Forget": -0.014436503173214951
+      }
+    },
+    {
+      "arm": "LR_SRC_AB",
+      "mean": {
+        "Final": -0.011417764831279839,
+        "Incoming": -0.023913989123668416,
+        "Old": 0.0010784594611087477,
+        "Forget": -0.0010784594611087477
+      }
+    }
+  ],
+  "preserved_necessary_counterexamples": [
+    {
+      "arm": "LR_SRC_A",
+      "baseline": "F_FULL",
+      "order": "O1",
+      "seed": 62,
+      "domain": "RIM_ONE_r3",
+      "role": "old",
+      "metric": "rim_dice",
+      "delta": -0.07731558745756356
+    },
+    {
+      "arm": "LR_SRC_A",
+      "baseline": "LR_RAND",
+      "order": "O2",
+      "seed": 61,
+      "domain": "Drishti_GS",
+      "role": "old",
+      "metric": "cup_dice",
+      "delta": -0.06875783410804343
+    },
+    {
+      "arm": "LR_SRC_A",
+      "baseline": "LR_RAND",
+      "order": "O1",
+      "seed": 62,
+      "domain": "RIM_ONE_r3",
+      "role": "old",
+      "metric": "rim_dice",
+      "delta": -0.07962406526873261
+    }
+  ]
+}

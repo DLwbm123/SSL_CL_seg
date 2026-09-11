@@ -1,3 +1,9 @@
+# Recovery completed
+
+Completed 2026-09-11T13:25:52.948053+08:00. All36 target tasks and6 STATIC_SOURCE evaluations completed. Engineering: ENGINEERING_COMPLETE. Science: RETENTION_VALUE_NOT_ESTABLISHED. New49900 / reused45500 / scientific95400 / physical95820 updates. No further tasks admitted. See FINAL_REPORT.md and complete tables.
+
+The following is the preserved earlier startup snapshot, not current status:
+
 # Recovery running: 399/420 gate passed
 
 Started 2026-09-11T12:43:34.808779+08:00. Run `lctx_weight_memory_v0_1_1_20260911_01`; exact execution source `9dc9d6d5a44f113bfcabbcfef50f8ea7ee3075e5`. Detached parent PID 2145327, first GPU4 worker PID 2145361. Startup snapshot confirmed 159 committed formal optimizer updates, live neutral command lines, GPU worker memory1026MiB and no immediate failure. This is a startup snapshot, not a completed experiment or continuing monitor.
