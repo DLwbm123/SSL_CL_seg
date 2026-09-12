@@ -1,0 +1,405 @@
+{
+  "sources": [
+    {
+      "task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "domain": "RIM_ONE_r3",
+      "student_hash": "4e9310c073e7b8b5ce34d6cad01a73acb99e80553502bce03f12dd4c630e421a"
+    },
+    {
+      "task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "domain": "Drishti_GS",
+      "student_hash": "072c139af34818fecefb4bb96b0cdb062d470ce24ea39d53ee2537ab7f1ec3aa"
+    },
+    {
+      "task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "domain": "RIM_ONE_r3",
+      "student_hash": "b531e6171d5097badd6863cdde48d7141f1ffc8bedb6c5eda2c5d0418921ec02"
+    },
+    {
+      "task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "domain": "Drishti_GS",
+      "student_hash": "877a146319f5e5e7d4d0e6eea2a8bc7850e4b787471596394110f856d085fd47"
+    },
+    {
+      "task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "domain": "RIM_ONE_r3",
+      "student_hash": "d8883da08f329a28aa3d0d8f4739746ee387b8e99b991627cacd11d1d2ca69f9"
+    },
+    {
+      "task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "domain": "Drishti_GS",
+      "student_hash": "4632e0f40bdcd46dccdf272f870b1062e5be533252efa7b99584b248990d9e69"
+    }
+  ],
+  "seeds": [
+    61,
+    62,
+    63
+  ],
+  "split": 0,
+  "epochs": 100,
+  "optimizer": {
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05
+  },
+  "poly_power": 0.9,
+  "batch_size": 2,
+  "resolution": [
+    384,
+    384
+  ],
+  "experiment": "DPR_V0_1",
+  "base": "8610343c08de61f639844aa069ceecaec0de2b49",
+  "arms": [
+    "DPR_U",
+    "RESPONSE_U",
+    "DPR_L"
+  ],
+  "main": "DPR_U",
+  "tasks": [
+    {
+      "task_id": "O1_s61_DPR_U",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O1_s61_RESPONSE_U",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "RESPONSE_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O1_s61_DPR_L",
+      "source_task_id": "O1_s61_SRC_CE",
+      "seed": 61,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_L",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O2_s61_DPR_U",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O2_s61_RESPONSE_U",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "RESPONSE_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O2_s61_DPR_L",
+      "source_task_id": "O2_s61_SRC_CE",
+      "seed": 61,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_L",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O1_s62_DPR_U",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O1_s62_RESPONSE_U",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "RESPONSE_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O1_s62_DPR_L",
+      "source_task_id": "O1_s62_SRC_CE",
+      "seed": 62,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_L",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O2_s62_DPR_U",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O2_s62_RESPONSE_U",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "RESPONSE_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O2_s62_DPR_L",
+      "source_task_id": "O2_s62_SRC_CE",
+      "seed": 62,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_L",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O1_s63_DPR_U",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O1_s63_RESPONSE_U",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "RESPONSE_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O1_s63_DPR_L",
+      "source_task_id": "O1_s63_SRC_CE",
+      "seed": 63,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_L",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O2_s63_DPR_U",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O2_s63_RESPONSE_U",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "RESPONSE_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O2_s63_DPR_L",
+      "source_task_id": "O2_s63_SRC_CE",
+      "seed": 63,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_L",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    }
+  ],
+  "formal_updates": 47700,
+  "response_VJP": 76320,
+  "supervised_backward": 47700,
+  "expected_U_images": 49920,
+  "GPUs": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "analysis_seed": 2026091204,
+  "bootstrap": 2000,
+  "signal_threshold": 0.005,
+  "source_training_updates": 0,
+  "baseline_retraining_updates": 0,
+  "EMA_models": 1,
+  "EMA_use": "native current EMA after corrected update; never queried",
+  "probes": 2,
+  "pool": [
+    32,
+    32
+  ],
+  "lambda_rule": "clamp((epoch-20)/20,0,1)",
+  "zero_threshold": 1e-30,
+  "algebra_tolerance": 1e-12,
+  "applied_rounding": "half max adjacent FP32 ULP plus eps64*abs(theta+dstar)+2^-149 per coordinate; sum abs(g)*budget plus independent algebra allowance",
+  "real_smoke_cap": 12,
+  "diagnostic_schedule": "first step of epoch40 then every500 global updates, through task end",
+  "qualification_synthetic_cap": 96,
+  "stop_after_fixed_matrix": true
+}
