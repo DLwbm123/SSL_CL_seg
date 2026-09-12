@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "source": "12ba9232204d5f183f48b67261a91efc0e4f6392",
+  "admission": "unchanged training/evaluator source plus exact-source zero-update orchestration qualification",
+  "training_qualification_source": "83590c4b747264ed9e7d23eef19fce9127277565",
+  "training_receipt_sha256": "c8e070878234480c71b41bdc90840887da0c0660f4d1a3d7d347a1a2262e0a72",
+  "training_receipt_relative": "dpr_qualification_local_04/qualification.json",
+  "training_tests": [
+    "NumPy_and_device_FP64_KKT_degeneracies_rounding",
+    "native_adaptive_bins_and_CPU_derivative_match_on_device",
+    "response_label_capability_rejection",
+    "actual_VJP_grad_isolation_DPR_U",
+    "pending_first_exact_resume_deploy_DPR_U",
+    "actual_VJP_grad_isolation_RESPONSE_U",
+    "pending_first_exact_resume_deploy_RESPONSE_U",
+    "actual_VJP_grad_isolation_DPR_L",
+    "pending_first_exact_resume_deploy_DPR_L",
+    "all_warmup_student_Adam_EMA_and_RNG_exact_native_parity",
+    "two_case_overfit"
+  ],
+  "unchanged_tested_files": {
+    "experiments/lcrseg/dpr_v0_1/core.py": "75d5aa74981c95863dd2e3df1eb983e0e07756aaf8aacc1663478b1079f929fb",
+    "experiments/lcrseg/dpr_v0_1/engine.py": "8690a4bf52fcd5b719c3acf36644e5ec4b7d883f91f66fcde34a0c3d0af646e9",
+    "experiments/lcrseg/dpr_v0_1/evaluate.py": "a3c1f5928830b6171b61f7312b0c989e701c0fefe9e1cd90d95b52f884e53765",
+    "experiments/lcrseg/dpr_v0_1/contract.py": "1ff8198fbea4d8b67d8282848cda2c958ab9c561ead5cb99570eb5a8400ff286",
+    "experiments/lcrseg/dpr_v0_1/prepare.py": "61ea1284def77149357b7a9b986769a1d23ec10fd326e99113d5a22356dcb4f5",
+    "experiments/lcrseg/dpr_v0_1/results.py": "8f246d5c280d0410ac42bc4dced22f5ef019967a52ac432f6f0da41137804574",
+    "experiments/lcrseg/tests/dpr_v0_1/qualification.py": "f5e05a5fc24db1480ac1c593cf56ebe41e8e35f56bff1971afbe59ce8a93009f"
+  },
+  "orchestration_check": {
+    "status": "PASS",
+    "scope": "synthetic report and executor fixture only; no model or data",
+    "formal_updates": 0,
+    "synthetic_optimizer_updates": 0,
+    "report_branches": 3,
+    "queue_dispatches": 36
+  },
+  "new_optimizer_updates": 0,
+  "reused_synthetic_updates": 33,
+  "changed_files": [
+    "experiments/lcrseg/docs/dpr_v0_1/ENGINEERING_CONTRACT.md",
+    "experiments/lcrseg/docs/dpr_v0_1/SOURCE_FREEZE.json",
+    "experiments/lcrseg/dpr_v0_1/execute.py",
+    "experiments/lcrseg/tests/dpr_v0_1/report_contract.py"
+  ]
+}

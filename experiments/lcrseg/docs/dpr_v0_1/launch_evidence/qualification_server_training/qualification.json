@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "source": "83590c4b747264ed9e7d23eef19fce9127277565",
+  "tests": [
+    "NumPy_and_device_FP64_KKT_degeneracies_rounding",
+    "native_adaptive_bins_and_CPU_derivative_match_on_device",
+    "response_label_capability_rejection",
+    "actual_VJP_grad_isolation_DPR_U",
+    "pending_first_exact_resume_deploy_DPR_U",
+    "actual_VJP_grad_isolation_RESPONSE_U",
+    "pending_first_exact_resume_deploy_RESPONSE_U",
+    "actual_VJP_grad_isolation_DPR_L",
+    "pending_first_exact_resume_deploy_DPR_L",
+    "all_warmup_student_Adam_EMA_and_RNG_exact_native_parity",
+    "two_case_overfit"
+  ],
+  "formula": {
+    "status": "ALGEBRA_CHECKS_PASSED",
+    "scope": "CPU NumPy FP64 synthetic vectors only; no patient data, model training, or server access",
+    "seed": 2026091203,
+    "random_cases": 60,
+    "parameters": 37,
+    "probes": 2,
+    "lambda": 1.0,
+    "max_normalized_supervised_progress_residual": 4.0957046222568594e-17,
+    "max_absolute_difference_from_dense_KKT": 1.8735013540549517e-16,
+    "response_norm_ratio_after_over_before_mean": 0.6737925973914276,
+    "response_norm_ratio_after_over_before_max": 0.7702287733997506,
+    "correction_norm_over_proposal_norm_mean": 0.06564495513601273,
+    "max_objective_difference_from_feasible_proposal": -3.4303265641637246e-08,
+    "aligned_probe_max_absolute_step_change": 1.0408340855860843e-17,
+    "zero_probe_and_lambda_zero_exact_identity": true,
+    "no_task_gradient_policy_identity": true,
+    "formal_optimizer_updates": 0,
+    "limitations": [
+      "Does not test PyTorch VJP construction or Adam integration",
+      "Does not establish a nonlinear loss-decrease guarantee",
+      "Does not establish old-domain preservation from current-domain probes",
+      "Does not verify FP32 applied-weight residuals or GPU numerical behavior"
+    ]
+  },
+  "algebra": {
+    "max_dense_KKT_error": 1.3010426069826053e-16,
+    "cases": 60
+  },
+  "counts": {
+    "hdf5_mode_w": 30,
+    "hdf5_open_attempts": 154,
+    "hdf5_open": 154,
+    "sample_train_labeled_attempts": 50,
+    "sample_access_attempts": 74,
+    "hdf5_mode_r": 124,
+    "sample_access": 74,
+    "sample_train_labeled": 50,
+    "model_forward_attempts": 204,
+    "model_forward": 204,
+    "image_forward": 408,
+    "backward_attempts": 33,
+    "backward": 33,
+    "autograd_grad_attempts": 42,
+    "autograd_grad": 42,
+    "optimizer_steps_attempts": 33,
+    "optimizer_steps": 33,
+    "ema_updates_attempts": 33,
+    "ema_updates": 33,
+    "sample_train_unlabeled_attempts": 24,
+    "sample_train_unlabeled": 24
+  },
+  "synthetic_updates": 33,
+  "real_updates": 0,
+  "python": "3.10.6",
+  "torch": "2.2.1+cu121",
+  "device": "cuda:0",
+  "seconds": 20.458078622817993,
+  "overfit_loss": [
+    2.23585740291933,
+    1.5505582641699123,
+    1.2828966218932223,
+    1.1207865691238283
+  ]
+}
