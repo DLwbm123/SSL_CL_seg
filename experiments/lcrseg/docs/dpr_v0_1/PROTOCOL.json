@@ -400,6 +400,7 @@
   "applied_rounding": "half max adjacent FP32 ULP plus eps64*abs(theta+dstar)+2^-149 per coordinate; sum abs(g)*budget plus independent algebra allowance",
   "real_smoke_cap": 12,
   "diagnostic_schedule": "first step of epoch40 then every500 global updates, through task end",
-  "qualification_synthetic_cap": 96,
-  "stop_after_fixed_matrix": true
+  "qualification_synthetic_cap": 128,
+  "stop_after_fixed_matrix": true,
+  "deterministic_pool_backward": "native adaptive-average forward; exact disjoint-bin12x12 expansion VJP at384; separable adaptive-bin weights for synthetic shapes"
 }

@@ -36,6 +36,15 @@ def run(output,reference,device):
     tests=[];started=time.time()
     try:
         formula=run_checks();alg=algebra(dev);tests.append('NumPy_and_device_FP64_KKT_degeneracies_rounding')
+        # Compare native CPU derivatives for both overlapping synthetic and disjoint formal bins.
+        for shape in ((24,24),(64,64),(384,384)):
+            x=torch.randn(1,3,*shape,dtype=torch.float64,requires_grad=True);cot=torch.randn(1,3,32,32,dtype=torch.float64)
+            native=torch.nn.functional.adaptive_avg_pool2d(x,(32,32));expected=torch.autograd.grad((native*cot).sum(),x)[0]
+            xx=x.detach().to(dev).requires_grad_();z=c.DeterministicAdaptivePool.apply(xx)
+            got=torch.autograd.grad((z*cot.to(dev)).sum(),xx)[0]
+            assert torch.allclose(native.detach(),z.cpu(),atol=1e-12,rtol=1e-12)
+            assert torch.allclose(expected,got.cpu(),atol=1e-12,rtol=1e-12)
+        tests.append('native_adaptive_bins_and_CPU_derivative_match_on_device')
         with Operations(b/'operations',update_cap=48) as op,tempfile.TemporaryDirectory() as tmp:
             base=Path(tmp);data=base/'data';expected=fixture(data)
             def kw(tid,arm,epochs=(20,21,40)):

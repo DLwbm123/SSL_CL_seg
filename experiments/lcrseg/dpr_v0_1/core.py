@@ -34,10 +34,28 @@ def response_input(batch):
     validate_batch(batch,False)
     return batch
 
+class DeterministicAdaptivePool(torch.autograd.Function):
+    """Exact adaptive bins, native forward; deterministic disjoint-bin or separable VJP."""
+    @staticmethod
+    def forward(ctx,x):
+        ctx.shape=x.shape[-2:]
+        return F.adaptive_avg_pool2d(x,(32,32))
+    @staticmethod
+    def backward(ctx,grad):
+        h,w=ctx.shape
+        if h%32==0 and w%32==0:
+            # Formal384: native non-overlapping12x12 averages, no atomic scatter.
+            return (grad/((h//32)*(w//32))).repeat_interleave(h//32,-2).repeat_interleave(w//32,-1)
+        def weights(n):
+            i=torch.arange(32,device=grad.device);start=(i*n)//32;end=((i+1)*n+31)//32
+            pos=torch.arange(n,device=grad.device)
+            return ((pos[None]>=start[:,None])&(pos[None]<end[:,None])).to(grad)/(end-start)[:,None]
+        return torch.einsum('ih,bcij,jw->bchw',weights(h),grad,weights(w))
+
 def contrast(logits,valid):
     if valid.dtype!=torch.bool or valid.shape!=logits.shape[:1]+logits.shape[2:]:raise ValueError('geometry mask')
     frac=F.adaptive_avg_pool2d(valid[:,None].to(logits),(32,32))
-    pooled=F.adaptive_avg_pool2d(logits*valid[:,None],(32,32))/frac.clamp_min(1e-12)
+    pooled=DeterministicAdaptivePool.apply(logits*valid[:,None])/frac.clamp_min(1e-12)
     C=logits.new_tensor([[-1/math.sqrt(2),1/math.sqrt(2),0],[-1/math.sqrt(6),-1/math.sqrt(6),2/math.sqrt(6)]])
     return torch.einsum('kc,bchw->bkhw',C,pooled),frac>0
 
