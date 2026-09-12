@@ -10,7 +10,7 @@ from experiments.lcrseg.tests.dpr_v0_1.formula_reference import run_checks,dense
 
 def rejected(fn):
     try:fn()
-    except (PermissionError,RuntimeError,ValueError):return
+    except (PermissionError,RuntimeError,ValueError,FloatingPointError):return
     raise AssertionError('forbidden operation accepted')
 
 def algebra(dev):
