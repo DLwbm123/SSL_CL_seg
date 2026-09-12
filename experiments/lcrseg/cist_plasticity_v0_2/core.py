@@ -1,5 +1,5 @@
 """Arm-specific core plasticity and the unchanged CIST transport; current L only."""
-from experiments.lcrseg.cist_v0_1 import core as old
+from experiments.lcrseg.cist_v0_1 import core as cist_core
 from experiments.lcrseg.cist_v0_1.core import *
 from experiments.lcrseg.lctx_weight_memory_v0_1.core import LAYERS,training_access
 
@@ -10,7 +10,7 @@ GN=tuple(f'{b}.block.{i}.{p}' for b in BLOCKS for i in (1,4) for p in ('weight',
 SIZES={'GN_L':1408,'GN_CIST_L':4328,'CONV_CIST_L':441112}
 
 class Student(nn.Module):
-    readout=old.Student.readout
+    readout=cist_core.Student.readout
     def __init__(self,core,tensors,task):
         super().__init__();self.core=core.eval();self.arm=task['arm'];self.bypass=False
         if self.arm not in ARMS:raise PermissionError('unregistered plasticity arm')
@@ -54,7 +54,7 @@ class Student(nn.Module):
 @torch.no_grad()
 def mechanism(h,hp,detail):
     if detail is None:return dict(transport_present=False,distance_relative_max=0.,distance_relative_mean=0.,Q_norm=0.,b_norm=0.,Q_batch_variance=0.,b_batch_variance=0.,orthogonality64_max=0.)
-    return dict(transport_present=True,**old.mechanism(h,hp,detail))
+    return dict(transport_present=True,**cist_core.mechanism(h,hp,detail))
 
 def optimizer(model):
     named=[(n,p) for n,p in model.named_parameters() if p.requires_grad]
@@ -67,7 +67,7 @@ def optimizer(model):
 
 def step(student,opt,l,task,epoch,index,counts,patients):
     opt.zero_grad(set_to_none=True);student.observations=[]
-    ce,dice,coords=old.labeled_loss(student,l,task['seed'],task['domain'],epoch,index,counts,patients);loss=ce+dice
+    ce,dice,coords=cist_core.labeled_loss(student,l,task['seed'],task['domain'],epoch,index,counts,patients);loss=ce+dice
     if not torch.isfinite(loss):raise FloatingPointError('nonfinite objective')
     loss.backward();counts['backward']+=1
     for name,p in student.named_parameters():
