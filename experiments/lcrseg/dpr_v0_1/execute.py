@@ -55,7 +55,7 @@ def execute(base,data,reference):
         for t in p['tasks']:
             root=b/'tasks'/t['task_id'];r=ct.read(root/'receipt.json');diag=ct.read(root/('diagnostics_pass_'+str(t['updates'])+'.json'))
             assert r['source']==source and r['task']==t and r['updates']==t['updates'] and diag['status']=='PASS'
-            students[t['task_id']]=dict(student_hash=r['student_hash'],source_student_hash=r['boundary']['source_student_hash'],checkpoint_sha256=diag['checkpoint_sha256'])
+            students[t['task_id']]=dict(student_hash=r['student_hash'],source_student_hash=r['boundary']['source_student_hash'],checkpoint_sha256=ct.sha256(root/('checkpoint_'+str(t['updates'])+'.pt')))
         with (b/'TARGET_WEIGHT_SEAL.json').open('x') as f:json.dump(dict(source=source,students=students,created=time.time()),f,indent=2)
         phase='eval'
         for t in p['tasks']:jobs.put(t['task_id'])
