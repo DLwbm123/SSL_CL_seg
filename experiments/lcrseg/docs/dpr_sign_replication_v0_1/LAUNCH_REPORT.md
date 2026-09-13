@@ -1,4 +1,6 @@
-# Frozen SIGN replication: running on GPU6/7 only
+# Frozen SIGN replication: completed on GPU6/7
+
+Completed at 2026-09-13 18:10:17 +08:00. Live closeout at 18:18 confirmed 18 training receipts, 18 evaluation receipts, 47,700 formal updates, and all 36 task exits zero. See [completion report](COMPLETION_REPORT.md) and [final scientific report](public_results/FINAL_REPORT.md). The launch account below is historical.
 
 Status RUNNING_NOT_COMPLETE. Run dpr_sign_replication_v0_1_20260913_01. Mathematical/training and scoring source87bb70ee05609e77935b1bab5b9a44c9532dc491. GPU-only continuation controllerd07845a2a0911ebc945f713fd31e61e96b4a7b91. Branch codex/dpr-sign-replication-v0-1. Publication commits do not change either runtime checkout.
 
