@@ -1,0 +1,111 @@
+{
+  "status": "PASS",
+  "source": "91cb00bf2ac7458d82895256fbf71d91af84529d",
+  "tests": [
+    "attached_80_case_algebra",
+    "device_KKT_degeneracy_detach_raw_VJP_sign_stream",
+    "linear_full_field_counterexample_actual_Adam_raw_restore",
+    "response_GT_capability_rejection",
+    "one_Adam_three_queries_final_EMA_DPR_FINITE_U",
+    "pending_first_exact_resume_and_forbidden_phases_DPR_FINITE_U",
+    "one_Adam_three_queries_final_EMA_DPR_FINITE_SIGN_U",
+    "pending_first_exact_resume_and_forbidden_phases_DPR_FINITE_SIGN_U",
+    "native_warmup_golden_hash_Adam_EMA_parity",
+    "two_case_overfit",
+    "cold384_tail_B1"
+  ],
+  "formula": {
+    "scope": "local NumPy float64 algebra only; no patient data, no neural-network or server training",
+    "kkt_cases": 80,
+    "max_correction_vs_kkt_absolute_error": 5.551115123125783e-17,
+    "max_normalized_progress_correction_residual": 5.960802581951628e-16,
+    "max_objective_difference": -1.6656598484577473e-05,
+    "full_field_counterexample": {
+      "linear_output_map": [
+        [
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          100.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "native_increment": [
+        1.0,
+        0.0001,
+        -0.1
+      ],
+      "correction": [
+        -0.250025,
+        -0.250025,
+        0.0
+      ],
+      "raw_squared_response": 1.0001,
+      "candidate_squared_response": 625.1875187506249,
+      "candidate_sampled_response_ratio": 0.5,
+      "candidate_full_response_ratio": 25.002499999999998,
+      "finite_guard_rejects": true,
+      "applied_equals_native": true
+    },
+    "sign_control_preserves_absolute_probe_weights": true,
+    "algebra_tests_pass": true,
+    "scientific_accuracy_tested": false,
+    "formal_training_updates": 0
+  },
+  "algebra": {
+    "cases": 80,
+    "max_KKT_error": 2.7755575615628914e-17,
+    "stopgrad": true,
+    "raw_VJP": true,
+    "sign_absolute_match": true
+  },
+  "counterexample": {
+    "raw_energy": 1.0001000000094995,
+    "candidate_energy": 625.1875310639778,
+    "raw_restored_exactly": true,
+    "Adam_once": true
+  },
+  "counts": {
+    "optimizer_steps_attempts": 26,
+    "optimizer_steps": 26,
+    "hdf5_mode_w": 30,
+    "hdf5_open_attempts": 122,
+    "hdf5_open": 122,
+    "sample_train_labeled_attempts": 34,
+    "sample_access_attempts": 58,
+    "hdf5_mode_r": 92,
+    "sample_access": 58,
+    "sample_train_labeled": 34,
+    "model_forward_attempts": 149,
+    "model_forward": 149,
+    "image_forward": 295,
+    "backward_attempts": 25,
+    "backward": 25,
+    "autograd_grad_attempts": 22,
+    "autograd_grad": 22,
+    "ema_updates_attempts": 25,
+    "ema_updates": 25,
+    "sample_train_unlabeled_attempts": 24,
+    "sample_train_unlabeled": 24
+  },
+  "synthetic_updates": 26,
+  "real_updates": 0,
+  "python": "3.12.9",
+  "torch": "2.6.0",
+  "device": "cpu",
+  "seconds": 6.898017883300781,
+  "overfit_loss": [
+    2.2358574023219995,
+    1.550558208816885,
+    1.282895900336999,
+    1.1208385478484968
+  ]
+}
