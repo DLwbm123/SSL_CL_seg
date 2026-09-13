@@ -102,6 +102,7 @@ def run(output,reference,device):
 
 def smoke(base,reference,device):
     source=ct.verify();ct.neutral_subprocess_paths();b=Path(base);out=b/'smoke';out.mkdir();inputs=ct.read(b/'private_inputs.json');subsets=ct.read(b/'private_subsets.json');dev=torch.device(device);peak=0;rows=[]
+    torch.cuda.init()
     with Operations(out/'operations',update_cap=12) as op:
         for domain in c.DOMAINS:
             for arm in c.ARMS:

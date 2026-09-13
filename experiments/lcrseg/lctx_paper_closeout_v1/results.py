@@ -1,5 +1,5 @@
 """All frozen contrasts are reported, without a favorable-result admission gate."""
-import csv,json,time,shutil
+import csv,json,time,shutil,subprocess
 from collections import Counter
 from pathlib import Path
 from . import core as c,contract as ct
@@ -49,13 +49,37 @@ def finish(base):
     vv,ci=paired(out/'comparisons',private,srcscores,p['seeds'],['C_LCTX',*c.ARMS],COMPARISONS,p['analysis_seed'],'FROZEN_DEVELOPMENT_RECIPE_COMPARISON')
     dump(out/'RUN_LEDGER.csv',ledger)
     c.write_json(out/'RESOURCE_ACCOUNTING.json',dict(new_formal_updates=79500,new_source_updates=0,reused_LCTX_new_updates=0,response_VJP=0,operations=dict(ops),kernel_counts=dict(kernel),tasks=resources,qualification=ct.read(b/'qualification_ledger.json'),historical_costs_excluded=True))
-    for name in ('SUBSET_MANIFEST.json','REUSE_BINDING.json','TARGET_WEIGHT_SEAL.json'):shutil.copy2(b/name,out/name)
+    for name in ('SUBSET_MANIFEST.json','REUSE_BINDING.json','TARGET_WEIGHT_SEAL.json','DATA_SCOPE.json'):shutil.copy2(b/name,out/name)
     report=table(vv,ci)
+    primary=float((vv['C_LCTX']-vv['C_FULLMIX']).mean((0,1))[0])
+    low=float((vv['C_LCTX_LOW']-vv['C_FULLMIX_LOW']).mean((0,1))[0])
+    pci=next(r for r in ci if r['arm']=='C_LCTX' and r['baseline']=='C_FULLMIX' and r['order']=='both' and r['metric']=='Final')
+    interpretation=f"The standard-label source-scoring comparison has Final point estimate {primary:+.8f}; its conditional patient interval is [{pci['lower_95']:+.8f}, {pci['upper_95']:+.8f}]. The low-target-label difference is {low:+.8f}. These estimates describe local recipe differences, with donor supervision and Dice grouping jointly changed. They do not establish equivalence, a universal mechanism, or independent confirmation. No result direction triggers additional experiments."
     text='# LCTX paper closeout V1\n\n30/30 new target trainings and 30/30 final-student evaluations completed; 79,500 formal updates. Six sources and six standard-L LCTX targets reused without retraining.\n\n'+report+'\nAll contrasts are retained regardless of direction. Intervals are conditional on the trained models and reused development patients. No independent-patient, third-training-domain, official CutMix/BCP reproduction, SOTA, equivalence or novel U-increment claim follows. The FULLMIX comparison changes both donor supervision and Dice grouping.\n'
-    (out/'FINAL_REPORT.md').write_text(text)
+    (out/'FINAL_REPORT.md').write_text(text+'\n'+interpretation+'\n')
     paper=out/'paper';shutil.copytree(ct.DOC/'paper',paper)
+    absolute=['| Budget | Arm | Final | Incoming | Old | Forget |','|---|---|---:|---:|---:|---:|']
+    for a,v in vv.items():absolute.append('| '+('low target L' if a.endswith('_LOW') else 'standard target L')+' | '+a+' | '+' | '.join(f'{x:.8f}' for x in v.mean((0,1)))+' |')
+    full_tables='\n'.join(absolute)+'\n\n'+report
     for filename in ('PAPER_DRAFT.md','TABLES.md'):
-        path=paper/filename;content=path.read_text();content=content.replace('<!-- NEW_RESULTS_START -->\nPENDING: fixed matrix has not completed.\n<!-- NEW_RESULTS_END -->','<!-- NEW_RESULTS_START -->\n'+report+'<!-- NEW_RESULTS_END -->');path.write_text(content)
+        path=paper/filename;content=path.read_text();content=content.replace('<!-- NEW_RESULTS_START -->\nPENDING: fixed matrix has not completed.\n<!-- NEW_RESULTS_END -->','<!-- NEW_RESULTS_START -->\n'+full_tables+'\n'+interpretation+'\n<!-- NEW_RESULTS_END -->')
+        if filename=='PAPER_DRAFT.md':
+            content=content.replace('**The new matrix is pending; this draft makes no claim of a positive source-scoring contribution.**',interpretation)
+            content=content.replace('New numerical conclusions await the fixed matrix.','The fixed matrix is complete; the estimates and their scope are reported above.')
+            content=content.replace('The evidence for an incremental source-scoring benefit and any label-budget dependence remain pending.','The completed estimates above define the evidence for a local recipe effect and its target-label sensitivity.')
+            content=content.replace('The result table will retain all five frozen contrasts.','The result table retains all five frozen contrasts.')
+        path.write_text(content)
+    # The pre-run tables remain provenance; put actual tables in a separate completed artifact.
+    (paper/'COMPLETED_TABLES.md').write_text('# Completed fixed comparisons\n\n'+full_tables+'\n'+interpretation+'\n\nCost and exposure values are in ../RESOURCE_ACCOUNTING.json and ../RUN_LEDGER.csv. Historical costs remain separate.\n')
+    index=paper/'EXPERIMENT_INDEX.csv'
+    with index.open() as f:rows=list(csv.DictReader(f))
+    for row in rows:
+        if row['role']=='new_target':row.update(source_commit=source,status='COMPLETE')
+    dump(index,rows)
+    if shutil.which('pandoc'):
+        subprocess.run(['pandoc','PAPER_DRAFT.md','--standalone','-t','latex','-o','PAPER_DRAFT.tex'],cwd=paper,check=True)
+    else:
+        (paper/'LATEX_SNAPSHOT_NOTE.md').write_text('PAPER_DRAFT.tex is the frozen pre-run draft snapshot. PAPER_DRAFT.md and COMPLETED_TABLES.md contain completed results. Regenerate editable LaTeX with pandoc PAPER_DRAFT.md --standalone -t latex -o PAPER_DRAFT.tex; no PDF or updated LaTeX compilation is claimed.\n')
     terminal=dict(status='COMPLETE',source=source,new_trainings=30,new_evaluations=30,new_updates=79500,new_source_updates=0,reused_LCTX_new_updates=0,response_VJP=0,performance_gate=False,all_directions_reported=True,additional_experiments=False,stopped=True,finished=time.time())
     c.write_json(out/'TERMINAL.json',terminal)
     c.write_json(out/'NAS_ARCHIVE_RECEIPT.json',dict(status='ARCHIVED_ON_NAS',run_id=b.name,deployments=sum((b/'tasks'/t['task_id']/'deploy_student.pt').is_file() for t in p['tasks']),epoch_checkpoints=sum(len(list((b/'tasks'/t['task_id']).glob('checkpoint_*.pt'))) for t in p['tasks']),private_scores_retained=True,publication='GitHub verification separate',files=[dict(name=str(x.relative_to(out)),bytes=x.stat().st_size) for x in out.rglob('*') if x.is_file()],finished=time.time()))
