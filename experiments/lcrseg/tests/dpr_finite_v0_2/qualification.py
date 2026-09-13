@@ -15,6 +15,8 @@ def algebra(dev):
         g=torch.randn(19,device=dev,dtype=torch.float64,generator=gen);R=torch.randn(2,19,device=dev,dtype=torch.float64,generator=gen);q=torch.randn(2,device=dev,dtype=torch.float64,generator=gen)
         if i==0:R[1]=0
         n=R.norm();eta,_=c.correct(g,R/n,q/n,1)
+        J=R/n;b=q/n;K=torch.zeros(20,20,device=dev,dtype=torch.float64);K[:19,:19]=torch.eye(19,device=dev)+J.T@J;K[:19,19]=g;K[19,:19]=g
+        dense=torch.linalg.solve(K,torch.cat([-J.T@b,b.new_zeros(1)]))[:19];c.finite(dense);assert float((eta-dense).abs().max())<1e-12
         ref=correction(g.cpu().numpy(),R.cpu().numpy(),q.cpu().numpy())[0]
         errors.append(float((eta-torch.from_numpy(ref).to(dev)).abs().max()));assert errors[-1]<1e-12
     for gg,jj,lam in [(g,R/n,0),(g*0,R/n,1),(g,R*0,1)]:assert torch.equal(c.correct(gg,jj,q,lam)[0],g*0)

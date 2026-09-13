@@ -99,7 +99,12 @@ def step(model,ema,opt,l,probe,task,epoch,index,counts,patients,diagnostic=False
     # Genuine warmup: no trial snapshot, response query, VJP, hook or second parameter write.
     if not lam:
         if probe is not None:raise PermissionError('warmup response access')
-        row=parent.step(model,ema,opt,l,None,'T_LCTX',task['seed'],task['domain'],epoch,index,counts,patients)
+        prior=max((float(z['step']) for z in opt.state.values()),default=0.)
+        try:row=parent.step(model,ema,opt,l,None,'T_LCTX',task['seed'],task['domain'],epoch,index,counts,patients)
+        except BaseException:
+            PHASE='raw' if max((float(z['step']) for z in opt.state.values()),default=0.)>prior else 'pre'
+            if FAIL_HOOK:FAIL_HOOK(model,ema,opt,counts,PHASE)
+            raise
         PHASE='final';row.update(checks={'native_warmup':True},lambda_response=0.,degeneracy='warmup',candidate_accepted=0,guard_rejected=0,response_images=0,response_VJP=0,response_forwards=0,pseudo_labels=0,EMA_updates=1)
         return row,{}
     ps=parameters(model);vjp_start=counts['response_VJP'];nf=0
