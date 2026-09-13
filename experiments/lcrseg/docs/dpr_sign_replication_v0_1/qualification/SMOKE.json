@@ -1,0 +1,83 @@
+{
+  "status": "PASS",
+  "source": "87bb70ee05609e77935b1bab5b9a44c9532dc491",
+  "real_updates": 8,
+  "discarded": true,
+  "source_models": "fresh initialization only; no historical checkpoint",
+  "counts": {
+    "sample_train_labeled_attempts": 8,
+    "sample_access_attempts": 8,
+    "hdf5_mode_r": 16,
+    "hdf5_open_attempts": 16,
+    "hdf5_open": 16,
+    "sample_access": 8,
+    "sample_train_labeled": 8,
+    "model_forward_attempts": 28,
+    "model_forward": 28,
+    "image_forward": 56,
+    "backward_attempts": 8,
+    "backward": 8,
+    "optimizer_steps_attempts": 8,
+    "optimizer_steps": 8,
+    "ema_updates_attempts": 8,
+    "ema_updates": 8,
+    "autograd_grad_attempts": 8,
+    "autograd_grad": 8
+  },
+  "rows": [
+    {
+      "arm": "F_CONV",
+      "domain": "RIM_ONE_r3",
+      "checks": {
+        "native_F_CONV": true
+      },
+      "loss": 1.396479363063613
+    },
+    {
+      "arm": "DPR_FINITE_SIGN_U",
+      "domain": "RIM_ONE_r3",
+      "checks": {
+        "finite": true,
+        "objective_nonincrease": true,
+        "algebra_progress": true,
+        "candidate_progress": true,
+        "applied_progress": true,
+        "candidate_cast_within_budget": true,
+        "sampled_response_nonincrease": true,
+        "correction_bound": true,
+        "finite_guard": true,
+        "raw_restored_exactly": true
+      },
+      "loss": 1.400116398513562
+    },
+    {
+      "arm": "F_CONV",
+      "domain": "Drishti_GS",
+      "checks": {
+        "native_F_CONV": true
+      },
+      "loss": 1.5479299507125033
+    },
+    {
+      "arm": "DPR_FINITE_SIGN_U",
+      "domain": "Drishti_GS",
+      "checks": {
+        "finite": true,
+        "objective_nonincrease": true,
+        "algebra_progress": true,
+        "candidate_progress": true,
+        "applied_progress": true,
+        "candidate_cast_within_budget": true,
+        "sampled_response_nonincrease": true,
+        "correction_bound": true,
+        "finite_guard": true,
+        "raw_restored_exactly": true
+      },
+      "loss": 1.5799968744291826
+    }
+  ],
+  "peak_reserved": 1002438656,
+  "admission_mib": 3072,
+  "U_accesses": 0,
+  "val_GT": 0
+}
