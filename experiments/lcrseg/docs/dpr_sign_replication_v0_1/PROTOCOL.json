@@ -1,0 +1,419 @@
+{
+  "sources": [
+    {
+      "task_id": "O1_s71_SRC_CE",
+      "source_task_id": null,
+      "seed": 71,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "RIM_ONE_r3",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s71_SRC_CE",
+      "source_task_id": null,
+      "seed": 71,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "Drishti_GS",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s72_SRC_CE",
+      "source_task_id": null,
+      "seed": 72,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "RIM_ONE_r3",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s72_SRC_CE",
+      "source_task_id": null,
+      "seed": 72,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "Drishti_GS",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s73_SRC_CE",
+      "source_task_id": null,
+      "seed": 73,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "RIM_ONE_r3",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s73_SRC_CE",
+      "source_task_id": null,
+      "seed": 73,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "Drishti_GS",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    }
+  ],
+  "seeds": [
+    71,
+    72,
+    73
+  ],
+  "split": 0,
+  "epochs": 100,
+  "optimizer": {
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05
+  },
+  "poly_power": 0.9,
+  "batch_size": 2,
+  "resolution": [
+    384,
+    384
+  ],
+  "experiment": "DPR_SIGN_REPLICATION_V0_1",
+  "base": "231cd6e9d98137bb9ba6afc8aff4cd1a10912303",
+  "arms": [
+    "F_CONV",
+    "DPR_FINITE_SIGN_U"
+  ],
+  "main": "DPR_FINITE_SIGN_U",
+  "tasks": [
+    {
+      "task_id": "O1_s71_SRC_CE",
+      "source_task_id": null,
+      "seed": 71,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "RIM_ONE_r3",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s71_F_CONV",
+      "source_task_id": "O1_s71_SRC_CE",
+      "seed": 71,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "F_CONV",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s71_DPR_FINITE_SIGN_U",
+      "source_task_id": "O1_s71_SRC_CE",
+      "seed": 71,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_FINITE_SIGN_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O2_s71_SRC_CE",
+      "source_task_id": null,
+      "seed": 71,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "Drishti_GS",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s71_F_CONV",
+      "source_task_id": "O2_s71_SRC_CE",
+      "seed": 71,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "F_CONV",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s71_DPR_FINITE_SIGN_U",
+      "source_task_id": "O2_s71_SRC_CE",
+      "seed": 71,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_FINITE_SIGN_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O1_s72_SRC_CE",
+      "source_task_id": null,
+      "seed": 72,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "RIM_ONE_r3",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s72_F_CONV",
+      "source_task_id": "O1_s72_SRC_CE",
+      "seed": 72,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "F_CONV",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s72_DPR_FINITE_SIGN_U",
+      "source_task_id": "O1_s72_SRC_CE",
+      "seed": 72,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_FINITE_SIGN_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O2_s72_SRC_CE",
+      "source_task_id": null,
+      "seed": 72,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "Drishti_GS",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s72_F_CONV",
+      "source_task_id": "O2_s72_SRC_CE",
+      "seed": 72,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "F_CONV",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s72_DPR_FINITE_SIGN_U",
+      "source_task_id": "O2_s72_SRC_CE",
+      "seed": 72,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_FINITE_SIGN_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    },
+    {
+      "task_id": "O1_s73_SRC_CE",
+      "source_task_id": null,
+      "seed": 73,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "RIM_ONE_r3",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s73_F_CONV",
+      "source_task_id": "O1_s73_SRC_CE",
+      "seed": 73,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "F_CONV",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O1_s73_DPR_FINITE_SIGN_U",
+      "source_task_id": "O1_s73_SRC_CE",
+      "seed": 73,
+      "order": "O1",
+      "source_domain": "RIM_ONE_r3",
+      "domain": "Drishti_GS",
+      "arm": "DPR_FINITE_SIGN_U",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": [
+        820,
+        1320,
+        1820
+      ]
+    },
+    {
+      "task_id": "O2_s73_SRC_CE",
+      "source_task_id": null,
+      "seed": 73,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "Drishti_GS",
+      "arm": "SRC_CE",
+      "steps_per_epoch": 21,
+      "updates": 2100,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s73_F_CONV",
+      "source_task_id": "O2_s73_SRC_CE",
+      "seed": 73,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "F_CONV",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": []
+    },
+    {
+      "task_id": "O2_s73_DPR_FINITE_SIGN_U",
+      "source_task_id": "O2_s73_SRC_CE",
+      "seed": 73,
+      "order": "O2",
+      "source_domain": "Drishti_GS",
+      "domain": "RIM_ONE_r3",
+      "arm": "DPR_FINITE_SIGN_U",
+      "steps_per_epoch": 32,
+      "updates": 3200,
+      "actual_diagnostic_positions": [
+        1249,
+        1749,
+        2249,
+        2749
+      ]
+    }
+  ],
+  "formal_updates": 47700,
+  "response_VJP": 25440,
+  "supervised_backward": 47700,
+  "expected_U_images": 24960,
+  "GPUs": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "analysis_seed": 2026091302,
+  "bootstrap": 2000,
+  "signal_threshold": 0.005,
+  "source_training_updates": 15900,
+  "baseline_retraining_updates": 15900,
+  "EMA_models": 1,
+  "EMA_use": "native current EMA after corrected update; never queried",
+  "probes": "detached realized raw-minus-before delta/common Frobenius norm; sign control independent per coordinate; J and b normalized together",
+  "pool": [
+    32,
+    32
+  ],
+  "lambda_rule": "clamp((epoch-20)/20,0,1)",
+  "zero_threshold": 1e-30,
+  "algebra_tolerance": 1e-12,
+  "applied_rounding": "half max adjacent FP32 ULP plus eps64*abs(raw+eta)+2^-149; candidate cast and applied residual separate",
+  "real_smoke_cap": 8,
+  "diagnostic_schedule": "first step of epoch40 then every500 global updates, through task end",
+  "qualification_synthetic_cap": 64,
+  "stop_after_fixed_matrix": true,
+  "deterministic_pool_backward": "native adaptive-average forward; exact disjoint-bin12x12 expansion VJP at384; separable adaptive-bin weights for synthetic shapes",
+  "prior_execution_source": "91cb00bf2ac7458d82895256fbf71d91af84529d",
+  "response_forwards": 38160,
+  "guard": "one FP32 candidate; entire geometry-only pooled response candidate <= raw, otherwise restore raw bitwise; final EMA once",
+  "checkpoint": "PRE_UPDATE_RECOVERABLE; final-applied POST_CORRECTION_PENDING_DIAGNOSTICS; CORRECTED_COMMITTED. Raw/candidate phase forensic checkpoints forbidden for resume.",
+  "expected_L_records": 95400,
+  "post_hoc_analysis_seed": 2026091301,
+  "A": {
+    "scope": "POST_HOC_CONTROL_ANALYSIS",
+    "old_seeds": [
+      61,
+      62,
+      63
+    ],
+    "comparisons": [
+      [
+        "DPR_FINITE_SIGN_U",
+        "F_CONV"
+      ],
+      [
+        "DPR_FINITE_SIGN_U",
+        "DPR_U"
+      ]
+    ],
+    "new_training": 0,
+    "new_model_forwards": 0,
+    "new_image_GT_access": 0,
+    "missing_noncritical_fields": "NOT_RECORDED; does not block B"
+  },
+  "B": {
+    "scope": "NEW_OPTIMIZATION_SEED_REPLICATION",
+    "primary": "DPR_FINITE_SIGN_U - F_CONV",
+    "terminal_positive": "POSITIVE_REPLICATION_ESTIMATE",
+    "terminal_nonpositive": "NO_POSITIVE_REPLICATION_ESTIMATE"
+  },
+  "random_key_prefix": "DPR_FINITE_V0_2",
+  "new_initializations": true,
+  "prior_report_source": "814a8c420add686aad1ca3cc2b07b1951a2555ab",
+  "source_recipe_execution": "f174cf2a68212cf04ad19b18d8203a6455c94aee"
+}
