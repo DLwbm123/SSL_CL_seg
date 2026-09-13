@@ -1,0 +1,13 @@
+# DPR Finite Response V0.2 completion
+
+All12 trainings and12 final evaluations completed successfully:31,800 formal updates and supervised backwards,50,880 response VJPs. All12 historical F_CONV warmup comparisons passed. The12 students were sealed before validation. The fixed matrix is stopped.
+
+Scientific terminal: **NO_PRIMARY_ACCURACY_GAIN**. Unique primary DPR_FINITE_U Final0.593366 versus F_CONV0.606879, delta-0.013513. The paired development-patient95% interval[-0.019594,-0.007552] excludes zero on the negative side. The three order-averaged seed differences are-0.016258,-0.003597,-0.020683. Incoming-0.010948 and Old-0.016078 both decline, with Forget increasing0.016078. These are conditional development results, not independent patient confirmation.
+
+DPR_FINITE_SIGN_U Final0.611610 exceeds the primary by0.018244. This fixed control does not replace the primary or change the terminal. The primary also falls0.013782 below historical DPR_U. Historical DPR V0.1 SMALL_POSITIVE_PRIMARY_SIGNAL remains unchanged. A guard-enforced current pooled-response reduction does not establish old-domain preservation.
+
+A report-only engineering failure occurred after all24 children succeeded: a memory dictionary already contained `deployment`, and the report supplied that keyword again. The fix stores the evaluation receipt under `evaluation_receipt`. A regression fixture now includes the real deployment field. Local and server zero-training report checks passed. Original parent exit1, INCOMPLETE_ENGINEERING record, execution checkout and attempted output directory remain intact. Reporting recovered in a separate worktree and output directory, with zero new training, evaluation, forward or optimizer steps.
+
+Execution source91cb00bf2ac7458d82895256fbf71d91af84529d; reporting repair source814a8c420add686aad1ca3cc2b07b1951a2555ab. Training/evaluation elapsed 3.023hours. Formal calls:57,240 supervised forwards,76,320 response forwards,336 same-LCTX diagnostic forwards and780 evaluation forwards. Qualification remains separately78 synthetic and8 discarded real-L updates. Peak reserved CUDA memory across tasks was 948MiB. Equal updates do not imply equal compute.
+
+NAS retains12 deployments and24 epoch20/100 checkpoints, operation receipts, logs, pending recovery state and private patient metrics. Completion used recorded identities, successful exits and one low-cost availability/size check; no models were rehashed or re-evaluated. Public aggregate tables disclose seed/order, incoming/old, rim/cup, patient-tail and response-mechanism results. Private data, per-patient scores and weights are excluded from GitHub. No further experiments or main merge.

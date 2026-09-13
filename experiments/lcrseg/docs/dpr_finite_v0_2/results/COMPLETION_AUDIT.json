@@ -1,0 +1,168 @@
+{
+  "status": "COMPLETE_AFTER_REPORT_ONLY_RECOVERY",
+  "trainings": 12,
+  "evaluations": 12,
+  "successful_child_exits": 24,
+  "formal_updates": 31800,
+  "retained_deployments": 12,
+  "retained_epoch_checkpoints": 24,
+  "deployment_bytes": 23475876,
+  "checkpoint_bytes": 178737904,
+  "warmup_parity_pass": 12,
+  "training_and_evaluation_finished_unix": 1789277664.9657109,
+  "training_and_evaluation_wall_seconds": 10884.225087404251,
+  "execution_source": "91cb00bf2ac7458d82895256fbf71d91af84529d",
+  "report_source": "814a8c420add686aad1ca3cc2b07b1951a2555ab",
+  "original_runtime_clean": true,
+  "prior_failure": {
+    "status": "INCOMPLETE_ENGINEERING",
+    "source": "91cb00bf2ac7458d82895256fbf71d91af84529d",
+    "error": "TypeError(\"dict() got multiple values for keyword argument 'deployment'\")",
+    "new_dispatch_stopped": true,
+    "automatic_retry": false
+  },
+  "original_parent_exit": {
+    "exit_code": 1,
+    "finished": 1789277666.0250242
+  },
+  "recovery": {
+    "status": "COMPLETE",
+    "training_reruns": 0,
+    "evaluation_reruns": 0,
+    "new_forwards": 0,
+    "new_optimizer_updates": 0,
+    "prior_failure_retained": true,
+    "terminal": {
+      "engineering": "ENGINEERING_COMPLETE",
+      "scientific_state": "NO_PRIMARY_ACCURACY_GAIN",
+      "primary": {
+        "arm": "DPR_FINITE_U",
+        "baseline": "F_CONV",
+        "scientific_state": "NO_PRIMARY_ACCURACY_GAIN",
+        "mean": {
+          "Final": -0.013512790425399693,
+          "Incoming": -0.010947911997043869,
+          "Old": -0.0160776688537555,
+          "Forget": 0.0160776688537555
+        },
+        "paired_seed_SD": {
+          "Final": 0.008867372148011983,
+          "Incoming": 0.007473123670428491,
+          "Old": 0.015147135696492323,
+          "Forget": 0.015147135696492323
+        },
+        "seed_Final_deltas": [
+          -0.016258432606590045,
+          -0.003597348216494878,
+          -0.020682590453114158
+        ],
+        "worst_order_averaged_seed_Final": -0.020682590453114158,
+        "patient_interval": {
+          "arm": "DPR_FINITE_U",
+          "baseline": "F_CONV",
+          "order": "both",
+          "metric": "Final",
+          "lower_95": -0.0195939236061266,
+          "upper_95": -0.007551841240173828,
+          "contains_zero": false,
+          "replicates": 2000,
+          "analysis_seed": 2026091206,
+          "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+        },
+        "evidence_uncertain": false,
+        "secondary_outcomes_are_not_conjunctive_gates": true
+      },
+      "formal_tasks": 12,
+      "formal_updates": 31800,
+      "PRIMARY_ACCURACY_EFFECT": {
+        "arm": "DPR_FINITE_U",
+        "baseline": "F_CONV",
+        "scientific_state": "NO_PRIMARY_ACCURACY_GAIN",
+        "mean": {
+          "Final": -0.013512790425399693,
+          "Incoming": -0.010947911997043869,
+          "Old": -0.0160776688537555,
+          "Forget": 0.0160776688537555
+        },
+        "paired_seed_SD": {
+          "Final": 0.008867372148011983,
+          "Incoming": 0.007473123670428491,
+          "Old": 0.015147135696492323,
+          "Forget": 0.015147135696492323
+        },
+        "seed_Final_deltas": [
+          -0.016258432606590045,
+          -0.003597348216494878,
+          -0.020682590453114158
+        ],
+        "worst_order_averaged_seed_Final": -0.020682590453114158,
+        "patient_interval": {
+          "arm": "DPR_FINITE_U",
+          "baseline": "F_CONV",
+          "order": "both",
+          "metric": "Final",
+          "lower_95": -0.0195939236061266,
+          "upper_95": -0.007551841240173828,
+          "contains_zero": false,
+          "replicates": 2000,
+          "analysis_seed": 2026091206,
+          "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+        },
+        "evidence_uncertain": false,
+        "secondary_outcomes_are_not_conjunctive_gates": true
+      },
+      "COMPONENT_EFFECT": [
+        {
+          "arm": "DPR_FINITE_U",
+          "control": "DPR_FINITE_SIGN_U",
+          "Final_delta": -0.018244357584057885,
+          "paired_seed_SD": 0.014113190417952838,
+          "patient_interval": {
+            "arm": "DPR_FINITE_U",
+            "baseline": "DPR_FINITE_SIGN_U",
+            "order": "both",
+            "metric": "Final",
+            "lower_95": -0.024123834641650358,
+            "upper_95": -0.011775211027298237,
+            "contains_zero": false,
+            "replicates": 2000,
+            "analysis_seed": 2026091206,
+            "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+          },
+          "observed_positive_increment": false,
+          "claim": "component increment not established"
+        },
+        {
+          "arm": "DPR_FINITE_U",
+          "control": "DPR_U",
+          "Final_delta": -0.013781829570269874,
+          "paired_seed_SD": 0.009788649522866563,
+          "patient_interval": {
+            "arm": "DPR_FINITE_U",
+            "baseline": "DPR_U",
+            "order": "both",
+            "metric": "Final",
+            "lower_95": -0.02028953455337644,
+            "upper_95": -0.007327768686737489,
+            "contains_zero": false,
+            "replicates": 2000,
+            "analysis_seed": 2026091206,
+            "condition": "paired patients within physical domain; fixed trained models and repeatedly exposed development cohort"
+          },
+          "observed_positive_increment": false,
+          "claim": "component increment not established"
+        }
+      ],
+      "PATIENT_UNCERTAINTY": false,
+      "source_training_updates": 0,
+      "baseline_retraining_updates": 0,
+      "source": "91cb00bf2ac7458d82895256fbf71d91af84529d",
+      "report_source": "814a8c420add686aad1ca3cc2b07b1951a2555ab",
+      "stopped": true,
+      "further_experiments": false,
+      "old_terminal_unchanged": true
+    }
+  },
+  "retention_check": "receipts, exit status, recorded identities and file sizes; no new model hashes or evaluation",
+  "checked_unix": 1789278907.72103
+}
