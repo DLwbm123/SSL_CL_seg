@@ -1,0 +1,60 @@
+{
+  "review_commit": "b909a9131dc7137232ac8eb3a6922fe66520b932",
+  "base_commit": "8a6e93a8bc39554c878cffe0dedf7fbfefe7d16d",
+  "decision": "CHANGES_REQUESTED",
+  "experiment_approval": "NOT_GRANTED",
+  "performance_gate_added": false,
+  "all_five_frameworks_retained": true,
+  "findings": [
+    {
+      "id": "R01",
+      "severity": "P1",
+      "kind": "stage2_resume_trainability",
+      "summary": "second-stage restored A/B remain frozen"
+    },
+    {
+      "id": "R02",
+      "severity": "P1",
+      "kind": "resume_semantic_identity",
+      "summary": "changed options/provider accepted"
+    },
+    {
+      "id": "R03",
+      "severity": "P1",
+      "kind": "nonfinite_commit",
+      "summary": "nonfinite loss or post-constraint state committed"
+    },
+    {
+      "id": "R04",
+      "severity": "P1",
+      "kind": "invalid_projector_fallback",
+      "summary": "invalid projector swallowed as rank fallback"
+    },
+    {
+      "id": "R05",
+      "severity": "P2",
+      "kind": "teacher_mode",
+      "summary": "EMA features use student bridge mode"
+    },
+    {
+      "id": "R06",
+      "severity": "P2",
+      "kind": "evaluation_ignore",
+      "summary": "ignored prediction alters Dice"
+    }
+  ],
+  "local_regression": {
+    "passed": 1,
+    "failed": 8,
+    "skipped": 0,
+    "tests_are_new_expectations_on_old_code": true,
+    "full_original_104_rerun": false
+  },
+  "F2_probe_objective": {
+    "decision": "CLARIFICATION_NOT_IMPLEMENTATION_BUG",
+    "accepted_V1_definition": "structure-only as explicitly documented by submitted contract"
+  },
+  "real_data_reads": 0,
+  "formal_updates": 0,
+  "cuda_executed": false
+}

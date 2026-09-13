@@ -41,9 +41,20 @@ def unique_indices(ids):
 
 class SyntheticCurrentDomain:
     """Separate L and U capabilities. No U-label storage or accessor exists."""
-    def __init__(self, seed=161, order=1, stage=1, size=16):
+    def __init__(self, seed=161, order=1, stage=1, size=16, manifest_id="synthetic_v1", split_id="current_L_U", stage_source=None):
         self.seed,self.order,self.stage,self.size=seed,order,stage,size
         self.l_reads=self.u_reads=0
+        self.manifest_id,self.split_id=manifest_id,split_id
+        self.stage_source=stage_source or {'kind':'synthetic_entry','seed':seed,'order':order,'preceding_stage':stage-1}
+
+    def semantic_metadata(self):
+        return {'provider':type(self).__module__+'.'+type(self).__qualname__,
+                'seed':self.seed,'order':self.order,'stage':self.stage,'size':self.size,
+                'manifest':self.manifest_id,'split':self.split_id,'stage_source':self.stage_source,
+                'stream':'sha256(study/seed/order/stage/cursor/stream)_v1_no_arm',
+                'cursor':'successful_step; stateless two-source batches',
+                'labels':{'background':0,'rim':1,'cup':2,'ignore':255}}
+
 
     def labeled(self, step, stream='labeled'):
         self.l_reads+=1

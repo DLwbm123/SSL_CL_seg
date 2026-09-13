@@ -17,3 +17,7 @@ CWMI paper/objective versus implementation: the actual selected author structura
 D-Convexity paper versus code: the prose describes tangential quasi-concavity violations with a positive-part penalty; the chosen author implementation uses softplus, gradient weighting and numerical epsilon. We preserve that author convention, then add geometry masking and a bounded low-dimensional target-generation loop. No strict convexification guarantee follows.
 
 External source retrieval accessed text only. There are no third-party images or pretrained model tensors in the dependency audit. See the immutable raw-file URLs in the lock for independent inspection.
+
+## R2 CWMI device adaptation
+
+The external author file/commit/digest and structural formula remain unchanged. A local subclass overrides get_mask only to scope torch tensor factories under the input device; per-device pyramid instances keep separate mask caches. CPU outputs and gradients match the unmodified author pyramid exactly in the new conformance test. CUDA code exists but has NOT_RUN qualification; no CUDA parity or mixed-precision claim is made. The source tree is still external and is not redistributed.

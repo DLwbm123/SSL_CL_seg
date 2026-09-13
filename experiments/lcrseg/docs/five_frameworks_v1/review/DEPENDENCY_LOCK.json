@@ -150,8 +150,12 @@
     "complex": true,
     "N": 2,
     "K": 4,
-    "device": "cpu",
+    "device": "input tensor device; scoped factories and per-device caches",
     "prediction_ridge": 0.0005,
-    "target_ridge": 0.0005
+    "target_ridge": 0.0005,
+    "device_qualification": {
+      "cpu": "OUTPUT_AND_GRADIENT_PARITY_PASSED",
+      "cuda": "NOT_RUN"
+    }
   }
 }

@@ -2,11 +2,14 @@
 import math
 import torch
 from torch.nn import functional as F
-from .kernels import masked_kl, masked_jml1, gradient_seed_basis, uncertainty_scales
+from .kernels import masked_kl, masked_jml1, gradient_seed_basis, uncertainty_scales, InsufficientProbeSupport
 from .losses import convex_shape, repair_target, class_swd
 from .reliability import CurrentPrototypes
 from .recipes import generator, collected_forward, unique_indices, mixed_feature_scales
 
+
+from .semantics import resolve_options, tensor_fingerprint
+from .numerics import finite, validate_commit
 
 NO_U={'B0_PARENT_LCTX','B3_PARENT_LCTX_DENSEG'}
 
@@ -27,16 +30,21 @@ def split_gradients(model,labeled,unlabeled):
 
 class StageTrainer:
     def __init__(self,model,provider,options=None,cwmi=None,initialize=True):
+        if not getattr(model.parent,'synthetic',False):
+            raise RuntimeError('real parent/controller requires externally reviewed binding')
         self.model,self.provider=model,provider
-        self.options=options or {};self.cwmi=cwmi
+        self.options=resolve_options(options);self.cwmi=cwmi
+        entry=dict(model.parent.state_dict())
+        if model.sidecar is not None:entry['__F_prev__']=model.sidecar.previous
+        self.entry_fingerprint=tensor_fingerprint(entry)
+        self.model.configure_training()
+        self.requires_restore=False;self.physical_optimizer_updates=0
         self.step=0;self.cursor=0;self.epoch=0
         self.telemetry={'student_full_forwards':0,'teacher_full_forwards':0,'probe_full_forwards':0,
                         'probe_vjps':0,'readout_only_forwards':0,'coordinate_vjps':0,
                         'synthetic_optimizer_updates':0,'formal_optimizer_updates':0,
                         'extra_clean_U_forwards':0,'skipped_updates':0}
         self.probe={'scale':1.,'complete':False,'fallback':[]}
-        if not getattr(model.parent,'synthetic',False):
-            raise RuntimeError('real parent/controller requires externally reviewed binding')
         if initialize:
             self.model.parent.stage_entry()
             self.prepare_stage()
@@ -55,6 +63,11 @@ class StageTrainer:
         self.scaler=torch.amp.GradScaler('cpu',enabled=False)
         self.last={}
 
+    @classmethod
+    def for_resume(cls,model,provider,options=None,cwmi=None):
+        """No stage_entry, source read, probe, prototype initialization or reset."""
+        return cls(model,provider,options,cwmi,initialize=False)
+
     def structural(self,p,y):
         if self.model.family=='F2':
             if self.cwmi is None:raise RuntimeError('F2 requires the locked CWMI backend')
@@ -63,6 +76,7 @@ class StageTrainer:
 
     def prepare_stage(self):
         if self.model.family not in ('F2','F4'):return
+        self.probe["complete"]=False
         ratios=[]
         # These gradients are with respect to the SAME final feature h, neither
         # optimizer gradients nor real-data qualification updates.
@@ -73,8 +87,10 @@ class StageTrainer:
             logits=self.model.parent.native_readout(readout_h,x.shape[-2:])
             sup=self.model.parent.supervised(logits.log_softmax(1),y)
             structure=self.structural(logits.softmax(1),y)
+            finite((sup,structure),"calibration losses")
             gs,=torch.autograd.grad(sup,h,retain_graph=True)
             gt,=torch.autograd.grad(structure,h)
+            finite((gs,gt),"calibration gradients")
             if gt.norm()>0:ratios.append(float(gs.norm()/gt.norm()))
             self.telemetry['probe_full_forwards']+=1;self.telemetry['probe_vjps']+=2
         self.probe['scale']=min(1e3,max(1e-3,float(torch.quantile(torch.tensor(ratios,dtype=torch.float64),.5)))) if ratios else 1.
@@ -94,23 +110,30 @@ class StageTrainer:
                 logits=self.model.parent.native_readout(h,x.shape[-2:])
                 # Direction objective is scaled STRUCTURE ONLY, as specified.
                 objective=self.options.get('lambda_structure',.1)*self.probe['scale']*self.structural(logits.softmax(1),y)
+                finite(objective,"direction objective")
                 grads=torch.autograd.grad(objective,list(weights.values()))
                 for i,g in zip(selected,grads):probes[i].append(g)
                 self.telemetry['probe_full_forwards']+=1;self.telemetry['probe_vjps']+=1
+            replacements={};fallbacks=[]
+            for i in selected:
+                adapter=adapters[i]
+                try:
+                    q=gradient_seed_basis(probes[i],adapter.a.shape[0],adapter.free_projector)
+                    replacements[i]=q.T*(adapter.a.norm()/q.norm().clamp_min(1e-12))
+                    finite(replacements[i],'candidate probe A')
+                except InsufficientProbeSupport as e:
+                    fallbacks.append({'layer':i,'reason':str(e),'type':type(e).__name__})
+            # No selected A is changed until every candidate/constraint validated.
             with torch.no_grad():
-                for i in selected:
-                    a=adapters[i]
-                    try:
-                        q=gradient_seed_basis(probes[i],a.a.shape[0],a.free_projector)
-                        a.a.copy_(q.T*(a.a.norm()/q.norm().clamp_min(1e-12)))
-                    except ValueError as e:self.probe['fallback'].append({'layer':i,'reason':str(e)})
+                for i,value in replacements.items():adapters[i].a.copy_(value)
+            self.probe['fallback']=fallbacks
         self.probe['complete']=True
 
     def losses(self):
         opt=self.options;m=self.model;t=self.ema
         x,y,patients=self.provider.labeled(self.cursor)
         if len(set(patients))!=2 or len(patients)!=2:raise ValueError('LCTX requires two distinct patients')
-        total=opt.get('total_steps',5);warmup=math.ceil(.2*total)
+        total=opt.get('total_steps',5);warmup=math.ceil(opt["warmup_fraction"]*total)
         active=self.step>=warmup
         def forward(v,s=None,detach=False):
             self.telemetry['student_full_forwards']+=1
@@ -118,8 +141,13 @@ class StageTrainer:
         if active:
             logp,_=collected_forward(lambda v,s:forward(v,s),x,x.flip(0),self.rng('LCTX'))
         else:logp=forward(x).log_softmax(1)
-        labeled=m.parent.supervised(logp,y)+m.parent.constraint_loss()
-        if m.family=='F2':labeled=labeled+opt.get('lambda_structure',.1)*self.probe['scale']*self.structural(logp.exp(),y)
+        supervised=m.parent.supervised(logp,y);constraint=m.parent.constraint_loss()
+        finite((supervised,constraint),'active supervised/constraint losses')
+        labeled=supervised+constraint
+        if m.family=='F2':
+            structure=self.structural(logp.exp(),y);finite(structure,'active CWMI loss')
+            labeled=labeled+opt.get('lambda_structure',.1)*self.probe['scale']*structure
+        finite(labeled,'combined labeled loss')
         self.last={'labeled_loss':float(labeled.detach()),'active_U':False}
         if m.family in NO_U or not active:return labeled,None,None
         p,s,before_l,h_l,lclasses=self.prototypes.estimate(t,x,y)
@@ -130,7 +158,7 @@ class StageTrainer:
         if len(u)>len(x):raise ValueError('U batch exceeds the paired current-L context batch')
         donor=x[:len(u)]
         with torch.no_grad():
-            _,before_u,h_u=t.parts(u)
+            _,before_u,h_u=t.parts(u,mode="teacher")
             q=t.parent.native_readout(h_u,u.shape[-2:],'teacher').softmax(1)
         self.telemetry['teacher_full_forwards']+=1
         valid,_=self.prototypes.admission(t,q,h_u,geometry,opt.get('PAS_confidence',.7),opt.get('PAS_cosine',.5))
@@ -167,7 +195,7 @@ class StageTrainer:
             swd,counts=class_swd(zu,zl,uc,lclasses,uv,self.rng('swd_sampling'))
             unlabeled=unlabeled+opt.get('lambda_SWD',.05)*swd
             self.last['swd_counts']=counts
-        ramp=min(1.,(self.step-warmup+1)/max(1,math.ceil(.2*total)))
+        ramp=min(1.,(self.step-warmup+1)/max(1,math.ceil(opt["U_ramp_fraction"]*total)))
         unlabeled=unlabeled*opt.get('lambda_U',.5)*ramp
         self.last.update(active_U=True,accepted=int(valid.sum()),missing_support=(~self.prototypes.support).tolist(),
                          unlabeled_loss=float(unlabeled.detach()))
@@ -178,8 +206,17 @@ class StageTrainer:
         return generator(p.seed,p.order,p.stage,self.cursor,stream)
 
     def update(self,skip=False,fault=None,physical=None):
+        if self.requires_restore:raise RuntimeError('uncommitted failed step requires checkpoint restore')
+        try:return self._update(skip,fault,physical)
+        except Exception:
+            self.requires_restore=True
+            raise
+
+    def _update(self,skip=False,fault=None,physical=None):
         self.optimizer.zero_grad(set_to_none=True)
         labeled,unlabeled,pending=self.losses()
+        finite((labeled,unlabeled),"active L/U losses")
+        finite(labeled if unlabeled is None else labeled+unlabeled,"combined objective")
         grads=split_gradients(self.model,labeled,unlabeled)
         if skip:
             self.optimizer.zero_grad(set_to_none=True);self.telemetry['skipped_updates']+=1
@@ -190,9 +227,16 @@ class StageTrainer:
             if fault==point:raise RuntimeError('injected '+point)
         inject('before_optimizer')
         before={id(p):p.detach().clone() for p in self.model.parameters() if p.requires_grad}
-        self.optimizer.step()
-        if physical:physical(self.step+1)
-        inject('after_optimizer');self.model.parent.apply_constraints();inject('before_ema')
+        try:
+            self.optimizer.step()
+        finally:
+            # Physical invocation may have partially updated state even if it raises.
+            self.physical_optimizer_updates+=1
+            if physical:physical(self.step+1)
+        inject('after_optimizer');self.model.parent.apply_constraints()
+        self.scheduler.step()
+        validate_commit(self,pending)
+        inject('before_ema')
         with torch.no_grad():
             for a,b in zip(self.ema.parameters(),self.model.parameters()):
                 if a is b:continue
@@ -201,7 +245,7 @@ class StageTrainer:
             for a,b in zip(self.ema.buffers(),self.model.buffers()):a.copy_(b)
         inject('after_ema')
         if pending:self.prototypes.commit(*pending)
-        self.scheduler.step();self.step+=1;self.cursor+=1
+        self.step+=1;self.cursor+=1
         self.telemetry['synthetic_optimizer_updates']+=1
         self.last['actual_update_norms']={name:float((p.detach()-before[id(p)]).norm()) for name,p in self.model.named_parameters() if id(p) in before}
         return grads

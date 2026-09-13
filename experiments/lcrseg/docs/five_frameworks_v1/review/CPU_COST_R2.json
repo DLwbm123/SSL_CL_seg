@@ -1,0 +1,29 @@
+{
+  "intermediate_157_test_round": {
+    "measured": true,
+    "processes_with_cost_events": 11,
+    "calls": {
+      "autograd_grad_completed": 934,
+      "autograd_backward_completed": 13,
+      "Adam_step_completed": 248
+    }
+  },
+  "final_162_test_round": {
+    "measured": true,
+    "processes_with_cost_events": 11,
+    "calls": {
+      "autograd_grad_completed": 936,
+      "autograd_backward_completed": 13,
+      "Adam_step_completed": 250
+    }
+  },
+  "scope": "Test-only wrappers count completed/raised Adam.step, autograd.grad and autograd.backward invocations, including ten resume workers. A grad call may differentiate multiple inputs; these are API invocation costs, not FLOPs or one scalar VJP per input. Fault-injection calls can be physically executed but scientifically uncommitted.",
+  "earlier_debug_rounds": {
+    "R1_baseline_9": "not instrumented; 1 passed / 8 failed",
+    "first_R2_113": "not instrumented; 113 passed",
+    "exact_whole_turn_optimizer_VJP_total": null,
+    "note": "No whole-turn exact total is claimed. The measured final qualification count is not substituted for all exploratory runs."
+  },
+  "real_smoke": 0,
+  "formal_updates": 0
+}

@@ -27,8 +27,8 @@ def main():
         # JSON summaries only; report does not load checkpoint tensors or images.
         for path in sorted(args.run_root.glob('**/summary.json')):print(path.read_text())
     else:
-        # No approval payload can turn this unresolved code-only bridge into a
-        # real experiment. Gate unit tests separately exercise every binding/cap.
-        raise ReviewRequired('CODE_ONLY / PARENT_BINDING_REQUIRED; no real data opened')
+        from .integration import run_reviewed
+        run_reviewed(ROOT,args.approval,args.phases)
+
 
 if __name__=='__main__':main()

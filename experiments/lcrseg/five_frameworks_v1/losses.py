@@ -28,9 +28,30 @@ class CWMI:
             raise MissingBackend('CWMI source fingerprint mismatch')
         spec=importlib.util.spec_from_file_location('sslcl5_external_pyramid',path)
         module=importlib.util.module_from_spec(spec);spec.loader.exec_module(module)
-        self.pyramid=module.ComplexSteerablePyramid(complex=True,N=2,K=4,device='cpu')
+        class DeviceLocalPyramid(module.ComplexSteerablePyramid):
+            def get_mask(self,image_size):
+                # Author factories omit device=. Scope ALL grid/mask allocations
+                # to the feature device; do not move input tensors through CPU.
+                with torch.device(self.device):
+                    return super().get_mask(image_size)
+        self._pyramid_type=DeviceLocalPyramid
+        self.pyramids={}
+        self.pyramid=self.pyramid_for(torch.device('cpu'))
         self.ridge=ridge
         self.last_support=0
+
+    def pyramid_for(self,device):
+        device=torch.device(device)
+        if device.type not in ('cpu','cuda'):raise MissingBackend('unsupported CWMI device '+str(device))
+        key=str(device)
+        if key not in self.pyramids:
+            self.pyramids[key]=self._pyramid_type(complex=True,N=2,K=4,device=device)
+        return self.pyramids[key]
+
+    def semantic_identity(self):
+        return {'backend':'CWMI_device_local_v2','author_pyramid_sha256':PYRAMID_SHA,
+                'N':2,'K':4,'complex':True,'prediction_ridge':5e-4,'target_ridge':self.ridge,
+                'crop':'fixed_128_all_valid_v1','covariance_dtype':'float64'}
 
     @staticmethod
     def complex_structure(target,prediction,target_ridge=5e-4):
@@ -49,10 +70,8 @@ class CWMI:
         return torch.log(chol.diagonal(dim1=-2,dim2=-1)+1e-8).sum(-1).mean()
 
     def __call__(self, probabilities, labels):
-        if probabilities.device.type!='cpu':
-            # CPU qualification is verified. CUDA needs review qualification;
-            # no silent device transfers with a different scientific call graph.
-            raise MissingBackend('CWMI CUDA adapter not qualified; CPU only in this review')
+        if labels.device!=probabilities.device:raise ValueError('CWMI labels and probabilities must share a device')
+        pyramid=self.pyramid_for(probabilities.device)
         terms=[]
         for p,y in zip(probabilities,labels):
             h,w=y.shape
@@ -66,7 +85,7 @@ class CWMI:
                 if not bool((lab!=255).all()):continue
                 pred=p[None,1:,i:i+hh,j:j+ww]
                 target=F.one_hot(lab,3).permute(2,0,1)[None,1:].to(pred)
-                a,b=self.pyramid(target),self.pyramid(pred)
+                a,b=pyramid(target),pyramid(pred)
                 terms.append(sum(self.complex_structure(a[n],b[n],self.ridge) for n in (1,2)))
         self.last_support=len(terms)
         return torch.stack(terms).mean().to(probabilities) if terms else probabilities.sum()*0
@@ -105,7 +124,7 @@ def convex_shape(probabilities,geometry):
 
 def repair_target(teacher,x,geometry,shape_weight,scale=1.,steps=3,trust=.1,cached=None):
     with torch.no_grad():
-        h = teacher.parts(x)[1] if cached is None else cached[0]
+        h = teacher.parts(x,mode="teacher")[1] if cached is None else cached[0]
         qbasis=teacher.sidecar.q.detach()
         previous=teacher.sidecar.previous.detach()
         def readout(value):

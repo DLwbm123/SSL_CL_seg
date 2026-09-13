@@ -15,3 +15,7 @@ F3 first maps the two source uncertainty maps through the complementary source m
 F4 repairs teacher features in the coordinate before F_prev using d of shape B by k by 64 by 64, fixed bilinear interpolation with align_corners=False, and the same frozen native readout. The per-image trust radius uses feature RMS; each low-resolution coordinate vector is projected into that ball. Convex-combination interpolation preserves this norm bound. This is an explicit scalar-radius choice within the V1 trust-fraction contract.
 
 F5 projects both clean-U student and current-L teacher `G h` by the same Q, before F_prev, normalizes vectors with epsilon 1e-6, and compares current-batch class-conditional empirical distributions. No feature queue or history prototype bank exists.
+
+## R2 corrections
+
+One complete channel eigensolve supplies both the selected basis and diagnostics. Model.for_resume creates legal shape placeholders without an eigensolve; the saved stage Q/spectrum replace them at restore. Explicit student/teacher/eval mode reaches both native features and readout. New NativeParentBridge delegates verified native hooks and a full named-parameter partition rather than manufacturing a real parent. Its synthetic conformance is not real-network qualification.

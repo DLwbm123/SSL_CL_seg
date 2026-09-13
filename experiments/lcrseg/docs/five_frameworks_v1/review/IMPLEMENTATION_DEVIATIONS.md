@@ -9,13 +9,15 @@ Explicit adaptations needing external review:
 - F4 trust is a per-image scalar feature RMS radius. Inner repair uses the original teacher probability and frozen original PAS mask; three detached gradient steps do not guarantee a lower shape loss or better Dice.
 - JML uses image/foreground-class reduction, no smooth additive numerator, explicit double-empty zero and teacher detach. Author parity uses norm=1, alpha=beta=gamma=1, smooth=0, mIoUI=1 on nonempty support. It is not the entire JDT family.
 - Synthetic Adam and the toy foreground Dice are **synthetic fixtures**, not replacements for unknown real parent optimizer or native CE+Dice. The bridge must delegate to those verified real native definitions. Synthetic scale calibration uses the usual median, averaging the middle two ratios for eight values.
-- CWMI runtime is currently CPU-qualified and explicitly rejects CUDA; CUDA/device-local pyramid integration and formal optimizer/AMP qualification are NOT_RUN. No claim of accelerator readiness is made. This does not block CPU code review, but must be resolved/reviewed before GPU experiments.
+- R2 implements device-local CWMI factories and separate per-device caches; exact CPU author-pyramid output/gradient parity passes. CUDA and formal mixed-precision qualification remain NOT_RUN; implementation is not accelerator qualification.
 - Future E ablations are registered and plan-only, deliberately rejected by the executable arm registry. Only explicitly supported options (e.g. lambda_JML/SWD/shape zero, kappa zero) can be used in synthetic comparisons; full E contrasts need their separate review.
 
 Unfinished because original parent identity is unavailable:
 
 1. Real ParentBridge binding, native geometry/readout and stochastic-head behavior, A/B ordering/ranks, hard versus soft constraint callbacks, optimizer/scheduler/scaler, original data capabilities and source provenance. Existing recovery audits say `PARENT_NOT_LOCATED_IN_ACCESSIBLE_SCOPE`. F_CONV, SVD and old weight-memory implementations were not substituted.
 2. Real source/target budgets, feature widths and effective-rank alias deduplication, legal source reuse, full seed-collision freeze. A bounded source-config search found no 161–164 seed declarations; this is not a claim that all unavailable historical runs were checked.
-3. Real loaders, real stage execution dispatch, isolated real evaluator, native stochastic-layer replay and CUDA qualification. The current controller explicitly accepts only the synthetic bridge and cannot launch a real run even with a fabricated receipt.
+3. Real reader binding, original native stage execution, isolated native evaluator, stochastic-layer replay and CUDA qualification remain pending. R2 adds NativeParentBridge delegation, current-domain data adapter schema, finite metadata readiness and actual approval preflight. The real runner registry stays empty; editing a receipt cannot create an executable adapter.
 
 Minimum missing identity clue: **one original KI launch command or one original run_id**. Historical score tables are not requested. The package is ready for module-level external review and cannot receive a truthful full-real-integration PASS yet.
+
+R01–R06 are addressed in [REVIEW_RESPONSE_R1.md](REVIEW_RESPONSE_R1.md); current exact evidence is TEST_REPORT_R2.json. The prior 104-test report remains under history and at b909a913.

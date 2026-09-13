@@ -212,6 +212,14 @@ def uncertainty_scales(uncertainty: Tensor, eigenvalues: Tensor, kappa: float,
             (s + eps)[None, :, None, None]).reciprocal()
 
 
+class InsufficientProbeSupport(ValueError):
+    """Permitted lack of current-L information, not an engineering failure."""
+
+
+class RankDeficientProbe(InsufficientProbeSupport):
+    pass
+
+
 def gradient_seed_basis(gradients: Sequence[Tensor], rank: int,
                         free_projector: Tensor | None = None) -> Tensor:
     """Top right singular directions of CURRENT-L gradients, without dense G^T G.
@@ -221,23 +229,28 @@ def gradient_seed_basis(gradients: Sequence[Tensor], rank: int,
     parent's legal initialization, never invent a successful structural basis.
     """
     if not gradients:
-        raise ValueError("no current-L probes")
+        raise InsufficientProbeSupport("no current-L probes")
+    if type(rank) is not int or rank<1:raise ValueError('invalid requested probe rank')
+    if any(g.ndim<2 for g in gradients):raise ValueError('probe must have output and input coordinates')
+    if any(g.flatten(1).shape[1]!=gradients[0].flatten(1).shape[1] for g in gradients):raise ValueError('incompatible probe input widths')
     rows = torch.cat([g.detach().double().flatten(1) for g in gradients], dim=0)
     _finite(rows, "gradient rows")
     d = rows.shape[1]
+    if rank>d:raise ValueError("rank exceeds input width")
     if free_projector is not None:
         if free_projector.shape != (d, d):
             raise ValueError("input projector dimension mismatch")
         p = free_projector.detach().to(rows)
+        _finite(p, "free projector")
         if not torch.allclose(p, p.T, atol=1e-8, rtol=1e-8) or not torch.allclose(p@p, p, atol=1e-8, rtol=1e-8):
             raise ValueError("not an orthogonal projector")
         rows = rows @ p
     _, s, vh = torch.linalg.svd(rows, full_matrices=False)
     if not 1 <= rank <= len(s) or s[0] <= 0:
-        raise ValueError("insufficient probe rank")
+        raise RankDeficientProbe("insufficient probe rank")
     numerical_rank = int((s > s[0] * max(rows.shape) * torch.finfo(s.dtype).eps).sum())
     if numerical_rank < rank:
-        raise ValueError("insufficient probe rank")
+        raise RankDeficientProbe("insufficient probe rank")
     return vh[:rank].T.to(gradients[0])
 
 

@@ -15,3 +15,11 @@ Stage 2 must consume its own family/config/seed/order stage-1 checkpoint identit
 Deployment is one parent student plus a single d² frozen transform. Independent-process synthetic evaluation loads this student state only; no Q, prototype, optimizer or repair loop is required. Parent adapter history follows its own contract and is not claimed constant-sized for an unknown real parent.
 
 The current controller is finite and synchronous CPU synthetic code. There is no remote job submission, background monitor or automatic phase E expansion.
+
+## R2 replacement/addendum: resume and numeric transactions
+
+Stage resume uses Model.for_resume (no eigensolve) and StageTrainer.for_resume (no stage_entry, probes or prototype initialization). The parent restores its legal parameter whitelist and modes independently of new-adapter initialization. The checkpoint loads current nonzero A/B/R and saved EMA, probes and Q; it never resets them to stage entry. Independent-process stage-2 tests now cover all ten arms, not only first-stage recovery.
+
+The checkpoint now carries resolved semantic options/digest, actual provider/manifest/split/stream/cursor convention, entry-source tensor identity, parent constraint metadata and named optimizer groups. Restore verifies actual constructed objects before state changes. output_path/log_every are the only nonsemantic option exceptions. Precision/device migration has no automatic exception.
+
+The successful transaction order is optimizer invocation → native constraints → scheduler candidate → finite validation of student/effective weights/optimizer/scheduler/scaler/candidate EMA/prototypes → EMA/prototype commit → scientific step/cursor. A failed invocation may have partially changed the student or optimizer; it is physically recorded, scientific state remains uncommitted and a fresh checkpoint restore is required. The ledger's physical count means invoked optimizer operations, not validated scientific updates. Exact candidate EMA arithmetic is checked one parameter at a time to avoid constructing a third full model. The skip fixture models an AMP skip transaction; actual CUDA AMP is still NOT_RUN.

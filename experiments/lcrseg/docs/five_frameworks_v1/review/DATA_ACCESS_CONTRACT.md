@@ -11,3 +11,11 @@ Evaluation must be a separate student-only capability. Final selection occurs of
 Approval cannot be manufactured by the code. Required bindings: exact reviewed commit/tree, parent binding, expanded plan, dependency lock; independent caps for target updates, source updates, real-L smoke, VJPs, readout forwards; B/C/D scope; non-template external review evidence; explicit user launch confirmation. `require_approval` tests each field. Because this package has no real parent, `cli run` always rejects even before reading the approval path, and no data loader is reachable.
 
 Public artifacts contain no private runtime paths, keys, patient IDs, images, labels, models or per-patient metrics. User-provided review text and reference reports remain separately labeled as input evidence, not newly verified experiment results.
+
+## R2 entry points and evaluation
+
+CLI run now enters the actual metadata preflight implementation. A verified parent identity must have an adapter in the code-owned REAL_RUNNERS registry; that registry is empty in this submission. A lock/approval/manifest cannot inject a class, script or command. With a future reviewed implementation, preflight derives actual commit/tree/parent/plan/dependency hashes and all budget caps before the adapter may acquire data capabilities. Today it fails before reading even an approval path.
+
+The generic current-domain adapter separates labeled and unlabeled reader call signatures, verifies reviewed manifest digest and rejects U label fields and wrong-domain entries. No concrete real payload reader has been supplied or called. Generic native hooks/metadata readiness do not mean original KI is bound.
+
+Evaluation supports ignore-aware Dice with valid target support. All-ignore is unavailable, not a perfect empty background. Partially ignored images return auxiliary morphology/distance/area fields as unavailable and require the native evaluator; no artificial ignore boundary enters a topology or surface metric. Fully valid metrics retain the previous double-empty/one-empty convention. This changes only the new helper, not historical results.

@@ -1,0 +1,149 @@
+Actual local reproduction on b909a913, torch 2.6.0 CPU. This is the external nine-case suite, not the original 104.
+.FFFFFFFF                                                                [100%]
+=================================== FAILURES ===================================
+_________ test_R01_stage2_resume_restores_trainability_and_trajectory __________
+
+tmp_path = PosixPath('/private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-109/test_R01_stage2_resume_restore0')
+
+    def test_R01_stage2_resume_restores_trainability_and_trajectory(tmp_path):
+        source = make_trainer()
+        source.update(); source.update()
+        deployed = source.model.deploy()
+        entry_parent = copy.deepcopy(deployed.parent)
+        entry_transform = deployed.transform.detach().clone()
+        a = make_trainer(stage=2, parent=copy.deepcopy(entry_parent), previous=entry_transform)
+        a.update(); a.update()
+        identity = {**IDENTITY, "stage": 2}
+        checkpoint.save(a, tmp_path / "stage2.pt", identity)
+        b = make_trainer(False, stage=2, parent=copy.deepcopy(entry_parent), previous=entry_transform)
+        checkpoint.restore(b, tmp_path / "stage2.pt", identity)
+        expected = {name: p.requires_grad for name, p in a.model.named_parameters()}
+        actual = {name: p.requires_grad for name, p in b.model.named_parameters()}
+>       assert actual == expected, "resume left the sealed parent's A/B frozen"
+E       AssertionError: resume left the sealed parent's A/B frozen
+E       assert {'parent.adap...': False, ...} == {'parent.adap...b': True, ...}
+E         
+E         Omitting 6 identical items, use -vv to show
+E         Differing items:
+E         {'parent.adapters.2.b': False} != {'parent.adapters.2.b': True}
+E         {'parent.adapters.1.b': False} != {'parent.adapters.1.b': True}
+E         {'parent.adapters.0.a': False} != {'parent.adapters.0.a': True}
+E         {'parent.adapters.1.a': False} != {'parent.adapters.1.a': True}...
+E         
+E         ...Full output truncated (3 lines hidden), use '-vv' to show
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:74: AssertionError
+______________ test_R02a_resume_rejects_changed_semantic_options _______________
+
+tmp_path = PosixPath('/private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-109/test_R02a_resume_rejects_chang0')
+
+    def test_R02a_resume_rejects_changed_semantic_options(tmp_path):
+        a = make_trainer(); a.update(); a.update()
+        checkpoint.save(a, tmp_path / "config.pt", IDENTITY)
+        b = make_trainer(False, options={"lambda_U": 0.})
+>       with pytest.raises((ValueError, RuntimeError)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (<class 'ValueError'>, <class 'RuntimeError'>)
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:84: Failed
+_____________ test_R02b_resume_rejects_provider_identity_mismatch ______________
+
+tmp_path = PosixPath('/private/var/folders/s5/94nvqwh911v_x7wm4js3sl9c0000gn/T/pytest-of-bominwang/pytest-109/test_R02b_resume_rejects_provi0')
+
+    def test_R02b_resume_rejects_provider_identity_mismatch(tmp_path):
+        a = make_trainer(); a.update()
+        checkpoint.save(a, tmp_path / "provider.pt", IDENTITY)
+        b = make_trainer(False, stage=2)
+>       with pytest.raises((ValueError, RuntimeError)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (<class 'ValueError'>, <class 'RuntimeError'>)
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:92: Failed
+_________ test_R03a_nonfinite_loss_with_finite_gradient_cannot_commit __________
+
+    def test_R03a_nonfinite_loss_with_finite_gradient_cannot_commit():
+        class BadLoss(SyntheticParentBridge):
+            def supervised(self, logp, labels):
+                return super().supervised(logp, labels) + logp.new_tensor(float("inf"))
+        t = make_trainer(parent=BadLoss())
+>       with pytest.raises((ValueError, RuntimeError, FloatingPointError)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (<class 'ValueError'>, <class 'RuntimeError'>, <class 'FloatingPointError'>)
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:101: Failed
+___________ test_R03b_nonfinite_post_constraint_state_cannot_commit ____________
+
+    def test_R03b_nonfinite_post_constraint_state_cannot_commit():
+        class BadConstraint(SyntheticParentBridge):
+            @torch.no_grad()
+            def apply_constraints(self):
+                self.adapters[-1].b[0, 0] = float("inf")
+        t = make_trainer(parent=BadConstraint())
+        teacher_before = copy.deepcopy(t.ema.state_dict())
+        physical = []
+>       with pytest.raises((ValueError, RuntimeError, FloatingPointError)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (<class 'ValueError'>, <class 'RuntimeError'>, <class 'FloatingPointError'>)
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:115: Failed
+_______________ test_R04_invalid_projector_is_not_rank_fallback ________________
+
+    def test_R04_invalid_projector_is_not_rank_fallback():
+        class ToyStructure:
+            def __call__(self, p, y):
+                return ((p[:, 1] - (y == 1).to(p)).square() * (y != 255)).mean()
+        torch.manual_seed(6)
+        parent = SyntheticParentBridge()
+        for adapter in list(parent.adapters)[-2:]:
+            adapter.free_projector = 2 * torch.eye(parent.d)
+>       with pytest.raises((ValueError, RuntimeError, FloatingPointError)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (<class 'ValueError'>, <class 'RuntimeError'>, <class 'FloatingPointError'>)
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:131: Failed
+______________ test_R05_teacher_features_use_teacher_bridge_mode _______________
+
+    def test_R05_teacher_features_use_teacher_bridge_mode():
+        class ModeParent(SyntheticParentBridge):
+            def __init__(self):
+                super().__init__(); self.seen = []
+            def features(self, x, mode="student", overrides=None):
+                self.seen.append(mode)
+                return super().features(x, mode, overrides)
+        t = make_trainer(parent=ModeParent())
+>       assert t.ema.parent.seen and set(t.ema.parent.seen) == {"teacher"}
+E       AssertionError: assert (['student'] and {'student'} == {'teacher'}
+E        +  where ['student'] = ModeParent(\n  (stem): Conv2d(3, 4, kernel_size=(1, 1), stride=(1, 1))\n  (adapters): ModuleList(\n    (0-2): 3 x ToyAdapter()\n  )\n  (readout): Conv2d(4, 3, kernel_size=(3, 3), stride=(1, 1))\n).seen
+E        +    where ModeParent(\n  (stem): Conv2d(3, 4, kernel_size=(1, 1), stride=(1, 1))\n  (adapters): ModuleList(\n    (0-2): 3 x ToyAdapter()\n  )\n  (readout): Conv2d(4, 3, kernel_size=(3, 3), stride=(1, 1))\n) = Model(\n  (parent): ModeParent(\n    (stem): Conv2d(3, 4, kernel_size=(1, 1), stride=(1, 1))\n    (adapters): ModuleList(...dapter()\n    )\n    (readout): Conv2d(4, 3, kernel_size=(3, 3), stride=(1, 1))\n  )\n  (sidecar): StageSubspaceAdapter()\n).parent
+E        +      where Model(\n  (parent): ModeParent(\n    (stem): Conv2d(3, 4, kernel_size=(1, 1), stride=(1, 1))\n    (adapters): ModuleList(...dapter()\n    )\n    (readout): Conv2d(4, 3, kernel_size=(3, 3), stride=(1, 1))\n  )\n  (sidecar): StageSubspaceAdapter()\n) = <experiments.lcrseg.five_frameworks_v1.train_stage.StageTrainer object at 0x1196e6a50>.ema
+E         
+E         Extra items in the left set:
+E         'student'
+E         Extra items in the right set:
+E         'teacher'
+E         Use -v to get more diff)
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:144: AssertionError
+___________ test_R06_ignored_pixels_cannot_change_segmentation_dice ____________
+
+    def test_R06_ignored_pixels_cannot_change_segmentation_dice():
+        target = np.array([[1, 255], [0, 0]])
+        a = np.array([[1, 0], [0, 0]])
+        b = np.array([[1, 1], [0, 0]])
+        ma, mb = segmentation_metrics(a, target), segmentation_metrics(b, target)
+        for name in ("rim", "cup", "disc_union"):
+>           assert ma[name]["Dice"] == mb[name]["Dice"], name
+E           AssertionError: rim
+E           assert 1.0 == 0.6666666666666666
+
+experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py:153: AssertionError
+=========================== short test summary info ============================
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R01_stage2_resume_restores_trainability_and_trajectory
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R02a_resume_rejects_changed_semantic_options
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R02b_resume_rejects_provider_identity_mismatch
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R03a_nonfinite_loss_with_finite_gradient_cannot_commit
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R03b_nonfinite_post_constraint_state_cannot_commit
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R04_invalid_projector_is_not_rank_fallback
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R05_teacher_features_use_teacher_bridge_mode
+FAILED experiments/lcrseg/docs/five_frameworks_v1/external_review_R1/test_external_review_R1.py::test_R06_ignored_pixels_cannot_change_segmentation_dice
+8 failed, 1 passed in 1.92s

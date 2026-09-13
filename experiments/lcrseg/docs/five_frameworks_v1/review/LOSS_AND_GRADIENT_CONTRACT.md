@@ -30,3 +30,11 @@ F3 D = 1/(1+kappa*u/(normalized_s+1e-6)); u is entropy/prototype uncertainty, mi
 F4 uses only d gradients, three iterations, step 0.05 after per-image gradient RMS normalization, L2 0.1. Original q/mask stay fixed. Shape_weight=0 or steps=0 exactly returns original q. Readout-only forwards and d-VJPs are counted, and nonfinite objective/gradient raises rather than silently dropping a sample.
 
 F5 retains an extra clean-U student feature forward when lambda_SWD=0. It samples min(64,nL,nU), excludes classes below 8, uses 32 detached unit directions and empirical sorted squared W2; valid classes average equally, with connected zero for no valid classes. Only rim/cup are considered. Teacher directions/features are detached and the SWD stream cannot consume the shared augmentation stream.
+
+## R2 clarifications
+
+The external reviewer accepts the existing F2 **structure-only probe** definition: `G_i = grad_W(lambda_structure * fixed_scale * CWMI_struct)`. It is not a CE+Dice+structure probe. Formal labeled training retains CE+Dice+structure. Original delivery ambiguity is preserved as historical input rather than edited into a new search variant.
+
+Only InsufficientProbeSupport/RankDeficientProbe permit unchanged legal A fallback. All engineering exceptions propagate, and all selected candidate A tensors validate before any write. Low rank, close eigenvalues and negative scientific effects remain valid outcomes.
+
+All active objective values are finite-checked before gradient calculation, independently of finite-gradient checks. Post-update effective weights and candidate EMA/prototype state are checked before commit; a finite gradient is not accepted as proof of a finite loss or valid optimizer result. Teacher features/readout now carry the teacher role explicitly, with separate frozen-parameter and eval-mode checks.

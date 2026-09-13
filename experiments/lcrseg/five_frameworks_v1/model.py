@@ -5,9 +5,10 @@ from .kernels import StageSubspaceAdapter, channel_basis
 
 
 class Model(nn.Module):
-    def __init__(self, parent, family, ratio=.5, previous=None):
+    def __init__(self, parent, family, ratio=.5, previous=None, initialize_basis=True):
         super().__init__()
         self.parent,self.family=parent,family
+        self.rank_ratio=ratio;self.role="student"
         kernel=parent.effective_readout_kernel_at_entry()
         d=kernel.shape[1]
         if d<2:
@@ -17,11 +18,15 @@ class Model(nn.Module):
         self.spectral={}
         if self.subspace:
             k=max(1,min(d-1,round(d*ratio)))
-            q,s=channel_basis(kernel,k,previous)
+            if initialize_basis:
+                all_q,all_s=channel_basis(kernel,d,previous)
+            else:
+                all_q=torch.eye(d).to(kernel);all_s=kernel.new_zeros(d)
+            q,s=all_q[:,:k],all_s[:k]
             self.sidecar=StageSubspaceAdapter(q,previous)
             # All diagnostics computed from native C F_prev in the same coordinate.
-            _, all_s=channel_basis(kernel,d,previous)
-            self.spectral={'rank':k,'width':d,'proxy_degenerate':bool(all_s.max()==0),
+
+            self.spectral={'rank':k,'width':d,'eigensolves':int(initialize_basis),'proxy_degenerate':bool(all_s.max()==0),
                            'energy':float(s.sum()/all_s.sum().clamp_min(1e-30)),
                            'cut_gap':float(all_s[k-1]-all_s[k]),
                            'coordinate':'raw_post_nonlinearity_before_F_prev'}
@@ -33,16 +38,36 @@ class Model(nn.Module):
                 raise ValueError('parent-only/F2 cannot inherit a learned feature transform')
             self.sidecar=None
 
-    def parts(self,x,detach_parent=False,scale=None):
-        h=self.parent.features(x,'student')
+    def checked_mode(self,mode):
+        mode=self.role if mode is None else mode
+        if mode not in ('student','teacher','eval'):raise ValueError('invalid bridge mode')
+        if mode=='student' and not self.training:raise ValueError('student mode requires training module mode')
+        if mode in ('teacher','eval') and (self.training or any(p.requires_grad for p in self.parameters())):
+            raise ValueError('teacher/eval requires frozen parameters and evaluation module mode')
+        return mode
+
+    def configure_training(self):
+        self.train(); self.role='student'
+        self.parent.configure_stage_training()
+        if self.sidecar is not None:
+            self.sidecar.previous.requires_grad_(False);self.sidecar.r.requires_grad_(True)
+
+    @classmethod
+    def for_resume(cls,parent,family,ratio=.5,previous=None):
+        return cls(parent,family,ratio,previous,initialize_basis=False)
+
+    def parts(self,x,detach_parent=False,scale=None,mode=None):
+        mode=self.checked_mode(mode)
+        h=self.parent.features(x,mode)
         if detach_parent: h=h.detach()
         if self.sidecar is None: return h,h,h
         out,before=self.sidecar(h,backward_scale=scale,return_pre_previous=True)
         return h,before,out
 
-    def forward(self,x,detach_parent=False,scale=None):
-        _,_,h=self.parts(x,detach_parent,scale)
-        return self.parent.native_readout(h,x.shape[-2:],'student')
+    def forward(self,x,detach_parent=False,scale=None,mode=None):
+        mode=self.checked_mode(mode)
+        _,_,h=self.parts(x,detach_parent,scale,mode)
+        return self.parent.native_readout(h,x.shape[-2:],mode)
 
     def u_parameters(self):
         groups=self.parent.parameter_groups()
@@ -53,6 +78,7 @@ class Model(nn.Module):
     @torch.no_grad()
     def teacher(self):
         ema=copy.deepcopy(self).eval().requires_grad_(False)
+        ema.role="teacher"
         if self.sidecar is not None:
             # One immutable F_prev allocation shared by student/current EMA.
             ema.sidecar.previous=self.sidecar.previous

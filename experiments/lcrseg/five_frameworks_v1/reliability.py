@@ -11,7 +11,7 @@ class CurrentPrototypes:
 
     def estimate(self,teacher,images,labels):
         with torch.no_grad():
-            _,before,h=teacher.parts(images)
+            _,before,h=teacher.parts(images,mode="teacher")
             mapped=teacher.parent.output_to_feature(labels,h.shape[-2:],True)
             p,s=current_prototypes(h,mapped,3)
         return p,s,before,h,mapped

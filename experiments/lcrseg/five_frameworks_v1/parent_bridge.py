@@ -15,6 +15,8 @@ class ParentBridge(Protocol):
     def effective_readout_kernel_at_entry(self): ...
     def parameter_groups(self): ...
     def supervised(self, logp, labels): ...
+    def configure_stage_training(self): ...
+    def semantic_metadata(self): ...
     def stage_entry(self): ...
     def stage_exit(self): ...
     def constraint_loss(self): ...
@@ -112,6 +114,25 @@ class SyntheticParentBridge(nn.Module):
 
     def apply_constraints(self):
         pass  # Explicitly unconstrained synthetic parent, not a KI constraint stub.
+
+    def configure_stage_training(self):
+        # Restore legal flags/modes without touching values, new flags or probes.
+        self.train()
+        self.requires_grad_(False)
+        for adapter in self.adapters:
+            adapter.a.requires_grad_(True); adapter.b.requires_grad_(True)
+        self.stem.eval(); self.readout.eval()
+
+    def semantic_metadata(self):
+        from .semantics import tensor_fingerprint
+        return {'bridge':type(self).__module__+'.'+type(self).__qualname__,
+                'synthetic':True,'d':self.d,'rank':[a.a.shape[0] for a in self.adapters],
+                'delta':'B @ A','constraint':'none_synthetic',
+                'free_projectors':[None if a.free_projector is None else tensor_fingerprint({'P':a.free_projector}) for a in self.adapters],
+                'readout':{'kernel':list(self.readout.kernel_size),'padding':list(self.readout.padding),
+                           'bias':self.readout.bias is not None,'align_corners':True},
+                'loss':'toy_CE_Dice_foreground_smooth_1e-6',
+                'geometry':'normalized_full_image_coordinate_v1'}
 
     @torch.no_grad()
     def stage_entry(self):

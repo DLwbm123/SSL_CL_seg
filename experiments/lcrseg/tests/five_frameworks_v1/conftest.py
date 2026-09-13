@@ -7,6 +7,8 @@ from experiments.lcrseg.five_frameworks_v1.losses import CWMI,MissingBackend
 
 def pytest_sessionstart(session):
     torch.set_num_threads(1)
+    from experiments.lcrseg.tests.five_frameworks_v1.cost_audit import install
+    install()
 
 
 @pytest.fixture(scope='session')

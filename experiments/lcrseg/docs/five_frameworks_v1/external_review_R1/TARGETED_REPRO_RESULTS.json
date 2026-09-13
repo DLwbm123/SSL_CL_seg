@@ -1,0 +1,80 @@
+{
+  "review_commit": "b909a9131dc7137232ac8eb3a6922fe66520b932",
+  "torch": "2.10.0+cpu",
+  "device": "cpu",
+  "source_sha256_verified": {
+    "evaluate.py": "d95b6029d0a5ae8ffbdc8fe7ffedcff0de5be7d44fa6e2cb2495e99e1f17df9a",
+    "kernels.py": "28b45f697c45109af7cfdb8a7b4f4715fe5875b0397621a84288a749f48c3c30",
+    "model.py": "3b9ff5eb781a4f1fd1984dbfa954f7fe82aee797388ef5f5e570ce5ad9e15129",
+    "parent_bridge.py": "fd99f62931eeab1f6b8fb30079222b85c9fe43ebe999f0b26a888f7aebce4a18",
+    "recipes.py": "ac34e0a8647664b8314ae90b9724dd55f6780e65d75194095588310c0e41f57a",
+    "reliability.py": "ab904794bef6e29ec50c0b28056f5f628f1fd0ecd040357b9766dd46d7ccea5b",
+    "losses.py": "4ef1279a928001d2f1b6e8a1f0f352ddb847fa2fbb86b429c30cfc561c101dad",
+    "checkpoint.py": "0b340e1031431165a210c533692d436117a56ce4a987d3fe81eb1eadcc2a7772",
+    "train_stage.py": "841e22d15b2276f358db3f05b5687f653436c932db6dedb33194420428b0c4fa"
+  },
+  "full_104_suite_rerun": false,
+  "CWMI_backend_rerun": false,
+  "synthetic_only": true,
+  "real_data_reads": 0,
+  "formal_updates": 0,
+  "results": {
+    "stage1_control": {
+      "max_state_error": 0.0
+    },
+    "stage2_resume": {
+      "restored_A_B_requires_grad": {
+        "adapters.0.a": false,
+        "adapters.0.b": false,
+        "adapters.1.a": false,
+        "adapters.1.b": false,
+        "adapters.2.a": false,
+        "adapters.2.b": false
+      },
+      "reference_A_B_trainable": 6,
+      "resumed_A_B_trainable": 0,
+      "max_state_error_after_one_update": 0.01001700572669506
+    },
+    "resume_configuration": {
+      "restore_rejected": false,
+      "original_lambda_U": 0.5,
+      "resumed_lambda_U": 0.0,
+      "max_state_error_after_one_update": 0.0037487302906811237
+    },
+    "resume_provider": {
+      "restore_rejected": false,
+      "checkpoint_identity_stage": 1,
+      "resumed_provider_stage": 2
+    },
+    "nonfinite_loss": {
+      "labeled_loss": "inf",
+      "scientific_step_advanced": 1,
+      "finite_gradients": true,
+      "synthetic_optimizer_updates": 1
+    },
+    "nonfinite_post_constraint": {
+      "scientific_step_advanced": 1,
+      "student_finite": false,
+      "teacher_finite": false
+    },
+    "teacher_mode": {
+      "teacher_feature_modes_after_proto_init": [
+        "student"
+      ]
+    },
+    "F2_invalid_projector": {
+      "initialization_rejected": false,
+      "probe_complete": true,
+      "fallback_reasons": [
+        "not an orthogonal projector",
+        "not an orthogonal projector"
+      ],
+      "structure_backend": "explicit toy test double; not a CWMI validation"
+    },
+    "ignored_metric_pixels": {
+      "predictions_identical_on_valid_pixels": true,
+      "rim_dice_a": 1.0,
+      "rim_dice_b": 0.6666666666666666
+    }
+  }
+}

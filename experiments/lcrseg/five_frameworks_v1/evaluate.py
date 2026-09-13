@@ -29,10 +29,28 @@ def binary_metrics(pred,target,spacing=None):
             'area_absolute_error_pixels':int(abs(int(npix)-int(nt)))}
 
 
-def segmentation_metrics(pred,target):
-    return {name:binary_metrics(p,t) for name,p,t in [
-        ('rim',pred==1,target==1),('cup',pred==2,target==2),
-        ('disc_union',np.isin(pred,[1,2]),np.isin(target,[1,2]))]}
+def segmentation_metrics(pred,target,valid=None):
+    pred,target=np.asarray(pred),np.asarray(target)
+    if pred.shape!=target.shape or pred.ndim!=2:raise ValueError('expected equal 2D label maps')
+    if not np.isin(target,[0,1,2,255]).all():raise ValueError('unknown target class')
+    if not np.isin(pred,[0,1,2]).all():raise ValueError('unknown prediction class')
+    if valid is not None and (np.asarray(valid).shape!=target.shape or np.asarray(valid).dtype!=bool):
+        raise ValueError('valid mask must be boolean and match labels')
+    support=(target!=255) if valid is None else ((target!=255)&valid)
+    result={}
+    for name,classes in [('rim',[1]),('cup',[2]),('disc_union',[1,2])]:
+        p=np.isin(pred,classes)&support;t=np.isin(target,classes)&support
+        if support.all():
+            result[name]=binary_metrics(p,t)
+        else:
+            denom=p.sum()+t.sum()
+            result[name]={'Dice':None if not support.any() else (1. if denom==0 else float(2*(p&t).sum()/denom)),
+                          'HD95':None,'ASSD':None,'pred_components':None,'target_components':None,
+                          'pred_holes':None,'target_holes':None,'area_absolute_error_pixels':None,
+                          'distance_unit':'pixels','auxiliary_status':'NOT_EVALUABLE_IGNORE_REQUIRES_NATIVE_EVALUATOR',
+                          'empty_case':'NO_VALID_SUPPORT' if not support.any() else ('both' if denom==0 else ('one' if not p.any() or not t.any() else 'neither'))}
+        result[name]['valid_pixels']=int(support.sum())
+    return result
 
 
 def load_synthetic_student(path):
