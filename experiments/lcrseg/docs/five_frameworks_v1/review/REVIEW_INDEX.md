@@ -6,15 +6,15 @@ Repository: https://github.com/DLwbm123/SSL_CL_seg
 
 Branch: `codex/sslcl-five-frameworks-v1-review`
 
-R2 actual base / previous review: `b909a9131dc7137232ac8eb3a6922fe66520b932`
+R3 revision base / externally reviewed R2 commit: `bac21b6585ec284fb6e93f213e280c1492f6e57a`
 
 Original study base: `8a6e93a8bc39554c878cffe0dedf7fbfefe7d16d`
 
 The review commit is the commit containing this index (`git rev-parse HEAD`); the final handoff gives its complete SHA. No self-referential commit hash is placed inside the hashed tree. PR: NOT_CREATED.
 
-The five forward/backward implementations and five baselines share one stage trainer. All run on CPU synthetic tensors, including the locked complex steerable pyramid and real second-order D-Convexity equation. This is **not** a claim that the original KI parent was found or integrated. One original KI launch command or original run_id is the remaining identity clue.
+The five forward/backward implementations and five baselines share one stage trainer. All run on CPU synthetic tensors, including the locked complex steerable pyramid and real second-order D-Convexity equation. This is **not** a claim that the original KI parent was found or integrated. A user-recognized original KI source/configuration/entry is still required; the existing binding record lists the unresolved native details.
 
-Start with [R1 response / R2 fixes](REVIEW_RESPONSE_R1.md) and [R2 test report](TEST_REPORT_R2.json): **162 passed**, 0 failed/skipped, CUDA NOT_RUN. R01–R06 are resolved at the executable synthetic/interface level; real parent binding is pending. The nine external regressions first reproduced 1 passed / 8 failed on the old commit.
+Start with [response to external R2 / R07 fix](REVIEW_RESPONSE_R2.md) and [current R3 test report](TEST_REPORT_R3.json): **178 passed**, 0 failed/skipped, CUDA NOT_RUN. R01–R06 are CLOSED_PRESERVED; R07 is fixed in CPU/interface scope and awaits external review. The eleven external R2 regressions first reproduced 7 passed / 4 failed on the base execution code. See [current cost by invocation](CPU_COST_R3.json). The earlier [R1 response](REVIEW_RESPONSE_R1.md) and [162-test R2 report](TEST_REPORT_R2.json) remain historical evidence. Real parent binding is pending.
 
 Read in this order:
 

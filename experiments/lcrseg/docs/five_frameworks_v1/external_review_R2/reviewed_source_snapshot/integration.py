@@ -1,8 +1,5 @@
 """Native bridge and metadata-only orchestration; no registered real runner yet."""
-from collections.abc import Mapping
-from copy import deepcopy
 from dataclasses import dataclass
-from types import MappingProxyType
 import json
 from pathlib import Path
 import subprocess
@@ -21,8 +18,7 @@ class NativeParentBridge(nn.Module):
     """
     synthetic=False
     def __init__(self,native,metadata,hooks):
-        super().__init__();self.native=native;self._metadata=deepcopy(metadata);self.hooks=dict(hooks)
-        metadata=self._metadata
+        super().__init__();self.native=native;self.metadata=dict(metadata);self.hooks=dict(hooks)
         required={'features','readout','readout_kernel','supervised','constraint_loss','apply_constraints',
                   'stage_entry','stage_exit','configure_modes','output_to_feature','feature_to_output','optimizer_groups'}
         if not required<=hooks.keys() or any(not callable(hooks[k]) for k in required):raise ValueError('incomplete native hooks')
@@ -37,10 +33,7 @@ class NativeParentBridge(nn.Module):
 
     def parameter_groups(self):
         names=dict(self.native.named_parameters())
-        return {k:[names[n] for n in v] for k,v in self._metadata['parameter_names'].items()}
-
-    @property
-    def metadata(self):return deepcopy(self._metadata)
+        return {k:[names[n] for n in v] for k,v in self.metadata['parameter_names'].items()}
 
     def semantic_metadata(self):return self.metadata
 
@@ -89,51 +82,31 @@ REAL_RUNNERS={}
 _PERMIT_SEAL=object()
 
 
-def _freeze_metadata(value):
-    """Own and recursively freeze JSON-like permit metadata, never the seal."""
-    if isinstance(value,Mapping):
-        return MappingProxyType({k:_freeze_metadata(v) for k,v in value.items()})
-    if isinstance(value,(list,tuple)):return tuple(_freeze_metadata(v) for v in value)
-    if value is None or type(value) in (str,int,float,bool):return value
-    raise TypeError('execution metadata must contain only JSON-like values')
-
-
 @dataclass(frozen=True)
 class ExecutionPermit:
-    bindings:Mapping
+    bindings:dict
     phases:tuple
-    budget:Mapping
+    budget:dict
     _seal:object
-
-    def __post_init__(self):
-        for name in ('bindings','phases','budget'):
-            object.__setattr__(self,name,_freeze_metadata(getattr(self,name)))
 
     def validate(self):
         if self._seal is not _PERMIT_SEAL:raise ReviewRequired('invalid execution capability')
 
 
 class CurrentDomainDataAdapter:
-    """Own the admitted snapshot; expose copies, including callback arguments."""
+    """Separate native reader capabilities. U has no label-reader dependency."""
     def __init__(self,manifest,permit,labeled_reader,unlabeled_reader):
         permit.validate()
-        self._manifest=deepcopy(manifest)
-        self._manifest_digest=validate_current_manifest(self._manifest)
+        self.manifest_digest=validate_current_manifest(manifest)
         if self.manifest_digest not in permit.bindings.get('authorized_manifest_digests',[]):raise ReviewRequired('manifest outside reviewed capability')
-        self.read_L=labeled_reader;self.read_U=unlabeled_reader
-
-    @property
-    def manifest(self):return deepcopy(self._manifest)
-
-    @property
-    def manifest_digest(self):return self._manifest_digest
+        self.manifest=manifest;self.read_L=labeled_reader;self.read_U=unlabeled_reader
 
     def labeled(self,index):
-        row=deepcopy(self._manifest['L'][index])
+        row=self.manifest['L'][index]
         return self.read_L(row['image'],row['label'],row['patient_id'])
 
     def unlabeled(self,index):
-        row=deepcopy(self._manifest['U'][index])
+        row=self.manifest['U'][index]
         return self.read_U(row['image'],row['geometry'],row['source_id'])
 
 

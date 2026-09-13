@@ -1,0 +1,84 @@
+.......FFFF                                                              [100%]
+=================================== FAILURES ===================================
+____ test_R07_mutating_original_manifest_cannot_change_reader_arguments[L] _____
+
+branch = 'L'
+
+    @pytest.mark.parametrize('branch',['L','U'])
+    def test_R07_mutating_original_manifest_cannot_change_reader_arguments(branch):
+        m=current_manifest();p,_,_=permit_for(m);calls=[]
+        adapter=integ.CurrentDomainDataAdapter(m,p,lambda *v:calls.append(v),lambda *v:calls.append(v))
+        approved=copy.deepcopy(m[branch][0])
+        m[branch][0]['image']='unapproved-history-or-future-image'
+        m[branch][0]['domain']='not-current'
+        if branch=='L':m[branch][0]['label']='unapproved-label'
+        try:
+            getattr(adapter,'labeled' if branch=='L' else 'unlabeled')(0)
+        except (ValueError,PermissionError,integ.ReviewRequired):
+            assert calls==[]
+            return
+        expected=((approved['image'],approved['label'],approved['patient_id']) if branch=='L'
+                  else (approved['image'],approved['geometry'],approved['source_id']))
+>       assert calls==[expected], 'reader consumed metadata different from the admitted manifest'
+E       AssertionError: reader consumed metadata different from the admitted manifest
+E       assert [('unapproved...label', 'l0')] == [('approved-L...-GT-0', 'l0')]
+E         
+E         At index 0 diff: ('unapproved-history-or-future-image', 'unapproved-label', 'l0') != ('approved-L-0', 'approved-GT-0', 'l0')
+E         Use -v to get more diff
+
+experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py:111: AssertionError
+____ test_R07_mutating_original_manifest_cannot_change_reader_arguments[U] _____
+
+branch = 'U'
+
+    @pytest.mark.parametrize('branch',['L','U'])
+    def test_R07_mutating_original_manifest_cannot_change_reader_arguments(branch):
+        m=current_manifest();p,_,_=permit_for(m);calls=[]
+        adapter=integ.CurrentDomainDataAdapter(m,p,lambda *v:calls.append(v),lambda *v:calls.append(v))
+        approved=copy.deepcopy(m[branch][0])
+        m[branch][0]['image']='unapproved-history-or-future-image'
+        m[branch][0]['domain']='not-current'
+        if branch=='L':m[branch][0]['label']='unapproved-label'
+        try:
+            getattr(adapter,'labeled' if branch=='L' else 'unlabeled')(0)
+        except (ValueError,PermissionError,integ.ReviewRequired):
+            assert calls==[]
+            return
+        expected=((approved['image'],approved['label'],approved['patient_id']) if branch=='L'
+                  else (approved['image'],approved['geometry'],approved['source_id']))
+>       assert calls==[expected], 'reader consumed metadata different from the admitted manifest'
+E       AssertionError: reader consumed metadata different from the admitted manifest
+E       assert [('unapproved...try-0', 'u0')] == [('approved-U...try-0', 'u0')]
+E         
+E         At index 0 diff: ('unapproved-history-or-future-image', 'geometry-0', 'u0') != ('approved-U-0', 'geometry-0', 'u0')
+E         Use -v to get more diff
+
+experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py:111: AssertionError
+___________ test_R07_mutating_external_bindings_cannot_expand_permit ___________
+
+    def test_R07_mutating_external_bindings_cannot_expand_permit():
+        m=current_manifest();p,bindings,_=permit_for(m)
+        other=current_manifest('other','9')
+        other_hash=integ.validate_current_manifest(other)
+        bindings['authorized_manifest_digests'].append(other_hash)
+        calls=[]
+>       with pytest.raises((ValueError,PermissionError,integ.ReviewRequired)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (<class 'ValueError'>, <class 'PermissionError'>, <class 'experiments.lcrseg.five_frameworks_v1.gate.ReviewRequired'>)
+
+experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py:120: Failed
+__________ test_R07_mutating_external_budget_cannot_change_permit_cap __________
+
+    def test_R07_mutating_external_budget_cannot_change_permit_cap():
+        m=current_manifest();p,_,budget=permit_for(m)
+        budget['max_formal_optimizer_updates']=1000000
+>       assert p.budget['max_formal_optimizer_updates']==0
+E       assert 1000000 == 0
+
+experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py:129: AssertionError
+=========================== short test summary info ============================
+FAILED experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py::test_R07_mutating_original_manifest_cannot_change_reader_arguments[L]
+FAILED experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py::test_R07_mutating_original_manifest_cannot_change_reader_arguments[U]
+FAILED experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py::test_R07_mutating_external_bindings_cannot_expand_permit
+FAILED experiments/lcrseg/tests/five_frameworks_v1/test_external_review_R2.py::test_R07_mutating_external_budget_cannot_change_permit_cap
+4 failed, 7 passed in 0.29s

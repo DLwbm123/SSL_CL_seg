@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites name="pytest tests"><testsuite name="pytest" errors="0" failures="4" skipped="0" tests="11" time="1.234" timestamp="2026-09-13T15:23:24.452605+00:00" hostname="localhost"><testcase classname="test_external_review_R2" name="test_ignore_changes_do_not_change_any_reported_metric" time="0.060" /><testcase classname="test_external_review_R2" name="test_all_ignore_has_no_valid_score" time="0.001" /><testcase classname="test_external_review_R2" name="test_explicit_valid_mask_intersects_ignore_mask" time="0.000" /><testcase classname="test_external_review_R2" name="test_fully_valid_behavior_preserved" time="0.003" /><testcase classname="test_external_review_R2" name="test_finite_checker_rejects_nonfinite_loss_even_with_finite_gradient" time="0.005" /><testcase classname="test_external_review_R2" name="test_finite_checker_rejects_overflowed_effective_product" time="0.002" /><testcase classname="test_external_review_R2" name="test_unapproved_manifest_rejected_without_reader_call" time="0.000" /><testcase classname="test_external_review_R2" name="test_R07_mutating_original_manifest_cannot_change_reader_arguments[L]" time="0.001"><failure message="AssertionError: reader consumed metadata different from the admitted manifest&#10;assert [('unapproved...label', 'l0')] == [('approved-L...-GT-0', 'l0')]&#10;  &#10;  At index 0 diff: ('unapproved-history-or-future-image', 'unapproved-label', 'l0') != ('approved-L-0', 'approved-GT-0', 'l0')&#10;  &#10;  Full diff:&#10;    [&#10;        (&#10;  +         'unapproved-history-or-future-image',&#10;  -         'approved-L-0',&#10;  ?                   ^^^&#10;  +         'unapproved-label',&#10;  ?          ++         ^^^^^&#10;  -         'approved-GT-0',&#10;            'l0',&#10;        ),&#10;    ]">branch = 'L'
+
+    @pytest.mark.parametrize('branch',['L','U'])
+    def test_R07_mutating_original_manifest_cannot_change_reader_arguments(branch):
+        m=current_manifest();p,_,_=permit_for(m);calls=[]
+        adapter=integ.CurrentDomainDataAdapter(m,p,lambda *v:calls.append(v),lambda *v:calls.append(v))
+        approved=copy.deepcopy(m[branch][0])
+        m[branch][0]['image']='unapproved-history-or-future-image'
+        m[branch][0]['domain']='not-current'
+        if branch=='L':m[branch][0]['label']='unapproved-label'
+        try:
+            getattr(adapter,'labeled' if branch=='L' else 'unlabeled')(0)
+        except (ValueError,PermissionError,integ.ReviewRequired):
+            assert calls==[]
+            return
+        expected=((approved['image'],approved['label'],approved['patient_id']) if branch=='L'
+                  else (approved['image'],approved['geometry'],approved['source_id']))
+&gt;       assert calls==[expected], 'reader consumed metadata different from the admitted manifest'
+E       AssertionError: reader consumed metadata different from the admitted manifest
+E       assert [('unapproved...label', 'l0')] == [('approved-L...-GT-0', 'l0')]
+E         
+E         At index 0 diff: ('unapproved-history-or-future-image', 'unapproved-label', 'l0') != ('approved-L-0', 'approved-GT-0', 'l0')
+E         
+E         Full diff:
+E           [
+E               (
+E         +         'unapproved-history-or-future-image',
+E         -         'approved-L-0',
+E         ?                   ^^^
+E         +         'unapproved-label',
+E         ?          ++         ^^^^^
+E         -         'approved-GT-0',
+E                   'l0',
+E               ),
+E           ]
+
+mnt/data/SSLCL_FIVE_FRAMEWORKS_EXTERNAL_REVIEW_R2/test_external_review_R2.py:111: AssertionError</failure></testcase><testcase classname="test_external_review_R2" name="test_R07_mutating_original_manifest_cannot_change_reader_arguments[U]" time="0.001"><failure message="AssertionError: reader consumed metadata different from the admitted manifest&#10;assert [('unapproved...try-0', 'u0')] == [('approved-U...try-0', 'u0')]&#10;  &#10;  At index 0 diff: ('unapproved-history-or-future-image', 'geometry-0', 'u0') != ('approved-U-0', 'geometry-0', 'u0')&#10;  &#10;  Full diff:&#10;    [&#10;        (&#10;  -         'approved-U-0',&#10;  +         'unapproved-history-or-future-image',&#10;            'geometry-0',&#10;            'u0',&#10;        ),&#10;    ]">branch = 'U'
+
+    @pytest.mark.parametrize('branch',['L','U'])
+    def test_R07_mutating_original_manifest_cannot_change_reader_arguments(branch):
+        m=current_manifest();p,_,_=permit_for(m);calls=[]
+        adapter=integ.CurrentDomainDataAdapter(m,p,lambda *v:calls.append(v),lambda *v:calls.append(v))
+        approved=copy.deepcopy(m[branch][0])
+        m[branch][0]['image']='unapproved-history-or-future-image'
+        m[branch][0]['domain']='not-current'
+        if branch=='L':m[branch][0]['label']='unapproved-label'
+        try:
+            getattr(adapter,'labeled' if branch=='L' else 'unlabeled')(0)
+        except (ValueError,PermissionError,integ.ReviewRequired):
+            assert calls==[]
+            return
+        expected=((approved['image'],approved['label'],approved['patient_id']) if branch=='L'
+                  else (approved['image'],approved['geometry'],approved['source_id']))
+&gt;       assert calls==[expected], 'reader consumed metadata different from the admitted manifest'
+E       AssertionError: reader consumed metadata different from the admitted manifest
+E       assert [('unapproved...try-0', 'u0')] == [('approved-U...try-0', 'u0')]
+E         
+E         At index 0 diff: ('unapproved-history-or-future-image', 'geometry-0', 'u0') != ('approved-U-0', 'geometry-0', 'u0')
+E         
+E         Full diff:
+E           [
+E               (
+E         -         'approved-U-0',
+E         +         'unapproved-history-or-future-image',
+E                   'geometry-0',
+E                   'u0',
+E               ),
+E           ]
+
+mnt/data/SSLCL_FIVE_FRAMEWORKS_EXTERNAL_REVIEW_R2/test_external_review_R2.py:111: AssertionError</failure></testcase><testcase classname="test_external_review_R2" name="test_R07_mutating_external_bindings_cannot_expand_permit" time="0.000"><failure message="Failed: DID NOT RAISE any of (&lt;class 'ValueError'&gt;, &lt;class 'PermissionError'&gt;, &lt;class 'external_review_r2_snapshot_gate.ReviewRequired'&gt;)">def test_R07_mutating_external_bindings_cannot_expand_permit():
+        m=current_manifest();p,bindings,_=permit_for(m)
+        other=current_manifest('other','9')
+        other_hash=integ.validate_current_manifest(other)
+        bindings['authorized_manifest_digests'].append(other_hash)
+        calls=[]
+&gt;       with pytest.raises((ValueError,PermissionError,integ.ReviewRequired)):
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       Failed: DID NOT RAISE any of (&lt;class 'ValueError'&gt;, &lt;class 'PermissionError'&gt;, &lt;class 'external_review_r2_snapshot_gate.ReviewRequired'&gt;)
+
+mnt/data/SSLCL_FIVE_FRAMEWORKS_EXTERNAL_REVIEW_R2/test_external_review_R2.py:120: Failed</failure></testcase><testcase classname="test_external_review_R2" name="test_R07_mutating_external_budget_cannot_change_permit_cap" time="0.000"><failure message="assert 1000000 == 0">def test_R07_mutating_external_budget_cannot_change_permit_cap():
+        m=current_manifest();p,_,budget=permit_for(m)
+        budget['max_formal_optimizer_updates']=1000000
+&gt;       assert p.budget['max_formal_optimizer_updates']==0
+E       assert 1000000 == 0
+
+mnt/data/SSLCL_FIVE_FRAMEWORKS_EXTERNAL_REVIEW_R2/test_external_review_R2.py:129: AssertionError</failure></testcase></testsuite></testsuites>

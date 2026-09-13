@@ -19,3 +19,11 @@ CLI run now enters the actual metadata preflight implementation. A verified pare
 The generic current-domain adapter separates labeled and unlabeled reader call signatures, verifies reviewed manifest digest and rejects U label fields and wrong-domain entries. No concrete real payload reader has been supplied or called. Generic native hooks/metadata readiness do not mean original KI is bound.
 
 Evaluation supports ignore-aware Dice with valid target support. All-ignore is unavailable, not a perfect empty background. Partially ignored images return auxiliary morphology/distance/area fields as unavailable and require the native evaluator; no artificial ignore boundary enters a topology or surface metric. Fully valid metrics retain the previous double-empty/one-empty convention. This changes only the new helper, not historical results.
+
+## R07 snapshot ownership (response to external R2)
+
+The admitted manifest is a private deep snapshot: validation, digest and reader selection all use it. Public manifest access returns a safe deep copy; read callbacks receive copied row values, including nested geometry. Mutating the original L/U list, row, returned view or callback result cannot change the admitted reader arguments. Snapshot creation is once per adapter; each read copies only its selected row and does not hash the full manifest.
+
+ExecutionPermit copies and recursively freezes bindings, allowed digests, phases and budget. The private seal retains identity. NativeParentBridge validates and resolves parameter names from its private metadata snapshot, returning safe copies for public metadata and semantic serialization. These ownership rules do not create a same-process security sandbox or assert real path/symlink validation. No real reader or runner is registered.
+
+The attached external R2 helper snapshot is provenance evidence only. Current regression tests use normal repository imports and do not set SSLCL_R2_SNAPSHOT. Current results and all three invocation costs are recorded in TEST_REPORT_R3.json and CPU_COST_R3.json; prior R2 evidence is preserved.

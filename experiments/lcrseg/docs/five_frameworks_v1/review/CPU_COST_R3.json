@@ -1,0 +1,51 @@
+{
+  "scope": "All three pytest invocations in this R07 revision were instrumented from the first baseline. API invocation counts only, not FLOPs or one scalar VJP per input; synthetic fault-injection work may be uncommitted. No other optimizer/autograd execution was performed in this revision. Prior-task debug costs are outside this report.",
+  "rounds": {
+    "baseline": {
+      "tests": 11,
+      "passed": 7,
+      "failed": 4,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.293,
+      "processes_with_cost_events": 1,
+      "calls": {
+        "autograd_grad_completed": 1
+      }
+    },
+    "focused": {
+      "tests": 16,
+      "passed": 16,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 0.32,
+      "processes_with_cost_events": 1,
+      "calls": {
+        "autograd_grad_completed": 1
+      }
+    },
+    "final": {
+      "tests": 178,
+      "passed": 178,
+      "failed": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 32.377,
+      "processes_with_cost_events": 11,
+      "calls": {
+        "autograd_grad_completed": 937,
+        "autograd_backward_completed": 13,
+        "Adam_step_completed": 250
+      }
+    }
+  },
+  "whole_R07_revision_calls": {
+    "autograd_grad_completed": 939,
+    "autograd_backward_completed": 13,
+    "Adam_step_completed": 250
+  },
+  "final_qualification_is_not_whole_revision": true,
+  "real_smoke_updates": 0,
+  "formal_optimizer_updates": 0
+}

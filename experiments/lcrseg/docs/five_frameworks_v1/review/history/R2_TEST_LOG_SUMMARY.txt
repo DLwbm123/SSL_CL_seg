@@ -1,0 +1,15 @@
+Actual R2 CPU suite, including unchanged external nine regressions and new independent-process tests.
+........................................................................ [ 44%]
+........................................................................ [ 88%]
+..................                                                       [100%]
+=============================== warnings summary ===============================
+tests/five_frameworks_v1/test_revision_r2.py::test_post_update_invalid_state_uncommitted_and_resume[optimizer]
+tests/five_frameworks_v1/test_revision_r2.py::test_post_update_invalid_state_uncommitted_and_resume[optimizer_state]
+tests/five_frameworks_v1/test_revision_r2.py::test_post_update_invalid_state_uncommitted_and_resume[effective_overflow]
+  <PYTHON_ENV>/lib/python3.12/site-packages/torch/optim/lr_scheduler.py:217: UserWarning: Seems like `optimizer.step()` has been overridden after learning rate scheduler initialization. Please, make sure to call `optimizer.step()` before `lr_scheduler.step()`. See more details at https://pytorch.org/docs/stable/optim.html#how-to-adjust-learning-rate
+    warnings.warn(
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+162 passed, 3 warnings in 33.69s
+
+CUDA NOT_RUN; real image/label/checkpoint tensor reads, smoke and formal updates all 0.
