@@ -1,6 +1,6 @@
 # Experiment index and selection timeline
 
-`EXPERIMENT_INDEX.csv` lists all 30 new targets plus six reused source and six reused standard-label LCTX entries. Every new target's initialization is its own order/seed SRC_CE student from source commit `87bb70ee05609e77935b1bab5b9a44c9532dc491`, published with results at `e2ac3943a61447572489b8772dee71cedaf65d6b`. Runtime source is bound by the new reservation and launch receipts; PENDING_RUNTIME_COMMIT is not a deployed-commit claim.
+`EXPERIMENT_INDEX.csv` lists all 30 new targets plus six reused source and six reused standard-label LCTX entries. Every new target's initialization is its own order/seed SRC_CE student from source commit `87bb70ee05609e77935b1bab5b9a44c9532dc491`, published with results at `e2ac3943a61447572489b8772dee71cedaf65d6b`. Runtime source is `3d9dade9ab254b4e3cabb488f3034e3198a67087`, bound by the new reservation and launch receipts. Run status is a dated startup snapshot, not completion.
 
 1. Historical full-parameter AMS study (seeds 61–63): LCTX positive average developer finding; published report `671d0e57`. Preserve its original terminal and guarded decisions.
 2. DPR/FINITE historical primary remains `NO_PRIMARY_ACCURACY_GAIN`; its SIGN control is exploratory.

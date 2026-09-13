@@ -12,3 +12,5 @@ This is an editable empirical-study draft, not a claim of acceptance readiness. 
 | Broad novelty and clinical impact | UNESTABLISHED | Working title and claims remain conditional; no zero-forgetting or clinical safety claim. | Draft and evidence map; no invented evidence. |
 
 All negative or inconsistent new results enter the manuscript. No result direction triggers automatic further experiments. A separate future user decision would be needed to expand the submission evidence beyond this package.
+
+The bounded metadata check found test-role entries (RIM 40, Drishti 25, REFUGE 100), but did not establish their lifetime non-exposure. DATA_SCOPE.json records these counts without patient identities. No test arrays were opened and no new independent evaluation was started.
