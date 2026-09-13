@@ -1,0 +1,562 @@
+[
+  {
+    "family": "F1",
+    "candidate_id": "F1_C01",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 0.25,
+      "lambda_JML": 0.25
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F1",
+    "candidate_id": "F1_C02",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 0.25,
+      "lambda_JML": 1.0
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F1",
+    "candidate_id": "F1_C03",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F1",
+    "candidate_id": "F1_C04",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 1.0,
+      "lambda_JML": 1.0
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F1",
+    "candidate_id": "F1_C05",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 0.25,
+      "lambda_JML": 0.25
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F1",
+    "candidate_id": "F1_C06",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 0.25,
+      "lambda_JML": 1.0
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F1",
+    "candidate_id": "F1_C07",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F1",
+    "candidate_id": "F1_C08",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 1.0,
+      "lambda_JML": 1.0
+    },
+    "fixed": {}
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C01",
+    "hyperparameters": {
+      "lambda_structure": 0.1,
+      "probe_layers": "last_two_parent_adapters",
+      "lambda_U": 0.25
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C02",
+    "hyperparameters": {
+      "lambda_structure": 0.1,
+      "probe_layers": "last_two_parent_adapters",
+      "lambda_U": 1.0
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C03",
+    "hyperparameters": {
+      "lambda_structure": 0.1,
+      "probe_layers": "all_parent_adapters",
+      "lambda_U": 0.25
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C04",
+    "hyperparameters": {
+      "lambda_structure": 0.1,
+      "probe_layers": "all_parent_adapters",
+      "lambda_U": 1.0
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C05",
+    "hyperparameters": {
+      "lambda_structure": 1.0,
+      "probe_layers": "last_two_parent_adapters",
+      "lambda_U": 0.25
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C06",
+    "hyperparameters": {
+      "lambda_structure": 1.0,
+      "probe_layers": "last_two_parent_adapters",
+      "lambda_U": 1.0
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C07",
+    "hyperparameters": {
+      "lambda_structure": 1.0,
+      "probe_layers": "all_parent_adapters",
+      "lambda_U": 0.25
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F2",
+    "candidate_id": "F2_C08",
+    "hyperparameters": {
+      "lambda_structure": 1.0,
+      "probe_layers": "all_parent_adapters",
+      "lambda_U": 1.0
+    },
+    "fixed": {
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C01",
+    "hyperparameters": {
+      "kappa": 0.5,
+      "lambda_U": 0.25,
+      "prototype_uncertainty_mix": 0.0
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C02",
+    "hyperparameters": {
+      "kappa": 0.5,
+      "lambda_U": 0.25,
+      "prototype_uncertainty_mix": 0.5
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C03",
+    "hyperparameters": {
+      "kappa": 0.5,
+      "lambda_U": 1.0,
+      "prototype_uncertainty_mix": 0.0
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C04",
+    "hyperparameters": {
+      "kappa": 0.5,
+      "lambda_U": 1.0,
+      "prototype_uncertainty_mix": 0.5
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C05",
+    "hyperparameters": {
+      "kappa": 2.0,
+      "lambda_U": 0.25,
+      "prototype_uncertainty_mix": 0.0
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C06",
+    "hyperparameters": {
+      "kappa": 2.0,
+      "lambda_U": 0.25,
+      "prototype_uncertainty_mix": 0.5
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C07",
+    "hyperparameters": {
+      "kappa": 2.0,
+      "lambda_U": 1.0,
+      "prototype_uncertainty_mix": 0.0
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F3",
+    "candidate_id": "F3_C08",
+    "hyperparameters": {
+      "kappa": 2.0,
+      "lambda_U": 1.0,
+      "prototype_uncertainty_mix": 0.5
+    },
+    "fixed": {
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C01",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_shape": 0.1,
+      "trust_fraction": 0.05
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C02",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_shape": 0.1,
+      "trust_fraction": 0.2
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C03",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_shape": 1.0,
+      "trust_fraction": 0.05
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C04",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_shape": 1.0,
+      "trust_fraction": 0.2
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C05",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_shape": 0.1,
+      "trust_fraction": 0.05
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C06",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_shape": 0.1,
+      "trust_fraction": 0.2
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C07",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_shape": 1.0,
+      "trust_fraction": 0.05
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F4",
+    "candidate_id": "F4_C08",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_shape": 1.0,
+      "trust_fraction": 0.2
+    },
+    "fixed": {
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C01",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 0.25,
+      "lambda_SWD": 0.05
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C02",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 0.25,
+      "lambda_SWD": 0.2
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C03",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 1.0,
+      "lambda_SWD": 0.05
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C04",
+    "hyperparameters": {
+      "rank_ratio": 0.25,
+      "lambda_U": 1.0,
+      "lambda_SWD": 0.2
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C05",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 0.25,
+      "lambda_SWD": 0.05
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C06",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 0.25,
+      "lambda_SWD": 0.2
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C07",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 1.0,
+      "lambda_SWD": 0.05
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  {
+    "family": "F5",
+    "candidate_id": "F5_C08",
+    "hyperparameters": {
+      "rank_ratio": 0.5,
+      "lambda_U": 1.0,
+      "lambda_SWD": 0.2
+    },
+    "fixed": {
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  }
+]

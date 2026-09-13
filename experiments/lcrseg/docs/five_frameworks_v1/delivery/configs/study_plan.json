@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "study_id": "SSLCL_FIVE_FRAMEWORKS_V1",
+  "default_mode": "CODE_ONLY",
+  "priority_order": [
+    "F1",
+    "F2",
+    "F3",
+    "F4",
+    "F5"
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "development_seeds_proposed": [
+    161
+  ],
+  "replication_seeds_proposed": [
+    162,
+    163,
+    164
+  ],
+  "seed_collision_rule": "metadata-only consecutive unused IDs starting at 161; freeze before scores",
+  "parent_configs": [
+    {
+      "id": "P0",
+      "lr_multiplier": 1.0,
+      "lr_B_over_A": 1.0
+    },
+    {
+      "id": "P1",
+      "lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0
+    },
+    {
+      "id": "P2",
+      "lr_multiplier": 2.0,
+      "lr_B_over_A": 1.0
+    },
+    {
+      "id": "P3",
+      "lr_multiplier": 1.0,
+      "lr_B_over_A": 4.0
+    }
+  ],
+  "baselines": [
+    "B0_PARENT_LCTX",
+    "B1_PARENT_CONF_KL",
+    "B2_PARENT_PAS_KL",
+    "B3_PARENT_LCTX_DENSEG",
+    "B4_PARENT_PAS_KL_DENSEG_JOINT"
+  ],
+  "B0_reuses_selected_parent_development_trajectory": true,
+  "baseline_U_weights": 0.5,
+  "default_feature_rank_ratio": 0.5,
+  "teacher": {
+    "kind": "current_stage_EMA",
+    "decay": 0.99,
+    "reset_at_stage_boundary": true,
+    "old_teacher": false
+  },
+  "common_recipe": {
+    "labeled": "native_supervised_warmup_then_LCTX",
+    "unlabeled": "complementary_UL_mix_collect_U_only",
+    "labeled_loss": "CE_plus_native_foreground_Dice",
+    "unlabeled_loss": "forward_KL",
+    "KL_temperature": 1.0,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "rectangle_side_ratio": 0.6666666666666666,
+    "donor_noise_sd": 0.02,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5,
+    "PAS_missing_class": "confidence_only_with_logged_missing_support",
+    "real_training_budget": "bound_to_actual_parent_not_inferred_from_historical_reports"
+  },
+  "families": {
+    "F1": {
+      "name": "Regional_Soft_Supervision_in_Readout_Subspace",
+      "grid": {
+        "rank_ratio": [
+          0.25,
+          0.5
+        ],
+        "lambda_U": [
+          0.25,
+          1.0
+        ],
+        "lambda_JML": [
+          0.25,
+          1.0
+        ]
+      }
+    },
+    "F2": {
+      "name": "Structure_Guided_Plastic_Subspace",
+      "grid": {
+        "lambda_structure": [
+          0.1,
+          1.0
+        ],
+        "probe_layers": [
+          "last_two_parent_adapters",
+          "all_parent_adapters"
+        ],
+        "lambda_U": [
+          0.25,
+          1.0
+        ]
+      },
+      "scale_calibration_L_batches": 8,
+      "direction_probe_L_batches": 8
+    },
+    "F3": {
+      "name": "Uncertainty_Spectral_Update_Allocation",
+      "grid": {
+        "kappa": [
+          0.5,
+          2.0
+        ],
+        "lambda_U": [
+          0.25,
+          1.0
+        ],
+        "prototype_uncertainty_mix": [
+          0.0,
+          0.5
+        ]
+      },
+      "rank_ratio": 0.5,
+      "eligibility": "geometry_only_continuous_teacher_uncertainty_no_hard_PAS"
+    },
+    "F4": {
+      "name": "Anatomy_and_Subspace_Reachable_Target_Repair",
+      "grid": {
+        "rank_ratio": [
+          0.25,
+          0.5
+        ],
+        "lambda_shape": [
+          0.1,
+          1.0
+        ],
+        "trust_fraction": [
+          0.05,
+          0.2
+        ]
+      },
+      "lambda_U": 0.5,
+      "inner_steps": 3,
+      "coordinate_grid": [
+        64,
+        64
+      ],
+      "normalized_step_size": 0.05,
+      "l2_weight": 0.1
+    },
+    "F5": {
+      "name": "Class_Conditional_Subspace_Feature_Alignment",
+      "grid": {
+        "rank_ratio": [
+          0.25,
+          0.5
+        ],
+        "lambda_U": [
+          0.25,
+          1.0
+        ],
+        "lambda_SWD": [
+          0.05,
+          0.2
+        ]
+      },
+      "directions": 32,
+      "max_samples_per_class": 64,
+      "minimum_samples_per_class": 8,
+      "extra_clean_U_student_forward": true
+    }
+  },
+  "phase_C": {
+    "full_budget_per_configuration": true,
+    "early_performance_pruning": false,
+    "select_one_configuration_per_family": true
+  },
+  "phase_D": {
+    "all_five_families": true,
+    "all_five_baselines": true,
+    "configuration_retuning": false,
+    "select_up_to_two_families": true
+  },
+  "phase_E": {
+    "status": "GENERATE_PLAN_ONLY_SEPARATE_RESULT_REVIEW",
+    "max_new_ablation_configs_per_finalist": 4,
+    "max_finalists": 2
+  },
+  "qualification_after_review": {
+    "max_synthetic_optimizer_updates": 256,
+    "max_real_L_smoke_updates_total": 24
+  },
+  "performance_policy": {
+    "all_seeds_positive_required": false,
+    "all_classes_positive_required": false,
+    "CI_excludes_zero_required": false,
+    "minimum_effect_gate": null,
+    "primary": "equal_seed_equal_order_final_all_seen_domain_macro_Dice",
+    "tie_interval": 0.0001,
+    "tie_break": [
+      "higher_Old",
+      "lower_recorded_training_compute",
+      "lexicographic_candidate_id"
+    ],
+    "force_positive_claim_for_winner": false,
+    "confirmation_claim": "training_seed_replication_on_development_patients_only"
+  },
+  "baseline_search": {
+    "B1_PARENT_CONF_KL": {
+      "grid": {
+        "lambda_U": [
+          0.25,
+          1.0
+        ],
+        "parent_lr_multiplier": [
+          0.5,
+          2.0
+        ],
+        "lr_B_over_A": [
+          1.0,
+          4.0
+        ]
+      }
+    },
+    "B2_PARENT_PAS_KL": {
+      "grid": {
+        "lambda_U": [
+          0.25,
+          1.0
+        ],
+        "PAS_confidence": [
+          0.6,
+          0.8
+        ],
+        "PAS_cosine": [
+          0.3,
+          0.7
+        ]
+      }
+    },
+    "B3_PARENT_LCTX_DENSEG": {
+      "grid": {
+        "parent_lr_multiplier": [
+          0.5,
+          2.0
+        ],
+        "feature_lr_multiplier": [
+          0.5,
+          2.0
+        ],
+        "feature_weight_decay_multiplier": [
+          0.0,
+          1.0
+        ]
+      }
+    },
+    "B4_PARENT_PAS_KL_DENSEG_JOINT": {
+      "grid": {
+        "lambda_U": [
+          0.25,
+          1.0
+        ],
+        "parent_lr_multiplier": [
+          0.5,
+          2.0
+        ],
+        "feature_lr_multiplier": [
+          0.5,
+          2.0
+        ]
+      }
+    }
+  }
+}

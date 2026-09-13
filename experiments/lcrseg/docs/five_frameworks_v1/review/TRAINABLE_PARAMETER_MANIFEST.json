@@ -1,0 +1,1321 @@
+{
+  "F1": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.previous",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.r",
+        "shape": [
+          2,
+          2
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": true
+      }
+    ],
+    "trainable_elements": 52,
+    "fixed_F_elements": 16,
+    "current_Q_buffer_elements": 8,
+    "U_allowed": [
+      "sidecar.r"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "F2": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      }
+    ],
+    "trainable_elements": 48,
+    "fixed_F_elements": 0,
+    "current_Q_buffer_elements": 0,
+    "U_allowed": [
+      "parent.adapters.0.b",
+      "parent.adapters.1.b",
+      "parent.adapters.2.b"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "F3": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.previous",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.r",
+        "shape": [
+          2,
+          2
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": true
+      }
+    ],
+    "trainable_elements": 52,
+    "fixed_F_elements": 16,
+    "current_Q_buffer_elements": 8,
+    "U_allowed": [
+      "sidecar.r"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "F4": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.previous",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.r",
+        "shape": [
+          2,
+          2
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": true
+      }
+    ],
+    "trainable_elements": 52,
+    "fixed_F_elements": 16,
+    "current_Q_buffer_elements": 8,
+    "U_allowed": [
+      "sidecar.r"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "F5": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.previous",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.r",
+        "shape": [
+          2,
+          2
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": true
+      }
+    ],
+    "trainable_elements": 52,
+    "fixed_F_elements": 16,
+    "current_Q_buffer_elements": 8,
+    "U_allowed": [
+      "sidecar.r"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "B0_PARENT_LCTX": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      }
+    ],
+    "trainable_elements": 48,
+    "fixed_F_elements": 0,
+    "current_Q_buffer_elements": 0,
+    "U_allowed": [
+      "parent.adapters.0.a",
+      "parent.adapters.0.b",
+      "parent.adapters.1.a",
+      "parent.adapters.1.b",
+      "parent.adapters.2.a",
+      "parent.adapters.2.b"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "B1_PARENT_CONF_KL": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      }
+    ],
+    "trainable_elements": 48,
+    "fixed_F_elements": 0,
+    "current_Q_buffer_elements": 0,
+    "U_allowed": [
+      "parent.adapters.0.a",
+      "parent.adapters.0.b",
+      "parent.adapters.1.a",
+      "parent.adapters.1.b",
+      "parent.adapters.2.a",
+      "parent.adapters.2.b"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "B2_PARENT_PAS_KL": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      }
+    ],
+    "trainable_elements": 48,
+    "fixed_F_elements": 0,
+    "current_Q_buffer_elements": 0,
+    "U_allowed": [
+      "parent.adapters.0.a",
+      "parent.adapters.0.b",
+      "parent.adapters.1.a",
+      "parent.adapters.1.b",
+      "parent.adapters.2.a",
+      "parent.adapters.2.b"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "B3_PARENT_LCTX_DENSEG": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.previous",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.r",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": true
+      }
+    ],
+    "trainable_elements": 64,
+    "fixed_F_elements": 16,
+    "current_Q_buffer_elements": 16,
+    "U_allowed": [
+      "parent.adapters.0.a",
+      "parent.adapters.0.b",
+      "parent.adapters.1.a",
+      "parent.adapters.1.b",
+      "parent.adapters.2.a",
+      "parent.adapters.2.b",
+      "sidecar.r"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  },
+  "B4_PARENT_PAS_KL_DENSEG_JOINT": {
+    "synthetic_only": true,
+    "parameters": [
+      {
+        "name": "parent.stem.weight",
+        "shape": [
+          4,
+          3,
+          1,
+          1
+        ],
+        "elements": 12,
+        "bytes": 48,
+        "trainable": false
+      },
+      {
+        "name": "parent.stem.bias",
+        "shape": [
+          4
+        ],
+        "elements": 4,
+        "bytes": 16,
+        "trainable": false
+      },
+      {
+        "name": "parent.adapters.0.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.0.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.1.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.a",
+        "shape": [
+          2,
+          4
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.adapters.2.b",
+        "shape": [
+          4,
+          2
+        ],
+        "elements": 8,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "parent.readout.weight",
+        "shape": [
+          3,
+          4,
+          3,
+          3
+        ],
+        "elements": 108,
+        "bytes": 432,
+        "trainable": false
+      },
+      {
+        "name": "parent.readout.bias",
+        "shape": [
+          3
+        ],
+        "elements": 3,
+        "bytes": 12,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.previous",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": false
+      },
+      {
+        "name": "sidecar.r",
+        "shape": [
+          4,
+          4
+        ],
+        "elements": 16,
+        "bytes": 64,
+        "trainable": true
+      }
+    ],
+    "trainable_elements": 64,
+    "fixed_F_elements": 16,
+    "current_Q_buffer_elements": 16,
+    "U_allowed": [
+      "parent.adapters.0.a",
+      "parent.adapters.0.b",
+      "parent.adapters.1.a",
+      "parent.adapters.1.b",
+      "parent.adapters.2.a",
+      "parent.adapters.2.b",
+      "sidecar.r"
+    ],
+    "deployment": "one student + one dxd F; native parent history unspecified for real bridge",
+    "teacher": "current-stage only; F_prev shared read-only; other parameters duplicated",
+    "Adam_slots": "2 * number_of_trainable_elements after first used gradient; gradients counted separately",
+    "real_dimensions_and_cost": "PENDING_PARENT_BINDING"
+  }
+}

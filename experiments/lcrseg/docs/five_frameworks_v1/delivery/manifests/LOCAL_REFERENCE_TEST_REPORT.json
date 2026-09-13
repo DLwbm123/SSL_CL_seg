@@ -1,0 +1,31 @@
+{
+  "scope": "Independent reference kernels and metadata plan only; not repository-integrated F1-F5",
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "pytest": "9.0.2",
+    "cuda_available": false
+  },
+  "command": "cd reference_impl && PYTHONPATH=. python -m pytest -q",
+  "exit_code": 0,
+  "passed": 33,
+  "failed": 0,
+  "skipped": 0,
+  "stdout": ".................................                                        [100%]\n33 passed in 3.73s\n",
+  "stderr": "",
+  "not_verified": [
+    "actual_parent_bridge",
+    "CWMI_backend",
+    "D_Convexity_backend",
+    "production_GPU_AMP",
+    "real_data_loader",
+    "native_checkpoint_resume",
+    "native_full_model_deployment"
+  ],
+  "actual_real_image_reads": 0,
+  "actual_real_label_reads": 0,
+  "actual_checkpoint_tensor_reads": 0,
+  "actual_formal_optimizer_updates": 0,
+  "actual_real_smoke_updates": 0,
+  "github_writes_performed_by_this_handoff": 0
+}

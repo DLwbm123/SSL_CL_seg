@@ -1,0 +1,65 @@
+{
+  "study_id": "SSLCL_FIVE_FRAMEWORKS_V1",
+  "repository": "DLwbm123/SSL_CL_seg",
+  "read_only_reference_commit": "8a6e93a8bc39554c878cffe0dedf7fbfefe7d16d",
+  "implementation_branch": "codex/sslcl-five-frameworks-v1-review",
+  "parent": {
+    "source_commit": null,
+    "entrypoint": null,
+    "effective_config_path": null,
+    "original_run_id_or_launch_command": null,
+    "accepted_identity": "ORIGINAL_SINGLE_SIDE_PARAMETER_ISOLATION",
+    "fallback_parent_allowed": false
+  },
+  "runtime": {
+    "repository_worktree": null,
+    "data_root": null,
+    "manifest_paths": [],
+    "output_root": null,
+    "python_executable": null,
+    "ssh_alias": null,
+    "gpu_ids_hint": [4, 5, 6, 7],
+    "gpu_policy": "shared_only_live_memory_admission_no_foreign_process_termination",
+    "max_concurrent_trainers": 4
+  },
+  "source_stage": {
+    "domain": "REFUGE",
+    "initialization_receipts_by_seed": {},
+    "allow_fresh_source_training_after_approval": true,
+    "successful_updates": null,
+    "target_domain_exposure_permitted": false
+  },
+  "data": {
+    "dataset": "Fundus",
+    "split_id": 0,
+    "label_fraction_target": 0.2,
+    "orders": [["REFUGE", "RIM_ONE_r3", "Drishti_GS"], ["REFUGE", "Drishti_GS", "RIM_ONE_r3"]],
+    "class_names": ["background", "optic_disc_rim", "optic_cup"],
+    "ignore_label": 255,
+    "current_L_counts": {"REFUGE": null, "RIM_ONE_r3": null, "Drishti_GS": null},
+    "current_U_counts": {"REFUGE": null, "RIM_ONE_r3": null, "Drishti_GS": null},
+    "patient_split_independence_status": "UNVERIFIED_DEVELOPMENT_COHORT",
+    "test_access_allowed": false,
+    "hidden_U_GT_access_allowed": false
+  },
+  "execution_authority": {
+    "mode": "CODE_ONLY",
+    "allow_synthetic_CPU_tests": true,
+    "allow_synthetic_CUDA_tests": false,
+    "allow_metadata_reads": true,
+    "allow_real_image_or_label_reads": false,
+    "allow_checkpoint_tensor_reads": false,
+    "allow_real_smoke": false,
+    "allow_formal_training": false,
+    "allow_final_test": false,
+    "allow_github_feature_branch_push": true,
+    "allow_main_merge": false
+  },
+  "notes": [
+    "Existing local/server configuration may fill runtime paths; do not ask for already-resolved paths.",
+    "One original parent launch command or run_id is enough to begin binding; a historical SOTA table is not required.",
+    "GPU IDs are a previous authorization hint, not a current availability assertion.",
+    "Private paths/commands/credentials are not to be committed; publish a sanitized binding record.",
+    "This template is not a training authorization."
+  ]
+}

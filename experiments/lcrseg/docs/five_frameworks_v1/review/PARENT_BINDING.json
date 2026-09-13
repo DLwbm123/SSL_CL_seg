@@ -1,0 +1,31 @@
+{
+  "status": "PARENT_BINDING_REQUIRED",
+  "actual_base_commit": "8a6e93a8bc39554c878cffe0dedf7fbfefe7d16d",
+  "real_parent_identity": null,
+  "minimum_missing_clue": "one original KI launch command or original run_id",
+  "bounded_evidence": [
+    "experiments/lcrseg/docs/ki_parent_recovery_v0_2/RECOVERY_REPORT.md",
+    "experiments/lcrseg/docs/ki_parent_recovery_v0_2/KI_PARENT_FREEZE.json",
+    "experiments/lcrseg/docs/ki_ams_v0_1/COMPATIBILITY_REPORT.md"
+  ],
+  "prior_audit_status": "PARENT_NOT_LOCATED_IN_ACCESSIBLE_SCOPE",
+  "substituted_F_CONV_or_SVD": false,
+  "synthetic_bridge": {
+    "class": "SyntheticParentBridge",
+    "delta": "B @ A",
+    "adapters": 3,
+    "dimension": 4,
+    "rank": 2,
+    "constraints": "none_synthetic",
+    "readout": "3x3 affine padding0 + bilinear align_corners=True",
+    "native_loss": "toy CE+foreground Dice; real native loss unbound",
+    "optimizer": "toy Adam; real optimizer unbound"
+  },
+  "unresolved": [
+    "real A/B rank/constraint/freeze/stage policy",
+    "actual native readout/geometry/stochastic behavior",
+    "native CE+Dice and optimizer/schedule/scaler",
+    "source provenance and real data capability manifests",
+    "real source and target step budgets"
+  ]
+}
