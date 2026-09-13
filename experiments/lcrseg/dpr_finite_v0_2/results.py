@@ -18,9 +18,10 @@ def primary_decision(delta,interval):
                 worst_order_averaged_seed_Final=float(delta.mean(0)[:,0].min()),patient_interval=interval,
                 evidence_uncertain=interval['contains_zero'],secondary_outcomes_are_not_conjunctive_gates=True)
 
-def finish(base):
-    b=Path(base);source=ct.verify();p=ct.protocol();seal=ct.read(b/'TARGET_WEIGHT_SEAL.json');assert seal['source']==source and len(seal['students'])==12
-    inputs=ct.read(b/'private_inputs.json');sb=ct.read(b/'SOURCE_BINDING.json');bb=ct.read(b/'BASELINE_BINDING.json');parent=Path(inputs['parent']);out=b/'public_results';out.mkdir()
+def finish(base, output=None):
+    b=Path(base);report_source=ct.verify();p=ct.protocol();seal=ct.read(b/'TARGET_WEIGHT_SEAL.json');source=seal['source']
+    assert ct.read(b/'reservation.json')['source']==source and len(seal['students'])==12
+    inputs=ct.read(b/'private_inputs.json');sb=ct.read(b/'SOURCE_BINDING.json');bb=ct.read(b/'BASELINE_BINDING.json');parent=Path(inputs['parent']);out=Path(output) if output is not None else b/'public_results';out.mkdir()
     private={};source_scores={};aggregate=[];ledger=[];memory=[];mechanisms=[];training=[];ops=Counter()
     def load_scores(path,tid,domains,checksum=None):
         if checksum:ct.check_hash(path,checksum)
@@ -53,7 +54,7 @@ def finish(base):
             oc=ct.read(b/'tasks'/(tid+('_operations' if phase=='train' else '_eval_operations'))/'operation_counts.json');assert oc['status']=='PASS';ops.update(oc['counts'])
         load_scores(root/'evaluation/private_patient_metrics.csv',tid,list(c.DOMAINS));aggregate+=csv_read(root/'evaluation/metrics.csv')
         ledger.append(dict(**task,status='COMPLETE',actual_updates=r['updates'],training_source=source,student_hash=r['student_hash'],source_student_hash=r['boundary']['source_student_hash']))
-        memory.append(dict(task_id=tid,**r['memory'],L_opens=r['L_opens'],U_opens=r['U_opens'],training_seconds=r['seconds'],deployment=ev))
+        memory.append(dict(task_id=tid,**r['memory'],L_opens=r['L_opens'],U_opens=r['U_opens'],training_seconds=r['seconds'],evaluation_receipt=ev))
         mechanisms.extend(dict(task_id=tid,**ct.read(root/('actual_'+str(k)+'.json'))) for k in task['actual_diagnostic_positions']);byepoch=defaultdict(Counter);n=0
         with (root/'steps.jsonl').open() as f:
             import json
@@ -124,7 +125,7 @@ def finish(base):
         x=values[a].mean((0,1));dominated=any(np.all(values[z].mean((0,1))[[1,2]]>=x[[1,2]]) and np.any(values[z].mean((0,1))[[1,2]]>x[[1,2]]) for z in ARMS if z!=a)
         pareto.append(dict(arm=a,Incoming=float(x[1]),Old=float(x[2]),dominated_on_mean_Incoming_Old=bool(dominated)))
     terminal=dict(engineering='ENGINEERING_COMPLETE',scientific_state=primary['scientific_state'],primary=primary,formal_tasks=12,formal_updates=31800,
-                  PRIMARY_ACCURACY_EFFECT=primary,COMPONENT_EFFECT=ablations,PATIENT_UNCERTAINTY=primary['evidence_uncertain'],source_training_updates=0,baseline_retraining_updates=0,source=source,stopped=True,further_experiments=False,old_terminal_unchanged=True)
+                  PRIMARY_ACCURACY_EFFECT=primary,COMPONENT_EFFECT=ablations,PATIENT_UNCERTAINTY=primary['evidence_uncertain'],source_training_updates=0,baseline_retraining_updates=0,source=source,report_source=report_source,stopped=True,further_experiments=False,old_terminal_unchanged=True)
     for name,rows in [('RUN_LEDGER',ledger),('ARM_SUMMARY',summaries),('TRAJECTORIES',trajectories),('FINAL_SITE_CLASS_METRICS',aggregate),('PAIRED_EFFECTS',effects),('DOMAIN_CLASS_COSTS',costs),('PATIENT_DELTA_DISTRIBUTIONS',distributions),('ABSOLUTE_CLASS_FORGET',absolute),('PATIENT_INTERVALS',intervals),('PARETO',pareto),('TRAINING_ACCOUNTING',training)]:csv_write(out/(name+'.csv'),rows,fields=list(dict.fromkeys(k for r in rows for k in r)))
     c.write_json(out/'DECISIONS.json',dict(terminal=terminal,component_comparisons=ablations,new_primary_rule=True,old_negative_findings_preserved=True))
     csv_write(out/'ACTUAL_STEP_RESPONSE.csv',mechanisms);c.write_json(out/'RESOURCE_ACCOUNTING.json',dict(tasks=memory,formal_counts=dict(ops),qualification=ct.read(b/'qualification_ledger.json'),smoke=ct.read(b/'smoke/receipt.json'),historical_training_not_recounted=True))

@@ -29,7 +29,7 @@ def run():
             tid=task['task_id'];root=b/'tasks'/tid;root.mkdir(parents=True);(root/'deploy_student.pt').write_bytes(b'SYNTHETIC_NOT_A_MODEL')
             (root/('checkpoint_'+str(task['updates'])+'.pt')).write_bytes(b'SYNTHETIC_NOT_A_MODEL')
             src=next(x for x in p['sources'] if x['task_id']==task['source_task_id']);students[tid]=dict(student_hash='fixture')
-            put(root/'receipt.json',dict(status='TRAINING_COMPLETE',source=source,task=task,updates=task['updates'],student_hash='fixture',memory=dict(full_models=2),boundary=dict(source_student_hash=src['student_hash']),fixed_subset_unchanged=True,EMA_updates=task['updates'],pseudo_labels=0,U_opens=0 if task['arm']=='DPR_L' else 80*r.c.COUNTS[task['domain']][1],L_opens=task['updates']*2,seconds=0,label_order_hash='fixture'))
+            put(root/'receipt.json',dict(status='TRAINING_COMPLETE',source=source,task=task,updates=task['updates'],student_hash='fixture',memory=dict(full_models=2,deployment="ordinary single student"),boundary=dict(source_student_hash=src['student_hash']),fixed_subset_unchanged=True,EMA_updates=task['updates'],pseudo_labels=0,U_opens=0 if task['arm']=='DPR_L' else 80*r.c.COUNTS[task['domain']][1],L_opens=task['updates']*2,seconds=0,label_order_hash='fixture'))
             put(root/'evaluation/receipt.json',dict(source=source,student_hash='fixture',models=1))
             put(root/('diagnostics_pass_'+str(task['updates'])+'.json'),dict(status='PASS'))
             score(root/'evaluation',tid,task['arm'],r.c.DOMAINS,src['domain'])
@@ -44,7 +44,7 @@ def run():
                     row=dict.fromkeys(columns,0);row.update(degeneracy=None,response_forwards=0,position=pos,epoch=(pos-1)//task['steps_per_epoch']+1,labeled_source_scoring_multiplicity=1,donor_extra_image_reads=0,pseudo_labels=0,EMA_updates=1,checks={'fixture':True},U_image_records=0)
                     if pos>20*task['steps_per_epoch']:row.update(lambda_response=1.,response_VJP=2,response_images=2,response_forwards=3)
                     f.write(json.dumps(row)+'\n')
-        for n,d in [('private_inputs.json',inputs),('SOURCE_BINDING.json',sb),('BASELINE_BINDING.json',bb),('SOURCE_AND_BASELINE_BINDING.json',{}),('TARGET_WEIGHT_SEAL.json',dict(source=source,students=students)),('qualification_ledger.json',{'synthetic':True}),('smoke/receipt.json',{'synthetic':True})]:put(b/n,d)
+        for n,d in [('reservation.json',dict(source=source)),('private_inputs.json',inputs),('SOURCE_BINDING.json',sb),('BASELINE_BINDING.json',bb),('SOURCE_AND_BASELINE_BINDING.json',{}),('TARGET_WEIGHT_SEAL.json',dict(source=source,students=students)),('qualification_ledger.json',{'synthetic':True}),('smoke/receipt.json',{'synthetic':True})]:put(b/n,d)
         with patch.object(ct,'verify',return_value=source),patch.object(ct,'read',side_effect=read),patch.object(ct,'check_hash'),patch.object(r,'csv_read',side_effect=lambda path:tables[str(path)]):
             terminal=r.finish(b)
             assert terminal['scientific_state']=='PRIMARY_FINAL_SIGNAL_AT_LEAST_0_005'
