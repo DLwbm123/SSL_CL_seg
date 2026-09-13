@@ -1,5 +1,5 @@
 """Operational GPU amendment only. Trainers and report math execute from frozen r0."""
-import json,os,sys,time,shutil,subprocess
+import json,os,sys,time,shutil,subprocess,threading
 from pathlib import Path
 from collections import Counter
 from concurrent.futures import ThreadPoolExecutor
@@ -66,8 +66,13 @@ with Operations(%r) as op:
         if code:raise RuntimeError('GPU relocation resume failed: '+t['task_id'])
     def phase(tasks,kind):
         # Two sequential lanes, no thread can dispatch onto an unapproved GPU.
+        stop=threading.Event()
         def lane(gpu,items):
-            for t in items:job(t,kind,gpu)
+            try:
+                for t in items:
+                    if stop.is_set():return
+                    job(t,kind,gpu)
+            except BaseException:stop.set();raise
         with ThreadPoolExecutor(max_workers=2) as pool:
             futures=[pool.submit(lane,g,tasks[i::2]) for i,g in enumerate((6,7))]
             for f in futures:f.result()
