@@ -1,0 +1,65 @@
+{
+  "scope": "pre-specified local-response diagnostics only; no new forward, GT access or training at closeout",
+  "source": "12ba9232204d5f183f48b67261a91efc0e4f6392",
+  "linear_weighting": "each active update equal, across six tasks per arm; not the patient/seed-weighted efficacy estimator",
+  "actual_weighting": "each pre-specified diagnostic equal;21 per arm,3/O1 task and4/O2 task",
+  "linear": {
+    "DPR_U": {
+      "active_steps": 12720,
+      "response_ratio_mean": 0.7154707684813626,
+      "correction_ratio_mean": 0.008965572683079482,
+      "raw_non_descent_fraction": 0.04622641509433962,
+      "zero_probe": 0,
+      "zero_task_gradient": 0,
+      "maximum_applied_progress_over_budget": 0.09769377052484772
+    },
+    "RESPONSE_U": {
+      "active_steps": 12720,
+      "response_ratio_mean": 0.6972711805678539,
+      "correction_ratio_mean": 0.008713409606247717,
+      "raw_non_descent_fraction": 0.04481132075471698,
+      "zero_probe": 0,
+      "zero_task_gradient": 0,
+      "progress_equality_required": false
+    },
+    "DPR_L": {
+      "active_steps": 12720,
+      "response_ratio_mean": 0.7245195366539098,
+      "correction_ratio_mean": 0.008940330484910027,
+      "raw_non_descent_fraction": 0.0455188679245283,
+      "zero_probe": 0,
+      "zero_task_gradient": 0,
+      "maximum_applied_progress_over_budget": 0.0998847400890325
+    }
+  },
+  "actual_finite_step": {
+    "DPR_U": {
+      "diagnostics": 21,
+      "response_ratio_mean": 0.941365817088815,
+      "response_ratio_median": 0.979725191953621,
+      "response_reduced_count": 20,
+      "loss_better_than_raw_count": 13,
+      "raw_loss_delta_mean": -0.009567713150840025,
+      "corrected_loss_delta_mean": -0.009678103082418796
+    },
+    "RESPONSE_U": {
+      "diagnostics": 21,
+      "response_ratio_mean": 0.9408302434465357,
+      "response_ratio_median": 0.9434683939429505,
+      "response_reduced_count": 20,
+      "loss_better_than_raw_count": 8,
+      "raw_loss_delta_mean": -0.009082047232737771,
+      "corrected_loss_delta_mean": -0.008831453795111025
+    },
+    "DPR_L": {
+      "diagnostics": 21,
+      "response_ratio_mean": 0.9491381530116707,
+      "response_ratio_median": 0.9834630921947125,
+      "response_reduced_count": 16,
+      "loss_better_than_raw_count": 14,
+      "raw_loss_delta_mean": -0.010844080255271867,
+      "corrected_loss_delta_mean": -0.010965791888080102
+    }
+  },
+  "limitations": "sampled linear responses and pooled finite-step contrast logits are distinct estimands; neither guarantees old-domain preservation"
+}
