@@ -129,7 +129,20 @@ def test_native_source_worker_generated_data_only(monkeypatch,tmp_path):
     monkeypatch.setitem(runner.STEPS,'REFUGE',2)
     config={'reference':os.environ['NATIVE_REFERENCE'],'data':'NO_REAL_DATA','execution_commit':'SYNTHETIC_TEST_ONLY'}
     permit=ExecutionPermit({},('B',),{},_PERMIT_SEAL)
-    r=runner.source_task(config,{'id':'SOURCE_S161','seed':161},permit,tmp_path,device)
+    from experiments.lcrseg.five_frameworks_v1.native_operations import NativeOperations
+    with NativeOperations(tmp_path/'operations') as op:
+        r=runner.source_task(config,{'id':'SOURCE_S161','seed':161},permit,tmp_path,device)
+    assert op.counts['optimizer_steps']==op.counts['backward']==2
     assert r['step']==r['physical_optimizer_calls']==2 and provider.u_reads==0
     payload=torch.load(tmp_path/'student.pt',map_location='cpu',weights_only=False)
     assert payload['identity']['domain']=='REFUGE' and payload['transform'] is None
+
+
+def test_native_cost_scopes_are_separate(cwmi):
+    from dataclasses import replace
+    t,_,permit=native_fixture('F1',cwmi)
+    for scope in ('synthetic','smoke','formal'):
+        t.execution=replace(permit,bindings={'execution_scope':scope});t.update()
+    assert t.telemetry['synthetic_optimizer_updates']==1
+    assert t.telemetry['real_smoke_optimizer_updates']==1
+    assert t.telemetry['formal_optimizer_updates']==1

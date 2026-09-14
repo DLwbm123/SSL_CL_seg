@@ -257,6 +257,8 @@ class StageTrainer:
         inject('after_ema')
         if pending:self.prototypes.commit(*pending)
         self.step+=1;self.cursor+=1
-        self.telemetry['formal_optimizer_updates' if self.native else 'synthetic_optimizer_updates']+=1
+        scope=self.execution.bindings.get('execution_scope','synthetic') if self.native else 'synthetic'
+        key={'formal':'formal_optimizer_updates','smoke':'real_smoke_optimizer_updates'}.get(scope,'synthetic_optimizer_updates')
+        self.telemetry[key]=self.telemetry.get(key,0)+1
         self.last['actual_update_norms']={name:float((p.detach()-before[id(p)]).norm()) for name,p in self.model.named_parameters() if id(p) in before}
         return grads

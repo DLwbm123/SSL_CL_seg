@@ -15,3 +15,5 @@ The executor launches at most one new worker per GPU 5/6/7 when at least 12 GiB 
 Recovery: use the same clean execution checkout and private EXEC_CONFIG. Inspect the failed node first. A target `latest.pt` restores model, dense EMA, optimizer, scheduler/scaler, prototypes, cursors, probes, sidecar, projected adapter buffers and RNG. The task-local physical ledger is retained. No automatic retry, epoch extension, Phase E or replacement candidate is authorized by the executor.
 
 Current numerical evidence is recorded in CPU_TEST_REPORT.json; CUDA/smoke and launch receipts are appended after actual execution. Code presence and CPU success alone are not a RUNNING claim.
+
+Cost follow-up: native update counters use an explicit synthetic/smoke/formal scope. The production worker extends the existing Operations recorder for native feature/readout/EMA and F2 override operations, retains failed-attempt events and records real reader access counts. Native sampling uses matched stateless cyclic pairs (two distinct samples), including odd-U batch wraparound.

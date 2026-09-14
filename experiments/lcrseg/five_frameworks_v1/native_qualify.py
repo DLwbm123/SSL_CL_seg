@@ -1,5 +1,6 @@
 """Bounded CUDA qualification and disposable current-L smoke; no score selection."""
 import os,json,gc,time
+from dataclasses import replace
 from pathlib import Path
 import torch
 from .native_runner import admit,read,write,Counter
@@ -30,6 +31,7 @@ def cuda(config):
 
 def smoke(config):
     permit,_=admit(config);root=Path(config['run_root']);device=torch.device('cuda:0')
+    permit=replace(permit,bindings={**permit.bindings,'execution_scope':'smoke'})
     q=read(root/'CUDA_QUALIFICATION.json')
     if q['status']!='PASS' or q['execution_commit']!=config['execution_commit']:raise PermissionError('CUDA qualification required')
     counter=Counter(root/'smoke_physical.jsonl',24);rows=[]

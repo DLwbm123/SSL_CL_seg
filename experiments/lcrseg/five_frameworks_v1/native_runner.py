@@ -43,7 +43,7 @@ def admit(config):
     if digest(plan)!=authority['plan_sha256'] or digest(parent)!=authority['parent_binding_sha256']:
         raise PermissionError('execution protocol/binding differs')
     if authority['designation_sha256']!=digest(read(doc/'PARENT_DESIGNATION.json')):raise PermissionError('designation differs')
-    bindings={'code_commit':actual,'tree':code_manifest(root)['reviewed_code_tree_sha256'],
+    bindings={'execution_scope':'formal','code_commit':actual,'tree':code_manifest(root)['reviewed_code_tree_sha256'],
               'authorized_manifest_digests':plan['authorized_manifest_digests']}
     permit=ExecutionPermit(bindings,('B','C','D'),plan['budget'],_PERMIT_SEAL)
     inspect(config['data'])
@@ -198,7 +198,10 @@ class NativeRunner:
         receipts={n['id']:read(Path(config['run_root'])/n['id']/'receipt.json') for n in plan['nodes'] if (Path(config['run_root'])/n['id']/'receipt.json').exists()}
         if not set(node['dependencies'])<=set(receipts):raise PermissionError('unsealed prerequisites')
         try:
-            result=source_task(config,node,permit,root,device) if node['kind']=='source' else target_task(config,node,permit,plan['study'],receipts,root,device)
+            from .native_operations import NativeOperations
+            with NativeOperations(root/'operations') as operations:
+                result=source_task(config,node,permit,root,device) if node['kind']=='source' else target_task(config,node,permit,plan['study'],receipts,root,device)
+            result['operation_counts']=dict(operations.counts)
             result.update(peak_cuda_allocated=torch.cuda.max_memory_allocated(),peak_cuda_reserved=torch.cuda.max_memory_reserved())
             write(root/'receipt.json',result)
         except BaseException as e:

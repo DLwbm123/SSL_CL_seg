@@ -27,6 +27,11 @@
       "autograd_grad_completed": 24,
       "autograd_backward_completed": 2,
       "Adam_step_completed": 2
+    },
+    "scope_and_operations": {
+      "autograd_grad_completed": 159,
+      "Adam_step_completed": 31,
+      "autograd_backward_completed": 2
     }
   },
   "cost_scope": "All CPU optimizer/autograd invocations instrumented; final counts are not whole-task counts. CUDA/smoke/formal separate.",
@@ -798,5 +803,18 @@
     "seconds": 3.25,
     "scope": "all-fourteen F2 probes and generated-data native source worker"
   },
-  "next_qualification": "Full 191 CPU tests on pinned server execution commit, then bounded native CUDA and L-only smoke."
+  "next_qualification": "Run all 192 tests on final pinned server checkout, then CUDA native qualification and L smoke.",
+  "followup_native_tests": {
+    "passed": 14,
+    "seconds": 19.59,
+    "reason": "separate synthetic/smoke/formal accounting and native operation recording"
+  },
+  "server_CPU_prior_revision": {
+    "execution_commit": "afcbfd99fe33a32336c2f34677f38cf56a0654cc",
+    "passed": 191,
+    "seconds": 85.33,
+    "torch": "2.2.1+cu121",
+    "python": "3.10.6",
+    "real_data_payload_reads": 0
+  }
 }
