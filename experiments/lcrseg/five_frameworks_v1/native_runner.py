@@ -253,7 +253,7 @@ class NativeRunner:
                 if gpu is None:break
                 nr=root/node['id'];nr.mkdir(parents=True,exist_ok=True)
                 if (nr/'failure.json').exists():raise RuntimeError('failed node requires explicit engineering recovery')
-                env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),NODE_ID=node['id'],EXEC_MODULE=__name__)
+                env=dict(os.environ,CUDA_VISIBLE_DEVICES=str(gpu),NODE_ID=node['id'],EXEC_MODULE='experiments.lcrseg.five_frameworks_v1.native_runner')
                 log=(nr/'worker.log').open('a')
                 process=subprocess.Popen([sys.executable,'-c','import os,runpy;runpy.run_module(os.environ["EXEC_MODULE"],run_name="__main__")'],cwd=config['code'],env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
                 active[node['id']]=(process,gpu,log);used.add(gpu)
