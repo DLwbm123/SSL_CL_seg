@@ -1,3 +1,5 @@
+Current verified launch: [RUN_REPORT.md](RUN_REPORT.md) and [RUNNING_RECEIPT.json](RUNNING_RECEIPT.json).
+
 # NATIVE_LR_SRC_A_3DOMAIN_V1
 
 This is the user's explicit designation of the existing LR_SRC_A reference with a declared three-domain extension. It is not recovery or reproduction of original KI. Historical KI recovery and R01–R07 external decisions remain unchanged.

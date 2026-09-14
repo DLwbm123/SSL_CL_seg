@@ -1,3 +1,5 @@
+Current user-delegated native execution: [launch and qualification report](../native_execution/RUN_REPORT.md). The review-only states below are historical; the user explicitly designated a new reference and authorized execution without another external review.
+
 # Five frameworks V1 — external code review
 
 **STOP_AWAITING_EXTERNAL_CODE_REVIEW. CODE_ONLY. PARENT_BINDING_REQUIRED.**
