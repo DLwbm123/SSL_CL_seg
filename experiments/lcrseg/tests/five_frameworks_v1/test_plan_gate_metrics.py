@@ -72,8 +72,8 @@ def test_phase_parent_gate_and_CLI_before_data_access(tmp_path):
         with pytest.raises(ReviewRequired):require_approval(r,a,phases,c,parent)
     require_approval(r,a,['B'],c,{'status':'BOUND_VERIFIED'})
     nonexistent=tmp_path/'must_not_be_opened.json'
-    result=subprocess.run([sys.executable,'-m','experiments.lcrseg.five_frameworks_v1.cli','run',
-                           '--approval',str(nonexistent),'--phases','B'],capture_output=True,text=True)
+    code='import sys,runpy;sys.argv='+repr(['cli','run','--approval',str(nonexistent),'--phases','B'])+";runpy.run_module('experiments.lcrseg.five_frameworks_v1.cli',run_name='__main__')"
+    result=subprocess.run([sys.executable,'-'],input=code,capture_output=True,text=True)
     assert result.returncode!=0 and 'PARENT_BINDING_REQUIRED' in result.stderr and 'FileNotFound' not in result.stderr
 
 

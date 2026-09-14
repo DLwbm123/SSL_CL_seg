@@ -62,7 +62,8 @@ def test_native_off_geometry_fullmodel_merge_and_independent_deploy(tmp_path,fam
     atomic_save({'synthetic_only':True,'student':deploy.state_dict(),'d':4,'rank':2},cp)
     torch.save(x,inp)
     code='import torch,sys; from experiments.lcrseg.five_frameworks_v1.evaluate import load_synthetic_student; torch.set_num_threads(1); torch.save(load_synthetic_student(sys.argv[1])(torch.load(sys.argv[2],weights_only=True)),sys.argv[3])'
-    subprocess.run([sys.executable,'-c',code,str(cp),str(inp),str(out)],check=True,capture_output=True)
+    code='import sys;sys.argv='+repr(['-',str(cp),str(inp),str(out)])+'\n'+code
+    subprocess.run([sys.executable,'-'],input=code,text=True,check=True,capture_output=True)
     assert torch.allclose(expected,torch.load(out,weights_only=True),atol=2e-6,rtol=2e-6)
     nextmodel=Model(deploy.parent,family,previous=deploy.transform.detach())
     nextmodel.parent.stage_entry()

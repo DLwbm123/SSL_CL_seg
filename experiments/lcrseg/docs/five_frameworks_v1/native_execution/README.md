@@ -17,3 +17,5 @@ Recovery: use the same clean execution checkout and private EXEC_CONFIG. Inspect
 Current numerical evidence is recorded in CPU_TEST_REPORT.json; CUDA/smoke and launch receipts are appended after actual execution. Code presence and CPU success alone are not a RUNNING claim.
 
 Cost follow-up: native update counters use an explicit synthetic/smoke/formal scope. The production worker extends the existing Operations recorder for native feature/readout/EMA and F2 override operations, retains failed-attempt events and records real reader access counts. Native sampling uses matched stateless cyclic pairs (two distinct samples), including odd-U batch wraparound.
+
+The existing deployment and CLI negative tests now send identical child code/arguments over stdin to honor neutral process command lines. Their assertions, coverage and scientific behavior are unchanged.
