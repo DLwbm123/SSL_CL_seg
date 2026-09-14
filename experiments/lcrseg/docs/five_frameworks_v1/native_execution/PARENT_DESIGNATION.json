@@ -1,0 +1,119 @@
+{
+  "designation_id": "NATIVE_LR_SRC_A_3DOMAIN_V1",
+  "status": "DESIGNATED_NOT_YET_BOUND_OR_EXECUTED",
+  "repo": "DLwbm123/SSL_CL_seg",
+  "branch": "codex/sslcl-five-frameworks-v1-review",
+  "inspected_source_commit": "ab69b6b3cd7e0102cc929edfda8a0f4035f635dd",
+  "scope": "Explicit selection of existing LR_SRC_A with a declared three-domain extension; NOT recovery of original KI",
+  "is_original_KI_recovery": false,
+  "historical_KI_identity_required_for_this_run": false,
+  "native_model": {
+    "path": "experiments/lcrseg/di_dmpa_jascl/modeling.py",
+    "class": "LCRSegUNet2DJASCL",
+    "factory": "build_lcrseg_unet_jascl_model"
+  },
+  "head": {
+    "path": "experiments/lcrseg/ssl_head_control_v0_1/core.py",
+    "function": "set_head",
+    "mode": "raw_linear3_same_geometry"
+  },
+  "low_rank": {
+    "path": "experiments/lcrseg/lctx_weight_memory_v0_1/core.py",
+    "arm": "LR_SRC_A",
+    "rank": 8,
+    "layers": "LAYERS (14 native Conv2d weight tensors)",
+    "effective_update": "B @ (A - (A @ V) @ V.T)",
+    "protection_dimension": "min(out_channels//2, flattened_input_width-rank)",
+    "V_origin": "top right singular vectors of the stage-entry merged trained weight",
+    "both_A_B_train_on_L": true,
+    "output_side_orthogonality": false
+  },
+  "configuration_reference": {
+    "protocol": "experiments/lcrseg/docs/lctx_weight_memory_v0_1/PROTOCOL.json",
+    "engine": "experiments/lcrseg/lctx_weight_memory_v0_1/engine.py",
+    "numerical_recovery": "experiments/lcrseg/lctx_weight_memory_v0_1_1/"
+  },
+  "native_supervision": "experiments/lcrseg/ssl_anchored_mix_v0_1/core.py::supervised_parts",
+  "data_primitive": "experiments/lcrseg/single_teacher_scd_v0_1/data.py",
+  "optimizer": {
+    "kind": "Adam",
+    "lr": 0.001,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 4e-05,
+    "schedule": "per-group base_lr * (1-successful_step/total_steps)**0.9"
+  },
+  "head_stochastic": false,
+  "epochs": 100,
+  "image_size": [
+    384,
+    384
+  ],
+  "batch_size": 2,
+  "stage_updates": {
+    "REFUGE": 8000,
+    "RIM_ONE_r3": 3200,
+    "Drishti_GS": 2100
+  },
+  "parent_lr_settings": [
+    {
+      "id": "P0",
+      "lr_multiplier": 1.0,
+      "lr_B_over_A": 1.0
+    },
+    {
+      "id": "P1",
+      "lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0
+    },
+    {
+      "id": "P2",
+      "lr_multiplier": 2.0,
+      "lr_B_over_A": 1.0
+    },
+    {
+      "id": "P3",
+      "lr_multiplier": 1.0,
+      "lr_B_over_A": 4.0
+    }
+  ],
+  "development_seeds": [
+    161
+  ],
+  "replication_seeds": [
+    162,
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "stage_transition": "merge own A/B into native trained weights, recompute input protection from own immediate predecessor, initialize new zero B; keep only allowed learned parameters and declared F memory across domains",
+  "EMA_parent": "EMA of effective dense native weights, not product of independently averaged A/B",
+  "max_target_sequences": 212,
+  "max_target_stages": 424,
+  "max_target_scientific_updates": 1123600,
+  "max_new_sources": 4,
+  "max_source_scientific_updates": 32000,
+  "max_combined_scientific_updates": 1155600,
+  "known_work_remaining": [
+    "native geometry/data/optimizer/teacher/runner integration",
+    "CPU/CUDA qualification",
+    "current-L smoke",
+    "actual binding and source provenance"
+  ],
+  "real_training_started_by_this_response": false,
+  "authority_note": "User-requested explicit parent designation; forwarding the accompanying prompt adopts this transparent reference change. Not a fabricated external approval of new code."
+}

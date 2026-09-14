@@ -24,14 +24,17 @@ def validate_commit(trainer,pending):
     finite(trainer.optimizer.state_dict(),'optimizer')
     finite(trainer.scheduler.state_dict(),'scheduler')
     finite(trainer.scaler.state_dict(),'scaler')
-    for a in m.parent.adapters:finite(a.base+a.b@a.a,'student effective adapter')
+    for a in m.parent.adapters:finite(a.effective_weight(),'student effective adapter')
     if m.sidecar is not None:finite(m.sidecar.effective(),'student effective F')
-    # Validate one EMA tensor at a time, not a third full model copy.
-    for a,b in zip(t.parameters(),m.parameters()):
-        finite(a if a is b else (ema_value(a,b) if b.requires_grad else b),'candidate EMA parameter')
-    for a,b in zip(t.buffers(),m.buffers()):finite(b,'candidate EMA buffer')
-    for a,b in zip(t.parent.adapters,m.parent.adapters):
-        finite(b.base+ema_value(a.b,b.b)@ema_value(a.a,b.a),'candidate EMA effective adapter')
+    if getattr(trainer,'native',False):
+        m.parent.update_dense_ema(t.parent,validate_only=True)
+    else:
+        # Validate one EMA tensor at a time, not a third full model copy.
+        for a,b in zip(t.parameters(),m.parameters()):
+            finite(a if a is b else (ema_value(a,b) if b.requires_grad else b),'candidate EMA parameter')
+        for a,b in zip(t.buffers(),m.buffers()):finite(b,'candidate EMA buffer')
+        for a,b in zip(t.parent.adapters,m.parent.adapters):
+            finite(b.base+ema_value(a.b,b.b)@ema_value(a.a,b.a),'candidate EMA effective adapter')
     if m.sidecar is not None:
         q=m.sidecar.q;r=ema_value(t.sidecar.r,m.sidecar.r)
         finite(m.sidecar.previous@(torch.eye(q.shape[0]).to(q)+q@r@q.T),'candidate EMA effective F')

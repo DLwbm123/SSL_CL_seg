@@ -79,6 +79,8 @@ class Model(nn.Module):
     def teacher(self):
         ema=copy.deepcopy(self).eval().requires_grad_(False)
         ema.role="teacher"
+        if hasattr(ema.parent,"update_dense_ema"):
+            ema.parent.stage_exit();ema.eval().requires_grad_(False)
         if self.sidecar is not None:
             # One immutable F_prev allocation shared by student/current EMA.
             ema.sidecar.previous=self.sidecar.previous

@@ -1,0 +1,20 @@
+{
+  "real_parent_identity": "NATIVE_LR_SRC_A_3DOMAIN_V1",
+  "status": "BOUND_IMPLEMENTATION_VERIFIED",
+  "is_original_KI": false,
+  "inspected_source_commit": "ab69b6b3cd7e0102cc929edfda8a0f4035f635dd",
+  "implementation": "experiments/lcrseg/five_frameworks_v1/native_parent.py::NativeLRParent",
+  "runner": "experiments/lcrseg/five_frameworks_v1/native_runner.py::NativeRunner",
+  "native_factory": "LCRSegUNet2DJASCL via build_lcrseg_unet_jascl_model",
+  "rank": 8,
+  "convolutions": 14,
+  "delta": "B @ (A - (A @ V) @ V.T)",
+  "right_basis": "stage-entry merged trained weights top right singular vectors; full precision FP64 reference",
+  "L_trainable": "A/B plus each framework allowed sidecar; native rest frozen",
+  "EMA": "dense effective native weights, sidecar R EMA; named matching",
+  "geometry": "3x3 padding0, crop centers, bilinear align_corners=True; output labels mapped to feature interior, feature border ignored",
+  "optimizer": "Adam(lr=.001, betas=(.9,.999), eps=1e-8, wd=4e-5); per-group multipliers and polynomial schedule power .9",
+  "precision": "FP32; autocast/scaler disabled as native engine; TF32 disabled; deterministic algorithms",
+  "stage_transition": "own immediate predecessor merged weights; new V/A/B, current EMA/prototypes/optimizer reset; own declared F only",
+  "production_qualification_status": "CPU_IN_PROGRESS_CUDA_AND_SMOKE_PENDING"
+}

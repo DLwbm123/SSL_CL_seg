@@ -1,0 +1,802 @@
+{
+  "CPU_tests": 189,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "seconds": 38.838,
+  "prior_178_tests_unchanged": true,
+  "native_tests": 11,
+  "warnings": "three existing optimizer fault-injection warnings",
+  "debug_rounds": "first native 6 passed; first complete 188 passed / 1 failed because native factory changed CPU threads for an old independent-process test; native-test fixture now restores runtime settings; final full 189 passed",
+  "cost_by_invocation": {
+    "first": {
+      "autograd_grad_completed": 85,
+      "Adam_step_completed": 21
+    },
+    "full": {
+      "autograd_grad_completed": 1067,
+      "autograd_backward_completed": 13,
+      "Adam_step_completed": 276
+    },
+    "final": {
+      "autograd_grad_completed": 1067,
+      "autograd_backward_completed": 13,
+      "Adam_step_completed": 276
+    },
+    "additional": {
+      "autograd_grad_completed": 24,
+      "autograd_backward_completed": 2,
+      "Adam_step_completed": 2
+    }
+  },
+  "cost_scope": "All CPU optimizer/autograd invocations instrumented; final counts are not whole-task counts. CUDA/smoke/formal separate.",
+  "environment": {
+    "python": "3.12.9",
+    "torch": "2.6.0",
+    "device": "CPU"
+  },
+  "cases": [
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_cwmi_author_complex_equation_value_and_gradient",
+      "seconds": 0.076
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_cwmi_full_pyramid_and_constant_safety",
+      "seconds": 0.866
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_cwmi_ignore_crops_and_missing_backend",
+      "seconds": 0.011
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_dconv_author_parity",
+      "seconds": 0.005
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_shape_disc_union_not_rim_and_conservative_stencil",
+      "seconds": 0.003
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_real_repair_d_only_low_resolution[0.0-3]",
+      "seconds": 0.013
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_real_repair_d_only_low_resolution[0.1-0]",
+      "seconds": 0.002
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_real_repair_d_only_low_resolution[0.1-3]",
+      "seconds": 0.017
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_class_swd_counts_and_stream_isolation",
+      "seconds": 0.004
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_backends::test_JML_locked_author_parity",
+      "seconds": 0.002
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R00_existing_stage1_resume_control",
+      "seconds": 0.034
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R01_stage2_resume_restores_trainability_and_trajectory",
+      "seconds": 0.028
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R02a_resume_rejects_changed_semantic_options",
+      "seconds": 0.012
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R02b_resume_rejects_provider_identity_mismatch",
+      "seconds": 0.008
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R03a_nonfinite_loss_with_finite_gradient_cannot_commit",
+      "seconds": 0.002
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R03b_nonfinite_post_constraint_state_cannot_commit",
+      "seconds": 0.003
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R04_invalid_projector_is_not_rank_fallback",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R05_teacher_features_use_teacher_bridge_mode",
+      "seconds": 0.002
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R1::test_R06_ignored_pixels_cannot_change_segmentation_dice",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_ignore_changes_do_not_change_any_reported_metric",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_all_ignore_has_no_valid_score",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_explicit_valid_mask_intersects_ignore_mask",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_fully_valid_behavior_preserved",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_finite_checker_rejects_nonfinite_loss_even_with_finite_gradient",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_finite_checker_rejects_overflowed_effective_product",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_unapproved_manifest_rejected_without_reader_call",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_R07_mutating_original_manifest_cannot_change_reader_arguments[L]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_R07_mutating_original_manifest_cannot_change_reader_arguments[U]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_R07_mutating_external_bindings_cannot_expand_permit",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_external_review_R2::test_R07_mutating_external_budget_cannot_change_permit_cap",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[F1]",
+      "seconds": 0.03
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[F2]",
+      "seconds": 1.271
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[F3]",
+      "seconds": 0.033
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[F4]",
+      "seconds": 0.062
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[F5]",
+      "seconds": 0.031
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[B0_PARENT_LCTX]",
+      "seconds": 0.018
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[B1_PARENT_CONF_KL]",
+      "seconds": 0.023
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[B2_PARENT_PAS_KL]",
+      "seconds": 0.023
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[B3_PARENT_LCTX_DENSEG]",
+      "seconds": 0.02
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_actual_two_stage_callgraphs[B4_PARENT_PAS_KL_DENSEG_JOINT]",
+      "seconds": 0.028
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_U_gradient_permissions_nonzero_R_or_B[F1]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_U_gradient_permissions_nonzero_R_or_B[F2]",
+      "seconds": 0.636
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_U_gradient_permissions_nonzero_R_or_B[F3]",
+      "seconds": 0.012
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_U_gradient_permissions_nonzero_R_or_B[F4]",
+      "seconds": 0.027
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_U_gradient_permissions_nonzero_R_or_B[F5]",
+      "seconds": 0.011
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_native_off_geometry_fullmodel_merge_and_independent_deploy[F1]",
+      "seconds": 0.8
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_native_off_geometry_fullmodel_merge_and_independent_deploy[F2]",
+      "seconds": 0.719
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_native_off_geometry_fullmodel_merge_and_independent_deploy[F3]",
+      "seconds": 0.732
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_native_off_geometry_fullmodel_merge_and_independent_deploy[F4]",
+      "seconds": 0.739
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_native_off_geometry_fullmodel_merge_and_independent_deploy[F5]",
+      "seconds": 0.753
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_checkpoint_exact_resume[F1]",
+      "seconds": 0.027
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_checkpoint_exact_resume[F2]",
+      "seconds": 0.753
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_checkpoint_exact_resume[F3]",
+      "seconds": 0.026
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_checkpoint_exact_resume[F4]",
+      "seconds": 0.052
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_checkpoint_exact_resume[F5]",
+      "seconds": 0.027
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_failure_tail_replayed_and_cost_retained[before_optimizer]",
+      "seconds": 0.013
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_failure_tail_replayed_and_cost_retained[after_optimizer]",
+      "seconds": 0.014
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_failure_tail_replayed_and_cost_retained[before_ema]",
+      "seconds": 0.014
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_failure_tail_replayed_and_cost_retained[after_ema]",
+      "seconds": 0.014
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_failure_tail_replayed_and_cost_retained[during_checkpoint]",
+      "seconds": 0.015
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_skip_no_model_ema_proto_cursor_change",
+      "seconds": 0.007
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_ema_effective_matrix_and_shared_F",
+      "seconds": 0.003
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_F2_probe_preserves_entry_and_thin_svd",
+      "seconds": 0.708
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_common_recipe_source_collection_and_dedup",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_F3_mapping_and_identity_limit",
+      "seconds": 0.008
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_U_isolation_does_not_assert_zero_total_Adam_update",
+      "seconds": 0.007
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_cross_sequence_lineage_rejected",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_F3_exact_source_direction_and_kappa_zero",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_F5_ablation_retains_extra_forward_and_changes_gradient",
+      "seconds": 0.012
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_data_capabilities_and_unknown_parent_remain_closed",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_F2_all_ignore_caller_fallback_keeps_legal_A",
+      "seconds": 0.086
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_F4_acceptance_stays_original_and_controller_records_entry_failure",
+      "seconds": 0.036
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_integration::test_controller_applies_candidate_feature_rank",
+      "seconds": 0.013
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_kl_gradient_equals_soft_ce",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_empty_support_is_connected_zero[masked_kl]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_empty_support_is_connected_zero[<lambda>]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_jml_equal_soft_zero",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_jml_hard_equals_iou",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_jml_gradient_check_away_from_l1_kinks",
+      "seconds": 0.004
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_jml_masks_both_fields_and_missing_images",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_jml_double_empty_class_zero",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_collect_is_selection_not_average",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_basis_orthogonal_and_scale_invariant",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_basis_uses_previous_transform_in_correct_order",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_full_readout_gradient_projection_can_be_identity",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_adapter_identity_and_exact_merge",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_adapter_stage_transition_constant_memory",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_u_gradient_reaches_r_not_parent",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_l_gradient_reaches_parent_and_r",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_custom_backward_is_stated_rule",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_uncertainty_spectral_limits",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_structure_basis_is_in_allowed_input_space",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_structure_probe_degeneracy_explicit",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_swd_same_permuted_set_zero",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_swd_gradient_to_student_only",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_current_prototypes_ignore_and_missing",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_teacher_pas_strict_threshold_and_missing_fallback",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_invalid_probabilities_fail[nan]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_invalid_probabilities_fail[inf]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_projector_geometry_error_fails",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_swd_hand_computed_one_dimensional",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_kernels::test_repeated_eigenvalues_compare_projectors",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_update_gradient_dense_ema_resume_and_merge[F1]",
+      "seconds": 1.274
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_update_gradient_dense_ema_resume_and_merge[F2]",
+      "seconds": 2.567
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_update_gradient_dense_ema_resume_and_merge[F3]",
+      "seconds": 1.307
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_update_gradient_dense_ema_resume_and_merge[F4]",
+      "seconds": 1.663
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_update_gradient_dense_ema_resume_and_merge[F5]",
+      "seconds": 1.357
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_off_geometry_loss_and_frozen_projection",
+      "seconds": 0.308
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_actual_stage_boundary_and_lr_mapping[F1]",
+      "seconds": 0.327
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_actual_stage_boundary_and_lr_mapping[F2]",
+      "seconds": 1.37
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_actual_stage_boundary_and_lr_mapping[F3]",
+      "seconds": 0.339
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_actual_stage_boundary_and_lr_mapping[F4]",
+      "seconds": 0.751
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_native::test_native_actual_stage_boundary_and_lr_mapping[F5]",
+      "seconds": 0.314
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_complete_DAG_and_budget",
+      "seconds": 0.011
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_alias_rank_clamping_and_degenerate_spectrum",
+      "seconds": 0.002
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[reviewed_code_commit]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[reviewed_code_tree_sha256]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[parent_binding_sha256]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[expanded_plan_sha256]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[external_dependency_lock_sha256]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[max_formal_optimizer_updates]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[max_source_optimizer_updates]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[max_real_L_smoke_updates]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[max_response_or_probe_VJPs]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_every_approval_binding_and_cap_required[max_readout_only_forwards]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_approval_fields_fail_closed[change0]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_approval_fields_fail_closed[change1]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_approval_fields_fail_closed[change2]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_approval_fields_fail_closed[change3]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_approval_fields_fail_closed[change4]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_approval_fields_fail_closed[change5]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_phase_parent_gate_and_CLI_before_data_access",
+      "seconds": 0.775
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_metrics_negative_forgetting_and_empty_distances",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_selection_negative_results_allowed_and_paired_bootstrap",
+      "seconds": 0.027
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_plan_gate_metrics::test_locked_source_setup_reuses_external_files",
+      "seconds": 0.004
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[F1]",
+      "seconds": 1.688
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[F2]",
+      "seconds": 2.765
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[F3]",
+      "seconds": 1.649
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[F4]",
+      "seconds": 1.517
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[F5]",
+      "seconds": 1.449
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[B0_PARENT_LCTX]",
+      "seconds": 1.43
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[B1_PARENT_CONF_KL]",
+      "seconds": 1.444
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[B2_PARENT_PAS_KL]",
+      "seconds": 1.426
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[B3_PARENT_LCTX_DENSEG]",
+      "seconds": 1.443
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_stage2_independent_process_resume_complete_state[B4_PARENT_PAS_KL_DENSEG_JOINT]",
+      "seconds": 1.472
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[lambda_U-0.0]",
+      "seconds": 0.011
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[lambda_JML-1.0]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[lambda_structure-1.0]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[lambda_shape-1.0]",
+      "seconds": 0.009
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[lambda_SWD-0.2]",
+      "seconds": 0.009
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[total_steps-8]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[warmup_fraction-0.1]",
+      "seconds": 0.009
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[U_ramp_fraction-0.1]",
+      "seconds": 0.008
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_semantic_changes_rejected_before_mutation[lr-0.02]",
+      "seconds": 0.008
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_provider_actual_binding_rejected[change0]",
+      "seconds": 0.006
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_provider_actual_binding_rejected[change1]",
+      "seconds": 0.006
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_provider_actual_binding_rejected[change2]",
+      "seconds": 0.006
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_provider_actual_binding_rejected[change3]",
+      "seconds": 0.006
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_provider_actual_binding_rejected[change4]",
+      "seconds": 0.006
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_provider_actual_binding_rejected[change5]",
+      "seconds": 0.006
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_provider_actual_binding_rejected[change6]",
+      "seconds": 0.006
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_resume_family_rank_parent_entry_and_nonsemantic_whitelist",
+      "seconds": 0.012
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_post_update_invalid_state_uncommitted_and_resume[optimizer]",
+      "seconds": 0.011
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_post_update_invalid_state_uncommitted_and_resume[constraint]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_post_update_invalid_state_uncommitted_and_resume[optimizer_state]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_post_update_invalid_state_uncommitted_and_resume[effective_overflow]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_skip_then_fault_no_scientific_commit",
+      "seconds": 0.005
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_F2_invalid_probe_propagates_without_any_A_mutation[double_identity]",
+      "seconds": 0.008
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_F2_invalid_probe_propagates_without_any_A_mutation[wrong_shape]",
+      "seconds": 0.007
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_F2_invalid_probe_propagates_without_any_A_mutation[asymmetric]",
+      "seconds": 0.007
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_F2_invalid_probe_propagates_without_any_A_mutation[nan]",
+      "seconds": 0.008
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_F2_invalid_probe_propagates_without_any_A_mutation[bad_gradient]",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_ignore_support_and_auxiliary_metric_contract",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_CWMI_device_local_masks_and_CPU_author_parity",
+      "seconds": 0.012
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_behavioral_bridge_modes_all_paths[F1]",
+      "seconds": 0.009
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_behavioral_bridge_modes_all_paths[F2]",
+      "seconds": 0.608
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_behavioral_bridge_modes_all_paths[F3]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_behavioral_bridge_modes_all_paths[F4]",
+      "seconds": 0.023
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_behavioral_bridge_modes_all_paths[F5]",
+      "seconds": 0.01
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_native_bridge_delegates_actual_named_parameters_and_geometry",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_manifest_U_cannot_receive_GT_and_preflight_unbound",
+      "seconds": 0.001
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_finite_DAG_metadata_ready_without_dispatch",
+      "seconds": 0.002
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_partial_optimizer_exception_retains_physical_invocation",
+      "seconds": 0.004
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r2::test_nonfinite_candidate_scheduler_state_cannot_commit",
+      "seconds": 0.003
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r3::test_replacing_input_lists_and_public_records_preserves_admitted_read[L]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r3::test_replacing_input_lists_and_public_records_preserves_admitted_read[U]",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r3::test_nested_geometry_and_callback_mutation_do_not_escape_snapshot",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r3::test_permit_nested_public_state_and_phases_are_immutable_and_seal_is_preserved",
+      "seconds": 0.0
+    },
+    {
+      "name": "tests.five_frameworks_v1.test_revision_r3::test_native_metadata_whitelist_and_semantic_return_are_owned_snapshots",
+      "seconds": 0.002
+    }
+  ],
+  "additional_tests": {
+    "passed": 2,
+    "seconds": 3.25,
+    "scope": "all-fourteen F2 probes and generated-data native source worker"
+  },
+  "next_qualification": "Full 191 CPU tests on pinned server execution commit, then bounded native CUDA and L-only smoke."
+}

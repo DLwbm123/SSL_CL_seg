@@ -29,9 +29,14 @@ def split_gradients(model,labeled,unlabeled):
 
 
 class StageTrainer:
-    def __init__(self,model,provider,options=None,cwmi=None,initialize=True):
-        if not getattr(model.parent,'synthetic',False):
-            raise RuntimeError('real parent/controller requires externally reviewed binding')
+    def __init__(self,model,provider,options=None,cwmi=None,initialize=True,execution=None):
+        self.native=not getattr(model.parent,'synthetic',False)
+        if self.native:
+            from .native_parent import NativeLRParent
+            if not isinstance(model.parent,NativeLRParent) or execution is None:
+                raise RuntimeError('real parent/controller requires bound execution capability')
+            execution.validate()
+        self.execution=execution
         self.model,self.provider=model,provider
         self.options=resolve_options(options);self.cwmi=cwmi
         entry=dict(model.parent.state_dict())
@@ -59,14 +64,16 @@ class StageTrainer:
             groups.append({'params':[model.sidecar.r],'lr':self.options.get('lr',.01)*self.options.get('feature_lr_multiplier',1.),
                            'weight_decay':self.options.get('weight_decay',0.)*self.options.get('feature_weight_decay_multiplier',1.),'name':'R'})
         self.optimizer=torch.optim.Adam(groups,weight_decay=self.options.get('weight_decay',0.))
-        self.scheduler=torch.optim.lr_scheduler.LambdaLR(self.optimizer,lambda _:1.)
-        self.scaler=torch.amp.GradScaler('cpu',enabled=False)
+        self.scheduler=torch.optim.lr_scheduler.LambdaLR(self.optimizer,
+            (lambda step:max(0.,1-step/self.options['total_steps'])**.9) if self.native else (lambda _:1.))
+        self.scaler=(torch.amp.GradScaler('cpu',enabled=False) if hasattr(torch.amp,'GradScaler')
+                     else torch.cuda.amp.GradScaler(enabled=False))
         self.last={}
 
     @classmethod
-    def for_resume(cls,model,provider,options=None,cwmi=None):
+    def for_resume(cls,model,provider,options=None,cwmi=None,execution=None):
         """No stage_entry, source read, probe, prototype initialization or reset."""
-        return cls(model,provider,options,cwmi,initialize=False)
+        return cls(model,provider,options,cwmi,initialize=False,execution=execution)
 
     def structural(self,p,y):
         if self.model.family=='F2':
@@ -105,7 +112,7 @@ class StageTrainer:
             probes={i:[] for i in selected}
             for n in range(8):
                 x,y,_=self.provider.labeled(n,'direction_probes')
-                weights={i:(adapters[i].base+adapters[i].b@adapters[i].a).detach().requires_grad_(True) for i in selected}
+                weights={i:adapters[i].effective_weight().detach().requires_grad_(True) for i in selected}
                 h=self.model.parent.features(x,overrides=weights)
                 logits=self.model.parent.native_readout(h,x.shape[-2:])
                 # Direction objective is scaled STRUCTURE ONLY, as specified.
@@ -238,14 +245,18 @@ class StageTrainer:
         validate_commit(self,pending)
         inject('before_ema')
         with torch.no_grad():
-            for a,b in zip(self.ema.parameters(),self.model.parameters()):
-                if a is b:continue
-                if b.requires_grad:a.mul_(.99).add_(b,alpha=.01)
-                else:a.copy_(b)
-            for a,b in zip(self.ema.buffers(),self.model.buffers()):a.copy_(b)
+            if self.native:
+                self.model.parent.update_dense_ema(self.ema.parent)
+                if self.model.sidecar is not None:self.ema.sidecar.r.mul_(.99).add_(self.model.sidecar.r,alpha=.01)
+            else:
+                for a,b in zip(self.ema.parameters(),self.model.parameters()):
+                    if a is b:continue
+                    if b.requires_grad:a.mul_(.99).add_(b,alpha=.01)
+                    else:a.copy_(b)
+                for a,b in zip(self.ema.buffers(),self.model.buffers()):a.copy_(b)
         inject('after_ema')
         if pending:self.prototypes.commit(*pending)
         self.step+=1;self.cursor+=1
-        self.telemetry['synthetic_optimizer_updates']+=1
+        self.telemetry['formal_optimizer_updates' if self.native else 'synthetic_optimizer_updates']+=1
         self.last['actual_update_norms']={name:float((p.detach()-before[id(p)]).norm()) for name,p in self.model.named_parameters() if id(p) in before}
         return grads

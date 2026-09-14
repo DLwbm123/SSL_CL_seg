@@ -1,4 +1,4 @@
-"""Atomic synthetic checkpoints and append-only physical-update accounting."""
+"""Atomic checkpoints; native access requires a sealed execution capability."""
 import json
 import os
 import random
@@ -32,7 +32,7 @@ def save(trainer,path,identity,fault=False):
     semantic=binding(trainer)
     for key,actual in {'family':trainer.model.family,'seed':trainer.provider.seed,'order':trainer.provider.order,'stage':trainer.provider.stage}.items():
         if key in identity and identity[key]!=actual:raise ValueError('identity contradicts actual '+key)
-    value={'semantic':semantic,'semantic_sha256':digest(semantic),'synthetic_only':True,'identity':identity,'student':trainer.model.state_dict(),
+    value={'semantic':semantic,'semantic_sha256':digest(semantic),'synthetic_only':not getattr(trainer,'native',False),'identity':identity,'student':trainer.model.state_dict(),
            'ema':trainer.ema.state_dict(),'optimizer':trainer.optimizer.state_dict(),
            'scheduler':trainer.scheduler.state_dict(),'scaler':trainer.scaler.state_dict(),
            'prototypes':trainer.prototypes.values,'support':trainer.prototypes.support,
@@ -41,16 +41,18 @@ def save(trainer,path,identity,fault=False):
            'torch_rng':torch.get_rng_state(),'python_rng':random.getstate(),
            'provider_reads':[trainer.provider.l_reads,trainer.provider.u_reads],
            'spectral':trainer.model.spectral,'adapter_new':[a.new for a in trainer.model.parent.adapters],
-           'parent_projectors':[a.free_projector for a in trainer.model.parent.adapters],
+           'parent_projectors':None if getattr(trainer,'native',False) else [a.free_projector for a in trainer.model.parent.adapters],
+           'cuda_rng':torch.cuda.get_rng_state_all() if getattr(trainer,'native',False) and torch.cuda.is_available() else None,
            'stream_scheme':'stateless study/seed/order/stage/cursor/stream; arm excluded'}
     atomic_save(value,path,fault)
 
 
 def restore(trainer,path,identity):
-    # This API is deliberately synthetic-only. Real tensor reads require a new,
-    # reviewed loader capability; naming a real file here is not authorization.
+    if getattr(trainer,"native",False):trainer.execution.validate()
+    # Native resume validates its execution capability before tensor IO.
+    # Synthetic callers still cannot load native checkpoint payloads.
     value=torch.load(path,map_location='cpu',weights_only=False)
-    if value.get('synthetic_only') is not True or value['identity']!=identity:
+    if value.get('synthetic_only') is not (not getattr(trainer,'native',False)) or value['identity']!=identity:
         raise ValueError('checkpoint lineage/type mismatch')
     # Validate all semantic fields from constructed objects before mutating any state.
     actual=binding(trainer)
@@ -70,8 +72,10 @@ def restore(trainer,path,identity):
     trainer.prototypes.values=value['prototypes'];trainer.prototypes.support=value['support']
     for name in ('step','cursor','epoch','probe','telemetry','last'):setattr(trainer,name,value[name])
     trainer.model.spectral=value['spectral'];trainer.ema.spectral=value['spectral']
-    for a,b,new,projector in zip(trainer.model.parent.adapters,trainer.ema.parent.adapters,value['adapter_new'],value['parent_projectors']):
-        a.new=b.new=new;a.free_projector=projector;b.free_projector=projector
+    if not getattr(trainer,'native',False):
+        for a,b,new,projector in zip(trainer.model.parent.adapters,trainer.ema.parent.adapters,value['adapter_new'],value['parent_projectors']):
+            a.new=b.new=new;a.free_projector=projector;b.free_projector=projector
+    elif value.get('cuda_rng') is not None:torch.cuda.set_rng_state_all([r.cpu() for r in value['cuda_rng']])
     trainer.requires_restore=False
     trainer.provider.l_reads,trainer.provider.u_reads=value['provider_reads']
     torch.set_rng_state(value['torch_rng']);random.setstate(value['python_rng'])

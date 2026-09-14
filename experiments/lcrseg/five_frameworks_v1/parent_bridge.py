@@ -40,6 +40,8 @@ class ToyAdapter(nn.Module):
         self.new = True
         self.free_projector = None  # Toy has no hard/soft orthogonality constraint.
 
+    def effective_weight(self):return self.base+self.b@self.a
+
     def forward(self, x, effective=None):
         w = self.base + self.b @ self.a if effective is None else effective
         return F.relu(torch.einsum('ij,bjhw->bihw', w, x))
