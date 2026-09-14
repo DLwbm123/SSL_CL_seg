@@ -6,7 +6,7 @@ import torch
 from . import planner,checkpoint
 from .gate import digest,code_manifest
 from .integration import ExecutionPermit,_PERMIT_SEAL
-from .native_parent import IDENTITY,NativeLRParent,build
+from .native_parent import IDENTITY,NativeLRParent,build,supervised_parts
 from .native_data import NativeCurrentDomain,ORDERS,inspect,evaluation_data
 from .model import Model,Deployment
 from .train_stage import StageTrainer,NO_U
@@ -117,7 +117,7 @@ def source_task(config,node,permit,root,device):
         for g in opt.param_groups:g['lr']=.001*(1-step/total)**.9
         x,y,_=provider.labeled(step);opt.zero_grad(set_to_none=True)
         logits=model(x,stochastic_classifier=False)[0]
-        loss=torch.nn.functional.cross_entropy(logits,y,ignore_index=255);finite(loss,'source CE');loss.backward()
+        loss=supervised_parts(logits.log_softmax(1),y)[0];finite(loss,'source CE');loss.backward()
         finite([p.grad for p in model.parameters() if p.grad is not None],'source gradients')
         counter.call(step+1);opt.step();finite(model.state_dict(),'source updated state');finite(opt.state_dict(),'source optimizer state')
         if step==0 or (step+1)%provider.steps_per_epoch==0:
