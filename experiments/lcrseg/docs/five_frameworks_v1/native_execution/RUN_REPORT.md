@@ -1,5 +1,7 @@
 # Native integration and actual launch
 
+**Completed 2026-09-16:** see [FINAL_REPORT_REDUCED.md](FINAL_REPORT_REDUCED.md) for the verified single-seed completion, all method results and costs. The following launch and amendment snapshots are historical.
+
 **2026-09-15 schedule amendment:** the user reduced unstarted work to one
 replication seed and a smaller matrix: 312 target stages instead of 424.
 See [the amendment](SCHEDULE_REDUCTION_20260915.md). The launch snapshot below

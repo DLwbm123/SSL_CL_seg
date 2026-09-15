@@ -1,4 +1,4 @@
-Current verified launch: [RUN_REPORT.md](RUN_REPORT.md) and [RUNNING_RECEIPT.json](RUNNING_RECEIPT.json).
+**Completed 2026-09-16:** [final report and costs](FINAL_REPORT_REDUCED.md), [all public results](FINAL_RESULTS_REDUCED.json), and [single-seed schedule amendment](SCHEDULE_REDUCTION_20260915.md). All 328 retained nodes completed; 112 unstarted target stages were cancelled by user authorization. The launch records below describe historical scope.
 
 # NATIVE_LR_SRC_A_3DOMAIN_V1
 
@@ -6,7 +6,7 @@ This is the user's explicit designation of the existing LR_SRC_A reference with 
 
 The native implementation imports the actual U-Net, linear head, supervised CE+Dice, fourteen projected convolutions, initialization and merge components from the designated repository state. New code is in `five_frameworks_v1/native_parent.py`, `native_data.py`, `native_state.py`, `native_runner.py` and `native_qualify.py`. The shared stage trainer still implements all five frameworks and five baselines. Dense effective-weight EMA uses native names; native resume rebuilds adapters from saved tensors without SVD or probe repetition. Projection checks use the parameterized increment, not a small rounded W-W0 denominator.
 
-The finite DAG retains 212 target trajectories / 424 stages, four REFUGE sources, 1,123,600 target and 32,000 source updates. Qualification has a cumulative 256 CUDA optimizer-call cap. Disposable current-L smoke has 24 calls (4/8/4/4/4); it starts from independent randomly initialized designated native models, uses the true warmup schedule, reads no U and cannot supply a formal predecessor. Every formal source then trains its own seed from initialization. No historical source is assumed to match seeds 161–164.
+The original finite DAG planned 212 target trajectories / 424 stages, four REFUGE sources, 1,123,600 target and 32,000 source updates. Qualification has a cumulative 256 CUDA optimizer-call cap. Disposable current-L smoke has 24 calls (4/8/4/4/4); it starts from independent randomly initialized designated native models, uses the true warmup schedule, reads no U and cannot supply a formal predecessor. Every formal source then trains its own seed from initialization. No historical source is assumed to match seeds 161–164.
 
 `USER_AUTHORIZATION.json` records USER_DELEGATED_EXECUTION, not external approval. `admit()` validates the clean pinned production commit, code tree, designation, parent binding and finite plan, then registers the actual native runner. The legacy external-approval path and review locks are preserved. Runtime qualification receipts must match that execution commit before dispatch. Runtime/private configuration carries the server paths; it is not published.
 
