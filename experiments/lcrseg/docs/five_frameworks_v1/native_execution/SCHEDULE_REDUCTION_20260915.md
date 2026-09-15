@@ -6,6 +6,12 @@ supersedes the remaining dispatch schedule, not the historical run records or
 the qualified training implementation. Full node membership is recorded in
 [SCHEDULE_REDUCTION_20260915.json](SCHEDULE_REDUCTION_20260915.json).
 
+**Running under the reduced schedule.** The live handover receipt is
+[REDUCED_RUNNING_RECEIPT.json](REDUCED_RUNNING_RECEIPT.json). It verifies the
+328-node queue, no launch for cancelled nodes, and continuing original worker
+PIDs and successful updates. The separately versioned controller is
+`da3a950bfe4eb3c97abb9124c5ddcadf7ee613b4`; training is not yet complete.
+
 | Scope | Original | Amended |
 |---|---:|---:|
 | Development target stages | 304 | 280 |
