@@ -1,5 +1,11 @@
 # Native integration and actual launch
 
+**2026-09-15 schedule amendment:** the user reduced unstarted work to one
+replication seed and a smaller matrix: 312 target stages instead of 424.
+See [the amendment](SCHEDULE_REDUCTION_20260915.md). The launch snapshot below
+is historical; its original PID, queue size and monitoring statement are not
+current execution status.
+
 **RUNNING — source pretraining.** Observation: 2026-09-14T02:53:42.638676+00:00.
 
 - Reference: **NATIVE_LR_SRC_A_3DOMAIN_V1**, explicitly selected by the user; not original KI recovery.
