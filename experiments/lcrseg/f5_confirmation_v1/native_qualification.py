@@ -10,6 +10,21 @@ CALLS={'warmup':1,'resume':4,'transition':1,'failure':1}
 QUAL_OPTIONS=dict(total_steps=4,warmup_fraction=.25,U_ramp_fraction=.25,PAS_confidence=0.,PAS_cosine=-1.)
 
 
+def foreground_fixture(native):
+    """Bias synthetic predictions through existing kernels, never add a bias parameter.
+
+    Native decoder features are nonnegative after ReLU. Opposite kernel signs
+    therefore favor rim while preserving the native bias-free checkpoint schema.
+    Only generated qualification models call this function.
+    """
+    import torch
+    head=native.decoder.conv_logit.mu
+    assert head.bias is None and head.weight.shape==(3,16,3,3)
+    with torch.no_grad():
+        head.weight.abs_()
+        head.weight[0].neg_();head.weight[2].neg_()
+
+
 def qualification_plan():
     return dict(cases=[dict(id=f'{f}/{name}',family=f,kind=name,physical_calls=CALLS[name],checks=keys)
                        for f in (B0,B2,F5) for name,keys in CASE_CHECKS.items()],planned_calls=21,cap=60,
@@ -75,7 +90,7 @@ def run_cases(config,plan,permit,root,device,counter):
         provider=GeneratedDomain(seed=163,size=384,stage_source=source)
         native=build(config['reference'],device,163)
         # Qualification-only synthetic readout fixture. Never applied to a real source/model.
-        with torch.no_grad():native.decoder.conv_logit.mu.bias.copy_(torch.tensor([-4.,4.,-4.],device=device))
+        foreground_fixture(native)
         model=Model(NativeLRParent(native,163,source),f,ratio=options.get('rank_ratio',.5)).to(device)
         t=StageTrainer(model,provider,options,execution=permit);counter.wrap(t.optimizer)
         ident=dict(family=f,candidate_id=plan['nodes'][0]['candidate_id'] if f==B0 else ('F5_C02' if f==F5 else 'B2_PARENT_PAS_KL_C06'),

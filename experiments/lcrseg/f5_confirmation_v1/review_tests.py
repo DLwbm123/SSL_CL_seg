@@ -44,6 +44,16 @@ def qualification_coverage():
     from .native_qualification import qualification_plan
     from .tests import rejects
     plan=p.read(p.DOC/'PLAN.json');q=qualification_plan()
+    # Regression for the native bias-free head; no optimizer or extra RNG stream.
+    import torch
+    from types import SimpleNamespace
+    from .native_qualification import foreground_fixture
+    head=torch.nn.Conv2d(16,3,3,bias=False)
+    native=SimpleNamespace(decoder=SimpleNamespace(conv_logit=SimpleNamespace(mu=head)))
+    keys=list(head.state_dict());rng=torch.get_rng_state().clone()
+    foreground_fixture(native)
+    assert head.bias is None and list(head.state_dict())==keys and torch.equal(rng,torch.get_rng_state())
+    assert (head(torch.ones(2,16,5,5)).argmax(1)==1).all()
     assert q['planned_calls']==sum(c['physical_calls'] for c in q['cases'])==21<=60
     assert len(q['cases'])==12 and {c['kind'] for c in q['cases']}=={'warmup','resume','transition','failure'}
     with tempfile.TemporaryDirectory(prefix='metadata-fixture-') as tmp:

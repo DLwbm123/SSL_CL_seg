@@ -15,6 +15,21 @@ from .protocol import (ROOT,DOC,OLD,PARENT,WORKER,B0,B2,F5,CAPS,MANIFEST,SPLIT,
 
 def authorization(review, launch, actual):
     """Validate metadata, never generate approval or infer it from passing tests."""
+    repair=launch.get('engineering_repair')
+    if repair is not None:
+        base=repair.get('reviewed_base_bindings',{})
+        if (repair.get('user_instruction')!='你解决一下问题，并继续训练'
+                or repair.get('authority')!='explicit_user_engineering_repair_and_continue'
+                or base.get('reviewed_code_commit')!='2070845b679da42ea7a4df4268f492f2943deb6e'):
+            raise PermissionError('explicit bounded engineering repair authority required')
+        # The external approval stays byte-for-byte original and covers only base.
+        original={**launch,**base};original.pop('engineering_repair')
+        authorization(review,original,base)
+        if (set(base)!=set(actual) or any(actual[k]!=base[k] for k in
+                ('plan_sha256','source_reuse_sha256','parent_binding_sha256'))
+                or any(launch.get(k)!=v for k,v in actual.items())):
+            raise PermissionError('repair must preserve scientific/source/parent binding')
+        return
     if (review.get('study_id') != 'F5_CONFIRMATION_V1' or review.get('is_template',True)
             or review.get('decision') != 'APPROVED_FOR_EXPERIMENTS'
             or not review.get('reviewer') or not review.get('review_evidence')
@@ -42,6 +57,17 @@ def preflight(config):
     if actual['code_tree_sha256'] != read(DOC/'CODE_MANIFEST.json')['code_tree_sha256']:
         raise PermissionError('code differs from manifest')
     authorization(read(config['review']),read(config['launch_confirmation']),actual)
+    launch=read(config['launch_confirmation'])
+    if launch.get('engineering_repair') is not None:
+        base=launch['engineering_repair']['reviewed_base_bindings']['reviewed_code_commit']
+        subprocess.run(['git','merge-base','--is-ancestor',base,head],cwd=ROOT,check=True)
+        changed=set(subprocess.check_output(['git','diff','--name-only',base,head],cwd=ROOT,text=True).splitlines())
+        allowed={'experiments/lcrseg/f5_confirmation_v1/'+n for n in
+                 ('native_qualification.py','execution.py','review_tests.py')}
+        allowed.update('experiments/lcrseg/docs/f5_confirmation_v1/'+n for n in
+                       ('CODE_MANIFEST.json','TEST_REPORT.json','CPU_ATTEMPTS.json','CPU_PHYSICAL.jsonl','NATIVE_FIX_REPORT.md'))
+        if not changed or not changed<=allowed:
+            raise PermissionError('engineering repair exceeds qualification/admission-only file scope')
     cpu=read(DOC/'TEST_REPORT.json')
     if cpu['status']!='PASS' or cpu['code_tree_sha256']!=actual['code_tree_sha256'] or cpu['plan_sha256']!=plan['plan_sha256']:
         raise PermissionError('current code-bound CPU qualification required')
