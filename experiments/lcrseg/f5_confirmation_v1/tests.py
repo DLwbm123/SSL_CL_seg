@@ -12,7 +12,7 @@ from . import protocol as p
 # Fixed collection, bounded repeated invocations including failed attempts.
 TEST_NAMES=('matrix_and_imports','reject_authority','receipt_binding','options_and_gradients',
             'loss_nesting','merge_current_ema_resume','random_stream_logging',
-            'failure_budget_sealed','metric_pairs_gates')
+            'failure_budget_sealed','metric_pairs_gates','integrity_faults','qualification_coverage','cumulative_costs_rng','report_artifacts')
 CPU_PHYSICAL_CAP=40
 MAX_INVOCATIONS=8
 
@@ -75,6 +75,7 @@ def run_tests():
         rejects(lambda:authorization({}, {}, {}),PermissionError)
         # Reject the actual previous round's authority, without generating a fake approval.
         rejects(lambda:authorization(p.read(p.OLD/'USER_AUTHORIZATION.json'),{},{}),PermissionError)
+        rejects(lambda:authorization(p.read(p.DOC/'external_review_R1/REVIEW_DECISION.json'),{},{}),PermissionError)
         rejects(lambda:authorization({'study_id':'F5_CONFIRMATION_V1','is_template':True},{},{}),PermissionError)
 
     def receipt_binding():
@@ -179,8 +180,8 @@ def run_tests():
             identity={k:n[k] for k in ('family','candidate_id','seed','order','stage','sequence_id','domain')}
             identity.update(node_id=n['id'],execution_commit='fixture')
             p.write(nr/'receipt.json',dict(identity=identity,node_id=n['id'],status='SEALED',step=1,physical_optimizer_calls=1))
-            assert stage_state(n,root,'fixture')=='SEALED'
-            assert stage_state(n,root,'fixture')=='SEALED' and ledger_count(nr/'physical.jsonl')==1
+            assert stage_state(n,root,'fixture')=='METADATA_SEALED'
+            assert stage_state(n,root,'fixture')=='METADATA_SEALED' and ledger_count(nr/'physical.jsonl')==1
 
     def metric_pairs_gates():
         rows=[]
@@ -204,6 +205,7 @@ def run_tests():
         assert not p.decisions(bad)['G2']
         assert len(p.paired(rows,[162,163,164])[p.B0]['per_seed'])==3
 
+    from .review_tests import integrity_faults,qualification_coverage,cumulative_costs_rng,report_artifacts
     checks=locals();results=[]
     for name in TEST_NAMES:
         try:checks[name]();results.append({'test':name,'status':'PASS'})
@@ -217,7 +219,7 @@ def run_tests():
                 python=__import__('platform').python_version(),torch=torch.__version__,device='cpu',
                 plan_sha256=plan['plan_sha256'],code_tree_sha256=p.manifest()['code_tree_sha256'],
                 patient_payload_reads=0,real_checkpoint_tensor_reads=0,real_optimizer_updates=0,cuda_optimizer_calls=0,
-                limitations='Synthetic bridge checks only; native CUDA/source tensor/current-L smoke preflight PENDING; not external approval')
+                limitations='CPU synthetic bridges/tensor files/metadata only; native CUDA/source tensor/current-L smoke PENDING; not external approval')
     p.write(p.DOC/'TEST_REPORT.json',report)
     if attempt['status']!='PASS':raise RuntimeError('CPU synthetic checks failed; see TEST_REPORT.json')
     return report

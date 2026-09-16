@@ -1,0 +1,78 @@
+{
+  "study_id": "F5_CONFIRMATION_V1",
+  "reviewed_code_commit": "4ac9a27b52a9d381dce6bdfaf96bba23b17245f8",
+  "reviewer": "ChatGPT — external code review and targeted metadata checks",
+  "reviewer_role": "external",
+  "decision": "CHANGES_REQUESTED",
+  "approved_phases": [],
+  "experiment_execution_authorized": false,
+  "workflow_status": "STOP_AWAITING_EXTERNAL_CODE_REVIEW",
+  "is_template": false,
+  "code_tree_sha256_reported_not_independently_recomputed": "31d8c6c8183173464d215dd24039ab582827665d1705694064e561b358d6def2",
+  "plan_sha256_reported_not_independently_recomputed": "c38ccacbbea04f3e9b372fedd07975b40784eb21b0311ff7295c037b0840f7c1",
+  "findings": [
+    {
+      "id": "R1",
+      "priority": "high",
+      "issue": "Missing actual sealed-checkpoint integrity verification"
+    },
+    {
+      "id": "R2",
+      "priority": "high",
+      "issue": "Native CUDA qualification lacks native resume and stage-transition coverage"
+    },
+    {
+      "id": "R3",
+      "priority": "medium",
+      "issue": "Operation counts and per-stage CUDA peak telemetry lost outside reused target_task"
+    },
+    {
+      "id": "R4",
+      "priority": "medium",
+      "issue": "Required report artifacts and explicit final review state not implemented"
+    }
+  ],
+  "local_verification": {
+    "reviewed_commit": "4ac9a27b52a9d381dce6bdfaf96bba23b17245f8",
+    "scope": "transcribed stdlib metadata functions only; not original nine CPU tests",
+    "cases": [
+      {
+        "test": "invalid_checkpoint_and_absent_hashes",
+        "observed": "SEALED",
+        "finding": "Confirmed: metadata seal does not validate tensor payload/hash."
+      },
+      {
+        "test": "lost_tail",
+        "observed": "REJECTED",
+        "message": "ENGINEERING_STOP: physical calls exceed saved step; no replay budget"
+      },
+      {
+        "test": "ledger_gap",
+        "observed": "REJECTED",
+        "message": "ENGINEERING_STOP: corrupt physical ledger"
+      },
+      {
+        "test": "empty_qualification_cases",
+        "observed": "ACCEPTED",
+        "finding": "Case-level coverage is not checked by require_qualification. No approval/permit was created."
+      }
+    ],
+    "optimizer_calls": 0,
+    "patient_payload_reads": 0,
+    "model_tensor_reads": 0,
+    "production_permits_constructed": 0,
+    "cuda_tests_run": false
+  },
+  "limitations": [
+    "No user-server execution",
+    "No full re-run of the repository nine CPU test groups",
+    "No source tensor, CUDA, smoke or formal-training validation",
+    "Reported source/plan fingerprints were not independently recomputed"
+  ],
+  "review_evidence": [
+    "EXTERNAL_REVIEW_R1.md",
+    "TARGETED_REPRO_RESULTS.json",
+    "reproduce_metadata_checks.py"
+  ],
+  "next_action": "Code-only repair and independent re-review; keep scientific matrix and budgets unchanged"
+}

@@ -124,6 +124,7 @@ def source_reuse(metadata):
 
 def make_plan():
     from .tests import TEST_NAMES,CPU_PHYSICAL_CAP,MAX_INVOCATIONS
+    from .native_qualification import qualification_plan
     evidence = read(OLD/'FINAL_RESULTS_REDUCED.json')
     options = bound_options(evidence)
     imports = [r['node_id'] for r in selected_rows(evidence) if r['identity']['seed'] == 162]
@@ -160,6 +161,9 @@ def make_plan():
                 diagnostics='detached existing receipt/last only; unavailable fields NA; no new VJP/forward/RNG',
                 evidence_digests=dict(aggregate=digest(evidence),parent_binding=digest(binding),
                                       source_reuse=digest(source_reuse(read(DOC/'REUSE_METADATA.json')))))
+    plan['native_qualification'] = qualification_plan()
+    plan['integrity_schema'] = 'R1_actual_tensor_and_file_v1; all 28 targets; stat freshness for metadata-only report'
+    plan['report_schema'] = 'R1_six_artifacts_v1; COMPLETE_P1_AWAITING_SCIENTIFIC_REVIEW; publication separate'
     plan['plan_sha256'] = digest(plan)
     return plan
 

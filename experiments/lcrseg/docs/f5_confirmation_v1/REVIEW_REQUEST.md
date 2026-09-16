@@ -4,7 +4,7 @@
 
 Review branch: `codex/f5-confirmation-v1`, starting from results anchor `96ba0e29f601589a069bcbfdf50b2f4aafc1d883`. Actual reused training implementation: `cc21871a43e3cd105cddaf831f5c3ea2fef59b9e`. Parent: **NATIVE_LR_SRC_A_3DOMAIN_V1**, explicitly not original KI. No shared training code or historical sealed artifact is modified.
 
-The implementation adds one metadata module, one finite execution controller, one CLI and one finite synthetic test suite. It directly reuses native_runner.target_task, StageTrainer, native parent/data/model/checkpoint and Counter. No replacement loss/network, new permission monkeypatch or original B/C/D scheduler is introduced. The serial controller intentionally avoids a second parallel scheduling framework.
+R1 adds integrity/environment/cost evidence, explicit native CUDA qualification cases, aggregate report export and targeted regression tests. See REVIEW_RESPONSE_R1.md for the response to the unchanged CHANGES_REQUESTED decision. It directly reuses native_runner.target_task, StageTrainer, native parent/data/model/checkpoint and Counter. No replacement loss/network, new permission monkeypatch or original B/C/D scheduler is introduced. The serial controller intentionally avoids a second parallel scheduling framework.
 
 ## Review evidence
 
@@ -27,3 +27,5 @@ The implementation adds one metadata module, one finite execution controller, on
 P0 does not imply across-seed superiority: F5's development seed161 mean Final differs from B0 by -0.000113407, while observed seed162 differs by +0.013952836. In O2 seed162, REFUGE changes +0.001352 and Drishti_GS -0.004133 versus B0; improved total Final does not establish uniformly better retention. B2 seed162 is missing historically and is deliberately included in the new plan.
 
 No training, CUDA qualification, real smoke, automatic monitoring or P2 has started. Review approval must be supplied independently and followed by explicit user launch confirmation. Native CUDA/source tensor/current-L qualification remains future work; CPU synthetic success is not represented as production validation.
+
+R1 external input is preserved under external_review_R1/. PLAN_PRE_R1.json and TEST_REPORT_PRE_R1.json preserve the prior submission. The native CUDA cases are definitions only, PENDING execution after independent review. Scientific fields remain unchanged; the new plan digest binds qualification and acceptance/report schemas.

@@ -1,0 +1,31 @@
+{
+  "reviewed_commit": "4ac9a27b52a9d381dce6bdfaf96bba23b17245f8",
+  "scope": "transcribed stdlib metadata functions only; not original nine CPU tests",
+  "cases": [
+    {
+      "test": "invalid_checkpoint_and_absent_hashes",
+      "observed": "SEALED",
+      "finding": "Confirmed: metadata seal does not validate tensor payload/hash."
+    },
+    {
+      "test": "lost_tail",
+      "observed": "REJECTED",
+      "message": "ENGINEERING_STOP: physical calls exceed saved step; no replay budget"
+    },
+    {
+      "test": "ledger_gap",
+      "observed": "REJECTED",
+      "message": "ENGINEERING_STOP: corrupt physical ledger"
+    },
+    {
+      "test": "empty_qualification_cases",
+      "observed": "ACCEPTED",
+      "finding": "Case-level coverage is not checked by require_qualification. No approval/permit was created."
+    }
+  ],
+  "optimizer_calls": 0,
+  "patient_payload_reads": 0,
+  "model_tensor_reads": 0,
+  "production_permits_constructed": 0,
+  "cuda_tests_run": false
+}

@@ -110,7 +110,7 @@ def ledger_count(path):
 
 
 def stage_state(node, root, execution_commit):
-    """No lost-tail replay. Completed sealed nodes are validated and skipped."""
+    """Metadata only. This state never proves model tensor integrity."""
     nr=root/node['id'];count=ledger_count(nr/'physical.jsonl');cap=node['updates']
     if count>cap:raise RuntimeError('ENGINEERING_STOP: physical stage cap')
     receipt=nr/'receipt.json'
@@ -122,7 +122,7 @@ def stage_state(node, root, execution_commit):
                 or r['physical_optimizer_calls']!=count or count!=cap
                 or not (nr/'student.pt').is_file() or (nr/'student.pt').stat().st_size<=0):
             raise RuntimeError('ENGINEERING_STOP: invalid sealed receipt')
-        return 'SEALED'
+        return 'METADATA_SEALED'
     if (nr/'failure.json').exists():
         raise RuntimeError('ENGINEERING_STOP: prior failure; no automatic retry')
     checkpoint=nr/'latest.pt'
@@ -148,23 +148,27 @@ def check_costs(plan,root):
     return dict(formal=formal,real_L_smoke=smoke,synthetic_cuda=cuda,real_total=formal+smoke)
 
 
-def verify_sources(config,root,device):
+def verify_sources(config,root,device,audit=None):
     """Future production only: actual tensor hash, schema and synthetic forward."""
     import torch
     from ..five_frameworks_v1.native_parent import build
     from ..five_frameworks_v1.semantics import tensor_fingerprint
-    rows={}
+    rows={};cost=audit if audit is not None else {}
+    cost.update(tensor_loads=0,tensor_hashes=0,bytes_in_tensor_files=0,synthetic_forwards=0,synthetic_images=0,patient_forwards=0,optimizer_calls=0)
     for expected in read(DOC/'SOURCE_REUSE.json')['sources']:
         ident=expected['node_id'];old=Path(config['reuse_root'])/ident;r=read(old/'receipt.json')
         if r['identity']!=expected['identity'] or r['student_hash']!=expected['student_hash_declared'] or r['status']!='SEALED':
             raise RuntimeError('SOURCE_REUSE_BLOCKED: receipt identity/hash mismatch '+ident)
+        cost['tensor_loads']+=1;cost['bytes_in_tensor_files']+=(old/'student.pt').stat().st_size
         value=torch.load(old/'student.pt',map_location='cpu',weights_only=False)
+        cost['tensor_hashes']+=1;actual_hash=tensor_fingerprint(value['student'])
         if (value['identity']!=r['identity'] or value['step']!=8000 or value['transform'] is not None
-                or tensor_fingerprint(value['student'])!=r['student_hash']):
+                or actual_hash!=r['student_hash']):
             raise RuntimeError('SOURCE_REUSE_BLOCKED: actual tensors '+ident)
         m=build(config['reference'],device,r['identity']['seed']);m.load_state_dict(value['student'],strict=True)
         m.eval().requires_grad_(False)
         with torch.no_grad():
+            cost['synthetic_forwards']+=1;cost['synthetic_images']+=2
             out=m(torch.zeros(2,3,384,384,device=device),stochastic_classifier=False)[0]
             if out.shape!=(2,3,384,384) or not torch.isfinite(out).all():
                 raise RuntimeError('SOURCE_REUSE_BLOCKED: synthetic forward '+ident)
@@ -175,7 +179,7 @@ def verify_sources(config,root,device):
         elif link.exists():raise PermissionError('source destination exists and is not approved read-only reuse link')
         else:link.symlink_to(old.resolve(),target_is_directory=True)
         rows[ident]=r
-    write(root/'SOURCE_PREFLIGHT.json',dict(status='PASS',execution_commit=config['execution_commit'],sources=list(rows)))
+    write(root/'SOURCE_PREFLIGHT.json',dict(status='PASS',execution_commit=config['execution_commit'],sources=list(rows),cost=cost))
     return rows
 
 
@@ -190,78 +194,115 @@ def choose_gpu():
     return gpu
 
 
-def require_qualification(root,config,plan):
-    for name,expected in [('CUDA_QUALIFICATION',12),('SMOKE',24)]:
+def require_qualification(root,config,plan,environment_sha256=None,names=('CUDA_QUALIFICATION','SMOKE')):
+    """Require exact cases, individual checks, contiguous ranges and live ledger."""
+    from .native_qualification import qualification_plan
+    from .assurance import session_totals
+    recorded=read(root/'RUNTIME_ENVIRONMENT.json')
+    env_hash=digest(recorded['fingerprint'])
+    if recorded['sha256']!=env_hash or (environment_sha256 is not None and environment_sha256!=env_hash):
+        raise PermissionError('runtime environment mismatch')
+    for name in names:
         r=read(root/(name+'.json'))
+        specs=plan['native_qualification']['cases'] if name=='CUDA_QUALIFICATION' else [
+            dict(id=f+'/smoke',physical_calls=8,checks=['L_only','discarded']) for f in (B0,B2,F5)]
+        expected=sum(c['physical_calls'] for c in specs)
         ledger='cuda_physical.jsonl' if name=='CUDA_QUALIFICATION' else 'smoke_physical.jsonl'
         if (r['status']!='PASS' or r['execution_commit']!=config['execution_commit']
-                or r['plan_sha256']!=plan['plan_sha256'] or ledger_count(root/ledger)!=expected):
+                or r['plan_sha256']!=plan['plan_sha256'] or r['environment_sha256']!=env_hash
+                or r['physical_calls']!=expected or ledger_count(root/ledger)!=expected):
             raise PermissionError('missing/mismatched '+name)
+        rows=r.get('rows',[])
+        if len(rows)!=len(specs) or [c['id'] for c in rows]!=[c['id'] for c in specs]:
+            raise PermissionError('qualification case coverage')
+        cursor=0
+        for row,spec in zip(rows,specs):
+            calls=spec['physical_calls']
+            if (row['status']!='PASS' or row['physical_calls']!=calls or row['ledger_start']!=cursor+1
+                    or row['ledger_end']!=cursor+calls or row['checks']!={k:True for k in spec['checks']}):
+                raise PermissionError('qualification case evidence '+spec['id'])
+            cursor+=calls
+        session_totals(root/'costs'/name)
+
+
+def integrity_bindings(node,config,plan):
+    return dict(node_id=node['id'],execution_commit=config['execution_commit'],plan_sha256=plan['plan_sha256'],
+                code_tree_sha256=read(DOC/'CODE_MANIFEST.json')['code_tree_sha256'])
+
+
+def accept_target(node,config,plan,permit,root,device):
+    """Only production caller owns permit. Tests use generated verify_file fixtures."""
+    import random,torch
+    from .assurance import verify_file,schema,cost_session
+    from ..five_frameworks_v1.native_parent import build
+    permit.validate();nr=root/node['id'];receipt=read(nr/'receipt.json')
+    python_state=random.getstate()
+    try:
+        with torch.random.fork_rng(devices=[device.index or 0]), cost_session(nr/'integrity_costs','model_integrity') as observations:
+            model=build(config['reference'],device,node['seed'])
+            expected=schema(model.state_dict());del model
+            observations.extra_cost={}
+            record=verify_file(nr/'student.pt',receipt,expected,integrity_bindings(node,config,plan),observations.extra_cost)
+            observations.extra_cost=record['cost']
+    finally:random.setstate(python_state)
+    write(nr/'INTEGRITY.json',record)
+    return record
 
 
 def qualify(config,mode):
-    plan,permit,study=preflight(config)
-    choose_gpu()
+    plan,permit,study=preflight(config);choose_gpu()
     import torch
     from dataclasses import replace
+    from .assurance import environment,bind_environment,cost_session,session_totals
+    from ..single_teacher_scd_v0_1.engine import precision
     from ..five_frameworks_v1.native_runner import Counter
     from ..five_frameworks_v1.native_parent import build,NativeLRParent
     from ..five_frameworks_v1.native_data import NativeCurrentDomain
-    from ..five_frameworks_v1.recipes import SyntheticCurrentDomain
     from ..five_frameworks_v1.model import Model
     from ..five_frameworks_v1.train_stage import StageTrainer
-    torch.set_num_threads(2);device=torch.device('cuda:0')
+    precision();device=torch.device('cuda:0');torch.cuda.set_device(device)
     name='CUDA_QUALIFICATION' if mode=='cuda' else 'SMOKE'
     with owned_root(config,plan) as root:
-        path=root/(name+'.json')
+        env_hash=bind_environment(root,environment());path=root/(name+'.json')
         if path.exists():
-            r=read(path)
-            if r['status']=='PASS' and r['execution_commit']==config['execution_commit'] and r['plan_sha256']==plan['plan_sha256']:
-                check_costs(plan,root)
-                ledger=root/('cuda_physical.jsonl' if mode=='cuda' else 'smoke_physical.jsonl')
-                if ledger_count(ledger)!=(12 if mode=='cuda' else 24):raise RuntimeError('qualification ledger mismatch')
-                return {'status':'SEALED_SKIP','qualification':name}
-            raise RuntimeError('ENGINEERING_STOP: existing qualification failure/mismatch')
+            require_qualification(root,config,plan,env_hash,names=(name,))
+            return {'status':'VERIFIED_QUALIFICATION_SKIP','qualification':name}
         ledger=root/('cuda_physical.jsonl' if mode=='cuda' else 'smoke_physical.jsonl')
         if ledger_count(ledger):raise RuntimeError('ENGINEERING_STOP: partial qualification; no automatic retry')
-        sources=verify_sources(config,root,device)
+        cap=60 if mode=='cuda' else 24;counter=Counter(ledger,cap)
+        permit=replace(permit,bindings={**permit.bindings,'execution_scope':'synthetic' if mode=='cuda' else 'smoke'})
         if mode=='smoke':
-            q=read(root/'CUDA_QUALIFICATION.json')
-            if q['status']!='PASS' or q['execution_commit']!=config['execution_commit'] or q['plan_sha256']!=plan['plan_sha256']:
-                raise PermissionError('code-bound CUDA qualification required before smoke')
-        cap=60 if mode=='cuda' else 24;counter=Counter(ledger,cap);rows=[]
-        scope='synthetic' if mode=='cuda' else 'smoke'
-        permit=replace(permit,bindings={**permit.bindings,'execution_scope':scope})
+            require_qualification(root,config,plan,env_hash,names=('CUDA_QUALIFICATION',))
+            with cost_session(root/'costs'/'SOURCE_PREFLIGHT','source_integrity') as observations:
+                observations.extra_cost={}
+                sources=verify_sources(config,root,device,observations.extra_cost)
+                observations.extra_cost=read(root/'SOURCE_PREFLIGHT.json')['cost']
         try:
-            for family in (B0,B2,F5):
-                source=sources['SOURCE_S163'];sid=dict(node_id=source['node_id'],seed=163,domain='REFUGE',student_hash=source['student_hash'],transform_hash=None)
-                native=build(config['reference'],device,163)
-                if mode=='smoke':
-                    value=torch.load(root/'SOURCE_S163'/'student.pt',map_location=device,weights_only=False)
-                    native.load_state_dict(value['student']);del value
-                    provider=NativeCurrentDomain(config['data'],163,1,1,sid,device,permit,allow_u=False)
+            with cost_session(root/'costs'/name,name):
+                if mode=='cuda':
+                    from .native_qualification import run_cases
+                    rows=run_cases(config,plan,permit,root,device,counter)
                 else:
-                    class DeviceSynthetic(SyntheticCurrentDomain):
-                        def labeled(self,*a,**k):
-                            x,y,ids=super().labeled(*a,**k);return x.to(device),y.to(device),ids
-                        def unlabeled(self,*a,**k):
-                            x,g,ids=super().unlabeled(*a,**k);return x.to(device),g.to(device),ids
-                    provider=DeviceSynthetic(seed=163,size=384,stage_source=sid)
-                options=plan['options'][family]['RIM_ONE_r3'].copy()
-                if mode=='cuda':options.update(total_steps=4,warmup_fraction=.25,U_ramp_fraction=.25)
-                t=StageTrainer(Model(NativeLRParent(native,163,sid),family,ratio=options.get('rank_ratio',.5)).to(device),provider,options,execution=permit)
-                counter.wrap(t.optimizer)  # Reuse existing durable accounting, no new interception.
-                for _ in range(4 if mode=='cuda' else 8):
-                    gradients=t.update()
-                    if family==F5 and any(v['U'] is not None for p,v in gradients.items() if p!=id(t.model.sidecar.r)):
-                        raise RuntimeError('illegal F5 U gradient')
-                if (family==B0 or mode=='smoke') and provider.u_reads:raise RuntimeError('forbidden U reads')
-                rows.append(dict(family=family,steps=t.step,U_batches=provider.u_reads,telemetry=t.telemetry,weights_discarded=True))
-                del gradients,t,native,provider
-                torch.cuda.empty_cache()
+                    rows=[]
+                    for family in (B0,B2,F5):
+                        source=sources['SOURCE_S163'];sid=dict(node_id=source['node_id'],seed=163,domain='REFUGE',student_hash=source['student_hash'],transform_hash=None)
+                        native=build(config['reference'],device,163)
+                        value=torch.load(root/'SOURCE_S163'/'student.pt',map_location=device,weights_only=False)
+                        native.load_state_dict(value['student']);del value
+                        provider=NativeCurrentDomain(config['data'],163,1,1,sid,device,permit,allow_u=False)
+                        options=plan['options'][family]['RIM_ONE_r3'].copy()
+                        t=StageTrainer(Model(NativeLRParent(native,163,sid),family,ratio=options.get('rank_ratio',.5)).to(device),provider,options,execution=permit)
+                        counter.wrap(t.optimizer);start=counter.count
+                        for _ in range(8):t.update()
+                        if provider.u_reads:raise RuntimeError('forbidden smoke U read')
+                        rows.append(dict(id=family+'/smoke',status='PASS',physical_calls=counter.count-start,
+                                         ledger_start=start+1,ledger_end=counter.count,checks=dict(L_only=True,discarded=True),
+                                         telemetry=t.telemetry,U_batches=0))
+                        del t,native,provider;torch.cuda.empty_cache()
             result=dict(status='PASS',execution_commit=config['execution_commit'],plan_sha256=plan['plan_sha256'],
-                        physical_calls=counter.count,cap=cap,rows=rows,inherited_by_formal=False)
-            write(path,result);return result
+                        environment_sha256=env_hash,physical_calls=counter.count,cap=cap,rows=rows,inherited_by_formal=False,
+                        measured_cost=session_totals(root/'costs'/name))
+            write(path,result);require_qualification(root,config,plan,env_hash,names=(name,));return result
         except BaseException as e:
             write(path,dict(status='ENGINEERING_STOP',execution_commit=config['execution_commit'],error=str(e),physical_calls=counter.count));raise
 
@@ -271,15 +312,21 @@ def run(config):
     choose_gpu()
     import torch
     from ..five_frameworks_v1.native_runner import target_task
-    torch.set_num_threads(2);device=torch.device('cuda:0')
+    from ..single_teacher_scd_v0_1.engine import precision
+    from .assurance import cost_session,session_totals,environment,bind_environment
+    precision();device=torch.device('cuda:0');torch.cuda.set_device(device)
     with owned_root(config,plan) as root:
-        require_qualification(root,config,plan)
-        receipts=verify_sources(config,root,device)
+        env_hash=bind_environment(root,environment());require_qualification(root,config,plan,env_hash)
+        with cost_session(root/'costs'/'SOURCE_PREFLIGHT','source_integrity') as observations:
+            observations.extra_cost={}
+            receipts=verify_sources(config,root,device,observations.extra_cost)
+            observations.extra_cost=read(root/'SOURCE_PREFLIGHT.json')['cost']
         receipts['SELECT_PARENT']={'candidate_id':'P1'}
         for node in plan['nodes']:
             check_costs(plan,root)
             state=stage_state(node,root,config['execution_commit']);nr=root/node['id']
-            if state=='SEALED':
+            if state=='METADATA_SEALED':
+                accept_target(node,config,plan,permit,root,device)
                 receipts[node['id']]=read(nr/'receipt.json');continue
             if node['parent_checkpoint'] not in receipts:raise RuntimeError('unsealed own predecessor')
             nr.mkdir(parents=True,exist_ok=True)
@@ -290,36 +337,24 @@ def run(config):
                         raise RuntimeError('ENGINEERING_STOP: actual saved state differs from ledger')
                     del saved
                 # The original task constructs/reset/restores, trains, merges and evaluates unchanged.
-                result=target_task(config,node,permit,study,receipts,nr,device)
+                with cost_session(nr/'costs','formal_target'):
+                    result=target_task(config,node,permit,study,receipts,nr,device)
+                measured=session_totals(nr/'costs')
+                result.update(operation_counts=measured['operation_counts'],peak_cuda_allocated=measured['peak_cuda_allocated'],
+                              peak_cuda_reserved=measured['peak_cuda_reserved'],session_cost=measured)
                 if result['physical_optimizer_calls']!=node['updates'] or result['step']!=node['updates']:
                     raise RuntimeError('ENGINEERING_STOP: sealed budget mismatch')
-                write(nr/'receipt.json',result);receipts[node['id']]=result
+                write(nr/'receipt.json',result)
+                accept_target(node,config,plan,permit,root,device);receipts[node['id']]=result
                 write(root/'STATUS.json',dict(status='RUNNING',sealed=sum(n['id'] in receipts for n in plan['nodes']),total=28))
             except BaseException as e:
                 write(nr/'failure.json',dict(status='ENGINEERING_STOP',error=repr(e)));raise
         result=report(root,config['execution_commit'])
-        write(root/'STATUS.json',dict(status='COMPLETE',sealed=28,total=28,P2_started=False))
+        if result['status']!='COMPLETE_P1_AWAITING_SCIENTIFIC_REVIEW':
+            write(root/'STATUS.json',dict(status=result['status'],sealed=28,total=28,P2_started=False,publication_status='NOT_READY'))
         return result
 
 
 def report(root,execution_commit):
-    plan=validate_plan(read(DOC/'PLAN.json'));root=Path(root)
-    rows=[]
-    for node in plan['nodes']:
-        if stage_state(node,root,execution_commit)!='SEALED':
-            return {'status':'PENDING_FULL_MATRIX','gates':'NOT_EVALUATED'}
-        r=read(root/node['id']/'receipt.json')
-        if r['resolved_options']!=plan['options'][node['family']][node['domain']]:
-            raise ValueError('CONFIG_BINDING_MISMATCH: sealed '+node['id'])
-        rows.append(r)
-    historic=read(OLD/'FINAL_RESULTS_REDUCED.json')['index']
-    imported=[r for r in historic if r['node_id'] in plan['historical_target_imports']]
-    primary=paired(rows,[163,164]);supplementary=paired(rows+imported,[162,163,164])
-    # Allowlist only normalized aggregate fields; no patient IDs/paths/checkpoint payloads.
-    fields=('node_id','identity','step','scores','timeline','resolved_options','spectral','physical_optimizer_calls','cost','seconds')
-    result=dict(status='COMPLETE',execution_commit=execution_commit,plan_sha256=plan['plan_sha256'],
-                new_target_stages=len(rows),historical_target_imports=len(imported),new_source_updates=0,
-                primary=primary,supplementary_descriptive=supplementary,gates=decisions(primary),
-                costs=check_costs(plan,root),rows=[{k:r.get(k,'NA') for k in fields} for r in rows+imported],
-                P2_started=False,claims='seed confirmation on development patients only; no independent-patient or SOTA claim')
-    write(root/'PUBLIC_RESULTS.json',result);return result
+    from .reporting import complete_report
+    return complete_report(root,execution_commit)
