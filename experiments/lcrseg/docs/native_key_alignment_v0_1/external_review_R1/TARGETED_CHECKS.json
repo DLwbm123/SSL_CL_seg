@@ -1,0 +1,181 @@
+{
+  "reviewed_commit": "9915168cc3707fb70afdc2c719c8781cdf76e3fb",
+  "source_blob_verifications": {
+    "alignment.py": "5db0a92c7ef46b2dfc55cf8f8fabd425585e55ef",
+    "protocol.py": "461a8705cc89f66926c023f1fa4135d7f17b6dcf"
+  },
+  "checks": [
+    {
+      "name": "patch_values_9x11",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "patch_gradient_9x11",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "patch_values_32x32",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "patch_gradient_32x32",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "patch_values_384x384",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "patch_gradient_384x384",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "patch_invalid_eroded",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "random_basis_orthonormal",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "random_basis_repeatable",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "valid_finite_loss_full",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "dimension_scale_full",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "valid_finite_loss_random",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "dimension_scale_random",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "valid_finite_loss_native",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "dimension_scale_native",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "identical_center_samples_across_coordinates",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "private_random_stream_no_global_rng_change",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "student_gradient_nonzero_teacher_key_detached",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "no_support_connected_zero",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "generated_correct_plan_validates",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "wrong_seed_set_rejected",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "production_executable_flag_rejected",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "dedicated_prefix_validator_accepts_generated_correct_identity",
+      "pass": true,
+      "details": null
+    },
+    {
+      "name": "dedicated_prefix_validator_rejects_cross_seed",
+      "pass": true,
+      "details": null
+    }
+  ],
+  "checks_passed": 24,
+  "checks_total": 24,
+  "metadata_counterexamples": [
+    {
+      "name": "changed_B2_lambda_U_1_to_0_25",
+      "accepted_by_validate_plan": true,
+      "error": null,
+      "optimizer_calls": 0,
+      "production_access": false
+    },
+    {
+      "name": "swapped_O1_O2_final_domains",
+      "accepted_by_validate_plan": true,
+      "error": null,
+      "optimizer_calls": 0,
+      "production_access": false
+    },
+    {
+      "name": "shifted_one_update_between_arms_preserving_total",
+      "accepted_by_validate_plan": true,
+      "error": null,
+      "optimizer_calls": 0,
+      "production_access": false
+    },
+    {
+      "name": "changed_C3_coordinate_and_auxiliary_weight",
+      "accepted_by_validate_plan": true,
+      "error": null,
+      "optimizer_calls": 0,
+      "production_access": false
+    },
+    {
+      "name": "cross_seed_prefix_at_plan_validation_only",
+      "accepted_by_validate_plan": true,
+      "error": null,
+      "optimizer_calls": 0,
+      "production_access": false
+    }
+  ],
+  "finding": "validate_plan tests internal digests but not all canonical frozen semantics",
+  "scope": "AST-extracted exact functions with generated tensor/metadata fixtures; not whole repository or native-model suite",
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu",
+    "device": "cpu"
+  },
+  "optimizer_calls": 0,
+  "review_gradient_VJP_calls": 8,
+  "real_data_reads": 0,
+  "real_checkpoint_reads": 0,
+  "production_permits_created": 0,
+  "project_CPU_ledger_modified": false
+}

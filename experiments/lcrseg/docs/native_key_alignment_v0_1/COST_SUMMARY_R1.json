@@ -1,0 +1,61 @@
+{
+  "scope": "CPU generated integration only",
+  "original_D0": {
+    "calls": 30,
+    "cap": 32,
+    "attempts": 2,
+    "attempt_cap": 2,
+    "evidence": "COST_SUMMARY.json",
+    "rerun": false
+  },
+  "CPU_INTEGRATION_R1": {
+    "calls": 34,
+    "cap": 48,
+    "attempts": 2,
+    "attempt_cap": 2,
+    "calls_each_attempt": [
+      17,
+      17
+    ],
+    "failed_suites": 0,
+    "intentional_after_optimizer_failure_calls": 2,
+    "seconds": 13.505892992019653,
+    "diagnostic_VJPs": 62,
+    "operation_counts": {
+      "features_attempts": 192,
+      "features": 192,
+      "native_readout_attempts": 130,
+      "native_readout": 130,
+      "autograd_grad_attempts": 120,
+      "autograd_grad": 120,
+      "optimizer_steps_attempts": 34,
+      "optimizer_steps": 34,
+      "update_dense_ema_validation_attempts": 32,
+      "update_dense_ema_validation": 32,
+      "update_dense_ema_attempts": 32,
+      "update_dense_ema": 32,
+      "backward": 6,
+      "backward_attempts": 6
+    },
+    "attempt1_tree": "f5a3ee7550e73f4935d64f3c4284da33db9ddb45ab00b04d72f2c061120d3e54",
+    "attempt2_tree": "59f51bc04182892116b728078e471b8c89ee59373b1831cd8eaa1a5a2ff0df07",
+    "second_attempt_reason": "revalidate final changes to direct prefix-path gate, restore identity gate, persistent support diagnostics and reuse of macro-metric validator"
+  },
+  "combined_CPU_calls": 64,
+  "combined_CPU_cap": 78,
+  "real_tensor_reads": 0,
+  "patient_payload_reads": 0,
+  "CUDA_calls": 0,
+  "real_smoke_calls": 0,
+  "formal_updates": 0,
+  "future_caps": {
+    "formal_scientific": 42400,
+    "formal_physical": 42400,
+    "source": 0,
+    "first_target": 0,
+    "synthetic_cuda": 24,
+    "real_smoke": 32,
+    "real_total": 42432
+  },
+  "caveat": "diagnostic VJPs are a subset of autograd_grad; operation counters overlap telemetry; never add them twice; GPU peak not applicable"
+}

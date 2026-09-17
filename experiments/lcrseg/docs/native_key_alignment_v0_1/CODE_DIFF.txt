@@ -1,29 +1,78 @@
-Base: 3034b2199aa7d6e54ea67499f391a0dd4ea3d21e
-Runtime base: 667f178c3b80183fd80809760ff31ec5f9a14e25
-Only additions in the new package and its review-doc directory. No historical file changes.
+R1 reviewed base: 9915168cc3707fb70afdc2c719c8781cdf76e3fb
+New branch: codex/native-key-alignment-r1
+Scope: canonical validator fix + gated production integration + bounded CPU supplement.
+No change to alignment.py, old D0 tests/evidence, D1_MATRIX/FROZEN_OPTIONS/PREFIX_BINDINGS,
+old F5 files/results/approval, shared native model, B2 math, data, optimizer or sampler.
 
-A experiments/lcrseg/docs/native_key_alignment_v0_1/CODE_MANIFEST.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/CODE_PREPARATION_PROMPT.md
-A experiments/lcrseg/docs/native_key_alignment_v0_1/COST_SUMMARY.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_ATTEMPTS.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_PHYSICAL.jsonl
-A experiments/lcrseg/docs/native_key_alignment_v0_1/D1_MATRIX.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/DATA_ACCESS.md
-A experiments/lcrseg/docs/native_key_alignment_v0_1/DIAGNOSTIC_STEPS.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/FROZEN_OPTIONS.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/LIFECYCLE.md
-A experiments/lcrseg/docs/native_key_alignment_v0_1/METHOD_AND_EXPERIMENT_SPEC.md
-A experiments/lcrseg/docs/native_key_alignment_v0_1/METHOD_SPEC.md
-A experiments/lcrseg/docs/native_key_alignment_v0_1/MODEL_TENSOR_BINDING.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/PREFIX_BINDINGS.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/README.md
-A experiments/lcrseg/docs/native_key_alignment_v0_1/REVIEW_CHECKLIST.md
-A experiments/lcrseg/docs/native_key_alignment_v0_1/STATUS.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/TEST_REPORT.json
-A experiments/lcrseg/docs/native_key_alignment_v0_1/TEST_REPORT_ATTEMPT_01.json
-A experiments/lcrseg/native_key_alignment_v0_1/__init__.py
-A experiments/lcrseg/native_key_alignment_v0_1/__main__.py
-A experiments/lcrseg/native_key_alignment_v0_1/alignment.py
-A experiments/lcrseg/native_key_alignment_v0_1/protocol.py
-A experiments/lcrseg/native_key_alignment_v0_1/tests.py
-A experiments/lcrseg/native_key_alignment_v0_1/trainer.py
+New runtime files:
+authority.py: new-study capabilities and commit/tree/science/prefix/execution admission.
+execution.py: narrow real-prefix gate, independent initialization, finite16-node controller.
+state.py: actual KeyAlignmentTrainer full resume and saved auxiliary/diagnostic identity.
+qualification.py: future finite24 CUDA and32 real-smoke definitions, gated and NOT RUN.
+reporting.py: complete16-node macro/domain/paired/diagnostic/cost exports.
+integration_tests.py: separately authorized48-call/2-attempt CPU supplement, actual34/2.
+
+Modified runtime files:
+protocol.py: independently anchored canonical construction, exact complete comparison.
+trainer.py: fresh runtime capability, persisted diagnostics/support, exact entry basis.
+__main__.py: integration-test and gated qualify/run/report entries.
+
+Historical science hash: 7e2fb72a08d2d985ca4497255ffe9d663592feebc78e9ac21c06968702efe2f7 (unchanged)
+Current code hash: 59f51bc04182892116b728078e471b8c89ee59373b1831cd8eaa1a5a2ff0df07
+Final CPU6/6PASS; old30 + supplemental34 =64/78 physical CPU calls.
+Original external R1 CHANGES_REQUESTED is preserved; no production approval was generated.
+Complete delivery status: STOP_AWAITING_EXTERNAL_CODE_REVIEW.
+
+Changed/added files (CODE_DIFF.txt is this index):
+experiments/lcrseg/docs/native_key_alignment_v0_1/CODE_MANIFEST.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/COST_SUMMARY_R1.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/ATTEMPTS.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/ATTEMPT_1_REPORT.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/ATTEMPT_2_REPORT.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/PHYSICAL.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/TEST_REPORT.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/C2_C3_continuation_and_negative_restore/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/C2_C3_continuation_and_negative_restore/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/canonical_rehash_and_runtime/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/canonical_rehash_and_runtime/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/failure_ledger/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/failure_ledger/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/reports_and_diagnostics/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/reports_and_diagnostics/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/zero_equivalence/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/1/zero_equivalence/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/C2_C3_continuation_and_negative_restore/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/C2_C3_continuation_and_negative_restore/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/canonical_rehash_and_runtime/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/canonical_rehash_and_runtime/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/failure_ledger/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/failure_ledger/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/reports_and_diagnostics/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/reports_and_diagnostics/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/zero_equivalence/operation_counts.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/CPU_INTEGRATION_R1/operations/2/zero_equivalence/operation_events.jsonl
+experiments/lcrseg/docs/native_key_alignment_v0_1/DATA_ACCESS.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/EXECUTION_PLAN.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/LIFECYCLE.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/README.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/REVIEW_CHECKLIST.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/REVIEW_RESPONSE_R1.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/RUNBOOK.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/SCIENTIFIC_DIFF_R1.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/STATUS.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/external_review_R1/EXTERNAL_REVIEW_R1.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/external_review_R1/NEXT_CODE_PROMPT.md
+experiments/lcrseg/docs/native_key_alignment_v0_1/external_review_R1/REVIEW_DECISION.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/external_review_R1/TARGETED_CHECKS.json
+experiments/lcrseg/docs/native_key_alignment_v0_1/external_review_R1/reproduce_checks.py
+experiments/lcrseg/docs/native_key_alignment_v0_1/external_review_R1/sources/alignment.py
+experiments/lcrseg/docs/native_key_alignment_v0_1/external_review_R1/sources/protocol.py
+experiments/lcrseg/native_key_alignment_v0_1/__main__.py
+experiments/lcrseg/native_key_alignment_v0_1/authority.py
+experiments/lcrseg/native_key_alignment_v0_1/execution.py
+experiments/lcrseg/native_key_alignment_v0_1/integration_tests.py
+experiments/lcrseg/native_key_alignment_v0_1/protocol.py
+experiments/lcrseg/native_key_alignment_v0_1/qualification.py
+experiments/lcrseg/native_key_alignment_v0_1/reporting.py
+experiments/lcrseg/native_key_alignment_v0_1/state.py
+experiments/lcrseg/native_key_alignment_v0_1/trainer.py

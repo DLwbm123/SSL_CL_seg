@@ -1,15 +1,15 @@
-# 生命周期与当前运行边界
+# 生命周期与执行边界
 
-状态：CODE_READY_FOR_REVIEW。生产训练调用数为0。
+状态 STOP_AWAITING_EXTERNAL_CODE_REVIEW。本轮真实更新为0；生产代码已接入，授权门保持关闭。
 
-阶段入口从原生合并权重建立新的 LR_SRC_A A/B 和父规则 V；C2 在此时产生一次固定随机辅助基，C3只引用已存在V，teacher读取同一个基。A/B、EMA、原型、optimizer、warmup均按独立新阶段初始化。stage exit仅保留合并后的父权重；辅助坐标、样本特征、teacher、原型、optimizer均不部署。
+1. `authority.preflight` 在payload IO前检查非优化解释器、干净HEAD、全experiments Python代码树、canonical科学计划、锚点文件内容、补充CPU证据，以及新研究外部批准和独立启动receipt。最终提交、代码树、科学计划、prefix和执行定义全部绑定。旧F5批准/permit不适用。
+2. `accept_prefix` 校验保留原identity的历史receipt，再以真实文件hash、student/F hash、schema和finite/identity-F工具验收。该路径本轮未运行。`construct`在tensor加载前再次核对节点、receipt、路径和scope；没有补训前缀分支。
+3. 每个臂重新从共同B2前缀建立adapter/V、EMA、原型、optimizer、warmup。C2入口一次固定随机basis，C3使用已有V；辅助坐标不改变原生保护或部署结构。实际B2模型/原生父类/无sidecar、provider域/seed/order/stage/prefix、完整options与loss系数在初始L读取前绑定。
+4. `KeyAlignmentTrainer.update`继承原单次optimizer/finite/投影/EMA提交引擎。只有提交成功后持久化固定步诊断及支持统计；诊断不改变更新。25/50/75/100%保存梯度、类支持、投影范数/分离等聚合，排除像素位置。C0仍执行匹配的无图clean-U前向。
+5. `state.save/resume`保存并恢复原生完整状态、study/arm/options/layer/prefix/basis/hash/namespace、cost和已提交诊断。恢复直接构造KeyAlignmentTrainer；没有旧StageTrainer恢复或换类。C2从文件恢复basis，C3核对同一V。sidecar先验收身份/scope，payload再验收全部语义与证据。错arm/prefix/basis/lambda拒绝。
+6. `execution.run`只有16节点循环，不调用旧F5 DAG/admit。每节点有独立物理账本、成本session和实际模型验收；封存跳过仍验收文件。失败/未闭合session/丢失optimizer tail停止，不重放。源与第一阶段没有新训练路径。
+7. 全16完成且完整性与成本闭合后生成D1报告。C3-C0/C2/C1先seed/order，再seed内平均顺序，再跨seed；所有正负结果保留。不自动D2/D3。
 
-新包复用训练器的单次optimizer更新/有限性检查/硬投影/EMA提交实现。C0 no-op额外前向无buffer或RNG副作用已经用实际原生模型状态等价检查，不仅依赖GroupNorm推断。
+未来原生CUDA：四臂各warmup1 + 连续/恢复4 + after_optimizer失败1，共24调用。未来真实smoke：四臂各8当前L-only，共32；使用正式前8步warmup，状态全部丢弃。两者本轮均PENDING，严格独立于正式42,400；详细定义见EXECUTION_PLAN.json。
 
-当前 CLI 无真实执行、CUDA资格、smoke或monitor子命令，trainer同时检查当前研究CPU合成scope、CPU设备、生成provider和B2无sidecar模型。旧任务能力会在构造前被拒绝。
-
-本次不创建真实前缀加载器/生产队列，不将新arm伪装成旧B2任务运行。未来审阅通过后的接入必须把 study/arm/plan/prefix/辅助basis绑定加入独立新协议 checkpoint/receipt；不得直接用旧B2 checkpoint身份来恢复不同alignment臂。该生产恢复接入目前PENDING，未声称验证通过。
-
-D1若获未来授权，必须按冻结16节点完整运行后统一判定；科学负结果不触发调参、seed追加、剪枝或自动D2/D3。工程故障保存尝试、物理调用、失败/诊断成本再停止，不自动重放耗掉预算。
-
-当前合成成本与未来正式成本分开。本轮有限测试最多两次调用、32次CPU optimizer调用；两次实际测试的全部账本保留，禁止删除历史来重试。真实更新、真实smoke、CUDA调用均为0。
+补充CPU两个attempt分别17调用，34/48、2/2；旧D0为30/32、2/2未改。总64/78，无第三次suite授权。

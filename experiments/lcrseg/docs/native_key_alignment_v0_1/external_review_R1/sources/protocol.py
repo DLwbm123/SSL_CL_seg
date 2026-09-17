@@ -17,19 +17,9 @@ ARMS={'C0':dict(coordinate='no_op',D=None,lambda_align=0.),
       'C3':dict(coordinate='native_entry_V',D=8,lambda_align=.05)}
 
 
-ANCHORS={'results/f5_confirmation_v1_p1/PUBLIC_RESULTS.json': 'edc25018ac03157da70adce3be0f55728c1f2c5b03eb51e595acaefa52b113c7', 'experiments/lcrseg/docs/f5_confirmation_v1/PLAN.json': '94c4e96aaf448db09ec455945d49e8233648159d255763de21695ad55a471db9'}
-
-
-def anchored_read(path):
-    path=Path(path);rel=str(path.relative_to(ROOT))
-    if hashlib.sha256(path.read_bytes()).hexdigest()!=ANCHORS[rel]:
-        raise ValueError("pinned B2/result evidence content changed: "+rel)
-    return read(path)
-
-
-def canonical_plan():
-    results=anchored_read(ROOT/'results/f5_confirmation_v1_p1/PUBLIC_RESULTS.json')
-    old=anchored_read(ROOT/'experiments/lcrseg/docs/f5_confirmation_v1/PLAN.json')
+def freeze():
+    results=read(ROOT/'results/f5_confirmation_v1_p1/PUBLIC_RESULTS.json')
+    old=read(ROOT/'experiments/lcrseg/docs/f5_confirmation_v1/PLAN.json')
     options=copy.deepcopy(old['options'][B2])
     prefixes=[];nodes=[]
     for seed in (163,164):
@@ -73,19 +63,26 @@ def canonical_plan():
         allowed_now=['metadata','bounded_CPU_generated_tests'],forbidden_now=['CUDA','real_smoke','formal_training','monitoring'],
         CPU_caps=dict(optimizer_calls=32,invocations=2),production_approval='NONE; old F5 approvals invalid here')
     plan['plan_sha256']=digest(plan)
-    return plan
-
-
-def freeze():
-    plan=canonical_plan()
-    write(DOC/'D1_MATRIX.json',plan);write(DOC/'FROZEN_OPTIONS.json',plan['options']);write(DOC/'PREFIX_BINDINGS.json',plan['prefixes'])
+    validate_plan(plan)
+    write(DOC/'D1_MATRIX.json',plan);write(DOC/'FROZEN_OPTIONS.json',options);write(DOC/'PREFIX_BINDINGS.json',prefixes)
     return plan
 
 
 def validate_plan(plan):
-    # Compare every field with independently anchored canonical semantics, not
-    # an attacker's mutually consistent hashes or aggregate counts.
-    if plan!=canonical_plan():raise ValueError('canonical frozen semantics mismatch')
+    if plan['study_id']!=STUDY or digest({k:v for k,v in plan.items() if k!='plan_sha256'})!=plan['plan_sha256']:
+        raise ValueError('plan binding mismatch')
+    nodes=plan['nodes']
+    if (len(nodes)!=16 or sum(n['updates'] for n in nodes)!=42400
+            or {(n['arm'],n['seed'],n['order'],n['stage']) for n in nodes}!=
+               {(a,s,o,2) for a in ARMS for s in (163,164) for o in (1,2)}
+            or any(n['executable'] or n['phase']!='D1' for n in nodes)
+            or any(p['executable_nodes'] for p in plan['future'].values())):
+        raise ValueError('D1 scope mismatch')
+    for n in nodes:
+        prefix=next(p for p in plan['prefixes'] if p['node_id']==n['prefix_node'])
+        if n['prefix_binding_sha256']!=digest({k:v for k,v in prefix.items() if k!='binding_sha256'}):
+            raise ValueError('prefix binding mismatch')
+        if n['options_sha256']!=digest(plan['options'][n['domain']]):raise ValueError('options mismatch')
     return plan
 
 

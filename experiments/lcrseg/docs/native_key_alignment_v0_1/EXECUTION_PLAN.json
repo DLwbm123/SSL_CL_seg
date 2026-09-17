@@ -1,0 +1,148 @@
+{
+  "study_id": "NATIVE_KEY_ALIGNMENT_V0_1",
+  "science_sha256": "7e2fb72a08d2d985ca4497255ffe9d663592feebc78e9ac21c06968702efe2f7",
+  "caps": {
+    "formal_scientific": 42400,
+    "formal_physical": 42400,
+    "source": 0,
+    "first_target": 0,
+    "synthetic_cuda": 24,
+    "real_smoke": 32,
+    "real_total": 42432
+  },
+  "CUDA": {
+    "cases": [
+      {
+        "arm": "C0",
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C0",
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C0",
+        "kind": "failure",
+        "calls": 1
+      },
+      {
+        "arm": "C1",
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C1",
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C1",
+        "kind": "failure",
+        "calls": 1
+      },
+      {
+        "arm": "C2",
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C2",
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C2",
+        "kind": "failure",
+        "calls": 1
+      },
+      {
+        "arm": "C3",
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C3",
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C3",
+        "kind": "failure",
+        "calls": 1
+      }
+    ],
+    "planned_calls": 24,
+    "cap": 24,
+    "data": "generated native only; no real prefix tensors",
+    "fixture": {
+      "total_steps": 5,
+      "PAS_confidence": 0.0,
+      "PAS_cosine": -1.0,
+      "shape": [
+        2,
+        3,
+        384,
+        384
+      ]
+    },
+    "checks": [
+      "native",
+      "finite",
+      "own_trainer_resume",
+      "complete_state_RNG_basis",
+      "nonzero_alignment_support",
+      "hard_projection",
+      "durable_failure_no_commit"
+    ]
+  },
+  "smoke": {
+    "cases": [
+      {
+        "arm": "C0",
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      },
+      {
+        "arm": "C1",
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      },
+      {
+        "arm": "C2",
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      },
+      {
+        "arm": "C3",
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      }
+    ],
+    "planned_calls": 32,
+    "cap": 32,
+    "data": "current L-only; formal warmup; own bound seed163/O1 prefix; discard all state"
+  },
+  "diagnostics": {
+    "Drishti_GS": [
+      525,
+      1050,
+      1575,
+      2100
+    ],
+    "RIM_ONE_r3": [
+      800,
+      1600,
+      2400,
+      3200
+    ]
+  },
+  "status": "STOP_AWAITING_EXTERNAL_CODE_REVIEW",
+  "approval_shipped": false,
+  "automatic_retry": false
+}

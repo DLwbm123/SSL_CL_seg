@@ -8,8 +8,10 @@
 
 每个 D1 节点以自己的 prefix_binding_sha256 明确声明 diagnostic_common_prefix 权限。validate_prefix 检查 seed/order/stage/phase/arm、原身份及 receipt digest；不会伪造或改写旧 receipt，也不会放开跨轨迹继承。元数据校验返回 PENDING tensor acceptance，不能据此启动训练。
 
-未来正式接入还须在本研究新授权后重新验收实际文件身份/hash/schema/有限值、原B2 identity F，并独立初始化每个臂。当前不读取真实文件，也不把历史 VERIFIED 视为当前生产启动验收。
+已实现的正式接入在本研究新授权后必须重新验收实际文件身份/hash/schema/有限值、原B2 identity F，并独立初始化每个臂。当前不读取真实文件，也不把历史 VERIFIED 视为当前生产启动验收。
 
 16个第二目标阶段共同前缀属于诊断，不是完整新方法两阶段轨迹。早期分数固定，DeltaForget=-DeltaOld，不能计为两个独立证据。163/164已经用于开发，不能称为未见优化seed或独立患者确认。
 
 公开范围仅代码、冻结计划、聚合前缀绑定和生成测试/成本证据；不上传权重、图像/标签、逐患者结果、患者标识、私有路径或凭据。旧F5结果与批准文件不可作为新任务启动权限。
+
+新增authority、执行与恢复适配器只使用本研究Capability。生产入口要求独立批准；真实NativeCurrentDomain保持既有manifest/split、当前L/U及隔离评价语义。CUDA生成资格不接触真实prefix；smoke禁用U dataset对象且不评价。所有实际真实验收仍PENDING。

@@ -1,0 +1,56 @@
+{
+  "study_id": "NATIVE_KEY_ALIGNMENT_V0_1",
+  "review_id": "NKA_EXTERNAL_REVIEW_R1",
+  "reviewed_code_commit": "9915168cc3707fb70afdc2c719c8781cdf76e3fb",
+  "decision": "CHANGES_REQUESTED",
+  "method_core_status": "ACCEPTABLE_WITHIN_REVIEWED_COMPONENT_SCOPE",
+  "approved_phases": [],
+  "production_execution_approved": false,
+  "is_template": false,
+  "reviewer_role": "external",
+  "reviewer": "ChatGPT independent AI code review (not human signoff)",
+  "reported_code_tree_sha256": "a02afc965707391c043b14dd65a7725e3de97930359553fc6791aee96093176c",
+  "reported_plan_sha256": "7e2fb72a08d2d985ca4497255ffe9d663592feebc78e9ac21c06968702efe2f7",
+  "full_transitive_code_tree_independently_rehashed": false,
+  "required_repair": {
+    "id": "NKA-R1",
+    "location": "protocol.py:71-86",
+    "title": "Incomplete canonical frozen-semantics validation",
+    "observed_negative_examples_accepted": 5
+  },
+  "documented_pending_scope": [
+    "new production capability",
+    "real prefix acceptance",
+    "new trainer checkpoint/resume",
+    "finite D1 controller/report integration",
+    "native CUDA and real smoke"
+  ],
+  "independent_checks": {
+    "passed": 24,
+    "total": 24,
+    "optimizer_calls": 0,
+    "gradient_VJPs": 8,
+    "source_blobs_verified": {
+      "alignment.py": "5db0a92c7ef46b2dfc55cf8f8fabd425585e55ef",
+      "protocol.py": "461a8705cc89f66926c023f1fa4135d7f17b6dcf"
+    }
+  },
+  "project_test_report_only": {
+    "groups_passed": 7,
+    "groups_total": 7,
+    "CPU_optimizer_calls": 30,
+    "CPU_cap": 32,
+    "suite_attempts": 2,
+    "suite_cap": 2
+  },
+  "real_checkpoint_reads": 0,
+  "real_patient_reads": 0,
+  "CUDA_runs": 0,
+  "new_experiments_started": false,
+  "review_evidence": [
+    "EXTERNAL_REVIEW_R1.md",
+    "TARGETED_CHECKS.json",
+    "reproduce_checks.py"
+  ],
+  "next_action": "Code-only semantic-validator repair and disclosed production integration, then new independent review; do not run D1."
+}

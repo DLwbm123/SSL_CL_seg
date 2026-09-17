@@ -1,0 +1,128 @@
+{
+  "status": "PASS",
+  "tests": [
+    {
+      "test": "canonical_rehash_and_runtime",
+      "status": "PASS",
+      "optimizer_calls": 0
+    },
+    {
+      "test": "zero_equivalence",
+      "status": "PASS",
+      "optimizer_calls": 6
+    },
+    {
+      "test": "C2_C3_continuation_and_negative_restore",
+      "status": "PASS",
+      "optimizer_calls": 10
+    },
+    {
+      "test": "failure_ledger",
+      "status": "PASS",
+      "optimizer_calls": 1
+    },
+    {
+      "test": "integrity_and_incomplete_cost",
+      "status": "PASS",
+      "optimizer_calls": 0
+    },
+    {
+      "test": "reports_and_diagnostics",
+      "status": "PASS",
+      "optimizer_calls": 0
+    }
+  ],
+  "evidence": {
+    "canonical": {
+      "rehashed_counterexamples_rejected": [
+        "lambda_U",
+        "swap_domains",
+        "move_step",
+        "C3_coordinate_weight",
+        "cross_seed_prefix",
+        "PAS",
+        "ramp",
+        "projection",
+        "analysis",
+        "diagnostic",
+        "prefix_identity",
+        "id"
+      ],
+      "changed_anchor_files_rejected": 2,
+      "original_plan_unchanged": true,
+      "real_reads": 0,
+      "production_approvals_created": 0
+    },
+    "zero_equivalence": "native B2/C0/C3-zero full state and RNG",
+    "C2": {
+      "continuous_resume": "PASS",
+      "trainer": "KeyAlignmentTrainer",
+      "basis_exact": true,
+      "diagnostics_exact": true,
+      "nonzero_active_auxiliary": true
+    },
+    "C3": {
+      "continuous_resume": "PASS",
+      "trainer": "KeyAlignmentTrainer",
+      "basis_exact": true,
+      "diagnostics_exact": true,
+      "nonzero_active_auxiliary": true
+    },
+    "failed_physical_calls": 1,
+    "integrity": "generated corruption/schema/identity/F/hash/stale-proof and unclosed-cost regressions PASS",
+    "reports": {
+      "rows": 16,
+      "domain_rows": 48,
+      "paired_rows": 21,
+      "common_prefix_identity": true
+    }
+  },
+  "code_tree_sha256": "59f51bc04182892116b728078e471b8c89ee59373b1831cd8eaa1a5a2ff0df07",
+  "science_sha256": "7e2fb72a08d2d985ca4497255ffe9d663592feebc78e9ac21c06968702efe2f7",
+  "execution_sha256": "51b54aa30d54bc7bbc9b03e17b9e1bebffc20622e8a235aad23265a4fc174231",
+  "cost": {
+    "original_D0_calls": 30,
+    "original_D0_attempts": 2,
+    "supplemental_calls": 34,
+    "supplemental_cap": 48,
+    "supplemental_attempts": 2,
+    "attempt_cap": 2,
+    "combined_calls": 64,
+    "combined_cap": 78,
+    "this_attempt_calls": 17,
+    "operation_counts": {
+      "features_attempts": 96,
+      "features": 96,
+      "native_readout_attempts": 65,
+      "native_readout": 65,
+      "autograd_grad_attempts": 60,
+      "autograd_grad": 60,
+      "optimizer_steps_attempts": 17,
+      "optimizer_steps": 17,
+      "update_dense_ema_validation_attempts": 16,
+      "update_dense_ema_validation": 16,
+      "update_dense_ema_attempts": 16,
+      "update_dense_ema": 16,
+      "backward": 3,
+      "backward_attempts": 3
+    },
+    "this_attempt_diagnostic_VJPs": 31,
+    "seconds": 6.757107973098755
+  },
+  "environment": {
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "device": "cpu",
+    "optimize": 0
+  },
+  "real_tensor_reads": 0,
+  "patient_payload_reads": 0,
+  "production_approvals_created": 0,
+  "CUDA_calls": 0,
+  "pending": [
+    "real prefix acceptance",
+    "native CUDA",
+    "real smoke",
+    "formal D1"
+  ]
+}
