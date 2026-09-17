@@ -1,0 +1,41 @@
+{
+  "layer": "decoder.dec1.merge.block.3",
+  "input_shape": [
+    2,
+    16,
+    32,
+    32
+  ],
+  "weight_shape": [
+    16,
+    16,
+    3,
+    3
+  ],
+  "V_shape": [
+    144,
+    8
+  ],
+  "V_dtype": "torch.float64",
+  "V_source": "parent.V64_13",
+  "right_dtype": "torch.float32",
+  "nonzero_auxiliary_parameters": [
+    "parent.native.enc1.block.0.B",
+    "parent.native.enc1.block.3.B",
+    "parent.native.enc2.block.0.B",
+    "parent.native.enc2.block.3.B",
+    "parent.native.enc3.block.0.B",
+    "parent.native.enc3.block.3.B",
+    "parent.native.bottleneck.block.0.B",
+    "parent.native.bottleneck.block.3.B",
+    "parent.native.decoder.dec3.merge.block.0.B",
+    "parent.native.decoder.dec3.merge.block.3.B",
+    "parent.native.decoder.dec2.merge.block.0.B",
+    "parent.native.decoder.dec2.merge.block.3.B",
+    "parent.native.decoder.dec1.merge.block.0.B"
+  ],
+  "new_B_zero_A_gradient_zero": true,
+  "selected_layer_auxiliary_gradients_absent": true,
+  "no_added_model_parameters": true,
+  "parent_identity": "NATIVE_LR_SRC_A_3DOMAIN_V1"
+}

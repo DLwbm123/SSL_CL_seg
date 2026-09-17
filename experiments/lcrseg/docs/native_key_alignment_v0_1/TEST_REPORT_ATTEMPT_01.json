@@ -1,0 +1,235 @@
+{
+  "status": "PASS",
+  "study_id": "NATIVE_KEY_ALIGNMENT_V0_1",
+  "state": "CODE_READY_FOR_REVIEW",
+  "tests": [
+    {
+      "test": "patch_geometry",
+      "status": "PASS"
+    },
+    {
+      "test": "loss_contract",
+      "status": "PASS"
+    },
+    {
+      "test": "matrix_prefix_scope",
+      "status": "PASS"
+    },
+    {
+      "test": "native_binding_gradients",
+      "status": "PASS"
+    },
+    {
+      "test": "zero_equivalence",
+      "status": "PASS"
+    },
+    {
+      "test": "matched_arms",
+      "status": "PASS"
+    },
+    {
+      "test": "two_case_overfit",
+      "status": "PASS"
+    }
+  ],
+  "observations": {
+    "patch_geometry": {
+      "input": [
+        2,
+        16,
+        9,
+        11
+      ],
+      "patch": [
+        18,
+        144
+      ],
+      "unfold_exact": true,
+      "coordinate_mapping": "identity grid, row-major center selection, channel/ky/kx flatten"
+    },
+    "loss_contract": {
+      "reference_and_key_detached": true,
+      "upstream_nonzero": true,
+      "zero_connected": true,
+      "positions_dimension_independent": true,
+      "equal_class_mean": true
+    },
+    "matrix": {
+      "targets": 16,
+      "formal_updates": 42400,
+      "source": 0,
+      "first_target": 0,
+      "D2_D3_executable_nodes": 0
+    },
+    "native_binding": {
+      "layer": "decoder.dec1.merge.block.3",
+      "input_shape": [
+        2,
+        16,
+        32,
+        32
+      ],
+      "weight_shape": [
+        16,
+        16,
+        3,
+        3
+      ],
+      "V_shape": [
+        144,
+        8
+      ],
+      "V_dtype": "torch.float64",
+      "V_source": "parent.V64_13",
+      "right_dtype": "torch.float32",
+      "nonzero_auxiliary_parameters": [
+        "parent.native.enc1.block.0.B",
+        "parent.native.enc1.block.3.B",
+        "parent.native.enc2.block.0.B",
+        "parent.native.enc2.block.3.B",
+        "parent.native.enc3.block.0.B",
+        "parent.native.enc3.block.3.B",
+        "parent.native.bottleneck.block.0.B",
+        "parent.native.bottleneck.block.3.B",
+        "parent.native.decoder.dec3.merge.block.0.B",
+        "parent.native.decoder.dec3.merge.block.3.B",
+        "parent.native.decoder.dec2.merge.block.0.B",
+        "parent.native.decoder.dec2.merge.block.3.B",
+        "parent.native.decoder.dec1.merge.block.0.B"
+      ],
+      "new_B_zero_A_gradient_zero": true,
+      "selected_layer_auxiliary_gradients_absent": true,
+      "no_added_model_parameters": true,
+      "parent_identity": "NATIVE_LR_SRC_A_3DOMAIN_V1"
+    },
+    "lambda_zero": {
+      "exact_state": true,
+      "exact_RNG": true,
+      "exact_buffers": true,
+      "exact_samples": true,
+      "compared": [
+        "native B2",
+        "C0 no-op",
+        "C3 lambda=0"
+      ]
+    },
+    "matched_arms": {
+      "same_positions": true,
+      "same_supervised": true,
+      "same_KL": true,
+      "same_exposure": true,
+      "dimensions": [
+        144,
+        8,
+        8
+      ],
+      "auxiliary_losses": [
+        0.010053525678813457,
+        0.013831522315740585,
+        0.015963546931743622
+      ],
+      "native_protection_unchanged": true
+    },
+    "two_case_overfit": {
+      "kind": "finite loss-decrease sanity only, not convergence or scientific seeds",
+      "cases": [
+        {
+          "generated_case": 1701,
+          "losses": [
+            5.779717372295789,
+            5.769302442302549,
+            5.758723065077847
+          ],
+          "updates": 3
+        },
+        {
+          "generated_case": 1702,
+          "losses": [
+            5.771474721345259,
+            5.761280211029655,
+            5.750922551846298
+          ],
+          "updates": 3
+        }
+      ]
+    }
+  },
+  "cost": {
+    "physical_calls_this_invocation": 15,
+    "cumulative_CPU_calls": 15,
+    "cap": 32,
+    "invocations": 1,
+    "max_invocations": 2,
+    "operation_counts": {
+      "backward_attempts": 1,
+      "backward": 1,
+      "autograd_grad_attempts": 37,
+      "autograd_grad": 37,
+      "features_attempts": 61,
+      "features": 61,
+      "native_readout_attempts": 39,
+      "native_readout": 39,
+      "optimizer_steps_attempts": 15,
+      "optimizer_steps": 15,
+      "update_dense_ema_validation_attempts": 15,
+      "update_dense_ema_validation": 15,
+      "update_dense_ema_attempts": 15,
+      "update_dense_ema": 15
+    },
+    "alignment": [
+      {
+        "arm": "C0",
+        "clean_U_forwards": 1,
+        "diagnostic_vjps": 2,
+        "invalid_steps": 0,
+        "active_steps": 1
+      },
+      {
+        "arm": "C3",
+        "clean_U_forwards": 1,
+        "diagnostic_vjps": 2,
+        "invalid_steps": 0,
+        "active_steps": 1
+      },
+      {
+        "arm": "C1",
+        "clean_U_forwards": 1,
+        "diagnostic_vjps": 3,
+        "invalid_steps": 0,
+        "active_steps": 1
+      },
+      {
+        "arm": "C2",
+        "clean_U_forwards": 1,
+        "diagnostic_vjps": 3,
+        "invalid_steps": 0,
+        "active_steps": 1
+      },
+      {
+        "arm": "C3",
+        "clean_U_forwards": 1,
+        "diagnostic_vjps": 3,
+        "invalid_steps": 0,
+        "active_steps": 1
+      }
+    ],
+    "seconds": 4.419305801391602
+  },
+  "plan_sha256": "7e2fb72a08d2d985ca4497255ffe9d663592feebc78e9ac21c06968702efe2f7",
+  "code_tree_sha256": "0ba3e5cb2ae1edfa6c6b2467f70eb027f260e52cd06e02db131a967db2aacef6",
+  "environment": {
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "device": "cpu",
+    "optimize": 0
+  },
+  "real_data_reads": 0,
+  "real_checkpoint_reads": 0,
+  "CUDA_updates": 0,
+  "real_optimizer_updates": 0,
+  "limitations": [
+    "generated native CPU models, no real prefix tensors",
+    "native CUDA and real smoke not authorized",
+    "production execution/resume adapter deliberately disabled pending review"
+  ]
+}

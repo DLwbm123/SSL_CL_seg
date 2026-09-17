@@ -1,0 +1,507 @@
+{
+  "study_id": "NATIVE_KEY_ALIGNMENT_V0_1",
+  "state": "CODE_READY_FOR_REVIEW",
+  "parent": "NATIVE_LR_SRC_A_3DOMAIN_V1",
+  "base_code": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+  "base_results": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+  "arms": {
+    "C0": {
+      "coordinate": "no_op",
+      "D": null,
+      "lambda_align": 0.0
+    },
+    "C1": {
+      "coordinate": "full_patch",
+      "D": 144,
+      "lambda_align": 0.05
+    },
+    "C2": {
+      "coordinate": "fixed_random_key",
+      "D": 8,
+      "lambda_align": 0.05
+    },
+    "C3": {
+      "coordinate": "native_entry_V",
+      "D": 8,
+      "lambda_align": 0.05
+    }
+  },
+  "nodes": [
+    {
+      "id": "D1__C0__S163__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C0",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C1__S163__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C1",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C2__S163__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C2",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C3__S163__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C3",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C0__S163__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C0",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C1__S163__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C1",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C2__S163__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C2",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C3__S163__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C3",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C0__S164__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C0",
+      "seed": 164,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O1__STAGE1",
+      "prefix_binding_sha256": "0607569572148045dfc5cefc5162781c686f5b2788f7ff44dae8360ec5320027",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C1__S164__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C1",
+      "seed": 164,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O1__STAGE1",
+      "prefix_binding_sha256": "0607569572148045dfc5cefc5162781c686f5b2788f7ff44dae8360ec5320027",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C2__S164__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C2",
+      "seed": 164,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O1__STAGE1",
+      "prefix_binding_sha256": "0607569572148045dfc5cefc5162781c686f5b2788f7ff44dae8360ec5320027",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C3__S164__O1__STAGE2",
+      "phase": "D1",
+      "arm": "C3",
+      "seed": 164,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O1__STAGE1",
+      "prefix_binding_sha256": "0607569572148045dfc5cefc5162781c686f5b2788f7ff44dae8360ec5320027",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C0__S164__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C0",
+      "seed": 164,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O2__STAGE1",
+      "prefix_binding_sha256": "41eb56bfc9791f3a9bc5858dcddec5d197d5d7ef83d1c9f2b14f1da87e9aac22",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C1__S164__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C1",
+      "seed": 164,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O2__STAGE1",
+      "prefix_binding_sha256": "41eb56bfc9791f3a9bc5858dcddec5d197d5d7ef83d1c9f2b14f1da87e9aac22",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C2__S164__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C2",
+      "seed": 164,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O2__STAGE1",
+      "prefix_binding_sha256": "41eb56bfc9791f3a9bc5858dcddec5d197d5d7ef83d1c9f2b14f1da87e9aac22",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    },
+    {
+      "id": "D1__C3__S164__O2__STAGE2",
+      "phase": "D1",
+      "arm": "C3",
+      "seed": 164,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S164__O2__STAGE1",
+      "prefix_binding_sha256": "41eb56bfc9791f3a9bc5858dcddec5d197d5d7ef83d1c9f2b14f1da87e9aac22",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "initialization": "independent fresh adapters/EMA/prototypes/optimizer/warmup from bound B2 prefix",
+      "executable": false
+    }
+  ],
+  "prefixes": [
+    {
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 163,
+        "order": 1,
+        "stage": 1,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1",
+        "domain": "RIM_ONE_r3",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1"
+      },
+      "receipt_sha256": "379b16e2d14d54124cbe19410e774272c4b579052e4ec9ce0ad2853cd871ca81",
+      "student_sha256": "616e756f5be246a8ac952b85c86617fda19db4570b2eb5b58d1782c5866d61f9",
+      "transform_sha256": "44776f11d54fb4af125656392024b1671399cf065bc8489da49d6e569529d34b",
+      "file_sha256": "8da42f37017192759897d51091d9c572b3b67737dc6193d36a9c299db71c466e",
+      "origin_results_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "origin_execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+      "permission": "diagnostic_common_prefix_only",
+      "runtime_tensor_acceptance": "PENDING_FRESH_REVIEW_AND_LAUNCH",
+      "binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e"
+    },
+    {
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 163,
+        "order": 2,
+        "stage": 1,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2",
+        "domain": "Drishti_GS",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1"
+      },
+      "receipt_sha256": "e4f9f63b486bcf9f9dd1880d5b7c8743c0f952f97152101ec9347c58f41ce367",
+      "student_sha256": "7e8a0c48e7c20c7becc18e17fa135b7b0d2f702ba641f44b5527d1b8e668865c",
+      "transform_sha256": "44776f11d54fb4af125656392024b1671399cf065bc8489da49d6e569529d34b",
+      "file_sha256": "acb572cb9ca26e92abcc2549c3056f917a8aa4b8c75c39723aba6f9f39e43ee1",
+      "origin_results_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "origin_execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+      "permission": "diagnostic_common_prefix_only",
+      "runtime_tensor_acceptance": "PENDING_FRESH_REVIEW_AND_LAUNCH",
+      "binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa"
+    },
+    {
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S164__O1__STAGE1",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 164,
+        "order": 1,
+        "stage": 1,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S164__O1",
+        "domain": "RIM_ONE_r3",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S164__O1__STAGE1"
+      },
+      "receipt_sha256": "3d584a711ba0bb94852b7119ce20fd769d42336fc4eaf2207183b81bad919b9d",
+      "student_sha256": "078bca49d69f45bea37be7b1c0fc50e2af67cae15e04f6104d7c140cfda9336a",
+      "transform_sha256": "44776f11d54fb4af125656392024b1671399cf065bc8489da49d6e569529d34b",
+      "file_sha256": "d3a2838439c72d4df730e07cdeaa7f0101167fdc0b6ff2f2e3017afaba72c65f",
+      "origin_results_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "origin_execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+      "permission": "diagnostic_common_prefix_only",
+      "runtime_tensor_acceptance": "PENDING_FRESH_REVIEW_AND_LAUNCH",
+      "binding_sha256": "0607569572148045dfc5cefc5162781c686f5b2788f7ff44dae8360ec5320027"
+    },
+    {
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S164__O2__STAGE1",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 164,
+        "order": 2,
+        "stage": 1,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S164__O2",
+        "domain": "Drishti_GS",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S164__O2__STAGE1"
+      },
+      "receipt_sha256": "685f8ab4d5b2bdafcf86d0425e850ae20dc0f6247ff66e925cddebf7c0db2202",
+      "student_sha256": "7818dac697c5c5bc4d69c86e02e2d9c111d99a6574fd8b8d3b83e2250f257044",
+      "transform_sha256": "44776f11d54fb4af125656392024b1671399cf065bc8489da49d6e569529d34b",
+      "file_sha256": "60bf93aafa42dd7ba32ff62abc7f9e534759fbe824176b7e442e96c3511ab3ff",
+      "origin_results_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "origin_execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+      "permission": "diagnostic_common_prefix_only",
+      "runtime_tensor_acceptance": "PENDING_FRESH_REVIEW_AND_LAUNCH",
+      "binding_sha256": "41eb56bfc9791f3a9bc5858dcddec5d197d5d7ef83d1c9f2b14f1da87e9aac22"
+    }
+  ],
+  "options": {
+    "RIM_ONE_r3": {
+      "total_steps": 3200,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.6,
+      "PAS_cosine": 0.7,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    },
+    "Drishti_GS": {
+      "total_steps": 2100,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.6,
+      "PAS_cosine": 0.7,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    }
+  },
+  "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "counts": {
+    "target_stages": 16,
+    "formal_updates": 42400,
+    "new_source_updates": 0,
+    "new_first_target_updates": 0
+  },
+  "auxiliary": {
+    "layer": "decoder.dec1.merge.block.3",
+    "input_channels": 16,
+    "kernel": [
+      3,
+      3
+    ],
+    "stride": [
+      1,
+      1
+    ],
+    "padding": [
+      1,
+      1
+    ],
+    "dilation": [
+      1,
+      1
+    ],
+    "patch_dimension": 144,
+    "key_dimension": 8,
+    "normalize_eps": 1e-06,
+    "directions": 32,
+    "min_samples": 8,
+    "max_samples": 64,
+    "class_ids": [
+      1,
+      2
+    ],
+    "class_weighting": "equal over valid classes",
+    "scale": "D/8",
+    "teacher_reference": "current clean L only; stop-gradient",
+    "student": "one additional current clean U feature forward",
+    "key": "existing student entry V; same read-only key for teacher; no extra SVD",
+    "mapping": "same-grid selected convolution input; no final-readout crop/rescale applied",
+    "border": "exclude boundary and any invalid pixel in 3x3 patch; PAS at U center",
+    "diagnostics": "ceil(25/50/75/100 percent total updates); extra VJPs counted; no online adaptation"
+  },
+  "analysis": {
+    "primary": "C3",
+    "pairing": "arm minus C0 per seed/order, then two orders within seed",
+    "gate": {
+      "each_seed_Final_gt": 0.0,
+      "mean_Final_ge": 0.005,
+      "O2_Old_ge": 0.0,
+      "each_order_Incoming_ge": -0.005
+    },
+    "controls": "report C3-C2, C3-C1 per seed and overall; no direction-consistent advantage means no key-specific claim",
+    "forget_identity": "common-prefix DeltaForget=-DeltaOld, not independent evidence",
+    "complete_all_nodes_before_decision": true
+  },
+  "future": {
+    "D2": {
+      "executable_nodes": [],
+      "max_targets": 24,
+      "max_target_updates": 63600,
+      "requires": "new review and authorization"
+    },
+    "D3": {
+      "executable_nodes": [],
+      "candidate_seeds_unverified": [
+        165,
+        166,
+        167
+      ],
+      "source_updates": 24000,
+      "target_updates": 95400,
+      "requires": "new frozen protocol, review and authorization"
+    }
+  },
+  "allowed_now": [
+    "metadata",
+    "bounded_CPU_generated_tests"
+  ],
+  "forbidden_now": [
+    "CUDA",
+    "real_smoke",
+    "formal_training",
+    "monitoring"
+  ],
+  "CPU_caps": {
+    "optimizer_calls": 32,
+    "invocations": 2
+  },
+  "production_approval": "NONE; old F5 approvals invalid here",
+  "plan_sha256": "7e2fb72a08d2d985ca4497255ffe9d663592feebc78e9ac21c06968702efe2f7"
+}
