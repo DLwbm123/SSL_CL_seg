@@ -1,0 +1,54 @@
+[
+  {
+    "invocation": 1,
+    "status": "FAIL",
+    "cases": {
+      "math_metadata": 0,
+      "six_arms": 12,
+      "continuation": 10,
+      "baseline": 4,
+      "failures": 2,
+      "integrity_reports": 0
+    },
+    "planned_calls": 28,
+    "calls": 2,
+    "started": 1789723198.31423,
+    "error": "AssertionError: ",
+    "traceback": "Traceback (most recent call last):\n  File \"<CHECKOUT>/experiments/lcrseg/agms_cl_v0_1/tests.py\", line 175, in run_tests\n    evidence['arms'].append(native_arm_checks(t,counter));del t\n                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<CHECKOUT>/experiments/lcrseg/agms_cl_v0_1/tests.py\", line 108, in native_arm_checks\n    assert float((adapter.a.double()@v).abs().max())<1e-5\n           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError\n",
+    "seconds": 1.75777006149292
+  },
+  {
+    "invocation": 2,
+    "status": "PASS",
+    "cases": {
+      "math_metadata": 0,
+      "six_arms": 12,
+      "continuation": 10,
+      "baseline": 4,
+      "failures": 2,
+      "integrity_reports": 0
+    },
+    "planned_calls": 28,
+    "calls": 28,
+    "started": 1789723257.016246,
+    "seconds": 7.342525959014893
+  },
+  {
+    "invocation": 3,
+    "status": "FAIL",
+    "cases": {
+      "math_metadata": 0,
+      "six_arms": 12,
+      "continuation": 10,
+      "baseline": 4,
+      "failures": 2,
+      "integrity_reports": 0
+    },
+    "planned_calls": 28,
+    "calls": 22,
+    "started": 1789723501.438354,
+    "error": "FileExistsError: [Errno 17] File exists: '<CPU_EVIDENCE>/tail/AGMS__A1__S163__O1__STAGE2'",
+    "traceback": "Traceback (most recent call last):\n  File \"<CHECKOUT>/experiments/lcrseg/agms_cl_v0_1/tests.py\", line 216, in run_tests\n    if arm=='A5':evidence['integrity_reports']=integrity_reports(root,t)\n                                               ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<CHECKOUT>/experiments/lcrseg/agms_cl_v0_1/tests.py\", line 146, in integrity_reports\n    nr=root/'tail'/node['id'];nr.mkdir(parents=True);(nr/'physical.jsonl').write_text('{\"invocation\":1,\"scientific_step_attempt\":1}\\n')\n                              ^^^^^^^^^^^^^^^^^^^^^^\n  File \"<CPU_RUNTIME>/lib/python3.12/pathlib.py\", line 1311, in mkdir\n    os.mkdir(self, mode)\nFileExistsError: [Errno 17] File exists: '<CPU_EVIDENCE>/tail/AGMS__A1__S163__O1__STAGE2'\n",
+    "seconds": 6.024744749069214
+  }
+]

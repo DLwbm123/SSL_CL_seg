@@ -1,0 +1,128 @@
+{
+  "status": "FAIL",
+  "study_id": "AGMS_CL_V0_1",
+  "baseline_equivalence": false,
+  "evidence": {
+    "math_metadata": {
+      "parent_example": true,
+      "geometry_ignore_empty": true,
+      "detached_risk_and_targets": true,
+      "alpha_floor": true,
+      "balanced_missing_class": true,
+      "canonical_rehash_rejections": 7,
+      "old_authority_rejected": true
+    },
+    "geometry": {
+      "same_complementary_mask": true,
+      "aux_no_valid_crop": true,
+      "impulse_checkerboard_border": true,
+      "actual_aux_readout": true
+    },
+    "arms": [
+      {
+        "arm": "A0",
+        "heads": 0,
+        "updates": 2,
+        "EMA": true,
+        "U_whitelist": true,
+        "A_only": true,
+        "deployment": true,
+        "teacher_backbone_forwards": 3,
+        "student_backbone_forwards": 5
+      },
+      {
+        "arm": "A1",
+        "heads": 0,
+        "updates": 2,
+        "EMA": true,
+        "U_whitelist": true,
+        "A_only": true,
+        "deployment": true,
+        "teacher_backbone_forwards": 3,
+        "student_backbone_forwards": 5
+      },
+      {
+        "arm": "A2",
+        "heads": 4,
+        "updates": 2,
+        "EMA": true,
+        "U_whitelist": true,
+        "A_only": true,
+        "deployment": true,
+        "teacher_backbone_forwards": 3,
+        "student_backbone_forwards": 5
+      },
+      {
+        "arm": "A3",
+        "heads": 4,
+        "updates": 2,
+        "EMA": true,
+        "U_whitelist": true,
+        "A_only": true,
+        "deployment": true,
+        "teacher_backbone_forwards": 3,
+        "student_backbone_forwards": 5
+      },
+      {
+        "arm": "A4",
+        "heads": 4,
+        "updates": 2,
+        "EMA": true,
+        "U_whitelist": true,
+        "A_only": true,
+        "deployment": true,
+        "teacher_backbone_forwards": 3,
+        "student_backbone_forwards": 5
+      },
+      {
+        "arm": "A5",
+        "heads": 4,
+        "updates": 2,
+        "EMA": true,
+        "U_whitelist": true,
+        "A_only": true,
+        "deployment": true,
+        "teacher_backbone_forwards": 3,
+        "student_backbone_forwards": 5
+      }
+    ],
+    "continuation": [
+      {
+        "arm": "A1",
+        "exact": true,
+        "negative_restore_cases": 7
+      },
+      {
+        "arm": "A5",
+        "exact": true,
+        "negative_restore_cases": 7
+      }
+    ]
+  },
+  "code_tree_sha256": "0d4e1d964956b0b0fed540742cb4c10533d6e1486cb02656c704d7f62de2d211",
+  "plan_sha256": "cc1b1cdf9e55b3a95e5940f5406c7e4629c16392d920ff58d1d36f63e7f3b798",
+  "execution_sha256": "71d51d510bd9778fd99e97062ea34db2077707916f038909df7cb96e22e411e5",
+  "cost": {
+    "old_CPU": 134,
+    "new_CPU": 52,
+    "attempts": 3,
+    "real_optimizer": 0,
+    "CUDA": 0,
+    "P0": 0,
+    "smoke": 0,
+    "formal": 0
+  },
+  "environment": {
+    "python": "3.12.9",
+    "torch": "2.6.0",
+    "device": "cpu",
+    "optimize": 0
+  },
+  "future": {
+    "prefix_tensors": "PENDING",
+    "P0": "PENDING",
+    "CUDA": "PENDING",
+    "smoke": "PENDING",
+    "P1": "PENDING"
+  }
+}

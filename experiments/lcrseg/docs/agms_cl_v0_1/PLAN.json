@@ -1,0 +1,526 @@
+{
+  "schema": 1,
+  "study_id": "AGMS_CL_V0_1",
+  "status": "PROPOSAL_NOT_APPROVAL",
+  "primary_candidate": "A5",
+  "source": {
+    "code": "d557bd245eb204ec3ca377a5d868a03dc31436a5",
+    "reduced_dose_results": "12e8bee31df6723a333f702c8a011e19053b628d",
+    "b2_results": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+    "nka_results": "0da596f4050a3701f41ff74248ca9d4ba21222e2"
+  },
+  "parent": "NATIVE_LR_SRC_A_3DOMAIN_V1",
+  "b2_candidate": "B2_PARENT_PAS_KL_C06",
+  "arms": {
+    "A0": {
+      "description": "historical B2",
+      "H": false,
+      "M": false,
+      "evidence": "main",
+      "formal": false
+    },
+    "A1": {
+      "description": "parent-only auxiliary",
+      "H": true,
+      "M": false,
+      "evidence": "main",
+      "formal": true
+    },
+    "A2": {
+      "description": "ordinary deep supervision",
+      "H": false,
+      "M": true,
+      "evidence": "none",
+      "formal": true
+    },
+    "A3": {
+      "description": "independent sum H+M",
+      "H": true,
+      "M": true,
+      "evidence": "main",
+      "formal": true
+    },
+    "A4": {
+      "description": "uniform multi-scale parent supervision",
+      "H": true,
+      "M": true,
+      "evidence": "uniform",
+      "formal": true
+    },
+    "A5": {
+      "description": "current-L risk-weighted multi-scale parent supervision",
+      "H": true,
+      "M": true,
+      "evidence": "risk",
+      "formal": true
+    }
+  },
+  "nodes": [
+    {
+      "id": "AGMS__A1__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A1",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "method_sha256": "34e2596a4d912ab453af16d6afd6a9e82eff4eb2bc1b157a8ea63ca4e260f562"
+    },
+    {
+      "id": "AGMS__A2__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A2",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "method_sha256": "e18b1ca3e3dae23ac8891c35c35cd8009ed299d2f1a3b51739696b48553b8b44"
+    },
+    {
+      "id": "AGMS__A3__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A3",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "method_sha256": "b99e1b6ef13da903b3caf88335fc3d80502237d8f3c7d30869bbdf88f0a4977e"
+    },
+    {
+      "id": "AGMS__A4__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A4",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "method_sha256": "aabeba08508121c51c2894f3c8f360c014cc114c412e86f788d7a421e2a3ff87"
+    },
+    {
+      "id": "AGMS__A5__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A5",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e",
+      "options_sha256": "258f60538ecc2840cf1f785b6908cc69cf6aab9238573ed0fd501eab8e848e4c",
+      "method_sha256": "ce8f0fad4d47a50246d0102cdf37fec8c7df194e334b198f0a257887a62040e7"
+    },
+    {
+      "id": "AGMS__A1__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A1",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "method_sha256": "34e2596a4d912ab453af16d6afd6a9e82eff4eb2bc1b157a8ea63ca4e260f562"
+    },
+    {
+      "id": "AGMS__A2__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A2",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "method_sha256": "e18b1ca3e3dae23ac8891c35c35cd8009ed299d2f1a3b51739696b48553b8b44"
+    },
+    {
+      "id": "AGMS__A3__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A3",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "method_sha256": "b99e1b6ef13da903b3caf88335fc3d80502237d8f3c7d30869bbdf88f0a4977e"
+    },
+    {
+      "id": "AGMS__A4__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A4",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "method_sha256": "aabeba08508121c51c2894f3c8f360c014cc114c412e86f788d7a421e2a3ff87"
+    },
+    {
+      "id": "AGMS__A5__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A5",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false,
+      "prefix_binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa",
+      "options_sha256": "39de9a81141fc42ff26689ef29a5479c4b3a84f9db0f45cb9f37d80bc20dd1cf",
+      "method_sha256": "ce8f0fad4d47a50246d0102cdf37fec8c7df194e334b198f0a257887a62040e7"
+    }
+  ],
+  "imports": [
+    {
+      "alias": "A0",
+      "seed": 163,
+      "order": 1,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE2",
+      "origin": "historical_import",
+      "source_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "receipt_sha256": "7ad80e2c1d10e2be3a6c765b224516c2fc1609da47a7df207411bb54f8347993",
+      "row_sha256": "bff9272804beea6f4be20ef6aa3e3c66810aa12e4dc37bd0c4a3a1997cb11ae6",
+      "proof_sha256": "b45c2c6faa21c61b86840effdfd6b42e440f8036ddd086a4e548807fd42174b2",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 163,
+        "order": 1,
+        "stage": 2,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1",
+        "domain": "Drishti_GS",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE2"
+      },
+      "student_sha256": "b81ef40fd4ec4b4ca0b8d559af71b150d8c7f9393d1a8655756df479bfaf3770",
+      "diagnostics": "NOT_MEASURED_HISTORICAL"
+    },
+    {
+      "alias": "A0",
+      "seed": 163,
+      "order": 2,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE2",
+      "origin": "historical_import",
+      "source_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "receipt_sha256": "5a59c1bcc5d3084be4fffae2fb6e1c509004a87e36477a4381ef5b88ce754b24",
+      "row_sha256": "f0a553e2b2e7cdebfe7ad9ff33a1c7f7ef076f5c2e3a754499b9c6dd84446a09",
+      "proof_sha256": "d5814da9aa0f5461eab98bc55c92ab06f9b1fcd0cdf92d6df38b0fd64584e7c0",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 163,
+        "order": 2,
+        "stage": 2,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2",
+        "domain": "RIM_ONE_r3",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE2"
+      },
+      "student_sha256": "62d24a1ef83823f6ea16396535c589dbd66a4522c953f48651131591b205b17d",
+      "diagnostics": "NOT_MEASURED_HISTORICAL"
+    }
+  ],
+  "options": {
+    "RIM_ONE_r3": {
+      "total_steps": 3200,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.6,
+      "PAS_cosine": 0.7,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    },
+    "Drishti_GS": {
+      "total_steps": 2100,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.6,
+      "PAS_cosine": 0.7,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    }
+  },
+  "budgets": {
+    "formal_scientific": 26500,
+    "formal_physical": 26500,
+    "new_source": 0,
+    "new_first_target": 0,
+    "new_CPU_cap": 96,
+    "new_CPU_attempt_cap": 3,
+    "new_CPU_per_attempt_cap": 32,
+    "synthetic_CUDA_planned": 36,
+    "synthetic_CUDA_cap": 36,
+    "smoke": 24,
+    "real_total": 26524,
+    "old_CPU_other_studies": 134,
+    "P0_optimizer": 0,
+    "P0_current_L_image_cap": 32,
+    "diagnostic_points": 40,
+    "extra_diagnostic_VJPs": 160
+  },
+  "diagnostics": {
+    "Drishti_GS": [
+      525,
+      1050,
+      1575,
+      2100
+    ],
+    "RIM_ONE_r3": [
+      800,
+      1600,
+      2400,
+      3200
+    ]
+  },
+  "gates": {
+    "kind": "development_budget_rules_not_significance",
+    "performance": {
+      "mean_Final_A5_minus_A0_min": 0.003,
+      "each_order_Final_min": -0.002,
+      "O2_Old_min": 0,
+      "each_order_Incoming_min": -0.005
+    },
+    "joint": {
+      "reference": "max of two-order mean Final over A1,A2,A3,A4",
+      "mean_Final_A5_minus_best_simple_min": 0.001,
+      "no_per_order_best_splicing": true
+    },
+    "automatic_followup": false
+  },
+  "reports": {
+    "final_rows": 12,
+    "domain_rows": 36,
+    "paired_rows": 27,
+    "diagnostic_points": 40
+  },
+  "future": {
+    "P1R": {
+      "status": "PLAN_ONLY",
+      "executable_nodes": [],
+      "proposed_new_stages": 6,
+      "proposed_updates": 15900,
+      "selection_rule": "A5, A4, and best of A1/A2/A3 by P1 two-order mean; lower arm id breaks exact ties"
+    },
+    "P2": {
+      "status": "PLAN_ONLY",
+      "executable_nodes": [],
+      "proposed_new_stages": 8,
+      "proposed_updates": 21200
+    },
+    "P3": {
+      "status": "PLAN_ONLY",
+      "executable_nodes": []
+    }
+  },
+  "authority": {
+    "approval_issued": false,
+    "production_authorized": false,
+    "prepare_only": true,
+    "required": "new-code external approval AND independent user launch"
+  },
+  "method": {
+    "lambda_H": 0.5,
+    "lambda_DS": 0.25,
+    "tau_disc": 0.9,
+    "variance_cap": 0.01,
+    "risk": {
+      "loss": "class-balanced disc/background Brier",
+      "beta": 0.9,
+      "initial": 0.25,
+      "temperature": 0.1,
+      "min_scale_weight": 0.1,
+      "weight_formula": "0.1+0.7*softmax(-R/0.1)",
+      "lag": "previous_committed_step",
+      "history": "reset_each_stage"
+    },
+    "aux": {
+      "layers": [
+        "decoder.dec3",
+        "decoder.dec2"
+      ],
+      "input_channels": [
+        64,
+        32
+      ],
+      "out_classes": 3,
+      "kernel_size": 1,
+      "bias": true,
+      "parameters": 294,
+      "lr": 0.001,
+      "U_gradients": false,
+      "EMA": 0.99,
+      "deployed": false
+    }
+  },
+  "geometry": {
+    "labels": {
+      "background": 0,
+      "rim": 1,
+      "cup": 2,
+      "ignore": 255
+    },
+    "parent": [
+      1,
+      2
+    ],
+    "main": "unchanged valid3x3 then bilinear align_corners=True",
+    "aux": "dec3/dec2 native grid to output: bilinear align_corners=True; no valid crop",
+    "LCTX": "original complementary mask; collect anchor after auxiliary log_softmax"
+  },
+  "environment": {
+    "fingerprint": {
+      "python": "3.10.6",
+      "packages": {
+        "torch": "2.2.1",
+        "numpy": "1.26.4",
+        "h5py": "3.16.0",
+        "scipy": "1.13.0"
+      },
+      "cuda": "12.1",
+      "cudnn": 8902,
+      "driver_versions": [
+        "580.173.02"
+      ],
+      "device_type": "NVIDIA GeForce RTX 3090",
+      "capability": [
+        8,
+        6
+      ],
+      "matmul_tf32": false,
+      "cudnn_tf32": false,
+      "cudnn_benchmark": false,
+      "cudnn_deterministic": true,
+      "deterministic_algorithms": true,
+      "cublas_workspace_config": ":4096:8",
+      "threads": 2
+    },
+    "sha256": "2791c0dccdb576084d42eb4001ab3067294f51f87777f6b681d940f9f2c72757",
+    "history": "UNVERIFIED except previously recorded versions"
+  },
+  "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "prefixes": [
+    {
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 163,
+        "order": 1,
+        "stage": 1,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1",
+        "domain": "RIM_ONE_r3",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1"
+      },
+      "receipt_sha256": "379b16e2d14d54124cbe19410e774272c4b579052e4ec9ce0ad2853cd871ca81",
+      "student_sha256": "616e756f5be246a8ac952b85c86617fda19db4570b2eb5b58d1782c5866d61f9",
+      "transform_sha256": "44776f11d54fb4af125656392024b1671399cf065bc8489da49d6e569529d34b",
+      "file_sha256": "8da42f37017192759897d51091d9c572b3b67737dc6193d36a9c299db71c466e",
+      "origin_results_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "origin_execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+      "permission": "diagnostic_common_prefix_only",
+      "runtime_tensor_acceptance": "PENDING_FRESH_REVIEW_AND_LAUNCH",
+      "binding_sha256": "2b20b8f4a6fb426dec1d48b8cad811c6dd3190d89ac4615778874510fd18456e"
+    },
+    {
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "identity": {
+        "family": "B2_PARENT_PAS_KL",
+        "candidate_id": "B2_PARENT_PAS_KL_C06",
+        "seed": 163,
+        "order": 2,
+        "stage": 1,
+        "sequence_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2",
+        "domain": "Drishti_GS",
+        "execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+        "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1"
+      },
+      "receipt_sha256": "e4f9f63b486bcf9f9dd1880d5b7c8743c0f952f97152101ec9347c58f41ce367",
+      "student_sha256": "7e8a0c48e7c20c7becc18e17fa135b7b0d2f702ba641f44b5527d1b8e668865c",
+      "transform_sha256": "44776f11d54fb4af125656392024b1671399cf065bc8489da49d6e569529d34b",
+      "file_sha256": "acb572cb9ca26e92abcc2549c3056f917a8aa4b8c75c39723aba6f9f39e43ee1",
+      "origin_results_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "origin_execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+      "permission": "diagnostic_common_prefix_only",
+      "runtime_tensor_acceptance": "PENDING_FRESH_REVIEW_AND_LAUNCH",
+      "binding_sha256": "cbca25a815725646fe9176e47efcb393f182cb966f9886a51cbbb90d0ebc27aa"
+    }
+  ],
+  "plan_sha256": "cc1b1cdf9e55b3a95e5940f5406c7e4629c16392d920ff58d1d36f63e7f3b798"
+}

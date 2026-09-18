@@ -1,0 +1,84 @@
+{
+  "B2": {
+    "RIM_ONE_r3": {
+      "total_steps": 3200,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.6,
+      "PAS_cosine": 0.7,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    },
+    "Drishti_GS": {
+      "total_steps": 2100,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 1.0,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.6,
+      "PAS_cosine": 0.7,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    }
+  },
+  "AGMS": {
+    "lambda_H": 0.5,
+    "lambda_DS": 0.25,
+    "tau_disc": 0.9,
+    "variance_cap": 0.01,
+    "risk": {
+      "loss": "class-balanced disc/background Brier",
+      "beta": 0.9,
+      "initial": 0.25,
+      "temperature": 0.1,
+      "min_scale_weight": 0.1,
+      "weight_formula": "0.1+0.7*softmax(-R/0.1)",
+      "lag": "previous_committed_step",
+      "history": "reset_each_stage"
+    },
+    "aux": {
+      "layers": [
+        "decoder.dec3",
+        "decoder.dec2"
+      ],
+      "input_channels": [
+        64,
+        32
+      ],
+      "out_classes": 3,
+      "kernel_size": 1,
+      "bias": true,
+      "parameters": 294,
+      "lr": 0.001,
+      "U_gradients": false,
+      "EMA": 0.99,
+      "deployed": false
+    }
+  }
+}

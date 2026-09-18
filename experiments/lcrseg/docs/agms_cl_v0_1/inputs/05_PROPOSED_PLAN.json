@@ -1,0 +1,323 @@
+{
+  "schema": 1,
+  "study_id": "AGMS_CL_V0_1",
+  "status": "PROPOSAL_NOT_APPROVAL",
+  "primary_candidate": "A5",
+  "source": {
+    "code": "d557bd245eb204ec3ca377a5d868a03dc31436a5",
+    "reduced_dose_results": "12e8bee31df6723a333f702c8a011e19053b628d",
+    "b2_results": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+    "nka_results": "0da596f4050a3701f41ff74248ca9d4ba21222e2"
+  },
+  "parent": "NATIVE_LR_SRC_A_3DOMAIN_V1",
+  "b2_candidate": "B2_PARENT_PAS_KL_C06",
+  "arms": {
+    "A0": {
+      "description": "historical B2",
+      "H": false,
+      "M": false,
+      "evidence": "main",
+      "formal": false
+    },
+    "A1": {
+      "description": "parent-only auxiliary",
+      "H": true,
+      "M": false,
+      "evidence": "main",
+      "formal": true
+    },
+    "A2": {
+      "description": "ordinary deep supervision",
+      "H": false,
+      "M": true,
+      "evidence": "none",
+      "formal": true
+    },
+    "A3": {
+      "description": "independent sum H+M",
+      "H": true,
+      "M": true,
+      "evidence": "main",
+      "formal": true
+    },
+    "A4": {
+      "description": "uniform multi-scale parent supervision",
+      "H": true,
+      "M": true,
+      "evidence": "uniform",
+      "formal": true
+    },
+    "A5": {
+      "description": "current-L risk-weighted multi-scale parent supervision",
+      "H": true,
+      "M": true,
+      "evidence": "risk",
+      "formal": true
+    }
+  },
+  "nodes": [
+    {
+      "id": "AGMS__A1__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A1",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A2__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A2",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A3__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A3",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A4__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A4",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A5__S163__O1__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A5",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "domain": "Drishti_GS",
+      "updates": 2100,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A1__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A1",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A2__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A2",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A3__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A3",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A4__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A4",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false
+    },
+    {
+      "id": "AGMS__A5__S163__O2__STAGE2",
+      "study": "AGMS_CL_V0_1",
+      "phase": "P1",
+      "arm": "A5",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "domain": "RIM_ONE_r3",
+      "updates": 3200,
+      "prefix_node": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "executable": false
+    }
+  ],
+  "imports": [
+    {
+      "alias": "A0",
+      "seed": 163,
+      "order": 1,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE2",
+      "origin": "historical_import",
+      "source_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "receipt_hash_status": "RESOLVE_FROM_PINNED_PUBLIC_RECORD"
+    },
+    {
+      "alias": "A0",
+      "seed": 163,
+      "order": 2,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE2",
+      "origin": "historical_import",
+      "source_commit": "3034b2199aa7d6e54ea67499f391a0dd4ea3d21e",
+      "receipt_hash_status": "RESOLVE_FROM_PINNED_PUBLIC_RECORD"
+    }
+  ],
+  "options": {
+    "fully_bound_b2_options": "RESOLVE_FROM_PINNED_B2_C06",
+    "lambda_H": 0.5,
+    "lambda_DS": 0.25,
+    "tau_disc": 0.9,
+    "variance_cap": 0.01,
+    "risk": {
+      "loss": "class-balanced disc/background Brier",
+      "beta": 0.9,
+      "initial": 0.25,
+      "temperature": 0.1,
+      "min_scale_weight": 0.1,
+      "weight_formula": "0.1+0.7*softmax(-R/0.1)",
+      "lag": "previous_committed_step",
+      "history": "reset_each_stage"
+    },
+    "aux": {
+      "layers": [
+        "decoder.dec3",
+        "decoder.dec2"
+      ],
+      "input_channels": [
+        64,
+        32
+      ],
+      "out_classes": 3,
+      "kernel_size": 1,
+      "bias": true,
+      "parameters": 294,
+      "lr": 0.001,
+      "U_gradients": false,
+      "EMA": 0.99,
+      "deployed": false
+    }
+  },
+  "budgets": {
+    "formal_scientific": 26500,
+    "formal_physical": 26500,
+    "new_source": 0,
+    "new_first_target": 0,
+    "new_CPU_cap": 96,
+    "new_CPU_attempt_cap": 3,
+    "new_CPU_per_attempt_cap": 32,
+    "synthetic_CUDA_planned": 36,
+    "synthetic_CUDA_cap": 36,
+    "smoke": 24,
+    "real_total": 26524,
+    "old_CPU_other_studies": 134,
+    "P0_optimizer": 0,
+    "P0_current_L_image_cap": 32,
+    "diagnostic_points": 40,
+    "extra_diagnostic_VJPs": 160
+  },
+  "diagnostics": {
+    "Drishti_GS": [
+      525,
+      1050,
+      1575,
+      2100
+    ],
+    "RIM_ONE_r3": [
+      800,
+      1600,
+      2400,
+      3200
+    ]
+  },
+  "gates": {
+    "kind": "development_budget_rules_not_significance",
+    "performance": {
+      "mean_Final_A5_minus_A0_min": 0.003,
+      "each_order_Final_min": -0.002,
+      "O2_Old_min": 0,
+      "each_order_Incoming_min": -0.005
+    },
+    "joint": {
+      "reference": "max of two-order mean Final over A1,A2,A3,A4",
+      "mean_Final_A5_minus_best_simple_min": 0.001,
+      "no_per_order_best_splicing": true
+    },
+    "automatic_followup": false
+  },
+  "reports": {
+    "final_rows": 12,
+    "domain_rows": 36,
+    "paired_rows": 27,
+    "diagnostic_points": 40
+  },
+  "future": {
+    "P1R": {
+      "status": "PLAN_ONLY",
+      "executable_nodes": [],
+      "proposed_new_stages": 6,
+      "proposed_updates": 15900,
+      "selection_rule": "A5, A4, and best of A1/A2/A3 by P1 two-order mean; lower arm id breaks exact ties"
+    },
+    "P2": {
+      "status": "PLAN_ONLY",
+      "executable_nodes": [],
+      "proposed_new_stages": 8,
+      "proposed_updates": 21200
+    },
+    "P3": {
+      "status": "PLAN_ONLY",
+      "executable_nodes": []
+    }
+  },
+  "authority": {
+    "approval_issued": false,
+    "production_authorized": false,
+    "prepare_only": true,
+    "required": "new-code external approval AND independent user launch"
+  }
+}
