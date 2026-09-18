@@ -1,0 +1,772 @@
+{
+  "status": "FAIL",
+  "study_id": "NKA_DOSE_V0_1",
+  "tests": [
+    {
+      "test": "canonical_binding",
+      "status": "PASS",
+      "optimizer_calls": 0
+    },
+    {
+      "test": "low_dose_equivalence",
+      "status": "FAIL",
+      "optimizer_calls": 2,
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 165, in run_tests\n    with NativeOperations(root/'operations'/str(len(attempts))/name) as operations:checks[name]()\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 68, in low_dose_equivalence\n    evidence['low_dose']=[low_equivalence(reference,a,device,permit,counter,32) for a in ('C2','C3')]\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 68, in <listcomp>\n    evidence['low_dose']=[low_equivalence(reference,a,device,permit,counter,32) for a in ('C2','C3')]\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 71, in low_equivalence\n    snaps.append(common(t));del t\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 41, in common\n    v=snapshot(t)\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 37, in snapshot\n    return without_time(old_snapshot(t))\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\nAttributeError: 'int' object has no attribute 'endswith'\n"
+    },
+    {
+      "test": "continuation_restore",
+      "status": "FAIL",
+      "optimizer_calls": 3,
+      "traceback": "Traceback (most recent call last):\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 165, in run_tests\n    with NativeOperations(root/'operations'/str(len(attempts))/name) as operations:checks[name]()\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 74, in continuation_restore\n    rows,path,t=continuation(reference,arm,w,device,permit,counter,root,32,failure=False)\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 89, in continuation\n    expected=snapshot(t)\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 37, in snapshot\n    return without_time(old_snapshot(t))\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\nAttributeError: 'int' object has no attribute 'endswith'\n"
+    },
+    {
+      "test": "other_cells_gradients",
+      "status": "PASS",
+      "optimizer_calls": 2
+    },
+    {
+      "test": "failure_and_tail",
+      "status": "PASS",
+      "optimizer_calls": 1
+    },
+    {
+      "test": "adam_oracle",
+      "status": "PASS",
+      "optimizer_calls": 4
+    },
+    {
+      "test": "effective_weights",
+      "status": "PASS",
+      "optimizer_calls": 0
+    },
+    {
+      "test": "integrity_and_costs",
+      "status": "PASS",
+      "optimizer_calls": 0
+    },
+    {
+      "test": "report_schema",
+      "status": "PASS",
+      "optimizer_calls": 0
+    }
+  ],
+  "evidence": {
+    "canonical": {
+      "rehashed_negative_cases": [
+        "dose",
+        "C0",
+        "C1",
+        "seed",
+        "stage1",
+        "updates",
+        "prefix",
+        "options",
+        "import",
+        "environment",
+        "analysis",
+        "domain"
+      ],
+      "changed_input_anchors": 3,
+      "old_capability_rejected": true,
+      "real_prefix_refused_before_IO": true
+    },
+    "continuation": [],
+    "active_cells": [
+      {
+        "arm": "C2",
+        "lambda_align": 2.0,
+        "alignment_gradient": 0.14584424095319884,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "parent.native.enc1.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004998445510864258,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc1.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999655410647,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc1.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004995167255401611,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc1.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999073334038,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004996359348297119,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999998491257429,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004994124174118042,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999998491257429,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004995167255401611,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999994998797774,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004992187023162842,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999994416721165,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004990994930267334,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999985103495419,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004988610744476318,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999985685572028,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004988983273506165,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999994998797774,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004991441965103149,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999992088414729,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004992932081222534,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499999790918082,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499427318572998,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499999790918082,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004993975162506104,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999655410647,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004995465278625488,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999655410647,
+              "increment_relative": 0.0
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        }
+      },
+      {
+        "arm": "C3",
+        "lambda_align": 0.5,
+        "alignment_gradient": 0.033550509656101166,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "parent.native.enc1.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004998445510864258,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc1.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999073334038,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc1.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004995167255401611,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc1.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999073334038,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004996359348297119,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999998491257429,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004994124174118042,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc2.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999998491257429,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004995167255401611,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999994998797774,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004992187023162842,
+              "increment_relative": 0.0
+            },
+            "parent.native.enc3.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999994416721165,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004990994930267334,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499998452141881,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004988610744476318,
+              "increment_relative": 0.0
+            },
+            "parent.native.bottleneck.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999986267648637,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004988983273506165,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999995580874383,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004991441965103149,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec3.merge.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499999150633812,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004992932081222534,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499999790918082,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499427318572998,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec2.merge.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000499999790918082,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.0.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004993975162506104,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.0.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999655410647,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.3.A": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004995465278625488,
+              "increment_relative": 0.0
+            },
+            "parent.native.decoder.dec1.merge.block.3.B": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0004999999655410647,
+              "increment_relative": 0.0
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        }
+      }
+    ],
+    "failure": {
+      "physical": 1,
+      "committed": 0,
+      "second_call_refused": true,
+      "tail_and_false_seal_refused": true
+    },
+    "adam_oracle": [
+      {
+        "case": 0,
+        "lr": 0.0005,
+        "foreach": null,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 5.0067901611328125e-06,
+              "increment_relative": 0.0
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000250011682510376,
+              "increment_relative": 0.0
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 6.079673767089844e-06,
+              "increment_relative": 0.0
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.00044359778985381126,
+          "arithmetic_calls": 27,
+          "active_elements": 27,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": false,
+              "lr": 0.0005,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": false,
+              "lr": 0.00025,
+              "active_parameters": 2
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      },
+      {
+        "case": 1,
+        "lr": 0.0,
+        "foreach": false,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.00031285895965993404,
+          "arithmetic_calls": 27,
+          "active_elements": 27,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": false,
+              "lr": 0.0,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": false,
+              "lr": 0.0,
+              "active_parameters": 2
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      },
+      {
+        "case": 2,
+        "lr": 1e-12,
+        "foreach": true,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.0007644169963896275,
+          "arithmetic_calls": 18,
+          "active_elements": 18,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": true,
+              "lr": 1e-12,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": true,
+              "lr": 5e-13,
+              "active_parameters": 1
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      },
+      {
+        "case": 3,
+        "lr": 0.001,
+        "foreach": null,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 1.0013580322265625e-05,
+              "increment_relative": 0.0
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000500023365020752,
+              "increment_relative": 0.0
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 1.2159347534179688e-05,
+              "increment_relative": 0.0
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.0003451791126281023,
+          "arithmetic_calls": 27,
+          "active_elements": 27,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": false,
+              "lr": 0.001,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": false,
+              "lr": 0.0005,
+              "active_parameters": 2
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      }
+    ],
+    "effective_W": {
+      "quadratic_cross_term": true,
+      "zero_denominator_null": true,
+      "unsupported_flags_rejected": true
+    },
+    "integrity": "generated corruption/schema/identity/F/hash/stale proof/unclosed session checks PASS; zero optimizer calls",
+    "report_schema": {
+      "final": 28,
+      "domain": 84,
+      "paired": 63,
+      "adam": 64,
+      "generated_only": true
+    }
+  },
+  "code_tree_sha256": "d8cc1c6fd64939596ef0c828951aa53211a777dc571fa033bf8437d7b99df551",
+  "science_sha256": "f1288d5c068ed9c2f9aed453222439fe9533c5b6b274817184b72174e8a65d17",
+  "execution_sha256": "f4252e502ac0e14b9ca2df70ada7807b7c8c5644b0c87ad3951829c63dbb4156",
+  "cost": {
+    "original_other_study_CPU_calls": 64,
+    "new_cumulative_calls": 12,
+    "new_cap": 96,
+    "new_attempts": 1,
+    "attempt_cap": 3,
+    "this_attempt_calls": 12,
+    "planned_calls": 29,
+    "operation_counts": {
+      "features_attempts": 50,
+      "features": 50,
+      "native_readout_attempts": 32,
+      "native_readout": 32,
+      "autograd_grad_attempts": 37,
+      "autograd_grad": 37,
+      "optimizer_steps_attempts": 12,
+      "optimizer_steps": 12,
+      "update_dense_ema_validation_attempts": 7,
+      "update_dense_ema_validation": 7,
+      "update_dense_ema_attempts": 7,
+      "update_dense_ema": 7,
+      "backward": 3,
+      "backward_attempts": 3
+    },
+    "meter": {
+      "diagnostic_vjps": 20,
+      "adam_candidates": 10,
+      "adam_arithmetic_calls": 2520,
+      "meter_seconds": 1.1423190331552178,
+      "effective_W_evaluations": 1845,
+      "effective_W_seconds": 0.47639916371554136
+    },
+    "seconds": 7.642323017120361
+  },
+  "environment": {
+    "python": "3.10.6",
+    "torch": "2.2.1+cu121",
+    "device": "cpu",
+    "optimize": 0,
+    "CUDA_initialized": false
+  },
+  "real_prefix_tensor_reads": 0,
+  "patient_payload_reads": 0,
+  "production_approvals_created": 0,
+  "CUDA_calls": 0,
+  "pending": [
+    "source/prefix real acceptance",
+    "CUDA",
+    "smoke",
+    "formal"
+  ]
+}

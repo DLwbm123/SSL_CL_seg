@@ -1,0 +1,199 @@
+{
+  "study_id": "NKA_DOSE_V0_1",
+  "science_sha256": "7b1877554066866532307fba60de18cae208c263292ab6f4785b4ff2ef13a4a7",
+  "caps": {
+    "formal_scientific": 42400,
+    "formal_physical": 42400,
+    "new_source": 0,
+    "new_first_target": 0,
+    "new_cpu_generated": 96,
+    "new_cpu_invocations": 3,
+    "new_cpu_per_invocation_max": 32,
+    "synthetic_cuda_planned": 40,
+    "synthetic_cuda_cap": 40,
+    "real_smoke": 32,
+    "real_total": 42432
+  },
+  "CUDA": {
+    "cases": [
+      {
+        "arm": "C2",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C2",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C2",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "kind": "failure",
+        "calls": 1
+      },
+      {
+        "arm": "C2",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C2",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C2",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "kind": "failure",
+        "calls": 1
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "kind": "failure",
+        "calls": 1
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "kind": "warmup",
+        "calls": 1
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "kind": "resume",
+        "calls": 4
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "kind": "failure",
+        "calls": 1
+      },
+      {
+        "arm": "C2",
+        "kind": "low_dose_equivalence",
+        "calls": 6
+      },
+      {
+        "arm": "C3",
+        "kind": "low_dose_equivalence",
+        "calls": 6
+      },
+      {
+        "kind": "adam_oracle",
+        "case": 0,
+        "calls": 1
+      },
+      {
+        "kind": "adam_oracle",
+        "case": 1,
+        "calls": 1
+      },
+      {
+        "kind": "adam_oracle",
+        "case": 2,
+        "calls": 1
+      },
+      {
+        "kind": "adam_oracle",
+        "case": 3,
+        "calls": 1
+      }
+    ],
+    "planned_calls": 40,
+    "cap": 40,
+    "data": "native generated only",
+    "shape": [
+      2,
+      3,
+      384,
+      384
+    ]
+  },
+  "smoke": {
+    "cases": [
+      {
+        "arm": "C2",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      },
+      {
+        "arm": "C2",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L0p5",
+        "lambda_align": 0.5,
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      },
+      {
+        "arm": "C3",
+        "dose_id": "L2p0",
+        "lambda_align": 2.0,
+        "calls": 8,
+        "L_only": true,
+        "discarded": true
+      }
+    ],
+    "planned_calls": 32,
+    "cap": 32
+  },
+  "diagnostics": {
+    "Drishti_GS": [
+      525,
+      1050,
+      1575,
+      2100
+    ],
+    "RIM_ONE_r3": [
+      800,
+      1600,
+      2400,
+      3200
+    ]
+  },
+  "status": "STOP_AWAITING_EXTERNAL_CODE_REVIEW",
+  "approval_shipped": false,
+  "automatic_retry": false
+}

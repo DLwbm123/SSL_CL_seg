@@ -1,0 +1,202 @@
+[
+  {
+    "invocation": 1,
+    "status": "FAIL",
+    "cases": {
+      "canonical_binding": 0,
+      "low_dose_equivalence": 12,
+      "continuation_restore": 10,
+      "other_cells_gradients": 2,
+      "failure_and_tail": 1,
+      "adam_oracle": 4,
+      "effective_weights": 0,
+      "integrity_and_costs": 0,
+      "report_schema": 0
+    },
+    "planned_calls": 29,
+    "started": 1789698601.7238941,
+    "results": [
+      {
+        "test": "canonical_binding",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "low_dose_equivalence",
+        "status": "FAIL",
+        "optimizer_calls": 2,
+        "traceback": "Traceback (most recent call last):\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 165, in run_tests\n    with NativeOperations(root/'operations'/str(len(attempts))/name) as operations:checks[name]()\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 68, in low_dose_equivalence\n    evidence['low_dose']=[low_equivalence(reference,a,device,permit,counter,32) for a in ('C2','C3')]\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 68, in <listcomp>\n    evidence['low_dose']=[low_equivalence(reference,a,device,permit,counter,32) for a in ('C2','C3')]\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 71, in low_equivalence\n    snaps.append(common(t));del t\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 41, in common\n    v=snapshot(t)\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 37, in snapshot\n    return without_time(old_snapshot(t))\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\nAttributeError: 'int' object has no attribute 'endswith'\n"
+      },
+      {
+        "test": "continuation_restore",
+        "status": "FAIL",
+        "optimizer_calls": 3,
+        "traceback": "Traceback (most recent call last):\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 165, in run_tests\n    with NativeOperations(root/'operations'/str(len(attempts))/name) as operations:checks[name]()\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/tests.py\", line 74, in continuation_restore\n    rows,path,t=continuation(reference,arm,w,device,permit,counter,root,32,failure=False)\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 89, in continuation\n    expected=snapshot(t)\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 37, in snapshot\n    return without_time(old_snapshot(t))\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in without_time\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\n  File \"<repo>/experiments/lcrseg/nka_dose_v0_1/qualification.py\", line 30, in <dictcomp>\n    if isinstance(v,dict):return {k:without_time(x) for k,x in v.items() if not k.endswith('seconds')}\nAttributeError: 'int' object has no attribute 'endswith'\n"
+      },
+      {
+        "test": "other_cells_gradients",
+        "status": "PASS",
+        "optimizer_calls": 2
+      },
+      {
+        "test": "failure_and_tail",
+        "status": "PASS",
+        "optimizer_calls": 1
+      },
+      {
+        "test": "adam_oracle",
+        "status": "PASS",
+        "optimizer_calls": 4
+      },
+      {
+        "test": "effective_weights",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "integrity_and_costs",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "report_schema",
+        "status": "PASS",
+        "optimizer_calls": 0
+      }
+    ],
+    "calls": 12,
+    "seconds": 7.642323017120361
+  },
+  {
+    "invocation": 2,
+    "status": "PASS",
+    "cases": {
+      "canonical_binding": 0,
+      "adam_oracle": 4,
+      "low_dose_equivalence": 12,
+      "continuation_restore": 10,
+      "other_cells_gradients": 2,
+      "failure_and_tail": 1,
+      "effective_weights": 0,
+      "integrity_and_costs": 0,
+      "report_schema": 0
+    },
+    "planned_calls": 29,
+    "started": 1789698712.479754,
+    "results": [
+      {
+        "test": "canonical_binding",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "adam_oracle",
+        "status": "PASS",
+        "optimizer_calls": 4
+      },
+      {
+        "test": "low_dose_equivalence",
+        "status": "PASS",
+        "optimizer_calls": 12
+      },
+      {
+        "test": "continuation_restore",
+        "status": "PASS",
+        "optimizer_calls": 10
+      },
+      {
+        "test": "other_cells_gradients",
+        "status": "PASS",
+        "optimizer_calls": 2
+      },
+      {
+        "test": "failure_and_tail",
+        "status": "PASS",
+        "optimizer_calls": 1
+      },
+      {
+        "test": "effective_weights",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "integrity_and_costs",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "report_schema",
+        "status": "PASS",
+        "optimizer_calls": 0
+      }
+    ],
+    "calls": 29,
+    "seconds": 12.542766571044922
+  },
+  {
+    "invocation": 3,
+    "status": "PASS",
+    "cases": {
+      "canonical_binding": 0,
+      "adam_oracle": 4,
+      "low_dose_equivalence": 12,
+      "continuation_restore": 10,
+      "other_cells_gradients": 2,
+      "failure_and_tail": 1,
+      "effective_weights": 0,
+      "integrity_and_costs": 0,
+      "report_schema": 0
+    },
+    "planned_calls": 29,
+    "started": 1789698810.0957046,
+    "results": [
+      {
+        "test": "canonical_binding",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "adam_oracle",
+        "status": "PASS",
+        "optimizer_calls": 4
+      },
+      {
+        "test": "low_dose_equivalence",
+        "status": "PASS",
+        "optimizer_calls": 12
+      },
+      {
+        "test": "continuation_restore",
+        "status": "PASS",
+        "optimizer_calls": 10
+      },
+      {
+        "test": "other_cells_gradients",
+        "status": "PASS",
+        "optimizer_calls": 2
+      },
+      {
+        "test": "failure_and_tail",
+        "status": "PASS",
+        "optimizer_calls": 1
+      },
+      {
+        "test": "effective_weights",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "integrity_and_costs",
+        "status": "PASS",
+        "optimizer_calls": 0
+      },
+      {
+        "test": "report_schema",
+        "status": "PASS",
+        "optimizer_calls": 0
+      }
+    ],
+    "calls": 29,
+    "seconds": 13.039485454559326
+  }
+]
