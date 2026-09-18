@@ -1,0 +1,442 @@
+{
+  "status": "PASS",
+  "execution_commit": "d557bd245eb204ec3ca377a5d868a03dc31436a5",
+  "plan_sha256": "7b1877554066866532307fba60de18cae208c263292ab6f4785b4ff2ef13a4a7",
+  "execution_sha256": "69282fa8a374a5a461a8a240ff3d6cfabd292c8afce6dc58f896edc1e11773e6",
+  "environment_sha256": "2791c0dccdb576084d42eb4001ab3067294f51f87777f6b681d940f9f2c72757",
+  "physical_calls": 40,
+  "rows": [
+    {
+      "arm": "C2",
+      "dose_id": "L0p5",
+      "lambda_align": 0.5,
+      "kind": "warmup",
+      "calls": 1,
+      "start": 1,
+      "end": 1,
+      "passed": true
+    },
+    {
+      "arm": "C2",
+      "dose_id": "L0p5",
+      "lambda_align": 0.5,
+      "kind": "resume",
+      "calls": 4,
+      "start": 2,
+      "end": 5,
+      "passed": true
+    },
+    {
+      "arm": "C2",
+      "dose_id": "L0p5",
+      "lambda_align": 0.5,
+      "kind": "failure",
+      "calls": 1,
+      "start": 6,
+      "end": 6,
+      "passed": true
+    },
+    {
+      "arm": "C2",
+      "dose_id": "L2p0",
+      "lambda_align": 2.0,
+      "kind": "warmup",
+      "calls": 1,
+      "start": 7,
+      "end": 7,
+      "passed": true
+    },
+    {
+      "arm": "C2",
+      "dose_id": "L2p0",
+      "lambda_align": 2.0,
+      "kind": "resume",
+      "calls": 4,
+      "start": 8,
+      "end": 11,
+      "passed": true
+    },
+    {
+      "arm": "C2",
+      "dose_id": "L2p0",
+      "lambda_align": 2.0,
+      "kind": "failure",
+      "calls": 1,
+      "start": 12,
+      "end": 12,
+      "passed": true
+    },
+    {
+      "arm": "C3",
+      "dose_id": "L0p5",
+      "lambda_align": 0.5,
+      "kind": "warmup",
+      "calls": 1,
+      "start": 13,
+      "end": 13,
+      "passed": true
+    },
+    {
+      "arm": "C3",
+      "dose_id": "L0p5",
+      "lambda_align": 0.5,
+      "kind": "resume",
+      "calls": 4,
+      "start": 14,
+      "end": 17,
+      "passed": true
+    },
+    {
+      "arm": "C3",
+      "dose_id": "L0p5",
+      "lambda_align": 0.5,
+      "kind": "failure",
+      "calls": 1,
+      "start": 18,
+      "end": 18,
+      "passed": true
+    },
+    {
+      "arm": "C3",
+      "dose_id": "L2p0",
+      "lambda_align": 2.0,
+      "kind": "warmup",
+      "calls": 1,
+      "start": 19,
+      "end": 19,
+      "passed": true
+    },
+    {
+      "arm": "C3",
+      "dose_id": "L2p0",
+      "lambda_align": 2.0,
+      "kind": "resume",
+      "calls": 4,
+      "start": 20,
+      "end": 23,
+      "passed": true
+    },
+    {
+      "arm": "C3",
+      "dose_id": "L2p0",
+      "lambda_align": 2.0,
+      "kind": "failure",
+      "calls": 1,
+      "start": 24,
+      "end": 24,
+      "passed": true
+    },
+    {
+      "arm": "C2",
+      "kind": "low_dose_equivalence",
+      "calls": 6,
+      "start": 25,
+      "end": 30,
+      "passed": true
+    },
+    {
+      "arm": "C3",
+      "kind": "low_dose_equivalence",
+      "calls": 6,
+      "start": 31,
+      "end": 36,
+      "passed": true
+    },
+    {
+      "kind": "adam_oracle",
+      "case": 0,
+      "calls": 1,
+      "start": 37,
+      "end": 37,
+      "passed": true
+    },
+    {
+      "kind": "adam_oracle",
+      "case": 1,
+      "calls": 1,
+      "start": 38,
+      "end": 38,
+      "passed": true
+    },
+    {
+      "kind": "adam_oracle",
+      "case": 2,
+      "calls": 1,
+      "start": 39,
+      "end": 39,
+      "passed": true
+    },
+    {
+      "kind": "adam_oracle",
+      "case": 3,
+      "calls": 1,
+      "start": 40,
+      "end": 40,
+      "passed": true
+    }
+  ],
+  "evidence": {
+    "C2": {
+      "arm": "C2",
+      "old_new_low_dose_exact": true,
+      "meter_on_off_exact": true,
+      "reads_RNG_state_exact": true
+    },
+    "C3": {
+      "arm": "C3",
+      "old_new_low_dose_exact": true,
+      "meter_on_off_exact": true,
+      "reads_RNG_state_exact": true
+    },
+    "oracle": [
+      {
+        "case": 0,
+        "lr": 0.0005,
+        "foreach": null,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 5.0067901611328125e-06,
+              "increment_relative": 0.0
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000250011682510376,
+              "increment_relative": 0.0
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 6.079673767089844e-06,
+              "increment_relative": 0.0
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.009322660975158215,
+          "arithmetic_calls": 18,
+          "active_elements": 27,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": true,
+              "lr": 0.0005,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": true,
+              "lr": 0.00025,
+              "active_parameters": 2
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      },
+      {
+        "case": 1,
+        "lr": 0.0,
+        "foreach": false,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.03859009617008269,
+          "arithmetic_calls": 27,
+          "active_elements": 27,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": false,
+              "lr": 0.0,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": false,
+              "lr": 0.0,
+              "active_parameters": 2
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      },
+      {
+        "case": 2,
+        "lr": 1e-12,
+        "foreach": true,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.006946638925001025,
+          "arithmetic_calls": 18,
+          "active_elements": 18,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": true,
+              "lr": 1e-12,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": true,
+              "lr": 5e-13,
+              "active_parameters": 1
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      },
+      {
+        "case": 3,
+        "lr": 0.001,
+        "foreach": null,
+        "prediction": {
+          "passed": true,
+          "parameter_max_abs": 0.0,
+          "parameters": {
+            "0": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.0,
+              "increment_relative": null
+            },
+            "1": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 1.0013580322265625e-05,
+              "increment_relative": 0.0
+            },
+            "2": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 0.000500023365020752,
+              "increment_relative": 0.0
+            },
+            "3": {
+              "parameter_max_abs": 0.0,
+              "increment_max_abs": 0.0,
+              "actual_increment_max_abs": 1.2159347534179688e-05,
+              "increment_relative": 0.0
+            }
+          },
+          "tolerance": {
+            "parameter_atol": 2e-07,
+            "increment_atol": 1e-09,
+            "increment_rtol": 2e-05,
+            "ratio_resolution_ulps": 4,
+            "ratio_floor": 1e-12
+          }
+        },
+        "cost": {
+          "seconds": 0.009350791107863188,
+          "arithmetic_calls": 18,
+          "active_elements": 27,
+          "paths": [
+            {
+              "group": "A",
+              "foreach": true,
+              "lr": 0.001,
+              "active_parameters": 1
+            },
+            {
+              "group": "B",
+              "foreach": true,
+              "lr": 0.0005,
+              "active_parameters": 2
+            }
+          ]
+        },
+        "None_is_not_zero": true
+      }
+    ]
+  }
+}
