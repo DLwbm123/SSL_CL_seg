@@ -1,0 +1,10 @@
+{
+  "loss": "class-balanced disc/background Brier",
+  "beta": 0.9,
+  "initial": 0.25,
+  "temperature": 0.1,
+  "min_scale_weight": 0.1,
+  "weight_formula": "0.1+0.7*softmax(-R/0.1)",
+  "lag": "previous_committed_step",
+  "history": "reset_each_stage"
+}

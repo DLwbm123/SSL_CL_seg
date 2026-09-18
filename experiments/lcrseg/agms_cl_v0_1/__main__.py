@@ -16,13 +16,12 @@ def main(argv=None):
     if args.command=='prepare':result=freeze()
     elif args.command=='plan':result=canonical_plan()
     elif args.command=='test':
-        from .tests import run_tests
+        from .followup_tests import run_tests
         result=run_tests(args.reference,args.evidence)
     else:
         config=read(args.config)
         if args.command=='p0':
-            from .p0 import run
-            result=run(config)
+            raise PermissionError('P0 is historical import only; no new screening authorized')
         elif args.command=='qualify':
             from .qualification import qualify
             result=qualify(config,'CUDA' if args.mode=='cuda' else 'smoke')

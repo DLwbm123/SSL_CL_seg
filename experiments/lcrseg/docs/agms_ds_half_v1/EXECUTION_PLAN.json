@@ -1,0 +1,87 @@
+{
+  "study_id": "AGMS_DS_HALF_V1",
+  "science_sha256": "ef14fc04f97d70fd8d11f38afd517c4875f7e6479674c6327469b80b581c94b8",
+  "caps": {
+    "new_CPU_optimizer_cap": 24,
+    "new_CPU_attempt_cap": 1,
+    "CUDA_optimizer_cap": 11,
+    "smoke_optimizer_cap": 8,
+    "formal_optimizer_cap": 5300,
+    "real_optimizer_cap": 5308,
+    "source_updates": 0,
+    "first_target_updates": 0,
+    "diagnostic_vjps": 32
+  },
+  "CPU": {
+    "planned_calls": 21,
+    "cap": 24,
+    "attempt_cap": 1,
+    "cases": {
+      "A5_native": 2,
+      "continuation": 5,
+      "baseline": 4,
+      "failures": 2,
+      "overfit": 8
+    }
+  },
+  "CUDA": {
+    "cases": [
+      {
+        "arm": "A5",
+        "kind": "continuation",
+        "calls": 5
+      },
+      {
+        "kind": "baseline",
+        "calls": 4
+      },
+      {
+        "kind": "failures",
+        "calls": 2
+      }
+    ],
+    "planned_calls": 11,
+    "cap": 11
+  },
+  "smoke": {
+    "cases": [
+      {
+        "arm": "A5",
+        "order": 1,
+        "calls": 4,
+        "L_only": true,
+        "discarded": true
+      },
+      {
+        "arm": "A5",
+        "order": 2,
+        "calls": 4,
+        "L_only": true,
+        "discarded": true
+      }
+    ],
+    "planned_calls": 8,
+    "cap": 8
+  },
+  "diagnostics": {
+    "Drishti_GS": [
+      525,
+      1050,
+      1575,
+      2100
+    ],
+    "RIM_ONE_r3": [
+      800,
+      1600,
+      2400,
+      3200
+    ]
+  },
+  "P0": {
+    "mode": "import_prior_26_L_screen",
+    "images": 0,
+    "updates": 0
+  },
+  "future_status": "PENDING",
+  "automatic_retry": false
+}

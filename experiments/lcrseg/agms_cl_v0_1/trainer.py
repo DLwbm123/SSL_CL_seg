@@ -62,7 +62,7 @@ class AGMSTrainer(StageTrainer):
         supervised = m.parent.supervised(logp, y);constraint = m.parent.constraint_loss()
         ds = torch.stack([m.parent.supervised(p, y) for p in auxiliary]).mean() if auxiliary else supervised * 0
         labeled = supervised + constraint
-        if m.aux:labeled = labeled + .25 * ds
+        if m.aux:labeled = labeled + METHOD['lambda_DS'] * ds
         self.last = dict(labeled_loss=float(labeled.detach()), active_U=False,
                          losses={'supervised':float(supervised.detach()), 'DS':float(ds.detach()), 'constraint':float(constraint.detach())})
         if not active:return labeled, None, None
@@ -103,7 +103,7 @@ class AGMSTrainer(StageTrainer):
                          unlabeled_loss=float(unlabeled.detach()), coverage=coverage(fine, coarse, geometry, stats),
                          risk=self.risk.tolist(), alpha=stats['alpha'].tolist(), risk_updates=self.risk_updates,
                          losses={**self.last['losses'], 'KL':float(kl.detach()), 'H':float(h.detach()),
-                                 'weighted_DS':float((.25*ds).detach()), 'weighted_KL':float((kl*opt['lambda_U']*ramp).detach()),
+                                 'weighted_DS':float((METHOD['lambda_DS']*ds).detach()), 'weighted_KL':float((kl*opt['lambda_U']*ramp).detach()),
                                  'weighted_H':float((ramp*.5*h).detach()), 'ramp':ramp})
         finite(self._pending_risk, 'pending risk')
         if self.step+1 in {math.ceil(total*f) for f in (.25,.5,.75,1.)}:
@@ -125,7 +125,7 @@ class AGMSTrainer(StageTrainer):
         named = [(n,p) for n,p in self.model.named_parameters() if p.requires_grad]
         vectors, norms = {}, {}
         for name, loss, enabled, factor in [('supervised',supervised,True,1.),('KL',kl,True,ramp),
-                                            ('DS',ds,ARMS[self.arm]['M'],.25),('H',h,ARMS[self.arm]['H'],ramp*.5)]:
+                                            ('DS',ds,ARMS[self.arm]['M'],METHOD['lambda_DS']),('H',h,ARMS[self.arm]['H'],ramp*.5)]:
             grads = torch.autograd.grad(loss, [p for _,p in named], allow_unused=True, retain_graph=True)
             self.extra_cost['diagnostic_vjps'] += 1
             groups = {}

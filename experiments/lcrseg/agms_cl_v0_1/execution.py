@@ -33,7 +33,7 @@ def check_costs(root,plan):
     if any(p.parent.name not in counts for p in root.glob('*/physical.jsonl')):raise RuntimeError('unknown node ledger')
     result=dict(formal=sum(counts.values()),smoke=ledger_count(root/'smoke_physical.jsonl'),
                 synthetic_cuda=ledger_count(root/'cuda_physical.jsonl'))
-    if result['formal']>26500 or result['smoke']>24 or result['synthetic_cuda']>36 or result['formal']+result['smoke']>26524:
+    if result['formal']>5300 or result['smoke']>8 or result['synthetic_cuda']>11 or result['formal']+result['smoke']>5308:
         raise RuntimeError('cumulative protocol budget exceeded')
     return result
 
@@ -174,8 +174,8 @@ def run(config):
     if Path(config['run_root']).resolve()==Path(config['prefix_root']).resolve():raise PermissionError('historical root protected')
     with owned_root(config,plan) as root:
         bind_environment(root,baseline_environment(environment()));require_qualification(root,config,plan)
-        from .p0 import validate_report
-        validate_report(read(root/'P0_REPORT.json'),config,plan)
+        from .protocol import controls
+        controls()  # P0 imported; no new real screening reads.
         for node in plan['nodes']:
             check_costs(root,plan);status=stage_state(node,root,config);nr=root/node['id']
             if status=='METADATA_SEALED':accept_target(node,config,plan,permit,root,device);continue

@@ -154,8 +154,8 @@ def qualify(config,mode):
                         elif spec['kind']=='baseline':baseline_equivalence(config['reference'],device,permit,counter,384)
                         else:failures(config['reference'],device,permit,counter,384)
                     else:
-                        n=next(n for n in smoke_nodes() if n['arm']==spec['arm'])
-                        t=construct(n,config,plan,permit,*prefixes[1],device,smoke=True);counter.wrap(t.optimizer)
+                        n=next(n for n in smoke_nodes() if n['arm']==spec['arm'] and n['order']==spec['order'])
+                        t=construct(n,config,plan,permit,*prefixes[n['order']],device,smoke=True);counter.wrap(t.optimizer)
                         for _ in range(4):t.update()
                         assert t.provider.u_reads==0 and not t.diagnostics;del t
                     rows.append({**spec,'start':start+1,'end':counter.count,'passed':True})

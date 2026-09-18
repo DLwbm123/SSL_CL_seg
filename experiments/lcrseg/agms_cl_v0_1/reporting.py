@@ -1,12 +1,10 @@
-"""Complete 12/36/27/40 aggregate reports; no patient or model tensor IO."""
+"""Complete 6/18/9/8 aggregate reports; no patient or model tensor IO."""
 import copy
 import csv
 from pathlib import Path
 from .protocol import STUDY,DOC,ARMS,read,write,digest,canonical_plan,anchored,execution_plan
 from ..native_key_alignment_v0_1.reporting import metrics
-CONTRASTS={'A1-A0':{'A1':1,'A0':-1},'A2-A0':{'A2':1,'A0':-1},'A3-A0':{'A3':1,'A0':-1},
-           'A5-A0':{'A5':1,'A0':-1},'A5-A1':{'A5':1,'A1':-1},'A5-A2':{'A5':1,'A2':-1},
-           'A5-A3':{'A5':1,'A3':-1},'A5-A4':{'A5':1,'A4':-1},'A3-A1-A2+A0':{'A3':1,'A1':-1,'A2':-1,'A0':1}}
+CONTRASTS={'A5-A0':{'A5':1,'A0':-1},'A5-A5_CONTROL':{'A5':1,'A5_CONTROL':-1},'A5_CONTROL-A0':{'A5_CONTROL':1,'A0':-1}}
 
 
 def normalize_coverage(row):
@@ -36,17 +34,25 @@ def historical(plan):
                  prefix_binding_sha256=prefix['binding_sha256'],prefix_scores=pr['scores'],prefix_timeline=pr['timeline'],
                  diagnostics='NOT_MEASURED_HISTORICAL')
         rows.append(r)
+    from .protocol import controls
+    prior=controls()
+    for bound in plan['control_imports']:
+        row=copy.deepcopy(next(r for r in prior['rows'] if r['node_id']==bound['node_id']))
+        if digest(row)!=bound['row_sha256'] or digest(prior['integrity'][row['node_id']])!=bound['proof_sha256']:
+            raise ValueError('prior A5 control changed')
+        row.update(arm='A5_CONTROL',origin='historical_import',source_commit=plan['controls_public_commit'],diagnostics='NOT_MEASURED_HISTORICAL')
+        rows.append(row)
     return rows
 
 
 def summarize(rows):
     index={(r['arm'],r['identity']['order']):r for r in rows}
-    expected={(a,o) for a in ARMS for o in (1,2)}
-    if len(rows)!=12 or set(index)!=expected:return dict(status='NOT_ASSESSED_REDUCED_SCOPE',gates=None,pairs=[],automatic_followup=False)
+    expected={(a,o) for a in ('A0','A5_CONTROL','A5') for o in (1,2)}
+    if len(rows)!=6 or set(index)!=expected:return dict(status='NOT_ASSESSED_REDUCED_SCOPE',gates=None,pairs=[],automatic_followup=False)
     for r in rows:
         if r['identity']['seed']!=163:raise ValueError('wrong seed')
         if set(r['scores'])!={'REFUGE','RIM_ONE_r3','Drishti_GS'}:raise ValueError('domain coverage')
-        if r['arm']=='A0':
+        if r['arm'] in ('A0','A5_CONTROL'):
             if r['origin']!='historical_import' or r['diagnostics']!='NOT_MEASURED_HISTORICAL':raise ValueError('historical evidence fabricated')
         else:
             if r['origin']!='new_execution':raise ValueError('wrong origin')
@@ -66,12 +72,12 @@ def summarize(rows):
             if abs(delta['Forget']+delta['Old'])>1e-9:raise ValueError('DeltaForget identity')
             per_order.append(delta);pairs.append(dict(contrast=name,order=str(order),**delta))
         pairs.append(dict(contrast=name,order='mean',**{k:sum(r[k] for r in per_order)/2 for k in per_order[0]}))
-    p=[r for r in pairs if r['contrast']=='A5-A0'];means={a:sum(metrics(index[a,o])['Final'] for o in (1,2))/2 for a in ARMS}
-    best=max(('A1','A2','A3','A4'),key=lambda a:(means[a],-int(a[1])))
-    perf=p[2]['Final']>=.003 and all(r['Final']>=-.002 and r['Incoming']>=-.005 for r in p[:2]) and p[1]['Old']>=0
-    joint=means['A5']-means[best]>=.001
-    return dict(status='ASSESSED_DEVELOPMENT_ONLY',pairs=pairs,gates={'P_perf':perf,'P_joint':joint},
-                strongest_simple=best,joint_delta=means['A5']-means[best],automatic_followup=False)
+    p=[r for r in pairs if r['contrast']=='A5-A5_CONTROL']
+    gate=(p[2]['Final']>=.003 and p[2]['Old']>=.003
+          and all(x['Final']>=-.002 and x['Incoming']>=-.005 for x in p[:2]))
+    return dict(status='ASSESSED_DEVELOPMENT_ONLY',pairs=pairs,
+                gates={'DS_PRESSURE_SUPPORTED':gate},automatic_followup=False)
+
 
 
 def export(root,result):
@@ -88,7 +94,7 @@ def export(root,result):
             point['coverage']=[normalize_coverage(x) for x in d['coverage']]
             points.append(point)
         coverage.append({**meta,'status':'measured','summary':r['support'],'points':points})
-    if (len(final),len(domains),len(result['pairs']),len(diagnostics))!=(12,36,27,40):raise ValueError('report coverage')
+    if (len(final),len(domains),len(result['pairs']),len(diagnostics))!=(6,18,9,8):raise ValueError('report coverage')
     def output(name,rows):
         with (root/name).open('w',newline='') as f:
             w=csv.DictWriter(f,list(rows[0]),lineterminator='\n');w.writeheader();w.writerows(rows)
@@ -96,15 +102,14 @@ def export(root,result):
     write(root/'GRADIENT_DIAGNOSTICS.json',diagnostics);write(root/'COVERAGE_AND_RISK.json',coverage)
     write(root/'COST_AND_COMPLETION.json',dict(status=result['status'],costs=result['costs']))
     write(root/'PUBLIC_RESULTS.json',result)
-    (root/'FINAL_REPORT.md').write_text('# AGMS fixed P1 development results\n\n'+str(result['gates'])+
+    (root/'FINAL_REPORT.md').write_text('# AGMS DS half development results\n\n'+str(result['gates'])+
         '\n\nSingle observed seed, two orders; not independent-seed significance, independent patients, SOTA, or original KI reproduction. '
-        'Training-L diagnostics are not independent calibration. All 10 new nodes retained; A0 historical. '
+        'Training-L diagnostics are not independent calibration. Both new nodes retained; A0 and prior A5 historical. '
         'Common-prefix DeltaForget=-DeltaOld is one observation. Deployment discards heads/risk. No automatic follow-up.\n')
 
 
 def report(root,config):
     from .execution import stage_state,proof_binding,check_costs,require_qualification
-    from .p0 import validate_report
     from ..f5_confirmation_v1.assurance import integrity_current,session_totals
     root=Path(root);plan=canonical_plan();rows=historical(plan);costs={'formal':{},'integrity':{}};proofs={}
     for n in plan['nodes']:
@@ -115,19 +120,21 @@ def report(root,config):
         rows.append({**r,'arm':n['arm'],'prefix_binding_sha256':n['prefix_binding_sha256']})
         proofs[n['id']]={k:proof[k] for k in ('status','file_sha256','student_hash','transform_hash','receipt_sha256')}
         costs['formal'][n['id']]=session_totals(nr/'costs');costs['integrity'][n['id']]=session_totals(nr/'integrity_costs')
-    require_qualification(root,config,plan);p0=validate_report(read(root/'P0_REPORT.json'),config,plan)
+    require_qualification(root,config,plan)
+    from .protocol import controls
+    p0=dict(origin='historical_import',new_images=0,new_optimizer_calls=0,original=controls()['P0'])
     costs['physical']=check_costs(root,plan)
-    if costs['physical']['formal']!=26500 or sum(r['extra_cost']['diagnostic_vjps'] for r in rows if r['origin']=='new_execution')!=160:
+    if costs['physical']['formal']!=5300 or sum(r['extra_cost']['diagnostic_vjps'] for r in rows if r['origin']=='new_execution')!=32:
         raise ValueError('physical/VJP count mismatch')
-    costs['qualifications']={n:session_totals(root/'costs'/n) for n in ('CUDA_QUALIFICATION','SMOKE','P0')}
+    costs['qualifications']={n:session_totals(root/'costs'/n) for n in ('CUDA_QUALIFICATION','SMOKE')}
     costs['prefix']={p.name:session_totals(p) for p in (root/'costs').glob('PREFIX_*')}
-    costs['CPU_old']=134;costs['CPU_new']=read(DOC/'CPU/TEST_REPORT.json')['cost']
+    costs['CPU_prior']=dict(earlier=134,AGMS=80);costs['CPU_new']=read(DOC/'CPU/TEST_REPORT.json')['cost']
     analysis=summarize(rows)
     if analysis['status']!='ASSESSED_DEVELOPMENT_ONLY':raise ValueError('full coverage required')
     analysis.pop('status')
-    result=dict(study_id=STUDY,status='COMPLETE_AGMS_P1_AWAITING_SCIENTIFIC_REVIEW',execution_commit=config['execution_commit'],
+    result=dict(study_id=STUDY,status='COMPLETE_DS_HALF_AWAITING_SCIENTIFIC_REVIEW',execution_commit=config['execution_commit'],
                 plan_sha256=plan['plan_sha256'],rows=rows,costs=costs,integrity=proofs,P0=p0,**analysis)
-    export(root,result);write(root/'COMPLETION_PROOF.json',dict(status='PASS',new_nodes=10,historical=2,integrity=proofs,
-                                                             counts={'final':12,'domain':36,'paired':27,'diagnostics':40}))
+    export(root,result);write(root/'COMPLETION_PROOF.json',dict(status='PASS',new_nodes=2,historical=4,integrity=proofs,
+                                                             counts={'final':6,'domain':18,'paired':9,'diagnostics':8}))
     write(root/'STATUS.json',dict(status=result['status'],publication_status='LOCAL_REPORT_READY'))
     return result

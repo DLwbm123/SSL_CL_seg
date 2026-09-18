@@ -35,13 +35,13 @@ def authorize(review, launch, actual):
     if (review.get('study_id') != STUDY or review.get('decision') != 'APPROVED_FOR_EXPERIMENTS'
             or review.get('is_template', True) or review.get('reviewer_role') != 'external'
             or not review.get('reviewer') or not review.get('review_evidence')
-            or review.get('approved_phases') != ['P0', 'P1'] or review.get('caps') != CAPS
+            or review.get('approved_phases') != ['CUDA', 'SMOKE', 'P1'] or review.get('caps') != CAPS
             or any(review.get(k) != v for k,v in actual.items())):
         raise PermissionError('STOP_AWAITING_EXTERNAL_CODE_REVIEW')
     if (launch.get('study_id') != STUDY or launch.get('user_confirmed') is not True
-            or launch.get('review_sha256') != digest(review) or launch.get('prompt') != 'B'
+            or launch.get('review_sha256') != digest(review) or launch.get('prompt') != 'AUTONOMOUS_DS_HALF_V1'
             or any(launch.get(k) != v for k,v in actual.items())):
-        raise PermissionError('independent user Prompt B receipt required')
+        raise PermissionError('independent current user delegation receipt required')
 
 
 def preflight(config):
@@ -51,7 +51,7 @@ def preflight(config):
     if subprocess.check_output(['git','status','--porcelain'],cwd=ROOT,text=True):raise PermissionError('dirty checkout')
     if tree != read(DOC/'CODE_MANIFEST.json')['code_tree_sha256']:raise PermissionError('code manifest mismatch')
     actual = dict(reviewed_code_commit=head, code_tree_sha256=tree, plan_sha256=plan['plan_sha256'],
-                  prefix_sha256=digest(plan['prefixes']), import_sha256=digest(plan['imports']),
+                  prefix_sha256=digest(plan['prefixes']), import_sha256=digest({'A0':plan['imports'],'A5_CONTROL':plan['control_imports']}),
                   environment_sha256=digest(plan['environment']), execution_sha256=digest(execution_plan()))
     for key in ('review','launch_confirmation'):
         path=Path(config[key]).resolve()
@@ -61,7 +61,7 @@ def preflight(config):
     new,old=Path(config['run_root']).resolve(),Path(config['prefix_root']).resolve()
     if new==old or new in old.parents or old in new.parents:raise PermissionError('historical root protected')
     if read(DOC/'EXECUTION_PLAN.json') != execution_plan():raise PermissionError('execution plan mismatch')
-    from .revalidation import validate_cpu
+    from .followup_tests import validate_cpu
     validate_cpu(plan,tree)
     digests=[digest(dict(domain=n['domain'],seed=163,order=n['order'],stage=2,
                         manifest=plan['manifest_sha256'],split=plan['split_sha256'])) for n in plan['nodes']]
