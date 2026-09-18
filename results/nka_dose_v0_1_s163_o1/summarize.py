@@ -67,7 +67,7 @@ lines+=['','## 配对结果','','|权重|比较|ΔFinal|ΔOld|ΔIncoming|','|---
 for p in pairs:lines.append(f"|{p['lambda_align']:g}|{p['contrast']}|{p['Final']*100:+.5f}|{p['Old']*100:+.5f}|{p['Incoming']*100:+.5f}|")
 lines+=['','## 工程与诊断','',
 'CUDA40/40（18条记录）与L-only smoke32/32通过；4次预设CUDA失败计入物理成本。正式4/4完成、验收通过，正式失败session为0。真实总更新8432；源模型和第一目标新增训练0。旧CPU64、新CPU70单列，未再运行CPU suite。',
-f"正式工作session合计{cost['formal_worker_seconds']/3600:.3f}小时，包含训练与评价；峰值分配显存{cost['peak_allocated_bytes']/1024**3:.3f}GiB。共享GPU环境下，这不是独占GPU耗时。", 
+f"正式工作session合计{cost['formal_worker_seconds']/3600:.3f}小时，包含训练与评价；峰值分配显存{cost['peak_allocated_bytes']/1024**3:.3f}GiB。共享GPU环境下，这不是独占GPU耗时。",
 '固定诊断16点全部通过：64额外VJP、32只读Adam候选、6720 clean-U前向。每节点1680个active-U步骤均有合法辅助支持；所有诊断点候选与真实更新的最大参数误差为0。',
 '原生键C3的上游有效权重局部变化比例rho_W：lambda0.5约0.0031–0.0452，lambda2.0约0.0113–0.1163。辅助项确实改变了更新，但更大的局部扰动未转化为总体Dice收益。这只是当前剂量轨迹上的一步反事实，不代表完整无辅助轨迹；历史Adam计量未补造。','',
 '## 停止与解释边界','',
