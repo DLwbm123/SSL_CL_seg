@@ -51,11 +51,15 @@ def run(config):
         if out.exists():
             validate_report(read(out),config,plan);session_totals(root/'costs'/'P0');return read(out)
         if list((root/'costs'/'P0').glob('*/session.json')):raise RuntimeError('partial P0; no automatic retry')
+        prefixes={}
+        for order in (1,2):
+            n=next(n for n in plan['nodes'] if n['order']==order)
+            prefixes[order]=accept_prefix(n,config,plan,permit,root,device)
         rows=[]
         with cost_session(root/'costs'/'P0','P0_read_only'):
             for order in (1,2):
                 n=next(n for n in plan['nodes'] if n['order']==order)
-                old,receipt=accept_prefix(n,config,plan,permit,root,device)
+                old,receipt=prefixes[order]
                 value=torch.load(old/'student.pt',map_location=device,weights_only=False)
                 if value['identity']!=receipt['identity'] or tensor_fingerprint(value['student'])!=receipt['student_hash']:
                     raise ValueError('prefix changed after acceptance')

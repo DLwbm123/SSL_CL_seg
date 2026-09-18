@@ -1,17 +1,17 @@
 # AGMS_CL_V0_1 runbook
 
-Current stop: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. Only Prompt A was executed.
+Current stop: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. Prompt A and the limited R1 repair were executed.
 Do not execute any future command until the final commit has passed independent external
 review AND the user separately forwards Prompt B. No APPROVED artifact/template is shipped.
 Do not re-run prepare after review, update approved docs, reuse an old review, or drift HEAD.
 
 ## Preparation
 
-**Final CPU-generated qualification passed.** The user explicitly authorized one
+**Native CPU qualification passed at baseline ac01ab6de6250e11877fe9000a30665c2245292d.** The user explicitly authorized one
 additional28-call attempt after the original three. Attempt4 passed completely, bringing
 new CPU cost to80/96 over4/4 amended attempts. Original attempts2/28/22 calls and their
-FAIL/PASS/FAIL evidence remain intact. The code, plan and execution digests in the passing
-report match the current candidate. No further CPU attempt is authorized by this amendment.
+FAIL/PASS/FAIL evidence remain intact. The original CPU code digest remains bound to that baseline. The current repair is
+covered by REVIEW_R1_REGRESSION/COMPOSITE_REPORT.json, not a rerun of the native suite. No further CPU attempt is authorized by this amendment.
 Production still requires external review plus a separately forwarded Prompt B.
 
 CLI commands: `prepare`, `plan`, `test --reference PATH --evidence PATH`,
@@ -62,11 +62,18 @@ never regenerate a fingerprint to conceal a change.
 Private config keys: code, execution_commit, reference, data, prefix_root, run_root,
 review, launch_confirmation. Source/read-only prefix root and new NAS run root must not overlap.
 The model and dataset identifiers come from PREFIX_BINDINGS and frozen hashes, not discovery
-or subjective model choice. CPU qualification must match the current transitive code manifest.
+or subjective model choice. The narrow R1 composition must match the current transitive code manifest.
+`revalidation.validate_cpu` verifies the pinned full baseline manifest and every original CPU
+file; only the five declared repair/evidence Python files may differ. Unknown changes, changed
+protected files, changed science/execution digests or stale zero-update evidence fail.
+The original CPU report is never relabeled. Genuine review plus Prompt B remain mandatory.
 
 ## Future finite sequence (all PENDING)
 
-1. P0: actual prefix integrity and fixed current-L opportunity counts, ≤32 images and0 updates.
+1. P0: accept both prefixes in independent closed prefix cost sessions FIRST, then a separate
+   P0 read-only session for fixed current-L opportunity counts, ≤32 images and0 updates.
+   Payload identity/hash are rechecked at load. A prefix failure precedes any L access.
+   Prefix and P0 worker costs are separate; do not double-count nested time.
    P0 is descriptive only and cannot prune the matrix. No U/val/test data are opened.
 2. CUDA qualification: native generated384 data only; six arms ×5 warmup/continuous/resume
    calls=30, old B2/A0 equivalence4, preset failures2; total36. No real source/prefix is read.
@@ -88,3 +95,21 @@ external review should inspect the future paths, not treat CPU success as produc
 Public artifacts include only aggregate reports and necessary metadata. Keep model tensors,
 images/labels, per-patient counts, private_P0/private_val, credentials and private paths out.
 Use an independent results publication location; do not modify a reviewed execution checkout.
+
+## R1 zero-update repair evidence
+
+REVIEW_R1/ preserves the CHANGES_REQUESTED review and original submitted documents;
+approved_phases is empty. External Python source copies keep original bytes but use
+`.py.txt` to distinguish archived evidence from executable package source.
+
+REVIEW_R1_REGRESSION/ records the independent two-call maximum, each declaring zero
+optimizer updates; attempt1 passed. It does not consume/reset the original 80/96 calls
+or 4/4 attempts. No additional run is needed. Reproduction entry is
+`review_r1_regression.run(external_evidence_directory)` under the same limited authority,
+using a neutral Python argv. It refuses a third call or reset of published attempt history.
+The test uses actual cost_session/NativeOperations/Operations and actual P0 run orchestration,
+with generated payloads and stubbed model, provider, environment and preflight on the positive
+fixture. Separate negative cases use real preflight and prefix capability guards. It is
+not production P0, native model acceptance or CUDA qualification.
+
+COVERAGE_SCHEMA.md defines normalized export fields and untouched legacy raw diagnostics.

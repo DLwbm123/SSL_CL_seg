@@ -1,80 +1,54 @@
-# External code review request: AGMS_CL_V0_1
+# AGMS_CL_V0_1 R1 repair: request for external re-review
 
-**STOP_AWAITING_EXTERNAL_CODE_REVIEW — CPU_GENERATED_PASS.**
-This is a code-preparation submission, not an experiment approval. CPU-generated qualification is now complete; all production gates remain pending.
-The final commit is the head of `codex/agms-cl-v0-1`; use its full Git SHA for review bindings.
+**STOP_AWAITING_EXTERNAL_CODE_REVIEW.** Review the full SHA at the head of
+`codex/agms-cl-v0-1`, following [REVIEW_RESPONSE_R1.md](REVIEW_RESPONSE_R1.md).
+The original R1 decision remains CHANGES_REQUESTED with approved_phases=[]; no
+APPROVED document, production permit or user launch receipt was created.
 
-## Review outcome requested
+## Exact repair scope
 
-Inspect the complete independent implementation and the current attempt4 evidence.
-The passing CPU report is bound to this candidate; it is not native CUDA or real-data evidence.
-No approval template is included and no old NKA/DOSE approval is reused.
+- `p0.py`: both independent prefix acceptances finish before the single P0 cost
+  session. Load-time identity/hash checks, read-only semantics, sealed idempotency
+  and failure accounting remain intact.
+- `reporting.py`: explicit invalid geometry / unselected valid partition in normalized
+  coverage export. Raw diagnostic files and public raw rows retain legacy values.
+- `authority.py`, `revalidation.py`: narrowly validate current-code composition of
+  pinned old native evidence with new scoped evidence. Unknown changes fail.
+- `review_r1_regression.py`: isolated generated regression, zero optimizer, two-call
+  maximum. Actual P0 orchestration/counters; stub native model/provider/environment.
 
-## Changes and entry points
+The core, model, trainer, state/restore, data, RNG paths, old methods, science PLAN,
+EXECUTION_PLAN, options, prefixes/imports and environment bindings did not change.
+See the exact five-file delta and 774 protected-file hashes in the composite report.
+The complete baseline code manifest and CPU file inventory are retained and pinned.
 
-| File under the new package | Responsibility |
-|---|---|
-| protocol.py / anchors.py | Complete independent canonical matrix, frozen attachments, original public metadata and code manifest |
-| core.py | Parent logsumexp loss; legal-geometry normalization; balanced Brier; detached lagged risk weights and masks |
-| model.py | Native B2-compatible main network, two294-parameter L-only heads and captured dec3/dec2 readouts |
-| trainer.py | Original B2 forwarding/RNG, same-mask auxiliary LCTX supervision, explicit optimizer/EMA, U whitelist, risk transaction and40-point diagnostics |
-| authority.py | Fresh final-SHA external review and independent Prompt B capability; clean-tree/environment/current-CPU gates |
-| state.py | Actual native main/aux/EMA/Adam/R/prototype/support/RNG resume and exact semantic refusal |
-| execution.py | Prefix/target file acceptance, finite10-node controller, failure/tail budget stop and isolated evaluation |
-| qualification.py / tests.py | Future36 CUDA/24 smoke plus capped current CPU-generated suite and durable attempts |
-| p0.py | Future zero-update, fixed current-L confidence-only opportunity audit |
-| reporting.py | Actual12/36/27/40 export, fixed nine contrasts and prespecified development gates |
-| __main__.py | prepare / plan / test / p0 / qualify / run / report CLI |
+## Evidence to inspect
 
-The only tracked additions are this package and matching docs. Original code, method plans,
-DOSE results, approvals and ledgers are untouched. New public-input copies retain original
-commit provenance. Public row hashes and original private receipt hashes are separate fields.
+1. [Original external review](REVIEW_R1/EXTERNAL_REVIEW_R1.md),
+   [repair authorization scope](REVIEW_R1/REPAIR_PROMPT.md), decision and targeted checks.
+2. Immutable [native CPU attempt4](CPU/ATTEMPT_4_REPORT.json) from baseline
+   `ac01ab6de6250e11877fe9000a30665c2245292d`: 28 calls PASS; cumulative80/96,
+   four/four amended attempts; old134 separate (214 cumulative CPU updates across studies).
+3. [R1 regression](REVIEW_R1_REGRESSION/REPORT.json): attempt1 of at most2,
+   11 checks PASS; new optimizer calls/attempts0. Original nested failure reproduced,
+   sequential replacement passed, failures kept, sealed audit not repeated, load-time
+   identity/hash refusal, report partition/export, read-only state/RNG, authority negatives.
+4. [Current composite binding](REVIEW_R1_REGRESSION/COMPOSITE_REPORT.json):
+   SCOPED_ZERO_UPDATE_REVALIDATION, not a full native rerun. Includes baseline provenance,
+   current code/plan/execution hashes, exact delta and protected file proofs.
+5. [Counter costs](REVIEW_R1_REGRESSION/ATTEMPT_1_COSTS.json),
+   [coverage schema](COVERAGE_SCHEMA.md), [RUNBOOK](RUNBOOK.md).
 
-## CPU evidence and resolved preparation blocker
+Re-review should focus on orchestration sequencing, immutable-source binding and refusal
+of unknown changes, scope of fixture stubs, and raw versus normalized diagnostic meanings.
+The broad original implementation review entry remains archived in REVIEW_R1/BASE_REVIEW_REQUEST.md.
 
-- Attempt1:2 calls, failed a newly written assertion on raw A. The native A-only method
-  projects the effective delta, not raw A; native constraints passed. The test was corrected
-  to check `delta @ V` with the original residual contract; no scientific change occurred.
-- Attempt2:28 calls, complete PASS. Covered all six native arms, active U, auxiliary
-  gradients/EMA/whitelist, exact A0/B2 main/EMA/optimizer/prototype/read/RNG equivalence,
-  A1/A5 continuation, generated model verification, report coverage and two injected failures.
-- Attempt3:22 calls. Final RNG/diagnostic hardening passed pure contracts, actual auxiliary
-  geometry and all six warmup/active native arms; both continuation comparisons returned.
-  The aggregate-test harness then attempted to create its previous tail-fixture directory
-  and raised FileExistsError. Baseline/failure cases later in this attempt were not executed.
-- The user subsequently said “我都授权， 你尽快解决” in response to the proposed
-  one additional28-call CPU attempt. CPU_REPAIR_AUTHORIZATION.json records that narrow
-  amendment: attempt cap4, cumulative call cap96, production authorization=false.
-- Attempt4:28 calls, complete PASS. Includes all six native warmup/active arms, actual
-  auxiliary readout geometry, RNG isolation, A1/A5 exact continuation, seven negative
-  restore cases per arm, main/EMA/optimizer/prototype/reads/RNG baseline equivalence,
-  generated file integrity,12/36/27/40 report coverage and two preset physical failures.
-- Total new CPU80/96, attempts4/4; old CPU134 unchanged. Real optimizer=0; no real prefix
-  tensor, patient data, P0, CUDA, smoke, training or monitoring was accessed.
+## Unexecuted production
 
-The harness now isolates every attempt's generated payloads and compares historical records
-using the same public path redaction used when publishing. Original attempts1–3 and the first52
-ledger rows remain unchanged. No scientific trainer/model/loss code changed in this repair.
-PLAN and EXECUTION_PLAN reflect only the explicit CPU administrative amendment; frozen inputs,
-methods, ten nodes, scientific budgets, prefix/import/environment bindings and gates are unchanged.
-`CPU/TEST_REPORT.json` and `CPU/ATTEMPT_4_REPORT.json` carry PASS and the final code/plan/execution
-digests. `PREPARATION_STATUS.json` records the verified preparation state. No old failure is erased.
+Real prefix tensors0, patients0, real optimizer0, P0 production0, CUDA0, smoke0,
+formal0, monitoring0. All production gates remain PENDING and require a genuine fresh
+external approval of this commit plus separately forwarded user Prompt B.
 
-## Particular review targets
-
-1. Original fine PAS/KL and main valid-readout geometry remain unchanged. H never overlaps
-   fine pixels; uncertain fine class (.04,.48,.48) may enter the parent branch.
-2. LCTX auxiliary targets are collected from the SAME original complementary mask.
-   Teacher clean L/U feature reuse adds readouts, not backbone forwards.
-3. Heads are explicit Adam/EMA members and excluded from U. Check current-L balanced risk,
-   one-step lag, no invalid-label update, commit boundary and resume semantics.
-4. A0 historical identities are not rewritten; complete close-state equivalence and exact
-   environment remain mandatory. No automatic baseline/source retraining fallback exists.
-5. Canonical schema plus fresh capabilities guard real prefix/P0/CUDA/smoke/P1. Verify source
-   isolation, per-node physical tails, actual model checks on skip, and full completion costs.
-6. Reports distinguish historical unavailable diagnostics from newly measured values; all
-   ten nodes precede gates. Two orders are one seed, and DeltaForget=-DeltaOld is not a
-   second independent observation. No SOTA, original-KI or independent-patient claim.
-
-No P1R/P2/P3 executable nodes, seed164, SCNP, distance-field training, RL, SWD search,
-monitoring, source training or first-target training is added.
+Frozen future P1: seed163, O1/O2, A1–A5 second-stage only, ten new nodes/26500 updates;
+A0 two historical imports. No source or first-stage training. CUDA36, smoke24 and
+P0≤32 L images/0 updates unchanged. No automatic follow-up or scope expansion.

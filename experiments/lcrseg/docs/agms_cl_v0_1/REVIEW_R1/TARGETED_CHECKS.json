@@ -1,0 +1,125 @@
+{
+  "reviewed_commit": "ac01ab6de6250e11877fe9000a30665c2245292d",
+  "checks": [
+    {
+      "name": "source_git_blob_core.py",
+      "status": "PASS"
+    },
+    {
+      "name": "source_git_blob_telemetry.py",
+      "status": "PASS"
+    },
+    {
+      "name": "source_git_blob_native_operations.py",
+      "status": "PASS"
+    },
+    {
+      "name": "risk_weights_sum_floor_detach",
+      "status": "PASS"
+    },
+    {
+      "name": "uncertain_fine_reliable_parent",
+      "status": "PASS"
+    },
+    {
+      "name": "fine_coarse_disjoint_geometry",
+      "status": "PASS"
+    },
+    {
+      "name": "selection_is_detached",
+      "status": "PASS"
+    },
+    {
+      "name": "parent_legal_geometry_normalization",
+      "status": "PASS"
+    },
+    {
+      "name": "parent_student_gradient_only",
+      "status": "PASS"
+    },
+    {
+      "name": "empty_support_connected_zero",
+      "status": "PASS"
+    },
+    {
+      "name": "balanced_brier",
+      "status": "PASS"
+    },
+    {
+      "name": "all_ignore_risk_not_updated",
+      "status": "PASS"
+    },
+    {
+      "name": "same_scale_equal_fusion",
+      "status": "PASS"
+    },
+    {
+      "name": "low_auxiliary_rejects_coarse",
+      "status": "PASS"
+    },
+    {
+      "name": "nested_P0_prefix_reproduces_error",
+      "status": "PASS"
+    },
+    {
+      "name": "nested_failure_preserves_cost_sessions",
+      "status": "PASS"
+    },
+    {
+      "name": "counter_cleanup_after_failure",
+      "status": "PASS"
+    },
+    {
+      "name": "sequential_prefix_then_P0_contexts_succeed",
+      "status": "PASS"
+    },
+    {
+      "name": "all_review_optimizer_calls_zero",
+      "status": "PASS"
+    }
+  ],
+  "check_count": 19,
+  "passed": 19,
+  "findings": [
+    {
+      "id": "AGMS-R2",
+      "scope": "coverage labels, not training masks",
+      "geometry_pixels": 4,
+      "fine": 0,
+      "coarse": 0,
+      "reported_ignore": 0,
+      "reported_ignore_fraction": 0.0,
+      "valid_but_unsupervised": 4,
+      "meaning": "ignore currently counts outside-geometry, not valid rejected pixels"
+    },
+    {
+      "id": "AGMS-R1",
+      "scope": "actual CPU counter/context classes with stub unused native targets",
+      "error": "nested counter scope",
+      "inner_body_reached": false,
+      "session_statuses": {
+        "PREFIX": "FAILED",
+        "P0": "FAILED"
+      },
+      "optimizer_calls": 0,
+      "patient_reads": 0,
+      "checkpoint_reads": 0
+    }
+  ],
+  "source_git_blobs": {
+    "core.py": "90a644ebb26a8eb28a0d062018eb867b863f34ac",
+    "telemetry.py": "8c0c3545175f37308be046d42cf34daa0b40e293",
+    "native_operations.py": "2829fc1b330869e0b7b372b4e58c256103bff271"
+  },
+  "environment": {
+    "python": "3.13.5",
+    "torch": "2.10.0+cpu"
+  },
+  "optimizer_calls": 0,
+  "native_model_runs": 0,
+  "CUDA_runs": 0,
+  "real_prefix_reads": 0,
+  "patient_reads": 0,
+  "production_permits_created": 0,
+  "scope": "Extracted native cost_session, exact counter classes and core tensor functions; unused native/data targets stubbed. Not full-repository or production-entry execution."
+}

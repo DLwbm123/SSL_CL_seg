@@ -1,6 +1,6 @@
 # AGMS_CL_V0_1 — code preparation
 
-Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. No production approval is shipped. Final CPU-generated qualification: **PASS**,80/96 cumulative calls,4/4 user-amended attempts. Attempts1–3 remain preserved.
+Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. No production approval is shipped. Native CPU attempt4 at baseline `ac01ab6de6250e11877fe9000a30665c2245292d`: **PASS**,80/96 cumulative calls,4/4 user-amended attempts. The current R1 repair has **SCOPED_ZERO_UPDATE_REVALIDATION**: 11 checks passed in 1/2 zero-update calls. The native suite was not rerun.
 
 Start with [REVIEW_REQUEST.md](REVIEW_REQUEST.md), then [METHOD_SPEC.md](METHOD_SPEC.md),
 [PLAN.json](PLAN.json), [EXECUTION_PLAN.json](EXECUTION_PLAN.json), and [RUNBOOK.md](RUNBOOK.md).

@@ -1,13 +1,7 @@
 # CPU preparation report
 
-Original native status: **CPU_GENERATED_PASS**, bound to baseline
-`ac01ab6de6250e11877fe9000a30665c2245292d`, not independently rerun on the R1 repair.
-All files under CPU/ retain their original bytes. Production remains unapproved.
-
-Current R1 status: **SCOPED_ZERO_UPDATE_REVALIDATION**. The first of at most two
-zero-update regression calls passed all 11 checks. See REVIEW_R1_REGRESSION/REPORT.json
-and COMPOSITE_REPORT.json: current code binding, exact five-file code delta,
-774 unchanged Python files, baseline native CPU provenance and current scoped coverage.
+Final status: **CPU_GENERATED_PASS**, bound to the current transitive code manifest,
+canonical plan and execution plan. Production remains unapproved.
 
 | Attempt | Calls | Outcome |
 |---|---:|---|

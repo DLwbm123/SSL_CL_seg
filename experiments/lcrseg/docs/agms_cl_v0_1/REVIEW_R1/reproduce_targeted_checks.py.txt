@@ -1,0 +1,121 @@
+"""Independent review fixtures only: zero optimizer calls, no native models/data/permits.
+
+core.py, telemetry.py and native_operations.py must match the pinned Git blobs.
+Only unused native instrumentation targets are stubs. Real counter classes and
+extracted cost_session execute on CPU with cuda=False. This does NOT invoke the
+production P0 entry or claim that a CUDA/native model test was performed.
+"""
+from pathlib import Path
+import ast, contextlib, functools, hashlib, importlib.util, json, os, sys, tempfile, time, types
+from collections import Counter
+from unittest.mock import patch
+import torch
+ROOT=Path(__file__).resolve().parent
+SRC=ROOT/'source'
+checks=[]; findings=[]
+def check(name, predicate):
+    assert bool(predicate), name
+    checks.append({'name':name,'status':'PASS'})
+blobs={'core.py':'90a644ebb26a8eb28a0d062018eb867b863f34ac',
+       'telemetry.py':'8c0c3545175f37308be046d42cf34daa0b40e293',
+       'native_operations.py':'2829fc1b330869e0b7b372b4e58c256103bff271'}
+for fn, expected in blobs.items():
+    b=(SRC/fn).read_bytes()
+    actual=hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+    check('source_git_blob_'+fn,actual==expected)
+sp=importlib.util.spec_from_file_location('review_core',SRC/'core.py');c=importlib.util.module_from_spec(sp);sp.loader.exec_module(c)
+risk=torch.tensor([.1,.25,.9],requires_grad=True)
+alpha=c.weights(risk,True)
+check('risk_weights_sum_floor_detach',torch.allclose(alpha.sum(),torch.tensor(1.)) and alpha.min()>=.1 and not alpha.requires_grad)
+q=torch.tensor([.04,.48,.48]).reshape(1,3,1,1).expand(1,3,2,2).clone().requires_grad_()
+g=torch.ones(1,2,2,dtype=torch.bool);fine=torch.zeros_like(g)
+m,st=c.selector([q],g,fine,'A1',risk)
+check('uncertain_fine_reliable_parent',m.all())
+fine[0,0,0]=True;g[0,0,1]=False
+m,st=c.selector([q],g,fine,'A1',risk)
+check('fine_coarse_disjoint_geometry',not (m&fine).any() and not (m&~g).any())
+check('selection_is_detached',not m.requires_grad and not st['disc'].requires_grad)
+logits=torch.tensor([0.,.1,.2]).reshape(1,3,1,1).expand(1,3,2,2).clone().requires_grad_()
+logp=logits.log_softmax(1);loss=c.parent_loss(logp,m,g)
+check('parent_legal_geometry_normalization',torch.allclose(loss,(-torch.logsumexp(logp[:,1:3],1)*m).sum()/g.sum()))
+grads=torch.autograd.grad(loss,(logits,q,risk),allow_unused=True,retain_graph=True)
+check('parent_student_gradient_only',grads[0].abs().sum()>0 and grads[1] is None and grads[2] is None)
+z=c.parent_loss(logp,m&False,g&False);gz,=torch.autograd.grad(z,logits,retain_graph=True)
+check('empty_support_connected_zero',z==0 and not gz.any())
+y=torch.tensor([[[0,0],[0,2]]]);r=c.brier([q],y)
+check('balanced_brier',torch.allclose(r,torch.tensor([(.96**2+.04**2)/2]),atol=1e-6))
+check('all_ignore_risk_not_updated',c.brier([q],y*0+255) is None)
+same,_=c.selector([q,q,q],g,fine,'A4',risk)
+check('same_scale_equal_fusion',torch.equal(same,m))
+low=torch.tensor([.8,.1,.1]).reshape(1,3,1,1).expand_as(q)
+conflict,_=c.selector([q,low,q],g,fine,'A4',risk)
+check('low_auxiliary_rejects_coarse',not conflict.any())
+# The following is a diagnostic-semantic finding, not an optimization failure.
+gall=torch.ones_like(g);none=torch.zeros_like(g)
+_,st=c.selector([q],gall,none,'A1',risk)
+cov=c.coverage(none,none,gall,st)[0]
+findings.append({'id':'AGMS-R2','scope':'coverage labels, not training masks',
+ 'geometry_pixels':int(gall.sum()),'fine':cov['fine'],'coarse':cov['coarse'],
+ 'reported_ignore':cov['ignore'],'reported_ignore_fraction':cov['ignore_fraction'],
+ 'valid_but_unsupervised':int((gall&~none&~none).sum()),
+ 'meaning':'ignore currently counts outside-geometry, not valid rejected pixels'})
+# Load exact instrumentation classes; unused model/data functions are stubbed.
+def noop(*a,**kw):return None
+class DummyNative:
+    features=noop;native_readout=noop;update_dense_ema=noop
+class DummyModel: forward=noop
+class DummyData: __getitem__=noop
+mods=[types.SimpleNamespace(update_ema=noop) for _ in range(3)]
+mods[0].predecessor=mods[1];mods[1].old=mods[2]
+ns=dict(contextlib=contextlib,json=json,time=time,Counter=Counter,Path=Path,patch=patch,
+        torch=torch,h5py=types.SimpleNamespace(File=noop),core=mods[0],
+        LCRSegUNet2DJASCL=DummyModel,CurrentData=DummyData)
+def stripped(path):
+    tree=ast.parse(path.read_text())
+    tree.body=[n for n in tree.body if not isinstance(n,(ast.Import,ast.ImportFrom))]
+    return compile(ast.fix_missing_locations(tree),str(path),'exec')
+exec(stripped(SRC/'telemetry.py'),ns)
+ns2=dict(functools=functools,json=json,patch=patch,Operations=ns['Operations'],NativeLRParent=DummyNative)
+exec(stripped(SRC/'native_operations.py'),ns2)
+module_name='reviewfixture.five_frameworks_v1.native_operations'
+module=types.ModuleType(module_name);module.NativeOperations=ns2['NativeOperations'];sys.modules[module_name]=module
+for name in ['reviewfixture','reviewfixture.five_frameworks_v1','reviewfixture.f5_confirmation_v1']:
+    x=types.ModuleType(name);x.__path__=[];sys.modules[name]=x
+
+def read(p):return json.loads(Path(p).read_text())
+def write(p,v):
+    p=Path(p);p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(v,indent=2))
+ns3=dict(__package__='reviewfixture.f5_confirmation_v1',contextlib=contextlib,Path=Path,
+         read=read,write=write,time=time,json=json,os=os)
+exec(compile((SRC/'cost_session_extracted.py').read_text(),'cost_session_extracted.py','exec'),ns3)
+cost_session=ns3['cost_session']
+real_step=torch.optim.Adam.step
+with tempfile.TemporaryDirectory(prefix='agms_review_') as td:
+    td=Path(td); reached=False;error=None
+    try:
+        with cost_session(td/'P0','P0_read_only',cuda=False):
+            with cost_session(td/'PREFIX','prefix_integrity',cuda=False):
+                reached=True
+    except RuntimeError as e:error=str(e)
+    statuses={p.parent.parent.name:read(p)['status'] for p in td.glob('*/*/session.json')}
+    check('nested_P0_prefix_reproduces_error',error=='nested counter scope' and not reached)
+    check('nested_failure_preserves_cost_sessions',all(v=='FAILED' for v in statuses.values()) and len(statuses)==2)
+    check('counter_cleanup_after_failure',ns['ACTIVE'] is None and torch.optim.Adam.step is real_step)
+    findings.append({'id':'AGMS-R1','scope':'actual CPU counter/context classes with stub unused native targets',
+                     'error':error,'inner_body_reached':reached,'session_statuses':statuses,
+                     'optimizer_calls':0,'patient_reads':0,'checkpoint_reads':0})
+    # Design check only, not a patch or a production execution.
+    with cost_session(td/'SEQ_PREFIX','prefix_integrity',cuda=False):pass
+    with cost_session(td/'SEQ_P0','P0_read_only',cuda=False):pass
+    check('sequential_prefix_then_P0_contexts_succeed',
+          read(td/'SEQ_PREFIX/0001/session.json')['status']=='PASS' and read(td/'SEQ_P0/0001/session.json')['status']=='PASS')
+    calls=sum(read(p)['operation_counts'].get('optimizer_steps',0) for p in td.glob('*/*/session.json'))
+    check('all_review_optimizer_calls_zero',calls==0)
+result={'reviewed_commit':'ac01ab6de6250e11877fe9000a30665c2245292d','checks':checks,
+        'check_count':len(checks),'passed':len(checks),'findings':findings,
+        'source_git_blobs':blobs,'environment':{'python':sys.version.split()[0],'torch':torch.__version__},
+        'optimizer_calls':0,'native_model_runs':0,'CUDA_runs':0,'real_prefix_reads':0,'patient_reads':0,
+        'production_permits_created':0,
+        'scope':'Extracted native cost_session, exact counter classes and core tensor functions; unused native/data targets stubbed. Not full-repository or production-entry execution.'}
+(ROOT/'TARGETED_CHECKS.json').write_text(json.dumps(result,indent=2))
+print(json.dumps({k:result[k] for k in ['check_count','passed','findings','optimizer_calls','environment']},indent=2))

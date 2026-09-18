@@ -1,0 +1,37 @@
+@contextlib.contextmanager
+def cost_session(root,scope,cuda=True):
+    """Keep every attempt. Unclosed hard-kill sessions block verified completion.
+
+    Reuse NativeOperations snapshots (including optimizer boundaries). On a
+    process kill its durable lower bound remains, never replaced by a later run.
+    Missing tail measurements are an engineering stop, not silently zero cost.
+    """
+    import torch
+    from ..five_frameworks_v1.native_operations import NativeOperations
+    root=Path(root);root.mkdir(parents=True,exist_ok=True)
+    for p in root.glob('*/session.json'):
+        if read(p)['status']=='STARTED':raise RuntimeError('ENGINEERING_STOP_COST_EVIDENCE_INCOMPLETE')
+    run=root/f'{len(list(root.glob("*/session.json")))+1:04d}';run.mkdir()
+    start=time.time();record=dict(scope=scope,status='STARTED',started=start)
+    write(run/'session.json',record)
+    if cuda:torch.cuda.synchronize();torch.cuda.reset_peak_memory_stats()
+    class DurableOperations(NativeOperations):
+        def flush(self,event):
+            self.root.mkdir(parents=True,exist_ok=True)
+            row=dict(event=event,counts=dict(self.counts),elapsed_seconds=time.time()-start,
+                     peak_cuda_allocated=torch.cuda.max_memory_allocated() if cuda else 0,
+                     peak_cuda_reserved=torch.cuda.max_memory_reserved() if cuda else 0)
+            with (self.root/'operation_events.jsonl').open('a') as f:
+                f.write(json.dumps(row)+'\n');f.flush();os.fsync(f.fileno())
+    operations=DurableOperations(run/'operations')
+    try:
+        with operations:yield operations
+        record['status']='PASS'
+    except BaseException:
+        record['status']='FAILED';raise
+    finally:
+        if cuda:torch.cuda.synchronize()
+        record.update(seconds=time.time()-start,operation_counts=dict(operations.counts),extra_cost=getattr(operations,'extra_cost',{}),
+                      peak_cuda_allocated=torch.cuda.max_memory_allocated() if cuda else 0,
+                      peak_cuda_reserved=torch.cuda.max_memory_reserved() if cuda else 0)
+        write(run/'session.json',record)

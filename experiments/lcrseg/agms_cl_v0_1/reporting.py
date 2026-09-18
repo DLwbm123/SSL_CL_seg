@@ -9,6 +9,22 @@ CONTRASTS={'A1-A0':{'A1':1,'A0':-1},'A2-A0':{'A2':1,'A0':-1},'A3-A0':{'A3':1,'A0
            'A5-A3':{'A5':1,'A3':-1},'A5-A4':{'A5':1,'A4':-1},'A3-A1-A2+A0':{'A3':1,'A1':-1,'A2':-1,'A0':1}}
 
 
+def normalize_coverage(row):
+    """Preserve raw diagnostics; distinguish geometry exclusion from rejection."""
+    out=copy.deepcopy(row)
+    g,f,c,invalid=(row[k] for k in ('geometry','fine','coarse','ignore'))
+    if any(type(n) is not int or n<0 for n in (g,f,c,invalid)) or f+c>g:
+        raise ValueError('invalid coverage partition')
+    total=g+invalid;unused=g-f-c
+    out.update(total_pixels=total,invalid_geometry_pixels=invalid,
+               invalid_geometry_fraction=invalid/total if total else None,
+               unselected_valid_pixels=unused,unselected_valid_fraction=unused/g if g else None,
+               fine_fraction=f/g if g else None,coarse_fraction=c/g if g else None,
+               legacy_ignore_meaning='invalid geometry; fraction denominator is total pixels')
+    if f+c+unused!=g or g+invalid!=total:raise ValueError('coverage partition identity')
+    return out
+
+
 def historical(plan):
     public=anchored('B2_PUBLIC_RESULTS.json');rows=[]
     for bound in plan['imports']:
@@ -66,7 +82,12 @@ def export(root,result):
         for domain,values in r['scores'].items():domains.append({**meta,'domain':domain,**{k:values[k] for k in ('rim','cup','disc_union','macro_Dice')}})
         if r['origin']=='historical_import':coverage.append({**meta,'status':'NOT_MEASURED_HISTORICAL'});continue
         for step,d in r['diagnostics'].items():diagnostics.append({**meta,'step':int(step),**d})
-        coverage.append({**meta,'status':'measured','summary':r['support'],'points':[{k:d[k] for k in ('coverage','risk','alpha','shadow_L','L_errors','uniform_risk_disagreement')} for d in r['diagnostics'].values()]})
+        points=[]
+        for d in r['diagnostics'].values():
+            point={k:d[k] for k in ('coverage','risk','alpha','shadow_L','L_errors','uniform_risk_disagreement')}
+            point['coverage']=[normalize_coverage(x) for x in d['coverage']]
+            points.append(point)
+        coverage.append({**meta,'status':'measured','summary':r['support'],'points':points})
     if (len(final),len(domains),len(result['pairs']),len(diagnostics))!=(12,36,27,40):raise ValueError('report coverage')
     def output(name,rows):
         with (root/name).open('w',newline='') as f:

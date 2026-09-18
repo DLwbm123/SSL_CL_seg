@@ -61,10 +61,8 @@ def preflight(config):
     new,old=Path(config['run_root']).resolve(),Path(config['prefix_root']).resolve()
     if new==old or new in old.parents or old in new.parents:raise PermissionError('historical root protected')
     if read(DOC/'EXECUTION_PLAN.json') != execution_plan():raise PermissionError('execution plan mismatch')
-    cpu=read(DOC/'CPU/TEST_REPORT.json')
-    if (cpu['status']!='PASS' or not cpu['baseline_equivalence'] or cpu['code_tree_sha256']!=tree
-            or cpu['plan_sha256']!=plan['plan_sha256'] or cpu['execution_sha256']!=digest(execution_plan())):
-        raise PermissionError('BASELINE_REUSE_BLOCKED: current CPU qualification required')
+    from .revalidation import validate_cpu
+    validate_cpu(plan,tree)
     digests=[digest(dict(domain=n['domain'],seed=163,order=n['order'],stage=2,
                         manifest=plan['manifest_sha256'],split=plan['split_sha256'])) for n in plan['nodes']]
     return plan,Capability({**actual,'study_id':STUDY,'execution_scope':'formal',

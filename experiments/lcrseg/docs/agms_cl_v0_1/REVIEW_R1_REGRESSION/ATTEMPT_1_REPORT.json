@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "attempt": 1,
+  "code_tree_sha256": "62ad89a2db77ddeec8713b5312c9a7472864f19fa6ee544644e8fdd178e2415b",
+  "checks": {
+    "old_nested_failure_and_cleanup": "PASS",
+    "prefixes_exit_before_P0": "PASS",
+    "sealed_idempotency": "PASS",
+    "prefix_failure_no_L_or_P0": "PASS",
+    "partial_P0_refused": "PASS",
+    "payload_identity_hash_rechecked": "PASS",
+    "coverage_partitions_and_export": "PASS",
+    "missing_and_old_authority_refused": "PASS",
+    "readonly_state_and_RNG": "PASS",
+    "zero_optimizer_and_real_IO": "PASS",
+    "composite_binding_rejects_drift": "PASS"
+  },
+  "optimizer_calls": 0,
+  "optimizer_attempts": 0,
+  "real_prefix_reads": 0,
+  "patient_reads": 0,
+  "native_model_runs": 0,
+  "CUDA_runs": 0,
+  "production_permits_created": 0,
+  "scope": "generated CPU orchestration/report checks; real counters; stub native model/provider/environment",
+  "environment": {
+    "python": "3.12.9",
+    "torch": "2.6.0",
+    "device": "cpu"
+  },
+  "details": {
+    "success_events": [
+      "prefix1_enter",
+      "prefix1_exit",
+      "prefix2_enter",
+      "prefix2_exit",
+      "P0_enter",
+      "P0_exit"
+    ],
+    "failed_prefix_events": [
+      "prefix1_enter",
+      "prefix1_exit",
+      "prefix2_enter"
+    ]
+  }
+}
