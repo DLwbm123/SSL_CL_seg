@@ -50,5 +50,21 @@
     "error": "FileExistsError: [Errno 17] File exists: '<CPU_EVIDENCE>/tail/AGMS__A1__S163__O1__STAGE2'",
     "traceback": "Traceback (most recent call last):\n  File \"<CHECKOUT>/experiments/lcrseg/agms_cl_v0_1/tests.py\", line 216, in run_tests\n    if arm=='A5':evidence['integrity_reports']=integrity_reports(root,t)\n                                               ^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"<CHECKOUT>/experiments/lcrseg/agms_cl_v0_1/tests.py\", line 146, in integrity_reports\n    nr=root/'tail'/node['id'];nr.mkdir(parents=True);(nr/'physical.jsonl').write_text('{\"invocation\":1,\"scientific_step_attempt\":1}\\n')\n                              ^^^^^^^^^^^^^^^^^^^^^^\n  File \"<CPU_RUNTIME>/lib/python3.12/pathlib.py\", line 1311, in mkdir\n    os.mkdir(self, mode)\nFileExistsError: [Errno 17] File exists: '<CPU_EVIDENCE>/tail/AGMS__A1__S163__O1__STAGE2'\n",
     "seconds": 6.024744749069214
+  },
+  {
+    "invocation": 4,
+    "status": "PASS",
+    "cases": {
+      "math_metadata": 0,
+      "six_arms": 12,
+      "continuation": 10,
+      "baseline": 4,
+      "failures": 2,
+      "integrity_reports": 0
+    },
+    "planned_calls": 28,
+    "calls": 28,
+    "started": 1789730493.2798789,
+    "seconds": 7.517360210418701
   }
 ]

@@ -7,13 +7,12 @@ Do not re-run prepare after review, update approved docs, reuse an old review, o
 
 ## Preparation
 
-**Final CPU qualification is blocked.** Three attempts used2,28,22 physical calls
-(total52/96); attempt2 passed, attempt3 stopped on a generated-fixture directory collision.
-The fixture now uses per-attempt directories, but no fourth attempt is permitted. The
-latest FAIL and every older report remain intact; its code digest is not silently rebound
-to the repaired code. Production preflight deliberately refuses the current FAIL report.
-A reviewed repair and separately authorized CPU qualification scope are necessary before
-any future production readiness claim. Prompt B alone cannot bypass this prerequisite.
+**Final CPU-generated qualification passed.** The user explicitly authorized one
+additional28-call attempt after the original three. Attempt4 passed completely, bringing
+new CPU cost to80/96 over4/4 amended attempts. Original attempts2/28/22 calls and their
+FAIL/PASS/FAIL evidence remain intact. The code, plan and execution digests in the passing
+report match the current candidate. No further CPU attempt is authorized by this amendment.
+Production still requires external review plus a separately forwarded Prompt B.
 
 CLI commands: `prepare`, `plan`, `test --reference PATH --evidence PATH`,
 `p0 --config PATH`, `qualify --mode cuda|smoke --config PATH`,
@@ -23,8 +22,8 @@ CPU tests use the existing local interpreter and a detached source-only upstream
 at `3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53`; no packages were installed or upgraded.
 Generated checkpoints/logs remain outside the repository. `CPU/TEST_REPORT.json` records
 actual CPU environment; it is not a claim of matching the frozen production GPU environment.
-Old CPU134 remain in their own ledgers. Every new attempt predeclares28 calls, maximum3
-attempts/cumulative96; physical calls include failed attempts. No old suite is run.
+Old CPU134 remain in their own ledgers. Every new attempt predeclares28 calls, maximum4
+attempts under CPU_REPAIR_1/cumulative96; physical calls include failed attempts. No old suite is run.
 Published CPU records cannot be reset by selecting a new evidence directory.
 
 For a future authorized process, use environment values with a neutral visible argv.

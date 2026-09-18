@@ -1,6 +1,6 @@
 # AGMS_CL_V0_1 — code preparation
 
-Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. No production approval is shipped. Final CPU qualification is blocked:52/96 calls,3/3 attempts; the latest suite stopped on a test-fixture directory collision. The repair is not requalified.
+Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. No production approval is shipped. Final CPU-generated qualification: **PASS**,80/96 cumulative calls,4/4 user-amended attempts. Attempts1–3 remain preserved.
 
 Start with [REVIEW_REQUEST.md](REVIEW_REQUEST.md), then [METHOD_SPEC.md](METHOD_SPEC.md),
 [PLAN.json](PLAN.json), [EXECUTION_PLAN.json](EXECUTION_PLAN.json), and [RUNBOOK.md](RUNBOOK.md).

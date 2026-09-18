@@ -20,6 +20,12 @@ def anchored(name):
 PROPOSAL = anchored('05_PROPOSED_PLAN.json')
 ARMS = copy.deepcopy(PROPOSAL['arms'])
 CAPS = copy.deepcopy(PROPOSAL['budgets'])
+# Explicit user amendment after the original three attempts, CPU preparation only.
+CPU_AMENDMENT = dict(id='CPU_REPAIR_1', user_instruction='我都授权， 你尽快解决',
+    context='one additional 28-call CPU generated suite after 52 calls / 3 attempts',
+    previous_attempt_cap=3, attempt_cap=4, additional_planned_calls=28,
+    cumulative_optimizer_cap=96, production_authorized=False)
+CAPS['new_CPU_attempt_cap'] = CPU_AMENDMENT['attempt_cap']
 METHOD = copy.deepcopy(PROPOSAL['options'])
 METHOD.pop('fully_bound_b2_options')
 GEOMETRY = dict(labels={'background': 0, 'rim': 1, 'cup': 2, 'ignore': 255},
@@ -31,6 +37,8 @@ GEOMETRY = dict(labels={'background': 0, 'rim': 1, 'cup': 2, 'ignore': 255},
 def canonical_plan():
     proposal = anchored('05_PROPOSED_PLAN.json')
     result = copy.deepcopy(proposal)
+    result['budgets'] = copy.deepcopy(CAPS)
+    result['preparation_amendment'] = copy.deepcopy(CPU_AMENDMENT)
     result['options'] = anchored('BASE_FROZEN_OPTIONS.json')
     result['method'] = copy.deepcopy(METHOD)
     result['geometry'] = copy.deepcopy(GEOMETRY)
@@ -85,7 +93,7 @@ def code_manifest():
 def execution_plan():
     cpu = dict(math_metadata=0, six_arms=12, continuation=10, baseline=4, failures=2, integrity_reports=0)
     return dict(study_id=STUDY, science_sha256=canonical_plan()['plan_sha256'], caps=CAPS,
-                CPU=dict(cases=cpu, planned_calls=28, attempt_cap=3, per_attempt_cap=32, cap=96),
+                CPU=dict(cases=cpu, planned_calls=28, attempt_cap=CAPS['new_CPU_attempt_cap'], per_attempt_cap=32, cap=96),
                 CUDA=dict(cases=[dict(arm=a, kind='continuation', calls=5) for a in ARMS] +
                      [dict(kind='baseline', calls=4), dict(kind='failures', calls=2)], planned_calls=36, cap=36),
                 smoke=dict(cases=[dict(arm=a, calls=4, L_only=True, discarded=True) for a in ARMS], planned_calls=24, cap=24),
@@ -98,7 +106,7 @@ def freeze():
     for name, value in [('PLAN', p), ('PREFIX_BINDINGS', p['prefixes']), ('IMPORT_BINDINGS', p['imports']),
                         ('ENVIRONMENT_BINDING', p['environment']), ('FROZEN_OPTIONS', {'B2': p['options'], 'AGMS': METHOD}),
                         ('GEOMETRY_CONTRACT', GEOMETRY), ('RISK_STATE_CONTRACT', METHOD['risk']),
-                        ('EXECUTION_PLAN', execution_plan()), ('CODE_MANIFEST', code_manifest())]:
+                        ('EXECUTION_PLAN', execution_plan()), ('CPU_REPAIR_AUTHORIZATION', CPU_AMENDMENT), ('CODE_MANIFEST', code_manifest())]:
         write(DOC / (name + '.json'), value)
     return p
 

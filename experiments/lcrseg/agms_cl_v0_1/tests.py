@@ -161,14 +161,25 @@ def integrity_reports(root,t):
     return dict(actual_generated_file_verified=True,wrong_hash_refused=True,tail_replay_refused=True,report_counts=counts,diagnostics=40,reduced_gate_not_assessed=True)
 
 
+def public_record(value, root):
+    """Normalize only private path spellings; preserve every historical result/call."""
+    if isinstance(value, dict):return {k:public_record(v,root) for k,v in value.items()}
+    if isinstance(value, list):return [public_record(v,root) for v in value]
+    if isinstance(value, str):
+        for path,label in ((str(ROOT),'<CHECKOUT>'),(str(root),'<CPU_EVIDENCE>'),
+                           (str(Path('/tmp')/root.name),'<CPU_EVIDENCE>'),(sys.prefix,'<CPU_RUNTIME>')):
+            value=value.replace(path,label)
+    return value
+
+
 def run_tests(reference,evidence_root):
     if sys.flags.optimize or 'PYTHONOPTIMIZE' in os.environ or torch.cuda.is_initialized():raise RuntimeError('unoptimized CPU required')
     root=Path(evidence_root).resolve();root.mkdir(parents=True,exist_ok=True)
     if root==ROOT or ROOT in root.parents:raise RuntimeError('generated payloads must remain outside checkout')
     attempts=read(root/'ATTEMPTS.json') if (root/'ATTEMPTS.json').exists() else []
     published=read(DOC/'CPU/ATTEMPTS.json') if (DOC/'CPU/ATTEMPTS.json').exists() else []
-    if len(attempts)<len(published) or attempts[:len(published)]!=published:raise RuntimeError('CPU history reset refused')
-    if len(attempts)>=3 or any(a['status']=='STARTED' for a in attempts):raise RuntimeError('CPU attempt cap/interrupted attempt')
+    if len(attempts)<len(published) or public_record(attempts[:len(published)],root)!=published:raise RuntimeError('CPU history reset refused')
+    if len(attempts)>=execution_plan()['CPU']['attempt_cap'] or any(a['status']=='STARTED' for a in attempts):raise RuntimeError('CPU attempt cap/interrupted attempt')
     class AttemptCounter(Counter):
         def call(self,step):
             if self.count-self.begin>=28:raise RuntimeError('declared attempt optimizer cap')
@@ -176,11 +187,11 @@ def run_tests(reference,evidence_root):
     counter=AttemptCounter(root/'PHYSICAL.jsonl',96);begin=counter.count;counter.begin=begin;spec=execution_plan()['CPU']
     if begin!=sum(a['calls'] for a in attempts) or begin+28>96:raise RuntimeError('CPU ledger/cap mismatch')
     current=dict(invocation=len(attempts)+1,status='STARTED',cases=spec['cases'],planned_calls=28,calls=0,started=time.time())
-    attempts.append(current);write(root/'ATTEMPTS.json',attempts);write(DOC/'CPU/ATTEMPTS.json',attempts)
+    attempts.append(current);write(root/'ATTEMPTS.json',attempts);write(DOC/'CPU/ATTEMPTS.json',public_record(attempts,root))
     payload_root=root/'generated'/('attempt_'+str(len(attempts)))
-    payload_root.mkdir(parents=True,exist_ok=False)
     torch.set_num_threads(2);permit=synthetic_capability();device=torch.device('cpu');evidence={};baseline=False
     try:
+        payload_root.mkdir(parents=True,exist_ok=False)
         with cost_session(root/'costs','CPU_GENERATED',cuda=False):
             evidence['math_metadata']=math_metadata();evidence['geometry']=geometry_checks()
             from .execution import accept_prefix,construct
@@ -235,7 +246,9 @@ def run_tests(reference,evidence_root):
                     future={k:'PENDING' for k in ('prefix_tensors','P0','CUDA','smoke','P1')})
         write(root/f'ATTEMPT_{len(attempts)}_REPORT.json',report);write(root/'TEST_REPORT.json',report)
         out=DOC/'CPU';out.mkdir(exist_ok=True)
-        for p in root.glob('*.json'):shutil.copyfile(p,out/p.name)
+        for p in root.glob('*.json'):
+            if not (out/p.name).exists() or p.name in ('ATTEMPTS.json','TEST_REPORT.json'):
+                write(out/p.name,public_record(read(p),root))
         if (root/'PHYSICAL.jsonl').exists():shutil.copyfile(root/'PHYSICAL.jsonl',out/'PHYSICAL.jsonl')
         # Publish aggregate cost records only, never generated model payloads.
         for p in (root/'costs').glob('*/session.json'):

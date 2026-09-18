@@ -1,11 +1,26 @@
 # CPU preparation report
 
-Final status: CPU_QUALIFICATION_BLOCKED_ATTEMPT_CAP.
+Final status: **CPU_GENERATED_PASS**, bound to the current transitive code manifest,
+canonical plan and execution plan. Production remains unapproved.
 
-Attempt1: FAIL,2 calls (test incorrectly required raw A orthogonality).
-Attempt2: PASS,28 calls (complete suite).
-Attempt3: FAIL,22 calls (generated tail-fixture directory collision).
+| Attempt | Calls | Outcome |
+|---|---:|---|
+|1|2|FAIL: test asserted raw-A orthogonality instead of effective delta projection|
+|2|28|PASS: full suite before final hardening|
+|3|22|FAIL: generated tail-fixture directory collision|
+|4|28|PASS: complete repaired candidate under explicit user CPU amendment|
 
-Total52/96 calls,3/3 attempts; original134 unchanged. The two preset after-optimizer failure calls occurred in attempt2 and are included in its28 calls; attempt3 did not reach those cases.
+Total80/96 new calls,4/4 amended attempts; original134 remain separate and unchanged.
+Four preset after-optimizer failure calls are included across attempts2 and4.
+The unexpected test failures and all physical calls remain recorded.
 
-The repaired final code has syntax validation only; the recorded FAIL is preserved. Production remains blocked. No real tensors/patients/CUDA/P0/smoke/training/monitoring.
+Passing coverage: canonical metadata/refusals, parent example and legal geometry, fine/coarse
+exclusion, balanced Brier and detached risk, alpha floor/lag, auxiliary coordinates and LCTX
+source gathering, all six native active arms, auxiliary gradients/EMA/U whitelist, A-only
+projection, deploy equivalence, A1/A5 exact resume and wrong identity/semantics refusal,
+actual generated model integrity, tail-replay refusal,12/36/27/40 report coverage, and exact
+A0/B2 main/EMA/Adam/schedule/prototype/read/RNG equivalence.
+
+No real tensors/patients/CUDA/P0/smoke/training/monitoring. Native CUDA, environment matching,
+real prefix acceptance and production correctness remain future gates after external review
+and a separate Prompt B. No further attempt is authorized by this CPU repair amendment.

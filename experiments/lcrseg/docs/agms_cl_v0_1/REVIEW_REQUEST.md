@@ -1,13 +1,13 @@
 # External code review request: AGMS_CL_V0_1
 
-**STOP_AWAITING_EXTERNAL_CODE_REVIEW — CPU_QUALIFICATION_BLOCKED_ATTEMPT_CAP.**
-This is a code-preparation submission, not an experiment approval or claim of qualification.
+**STOP_AWAITING_EXTERNAL_CODE_REVIEW — CPU_GENERATED_PASS.**
+This is a code-preparation submission, not an experiment approval. CPU-generated qualification is now complete; all production gates remain pending.
 The final commit is the head of `codex/agms-cl-v0-1`; use its full Git SHA for review bindings.
 
 ## Review outcome requested
 
-Inspect the complete independent implementation and evidence. Do not authorize production
-from the earlier passing CPU report: the final candidate has no complete passing suite.
+Inspect the complete independent implementation and the current attempt4 evidence.
+The passing CPU report is bound to this candidate; it is not native CUDA or real-data evidence.
 No approval template is included and no old NKA/DOSE approval is reused.
 
 ## Changes and entry points
@@ -30,7 +30,7 @@ The only tracked additions are this package and matching docs. Original code, me
 DOSE results, approvals and ledgers are untouched. New public-input copies retain original
 commit provenance. Public row hashes and original private receipt hashes are separate fields.
 
-## CPU evidence and remaining blocker
+## CPU evidence and resolved preparation blocker
 
 - Attempt1:2 calls, failed a newly written assertion on raw A. The native A-only method
   projects the effective delta, not raw A; native constraints passed. The test was corrected
@@ -42,15 +42,23 @@ commit provenance. Public row hashes and original private receipt hashes are sep
   geometry and all six warmup/active native arms; both continuation comparisons returned.
   The aggregate-test harness then attempted to create its previous tail-fixture directory
   and raised FileExistsError. Baseline/failure cases later in this attempt were not executed.
-- Total new CPU52/96, attempts3/3, old CPU134 unchanged. Real optimizer=0; no real prefix
+- The user subsequently said “我都授权， 你尽快解决” in response to the proposed
+  one additional28-call CPU attempt. CPU_REPAIR_AUTHORIZATION.json records that narrow
+  amendment: attempt cap4, cumulative call cap96, production authorization=false.
+- Attempt4:28 calls, complete PASS. Includes all six native warmup/active arms, actual
+  auxiliary readout geometry, RNG isolation, A1/A5 exact continuation, seven negative
+  restore cases per arm, main/EMA/optimizer/prototype/reads/RNG baseline equivalence,
+  generated file integrity,12/36/27/40 report coverage and two preset physical failures.
+- Total new CPU80/96, attempts4/4; old CPU134 unchanged. Real optimizer=0; no real prefix
   tensor, patient data, P0, CUDA, smoke, training or monitoring was accessed.
 
-The final harness repair creates per-attempt payload directories. A final scope tightening
-also rejects a formal A0/smoke node before prefix IO. These repairs were syntax-checked only;
-no fourth suite, hidden optimizer calls, budget reset, or false final PASS was produced.
-`CPU/TEST_REPORT.json` intentionally remains FAIL with the actual tested code digest.
-`PREPARATION_STATUS.json` gives the final manifest and records the qualification mismatch.
-All attempts/calls/cost records are retained; public tracebacks redact local paths only.
+The harness now isolates every attempt's generated payloads and compares historical records
+using the same public path redaction used when publishing. Original attempts1–3 and the first52
+ledger rows remain unchanged. No scientific trainer/model/loss code changed in this repair.
+PLAN and EXECUTION_PLAN reflect only the explicit CPU administrative amendment; frozen inputs,
+methods, ten nodes, scientific budgets, prefix/import/environment bindings and gates are unchanged.
+`CPU/TEST_REPORT.json` and `CPU/ATTEMPT_4_REPORT.json` carry PASS and the final code/plan/execution
+digests. `PREPARATION_STATUS.json` records the verified preparation state. No old failure is erased.
 
 ## Particular review targets
 
