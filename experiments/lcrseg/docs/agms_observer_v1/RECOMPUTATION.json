@@ -1,0 +1,155 @@
+{
+  "source_commit": "6e65a9b987f8818f7b10fa11a2cc205d11283779",
+  "input_integrity": {
+    "FINAL_METRICS.csv": {
+      "bytes": 887,
+      "git_blob": "3a9f2440c92cf2c2d324b27687516437c5cb5076",
+      "sha256": "1945a05a5787757cebdb4123c715006ef5dc80ba90920e4637aa5ef146c50eae"
+    },
+    "DOMAIN_METRICS.csv": {
+      "bytes": 2720,
+      "git_blob": "b957b538bd2069f1c446fde3a84ccfaab25a017b",
+      "sha256": "ba66ca717418bc2e51fe6d0bf0206fb3d29148cd9240a9fc743eda7e7d6a04fc"
+    }
+  },
+  "source_note": "CSV bytes transcribed from connector responses and matched to returned Git blobs.",
+  "means_raw": {
+    "A0": {
+      "Final": 0.6574658966035771,
+      "Old": 0.6269018565621903,
+      "Incoming": 0.7185939766863505,
+      "Forget": 0.1451859564375613
+    },
+    "A5_CONTROL": {
+      "Final": 0.6392104065814812,
+      "Old": 0.599443929786508,
+      "Incoming": 0.7187433601714277,
+      "Forget": 0.17264388321324373
+    },
+    "A5": {
+      "Final": 0.640116635181692,
+      "Old": 0.6035464714767727,
+      "Incoming": 0.713256962591531,
+      "Forget": 0.16854134152297895
+    }
+  },
+  "contrasts": {
+    "A5-A0": {
+      "per_order_pp": {
+        "1": {
+          "Final": -3.33421854893049,
+          "Old": -5.231632901364036,
+          "Incoming": 0.4606101559366249,
+          "Forget": 5.2316329013640335
+        },
+        "2": {
+          "Final": -0.13563373544650537,
+          "Old": 0.5605558842805003,
+          "Incoming": -1.5280129749005167,
+          "Forget": -0.5605558842805003
+        }
+      },
+      "mean_pp": {
+        "Final": -1.7349261421885087,
+        "Old": -2.335538508541768,
+        "Incoming": -0.5337014094819459,
+        "Forget": 2.3355385085417653
+      }
+    },
+    "A5-A5_CONTROL": {
+      "per_order_pp": {
+        "1": {
+          "Final": -0.4115434103392879,
+          "Old": -0.18124259301864898,
+          "Incoming": -0.8721450449805324,
+          "Forget": 0.18124259301864343
+        },
+        "2": {
+          "Final": 0.5927891303814659,
+          "Old": 1.0017509310715988,
+          "Incoming": -0.22513447099878903,
+          "Forget": -1.0017509310715962
+        }
+      },
+      "mean_pp": {
+        "Final": 0.09062286002108344,
+        "Old": 0.4102541690264694,
+        "Incoming": -0.5486397579896662,
+        "Forget": -0.4102541690264777
+      }
+    },
+    "A5_CONTROL-A0": {
+      "per_order_pp": {
+        "1": {
+          "Final": -2.922675138591202,
+          "Old": -5.050390308345387,
+          "Incoming": 1.3327552009171573,
+          "Forget": 5.05039030834539
+        },
+        "2": {
+          "Final": -0.7284228658279712,
+          "Old": -0.44119504679109856,
+          "Incoming": -1.3028785039017277,
+          "Forget": 0.4411950467910958
+        }
+      },
+      "mean_pp": {
+        "Final": -1.8255490022095922,
+        "Old": -2.7457926775682373,
+        "Incoming": 0.014938348507720356,
+        "Forget": 2.745792677568243
+      }
+    }
+  },
+  "role_changes": {
+    "HALF-A0": {
+      "per_order_pp": {
+        "1": {
+          "source": -2.084844364962657,
+          "first_target": -8.37842143776541,
+          "incoming": 0.4606101559366249
+        },
+        "2": {
+          "source": 3.3660030937496144,
+          "first_target": -2.244891325188614,
+          "incoming": -1.5280129749005167
+        }
+      },
+      "mean_role_pp": {
+        "source": 0.6405793643934787,
+        "first_target": -5.311656381477011,
+        "incoming": -0.5337014094819459
+      }
+    },
+    "HALF-A5_CONTROL": {
+      "per_order_pp": {
+        "1": {
+          "source": 0.07574445860201173,
+          "first_target": -0.4382296446392986,
+          "incoming": -0.8721450449805324
+        },
+        "2": {
+          "source": 1.8592469365661612,
+          "first_target": 0.1442549255770309,
+          "incoming": -0.22513447099878903
+        }
+      },
+      "mean_role_pp": {
+        "source": 0.9674956975840865,
+        "first_target": -0.14698735953113384,
+        "incoming": -0.5486397579896607
+      }
+    }
+  },
+  "fraction_of_original_Final_deficit_recovered": 0.04964142836560187,
+  "optimizer_calls": 0,
+  "VJP_calls": 0,
+  "patient_reads": 0,
+  "model_reads": 0,
+  "limitations": [
+    "single observed seed, two orders",
+    "aggregate algebra, not causal attribution",
+    "no independent server-model verification",
+    "full gradient tensors not downloaded or reanalyzed"
+  ]
+}
