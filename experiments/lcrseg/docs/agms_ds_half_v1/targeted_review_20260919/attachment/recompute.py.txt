@@ -1,0 +1,30 @@
+"""Recompute public aggregate metrics only; no model, data payload, or optimizer."""
+from pathlib import Path
+import pandas as pd
+import hashlib, json
+root=Path(__file__).resolve().parent
+raw=(root/'inputs/FINAL_METRICS.csv').read_bytes()
+blob=hashlib.sha1(b'blob '+str(len(raw)).encode()+b'\0'+raw).hexdigest()
+assert blob=='2ab7f8ae387eadfde4d141404ff967f1449e1a45',blob
+x=pd.read_csv(root/'inputs/FINAL_METRICS.csv')
+metrics=['Final','Old','Incoming','Forget']
+assert len(x)==12 and x[['arm','order']].drop_duplicates().shape[0]==12
+assert ((x.Final-(2*x.Old+x.Incoming)/3).abs()<1e-12).all()
+m=x.groupby('arm')[metrics].mean();delta=(m-m.loc['A0'])*100
+pairs=[]
+for a,b in [('A5','A0'),('A2','A0'),('A5','A2'),('A5','A4'),('A3','A1')]:
+    for o in (1,2):
+        l=x[(x.arm==a)&(x.order==o)].iloc[0]
+        r=x[(x.arm==b)&(x.order==o)].iloc[0]
+        pairs.append({'contrast':a+'-'+b,'order':o,**{k:float((l[k]-r[k])*100) for k in metrics}})
+out={'source_commit':'ef6888dc81519ce9e9ca13ea497bbf6397747d70','source_git_blob_verified':blob,
+     'scope':'public aggregate recomputation, 12 endpoint rows; not model verification',
+     'means':m.to_dict(orient='index'),'delta_A0_percentage_points':delta.to_dict(orient='index'),
+     'paired_percentage_points':pairs,
+     'A5_minus_A0_contribution_pp':{'old':float(2/3*(m.loc['A5','Old']-m.loc['A0','Old'])*100),
+                                    'incoming':float(1/3*(m.loc['A5','Incoming']-m.loc['A0','Incoming'])*100)},
+     'optimizer_calls':0}
+(root/'RECOMPUTATION.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+delta.to_csv(root/'DELTA_VS_A0_PP.csv');pd.DataFrame(pairs).to_csv(root/'PAIRED_SELECTED_PP.csv',index=False)
+print(delta.to_string(float_format=lambda v:f'{v:+.6f}'))
+print(out['A5_minus_A0_contribution_pp'])

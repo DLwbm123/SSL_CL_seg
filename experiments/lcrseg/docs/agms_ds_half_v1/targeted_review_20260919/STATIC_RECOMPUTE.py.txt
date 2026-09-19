@@ -1,0 +1,125 @@
+"""Static public-metadata audit only. No project imports, tensors, optimizer or server access.
+Usage: python3 STATIC_RECOMPUTE.py.txt EXACT_CANDIDATE_CHECKOUT OUTPUT_DIRECTORY ATTACHMENT_ZIP
+"""
+import ast, csv, hashlib, io, json, subprocess, sys, zipfile
+from pathlib import Path
+CANDIDATE='44c1da8a5a8a75021a0298d42bd8f9088e9b059a'
+ORIGINAL='89dc7657c4f0b7c6f51de339d0f6bc2a621da55f'
+RESULT='ef6888dc81519ce9e9ca13ea497bbf6397747d70'
+root,out,archive=map(Path,sys.argv[1:])
+def git(*args):return subprocess.check_output(['git','-C',str(root),*args]).decode().strip()
+def read(path):return json.loads(path.read_text())
+def sha(b):return hashlib.sha256(b).hexdigest()
+def digest(x):return sha(json.dumps(x,sort_keys=True,separators=(',',':'),allow_nan=False).encode())
+def save(name,x):(out/name).write_text(json.dumps(x,ensure_ascii=False,indent=2,allow_nan=False)+'\n')
+def table(name,rows):
+ with (out/name).open('w',newline='') as f:
+  w=csv.DictWriter(f,fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
+assert git('rev-parse','HEAD')==CANDIDATE
+assert not git('status','--porcelain')
+out.mkdir(parents=True,exist_ok=True)
+doc=root/'experiments/lcrseg/docs/agms_ds_half_v1'
+base=root/'experiments/lcrseg/docs/agms_cl_v0_1'
+result=base/'results_20260919'
+plan,exe,manifest=(read(doc/n) for n in ('PLAN.json','EXECUTION_PLAN.json','CODE_MANIFEST.json'))
+assert digest({k:v for k,v in plan.items() if k!='plan_sha256'})==plan['plan_sha256']
+assert exe['science_sha256']==plan['plan_sha256']
+files={str(p.relative_to(root)):sha(p.read_bytes()) for p in sorted((root/'experiments').rglob('*.py')) if '__pycache__' not in p.parts}
+assert files==manifest['files'] and digest(files)==manifest['code_tree_sha256']
+# Immutable scientific inputs, metadata only; do not import protocol or run prepare.
+anchors=ast.literal_eval(ast.parse((root/'experiments/lcrseg/agms_cl_v0_1/anchors.py').read_text()).body[1].value)
+for name,s in anchors.items():assert sha((base/'inputs'/name).read_bytes())==s,name
+public=read(result/'PUBLIC_RESULTS.json');b2=read(base/'inputs/B2_PUBLIC_RESULTS.json')
+assert sha((result/'PUBLIC_RESULTS.json').read_bytes())==plan['controls_public_sha256']
+assert plan['controls_public_commit']==RESULT and public['execution_commit']==ORIGINAL
+assert public['gates']=={'P_perf':False,'P_joint':False}
+assert public['costs']['physical']=={'formal':26500,'smoke':24,'synthetic_cuda':36}
+assert len(public['integrity'])==10 and all(x['status']=='VERIFIED' for x in public['integrity'].values())
+assert read(doc/'PREFIX_BINDINGS.json')==plan['prefixes']
+imports={'A0':plan['imports'],'A5_CONTROL':plan['control_imports']}
+assert read(doc/'IMPORT_BINDINGS.json')==imports
+assert read(doc/'ENVIRONMENT_BINDING.json')==plan['environment']
+assert read(doc/'FROZEN_OPTIONS.json')=={'B2':plan['options'],'AGMS':plan['method']}
+assert read(doc/'GEOMETRY_CONTRACT.json')==plan['geometry']
+assert read(doc/'RISK_STATE_CONTRACT.json')==plan['method']['risk']
+oldplan=json.loads(git('show',ORIGINAL+':experiments/lcrseg/docs/agms_cl_v0_1/PLAN.json'))
+assert {**oldplan['method'],'lambda_DS':.125}==plan['method']
+assert all(oldplan[k]==plan[k] for k in ('options','geometry','environment','manifest_sha256','split_sha256','prefixes','imports','diagnostics'))
+assert len(plan['nodes'])==2 and sum(n['updates'] for n in plan['nodes'])==5300
+assert plan['reports']==dict(final_rows=6,domain_rows=18,paired_rows=9,diagnostic_points=8)
+assert plan['future']=={} and plan['advancement_gates']==dict(mean_Final_vs_A5_at_least=.003,mean_Old_vs_A5_at_least=.003,each_Incoming_vs_A5_at_least=-.005,each_Final_vs_A5_at_least=-.002)
+for p in plan['prefixes']:
+ row=next(x for x in b2['rows'] if x['node_id']==p['node_id']);proof=b2['integrity'][p['node_id']]
+ assert row['identity']==p['identity'] and proof['status']=='VERIFIED'
+ assert proof['receipt_sha256']==p['receipt_sha256'] and proof['student_hash']==p['student_sha256']
+ assert p['identity']['seed']==163 and p['identity']['stage']==1
+for alias,items in imports.items():
+ source=b2 if alias=='A0' else public
+ for item in items:
+  row=next(x for x in source['rows'] if x['node_id']==item['node_id']);proof=source['integrity'][item['node_id']]
+  assert digest(row)==item['row_sha256'] and digest(proof)==item['proof_sha256'] and proof['status']=='VERIFIED'
+for n in plan['nodes']:
+ assert n['seed']==163 and n['stage']==2 and n['arm']=='A5'
+ p=next(x for x in plan['prefixes'] if x['identity']['order']==n['order'])
+ assert n['prefix_node']==p['node_id'] and n['prefix_binding_sha256']==p['binding_sha256']
+ assert n['options_sha256']==digest(plan['options'][n['domain']])
+ assert n['method_sha256']==digest(dict(arm=oldplan['arms']['A5'],method=plan['method'],geometry=plan['geometry']))
+report=read(doc/'CPU/TEST_REPORT.json');attempts=read(doc/'CPU/ATTEMPTS.json');session=read(doc/'CPU/costs/0001/session.json')
+physical=[json.loads(l) for l in (doc/'CPU/PHYSICAL.jsonl').read_text().splitlines()]
+assert [x['invocation'] for x in physical]==list(range(1,22))
+assert len(attempts)==1 and attempts[0]['calls']==21 and attempts[0]['status']=='PASS'
+assert report['status']=='PASS' and all(report['checks'].values())
+assert report['code_tree_sha256']==digest(files) and report['plan_sha256']==plan['plan_sha256'] and report['execution_sha256']==digest(exe)
+assert report['cost']==dict(new_CPU=21,attempts=1,prior_AGMS_CPU=80,earlier_CPU=134,real_optimizer=0)
+assert session['status']=='PASS' and session['operation_counts']['optimizer_steps']==21
+changed=git('diff','--name-only',ORIGINAL,CANDIDATE,'--','experiments/lcrseg/agms_cl_v0_1').splitlines()
+unchanged=['agms_cl_v0_1/'+x for x in ('anchors.py','model.py','core.py','state.py')]+['five_frameworks_v1/'+x for x in ('native_data.py','native_parent.py','recipes.py','kernels.py','train_stage.py','checkpoint.py')]
+blobs={}
+for path in unchanged:
+ path='experiments/lcrseg/'+path
+ a=git('rev-parse',ORIGINAL+':'+path);b=git('rev-parse',CANDIDATE+':'+path);assert a==b,path;blobs[path]=b
+bindings=dict(reviewed_code_commit=CANDIDATE,code_tree_sha256=digest(files),plan_sha256=plan['plan_sha256'],prefix_sha256=digest(plan['prefixes']),import_sha256=digest(imports),environment_sha256=digest(plan['environment']),execution_sha256=digest(exe))
+# No external approval or launch receipt is created by this evidence document.
+save('STATIC_BINDINGS.json',dict(status='STATIC_METADATA_MATCH_ONLY',candidate_commit=CANDIDATE,original_execution_commit=ORIGINAL,original_result_commit=RESULT,bindings=bindings,nodes=plan['nodes'],source_input_sha256=anchors,unchanged_git_blobs=blobs,changed_source_files=changed,CPU_evidence=report,CPU_attempts=attempts,CPU_session=session,environment_expected=plan['environment'],runtime_environment='PENDING; no live environment probe in static scope',real_prefix_payload_acceptance='PENDING',new_optimizer_calls=0,external_review='NOT_ISSUED_BY_THIS_TASK',new_user_launch_confirmation='REQUIRED_AFTER_REAL_EXTERNAL_REVIEW',reports=plan['reports']))
+with zipfile.ZipFile(archive) as z:
+ expected=json.loads(z.read('RECOMPUTATION.json'))
+ csvbytes=(result/'FINAL_METRICS.csv').read_bytes()
+ assert csvbytes==z.read('inputs/FINAL_METRICS.csv')
+ assert git('rev-parse',RESULT+':experiments/lcrseg/docs/agms_cl_v0_1/results_20260919/FINAL_METRICS.csv')==expected['source_git_blob_verified']
+final=list(csv.DictReader(io.StringIO(csvbytes.decode())));assert len(final)==12
+metrics=['Final','Old','Incoming','Forget']
+means={a:{k:sum(float(x[k]) for x in final if x['arm']==a)/2 for k in metrics} for a in ['A0','A1','A2','A3','A4','A5']}
+for a in means:
+ for k in metrics:assert abs(means[a][k]-expected['means'][a][k])<1e-12
+by={(r['arm'],int(r['order'])):r for r in final}
+for x in expected['paired_percentage_points']:
+ a,b=x['contrast'].split('-')
+ for k in metrics:assert abs(100*(float(by[a,x['order']][k])-float(by[b,x['order']][k]))-x[k])<1e-10
+for r in final:
+ assert abs(float(r['Final'])-(2*float(r['Old'])+float(r['Incoming']))/3)<1e-12
+ for k in metrics:r['delta_A0_'+k+'_pp']=100*(float(r[k])-float(by['A0',int(r['order'])][k]))
+table('ENDPOINTS.csv',final)
+domains=list(csv.DictReader((result/'DOMAIN_METRICS.csv').open()));assert len(domains)==36
+base_rows={(r['order'],r['domain']):dict(r) for r in domains if r['arm']=='A0'}
+for r in domains:
+ r['domain_role']='source' if r['domain']=='REFUGE' else 'first_target' if r['domain']==('RIM_ONE_r3' if r['order']=='1' else 'Drishti_GS') else 'incoming'
+ for k in ('rim','cup','disc_union','macro_Dice'):r['delta_A0_'+k+'_pp']=100*(float(r[k])-float(base_rows[r['order'],r['domain']][k]))
+table('DOMAIN_DETAIL.csv',domains)
+support=[]
+for r in read(result/'COVERAGE_AND_RISK.json'):
+ s=r.get('summary',{});g=s.get('geometry');n=s.get('active_steps')
+ support.append(dict(arm=r['arm'],order=r['order'],origin=r['origin'],scope='all_recorded_active_U_steps_excludes_warmup' if g else 'NOT_MEASURED_HISTORICAL',active_steps=n or 'NA',geometry=g or 'NA',fine=s.get('fine','NA'),coarse=s.get('coarse','NA'),unselected_valid=g-s['fine']-s['coarse'] if g else 'NA',fine_fraction=s['fine']/g if g else 'NA',coarse_fraction=s['coarse']/g if g else 'NA',unselected_valid_fraction=(g-s['fine']-s['coarse'])/g if g else 'NA',empty_coarse_steps=s.get('empty_coarse','NA'),empty_coarse_step_fraction=s['empty_coarse']/n if n else 'NA',empty_fine_fraction='NA',empty_unselected_fraction='NA'))
+table('SUPPORT.csv',support)
+diag=read(result/'GRADIENT_DIAGNOSTICS.json');assert len(diag)==40 and sum(r['extra_vjps'] for r in diag)==160
+grad=[];risk=[]
+for r in diag:
+ for loss,d in r['gradients'].items():
+  for group,v in d['groups'].items():
+   grad.append(dict(arm=r['arm'],order=r['order'],step=r['step'],loss=loss,group=group,status=d['status'],raw_norm=v['raw_norm'] if d['status']=='measured' else 'NA',weighted_norm=v['weighted_norm'] if d['status']=='measured' else 'NA'))
+ g=sum(x['geometry'] for x in r['coverage']);f=sum(x['fine'] for x in r['coverage']);c=sum(x['coarse'] for x in r['coverage'])
+ risk.append(dict(arm=r['arm'],order=r['order'],step=r['step'],risk=json.dumps(r['risk']),alpha=json.dumps(r['alpha']),geometry=g,fine=f,coarse=c,unselected_valid=g-f-c,coarse_fraction=c/g,training_L_uniform_risk_disagreement=r['uniform_risk_disagreement'],same_state_U_weight_mask_disagreement='NA',same_state_U_XOR='NA',same_state_U_Jaccard='NA',scope='four_fixed_points_only'))
+assert len(grad)==480
+table('GRADIENT_POINTS.csv',grad);table('RISK_POINTS.csv',risk)
+deltas={a:{k:100*(means[a][k]-means['A0'][k]) for k in metrics} for a in means}
+save('RECOMPUTED_ANALYSIS.json',dict(source_commit=RESULT,source_blob=expected['source_git_blob_verified'],archive_csv_bytes_match=True,means=means,delta_A0_pp=deltas,A5_Final_contribution_pp={'old':2*deltas['A5']['Old']/3,'incoming':deltas['A5']['Incoming']/3},counts=dict(endpoints=12,domain=36,support=12,gradient_points=40,gradient_component_rows=480,risk_points=40),additional_optimizer_calls=0,additional_VJP_calls=0,scope='public aggregate arithmetic only; not new model verification'))
+print(json.dumps(dict(status='STATIC_CHECKS_PASS',bindings=bindings,rows=[len(final),len(domains),len(support),len(grad),len(risk)],optimizer_calls=0),indent=2))
