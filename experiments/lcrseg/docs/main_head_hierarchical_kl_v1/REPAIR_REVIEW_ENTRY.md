@@ -6,9 +6,9 @@ This entry is the fixed-code handoff for the same branch:
 ## Exact source handoff
 
 - Prior reviewed branch tip: `0bc08ce8db1c59bcd987513a379526d4f3972af4`.
-- R1 remediation commit on the pushed branch: `1259658798e4bc88333bf8ddece3528d9ee17867`.
-- R2 ledger-binding commit on the pushed branch: `1324a979fe717506caf1686eccf49587c4e3277a`.
-- Fixed review tree before this metadata-only entry update: `3347546b7d281fcbc599c29399385404c4030649`.
+- R1 remediation commit on the pushed branch: `886f218ba933267d11d704b9204659a144c6079f`.
+- R2 ledger-binding commit on the pushed branch: `a1dbfb391872e0b7d2653d7af37afb7a6a539d0d`.
+- Fixed review tree before this metadata-only entry update: `7253f87be96c67754c7b9b35f3a34439ef09064c`.
 - The final full SHA is supplied with this handoff. Review the exact tree at that SHA, not the moving branch name.
 
 ## R1/R2 evidence
