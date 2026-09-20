@@ -1,74 +1,143 @@
 {
-  "schema": 1,
+  "schema": 2,
   "study_id": "MAIN_HEAD_HIERARCHICAL_KL_V1",
-  "status": "METADATA_ONLY_UNBOUND",
-  "scope": "read-only registered metadata and stat information only",
+  "status": "BOUND_METADATA_ONLY",
+  "scope": "authorized metadata/stat reads; no payload tensors or model computation",
   "payload_reads": 0,
   "model_forwards": 0,
   "torch_load": false,
   "image_or_label_arrays_read": false,
   "u_ground_truth_read": false,
-  "source_plan": "PLAN.json public preparation record",
   "observed_metadata": {
-    "plan_sha256": "935dbb0219973c550f64810b6b17a1ff601634a5964f141ebdc72afff0fab81a",
-    "plan_bytes": 9698,
-    "server_plan_copy_matches": true,
-    "registry_sha256": "8b7b6ae5987e1c44c1ad975f873a72e87a84ba119d1e4329b8c197debe139a07",
-    "registry_bytes": 1088,
-    "payload_or_tensor_stat": "not read"
+    "server_host": "zmic44",
+    "manifest": {
+      "status": "FOUND",
+      "logical_path": "manifests/training/lcrseg_v1_seed0.csv",
+      "sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+      "bytes": 519829,
+      "rows": 1466
+    },
+    "split": {
+      "status": "FOUND",
+      "logical_path": "splits/fundus_seed0.json",
+      "sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+      "bytes": 240119,
+      "records": 660
+    },
+    "source_protocol": "f5_confirmation_native_fix_20260916"
   },
-  "manifest": {"status": "UNBOUND", "sha256": null, "path": null},
-  "split": {"status": "UNBOUND", "sha256": null, "path": null},
   "states": [
     {
       "state_id": "O1_STAGE2_START",
       "order": 1,
-      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE2",
-      "source_role": "historical_import_candidate",
-      "receipt_sha256": "7ad80e2c1d10e2be3a6c765b224516c2fc1609da47a7df207411bb54f8347993",
-      "student": "UNBOUND",
-      "dense_ema": "UNBOUND",
-      "prototypes": "UNBOUND",
-      "reproducible_payload": false
+      "diagnostic_domain": "Drishti_GS",
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE1",
+      "source_role": "B2_stage1_prefix_for_stage2_start",
+      "receipt_sha256": "379b16e2d14d54124cbe19410e774272c4b579052e4ec9ce0ad2853cd871ca81",
+      "student": {
+        "status": "FOUND_METADATA",
+        "bytes": 1956346,
+        "student_hash": "616e756f5be246a8ac952b85c86617fda19db4570b2eb5b58d1782c5866d61f9"
+      },
+      "dense_ema": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt",
+        "bytes": 7282822,
+        "file_sha256": "8da42f37017192759897d51091d9c572b3b67737dc6193d36a9c299db71c466e"
+      },
+      "prototypes": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt"
+      },
+      "integrity_status": "VERIFIED"
     },
     {
       "state_id": "O1_STAGE2_ENDPOINT",
       "order": 1,
+      "diagnostic_domain": "Drishti_GS",
       "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE2",
-      "source_role": "B2_stage2_endpoint_candidate",
+      "source_role": "B2_stage2_endpoint",
       "receipt_sha256": "7ad80e2c1d10e2be3a6c765b224516c2fc1609da47a7df207411bb54f8347993",
-      "student": "UNBOUND",
-      "dense_ema": "UNBOUND",
-      "prototypes": "UNBOUND",
-      "reproducible_payload": false
+      "student": {
+        "status": "FOUND_METADATA",
+        "bytes": 1956346,
+        "student_hash": "b81ef40fd4ec4b4ca0b8d559af71b150d8c7f9393d1a8655756df479bfaf3770"
+      },
+      "dense_ema": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt",
+        "bytes": 7282886,
+        "file_sha256": "1649f071655938c51f2e5c47de568e848458acdf49a9f2ad907dbd88e2113698"
+      },
+      "prototypes": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt"
+      },
+      "integrity_status": "VERIFIED"
     },
     {
       "state_id": "O2_STAGE2_START",
       "order": 2,
-      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE2",
-      "source_role": "historical_import_candidate",
-      "receipt_sha256": "5a59c1bcc5d3084be4fffae2fb6e1c509004a87e36477a4381ef5b88ce754b24",
-      "student": "UNBOUND",
-      "dense_ema": "UNBOUND",
-      "prototypes": "UNBOUND",
-      "reproducible_payload": false
+      "diagnostic_domain": "RIM_ONE_r3",
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE1",
+      "source_role": "B2_stage1_prefix_for_stage2_start",
+      "receipt_sha256": "e4f9f63b486bcf9f9dd1880d5b7c8743c0f952f97152101ec9347c58f41ce367",
+      "student": {
+        "status": "FOUND_METADATA",
+        "bytes": 1956346,
+        "student_hash": "7e8a0c48e7c20c7becc18e17fa135b7b0d2f702ba641f44b5527d1b8e668865c"
+      },
+      "dense_ema": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt",
+        "bytes": 7282822,
+        "file_sha256": "acb572cb9ca26e92abcc2549c3056f917a8aa4b8c75c39723aba6f9f39e43ee1"
+      },
+      "prototypes": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt"
+      },
+      "integrity_status": "VERIFIED"
     },
     {
       "state_id": "O2_STAGE2_ENDPOINT",
       "order": 2,
+      "diagnostic_domain": "RIM_ONE_r3",
       "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE2",
-      "source_role": "B2_stage2_endpoint_candidate",
+      "source_role": "B2_stage2_endpoint",
       "receipt_sha256": "5a59c1bcc5d3084be4fffae2fb6e1c509004a87e36477a4381ef5b88ce754b24",
-      "student": "UNBOUND",
-      "dense_ema": "UNBOUND",
-      "prototypes": "UNBOUND",
-      "reproducible_payload": false
+      "student": {
+        "status": "FOUND_METADATA",
+        "bytes": 1956346,
+        "student_hash": "62d24a1ef83823f6ea16396535c589dbd66a4522c953f48651131591b205b17d"
+      },
+      "dense_ema": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt",
+        "bytes": 7282886,
+        "file_sha256": "9ee29689bf56253380f6a91761ba9b2c9286eb50864cb69c614a9591a2b76dc6"
+      },
+      "prototypes": {
+        "status": "FOUND_METADATA_ROLE_PENDING_PAYLOAD",
+        "container": "latest.pt"
+      },
+      "integrity_status": "VERIFIED"
     }
   ],
+  "batch_binding": {
+    "status": "BOUND_PRIVATE",
+    "logical_private_artifact": "P0_B_BATCH_BINDING.json",
+    "batch_size": 2,
+    "row_order": "case_id_ascending",
+    "L_complete_pass": true,
+    "U_first_four": true,
+    "payload_arrays_read": false
+  },
   "binding_notes": [
-    "No live manifest, split, checkpoint receipt sidecar, dense EMA or prototype sidecar was available in the authorized metadata-only scope.",
-    "A deployed student is not reclassified as a historical dense EMA.",
-    "Missing states are not reconstructed by training."
+    "START uses the corresponding stage1 prefix; ENDPOINT uses the corresponding stage2 receipt.",
+    "latest.pt role metadata is source-bound to the native checkpoint schema; payload contents remain unread until a separately approved executor.",
+    "Student, dense EMA and prototypes are not substituted for one another.",
+    "Private case/patient identifiers are retained only in the NAS authority artifact."
   ],
   "execution_approval": false
 }

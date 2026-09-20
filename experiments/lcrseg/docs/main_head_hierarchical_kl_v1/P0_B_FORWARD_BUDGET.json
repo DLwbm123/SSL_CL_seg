@@ -1,24 +1,83 @@
 {
-  "schema": 1,
+  "schema": 2,
   "study_id": "MAIN_HEAD_HIERARCHICAL_KL_V1",
-  "status": "UNBOUND",
-  "metadata_plan_sha256": "935dbb0219973c550f64810b6b17a1ff601634a5964f141ebdc72afff0fab81a",
+  "status": "BOUND_METADATA_ONLY",
+  "metadata_plan_sha256": "935dbb0219973c550f64810b6b17a1ff601634a5964f141ebdc72afff0fab81a3",
+  "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
   "optimizer_calls": 0,
-  "model_forwards": 0,
   "states": 4,
   "scope": {
-    "l": "one complete fixed current-training-L pass per bound state",
-    "u": "first four pre-bound training-U batches per bound state",
+    "L": "one complete fixed current-training-L pass per state",
+    "U": "first four fixed training-U batches per state",
+    "batch_size": 2,
     "u_ground_truth": false,
-    "repeated_initialization_or_prototype_reads": "must be counted if later bound"
+    "prototype_initialization": "reuses first bound L tensor; no extra forward"
   },
-  "per_state": null,
-  "total_forward_count": null,
-  "reason_unbound": [
-    "manifest and split are not bound",
-    "four state payload roles and sidecars are not bound",
-    "batch/image identities, preprocessing and terminal-batch rules are not available",
-    "no model payload or forward was read"
+  "per_state": [
+    {
+      "state_id": "O1_STAGE2_START",
+      "domain": "Drishti_GS",
+      "L_batch_count": 5,
+      "U_batch_count": 4,
+      "student_full_forwards": 9,
+      "teacher_full_forwards": 9,
+      "prototype_initialization_forwards": 0,
+      "readout_only_forwards": 0,
+      "vjp": 0,
+      "total": 18,
+      "batch_binding": "P0_B_BATCH_BINDING.json"
+    },
+    {
+      "state_id": "O1_STAGE2_ENDPOINT",
+      "domain": "Drishti_GS",
+      "L_batch_count": 5,
+      "U_batch_count": 4,
+      "student_full_forwards": 9,
+      "teacher_full_forwards": 9,
+      "prototype_initialization_forwards": 0,
+      "readout_only_forwards": 0,
+      "vjp": 0,
+      "total": 18,
+      "batch_binding": "P0_B_BATCH_BINDING.json"
+    },
+    {
+      "state_id": "O2_STAGE2_START",
+      "domain": "RIM_ONE_r3",
+      "L_batch_count": 8,
+      "U_batch_count": 4,
+      "student_full_forwards": 12,
+      "teacher_full_forwards": 12,
+      "prototype_initialization_forwards": 0,
+      "readout_only_forwards": 0,
+      "vjp": 0,
+      "total": 24,
+      "batch_binding": "P0_B_BATCH_BINDING.json"
+    },
+    {
+      "state_id": "O2_STAGE2_ENDPOINT",
+      "domain": "RIM_ONE_r3",
+      "L_batch_count": 8,
+      "U_batch_count": 4,
+      "student_full_forwards": 12,
+      "teacher_full_forwards": 12,
+      "prototype_initialization_forwards": 0,
+      "readout_only_forwards": 0,
+      "vjp": 0,
+      "total": 24,
+      "batch_binding": "P0_B_BATCH_BINDING.json"
+    }
   ],
-  "execution_approval": false
+  "forward_roles": {
+    "student_full_forwards": 42,
+    "teacher_full_forwards": 42,
+    "prototype_initialization_forwards": 0,
+    "readout_only_forwards": 0,
+    "vjp": 0
+  },
+  "total_forward_count": 84,
+  "execution_approval": false,
+  "payload_reads": 0,
+  "model_forwards_executed": 0,
+  "reason_not_executable": "Metadata and finite batch identities are bound, but external P0 execution approval and native payload runner are absent."
 }
