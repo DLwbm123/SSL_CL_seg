@@ -41,8 +41,12 @@ def _p0_fixture(root):
 def test_p0_mock_accounting():
     with tempfile.TemporaryDirectory() as d:
         paths = _p0_fixture(Path(d))
-        hooks = NativeHooks(lambda s: s, lambda s, b: b, lambda r, s, b: (r, s, b),
-                            lambda s, b, o: None, lambda value, path: path.write_text(json.dumps(value)))
+        hooks = NativeHooks(lambda s: s,
+                            lambda h, s, b: tuple(range(9 if s["state_id"].startswith("O1") else 12)),
+                            lambda r, h, s, b: (r, h, s["state_id"], b),
+                            lambda s, h, b, o: {"state_id": s["state_id"],
+                                                "gate": "PASS" if "ENDPOINT" in s["state_id"] else "DESCRIPTIVE"},
+                            lambda value, path: path.write_text(json.dumps(value)))
         backend = MockBackend(hooks)
         from .p0_b_runner import _sha
         result = run_p0(*paths[:3], paths[3], backend=backend,

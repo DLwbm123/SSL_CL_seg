@@ -40,6 +40,8 @@ PLAN.json adds explicit proposed support conventions (>=5 supported images, >=20
 
 P1: `P1_EXECUTION_PLAN.json` records the finite four-node START scope (10600 formal updates, 16 L-only smoke, 15 generated CUDA calls, one predefined failed call). `p1_controller.py` now validates the exact four START identities and exposes the single P0-success → qualification → smoke → formal dispatch. The controller still rejects this plan because execution approval is false; a native backend must provide qualification, smoke, formal-node and report callbacks from the reviewed B2 environment. C0 import remains conditional on native/environment/data/no-op validation. C0 fallback 5300 and all C3/new-seed/full-trajectory work require separate proposals.
 
+The current dispatcher now carries an explicit runtime handle and one bound batch per physical forward, persists endpoint diagnostics, and refuses P1 unless both endpoint gates are `PASS`. Qualification, smoke, and formal receipts are validated structurally and their physical counters are used in the result. `NativeBackend` is an adapter boundary, not a claim that the server-native factory is already present; the missing native factory/configuration remains a concrete implementation item for the next review.
+
 ## Scientific conclusion retained
 
 OBS0 recovers approximately B2/A1 while reversing most original A5 degradation; it has not established new baseline gains. Existing conditional-disagreement ranking captured fewer errors than 3-class entropy overall; new binary conditional entropy is a different, unvalidated score. Do not claim novel KL identity, stop-gradient or entropy selection. Do not reopen the observer's default production use or alter any historical gate/result.

@@ -49,17 +49,35 @@ def run_p1(path, *, p0_result, backend):
     """Run only after a real P0 result and qualified native backend are supplied."""
     plan = json.loads(Path(path).read_text())
     validate_plan(path)
-    if p0_result.get("status") != "P0_RUNTIME_COMPLETE" or p0_result.get("synthetic"):
-        raise P1ExecutionError("P1 requires a successful non-synthetic P0 result")
-    if backend.qualify() is not True or backend.smoke() is not True:
+    if (p0_result.get("status") != "P0_RUNTIME_COMPLETE" or p0_result.get("synthetic") or
+            p0_result.get("science_status") != "PASS" or
+            set(p0_result.get("endpoint_gates", {})) != {"O1_STAGE2_ENDPOINT", "O2_STAGE2_ENDPOINT"} or
+            any(v != "PASS" for v in p0_result["endpoint_gates"].values())):
+        raise P1ExecutionError("P1 requires a successful, scientifically passing non-synthetic P0 result")
+    qualification = backend.qualify()
+    smoke = backend.smoke()
+    if not isinstance(qualification, dict) or qualification.get("status") != "PASS":
         raise P1ExecutionError("P1 qualification/smoke gate failed")
+    if not isinstance(smoke, dict) or smoke.get("status") != "PASS":
+        raise P1ExecutionError("P1 qualification/smoke gate failed")
+    if qualification.get("physical_optimizer_calls") != 15 or smoke.get("physical_optimizer_calls") != 16:
+        raise P1ExecutionError("P1 qualification/smoke physical counts are not bound")
+    if qualification.get("predefined_failure_count") != 1 or qualification.get("non_predefined_failures"):
+        raise P1ExecutionError("P1 CUDA qualification failures are not the reviewed predefined failure")
     receipts = []
     for node in plan["nodes"]:
-        receipts.append(backend.formal_node(node))
-    if sum(int(r.get("formal_updates", -1)) for r in receipts) != 10600:
+        receipt = backend.formal_node(node)
+        if (not isinstance(receipt, dict) or receipt.get("status") != "PASS" or
+                receipt.get("node_id") != node["node_id"] or
+                receipt.get("formal_updates") != node["formal_updates"] or
+                receipt.get("physical_updates") != node["formal_updates"]):
+            raise P1ExecutionError("P1 formal node failed or has unbound counters")
+        receipts.append(receipt)
+    if sum(r["physical_updates"] for r in receipts) != 10600:
         raise P1ExecutionError("P1 backend accounting mismatch")
     result = {"status": "P1_RUNTIME_COMPLETE", "formal_updates": 10600,
-              "smoke_calls": 16, "cuda_calls": 15, "receipts": receipts}
+              "smoke_calls": smoke["physical_optimizer_calls"],
+              "cuda_calls": qualification["physical_optimizer_calls"], "receipts": receipts}
     backend.report(result)
     return result
 
