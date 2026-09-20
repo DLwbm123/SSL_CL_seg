@@ -3,10 +3,36 @@ import json
 import tempfile
 from pathlib import Path
 
-from .p0_b_runner import GateError, validate_preflight
+from .p0_b_runner import GateError, _validate_budget, validate_preflight
 
 
 def main():
+    valid = {
+        "total_forward_count": 84,
+        "forward_roles": {"student_full_forwards": 42, "teacher_full_forwards": 42,
+                           "prototype_initialization_forwards": 0, "readout_only_forwards": 0,
+                           "vjp": 0},
+        "per_state": [
+            {"state_id": "O1_STAGE2_START", "student_full_forwards": 9, "teacher_full_forwards": 9,
+             "prototype_initialization_forwards": 0, "readout_only_forwards": 0, "vjp": 0, "total": 18},
+            {"state_id": "O1_STAGE2_ENDPOINT", "student_full_forwards": 9, "teacher_full_forwards": 9,
+             "prototype_initialization_forwards": 0, "readout_only_forwards": 0, "vjp": 0, "total": 18},
+            {"state_id": "O2_STAGE2_START", "student_full_forwards": 12, "teacher_full_forwards": 12,
+             "prototype_initialization_forwards": 0, "readout_only_forwards": 0, "vjp": 0, "total": 24},
+            {"state_id": "O2_STAGE2_ENDPOINT", "student_full_forwards": 12, "teacher_full_forwards": 12,
+             "prototype_initialization_forwards": 0, "readout_only_forwards": 0, "vjp": 0, "total": 24},
+        ],
+    }
+    assert _validate_budget(valid) == 84
+    for bad in ({**valid, "total_forward_count": 42},
+                {**valid, "forward_roles": {**valid["forward_roles"], "student_full_forwards": 41}},
+                {**valid, "per_state": [{**valid["per_state"][0], "total": 17}] + valid["per_state"][1:]}):
+        try:
+            _validate_budget(bad)
+        except GateError:
+            pass
+        else:
+            raise AssertionError("invalid P0 budget was accepted")
     with tempfile.TemporaryDirectory() as directory:
         root = Path(directory)
         binding = root / "binding.json"

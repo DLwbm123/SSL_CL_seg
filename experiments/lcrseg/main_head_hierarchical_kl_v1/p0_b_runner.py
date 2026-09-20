@@ -20,6 +20,16 @@ def _sha(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 
+def validate_content(binding_path, budget_path, contract_path, plan_path):
+    """Bind the bytes being reviewed; caller must still supply external approval."""
+    budget = _json(budget_path)
+    actual_plan = _sha(plan_path)
+    if budget.get("metadata_plan_sha256") != actual_plan:
+        raise GateError("P0-B metadata plan digest does not match plan bytes")
+    return {"plan_sha256": actual_plan, "budget_sha256": _sha(budget_path),
+            "binding_sha256": _sha(binding_path), "contract_sha256": _sha(contract_path)}
+
+
 def _positive_int(value, name):
     if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
         raise GateError(f"{name} must be a positive integer")
@@ -50,13 +60,36 @@ def _validate_budget(budget):
     roles = budget.get("forward_roles")
     if not isinstance(roles, dict):
         raise GateError("P0-B forward roles are missing")
-    values = {_nonnegative_int(v, f"forward_roles.{k}") for k, v in roles.items()}
+    values = [_nonnegative_int(v, f"forward_roles.{k}") for k, v in roles.items()]
     if sum(values) != total:
         raise GateError("P0-B forward role counts do not sum to total")
+    per_state = budget.get("per_state")
+    if not isinstance(per_state, list) or len(per_state) != 4:
+        raise GateError("P0-B per-state budget is missing")
+    seen = set()
+    sums = {key: 0 for key in roles}
+    for state in per_state:
+        state_id = state.get("state_id")
+        if not isinstance(state_id, str) or state_id in seen:
+            raise GateError("P0-B per-state identities are not unique")
+        seen.add(state_id)
+        state_total = _positive_int(state.get("total"), f"per_state.{state_id}.total")
+        state_sum = 0
+        for key in roles:
+            value = _nonnegative_int(state.get(key), f"per_state.{state_id}.{key}")
+            sums[key] += value
+            state_sum += value
+        if state_sum != state_total:
+            raise GateError(f"P0-B per-state counts do not sum for {state_id}")
+    if sums != {key: value for key, value in zip(roles, values)}:
+        raise GateError("P0-B per-state role counts do not match role totals")
+    if sum(state.get("total", 0) for state in per_state) != total:
+        raise GateError("P0-B per-state totals do not match total")
     return total
 
 
-def validate_preflight(binding_path, budget_path, contract_path, *, runner_sha, plan_sha, budget_sha):
+def validate_preflight(binding_path, budget_path, contract_path, *, runner_sha, plan_sha, budget_sha,
+                       plan_path=None):
     binding = _json(binding_path)
     budget = _json(budget_path)
     contract = _json(contract_path)
@@ -74,10 +107,13 @@ def validate_preflight(binding_path, budget_path, contract_path, *, runner_sha, 
         raise GateError("metadata binding reports forbidden payload activity")
     if runner_sha != _sha(Path(__file__)):
         raise GateError("runner SHA does not match approved runner")
-    if plan_sha != binding.get("approved_plan_sha256"):
-        raise GateError("plan SHA is not bound to metadata approval")
-    if budget_sha != budget.get("approved_budget_sha256"):
-        raise GateError("budget SHA is not bound to metadata approval")
+    if plan_path is None:
+        if plan_sha != binding.get("approved_plan_sha256"):
+            raise GateError("plan SHA is not bound to metadata approval")
+        if budget_sha != budget.get("approved_budget_sha256"):
+            raise GateError("budget SHA is not bound to metadata approval")
+    elif plan_sha != _sha(plan_path) or budget_sha != _sha(budget_path):
+        raise GateError("approved content digest does not match reviewed bytes")
     return {"status": "P0_B_EXECUTION_APPROVED", "forward_count": total}
 
 
