@@ -1,6 +1,6 @@
 # MAIN_HEAD_HIERARCHICAL_KL_V1 — preparation review
 
-Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. This is a local, preparation-only delivery, not a production-ready or approved experiment. The preparation request adopts SCIENTIFIC_REVIEW.md. The subsequent explicit user instruction to push authorizes this source/aggregate-evidence publication only; restrictions on private data, true optimizer calls and monitoring remain in effect. No approval or launch receipt has been generated.
+Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. This is a local, preparation-only remediation, not a production-ready or approved experiment. The attached review requested R1/R2 fixes and did not authorize execution. No approval or launch receipt has been generated.
 
 ## Delivered
 
@@ -9,6 +9,8 @@ Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. This is a local, preparation-onl
 - Shared B2 StageTrainer remains the sole update loop. Its default fine_kl delegates unchanged to masked_kl; new adapter overrides only fine_kl. No auxiliary heads, DS, H, replay, new parameter group, projection or gradient-path restriction is added. Frozen historical checkouts remain untouched.
 - Checkpoint semantic binding includes a loss contract only for the new adapter; original trainers' metadata schema remains unchanged apart from the existing source-fingerprint mechanism. Arm and source identity are checked before restore mutation.
 - Generated CPU tests passed on first attempt: 15 Adam calls, 32 autograd.grad calls, one intentionally failed post-optimizer update counted in15. C0 bitwise two-update equivalence covers student, EMA, Adam, scheduler, scaler, prototypes, telemetry, data counters and RNG. C1/C2 uninterrupted versus restored continuations match; wrong-arm restore and saving/reusing failed state are rejected. Mathematical tests cover float32/64 values/gradients, zero mass, extreme logits, empty masks, weight bounds and detached teacher gradients, and C1 mass matching.
+- R1 remediation: `HierarchicalTrainer.for_resume(..., *, arm=...)` is an explicit arm-aware factory; the native/data/CUDA rejection remains in the constructor. A server-side signature check passed without constructing a trainer.
+- R2 remediation: CPU attempts and optimizer calls are charged in a study-global, atomically updated POSIX ledger. Missing, corrupt, mismatched or exhausted ledgers stop; changing `TASK_EVIDENCE` cannot reset the quota. The ledger regression passed with zero optimizer calls.
 
 CPU fixture is SyntheticParentBridge, not the native medical segmentation model. Its generated readout bias [-3,1,1], size8 and permissive PAS settings exercise foreground supervision and are not proposed production options. CPU checks do **not** prove native B2 checkpoint equivalence, actual frozen-environment equality, real data semantics, CUDA behavior or scientific benefit. New native model runs, private reads and CUDA calls are all zero.
 
@@ -38,4 +40,4 @@ OBS0 recovers approximately B2/A1 while reversing most original A5 degradation; 
 
 ## Delivery boundary
 
-Publication is now explicitly user-authorized on branch `codex/main-head-hierarchical-kl-v1`; preparation code commit remains `2d0e058a63fa136c8b19b327293bd07e58dc172e`. No experiment launch or monitoring is authorized by publication. CPU temporary checkpoints remain on NAS; the local review package includes only generated-test evidence, source changes, preregistration and aggregate public analysis. Original source documents/results remain intact. This is ready for preparation review, not ready for a production launch approval.
+Publication was previously authorized on branch `codex/main-head-hierarchical-kl-v1`; this remediation is a new local commit. No experiment launch or monitoring is authorized by publication. CPU temporary checkpoints remain on NAS; the local review package includes only generated-test evidence, source changes, preregistration and aggregate public analysis. Original source documents/results remain intact. This is ready for another external code review, not ready for a production launch approval.

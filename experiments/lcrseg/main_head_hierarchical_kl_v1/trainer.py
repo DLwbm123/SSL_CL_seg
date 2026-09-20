@@ -17,6 +17,11 @@ class HierarchicalTrainer(StageTrainer):
         self.arm = arm
         super().__init__(model, provider, options, initialize=initialize)
 
+    @classmethod
+    def for_resume(cls, model, provider, options=None, *, arm):
+        """Resume only through the arm-aware preparation entry point."""
+        return cls(model, provider, options=options, arm=arm, initialize=False)
+
     def fine_kl(self, logits, target, valid):
         return hierarchical_kl(logits, target, valid, self.arm)
 

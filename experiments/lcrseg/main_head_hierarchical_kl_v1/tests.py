@@ -14,6 +14,7 @@ from ..five_frameworks_v1.parent_bridge import SyntheticParentBridge
 from ..five_frameworks_v1.recipes import SyntheticCurrentDomain
 from ..five_frameworks_v1.train_stage import StageTrainer
 from ..five_frameworks_v1 import checkpoint
+from .budget import charge, close_attempt, reserve_attempt
 
 
 def equal(a,b):
@@ -46,16 +47,18 @@ def snapshot(t):
 
 def run(root):
     root=Path(root);root.mkdir(parents=True,exist_ok=True)
-    old=list(root.glob('attempt_*'))
-    if len(old)>=2:raise RuntimeError('CPU attempts exhausted')
-    out=root/f'attempt_{len(old)+1}';out.mkdir()
+    ledger_path=os.environ.get('MAIN_HEAD_HKL_BUDGET_LEDGER')
+    if not ledger_path:
+        raise RuntimeError('persistent CPU quota ledger is required')
+    attempt_index=reserve_attempt(ledger_path, f'output:{root}')
+    out=root/f'attempt_{attempt_index+1}';out.mkdir(exist_ok=False)
     counts=dict(optimizer_calls=0,autograd_calls=0,expected_failures=0)
     checks=[]
     def record():
         (out/'COUNTS.json').write_text(json.dumps(counts,indent=2))
     step=torch.optim.Adam.step;grad=torch.autograd.grad
     def tracked_step(*a,**kw):
-        if counts['optimizer_calls']>=16:raise RuntimeError('CPU attempt cap')
+        charge(ledger_path, attempt_index)
         counts['optimizer_calls']+=1;record();return step(*a,**kw)
     def tracked_grad(*a,**kw):
         if counts['autograd_calls']>=128:raise RuntimeError('CPU gradient-call cap')
@@ -130,8 +133,10 @@ def run(root):
         else:raise AssertionError('uncommitted checkpoint allowed')
         checks.append('one charged after-optimizer injection; no automatic retry or uncommitted checkpoint')
         assert counts['optimizer_calls']==15
+        close_attempt(ledger_path, attempt_index, 'PASS')
         result=dict(status='PASS',checks=checks,counts=counts,torch=torch.__version__,scope='generated CPU fixture only',native_runs=0,patient_reads=0,CUDA_calls=0)
     except BaseException as e:
+        close_attempt(ledger_path, attempt_index, 'FAIL')
         result=dict(status='FAIL',checks=checks,counts=counts,error=repr(e));raise
     finally:
         torch.optim.Adam.step=step;torch.autograd.grad=grad
