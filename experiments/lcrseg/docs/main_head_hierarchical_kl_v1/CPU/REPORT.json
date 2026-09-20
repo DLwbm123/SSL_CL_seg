@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "checks": [
+    "KL identity value and student gradients float32/float64; C0 exact path",
+    "zero mass, pure classes, extreme logits, empty support, teacher/weights stop-gradient",
+    "C1 per-image/per-predicted-class teacher mass matching and scope",
+    "C0 shared-engine two-update bitwise no-op including EMA/Adam/prototypes/RNG",
+    "C1/C2 checkpoint continuation: model/EMA/Adam/scheduler/scaler/prototypes/reads/RNG exact; cross-arm rejected",
+    "one charged after-optimizer injection; no automatic retry or uncommitted checkpoint"
+  ],
+  "counts": {
+    "optimizer_calls": 15,
+    "autograd_calls": 32,
+    "expected_failures": 1
+  },
+  "torch": "2.2.1+cu121",
+  "scope": "generated CPU fixture only",
+  "native_runs": 0,
+  "patient_reads": 0,
+  "CUDA_calls": 0
+}

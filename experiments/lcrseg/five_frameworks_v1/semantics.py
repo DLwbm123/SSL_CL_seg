@@ -51,7 +51,8 @@ def binding(trainer):
     backend=trainer.cwmi
     backend_id=None if backend is None else (backend.semantic_identity() if hasattr(backend,'semantic_identity')
                                             else {'fixture_class':type(backend).__module__+'.'+type(backend).__qualname__})
-    return {'schema':2,'code':runtime_fingerprint(),'options':{k:v for k,v in trainer.options.items() if k not in NON_SEMANTIC},
+    return {**({'loss_contract':trainer.loss_contract()} if hasattr(trainer,'loss_contract') else {}),
+            'schema':2,'code':runtime_fingerprint(),'options':{k:v for k,v in trainer.options.items() if k not in NON_SEMANTIC},
             'family':model.family,'rank_ratio':model.rank_ratio,
             'sidecar_rank':None if model.sidecar is None else model.sidecar.q.shape[1],
             'provider':trainer.provider.semantic_metadata(),

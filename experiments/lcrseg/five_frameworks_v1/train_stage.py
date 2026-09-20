@@ -136,6 +136,9 @@ class StageTrainer:
             self.probe['fallback']=fallbacks
         self.probe['complete']=True
 
+    def fine_kl(self, logits, target, valid):
+        return masked_kl(logits, target, valid)
+
     def losses(self):
         opt=self.options;m=self.model;t=self.ema
         x,y,patients=self.provider.labeled(self.cursor)
@@ -189,7 +192,7 @@ class StageTrainer:
             self.telemetry['coordinate_vjps']+=stats['coordinate_vjps']
             self.telemetry['readout_only_forwards']+=stats['readout_only_forwards']
             self.last['repair']=stats
-        unlabeled=masked_kl(logu,target,valid)
+        unlabeled=self.fine_kl(logu,target,valid)
         if m.family=='F1':unlabeled=unlabeled+opt.get('lambda_JML',.25)*masked_jml1(logu.exp(),target,valid)
         if m.family=='F5':
             _,before_clean,_=m.parts(u,detach_parent=True)
