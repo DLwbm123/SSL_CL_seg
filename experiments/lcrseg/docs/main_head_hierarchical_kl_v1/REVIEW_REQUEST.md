@@ -1,6 +1,6 @@
 # MAIN_HEAD_HIERARCHICAL_KL_V1 — preparation review
 
-Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. This is a local, preparation-only delivery, not a production-ready or approved experiment. The user's request adopts SCIENTIFIC_REVIEW.md; its explicit bans on private data, true optimizer calls, monitoring and GitHub writes remain in effect. No approval or launch receipt has been generated.
+Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. This is a local, preparation-only delivery, not a production-ready or approved experiment. The preparation request adopts SCIENTIFIC_REVIEW.md. The subsequent explicit user instruction to push authorizes this source/aggregate-evidence publication only; restrictions on private data, true optimizer calls and monitoring remain in effect. No approval or launch receipt has been generated.
 
 ## Delivered
 
@@ -38,4 +38,4 @@ OBS0 recovers approximately B2/A1 while reversing most original A5 degradation; 
 
 ## Delivery boundary
 
-Local branch only; no GitHub push. No monitoring. CPU temporary checkpoints remain on NAS; the local review package includes only generated-test evidence, source changes, preregistration and aggregate public analysis. Original source documents/results remain intact. This is ready for preparation review, not ready for a production launch approval.
+Publication is now explicitly user-authorized on branch `codex/main-head-hierarchical-kl-v1`; preparation code commit remains `2d0e058a63fa136c8b19b327293bd07e58dc172e`. No experiment launch or monitoring is authorized by publication. CPU temporary checkpoints remain on NAS; the local review package includes only generated-test evidence, source changes, preregistration and aggregate public analysis. Original source documents/results remain intact. This is ready for preparation review, not ready for a production launch approval.
