@@ -15,7 +15,7 @@ This entry is the fixed-code handoff for the same branch:
 
 R1 adds the explicit arm-aware factory `for_resume(model, provider, options=None, *, arm)` and keeps the constructor's native/data/CUDA rejection. The interface regression reads the signature without constructing a trainer and reported PASS.
 
-R2 moves attempt and optimizer-call accounting to the study-global ledger identified as `MAIN_HEAD_HIERARCHICAL_KL_V1_CPU_LEDGER_R1`. Missing, corrupt, mismatched, or exhausted state is a hard stop; output-directory changes cannot reset quota. `tests.py` charges before optimizer invocation and closes PASS/FAIL records. The pure regression reports directory-switch rejection, corrupt-ledger rejection, and attempt-cap rejection with zero optimizer calls.
+R2 binds the study-global ledger through registered identity `MAIN_HEAD_HKL_LEDGER_REGISTRY_R1`. The entry point resolves the registry's canonical path and verifies ledger_id, study_id, authorization identity, source commit, immutable historical evidence bindings and the historical 15-call floor before reservation. Missing, corrupt, mismatched, copied or exhausted state is a hard stop; output-directory changes cannot reset quota. `tests.py` charges before optimizer invocation and closes PASS/FAIL records. The pure regression covers replacement-path, wrong-identity and degraded-history rejection with zero optimizer calls.
 
 ## Binding and accounting
 
