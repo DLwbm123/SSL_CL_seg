@@ -1,5 +1,6 @@
 """Study-global CPU quota ledger; missing or damaged ledgers are hard stops."""
 import json
+import hashlib
 import os
 import tempfile
 from pathlib import Path
@@ -14,6 +15,9 @@ REGISTRY_SCHEMA = 1
 REGISTRY_ID = "MAIN_HEAD_HKL_LEDGER_REGISTRY_R1"
 LEDGER_ID = "MAIN_HEAD_HIERARCHICAL_KL_V1_CPU_LEDGER_R1"
 AUTHORIZATION_ID = "MAIN_HEAD_HKL_PREPARATION_AUTH_R1"
+# Bound to the operator-registered registry bytes; tests may replace this in a
+# separate process, but production entry points have no runtime digest switch.
+EXPECTED_REGISTERED_REGISTRY_SHA256 = "8b7b6ae5987e1c44c1ad975f873a72e87a84ba119d1e4329b8c197debe139a07"
 MAX_ATTEMPTS = 2
 MAX_TOTAL = 32
 MAX_PER_ATTEMPT = 16
@@ -34,8 +38,11 @@ def _registry(path):
     path = Path(path)
     if not path.is_file():
         raise RuntimeError("CPU quota ledger registry missing; refusing to choose a ledger")
+    raw = path.read_bytes()
+    if hashlib.sha256(raw).hexdigest() != EXPECTED_REGISTERED_REGISTRY_SHA256:
+        raise RuntimeError("CPU quota ledger registry content is not the registered object")
     try:
-        value = json.loads(path.read_text())
+        value = json.loads(raw.decode("utf-8"))
     except Exception as exc:
         raise RuntimeError("CPU quota ledger registry is unreadable") from exc
     required = {

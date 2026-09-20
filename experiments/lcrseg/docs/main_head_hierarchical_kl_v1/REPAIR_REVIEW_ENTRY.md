@@ -17,6 +17,8 @@ R1 adds the explicit arm-aware factory `for_resume(model, provider, options=None
 
 R2 binds the study-global ledger through registered identity `MAIN_HEAD_HKL_LEDGER_REGISTRY_R1`. The entry point resolves the registry's canonical path and verifies ledger_id, study_id, authorization identity, source commit, immutable historical evidence bindings and the historical 15-call floor before reservation. Missing, corrupt, mismatched, copied or exhausted state is a hard stop; output-directory changes cannot reset quota. `tests.py` charges before optimizer invocation and closes PASS/FAIL records. The pure regression covers replacement-path, wrong-identity and degraded-history rejection with zero optimizer calls.
 
+The registered registry bytes are pinned in source by SHA-256 `8b7b6ae5987e1c44c1ad975f873a72e87a84ba119d1e4329b8c197debe139a07`; the public checkout contains only the digest and a redacted template.
+
 ## Binding and accounting
 
 - Historical CPU evidence remains bound to its original preparation source and records 15 optimizer calls in one PASS attempt.
@@ -27,6 +29,8 @@ R2 binds the study-global ledger through registered identity `MAIN_HEAD_HKL_LEDG
 ## Execution boundary
 
 This handoff requests source review only. It does not authorize P0-B, CUDA qualification, smoke, formal training, or monitoring. Those remain blocked until this exact fixed tree receives independent external approval and a separate user launch confirmation. No historical 15-call report has been relabeled as a new full test.
+
+The attached P0 preparation adds metadata-only bindings and a default-deny runner, but its live state roles and exact forward budget remain UNBOUND. It therefore cannot read payloads or execute P0-B.
 
 ## Fixed review URL
 

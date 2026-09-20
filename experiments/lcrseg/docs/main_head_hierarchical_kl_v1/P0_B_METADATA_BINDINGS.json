@@ -1,0 +1,74 @@
+{
+  "schema": 1,
+  "study_id": "MAIN_HEAD_HIERARCHICAL_KL_V1",
+  "status": "METADATA_ONLY_UNBOUND",
+  "scope": "read-only registered metadata and stat information only",
+  "payload_reads": 0,
+  "model_forwards": 0,
+  "torch_load": false,
+  "image_or_label_arrays_read": false,
+  "u_ground_truth_read": false,
+  "source_plan": "PLAN.json public preparation record",
+  "observed_metadata": {
+    "plan_sha256": "935dbb0219973c550f64810b6b17a1ff601634a5964f141ebdc72afff0fab81a",
+    "plan_bytes": 9698,
+    "server_plan_copy_matches": true,
+    "registry_sha256": "8b7b6ae5987e1c44c1ad975f873a72e87a84ba119d1e4329b8c197debe139a07",
+    "registry_bytes": 1088,
+    "payload_or_tensor_stat": "not read"
+  },
+  "manifest": {"status": "UNBOUND", "sha256": null, "path": null},
+  "split": {"status": "UNBOUND", "sha256": null, "path": null},
+  "states": [
+    {
+      "state_id": "O1_STAGE2_START",
+      "order": 1,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE2",
+      "source_role": "historical_import_candidate",
+      "receipt_sha256": "7ad80e2c1d10e2be3a6c765b224516c2fc1609da47a7df207411bb54f8347993",
+      "student": "UNBOUND",
+      "dense_ema": "UNBOUND",
+      "prototypes": "UNBOUND",
+      "reproducible_payload": false
+    },
+    {
+      "state_id": "O1_STAGE2_ENDPOINT",
+      "order": 1,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O1__STAGE2",
+      "source_role": "B2_stage2_endpoint_candidate",
+      "receipt_sha256": "7ad80e2c1d10e2be3a6c765b224516c2fc1609da47a7df207411bb54f8347993",
+      "student": "UNBOUND",
+      "dense_ema": "UNBOUND",
+      "prototypes": "UNBOUND",
+      "reproducible_payload": false
+    },
+    {
+      "state_id": "O2_STAGE2_START",
+      "order": 2,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE2",
+      "source_role": "historical_import_candidate",
+      "receipt_sha256": "5a59c1bcc5d3084be4fffae2fb6e1c509004a87e36477a4381ef5b88ce754b24",
+      "student": "UNBOUND",
+      "dense_ema": "UNBOUND",
+      "prototypes": "UNBOUND",
+      "reproducible_payload": false
+    },
+    {
+      "state_id": "O2_STAGE2_ENDPOINT",
+      "order": 2,
+      "node_id": "P1__B2_PARENT_PAS_KL_C06__S163__O2__STAGE2",
+      "source_role": "B2_stage2_endpoint_candidate",
+      "receipt_sha256": "5a59c1bcc5d3084be4fffae2fb6e1c509004a87e36477a4381ef5b88ce754b24",
+      "student": "UNBOUND",
+      "dense_ema": "UNBOUND",
+      "prototypes": "UNBOUND",
+      "reproducible_payload": false
+    }
+  ],
+  "binding_notes": [
+    "No live manifest, split, checkpoint receipt sidecar, dense EMA or prototype sidecar was available in the authorized metadata-only scope.",
+    "A deployed student is not reclassified as a historical dense EMA.",
+    "Missing states are not reconstructed by training."
+  ],
+  "execution_approval": false
+}

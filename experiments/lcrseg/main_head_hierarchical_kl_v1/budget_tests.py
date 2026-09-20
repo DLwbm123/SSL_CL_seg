@@ -1,7 +1,9 @@
 """Zero-optimizer regression for the study-global quota ledger."""
 import json
+import hashlib
 import tempfile
 from pathlib import Path
+from . import budget
 from .budget import charge, close_attempt, reserve_attempt
 
 
@@ -27,6 +29,8 @@ def main():
         registry = Path(directory)/'registry.json'
         registry.write_text(json.dumps(dict(identity, schema=1,
             canonical_ledger_path=str(path))))
+        old_digest = budget.EXPECTED_REGISTERED_REGISTRY_SHA256
+        budget.EXPECTED_REGISTERED_REGISTRY_SHA256 = hashlib.sha256(registry.read_bytes()).hexdigest()
         index=reserve_attempt(path,'repair regression',registry_path=registry)
         assert index==1
         assert charge(path,index,registry_path=registry)==16
@@ -56,6 +60,7 @@ def main():
         try: reserve_attempt(degraded,'degraded history',registry_path=registry)
         except RuntimeError: pass
         else: raise AssertionError('degraded historical binding admitted')
+        budget.EXPECTED_REGISTERED_REGISTRY_SHA256 = old_digest
     print('budget regression PASS: replacement path, wrong identity, degraded history, corrupt ledger and attempt cap rejected; optimizer calls=0')
 
 

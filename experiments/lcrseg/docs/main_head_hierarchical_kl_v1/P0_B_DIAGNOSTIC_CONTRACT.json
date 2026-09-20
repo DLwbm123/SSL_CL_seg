@@ -1,0 +1,27 @@
+{
+  "schema": 1,
+  "study_id": "MAIN_HEAD_HIERARCHICAL_KL_V1",
+  "status": "FROZEN_PREPARATION_CONTRACT",
+  "primary_scope": "original fine-PAS AND teacher disc probability >= 0.9",
+  "descriptive_scope": "fine-PAS full set reported separately",
+  "u_scope": "unlabeled aggregate only; no U ground truth, mask, weight or selection use",
+  "ranking": {
+    "unit": "image / actual GT class / boundary stratum",
+    "tie_break": "stable pixel index",
+    "report": ["actual k/n", "captured errors", "total errors", "matched-random expectation", "support"]
+  },
+  "gates": {
+    "conditional_entropy_vs_matched_random": 1.25,
+    "conditional_entropy_vs_three_class_entropy": 0.95,
+    "minimum_supported_images_per_endpoint": 5,
+    "minimum_conditional_errors_per_endpoint": 20
+  },
+  "near_empty": {
+    "all_legal_pixels_fraction": 0.001,
+    "accepted_predicted_disc_pixels_fraction": 0.01,
+    "action": "NO_PRACTICAL_SCOPE"
+  },
+  "denominators": "keep L and U denominators separate; no pooled denominator",
+  "thresholds_are_frozen": true,
+  "payload_execution": false
+}
