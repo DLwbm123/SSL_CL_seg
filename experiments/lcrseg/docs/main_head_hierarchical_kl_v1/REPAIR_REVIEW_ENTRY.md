@@ -6,9 +6,10 @@ This entry is the fixed-code handoff for the same branch:
 ## Exact source handoff
 
 - Prior reviewed branch tip: `0bc08ce8db1c59bcd987513a379526d4f3972af4`.
-- R1 remediation commit: `48e08ef` (full source commit is retained in this branch history).
-- R2 ledger-binding commit: `e40b22292e4f954577fab1d9e549ca61e4d56f07`.
-- The full SHA of the pushed branch tip is the fixed review anchor supplied with this handoff. Review the exact tree at that SHA, not the moving branch name.
+- R1 remediation commit on the pushed branch: `1259658798e4bc88333bf8ddece3528d9ee17867`.
+- R2 ledger-binding commit on the pushed branch: `1324a979fe717506caf1686eccf49587c4e3277a`.
+- Fixed review tree before this metadata-only entry update: `3347546b7d281fcbc599c29399385404c4030649`.
+- The final full SHA is supplied with this handoff. Review the exact tree at that SHA, not the moving branch name.
 
 ## R1/R2 evidence
 
