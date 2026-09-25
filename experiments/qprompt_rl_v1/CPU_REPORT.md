@@ -1,6 +1,6 @@
 # R0 CPU synthetic acceptance — passed
 
-The results below apply to the original R0 snapshot. External review subsequently found F1/F2 boundary defects. Their repairs and `tests/test_review_fix.py` are pending a separately confirmed regression budget; this report does not extend original acceptance to the edited functions. `run_review_fix.py` uses an independent named ledger and never invokes the original suite.
+The results below apply to the original R0 snapshot. External review subsequently found F1/F2 boundary defects. After explicit user approval of a separate budget, their repairs passed all three targeted checks on the first of at most two runs with PyTorch 2.6.0+cu124 on CPU. Optimizer calls, real-data reads, and CUDA calls were all zero. FP32/FP16/BF16 inputs and CPU BF16 autocast were checked for normalized finite outputs and finite gradients; this is not CUDA/AMP qualification. `review/REVIEW_FIX_RESULTS.json` records the tested commit and hashes. `run_review_fix.py` uses an independent named ledger; original R0 ledgers remain unchanged at 2 suite attempts and 5 optimizer calls.
 
 - `python3 -m compileall` passed for R0 Python files.
 - Attached migration fixture suite: **16/16 passed**, zero optimizer calls. One added check covers the observed separate metadata/payload roots.
