@@ -1,0 +1,6 @@
+# Backbone contract
+
+- U-Net: RGB in [0,1], 384² canonical input; unchanged 16/32/64/128 double-conv GroupNorm body. D0 valid 3×3 head interpolates with `align_corners=True`. Query arm embeds decoder features to 128 dimensions at 96², attends from 12 learnable queries to 48² pooled context (4 heads, FFN width512), and predicts 4 class logits plus 12 masks. Query head stays at inference.
+- ViT: official non-register DINOv2 ViT-S/14, pinned source and one local pretrained weight. ImageNet mean/std normalization; reflect pad right/bottom 384→392; upstream creates CLS and image positional embeddings. First 11 blocks process image tokens; queries are prepended only before block12. Two transposed convolutions expand 28² tokens to112²; interpolation reaches392² and exact crop returns384². No padded pixel contributes to segmentation loss.
+- Both query arms interpret classes 0/1/2 as background/rim/cup. Logit3 is no-object. Semantic inference sums class-probability × mask-sigmoid over queries, discards no-object, and normalizes over the three real classes.
+- ViT weight loading is explicit and offline. Constructor refuses source commit/file-hash mismatch, weight-hash mismatch, register tokens, or wrong model shape. The weight and real official-constructor check remain pending.

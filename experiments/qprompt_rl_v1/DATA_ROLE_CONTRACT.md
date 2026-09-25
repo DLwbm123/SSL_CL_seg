@@ -1,0 +1,6 @@
+# M1 data and evaluation roles
+
+- Frozen metadata SHA256: manifest `0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3`; split `f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88`. Seed0 and patient/role mapping are unchanged.
+- M1 permits RIM_ONE_r3 and Drishti_GS `train_labeled` plus `val` only. `CanonicalM1` takes the private migration manifest and only opens allowlisted, hash-checked canonical image/label HDF5 files. Training requires current-domain L; an evaluator process may request val. U, REFUGE, and test are denied.
+- Source read-only inventory found 91 selected records and 182 payload files. All selected HDF5 files had only their expected top-level image or label key. This is a key-level audit, not a pixel/medical semantics validation.
+- Main evaluation: `qprompt/metrics.py` computes per-image rim/cup Dice macro, then equal-domain mean. When GT and prediction both lack a foreground class, that class is omitted; absent-GT false positives score zero. Images with neither supported foreground class are omitted from domain macro and counted. Boundary metrics and actual deployment predictions require review before R1. Fixed split results are development evidence, not independent-patient confirmation.
