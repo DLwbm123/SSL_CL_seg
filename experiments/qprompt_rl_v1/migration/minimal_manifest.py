@@ -95,8 +95,8 @@ def build(config_path: Path, out: Path) -> dict:
     commit = cfg['code_commit']
     if not re.fullmatch(r'[0-9a-f]{40}', commit):
         raise Refusal('bind the actual 40-character code commit first')
-    head = subprocess.check_output(['git', '-C', str(roots['code']), 'rev-parse', 'HEAD'], text=True).strip()
-    dirty = subprocess.check_output(['git', '-C', str(roots['code']), 'status', '--porcelain'], text=True)
+    head = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=roots['code'], text=True).strip()
+    dirty = subprocess.check_output(['git', 'status', '--porcelain'], cwd=roots['code'], text=True)
     if head != commit or dirty:
         raise Refusal('code commit mismatch or dirty working tree; freeze code before migration')
     for relative, key in ((MANIFEST, 'manifest_sha256'), (SPLIT, 'split_sha256')):
