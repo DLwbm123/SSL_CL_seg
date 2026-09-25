@@ -1,6 +1,6 @@
 # R0 inventory and budgets
 
-Read-only old-server inventory on 2026-09-25, before exact M1 manifest. Source HDF5 files were checked for existence, bytes, and top-level keys; source payload SHA checks and transfer are pending.
+M1 inventory and completed byte migration on 2026-09-25. Source HDF5 files were checked for existence, bytes, SHA256, and top-level keys. The target checked every allowlisted file's size and SHA256 before and after no-overwrite promotion. This is a byte/key audit, not medical semantic validation.
 
 | Domain / role / kind | Files | Bytes |
 |---|---:|---:|
@@ -18,6 +18,6 @@ Read-only old-server inventory on 2026-09-25, before exact M1 manifest. Source H
 
 Old-server exact roots have a split layout: metadata under the old canonical metadata root, HDF5 `images/` and `labels/` under its `h5/v1` child. `migration/minimal_manifest.py` accepts `metadata_root` separately and maps both sources into target `data/`. No source files were changed.
 
-`CODE_MANIFEST.json` lists 42 source/document/import files totaling 189,257 bytes, excluding the manifest itself and `.gitignore`; no code has been transferred. Single-weight count/bytes remain pending asset binding. Excluded from M1: U payload and U labels, REFUGE payload, test, MRI, old checkpoints/runs, full caches/environments, secrets. Official weight not found at the three expected old cache locations; broader search was not performed.
+The initial exact M1 manifest contained 43 code files (including `CODE_MANIFEST.json`), 182 HDF5 files, and two frozen metadata files: **227 files, 22,526,059 bytes**. The final code manifest and migration receipt bind the review commit after the R0 report update; private path/case/hash lists are held only in private receipts. A separate, single official DINOv2-S weight on target storage is **88,283,115 bytes** and has its own SHA256 receipt. Excluded from M1: U payload and U labels, REFUGE payload, test, MRI, old checkpoints/runs, full caches/environments, secrets.
 
-Scientific optimizer updates actually executed: **0**. R0 CPU synthetic optimizer calls: **pending**, cap64 across at most two suite attempts. R1 plan remains 28 tasks, 24 final students, 40,000 physical formal updates; qualification≤32 and L-only smoke16 are future review-gated costs.
+Scientific optimizer updates actually executed: **0**. R0 CPU synthetic optimizer calls: **5**, across **2/2** successful suite attempts (cap64 calls). R1 plan remains 28 tasks, 24 final students, 40,000 physical formal updates; qualification≤32 and L-only smoke16 are future review-gated costs.

@@ -1,5 +1,6 @@
 import copy
 import os
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -51,12 +52,20 @@ class R0Checks(unittest.TestCase):
         output = grqa_loss(q, ref, bank)
         self.assertTrue(torch.isfinite(output["total"]))
         self.assertGreater(abs((output["paper_selected_k3_surrogate"] - output["categorical_kl"]).item()), 1e-8)
+        current = F.normalize(q.detach(), dim=-1) @ bank.vectors.T
+        baseline = F.normalize(ref.detach(), dim=-1) @ bank.vectors.T
+        selected = current.argmax(-1, keepdim=True)
+        delta = baseline.log_softmax(-1).gather(-1, selected) - current.log_softmax(-1).gather(-1, selected)
+        self.assertTrue(torch.allclose(output["paper_selected_k3_surrogate"],
+                                       (torch.expm1(delta) - delta).mean()))
         output["total"].backward()
         self.assertGreater(q.grad.abs().sum().item(), 0)
         self.assertIsNone(ref.grad)
         self.assertIsNone(bank.vectors.grad)
         bank.reset()
         self.assertEqual(grqa_loss(q, ref, bank)["total"].item(), 0)
+        bank.supported[0] = True
+        self.assertEqual(grqa_loss(q[:, :1], ref[:, :1], bank)["group"].item(), 0)
 
     def test_prototype_and_ema(self):
         pixels = torch.randn(1, 3, 4, 4, requires_grad=True)
@@ -124,6 +133,58 @@ class R0Checks(unittest.TestCase):
         self.assertEqual(restored, {"step": 0, "data_cursor": 4})
         self.assertEqual(optimizer.param_groups[0]["lr"], .01)
         self.assertTrue(all(torch.equal(model.state_dict()[k], v) for k, v in state["student"].items()))
+
+    def test_prefix_resume_replays_full_state(self):
+        torch.manual_seed(261)
+        model = nn.Conv2d(3, 3, 1)
+        reference = make_reference(model)
+        bank = PrototypeBank(3)
+        optimizer = torch.optim.SGD(model.parameters(), lr=.01, momentum=.9)
+        scheduler = torch.optim.lr_scheduler.LambdaLR(optimizer, lambda i: 1 - .1 * i)
+        ledger = BudgetLedger(Path(os.environ["QPROMPT_CPU_LEDGER"]))
+
+        def step():
+            image = torch.randn(1, 3, 4, 4)
+            label = torch.zeros(1, 4, 4, dtype=torch.long)
+            optimizer.zero_grad(set_to_none=True)
+            F.cross_entropy(model(image), label).backward()
+            ledger.step(optimizer)
+            scheduler.step()
+            ema_update(model, reference)
+            bank.update(torch.randn(1, 3, 3), torch.ones(1, 3, dtype=torch.bool))
+
+        step()
+        prefix = capture(model, optimizer, scheduler, {"step": 1, "data_cursor": 1},
+                         reference=reference, bank=bank)
+        step()
+        uninterrupted = capture(model, optimizer, scheduler, {"step": 2, "data_cursor": 2},
+                                reference=reference, bank=bank)
+        self.assertEqual(restore(prefix, model, optimizer, scheduler,
+                                 reference=reference, bank=bank), prefix["cursor"])
+        step()
+        resumed = capture(model, optimizer, scheduler, {"step": 2, "data_cursor": 2},
+                          reference=reference, bank=bank)
+        for key in ("student", "reference", "bank"):
+            self.assertTrue(all(torch.equal(uninterrupted[key][name], value)
+                                for name, value in resumed[key].items()))
+        self.assertEqual(uninterrupted["scheduler"], resumed["scheduler"])
+        self.assertTrue(torch.equal(uninterrupted["cpu_rng"], resumed["cpu_rng"]))
+        for param_id, state in resumed["optimizer"]["state"].items():
+            self.assertTrue(torch.equal(state["momentum_buffer"],
+                                        uninterrupted["optimizer"]["state"][param_id]["momentum_buffer"]))
+
+    def test_failed_optimizer_attempt_is_charged(self):
+        class FailingOptimizer:
+            def step(self):
+                raise ValueError("synthetic failure")
+
+        with tempfile.TemporaryDirectory() as directory:
+            ledger = BudgetLedger(Path(directory) / "attempts.jsonl", cap=1)
+            with self.assertRaises(ValueError):
+                ledger.step(FailingOptimizer())
+            self.assertEqual(ledger.attempts, 1)
+            with self.assertRaisesRegex(RuntimeError, "cap reached"):
+                ledger.step(FailingOptimizer())
 
 
 if __name__ == "__main__":

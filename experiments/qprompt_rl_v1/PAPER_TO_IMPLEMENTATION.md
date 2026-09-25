@@ -1,10 +1,10 @@
 # Paper to implementation, R0
 
-The cited pages are from the user-confirmed PDF in `SOURCE_PROVENANCE.md`. The table distinguishes paper definitions from research choices. CPU dynamic tests and official-weight integration are pending in `CPU_REPORT.md`.
+The cited pages are from the user-confirmed PDF in `SOURCE_PROVENANCE.md`. The table distinguishes paper definitions from research choices. R0 CPU dynamic tests and official-weight construction are recorded in `CPU_REPORT.md`.
 
 | Paper definition | R0 choice / code | Divergence or missing specification | Check |
 |---|---|---|---|
-| p4 Fig.2, Eq.2–3: queries enter only final ViT block | `DINOv2Adapter.forward`, `qprompt/models.py` | ViT-S/14 rather than principal ViT-L; K=12 chosen here. CLS/image positional embeddings come from upstream `prepare_tokens_with_masks`; queries receive none. | Mock geometry test; official model pending |
+| p4 Fig.2, Eq.2–3: queries enter only final ViT block | `DINOv2Adapter.forward`, `qprompt/models.py` | ViT-S/14 rather than principal ViT-L; K=12 chosen here. CLS/image positional embeddings come from upstream `prepare_tokens_with_masks`; queries receive none. | Mock geometry test, official offline weight load, and CPU deployment output equality passed |
 | p4: two transposed-convolution upsamplers | `DINOv2Adapter.upsample` | 384 input reflect-padded right/bottom to392, then logits cropped to384. Label padding is ignore255 for image prototypes. | Mock geometry test |
 | p5 Eq.4–5: normalized pixel embeddings, GT mean, EMA bank, image loss | `image_prototypes`, `PrototypeBank`, `image_alignment_loss` | EMA=0.9, reset per phase, current L only; no prototype for absent class. | Synthetic support/EMA test |
 | p5 Eq.6–7: cosine similarity/top-1 reward | `grqa_loss` | Similarity temperature=1; missing bank yields graph-connected zero. | Synthetic test |

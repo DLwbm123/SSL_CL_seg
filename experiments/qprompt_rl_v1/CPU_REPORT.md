@@ -1,9 +1,9 @@
-# CPU synthetic acceptance — pending
+# R0 CPU synthetic acceptance — passed
 
 - `python3 -m compileall` passed for R0 Python files.
 - Attached migration fixture suite: **16/16 passed**, zero optimizer calls. One added check covers the observed separate metadata/payload roots.
-- Model/GRQA/state CPU suite: **not run** because the local Python runtime has no PyTorch and the new target runtime is unbound. `run_cpu_tests.py` records suite attempts before running and refuses a third attempt; `BudgetLedger` records each physical optimizer attempt before `optimizer.step()`.
-- Official DINOv2 source import and pretrained-weight construction: **not run**. The single weight has not been acquired or hashed.
+- On the target, suite attempt 1 passed **6/6** checks. Suite attempt 2 passed **8/8** checks, including exact selected Eq.13 value, singleton/group edge case, charged failure, and full prefix-state replay. The two-run ledger records **2 started / 2 successful** suite attempts and **5 attempted / 5 successful** physical synthetic segmentation optimizer calls (cap64). The fake failure accounting check used its own temporary ledger and did not call a real optimizer.
+- Official DINOv2 source imported offline, the SHA-bound weight loaded strictly into ViT-S/14, and both U-Net and ViT query inference produced identical CPU outputs before and after removing the separate prototype bank and EMA reference. No implicit download occurred during model construction. The upstream xFormers fallback emitted warnings only.
 - Real-data optimizer updates, CUDA model tests, L-only smoke, and formal R1: **0**.
 
-This report does not claim CPU model acceptance, HDF5 semantic validation, deployment equivalence, or scientific benefit.
+Target M1 role construction returned RIM 16 L / 40 val and Drishti 10 L / 25 val; U was denied. The check did not read payload arrays. These checks do not establish HDF5 pixel/medical semantics, GPU readiness, training convergence, or scientific benefit.
