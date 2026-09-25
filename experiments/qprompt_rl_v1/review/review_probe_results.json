@@ -1,0 +1,53 @@
+{
+  "reviewed_commit": "b100df67bee1db0f7c0ed1819126901b0f47390d",
+  "environment": {
+    "torch": "2.10.0+cpu",
+    "device": "cpu"
+  },
+  "scope": "independent_reviewer_synthetic_probes_not_target_acceptance_suite",
+  "optimizer_calls": 0,
+  "real_data_reads": 0,
+  "cuda_calls": 0,
+  "losses_sha256": "7ab3b0528d32093a5f6eb1328067173a47d4ab7fa414d6490a769444fa2e1f6d",
+  "losses_sha256_matches_public_manifest": true,
+  "semantic_function_source": "Unmodified function copied from models.py; full models file not fetched into runtime.",
+  "all_ignore": {
+    "loss": 1.3862941265106201,
+    "matched": 0,
+    "class_gradient_l1": 1.4999998807907104,
+    "mask_gradient_l1": 0.0
+  },
+  "valid_background_only": {
+    "matched": 1,
+    "loss": 6.501514911651611
+  },
+  "mixed_batch_ignore_logits_change_loss": {
+    "before": 6.501514911651611,
+    "after": 5.997457504272461,
+    "absolute_difference": 0.5040574073791504
+  },
+  "tiny_scores_float32": {
+    "per_class": [
+      0.0037830707151442766,
+      0.0037830707151442766,
+      0.0037830707151442766
+    ],
+    "class_sum": 0.011349212378263474
+  },
+  "float16_zero_mass": {
+    "probabilities_finite": true,
+    "per_class": [
+      0.333251953125,
+      0.333251953125,
+      0.333251953125
+    ],
+    "class_gradient_finite": false,
+    "mask_gradient_finite": false
+  },
+  "grqa_equal_reference_nonzero_gradient": {
+    "group_loss": 8.940696716308594e-07,
+    "selected_surrogate": 0.0,
+    "query_gradient_l1": 0.4938981235027313,
+    "reference_gradient_none": true
+  }
+}

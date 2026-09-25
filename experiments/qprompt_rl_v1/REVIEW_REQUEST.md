@@ -1,6 +1,6 @@
 # R0 review entry
 
-Status: **STOP_AWAITING_EXTERNAL_CODE_REVIEW**. R0 code, exact M1 byte migration, target environment, and bounded CPU acceptance are complete. No external code review has been claimed.
+Status: **R0_REVIEW_FIX_PENDING_REGRESSION_BUDGET**. External review of `b100df67bee1db0f7c0ed1819126901b0f47390d` requested changes for F1 (all-ignore classification) and F2 (semantic normalization). The supplied review and its original probe results are retained under `review/`. Both public functions are patched; the separate zero-optimizer regression is prepared but has not run. Original R0 receipts and the exhausted 2/2 suite ledger remain historical evidence for the original commit.
 
 Please review the paper-to-code choices, especially U-Net query head, ViT last-block placement, Eq.13 selected surrogate, true background versus no-object, and matched-query loss. The supplied PDF SHA differs from the plan and was explicitly accepted by the user for this R0. The source-only branch is `codex/qprompt-rl-v1-r0`; `CODE_MANIFEST.json` binds the current file bytes. The exact commit and private migration-manifest digest are reported in the final handoff.
 

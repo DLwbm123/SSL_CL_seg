@@ -80,9 +80,16 @@ def semantic_probabilities(class_logits: torch.Tensor, mask_logits: torch.Tensor
     """C=3 includes background; the fourth class is no-object and is discarded."""
     if class_logits.ndim != 3 or class_logits.shape[-1] != 4 or mask_logits.shape[:2] != class_logits.shape[:2]:
         raise ValueError("expected class [B,K,4] and mask [B,K,H,W]")
-    scores = torch.einsum("bkc,bkhw->bchw", class_logits.softmax(-1)[..., :3], mask_logits.sigmoid())
-    denominator = scores.sum(1, keepdim=True)
-    return torch.where(denominator > 0, scores / denominator.clamp_min(1e-12), torch.full_like(scores, 1 / 3))
+    if not torch.isfinite(class_logits).all() or not torch.isfinite(mask_logits).all():
+        raise ValueError("semantic logits must be finite")
+    # Keep aggregation in FP32 even inside an AMP context. Negligible mass is uniform.
+    with torch.autocast(device_type=class_logits.device.type, enabled=False):
+        scores = torch.einsum("bkc,bkhw->bchw", class_logits.float().softmax(-1)[..., :3],
+                              mask_logits.float().sigmoid())
+        denominator = scores.sum(1, keepdim=True)
+        supported = denominator >= 1e-12
+        safe_denominator = torch.where(supported, denominator, torch.ones_like(denominator))
+        return torch.where(supported, scores / safe_denominator, torch.full_like(scores, 1 / 3))
 
 
 class QueryHead(nn.Module):

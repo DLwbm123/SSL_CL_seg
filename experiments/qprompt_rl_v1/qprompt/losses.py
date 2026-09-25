@@ -21,6 +21,7 @@ def supervised_query_loss(class_logits: torch.Tensor, mask_logits: torch.Tensor,
         raise ValueError("invalid query output")
     if labels.shape != mask_logits.shape[:1] + mask_logits.shape[-2:]:
         raise ValueError("mask and label geometry differ")
+    valid_images = (labels != 255).flatten(1).any(1)
     targets = torch.full(class_logits.shape[:2], 3, device=labels.device, dtype=torch.long)
     mask_bce = mask_logits.sum() * 0
     mask_dice = mask_logits.sum() * 0
@@ -56,8 +57,9 @@ def supervised_query_loss(class_logits: torch.Tensor, mask_logits: torch.Tensor,
             p = pred[query].sigmoid()
             mask_dice = mask_dice + 1 - (2 * (p * binary[j]).sum() + 1) / (p.sum() + binary[j].sum() + 1)
             matched += 1
-    class_loss = F.cross_entropy(class_logits.transpose(1, 2), targets,
-                                 weight=class_logits.new_tensor([1, 1, 1, 0.1]))
+    class_loss = (F.cross_entropy(class_logits[valid_images].transpose(1, 2), targets[valid_images],
+                                  weight=class_logits.new_tensor([1, 1, 1, 0.1]))
+                  if valid_images.any() else class_logits.sum() * 0)
     total = class_loss + 5 * (mask_bce + mask_dice) / max(matched, 1)
     return dict(total=total, class_loss=class_loss, mask_bce=mask_bce / max(matched, 1),
                 mask_dice=mask_dice / max(matched, 1), matched=class_logits.new_tensor(matched))
