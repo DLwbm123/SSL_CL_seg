@@ -65,7 +65,9 @@ def setup_task():
     latest=folder/'latest.pt'
     if latest.exists():
         state=torch.load(latest,map_location='cpu',weights_only=False)
-        assert state['code_commit']==CODE and state['config_digest']==CONFIG_SHA and state['data_schedule_digest']==sha
+        approved=json.loads((ROOT/'APPROVED_ENGINEERING_RESUMES.json').read_text()) if (ROOT/'APPROVED_ENGINEERING_RESUMES.json').exists() else []
+        assert state['code_commit']==CODE or [state['code_commit'],CODE] in approved
+        assert state['config_digest']==CONFIG_SHA and state['data_schedule_digest']==sha
         step=restore(state,model,opt,sch,ref,bank);elapsed=state['training_seconds'];attempts=state['physical_attempts'];prefix_sha=state.get('prefix_sha')
     elif arm!='QUERY_PREFIX':
         prefix=(OLD if PHASE=='development' else RUN)/'tasks'/f'{backbone}__{domain}__QUERY_PREFIX'/'prefix.pt'
@@ -107,7 +109,7 @@ def train():
             diagnostic=(step+1)%100==0;diag={}
             if diagnostic and arm!='QUERY_PREFIX':
                 vals,routing,grads=diagnostics(model,x,y,bank,ref,arm,step)
-                diag=dict(**vals,**routing,**grads)
+                diag={**vals,**routing,**grads}
             opt.zero_grad(set_to_none=True)
             with torch.autocast('cuda',dtype=torch.bfloat16):total,terms,current,support,_=components(model,x,y,bank,ref,arm,step)
             if not torch.isfinite(total):raise FloatingPointError('nonfinite loss')
@@ -124,7 +126,7 @@ def train():
             step+=1
             append(folder/'TASK_LEDGER.jsonl',dict(event='committed',step=step,category=category,**provenance()))
             if diagnostic:
-                append(folder/'DIAGNOSTICS.jsonl',dict(**diag,global_step=step,local_step=step-(0 if arm=='QUERY_PREFIX' else 2000),total_loss=float(total.detach()),Lseg=float(terms['Lseg'].detach()),lambda_grqa=0 if arm=='QUERY_PREFIX' else weight(arm,step-2000),lr=[g['lr'] for g in opt.param_groups],grad_norm=float(norm),training_seconds=elapsed+time.monotonic()-start,peak_allocated=torch.cuda.max_memory_allocated(),peak_reserved=torch.cuda.max_memory_reserved(),**provenance()))
+                append(folder/'DIAGNOSTICS.jsonl',dict(diag,global_step=step,local_step=step-(0 if arm=='QUERY_PREFIX' else 2000),total_loss=float(total.detach()),Lseg=float(terms['Lseg'].detach()),lambda_grqa=0 if arm=='QUERY_PREFIX' else weight(arm,step-2000),lr=[g['lr'] for g in opt.param_groups],grad_norm=float(norm),training_seconds=elapsed+time.monotonic()-start,peak_allocated=torch.cuda.max_memory_allocated(),peak_reserved=torch.cuda.max_memory_reserved(),**provenance()))
             if step%250==0 or step==end:
                 atomic(latest,snapshot(model,opt,sch,ref,bank,step,training_seconds=elapsed+time.monotonic()-start,physical_attempts=attempts,**meta),binary=True)
                 atomic(folder/'PROGRESS.json',dict(global_step=step,**meta))

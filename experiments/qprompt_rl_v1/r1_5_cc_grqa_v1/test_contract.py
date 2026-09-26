@@ -6,6 +6,17 @@ from .method import exact_assignment,routed_grqa,weight
 
 
 def main():
+    # Execute the actual diagnostic merge expressions, including overlapping fields.
+    import ast
+    from pathlib import Path
+    tree=ast.parse(Path(__file__).with_name('runner.py').read_text())
+    merge=next(n.value for n in ast.walk(tree) if isinstance(n,ast.Assign) and any(isinstance(t,ast.Name) and t.id=='diag' for t in n.targets) and isinstance(n.value,ast.Dict) and n.value.keys==[None,None,None])
+    vals={'categorical_kl':.2,'Lseg':.4};routing={'categorical_kl':.2};grads={'norm_seg':1.}
+    diag=eval(compile(ast.Expression(merge),'merge','eval'),{},dict(vals=vals,routing=routing,grads=grads))
+    assert diag=={'categorical_kl':.2,'Lseg':.4,'norm_seg':1.} and vals['Lseg']==.4
+    call=next(n for n in ast.walk(tree) if isinstance(n,ast.Call) and isinstance(n.func,ast.Name) and n.func.id=='dict' and n.args and isinstance(n.args[0],ast.Name) and n.args[0].id=='diag')
+    call.keywords=[ast.keyword(arg='Lseg',value=ast.Constant(.5))];ast.fix_missing_locations(call)
+    assert eval(compile(ast.Expression(call),'record','eval'),{},dict(diag=diag))['Lseg']==.5
     torch.manual_seed(261)
     for classes in (1,2,3):
         supported=torch.arange(3)<classes
