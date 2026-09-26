@@ -86,6 +86,23 @@ def main():
                     write_diagnostic(folder/'diagnostic.jsonl',dict(step=step,arm=arm),dict(Lseg=1.,categorical_kl=0.),{},dict(Lseg=2.,categorical_kl=3.),dict(code='mock'))
                     assert diagnostic_rows(folder/'diagnostic.jsonl')[-1]['meta']['step']==step
                     tested.append([arm,step])
+    from .analysis import aggregate
+    from .closeout import closeout
+    with tempfile.TemporaryDirectory() as temp:
+        root=Path(temp);(root/'tasks').mkdir();c.atomic(root/'BUDGET.json',{})
+        queue={task:dict(status='PENDING') for task in TASKS}
+        aggregate(root,queue,{},False)
+        assert json.loads((root/'reports/FRESH_SEED_REPLICATION.json').read_text())['decision']=='INCOMPLETE_ENGINEERING_OR_BUDGET'
+        for task,t in TASKS.items():
+            if not t['is_final_endpoint']:continue
+            value=.5+(.01 if t['arm'] in ('B2','B3') else 0.)
+            c.atomic(root/'tasks'/task/'EVALUATION.json',dict(task=task,optimization_seed=t['seed'],backbone=t['backbone'],domain=t['domain'],arm=t['arm'],rim=value,cup=value,macro=value,disc_union=value))
+        aggregate(root,queue,{},False)
+        assert json.loads((root/'reports/FRESH_SEED_REPLICATION.json').read_text())['decision']=='READOUT_BASELINE_GAIN_REPLICATED'
+        c.atomic(root/'FINAL.json',{})
+        import contextlib,io
+        with contextlib.redirect_stdout(io.StringIO()):closeout(root,root/'old')
+        assert (root/'reports/HISTORICAL_REPRODUCTION.csv').exists()
     print(json.dumps(dict(status='PASSED',optimizer_calls=0,mock_serializations=len(tested),boundaries=tested,matcher_exact=True,legacy_equivalence=True,structural_classifier_decoupling=True)))
 
 if __name__=='__main__':main()

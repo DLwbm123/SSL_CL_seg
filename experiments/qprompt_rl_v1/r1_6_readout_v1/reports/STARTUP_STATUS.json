@@ -1,0 +1,71 @@
+{
+  "status": "RUNNING_NOT_COMPLETED",
+  "observed_utc": "2026-09-26T14:27:34Z",
+  "snapshot_consistency": "sequential live reads",
+  "session": {
+    "start": 1790432398.9477305,
+    "deadline": 1790475598.9477305,
+    "e0": "1a0b2468c80f32005dc4fec7f4888dc87e9d0aa8",
+    "wall_clock_hours": 12,
+    "max_gpu_workers": 4,
+    "user_quota": "UNAVAILABLE",
+    "storage": "verified NFS4 create-write-read",
+    "disk_cap_bytes": 34359738368
+  },
+  "training_commit": "e94413b499bcf6b348c841d80fbde93263b4c4ef",
+  "qualification": {
+    "status": "PASSED",
+    "synthetic": 18,
+    "smoke": 16,
+    "forensic_batches": 64
+  },
+  "budget": {
+    "formal": 3066,
+    "replay": 0,
+    "synthetic": 18,
+    "smoke": 16,
+    "synthetic_cpu": 0,
+    "synthetic_cuda": 18,
+    "mock": 0,
+    "seen": {
+      "s261__UNET_QUERY_128__Drishti_GS__B0": 3000,
+      "s261__UNET_QUERY_128__RIM_ONE_r3__B0": 2969,
+      "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__B0": 2576,
+      "s261__DINOV2_VITS14_QUERY__Drishti_GS__B0": 2521
+    }
+  },
+  "tasks": [
+    {
+      "task": "s261__UNET_QUERY_128__RIM_ONE_r3__B0",
+      "status": "RUNNING",
+      "physical_commits": 979,
+      "last_committed_step": 2979,
+      "saved_step": 2900,
+      "python_failures": 0
+    },
+    {
+      "task": "s261__UNET_QUERY_128__Drishti_GS__B0",
+      "status": "RUNNING",
+      "physical_commits": 1000,
+      "last_committed_step": 3000,
+      "saved_step": 3000,
+      "python_failures": 0
+    },
+    {
+      "task": "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__B0",
+      "status": "RUNNING",
+      "physical_commits": 582,
+      "last_committed_step": 2582,
+      "saved_step": 2500,
+      "python_failures": 0
+    },
+    {
+      "task": "s261__DINOV2_VITS14_QUERY__Drishti_GS__B0",
+      "status": "RUNNING",
+      "physical_commits": 527,
+      "last_committed_step": 2527,
+      "saved_step": 2500,
+      "python_failures": 0
+    }
+  ]
+}
