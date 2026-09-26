@@ -37,7 +37,13 @@ def supervise():
     session=json.loads((RUN/'SESSION.json').read_text());deadline=session['deadline']
     atomic(RUN/'SUPERVISOR.json',dict(pid=os.getpid(),identity=process_identity(os.getpid()),code_commit=CODE))
     active={};fingerprints={};blocked_modes=set();stage='qualify';queue={t:dict(status='PENDING',failures=[]) for t in TASKS}
-    if (RUN/'QUEUE.json').exists():queue=json.loads((RUN/'QUEUE.json').read_text())
+    if (RUN/'QUEUE.json').exists():
+        queue=json.loads((RUN/'QUEUE.json').read_text())
+        for task,row in queue.items():
+            folder=RUN/'tasks'/task
+            if (folder/'EVALUATION.json').exists() and 'optimization_seed' in json.loads((folder/'EVALUATION.json').read_text()):row['status']='DONE'
+            elif (folder/'TRAIN_DONE.json').exists():row['status']='TRAINED' if TASKS[task]['is_final_endpoint'] else 'DONE'
+            elif row['status'] in ('RUNNING','EVALUATING'):row['status']='PENDING'
     order=sorted(TASKS,key=lambda t:(TASKS[t]['seed'],{'QUERY_PREFIX':-1,'B0':0,'B2':1,'B1':2,'B3':3}[TASKS[t]['arm']],PLAN['backbones'].index(TASKS[t]['backbone']),PLAN['domains'].index(TASKS[t]['domain'])))
     try:
         for stage in ('qualify','smoke','forensic'):

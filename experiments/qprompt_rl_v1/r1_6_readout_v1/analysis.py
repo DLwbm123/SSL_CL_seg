@@ -18,7 +18,10 @@ def aggregate(run,queue,budget,final=False):
     for task,spec in TASKS.items():
         folder=run/'tasks'/task
         row=dict(task=task,seed=spec['seed'],backbone=spec['backbone'],domain=spec['domain'],arm=spec['arm'],status=queue[task]['status'])
-        if (folder/'EVALUATION.json').exists():results.append(json.loads((folder/'EVALUATION.json').read_text()))
+        if (folder/'EVALUATION.json').exists():
+            value=json.loads((folder/'EVALUATION.json').read_text())
+            # The legacy evaluator publishes scores before the provenance-enrichment write.
+            if all(k in value for k in ('optimization_seed','prefix_sha256','data_schedule_digest')):results.append(value)
         for name in ('TRAIN_DONE.json','PROGRESS.json'):
             if (folder/name).exists():
                 value=json.loads((folder/name).read_text());row['global_step']=value['global_step'];row['valid_updates']=max(0,value['global_step']-spec['global_start'])

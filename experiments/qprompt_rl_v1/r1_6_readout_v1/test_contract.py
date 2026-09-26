@@ -96,9 +96,13 @@ def main():
         for task,t in TASKS.items():
             if not t['is_final_endpoint']:continue
             value=.5+(.01 if t['arm'] in ('B2','B3') else 0.)
-            c.atomic(root/'tasks'/task/'EVALUATION.json',dict(task=task,optimization_seed=t['seed'],backbone=t['backbone'],domain=t['domain'],arm=t['arm'],rim=value,cup=value,macro=value,disc_union=value))
+            c.atomic(root/'tasks'/task/'EVALUATION.json',dict(task=task,optimization_seed=t['seed'],backbone=t['backbone'],domain=t['domain'],arm=t['arm'],rim=value,cup=value,macro=value,disc_union=value,prefix_sha256='mock',data_schedule_digest='mock'))
         aggregate(root,queue,{},False)
         assert json.loads((root/'reports/FRESH_SEED_REPLICATION.json').read_text())['decision']=='READOUT_BASELINE_GAIN_REPLICATED'
+        first=next(t for t in TASKS.values() if t['is_final_endpoint']);path=root/'tasks'/first['id']/'EVALUATION.json';saved=json.loads(path.read_text());partial=dict(saved);partial.pop('optimization_seed');c.atomic(path,partial)
+        aggregate(root,queue,{},False)
+        assert json.loads((root/'reports/FRESH_SEED_REPLICATION.json').read_text())['decision']=='INCOMPLETE_ENGINEERING_OR_BUDGET'
+        c.atomic(path,saved);aggregate(root,queue,{},False)
         c.atomic(root/'FINAL.json',{})
         import contextlib,io
         with contextlib.redirect_stdout(io.StringIO()):closeout(root,root/'old')
