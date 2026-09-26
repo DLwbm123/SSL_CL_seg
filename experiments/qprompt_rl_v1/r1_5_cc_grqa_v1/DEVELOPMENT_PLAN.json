@@ -1,0 +1,49 @@
+{
+  "seed": 261,
+  "backbones": [
+    "UNET_QUERY_128",
+    "DINOV2_VITS14_QUERY"
+  ],
+  "domains": [
+    "RIM_ONE_r3",
+    "Drishti_GS"
+  ],
+  "arms": [
+    "A0",
+    "A1",
+    "A2",
+    "A3",
+    "A4"
+  ],
+  "suffix_steps": 1000,
+  "global_start": 2000,
+  "quota": {
+    "3": [
+      3,
+      6
+    ],
+    "2": [
+      4,
+      8
+    ],
+    "1": [
+      12,
+      12
+    ]
+  },
+  "ramp_steps": 300,
+  "lambda_img": 10,
+  "lambda_grqa": 5,
+  "beta": 0.001,
+  "clip": 0.1,
+  "bank_ema": 0.9,
+  "reference_ema": 0.99,
+  "development_gate": {
+    "backbone_macro_min": 0.003,
+    "positive_cells_min": 3,
+    "cell_macro_floor": -0.003,
+    "equal_domain_rim_cup_floor": 0.0,
+    "domain_class_floor": -0.01
+  },
+  "class_integrity_resolution": "Not clearly negative is conservatively preregistered as nonnegative equal-domain rim and cup delta for each backbone, before results."
+}
