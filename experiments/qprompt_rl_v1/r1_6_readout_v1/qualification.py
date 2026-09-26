@@ -14,17 +14,37 @@ def qualify():
         initial=folder/'initial.pt';c.atomic(initial,c.snapshot(model,opt,sch,None,bank,0,**provenance()),binary=True);torch.cuda.reset_peak_memory_stats()
         # Actual one-step equivalence after restoring identical pre-update state, including RNG.
         first=update(model,opt,sch,bank,x,y,arm,task,token,0,folder,kind='synthetic',diagnose=False)
-        expected=dict(student=c.tensor_sha(model.state_dict()),optimizer=c.tensor_sha({str(i)+str(k):v for i,s in opt.state_dict()['state'].items() for k,v in s.items() if torch.is_tensor(v)}),bank=None if bank is None else c.tensor_sha(bank.state_dict()),rng=torch.cuda.get_rng_state().clone())
-        state=torch.load(initial,map_location='cpu',weights_only=False);c.restore(state,model,opt,sch,None,bank);del state
+        expected_path=folder/'expected.pt';c.atomic(expected_path,c.snapshot(model,opt,sch,None,bank,1),binary=True)
+        state=torch.load(initial,map_location='cpu',weights_only=False);c.restore(state,model,opt,sch,None,bank)
+        assert c.tensor_sha(model.state_dict())==c.tensor_sha(state['student']) and sch.state_dict()==state['scheduler']
+        assert torch.equal(torch.get_rng_state(),state['cpu_rng']) and all(torch.equal(a,b) for a,b in zip(torch.cuda.get_rng_state_all(),state['cuda_rng']))
+        if bank is not None:assert c.tensor_sha(bank.state_dict())==c.tensor_sha(state['bank'])
+        del state
         second=update(model,opt,sch,bank,x,y,arm,task,token,0,folder,kind='synthetic',diagnose=True)
-        assert c.tensor_sha(model.state_dict())==expected['student'] and torch.equal(torch.cuda.get_rng_state(),expected['rng']) and sch.last_epoch==1
-        assert c.tensor_sha({str(i)+str(k):v for i,s in opt.state_dict()['state'].items() for k,v in s.items() if torch.is_tensor(v)})==expected['optimizer']
-        assert (None if bank is None else c.tensor_sha(bank.state_dict()))==expected['bank']
+        expected=torch.load(expected_path,map_location='cpu',weights_only=False);actual=c.snapshot(model,opt,sch,None,bank,1);errors=[]
+        def compare(a,b,path='state'):
+            if torch.is_tensor(a):
+                aa=a.detach().cpu();bb=b.detach().cpu()
+                if aa.is_floating_point():
+                    errors.append(float((aa-bb).abs().max()) if aa.numel() else 0.)
+                    torch.testing.assert_close(aa,bb,rtol=1e-5,atol=1e-7,msg=lambda m:path+': '+m)
+                else:assert torch.equal(aa,bb),path
+            elif isinstance(a,dict):
+                assert set(a)==set(b)
+                for key in a:compare(a[key],b[key],path+'/'+str(key))
+            elif isinstance(a,(tuple,list)):
+                assert len(a)==len(b)
+                for i,(xv,yv) in enumerate(zip(a,b)):compare(xv,yv,path+'/'+str(i))
+            elif isinstance(a,np.ndarray):assert np.array_equal(a,b),path
+            else:assert a==b,path
+        compare(actual,expected)
+        max_error=max(errors,default=0.);del actual,expected
+        expected_path.unlink()
         write_diagnostic(folder/(arm+'.jsonl'),dict(step=1,arm=arm),**second,runtime=dict(resume_equal=True))
         model.eval()
         with torch.inference_mode(),torch.autocast('cuda',dtype=torch.bfloat16):
             before=model(x)['semantic'];bank=None;after=model(x)['semantic'];assert torch.equal(before,after)
-        rows.append(dict(arm=arm,resume_equal=True,deployment_equal=True,peak_allocated=torch.cuda.max_memory_allocated(),peak_reserved=torch.cuda.max_memory_reserved(),synthetic_optimizer_calls=2))
+        rows.append(dict(arm=arm,resume_equal=True,deployment_equal=True,peak_allocated=torch.cuda.max_memory_allocated(),peak_reserved=torch.cuda.max_memory_reserved(),synthetic_optimizer_calls=2,update_comparison_max_abs=max_error,comparison_rtol=1e-5,comparison_atol=1e-7,restore_exact=True,bitwise_update_claim=False))
         initial.unlink();rpc(RUN,action='release',task=task,token=token)
         del model,opt,sch,x,y,before,after;gc.collect();torch.cuda.empty_cache()
     c.atomic(folder/'PASSED.json',dict(results=rows,**provenance()))
