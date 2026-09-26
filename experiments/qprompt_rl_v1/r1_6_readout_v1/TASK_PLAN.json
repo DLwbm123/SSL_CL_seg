@@ -1,0 +1,887 @@
+{
+  "study_id": "SSLCL_QPROMPT_RL_V1",
+  "phase": "R1_6_READOUT_SUPERVISION_V1",
+  "status": "EXECUTION_PROMPT_NOT_EXECUTED_IN_CHATGPT",
+  "base_commit": "28872f8dfced13c143fb2e9446d735b5f683effd",
+  "authorization": "WHEN_USER_SUBMITS_PROMPT_TO_CODEX_FOR_EXECUTION",
+  "backbones": [
+    "UNET_QUERY_128",
+    "DINOV2_VITS14_QUERY"
+  ],
+  "domains": [
+    "RIM_ONE_r3",
+    "Drishti_GS"
+  ],
+  "optimization_seeds": [
+    261,
+    262,
+    263
+  ],
+  "split_seed": 0,
+  "arms": {
+    "B0": {
+      "image_alignment": false,
+      "readout_supervision": false
+    },
+    "B1": {
+      "image_alignment": true,
+      "readout_supervision": false
+    },
+    "B2": {
+      "image_alignment": false,
+      "readout_supervision": true
+    },
+    "B3": {
+      "image_alignment": true,
+      "readout_supervision": true
+    }
+  },
+  "primary_candidate": "B2",
+  "primary_contrast": "B2-B0",
+  "secondary_contrast": "B3-B1",
+  "lambda_image_alignment": 10.0,
+  "lambda_readout": 1.0,
+  "readout_nll_weight": 1.0,
+  "readout_dice_weight": 1.0,
+  "dice_smoothing": 1.0,
+  "readout_log_floor": 1e-08,
+  "readout_classes_for_dice": [
+    1,
+    2
+  ],
+  "readout_warmup_steps": 0,
+  "historical_semantic_uniform_fallback_mass": 1e-12,
+  "forensic_batches": 64,
+  "forensic_optimizer_calls": 0,
+  "new_training_tasks": 56,
+  "final_endpoints": 48,
+  "valid_updates_by_seed": {
+    "261": 16000,
+    "262": 24000,
+    "263": 24000
+  },
+  "formal_valid_updates_cap": 64000,
+  "replay_or_repair_training_attempt_cap": 6400,
+  "synthetic_optimizer_attempt_cap": 64,
+  "real_l_smoke_optimizer_attempt_cap": 16,
+  "maximum_physical_optimizer_calls": 70480,
+  "wall_clock_hours_cap": 12,
+  "new_phase_disk_cap_GiB": 32,
+  "max_gpu_workers": 4,
+  "run_all_seeds_regardless_seed261_score": true,
+  "old_r15_confirmation_enabled": false,
+  "R2_enabled": false,
+  "R3_enabled": false,
+  "new_unlabeled_data_enabled": false,
+  "readout_scope": "SUPERVISED_BASELINE_CONTROL_NOT_A_CLAIM_OF_NOVEL_RL_OR_CONTINUAL_LEARNING",
+  "fresh_seed_evaluation": {
+    "seeds": [
+      262,
+      263
+    ],
+    "cells": 8,
+    "mean_macro_delta_min": 0.003,
+    "each_backbone_macro_delta_strictly_positive": true,
+    "positive_cells_min": 6,
+    "worst_macro_cell_delta_min": -0.005,
+    "each_backbone_class_mean_delta_min": 0,
+    "worst_class_cell_delta_min": -0.01,
+    "selection_after_results": false
+  },
+  "reused_prefixes": [
+    {
+      "id": "s261__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX",
+      "source": "R1_verified_private_checkpoint",
+      "global_step": 2000,
+      "required_source_commit": "41dfa243f15b184d728c19422a9f23ddcb346de9",
+      "checkpoint_sha256": null,
+      "sha_status": "RESOLVE_FROM_EXISTING_PRIVATE_RECEIPT"
+    },
+    {
+      "id": "s261__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX",
+      "source": "R1_verified_private_checkpoint",
+      "global_step": 2000,
+      "required_source_commit": "41dfa243f15b184d728c19422a9f23ddcb346de9",
+      "checkpoint_sha256": null,
+      "sha_status": "RESOLVE_FROM_EXISTING_PRIVATE_RECEIPT"
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX",
+      "source": "R1_verified_private_checkpoint",
+      "global_step": 2000,
+      "required_source_commit": "41dfa243f15b184d728c19422a9f23ddcb346de9",
+      "checkpoint_sha256": null,
+      "sha_status": "RESOLVE_FROM_EXISTING_PRIVATE_RECEIPT"
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX",
+      "source": "R1_verified_private_checkpoint",
+      "global_step": 2000,
+      "required_source_commit": "41dfa243f15b184d728c19422a9f23ddcb346de9",
+      "checkpoint_sha256": null,
+      "sha_status": "RESOLVE_FROM_EXISTING_PRIVATE_RECEIPT"
+    }
+  ],
+  "tasks": [
+    {
+      "id": "s261__UNET_QUERY_128__RIM_ONE_r3__B0",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__UNET_QUERY_128__RIM_ONE_r3__B1",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__UNET_QUERY_128__RIM_ONE_r3__B2",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__UNET_QUERY_128__RIM_ONE_r3__B3",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__UNET_QUERY_128__Drishti_GS__B0",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__UNET_QUERY_128__Drishti_GS__B1",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__UNET_QUERY_128__Drishti_GS__B2",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__UNET_QUERY_128__Drishti_GS__B3",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__B0",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__B1",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__B2",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__B3",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__Drishti_GS__B0",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__Drishti_GS__B1",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__Drishti_GS__B2",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s261__DINOV2_VITS14_QUERY__Drishti_GS__B3",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s261__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s262__UNET_QUERY_128__RIM_ONE_r3__B0",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__RIM_ONE_r3__B1",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__RIM_ONE_r3__B2",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__RIM_ONE_r3__B3",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s262__UNET_QUERY_128__Drishti_GS__B0",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__Drishti_GS__B1",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__Drishti_GS__B2",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__UNET_QUERY_128__Drishti_GS__B3",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__B0",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__B1",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__B2",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__B3",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__Drishti_GS__B0",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__Drishti_GS__B1",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__Drishti_GS__B2",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s262__DINOV2_VITS14_QUERY__Drishti_GS__B3",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s262__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s263__UNET_QUERY_128__RIM_ONE_r3__B0",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__RIM_ONE_r3__B1",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__RIM_ONE_r3__B2",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__RIM_ONE_r3__B3",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s263__UNET_QUERY_128__Drishti_GS__B0",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__Drishti_GS__B1",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__Drishti_GS__B2",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__UNET_QUERY_128__Drishti_GS__B3",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__UNET_QUERY_128__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__B0",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__B1",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__B2",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__B3",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__RIM_ONE_r3__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "QUERY_PREFIX",
+      "global_start": 0,
+      "global_end": 2000,
+      "new_valid_updates": 2000,
+      "depends_on": []
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__Drishti_GS__B0",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B0",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__Drishti_GS__B1",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B1",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__Drishti_GS__B2",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B2",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    },
+    {
+      "id": "s263__DINOV2_VITS14_QUERY__Drishti_GS__B3",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "arm": "B3",
+      "global_start": 2000,
+      "global_end": 3000,
+      "new_valid_updates": 1000,
+      "depends_on": [
+        "s263__DINOV2_VITS14_QUERY__Drishti_GS__QUERY_PREFIX"
+      ],
+      "is_final_endpoint": true
+    }
+  ]
+}
