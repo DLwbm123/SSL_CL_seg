@@ -1,0 +1,38 @@
+{
+  "decision": "READOUT_BASELINE_GAIN_NOT_ESTABLISHED",
+  "complete": true,
+  "checks": {
+    "mean_macro_delta": -0.00020379518973641375,
+    "positive_cells": 5,
+    "worst_macro_delta": -0.0021569777280091573,
+    "backbone_macro": {
+      "UNET_QUERY_128": -0.0007043466879985971,
+      "DINOV2_VITS14_QUERY": 0.0002967563085257696
+    },
+    "backbone_class": {
+      "UNET_QUERY_128": {
+        "rim": -0.0011857517110183957,
+        "cup": -0.00022294166497885404
+      },
+      "DINOV2_VITS14_QUERY": {
+        "rim": 0.00039454650133852187,
+        "cup": 0.0001989661157131284
+      }
+    },
+    "worst_class_delta": -0.002317912578582715
+  },
+  "criteria": {
+    "seeds": [
+      262,
+      263
+    ],
+    "cells": 8,
+    "mean_macro_delta_min": 0.003,
+    "each_backbone_macro_delta_strictly_positive": true,
+    "positive_cells_min": 6,
+    "worst_macro_cell_delta_min": -0.005,
+    "each_backbone_class_mean_delta_min": 0,
+    "worst_class_cell_delta_min": -0.01,
+    "selection_after_results": false
+  }
+}
