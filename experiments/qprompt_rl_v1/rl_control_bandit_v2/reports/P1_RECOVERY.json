@@ -1,0 +1,35 @@
+{
+  "old_commit": "e179e8df5b75acc545d8d69a206c10879d496d69",
+  "new_commit": "195448b93dafb89fda5e05d0a53f997c39ed9ae1",
+  "invalidated_tasks": [
+    "R3A__UNET_QUERY_128__RIM_ONE_r3",
+    "R3A__UNET_QUERY_128__Drishti_GS",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__REG",
+    "R3A__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__RL",
+    "R3A__DINOV2_VITS14_QUERY__Drishti_GS",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__NC_RL"
+  ],
+  "unaffected_bound_tasks": [
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__FIX_FINE",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__RANDOM",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__SUP",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__RULE",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__FIX_COARSE",
+    "R3B__S261__UNET_QUERY_128__RIM_ONE_r3__FIX_FINE_EXTRA_L",
+    "R3B__S261__UNET_QUERY_128__Drishti_GS__SUP"
+  ],
+  "prior_budget": {
+    "r3a_student": 320,
+    "r3b_student": 11231,
+    "controller": 560,
+    "student_replay": 0,
+    "controller_replay": 0,
+    "synthetic_student": 8,
+    "synthetic_controller": 24,
+    "smoke": 16
+  },
+  "deadline_unchanged": "2026-09-27T18:36:55.986631+00:00",
+  "reason": "CPU optimizer step alias across disposable rollback; scientific restart for all R3a and adaptive R3b",
+  "CPU_regression_optimizer_calls": 0
+}
