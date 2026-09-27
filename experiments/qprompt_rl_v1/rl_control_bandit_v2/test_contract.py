@@ -61,6 +61,12 @@ def main():
         else:raise AssertionError('deadline bypass')
         server.shutdown();server.server_close()
         w=Worker.__new__(Worker);w.model=torch.nn.Linear(2,2);w.teacher=copy.deepcopy(w.model);w.opt=torch.optim.AdamW(w.model.parameters(),lr=.0001);w.sch=LocalSchedule(w.opt);w.policy=Controller('RL');w.reference=copy.deepcopy(w.policy);w.popt=torch.optim.Adam(w.policy.parameters());w.meta=dict(code_commit='mock',config_sha='mock');w.source_scheduler={'last_epoch':2000};w.elapsed=0.
+        # Adam CPU step tensors must never alias a reusable rollback snapshot. No optimizer call.
+        for param in w.model.parameters():w.opt.state[param]=dict(step=torch.tensor(2000.),exp_avg=torch.zeros_like(param),exp_avg_sq=torch.zeros_like(param))
+        frozen=w.snapshot();w.restore(frozen)
+        for state in w.opt.state.values():state['step'].add_(1);state['exp_avg'].add_(1)
+        assert all(int(state['step'])==2000 and not state['exp_avg'].any() for state in frozen['optimizer']['state'].values())
+        w.restore(frozen)
         for t in (0,1,19,20,21,99,100,101,1199,1200):
             w.t=t;w.retained=t;w.sch.t=t;w.sch.apply();state=w.snapshot();folder=root/'mock-state';folder.mkdir(exist_ok=True);save(folder,state)
             with torch.no_grad():w.model.weight.add_(1);w.policy.net[-1].bias.add_(2)

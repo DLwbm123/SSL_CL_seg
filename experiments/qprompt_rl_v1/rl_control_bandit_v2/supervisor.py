@@ -52,6 +52,7 @@ def supervise():
                 if p.poll() is None:continue
                 del active[task];folder=RUN/'tasks'/task;mode=entry['mode'];receipt=folder/({'audit':'R3A_DONE.json','train':'TRAIN_DONE.json','evaluate':'EVALUATION.json'}[mode])
                 if p.returncode==0 and receipt.exists():queue[task]['status']='TRAINED' if mode=='train' else 'DONE'
+                elif (folder/'PAUSED.json').exists():queue[task]['status']='PENDING'
                 elif (folder/'TIME_LIMIT.json').exists() or time.time()>=deadline:queue[task]['status']='TIME_LIMIT'
                 else:
                     reason=Path(entry['log']).read_text(errors='replace').strip().splitlines()[-1];fp=hashlib.sha256((CODE+reason).encode()).hexdigest();fingerprints[fp]=fingerprints.get(fp,0)+1;queue[task]['failures'].append(dict(fingerprint=fp,reason=reason,mode=mode,code_commit=CODE));queue[task]['status']='BLOCKED' if fingerprints[fp]>=2 else ('TRAINED' if mode=='evaluate' else 'PENDING')

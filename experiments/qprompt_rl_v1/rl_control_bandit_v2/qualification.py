@@ -35,10 +35,13 @@ def qualify():
     del states,initial,x,y,us,q,v;gc.collect();torch.cuda.empty_cache()
     # Exact 16 current-L-only smoke calls over four backbone/domain cells; no U objective.
     w.kind='smoke'
-    for domain in ('RIM_ONE_r3','Drishti_GS'):
+    reuse=RUN/'SMOKE_REUSE.private.json'
+    if reuse.exists():
+        binding=json.loads(reuse.read_text());assert binding['new_commit']==CODE and binding['old_qualification'][backbone]['smoke']==8 and binding['old_qualification'][backbone]['status']=='PASSED'
+    for domain in (() if reuse.exists() else ('RIM_ONE_r3','Drishti_GS')):
         binding=json.loads((RUN/'PREFIX_BINDINGS.private.json').read_text())[f'FROZEN_PREFIX__S261__{backbone}__{domain}'];prefix=torch.load(binding['path'],map_location='cpu',weights_only=False);w.opt,source_sch=c.optimizer_for(w.model,backbone);c.restore(prefix,w.model,w.opt,source_sch);w.sch=LocalSchedule(w.opt);del prefix
         ds=old.dataset(domain,'train_labeled');cache=[ds[i] for i in range(len(ds))];doc=make_schedule(261,domain,len(cache),63 if domain=='RIM_ONE_r3' else 41)
         for j in range(4):
             x,y=old.load_batch(cache,doc['steps'][j],DEVICE);w.student_step(x,y,None,None,None,0,domain+'/'+str(j),temporary=True)
-    c.atomic(RUN/'qualification'/backbone/'PASSED.json',dict(status='PASSED',synthetic_student=4,synthetic_controller=12,smoke=8,restore_exact=True,anchor_max_abs=max(errors),feedback_no_grad=True,peak_reserved=torch.cuda.max_memory_reserved(),code_commit=CODE))
+    c.atomic(RUN/'qualification'/backbone/'PASSED.json',dict(status='PASSED',synthetic_student=4,synthetic_controller=12,smoke=0 if reuse.exists() else 8,smoke_reused=8 if reuse.exists() else 0,restore_exact=True,anchor_max_abs=max(errors),feedback_no_grad=True,peak_reserved=torch.cuda.max_memory_reserved(),code_commit=CODE))
     rpc(RUN,action='release',task=w.task,token=w.token)

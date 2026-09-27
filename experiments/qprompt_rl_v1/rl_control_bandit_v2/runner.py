@@ -83,12 +83,19 @@ class Worker:
             with torch.random.fork_rng(devices=[0]):torch.manual_seed(seed_value(spec['seed'],'bandit-policy',spec['backbone'],spec['domain']));self.policy=Controller(self.arm).cuda()
             self.reference=make_reference(self.policy);self.popt=torch.optim.Adam(self.policy.parameters(),lr=3e-4,betas=(.9,.999),eps=1e-8,weight_decay=0)
         if kind=='r3b_student' and (self.folder/'latest.pt').exists():
-            s=torch.load(self.folder/'latest.pt',map_location='cpu',weights_only=False);assert s['code_commit']==CODE and s['config_sha']==SHA and s['prefix_sha']==self.meta['prefix_sha'] and s['schedule_sha']==self.meta['schedule_sha'];self.restore(s);del s
+            s=torch.load(self.folder/'latest.pt',map_location='cpu',weights_only=False);assert s['config_sha']==SHA and s['prefix_sha']==self.meta['prefix_sha'] and s['schedule_sha']==self.meta['schedule_sha']
+            if s['code_commit']!=CODE:
+                m=json.loads((RUN/'RECOVERY_BINDINGS.private.json').read_text())[self.task];assert self.arm not in ADAPTIVE and m['old_commit']==s['code_commit'] and m['new_commit']==CODE and m['checkpoint_sha']==c.file_sha(self.folder/'latest.pt')
+                self.meta['recovery_parent_commit']=s['code_commit']
+            self.restore(s)
+            from .qualification import same
+            now=self.snapshot();assert all(same(now[k],s[k]) for k in ('student','optimizer','scheduler','teacher','rng','policy','policy_reference','policy_optimizer','t','retained','source_scheduler','model_training','precision'))
+            del s
     def snapshot(self):
         return cpu_copy(dict(**self.meta,student=self.model.state_dict(),optimizer=self.opt.state_dict(),scheduler=self.sch.state_dict(),teacher=self.teacher.state_dict(),rng=rng(),policy=None if self.policy is None else self.policy.state_dict(),policy_reference=None if self.reference is None else self.reference.state_dict(),policy_optimizer=None if self.popt is None else self.popt.state_dict(),t=self.t,retained=self.retained,source_scheduler=self.source_scheduler,elapsed=self.elapsed,model_training=self.model.training,generators='stateless explicit seeds bound to schedule',precision='BF16 fit; FP32 feedback and KL; FP32 master',trainable=[n for n,p in self.model.named_parameters() if p.requires_grad]))
     def restore(self,s):
-        self.model.load_state_dict(s['student']);self.opt.load_state_dict(s['optimizer']);self.sch.load_state_dict(s['scheduler']);self.teacher.load_state_dict(s['teacher']);self.t=s['t'];self.retained=s['retained'];self.elapsed=s['elapsed'];self.model.train(s['model_training'])
-        if self.policy is not None:self.policy.load_state_dict(s['policy']);self.reference.load_state_dict(s['policy_reference']);self.popt.load_state_dict(s['policy_optimizer'])
+        self.model.load_state_dict(s['student']);self.opt.load_state_dict(cpu_copy(s['optimizer']));self.sch.load_state_dict(s['scheduler']);self.teacher.load_state_dict(s['teacher']);self.t=s['t'];self.retained=s['retained'];self.elapsed=s['elapsed'];self.model.train(s['model_training'])
+        if self.policy is not None:self.policy.load_state_dict(s['policy']);self.reference.load_state_dict(s['policy_reference']);self.popt.load_state_dict(cpu_copy(s['policy_optimizer']))
         restore_rng(s['rng'])
     def charge_step(self,opt,kind,transaction):
         if any(p.grad is not None and not torch.isfinite(p.grad).all() for g in opt.param_groups for p in g['params']):raise FloatingPointError('optimizer gradient nonfinite')
@@ -201,7 +208,9 @@ class Worker:
 
 def evaluate():
     spec=TASKS[os.environ['EXEC_TASK']];setup(spec['seed']);folder=RUN/'tasks'/spec['id'];s=torch.load(folder/'final.pt',map_location='cpu',weights_only=False);assert s['t']==1200 and s['retained']==spec['retained_new_student_updates']
-    assert s['code_commit']==CODE and s['config_sha']==SHA and s['scheduler']['t']==1200
+    assert s['config_sha']==SHA and s['scheduler']['t']==1200
+    if s['code_commit']!=CODE:
+        m=json.loads((RUN/'RECOVERY_BINDINGS.private.json').read_text())[spec['id']];assert spec['arm'] not in ADAPTIVE and m['old_commit']==s['code_commit'] and m['new_commit']==CODE and m['checkpoint_sha']==c.file_sha(folder/'final.pt')
     binding=json.loads((RUN/'PREFIX_BINDINGS.private.json').read_text())[spec['dependencies'][0]];assert s['prefix_sha']==binding['sha256'] and s['prefix_source_commit']==binding['source_commit']
     assert s['schedule_sha']==json.loads((RUN/'DATA_BINDING.json').read_text())['schedules'][f"{spec['seed']}__{spec['domain']}"]
     assert all(int(v['step'])==2000+s['retained'] for v in s['optimizer']['state'].values()) and all(g['lr']==0 for g in s['optimizer']['param_groups'])
@@ -210,7 +219,7 @@ def evaluate():
     assert set(s['rng'])=={'python','numpy','cpu','cuda'} and len(s['rng']['cuda'])==1
     if spec['arm'] in ADAPTIVE:assert s['policy'] is not None and s['policy_reference'] is not None and s['policy_optimizer'] is not None
     else:assert s['policy'] is None and s['policy_reference'] is None and s['policy_optimizer'] is None
-    c.atomic(folder/'STATE_AUDIT.json',dict(task=spec['id'],passed=True,ordinary=s['t'],retained=s['retained'],optimizer_step=2000+s['retained'],code_commit=CODE,prefix_sha=s['prefix_sha'],schedule_sha=s['schedule_sha'],rng_present=True,teacher_finite=True,terminal_lr=0))
+    c.atomic(folder/'STATE_AUDIT.json',dict(task=spec['id'],passed=True,ordinary=s['t'],retained=s['retained'],optimizer_step=2000+s['retained'],code_commit=s['code_commit'],prefix_sha=s['prefix_sha'],schedule_sha=s['schedule_sha'],rng_present=True,teacher_finite=True,terminal_lr=0))
     model,_=c.build(spec['backbone'],False,old.ASSETS,old.SOURCE);model.load_state_dict(s['student']);model.cuda().eval();ds=old.dataset(spec['domain'],'val');values=[]
     with torch.inference_mode(),torch.autocast('cuda',dtype=torch.bfloat16):
         for i in range(len(ds)):
