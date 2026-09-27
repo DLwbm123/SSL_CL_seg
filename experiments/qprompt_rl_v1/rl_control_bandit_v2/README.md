@@ -1,7 +1,9 @@
 # RL_CONTROL_BANDIT_V2
 
-User-authorized R3a/R3b execution. METHOD_SPEC.md and the immutable proposal JSON define the frozen protocol; EXECUTION_AUTHORIZATION.json separately records execution permission. R2 and R3c training remain unauthorized.
+Completed: 108/108 evaluated endpoints and 4/4 R3a audits. Primary fresh-seed RL−FIX_FINE mean macro Dice: −0.001546709 (−0.154671 percentage points), 0/8 positive cells. The registered investment target was not met.
 
-Entry: `from rl_control_bandit_v2.runner import main; main()` with private runtime environment. Preparation is CPU-only. The single coordinator owns durable optimizer grants, native qualification, dependency scheduling, evaluation and sanitized aggregates. All 108 endpoints are scheduled regardless of performance. Final results are not yet available.
+See [final report](reports/FINAL_INTERPRETATION.md), [results](reports/RESULTS.csv), [all physical costs](reports/ALL_PHYSICAL_COSTS.csv), [transaction audit](reports/TRANSACTION_AUDIT.json), and [patch history](PATCH_LOG.md). Training provenance is recorded per endpoint. P1 invalidated evidence is excluded from metrics and included in physical cost.
 
-Run `python -m rl_control_bandit_v2.test_contract` with the existing project runtime and a private temporary output directory for zero-optimizer CPU checks. Native qualification is separately charged. No raw datasets, private runtime configuration or checkpoints belong in this repository.
+The original proposal JSON remains unchanged; separate execution authorization records the user request. R2 and R3c training were not authorized or executed. Original KI remains unbound. Private datasets, raw logs, runtime paths and checkpoints are excluded.
+
+Entry: `from rl_control_bandit_v2.runner import main; main()` with private runtime environment. `test_contract.py` provides zero-optimizer CPU regressions; `closeout.py` audits saved states and aggregates private ledgers without training.

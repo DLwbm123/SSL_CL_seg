@@ -13,3 +13,7 @@ The evaluator caught REG optimizer step 3500 at retained suffix 1200 (expected 3
 All R3a evidence and started adaptive R3b trajectories are invalidated and archived, then restarted from their bound supervised prefixes with corrected reward scales. Prior physical grants remain in the ledger; duplicate transaction IDs charge replay. Non-adaptive trajectories are unaffected and resume only with explicit old/new commit and checkpoint hash bindings plus full state equality. Native synthetic qualification is repeated within remaining caps. The already completed 16 L-only smoke calls are bound and reused, never repeated beyond their cap.
 
 Coordinator repair also distinguishes an intentional engineering pause from a worker crash so paused siblings do not acquire spurious failure fingerprints. Original deadline and every cap remain unchanged.
+
+## Final closeout
+
+P1 training commit 195448b93dafb89fda5e05d0a53f997c39ed9ae1 completed the registered matrix. Read-only closeout audits all 108 endpoint states and merges current, qualification, and invalidated P1 ledgers; no new optimizer calls. All physical attempts have success receipts, all caps and the original deadline are respected. Final metrics exclude invalidated P1 trajectories. Primary gain is not established.
