@@ -1,0 +1,9 @@
+# Durable state and accounting
+
+Checkpoint fields: student, AdamW optimizer, local scheduler (entry learning rates and ordinary clock), current student EMA teacher, Python/NumPy/Torch CPU/CUDA RNG, policy/reference/Adam states, ordinary cursor, retained student count, source scheduler evidence, modes, precision, trainable names, configuration/prefix/schedule/source commit bindings. Augmentation/action generators are stateless explicit per-step seeds in the private frozen schedule.
+
+The pre-decision state is saved before any probe. The actual action, context and behavior probability vector are separately atomically sealed. Each anchor/probe/controller/actual/extra call has a deterministic transaction ID. Candidates fully restore state before and after execution. Checkpoints are saved at complete decision boundaries, every 100 ordinary commits and the endpoint; latest, previous and final use atomic writes/hardlinks. Post-crash repeated transaction IDs charge replay, never erase physical cost. A single Unix-socket coordinator serializes grants and leases; no shared NFS flock assumption.
+
+Student temporary/ordinary/extra calls and controller calls have separate frozen caps. Qualification and smoke have distinct categories. Each attempt is durable before optimizer invocation; success and complete student transitions follow. A finished endpoint is published in one atomic evaluation JSON containing all provenance fields and complete=true, preventing the prior two-write race. Formal training commit mismatches are rejected rather than silently rebound.
+
+The new 1200-step scheduler starts from the prefix optimizer's actual current LR, not initial_lr. Probes change only restored clone state. EXTRA_L's ordinary clock and cumulative optimizer count remain distinct. Old run roots, receipts and source are unchanged.

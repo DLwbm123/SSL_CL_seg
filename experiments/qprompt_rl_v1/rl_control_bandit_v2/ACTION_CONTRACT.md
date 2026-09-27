@@ -1,0 +1,7 @@
+# Frozen action contract
+
+SKIP has graph-connected zero U loss and performs no U student fitting forward. SUP never constructs the U accessor. COARSE merges rim and cup probabilities before confidence masking and KL; FINE retains three classes. Admission is strictly confidence >0.7, denominator is all valid geometry pixels, and U weight is 0.5. Weak and strong U share geometry. Teacher targets are detached, teacher EMA is 0.99. Models, original matcher and L augmentation are imported unchanged from the frozen base. No R1.6 readout/Limg/GRQA fitting term is active.
+
+All nine arms use the same seed/domain ordinary schedule. Image folds are used because patient-level grouping provenance is not verified. EXTRA_L executes its five registered F_online updates immediately after the decision's ordinary update, retaining that decision's entry LR; teacher EMA follows each actual student commit. Its ordinary scheduler advances only once, and its retained suffix count is 1500 rather than 1200.
+
+The policy's current action is sealed before probing. Restart restores the full pre-decision state and reuses the sealed action, context and behavior distribution. Probe actions are sampled independently with replacement. No candidate weights are promoted. Fixed/random/rule arms do not consume reward probes. R3a schedule positions are 20*floor(j*60/16), j=0..15; every R3a model state is independently restored to prefix/local time zero.
