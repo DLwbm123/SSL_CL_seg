@@ -1,0 +1,83 @@
+{
+  "study": "RL_CONTROL_FINE_INTERVENTION_V3A",
+  "base_commit": "6eb22a65cb81f50f523f4f3a3ff2e926d051ba68",
+  "plan_sha256": "f8a6699e9d3c2ea574255ee1fd0a985bf0cb506543315d8a85893d5f4fa52de6",
+  "seed": 261,
+  "backbones": [
+    "UNET_QUERY_128",
+    "DINOV2_VITS14_QUERY"
+  ],
+  "domains": [
+    "RIM_ONE_r3",
+    "Drishti_GS"
+  ],
+  "scenes": 16,
+  "horizons": [
+    1,
+    5
+  ],
+  "primary_horizon": 5,
+  "branch_actions": {
+    "0": [
+      0,
+      2,
+      2,
+      2,
+      2
+    ],
+    "1": [
+      1,
+      2,
+      2,
+      2,
+      2
+    ],
+    "2": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  "null_scenes": [
+    0,
+    8
+  ],
+  "null_actions": [
+    0,
+    2
+  ],
+  "controller_steps": 256,
+  "controller_lr": 0.003,
+  "beta": 0.001,
+  "prior": [
+    0.05,
+    0.05,
+    0.9
+  ],
+  "caps": {
+    "student_main": 960,
+    "student_null": 80,
+    "student_synthetic": 64,
+    "student_replay": 104,
+    "controller": 16384,
+    "controller_synthetic": 4096,
+    "controller_replay": 1640
+  },
+  "persistent_student_updates": 0,
+  "student_endpoints": 0,
+  "smoke": 0,
+  "deadline_hours": 12,
+  "synthetic_seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "ridge_mse": "mean over all N*3 targets including fixed fine zero; intercept unpenalized",
+  "split_rule": "sha256 of U payload digest, ascending, round-robin 4 folds",
+  "fit_seed_rule": "sha256(cell,horizon,fold) modulo 2**31; identical FI and SHUFFLE initialization",
+  "shuffle_rule": "one fixed seeded permutation of training rows per cell/horizon/fold",
+  "authorization": "PENDING_SEPARATE_RUN_AND_PUSH_CONFIRMATION"
+}
