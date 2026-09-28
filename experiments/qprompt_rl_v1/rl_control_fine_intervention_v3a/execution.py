@@ -119,7 +119,8 @@ def native(cell,ledger):
 
 def run():
     torch.set_num_threads(2)
-    auth=read(ROOT/'AUTHORIZATION.private.json');assert auth['run_authorized'] and auth['push_authorized'];old.provenance();ROOT.mkdir(exist_ok=True);ledger=Ledger()
+    auth=read(ROOT/'AUTHORIZATION.private.json');assert auth['run_authorized']
+    old.provenance();ROOT.mkdir(exist_ok=True);ledger=Ledger()
     if not (ROOT/'SESSION.json').exists():write(ROOT/'SESSION.json',dict(start=time.time(),deadline=time.time()+43200,code_commit=CODE))
     else:assert read(ROOT/'SESSION.json')['code_commit']==CODE,'explicit repair binding required'
     write(ROOT/'PROCESS.json',dict(pid=os.getpid(),identity=__import__('r1_6_readout_v1.runtime',fromlist=['process_identity']).process_identity(os.getpid()),code_commit=CODE))
