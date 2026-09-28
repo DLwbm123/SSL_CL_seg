@@ -3,7 +3,7 @@ import csv,json,math
 from collections import defaultdict,Counter
 import numpy as np
 import torch
-from .execution import ROOT,PREVIOUS,CONFIG,CONFIG_SHA,CODE,c,read,write,records
+from .execution import ROOT,PREVIOUS,CONFIG,CONFIG_SHA,CODE,c,read,write,records,compatible
 from . import control
 
 def table(name,rows,private=False):
@@ -57,7 +57,7 @@ def panels():
     for cell in manifest:
         f=ROOT/'panels'/cell;paths=list(f.glob('*.private.json'))
         if len(paths)!=52:rest.append(dict(cell=cell,complete=False,branches=len(paths),reason='missing complete branch receipts'));continue
-        raw={(x['scene'],x['action'],x['repeat']):x for x in map(read,paths)};assert all(x['code_commit']==CODE and x['root_restored'] and x['retained_after_discard']==0 for x in raw.values());cellvalues=[]
+        raw={(x['scene'],x['action'],x['repeat']):x for x in map(compatible,paths)};assert all(x['root_restored'] and x['retained_after_discard']==0 for x in raw.values());cellvalues=[]
         missing=sum(v is None or not np.isfinite(v) for x in raw.values() for q in x['horizons'].values() for v in q.values())
         if missing:rest.append(dict(cell=cell,complete=False,branches=52,missing_feedback=missing));continue
         for a in range(3):
@@ -91,7 +91,7 @@ def p2(ledger):
                 analytic['NC_OPT_solutions']+=1;analytic['LIN_VALUE_fits']+=1;analytic['LIN_VALUE_heldout_solutions']+=len(te)
                 for method in ('FI_POLICY','FI_POLICY_SHUFFLE'):
                     name=f'{cell}/{h}/{k}/{method}';p=ROOT/'fits'/(name.replace('/','_')+'.private.json')
-                    if p.exists():v=read(p);assert v['code_commit']==CODE and v['config_sha']==CONFIG_SHA;probs[method]=np.array(v['probabilities'])
+                    if p.exists():v=compatible(p);assert v['config_sha']==CONFIG_SHA;probs[method]=np.array(v['probabilities'])
                     else:
                         model,diag=control.fit(z[tr],train,fit_seed,ledger.step,name,method.endswith('SHUFFLE'));prob=model(torch.tensor(z[te],dtype=torch.float32)).detach().numpy();write(p,dict(code_commit=CODE,config_sha=CONFIG_SHA,train_indices=tr.tolist(),test_indices=te.tolist(),scale_sha=scales[cell]['sha256'],probabilities=prob.tolist(),diagnostics=diag));probs[method]=prob
                 # Independent scoring only after every held-out prediction has been frozen.

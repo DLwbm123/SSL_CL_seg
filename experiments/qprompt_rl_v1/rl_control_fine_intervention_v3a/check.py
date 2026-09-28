@@ -7,7 +7,7 @@ def main():
     result=control.check();package=__package__;stub=types.ModuleType(package+'.execution');stub.CODE='check';stub.CONFIG_SHA='check';stub.CONFIG={'backbones':['A','B']};stub.read=lambda p:json.loads(Path(p).read_text())
     def write(p,v):
         Path(p).parent.mkdir(parents=True,exist_ok=True);Path(p).write_text(json.dumps(v,allow_nan=False))
-    stub.write=write;stub.records=lambda p:[];stub.c=None;stub.PREVIOUS=None
+    stub.compatible=stub.read;stub.write=write;stub.records=lambda p:[];stub.c=None;stub.PREVIOUS=None
     with tempfile.TemporaryDirectory() as tmp:
         stub.ROOT=Path(tmp);sys.modules[stub.__name__]=stub
         from . import analysis as a
