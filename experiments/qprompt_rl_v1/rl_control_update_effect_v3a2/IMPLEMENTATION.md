@@ -1,0 +1,13 @@
+# V3A2 execution notes
+
+The supplied EXPERIMENT_PLAN.md is preserved verbatim as METHOD_SPEC.md. EXECUTION_PLAN.json and FEATURE_SCHEMA.json are unchanged. The user authorized this run; publication remains separately gated.
+
+The pipeline reuses frozen V2 students, data reader, action losses, local scheduler, precision and teacher updates. Feature and feedback phases run in separate neutral Python stdin processes. Feature workers guard HDF5 access at the Python open and h5py.File entry points, bind only current fit-batch image/label payloads and the current image-only U payload, and reject feedback/learner directories. This is application-level access isolation, not an operating-system sandbox against adversarial native code.
+
+Scratch AdamW uses the installed torch.optim.adamw.adamw functional implementation with cloned parameters, moments, step tensors and gradients; it never calls optimizer.step or installs virtual weights. Actual optimizer calls and scratch previews have distinct ledgers. FP64 reductions are chunked. All before/after state assertions include gradients, submodule modes, RNG, buffers, teacher, optimizer and cursor.
+
+Fixed implementation choices: stable seeds are SHA256(repr(parts)) first twelve hex digits modulo 2**31. Development pool completion sorts by stable('dev', domain, digest); transfer sorts by stable('transfer', domain, digest). Continuation selection is stable(seed, domain, scene, offset, 'continuation') modulo16. Neural initialization uses stable(cell, split, 'init') shared across all neural methods; shuffle uses stable(init_seed, 'shuffle'). Boolean validity dimensions remain unstandardized. EFFECT_RULE secondary probabilities are softmax of its unscaled first-order scores; its primary decision is the registered deterministic rule.
+
+Student branches and feature extractions resume only at completed receipt boundaries. Source/config mismatch rejects automatic reuse. Failure stops the affected serial pipeline for explicit diagnosis rather than blind retry; independent scientific negative results never stop registered cells. Parent/child commands are python3.12 - with configuration in environment/stdin. The parent has a deadline timeout and the ledger checks the original deadline before every charged operation.
+
+The zero-optimizer check covers prior, argmax ties/FINE reachability, train-only scaler behavior, zero-reward analytical controls, stable extreme logits and degenerate block features. Formal qualification adds real/scratch AdamW parity with n=2000, two learning-rate groups, None/zero gradients, foreach/AMSGrad variants, zero U masks, access denials and twelve fixed synthetic policy fits. No claim of external review is made.

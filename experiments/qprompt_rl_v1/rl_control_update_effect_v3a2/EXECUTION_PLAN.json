@@ -1,0 +1,2501 @@
+{
+  "study": "RL_CONTROL_UPDATE_EFFECT_STATE_V3A2",
+  "status": "PROPOSAL_NOT_EXECUTED",
+  "repository": "DLwbm123/SSL_CL_seg",
+  "base_commit": "e5fa35589817224d53fe37cd0e836c871a7a48d6",
+  "authorization": {
+    "plan_is_not_execution_authorization": true,
+    "run_requires_current_confirmation": true,
+    "push_requires_separate_confirmation": true,
+    "automatically_launch_v3b": false,
+    "modify_original_KI": false
+  },
+  "development_seed": 261,
+  "transfer_seeds": [
+    262,
+    263
+  ],
+  "backbones": [
+    "UNET_QUERY_128",
+    "DINOV2_VITS14_QUERY"
+  ],
+  "domains": [
+    "RIM_ONE_r3",
+    "Drishti_GS"
+  ],
+  "prefix": {
+    "step": 2000,
+    "role": "QUERY_PREFIX",
+    "teacher_at_entry": "exact copy of student",
+    "restore_optimizer_moments": true,
+    "new_prefix_training": 0,
+    "reuse_prior_medical_endpoints": false
+  },
+  "scenes": {
+    "development": 64,
+    "transfer": 128,
+    "total": 192,
+    "per_cell": 16,
+    "repetitions_per_action": 3,
+    "actions": [
+      0,
+      1,
+      2
+    ],
+    "branch_actions": {
+      "0": [
+        0,
+        2,
+        2,
+        2,
+        2
+      ],
+      "1": [
+        1,
+        2,
+        2,
+        2,
+        2
+      ],
+      "2": [
+        2,
+        2,
+        2,
+        2,
+        2
+      ]
+    },
+    "primary_horizon": 5,
+    "secondary_horizon": 1,
+    "continuation_U_must_stay_in_role_pool": true
+  },
+  "features": {
+    "base_dimension": 16,
+    "augmented_dimension": 40,
+    "replicates": 3,
+    "reduction": "arithmetic mean before any reward read",
+    "clean_proxy_images": "the same two current L_fit image identities used in the first actual fit batch, without augmentation",
+    "vjp_calls_per_extraction": 4,
+    "virtual_adamw_previews_per_extraction": 3,
+    "no_feedback_access": true,
+    "schema": [
+      {
+        "index": 0,
+        "name": "base_00",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 1,
+        "name": "base_01",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 2,
+        "name": "base_02",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 3,
+        "name": "base_03",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 4,
+        "name": "base_04",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 5,
+        "name": "base_05",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 6,
+        "name": "base_06",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 7,
+        "name": "base_07",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 8,
+        "name": "base_08",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 9,
+        "name": "base_09",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 10,
+        "name": "base_10",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 11,
+        "name": "base_11",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 12,
+        "name": "base_12",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 13,
+        "name": "base_13",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 14,
+        "name": "base_14",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 15,
+        "name": "base_15",
+        "origin": "frozen V2 state_vector"
+      },
+      {
+        "index": 16,
+        "name": "SKIP__BODY__predicted_clean_fit_gain",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 17,
+        "name": "SKIP__BODY__cos_negative_clean_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 18,
+        "name": "SKIP__BODY__log_relative_step_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 19,
+        "name": "SKIP__BODY__log_relative_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 20,
+        "name": "SKIP__BODY__direction_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 21,
+        "name": "SKIP__BODY__reference_norms_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 22,
+        "name": "SKIP__HEAD__predicted_clean_fit_gain",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 23,
+        "name": "SKIP__HEAD__cos_negative_clean_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 24,
+        "name": "SKIP__HEAD__log_relative_step_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 25,
+        "name": "SKIP__HEAD__log_relative_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 26,
+        "name": "SKIP__HEAD__direction_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 27,
+        "name": "SKIP__HEAD__reference_norms_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 28,
+        "name": "COARSE__BODY__predicted_clean_fit_gain",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 29,
+        "name": "COARSE__BODY__cos_negative_clean_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 30,
+        "name": "COARSE__BODY__log_relative_step_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 31,
+        "name": "COARSE__BODY__log_relative_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 32,
+        "name": "COARSE__BODY__direction_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 33,
+        "name": "COARSE__BODY__reference_norms_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 34,
+        "name": "COARSE__HEAD__predicted_clean_fit_gain",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 35,
+        "name": "COARSE__HEAD__cos_negative_clean_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 36,
+        "name": "COARSE__HEAD__log_relative_step_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 37,
+        "name": "COARSE__HEAD__log_relative_gradient_delta",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 38,
+        "name": "COARSE__HEAD__direction_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      },
+      {
+        "index": 39,
+        "name": "COARSE__HEAD__reference_norms_valid",
+        "origin": "decision-time fit-only gradients and read-only AdamW preview"
+      }
+    ]
+  },
+  "learners": {
+    "methods": [
+      "FINE",
+      "NC_OPT",
+      "BASE_RIDGE",
+      "EFFECT_RIDGE",
+      "BASE_POLICY",
+      "EFFECT_POLICY",
+      "EFFECT_SHUFFLE",
+      "EFFECT_RULE"
+    ],
+    "neural_methods": [
+      "BASE_POLICY",
+      "EFFECT_POLICY",
+      "EFFECT_SHUFFLE"
+    ],
+    "architecture": [
+      40,
+      32,
+      3
+    ],
+    "parameter_count": 1411,
+    "steps": 256,
+    "optimizer": "Adam",
+    "lr": 0.003,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "weight_decay": 0,
+    "prior": [
+      0.05,
+      0.05,
+      0.9
+    ],
+    "beta": 0.001,
+    "epsilon_mix": 0.0,
+    "reward_scale": "frozen V2 scale by backbone/domain",
+    "primary_decision": "argmax of logits or corresponding analytic scores; fine > coarse > skip within absolute 1e-8",
+    "secondary_decision": "unmixed softmax expectation",
+    "fits": 60,
+    "analytic_fit_operations": 60,
+    "standardization": "training-only continuous columns; training-constant columns forced to zero; validity flags unchanged; BASE pads last 24 to zero"
+  },
+  "primary": {
+    "phase": "transfer_scoring",
+    "horizon": 5,
+    "method": "EFFECT_POLICY",
+    "contrasts": [
+      "EFFECT_POLICY-BASE_POLICY",
+      "EFFECT_POLICY-FINE"
+    ],
+    "units": "feedback quality, NOT Dice or Dice percentage points",
+    "complete_cells": 8,
+    "interpretation": "policy generalization to prebound optimization prefixes and decision/continuation U pools, not patient independence or closed-loop student benefit"
+  },
+  "proposal_criteria": {
+    "mean_vs_FINE_min": 1e-05,
+    "mean_vs_BASE_min": 1e-05,
+    "both_means_must_exceed_paired_repeat_band": true,
+    "positive_net_cells_above_repeat_band_min": 6,
+    "each_backbone_net_mean_positive": true,
+    "mean_vs_NC_positive_beyond_repeat_band": true,
+    "mean_vs_SHUFFLE_positive_beyond_repeat_band": true,
+    "EFFECT_RIDGE_and_EFFECT_RULE_required_comparators": true,
+    "no_automatic_followup": true
+  },
+  "budgets": {
+    "main_real_student_optimizer_calls": 8640,
+    "main_controller_optimizer_calls": 15360,
+    "main_virtual_adamw_previews": 1728,
+    "main_feature_vjp_calls": 2304,
+    "new_retained_student_updates": 0,
+    "new_medical_endpoints": 0,
+    "student_replay_cap": 864,
+    "controller_replay_cap": 1536,
+    "virtual_preview_replay_cap": 173,
+    "student_synthetic_cap": 64,
+    "controller_synthetic_cap": 4096,
+    "real_L_smoke_cap": 0,
+    "auxiliary_feature_replay_extractions_cap": 58,
+    "wall_clock_hours": 12,
+    "new_run_storage_cap_GiB": 32
+  },
+  "nodes": [
+    {
+      "id": "E0_BIND_AND_TEST",
+      "kind": "qualification",
+      "depends_on": [],
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FREEZE_SCENE_AND_U_SPLITS",
+      "kind": "metadata",
+      "depends_on": [
+        "E0_BIND_AND_TEST"
+      ],
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FEATURE__S261__UNET_QUERY_128__RIM_ONE_r3",
+      "kind": "feature_extraction",
+      "cell": "S261__UNET_QUERY_128__RIM_ONE_r3",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3",
+      "kind": "counterfactual_panel",
+      "cell": "S261__UNET_QUERY_128__RIM_ONE_r3",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "FEATURE__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "FEATURE__S261__UNET_QUERY_128__Drishti_GS",
+      "kind": "feature_extraction",
+      "cell": "S261__UNET_QUERY_128__Drishti_GS",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "PANEL__S261__UNET_QUERY_128__Drishti_GS",
+      "kind": "counterfactual_panel",
+      "cell": "S261__UNET_QUERY_128__Drishti_GS",
+      "seed": 261,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "FEATURE__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "FEATURE__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "kind": "feature_extraction",
+      "cell": "S261__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "kind": "counterfactual_panel",
+      "cell": "S261__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "FEATURE__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "FEATURE__S261__DINOV2_VITS14_QUERY__Drishti_GS",
+      "kind": "feature_extraction",
+      "cell": "S261__DINOV2_VITS14_QUERY__Drishti_GS",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS",
+      "kind": "counterfactual_panel",
+      "cell": "S261__DINOV2_VITS14_QUERY__Drishti_GS",
+      "seed": 261,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "FEATURE__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "FEATURE__S262__UNET_QUERY_128__RIM_ONE_r3",
+      "kind": "feature_extraction",
+      "cell": "S262__UNET_QUERY_128__RIM_ONE_r3",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "FEATURE__S262__UNET_QUERY_128__Drishti_GS",
+      "kind": "feature_extraction",
+      "cell": "S262__UNET_QUERY_128__Drishti_GS",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "FEATURE__S262__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "kind": "feature_extraction",
+      "cell": "S262__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "FEATURE__S262__DINOV2_VITS14_QUERY__Drishti_GS",
+      "kind": "feature_extraction",
+      "cell": "S262__DINOV2_VITS14_QUERY__Drishti_GS",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "FEATURE__S263__UNET_QUERY_128__RIM_ONE_r3",
+      "kind": "feature_extraction",
+      "cell": "S263__UNET_QUERY_128__RIM_ONE_r3",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "FEATURE__S263__UNET_QUERY_128__Drishti_GS",
+      "kind": "feature_extraction",
+      "cell": "S263__UNET_QUERY_128__Drishti_GS",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "FEATURE__S263__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "kind": "feature_extraction",
+      "cell": "S263__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "FEATURE__S263__DINOV2_VITS14_QUERY__Drishti_GS",
+      "kind": "feature_extraction",
+      "cell": "S263__DINOV2_VITS14_QUERY__Drishti_GS",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "replicates": 3,
+      "depends_on": [
+        "FREEZE_SCENE_AND_U_SPLITS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0,
+      "virtual_adamw_previews": 144,
+      "feature_vjp_calls": 192
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F0__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F0__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F0__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F1__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F1__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F1__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F2__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F2__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F2__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F3__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F3__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F3__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__UNET_QUERY_128__RIM_ONE_r3__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__UNET_QUERY_128__RIM_ONE_r3__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__UNET_QUERY_128__RIM_ONE_r3__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__0__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__0__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__0__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__1__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__1__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__1__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__2__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__2__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__2__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__3__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__3__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__3__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__all__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__all__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__all__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F0__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F0__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F0__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F1__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F1__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F1__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F2__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F2__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F2__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F3__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F3__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__UNET_QUERY_128__Drishti_GS__F3__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__UNET_QUERY_128__Drishti_GS__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "BASE_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__UNET_QUERY_128__Drishti_GS__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_POLICY",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__UNET_QUERY_128__Drishti_GS__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__0__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__0__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__0__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__1__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__1__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__1__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__2__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__2__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__2__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__3__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__3__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__3__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__all__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__all__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__all__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F0__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F0__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F0__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F1__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F1__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F1__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F2__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F2__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F2__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F3__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F3__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F3__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__0__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__0__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__0__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__1__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__1__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__1__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__2__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__2__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__2__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__3__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__3__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__3__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__all__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__all__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__all__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F0__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F0__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F0__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 0,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F1__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F1__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F1__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 1,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F2__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F2__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F2__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 2,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F3__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F3__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F3__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "development_oof",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "fold": 3,
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__Drishti_GS__BASE_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "BASE_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__Drishti_GS__EFFECT_POLICY",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_POLICY",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__Drishti_GS__EFFECT_SHUFFLE",
+      "kind": "neural_fit",
+      "phase": "final_fit_seed261",
+      "method": "EFFECT_SHUFFLE",
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "controller_optimizer_calls": 256,
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__0__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__0__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__0__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__1__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__1__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__1__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__2__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__2__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__2__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__3__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__3__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__3__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__all__NC_OPT",
+      "kind": "analytic_fit",
+      "method": "NC_OPT",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__all__BASE_RIDGE",
+      "kind": "analytic_fit",
+      "method": "BASE_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__all__EFFECT_RIDGE",
+      "kind": "analytic_fit",
+      "method": "EFFECT_RIDGE",
+      "phase": "oof_or_final",
+      "depends_on": [
+        "PANEL__S261__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0,
+      "controller_optimizer_calls": 0
+    },
+    {
+      "id": "FREEZE_ALL_FINAL_POLICIES",
+      "kind": "freeze",
+      "depends_on": [
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F0__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F0__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F0__EFFECT_SHUFFLE",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F1__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F1__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F1__EFFECT_SHUFFLE",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F2__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F2__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F2__EFFECT_SHUFFLE",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F3__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F3__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__RIM_ONE_r3__F3__EFFECT_SHUFFLE",
+        "FINAL_POLICY__S261__UNET_QUERY_128__RIM_ONE_r3__BASE_POLICY",
+        "FINAL_POLICY__S261__UNET_QUERY_128__RIM_ONE_r3__EFFECT_POLICY",
+        "FINAL_POLICY__S261__UNET_QUERY_128__RIM_ONE_r3__EFFECT_SHUFFLE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__0__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__0__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__0__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__1__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__1__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__1__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__2__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__2__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__2__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__3__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__3__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__3__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__all__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__all__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__RIM_ONE_r3__all__EFFECT_RIDGE",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F0__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F0__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F0__EFFECT_SHUFFLE",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F1__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F1__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F1__EFFECT_SHUFFLE",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F2__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F2__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F2__EFFECT_SHUFFLE",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F3__BASE_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F3__EFFECT_POLICY",
+        "OOF__S261__UNET_QUERY_128__Drishti_GS__F3__EFFECT_SHUFFLE",
+        "FINAL_POLICY__S261__UNET_QUERY_128__Drishti_GS__BASE_POLICY",
+        "FINAL_POLICY__S261__UNET_QUERY_128__Drishti_GS__EFFECT_POLICY",
+        "FINAL_POLICY__S261__UNET_QUERY_128__Drishti_GS__EFFECT_SHUFFLE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__0__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__0__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__0__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__1__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__1__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__1__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__2__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__2__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__2__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__3__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__3__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__3__EFFECT_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__all__NC_OPT",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__all__BASE_RIDGE",
+        "ANALYTIC__S261__UNET_QUERY_128__Drishti_GS__all__EFFECT_RIDGE",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F0__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F0__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F0__EFFECT_SHUFFLE",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F1__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F1__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F1__EFFECT_SHUFFLE",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F2__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F2__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F2__EFFECT_SHUFFLE",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F3__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F3__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__F3__EFFECT_SHUFFLE",
+        "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__BASE_POLICY",
+        "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__EFFECT_POLICY",
+        "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__EFFECT_SHUFFLE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__0__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__0__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__0__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__1__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__1__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__1__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__2__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__2__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__2__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__3__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__3__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__3__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__all__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__all__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__RIM_ONE_r3__all__EFFECT_RIDGE",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F0__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F0__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F0__EFFECT_SHUFFLE",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F1__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F1__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F1__EFFECT_SHUFFLE",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F2__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F2__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F2__EFFECT_SHUFFLE",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F3__BASE_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F3__EFFECT_POLICY",
+        "OOF__S261__DINOV2_VITS14_QUERY__Drishti_GS__F3__EFFECT_SHUFFLE",
+        "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__Drishti_GS__BASE_POLICY",
+        "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__Drishti_GS__EFFECT_POLICY",
+        "FINAL_POLICY__S261__DINOV2_VITS14_QUERY__Drishti_GS__EFFECT_SHUFFLE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__0__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__0__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__0__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__1__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__1__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__1__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__2__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__2__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__2__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__3__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__3__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__3__EFFECT_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__all__NC_OPT",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__all__BASE_RIDGE",
+        "ANALYTIC__S261__DINOV2_VITS14_QUERY__Drishti_GS__all__EFFECT_RIDGE"
+      ],
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "SEAL_ALL_TRANSFER_PREDICTIONS",
+      "kind": "blind_prediction_seal",
+      "depends_on": [
+        "FREEZE_ALL_FINAL_POLICIES",
+        "FEATURE__S262__UNET_QUERY_128__RIM_ONE_r3",
+        "FEATURE__S262__UNET_QUERY_128__Drishti_GS",
+        "FEATURE__S262__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+        "FEATURE__S262__DINOV2_VITS14_QUERY__Drishti_GS",
+        "FEATURE__S263__UNET_QUERY_128__RIM_ONE_r3",
+        "FEATURE__S263__UNET_QUERY_128__Drishti_GS",
+        "FEATURE__S263__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+        "FEATURE__S263__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 0
+    },
+    {
+      "id": "PANEL__S262__UNET_QUERY_128__RIM_ONE_r3",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S262__UNET_QUERY_128__RIM_ONE_r3",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S262__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "PANEL__S262__UNET_QUERY_128__Drishti_GS",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S262__UNET_QUERY_128__Drishti_GS",
+      "seed": 262,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S262__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "PANEL__S262__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S262__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S262__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "PANEL__S262__DINOV2_VITS14_QUERY__Drishti_GS",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S262__DINOV2_VITS14_QUERY__Drishti_GS",
+      "seed": 262,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S262__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "PANEL__S263__UNET_QUERY_128__RIM_ONE_r3",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S263__UNET_QUERY_128__RIM_ONE_r3",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S263__UNET_QUERY_128__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "PANEL__S263__UNET_QUERY_128__Drishti_GS",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S263__UNET_QUERY_128__Drishti_GS",
+      "seed": 263,
+      "backbone": "UNET_QUERY_128",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S263__UNET_QUERY_128__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "PANEL__S263__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S263__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "RIM_ONE_r3",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S263__DINOV2_VITS14_QUERY__RIM_ONE_r3"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "PANEL__S263__DINOV2_VITS14_QUERY__Drishti_GS",
+      "kind": "counterfactual_panel",
+      "phase": "transfer_scoring",
+      "cell": "S263__DINOV2_VITS14_QUERY__Drishti_GS",
+      "seed": 263,
+      "backbone": "DINOV2_VITS14_QUERY",
+      "domain": "Drishti_GS",
+      "scenes": 16,
+      "actions": 3,
+      "replicates": 3,
+      "horizon": 5,
+      "branches": 144,
+      "depends_on": [
+        "SEAL_ALL_TRANSFER_PREDICTIONS",
+        "FEATURE__S263__DINOV2_VITS14_QUERY__Drishti_GS"
+      ],
+      "real_student_optimizer_calls": 720,
+      "retained_updates": 0
+    },
+    {
+      "id": "FINAL_ANALYSIS",
+      "kind": "report",
+      "depends_on": [
+        "PANEL__S262__UNET_QUERY_128__RIM_ONE_r3",
+        "PANEL__S262__UNET_QUERY_128__Drishti_GS",
+        "PANEL__S262__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+        "PANEL__S262__DINOV2_VITS14_QUERY__Drishti_GS",
+        "PANEL__S263__UNET_QUERY_128__RIM_ONE_r3",
+        "PANEL__S263__UNET_QUERY_128__Drishti_GS",
+        "PANEL__S263__DINOV2_VITS14_QUERY__RIM_ONE_r3",
+        "PANEL__S263__DINOV2_VITS14_QUERY__Drishti_GS",
+        "FREEZE_ALL_FINAL_POLICIES"
+      ],
+      "real_student_optimizer_calls": 0
+    }
+  ],
+  "evidence": [
+    {
+      "id": "S1",
+      "path": "experiments/qprompt_rl_v1/rl_control_fine_intervention_v3a/reports/FINAL_INTERPRETATION.md",
+      "ref": "e5fa35589817224d53fe37cd0e836c871a7a48d6"
+    },
+    {
+      "id": "S2",
+      "path": "experiments/qprompt_rl_v1/rl_control_fine_intervention_v3a/reports/OOF_POLICY_VALUES.csv",
+      "ref": "e5fa35589817224d53fe37cd0e836c871a7a48d6"
+    },
+    {
+      "id": "S3",
+      "path": "experiments/qprompt_rl_v1/rl_control_fine_intervention_v3a/execution.py",
+      "ref": "e5fa35589817224d53fe37cd0e836c871a7a48d6"
+    },
+    {
+      "id": "S4",
+      "path": "experiments/qprompt_rl_v1/rl_control_bandit_v2/method.py",
+      "ref": "e5fa35589817224d53fe37cd0e836c871a7a48d6"
+    },
+    {
+      "id": "S5",
+      "path": "experiments/qprompt_rl_v1/r1_12h/core.py",
+      "ref": "e5fa35589817224d53fe37cd0e836c871a7a48d6"
+    },
+    {
+      "id": "S6",
+      "title": "AdamW official documentation; algorithm reference only, do not upgrade target environment",
+      "url": "https://docs.pytorch.org/docs/main/generated/torch.optim.AdamW.html"
+    },
+    {
+      "id": "S7",
+      "title": "Learning to Reweight Examples for Robust Deep Learning, ICML 2018; related idea, not method reproduction",
+      "url": "https://proceedings.mlr.press/v80/ren18a.html"
+    }
+  ]
+}
