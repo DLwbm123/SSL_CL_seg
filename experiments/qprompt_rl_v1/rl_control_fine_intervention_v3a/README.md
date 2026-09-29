@@ -1,6 +1,6 @@
 # RL_CONTROL_FINE_INTERVENTION_V3A
 
-Frozen scientific scope is in METHOD_SPEC.md and CONFIG.json. Execution and publication require the separate confirmation specified in METHOD_SPEC section 10. The source authorization record is pending; the runner requires an explicit private run authorization receipt.
+Frozen scientific scope is in METHOD_SPEC.md and CONFIG.json. Execution and publication require the separate confirmation specified in METHOD_SPEC section 10. The user separately confirmed this run and its publication. The frozen CONFIG.json retains the launch-time authorization status for provenance; EXECUTION_AUTHORIZATION.json records the later publication permission. The runner requires an explicit private run authorization receipt.
 
 ## Prepared checks
 
