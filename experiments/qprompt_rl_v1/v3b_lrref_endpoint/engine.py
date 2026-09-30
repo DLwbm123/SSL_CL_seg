@@ -63,7 +63,7 @@ class Ledger:
     def update(self,t,category,key,action):
         self.category,self.key=category,key;t.action=action;t.update()
         row=dict(key=key,phase=category,step=t.step,cursor=t.cursor,action=action,loss=t.last['labeled_loss'],time=time.time(),physical=dict(self.count))
-        if category=='development' and not (self.root/'FIRST_TRAINING_UPDATE.json').exists():write(self.root/'FIRST_TRAINING_UPDATE.json',row)
+        if category=='development' and '/retained/' in key and not (self.root/'FIRST_TRAINING_UPDATE.json').exists():write(self.root/'FIRST_TRAINING_UPDATE.json',row)
         if t.step==1 or t.step%25==0:write(self.root/'progress.json',row)
 
 class Provider(NativeCurrentDomain):
