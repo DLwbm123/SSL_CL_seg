@@ -41,4 +41,4 @@ Completion audit verifies immutable prefix and schedule bindings, original optim
 
 The terminal FINAL receipt is authoritative: the supervisor stage file retains its last RUNNING/report text after normal exit, and both recorded parent and last child processes have exited. This stale stage label is not an ongoing optimizer.
 
-Source and anonymized summaries are prepared locally. Private manifests, case-level payloads, feature vectors, gradients, raw logs and checkpoints are excluded. GitHub publication awaits separate permission for this round.
+Source and anonymized summaries are prepared locally. Private manifests, case-level payloads, feature vectors, gradients, raw logs and checkpoints are excluded. GitHub publication was separately authorized by the user on 2026-09-30.
