@@ -154,7 +154,7 @@ def create(config,seed,domain,development,ledger):
     order=DOMAINS.index(domain)+1;identity=dict(domain=domain,seed=seed,order=order,stage=1,manifest=primitive.MANIFEST_SHA,split=primitive.SPLIT_SHA)
     permit=ExecutionPermit(dict(execution_scope='formal',code_commit=config['commit'],authorized_manifest_digests=[digest(identity)]),('V3B',),dict(student=31626),_PERMIT_SEAL)
     provider=Provider(config['data'],seed,order,1,source,'cuda:0',permit,allow_u=True,development=development)
-    native=build(config['reference'],'cuda:0',seed);native.load_state_dict(payload['student']);del payload
+    native=build(config['reference'],torch.device('cuda:0'),seed);native.load_state_dict(payload['student']);del payload
     model=Model(NativeLRParent(native,seed,source),'B0_PARENT_LCTX').to('cuda:0')
     opts=dict(lr=.001,weight_decay=4e-5,total_steps=3200 if order==1 else 2100,warmup_fraction=.2,U_ramp_fraction=.2,parent_lr_multiplier=.5,lr_B_over_A=1.,lambda_U=.5)
     t=Trainer(model,provider,opts,execution=permit);ledger.wrap(t);return t
