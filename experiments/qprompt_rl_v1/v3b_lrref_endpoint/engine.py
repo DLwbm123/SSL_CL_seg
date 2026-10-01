@@ -95,11 +95,16 @@ class Trainer(StageTrainer):
         with torch.no_grad():q=self.ema(u,mode='teacher').softmax(1)
         logp,_=collected_forward(lambda v,s:self.model(v,scale=s),u,x,self.rng('UL'))
         return labeled,logp.exp(),q,valid
+    def u_weight(self):
+        value=float(self.options.get('lambda_U',.5))
+        if not np.isfinite(value) or value<0:raise ValueError('invalid U weight')
+        return value
     def losses(self):
-        if self.action in (-1,0):return super().losses()
+        weight=self.u_weight()
+        if self.action in (-1,0) or weight==0:return super().losses()
         labeled,p,q,valid=self.components();ul,_=u_loss(p,q,valid,self.action)
-        self.last.update(active_U=True,unlabeled_loss=float(ul.detach())*.5)
-        return labeled,.5*ul,None
+        self.last.update(active_U=True,unlabeled_loss=float(ul.detach())*weight)
+        return labeled,weight*ul,None
     @contextmanager
     def readonly(self):
         rng=cpu(rng_state());modes=[(m,m.training) for m in self.model.modules()]
@@ -119,7 +124,7 @@ class Trainer(StageTrainer):
             params=[p for p in self.model.parameters() if p.requires_grad];names=[n for n,p in self.model.named_parameters() if p.requires_grad]
             l,p,q,v=self.components();base,_=state_vector(q,p,v,l,self.step,self.optimizer.param_groups[0]['lr']/self.scheduler.base_lrs[0])
             if not full:return base.cpu().tolist()+[0.]*24
-            targets=[l]+[l+.5*u_loss(p,q,v,a)[0] for a in (1,2)]
+            targets=[l]+[l+self.u_weight()*u_loss(p,q,v,a)[0] for a in (1,2)]
             grads=[list(torch.autograd.grad(loss,params,retain_graph=i<2,allow_unused=True)) for i,loss in enumerate(targets)]
             x,y=self.provider.clean_fit(self.cursor);score=quality(self.clean(x),y)
             # quality() is higher-is-better; feature equations expect loss gradient.
