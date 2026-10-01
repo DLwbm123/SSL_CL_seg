@@ -74,16 +74,18 @@ def smoke(ledger, cost):
     return lock
 
 
-def matrix(ledger):
+def matrix(ledger, entry_factory=entry):
+    lock = e.read(ROOT/'RUN_LOCK.json')
+    seeds, weights = lock['seeds'], lock['weights']
     endpoints = []
-    for seed in SEEDS:
+    for seed in seeds:
         for domain in DOMAINS:
-            t, initial = entry(seed, domain, ledger)
+            t, initial = entry_factory(seed, domain, ledger)
             cell = ROOT/f'S{seed}_{domain}';cell.mkdir(exist_ok=False)
-            io.export(t, cell/'entry.pt');io.save_state(t, cell/'entry_state.pt', phase='main_entry', predecessor_commit=PREDECESSOR_COMMIT)
-            states = {m:initial for m in WEIGHTS}
+            io.export(t, cell/'entry.pt');io.save_state(t, cell/'entry_state.pt', phase='main_entry', predecessor_commit=lock.get('predecessor_commit'))
+            states = {m:initial for m in weights}
             for step in range(0, H, 5):
-                for method, weight in WEIGHTS.items():
+                for method, weight in weights.items():
                     e.restore(t, states[method]);t.options['lambda_U'] = weight
                     assert t.step == step and t.cursor == step
                     for k in range(5):ledger.update(t, 'main', f'S{seed}/{domain}/{method}/{step+k}', -1 if weight == 0 else 2)
@@ -92,13 +94,16 @@ def matrix(ledger):
                     if t.step in (300, 600, H):io.export(t, cell/f'{method}_{t.step}.pt')
                 e.write(ROOT/'MATRIX_PROGRESS.json', dict(seed=seed, domain=domain, all_methods_step=step+5, H=H, physical=dict(ledger.count), time=time.time()))
             endpoints.extend(dict(seed=seed, domain=domain, method=m, lambda_U=w, step=H,
-                path=str(cell/f'{m}_{H}.pt'), entry=str(cell/'entry.pt')) for m,w in WEIGHTS.items())
+                path=str(cell/f'{m}_{H}.pt'), entry=str(cell/'entry.pt')) for m,w in weights.items())
             e.write(ROOT/'ENDPOINT_REGISTRY.json', endpoints)
             del t, states, initial;gc.collect();torch.cuda.empty_cache()
     return endpoints
 
 
 def report(endpoints, ledger, cost):
+    lock = e.read(ROOT/'RUN_LOCK.json')
+    seeds, weights = lock['seeds'], lock['weights']
+    expected_endpoints = len(seeds)*len(DOMAINS)*len(weights)
     seconds = sum(io.evaluate_file(Path(p)) for p in dict.fromkeys([r['entry'] for r in endpoints]+[r['path'] for r in endpoints]))
     rows = []
     for r in endpoints:
@@ -116,49 +121,57 @@ def report(endpoints, ledger, cost):
     with (ROOT/'ENDPOINTS.csv').open('w') as f:
         w = csv.DictWriter(f, fieldnames=list(rows[0]));w.writeheader();w.writerows(rows)
     means = {m:{metric:float(np.mean([r[metric] for r in rows if r['method']==m]))
-        for metric in ('macro_Dice','old_REFUGE','old_change')} for m in WEIGHTS}
+        for metric in ('macro_Dice','old_REFUGE','old_change')} for m in weights}
     seedmeans = {m:{str(s):{metric:float(np.mean([r[metric] for r in rows if r['method']==m and r['seed']==s]))
-        for metric in ('macro_Dice','old_REFUGE')} for s in SEEDS} for m in WEIGHTS}
+        for metric in ('macro_Dice','old_REFUGE')} for s in seeds} for m in weights}
     comparisons = {}
-    for m in WEIGHTS:
+    for m in weights:
         comparisons[m] = {}
         for ref in ('ORIGINAL','FINE_05'):
             comparisons[m][ref] = {}
             for metric in ('macro_Dice','old_REFUGE'):
-                diffs = [seedmeans[m][str(s)][metric]-seedmeans[ref][str(s)][metric] for s in SEEDS]
+                diffs = [seedmeans[m][str(s)][metric]-seedmeans[ref][str(s)][metric] for s in seeds]
                 comparisons[m][ref][metric] = dict(seed_deltas=diffs, mean=float(np.mean(diffs)), sample_std=float(np.std(diffs,ddof=1)),
                     negative_cells=[dict(seed=r['seed'],domain=r['domain'],delta=r[f'{metric}_delta_vs_{ref}']) for r in rows if r['method']==m and r[f'{metric}_delta_vs_{ref}']<0])
     metrics = ('macro_Dice','old_REFUGE')
-    pareto = [m for m in WEIGHTS if not any(all(means[n][k]>=means[m][k] for k in metrics) and any(means[n][k]>means[m][k] for k in metrics) for n in WEIGHTS if n!=m)]
-    # Historical scores are first read after all training and final evaluation.
-    with (Path(C['predecessor'])/'ENDPOINTS.csv').open() as f:old = {(int(r['seed']),r['domain'],r['method']):r for r in csv.DictReader(f)}
-    replication = [dict(seed=r['seed'],domain=r['domain'],method=r['method'],
-        **{k:r[k]-float(old[r['seed'],r['domain'],'FINE' if r['method']=='FINE_05' else 'ORIGINAL'][k]) for k in metrics})
-        for r in rows if r['method'] in ('ORIGINAL','FINE_05')]
+    pareto = [m for m in weights if not any(all(means[n][k]>=means[m][k] for k in metrics) and any(means[n][k]>means[m][k] for k in metrics) for n in weights if n!=m)]
+    # Historical scores are read only when an exact predecessor replay was specified.
+    replication = []
+    if C.get('predecessor'):
+        with (Path(C['predecessor'])/'ENDPOINTS.csv').open() as f:old = {(int(r['seed']),r['domain'],r['method']):r for r in csv.DictReader(f)}
+        replication = [dict(seed=r['seed'],domain=r['domain'],method=r['method'],
+            **{k:r[k]-float(old[r['seed'],r['domain'],'FINE' if r['method']=='FINE_05' else 'ORIGINAL'][k]) for k in metrics})
+            for r in rows if r['method'] in ('ORIGINAL','FINE_05')]
     summary = dict(means=means, seed_means=seedmeans, paired_comparisons=comparisons,
-        descriptive_pareto=pareto, predecessor_endpoint_deltas=replication, evidence='development calibration; three reused seeds')
+        descriptive_pareto=pareto, predecessor_endpoint_deltas=replication, evidence=lock['evidence'])
     e.write(ROOT/'SUMMARY.json', summary)
     events = [e.json.loads(line) for line in (ROOT/'PHYSICAL_LEDGER.jsonl').read_text().splitlines()]
     attempts = Counter((v['category'],v['key']) for v in events if v['event']=='attempt')
     successes = Counter((v['category'],v['key']) for v in events if v['event']=='success')
-    expected = {('main',f'S{s}/{d}/{m}/{k}') for s in SEEDS for d in DOMAINS for m in WEIGHTS for k in range(H)}
+    expected = {('main',f'S{s}/{d}/{m}/{k}') for s in seeds for d in DOMAINS for m in weights for k in range(H)}
     assert attempts == successes and all(v==1 for v in attempts.values())
     assert {k for k in attempts if k[0]=='main'} == expected
-    assert len(rows)==24 and ledger.count['main']==CAPS['main'] and ledger.count['smoke']==100
+    assert len(rows)==expected_endpoints and ledger.count['main']==ledger.caps['main'] and ledger.count['smoke']==lock.get('smoke_calls',100)
+    assert ledger.count['source']==ledger.caps['source']
+    if ledger.count['source']:
+        assert {k for k in attempts if k[0]=='source'} == {('source',f'S{s}/{k}') for s in seeds for k in range(8000)}
+        for seed in seeds:
+            receipt=e.read(Path(C['source'])/f'SOURCE_S{seed}'/'receipt.json')
+            assert receipt['status']=='SEALED' and receipt['step']==8000 and receipt['commit']==C['commit']
     assert all(np.isfinite(r[k]) for r in rows for k in metrics)
-    e.write(ROOT/'COMPLETION_AUDIT.json', dict(status='PASS', endpoints=24, scores=60,
+    e.write(ROOT/'COMPLETION_AUDIT.json', dict(status='PASS', endpoints=expected_endpoints, scores=2*(expected_endpoints+len(seeds)*len(DOMAINS)),
         unique_main_successes=len(expected), physical_calls=dict(ledger.count), failures=0,
-        predecessor_commit=PREDECESSOR_COMMIT, new_source_updates=0, reused_source_updates=24000))
+        predecessor_commit=lock.get('predecessor_commit'), new_source_updates=ledger.count['source'], reused_source_updates=lock.get('source_updates_reused',0)))
     cost.update(physical_calls=dict(ledger.count), evaluation_seconds=seconds,
         peak_cuda_allocated=torch.cuda.max_memory_allocated(), wall_seconds=time.time()-ledger.session['start'])
     e.write(ROOT/'ALL_COSTS.json', cost)
-    text = '# V3D fixed U dose calibration\n\n24/24 fixed 1200-step endpoints; three reused seeds and two domains. Development evidence, not independent confirmation.\n\n'
+    text = f"# {lock['protocol']}\n\n{expected_endpoints}/{expected_endpoints} fixed {H}-step endpoints; {len(seeds)} seeds and two domains. {lock['evidence']}.\n\n"
     text += '| Method | U weight | New Dice | Old REFUGE Dice | Old change |\n|---|---:|---:|---:|---:|\n'
-    text += ''.join(f'| {m} | {WEIGHTS[m]} | {v["macro_Dice"]:.6f} | {v["old_REFUGE"]:.6f} | {v["old_change"]:.6f} |\n' for m,v in means.items())
+    text += ''.join(f'| {m} | {weights[m]} | {v["macro_Dice"]:.6f} | {v["old_REFUGE"]:.6f} | {v["old_change"]:.6f} |\n' for m,v in means.items())
     text += '\nDescriptive mean Pareto set: '+', '.join(pareto)+'. No statistical noninferiority or significance claim. All paired seed results, negative cells, and historical endpoint differences are retained in SUMMARY.json and ENDPOINTS.csv.\n\n'
-    text += 'The joint new/old result is primary; there is no post-hoc weighted winner. Reused validation patients and seeds limit selection claims. Final 1200-step student only; old-domain change is not full-sequence BWT. Historical KI identity remains unverified. No automatic follow-up experiments.\n'
+    text += 'The joint new/old result is primary; there is no post-hoc weighted winner. Reused validation patients limit generalization claims. Final 1200-step student only; old-domain change is not full-sequence BWT. Historical KI identity remains unverified. Subsequent experiments require a separately frozen protocol.\n'
     (ROOT/'FINAL_INTERPRETATION.md').write_text(text)
-    status('COMPLETE_PRIVATE', endpoints=24, H=H)
+    return rows, summary
 
 
 def main():
@@ -171,7 +184,7 @@ def main():
     try:
         status('INTEGRATION_SMOKE');smoke(ledger,cost)
         status('MAIN_MATRIX',H=H);endpoints = matrix(ledger)
-        status('EVALUATION');report(endpoints,ledger,cost)
+        status('EVALUATION');report(endpoints,ledger,cost);status('COMPLETE_PRIVATE',endpoints=len(endpoints),H=H)
     except BaseException as exc:
         e.write(ROOT/'ALL_COSTS.json',dict(cost,physical_calls=dict(ledger.count),wall_seconds=time.time()-ledger.session['start']))
         status('STOPPED',error=repr(exc),traceback=traceback.format_exc());raise
