@@ -98,7 +98,10 @@ class Trainer(StageTrainer):
     def u_weight(self):
         value=float(self.options.get('lambda_U',.5))
         if not np.isfinite(value) or value<0:raise ValueError('invalid U weight')
-        return value
+        start,stop=self.options.get('u_start',0),self.options.get('u_stop')
+        if type(start) is not int or start<0 or (stop is not None and (type(stop) is not int or stop<=start)):
+            raise ValueError('invalid U window')
+        return value if self.step>=start and (stop is None or self.step<stop) else 0.
     def losses(self):
         weight=self.u_weight()
         if self.action in (-1,0) or weight==0:return super().losses()

@@ -10,14 +10,14 @@ CAPS = dict(source=40000, main=36000, smoke=80, development=0, controller=0, rep
 METRICS = ('macro_Dice','old_REFUGE')
 
 
-def decision(rows):
+def decision(rows, candidate='FINE_0125', references=('ORIGINAL','FINE_05'), weights=WEIGHTS):
     lookup = {(r['seed'],r['domain'],r['method']):r for r in rows}
-    expected = {(s,d,m) for s in SEEDS for d in DOMAINS for m in WEIGHTS}
+    expected = {(s,d,m) for s in SEEDS for d in DOMAINS for m in weights}
     assert len(rows)==len(lookup)==len(expected) and set(lookup)==expected
     assert all(math.isfinite(float(r[k])) for r in rows for k in METRICS)
     comparisons = {}
-    for ref in ('ORIGINAL','FINE_05'):
-        cells = [dict(seed=s,domain=d,**{k:float(lookup[s,d,'FINE_0125'][k])-float(lookup[s,d,ref][k]) for k in METRICS}) for s in SEEDS for d in DOMAINS]
+    for ref in references:
+        cells = [dict(seed=s,domain=d,**{k:float(lookup[s,d,candidate][k])-float(lookup[s,d,ref][k]) for k in METRICS}) for s in SEEDS for d in DOMAINS]
         seeds = {str(s):{k:statistics.mean(r[k] for r in cells if r['seed']==s) for k in METRICS} for s in SEEDS}
         domains = {d:{k:statistics.mean(r[k] for r in cells if r['domain']==d) for k in METRICS} for d in DOMAINS}
         stats = {}
@@ -27,7 +27,7 @@ def decision(rows):
             stats[k] = dict(mean=mean,sample_std=sd,descriptive_t95=[mean-margin,mean+margin])
         comparisons[ref] = dict(cells=cells,seeds=seeds,domains=domains,statistics=stats,
             jointly_positive_seeds=sum(all(v[k]>=0 for k in METRICS) and any(v[k]>0 for k in METRICS) for v in seeds.values()))
-    primary = comparisons['ORIGINAL']
+    primary = comparisons[references[0]]
     gates = dict(joint_mean_gain=all(primary['statistics'][k]['mean']>0 for k in METRICS),
         four_of_five_joint_seeds=primary['jointly_positive_seeds']>=4,
         no_domain_mean_regression=all(v[k]>=0 for v in primary['domains'].values() for k in METRICS))

@@ -83,18 +83,24 @@ def matrix(ledger, entry_factory=entry):
             t, initial = entry_factory(seed, domain, ledger)
             cell = ROOT/f'S{seed}_{domain}';cell.mkdir(exist_ok=False)
             io.export(t, cell/'entry.pt');io.save_state(t, cell/'entry_state.pt', phase='main_entry', predecessor_commit=lock.get('predecessor_commit'))
-            states = {m:initial for m in weights}
+            states = {m:initial for m in weights};active_calls = {m:0 for m in weights}
             for step in range(0, H, 5):
                 for method, weight in weights.items():
-                    e.restore(t, states[method]);t.options['lambda_U'] = weight
+                    e.restore(t, states[method]);t.options.update(lambda_U=weight,u_start=0,u_stop=H)
+                    t.options.update(lock.get('method_options',{}).get(method,{}))
                     assert t.step == step and t.cursor == step
-                    for k in range(5):ledger.update(t, 'main', f'S{seed}/{domain}/{method}/{step+k}', -1 if weight == 0 else 2)
+                    for k in range(5):
+                        expected_active = bool(t.u_weight())
+                        ledger.update(t, 'main', f'S{seed}/{domain}/{method}/{step+k}', -1 if weight == 0 else 2)
+                        assert t.last['active_U']==expected_active, 'U window execution mismatch'
+                        active_calls[method] += int(expected_active)
                     states[method] = e.snapshot(t)
-                    if t.step % 100 == 0:io.save_state(t, cell/(method+'_latest.pt'), method=method, u_weight=weight)
+                    if t.step % 100 == 0:io.save_state(t, cell/(method+'_latest.pt'), method=method, u_weight=weight, u_start=t.options['u_start'],u_stop=t.options['u_stop'],active_U_calls=active_calls[method])
                     if t.step in (300, 600, H):io.export(t, cell/f'{method}_{t.step}.pt')
                 e.write(ROOT/'MATRIX_PROGRESS.json', dict(seed=seed, domain=domain, all_methods_step=step+5, H=H, physical=dict(ledger.count), time=time.time()))
             endpoints.extend(dict(seed=seed, domain=domain, method=m, lambda_U=w, step=H,
-                path=str(cell/f'{m}_{H}.pt'), entry=str(cell/'entry.pt')) for m,w in weights.items())
+                path=str(cell/f'{m}_{H}.pt'), entry=str(cell/'entry.pt'),active_U_calls=active_calls[m],
+                u_start=lock.get('method_options',{}).get(m,{}).get('u_start',0),u_stop=lock.get('method_options',{}).get(m,{}).get('u_stop',H)) for m,w in weights.items())
             e.write(ROOT/'ENDPOINT_REGISTRY.json', endpoints)
             del t, states, initial;gc.collect();torch.cuda.empty_cache()
     return endpoints
@@ -109,7 +115,7 @@ def report(endpoints, ledger, cost):
     for r in endpoints:
         out = e.read(Path(r['path']).with_suffix('.scores.json'))['scores']
         start = e.read(Path(r['entry']).with_suffix('.scores.json'))['scores'];d = r['domain']
-        rows.append({k:r[k] for k in ('seed','domain','method','lambda_U','step')} | dict(
+        rows.append({k:r[k] for k in ('seed','domain','method','lambda_U','step','u_start','u_stop','active_U_calls') if k in r} | dict(
             macro_Dice=out[d]['macro_Dice'], rim=out[d]['rim'], cup=out[d]['cup'], disc_union=out[d]['disc_union'],
             entry_macro=start[d]['macro_Dice'], old_REFUGE=out['REFUGE']['macro_Dice'],
             old_change=out['REFUGE']['macro_Dice']-start['REFUGE']['macro_Dice']))
@@ -140,7 +146,7 @@ def report(endpoints, ledger, cost):
     if C.get('predecessor'):
         with (Path(C['predecessor'])/'ENDPOINTS.csv').open() as f:old = {(int(r['seed']),r['domain'],r['method']):r for r in csv.DictReader(f)}
         replication = [dict(seed=r['seed'],domain=r['domain'],method=r['method'],
-            **{k:r[k]-float(old[r['seed'],r['domain'],'FINE' if r['method']=='FINE_05' else 'ORIGINAL'][k]) for k in metrics})
+            **{k:r[k]-float(old[r['seed'],r['domain'],C.get('predecessor_method_map',{'FINE_05':'FINE','ORIGINAL':'ORIGINAL'})[r['method']]][k]) for k in metrics})
             for r in rows if r['method'] in ('ORIGINAL','FINE_05')]
     summary = dict(means=means, seed_means=seedmeans, paired_comparisons=comparisons,
         descriptive_pareto=pareto, predecessor_endpoint_deltas=replication, evidence=lock['evidence'])
@@ -159,6 +165,8 @@ def report(endpoints, ledger, cost):
             receipt=e.read(Path(C['source'])/f'SOURCE_S{seed}'/'receipt.json')
             assert receipt['status']=='SEALED' and receipt['step']==8000 and receipt['commit']==C['commit']
     assert all(np.isfinite(r[k]) for r in rows for k in metrics)
+    if lock.get('expected_active_U'):
+        assert all(r['active_U_calls']==lock['expected_active_U'][r['method']] for r in rows)
     e.write(ROOT/'COMPLETION_AUDIT.json', dict(status='PASS', endpoints=expected_endpoints, scores=2*(expected_endpoints+len(seeds)*len(DOMAINS)),
         unique_main_successes=len(expected), physical_calls=dict(ledger.count), failures=0,
         predecessor_commit=lock.get('predecessor_commit'), new_source_updates=ledger.count['source'], reused_source_updates=lock.get('source_updates_reused',0)))
