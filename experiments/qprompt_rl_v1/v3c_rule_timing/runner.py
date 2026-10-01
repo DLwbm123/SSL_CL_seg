@@ -22,6 +22,8 @@ def status(name, **extra):
 
 
 def source(seed, ledger, cost):
+    torch.manual_seed(seed); torch.cuda.manual_seed_all(seed)
+    e.random.seed(seed); np.random.seed(seed)
     root = Path(C['source'])/f'SOURCE_S{seed}'
     root.mkdir(exist_ok=False)
     identity = dict(domain='REFUGE', seed=seed, order=1, stage=0,

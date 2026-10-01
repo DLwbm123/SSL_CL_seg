@@ -8,7 +8,7 @@ Does the V3B EFFECT_RULE improve fixed-budget current-domain Dice over the desig
 
 - Reference: the same audited LR_SRC_A / NativeLRParent and one LCRSegUNet2DJASCL backbone. Original KI historical identity remains unverified. No substitution or renewed identity question.
 - Optimization seeds: 165, 166, 167, fixed numerically before outcomes; distinct from V3B development161/pilot162/163 and existing native164. These are new executions, not independent patients and not a claim of globally unused integer seeds. An earlier unrelated proposal mentioned these integers without executable nodes.
-- Train each source from initialization for exactly 8000 REFUGE updates using the existing native source_task. Never borrow a different seed's source. Three source models cost 24000 student updates. Source validation is deferred; it cannot select a source checkpoint.
+- Seed Python/NumPy/Torch/CUDA explicitly with the source seed. Train each source from initialization for exactly 8000 REFUGE updates using the existing native source_task. Never borrow a different seed's source. Three source models cost 24000 student updates. Source validation is deferred; it cannot select a source checkpoint.
 - Two separate stage-1 targets: RIM_ONE_r3 and Drishti_GS, from the matching immutable source. Same source/domain/seed entry state for all arms.
 - Arms: ORIGINAL, FINE, EFFECT_RULE, PHASE_SHUFFLE. No learned controller, development reward, reward tuning, added labels, or new losses.
 - H=1200 fixed, 24 target trajectories, 28800 target updates. No shortening or extension based on throughput or score.
