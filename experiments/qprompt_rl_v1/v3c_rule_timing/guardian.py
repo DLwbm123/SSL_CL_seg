@@ -20,7 +20,8 @@ def main():
     session=json.loads((root/'SESSION.json').read_text())
     command=['bash','./with_nas_storage.sh',sys.executable,'-c',
              'import os,runpy;runpy.run_module(os.environ["EXEC_MODULE"],run_name="__main__")']
-    env=dict(os.environ,EXEC_MODULE='experiments.qprompt_rl_v1.v3c_rule_timing.runner')
+    env=dict(os.environ, EXEC_MODULE='experiments.qprompt_rl_v1.v3c_rule_timing.runner',
+             CUBLAS_WORKSPACE_CONFIG=':4096:8', PYTHONHASHSEED='0')
     with (root/'worker.log').open('a') as log:
         p=subprocess.Popen(command,cwd=Path(config['code'])/'experiments/lcrseg/scripts',
                            env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
