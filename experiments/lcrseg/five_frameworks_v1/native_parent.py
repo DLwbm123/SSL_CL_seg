@@ -136,12 +136,14 @@ class NativeLRParent(nn.Module):
                 'teacher':'dense_effective_weight_EMA','precision':'FP32_no_autocast'}
 
     @torch.no_grad()
-    def update_dense_ema(self,teacher,validate_only=False):
+    def update_dense_ema(self,teacher,validate_only=False,*,decay=.99):
+        if not 0 <= decay <= 1:raise ValueError('EMA decay must be finite and in [0,1]')
+        alpha=.01 if decay==.99 else 1-decay
         for name,q in teacher.native.state_dict().items():
             module,_,key=name.rpartition('.');sm=self.native.get_submodule(module)
             p=sm.effective() if key=='weight' and isinstance(sm,lr.LowRankConv) else getattr(sm,key)
-            candidate=p if key=='grad_update' or not q.is_floating_point() else q.detach().clone().mul_(.99).add_(p,alpha=.01)
+            candidate=p if key=='grad_update' or not q.is_floating_point() else q.detach().clone().mul_(decay).add_(p,alpha=alpha)
             finite(candidate,'native dense EMA '+name)
             if not validate_only:
                 if key=='grad_update' or not q.is_floating_point():q.copy_(p)
-                else:q.mul_(.99).add_(p,alpha=.01)
+                else:q.mul_(decay).add_(p,alpha=alpha)
