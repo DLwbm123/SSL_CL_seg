@@ -10,7 +10,7 @@ ADAPTIVE=('REG','NC_RL','RL')
 def coarse(p):return torch.stack((p[:,0],p[:,1]+p[:,2]),1)
 
 
-def u_loss(p,q,valid,action):
+def u_loss(p,q,valid,action,selection=None):
     if action not in range(3):raise ValueError('action outside registry')
     if p.shape!=q.shape or p.ndim!=4 or p.shape[1]!=3 or valid.shape!=p.shape[:1]+p.shape[2:]:raise ValueError('action geometry')
     if not torch.isfinite(p).all() or not torch.isfinite(q).all():raise FloatingPointError('nonfinite probabilities')
@@ -20,6 +20,9 @@ def u_loss(p,q,valid,action):
         if action==0:return p.sum()*0,coverage
         if action==1:p,q=coarse(p),coarse(q)
         admitted=valid&(q.max(1).values>.7)
+        if selection is not None:
+            if selection.shape!=valid.shape or selection.dtype!=torch.bool:raise ValueError('selection geometry/dtype')
+            admitted=admitted&selection.detach()
         kl=(q*(q.clamp_min(1e-8).log()-p.clamp_min(1e-8).log())).sum(1)
         return (kl*admitted).sum()/valid.sum().clamp_min(1),coverage
 

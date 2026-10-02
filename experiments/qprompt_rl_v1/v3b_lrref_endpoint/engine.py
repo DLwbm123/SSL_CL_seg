@@ -88,11 +88,12 @@ class Provider(NativeCurrentDomain):
 
 class Trainer(StageTrainer):
     action=2
-    def components(self):
+    def components(self,observe_u=None):
         labeled,_,_=super().losses()
         x,_,_=self.provider.labeled(self.cursor)
         u,valid,_=self.provider.unlabeled(self.cursor)
         with torch.no_grad():q=self.ema(u,mode='teacher').softmax(1)
+        if observe_u is not None:observe_u(u,q,valid)
         logp,_=collected_forward(lambda v,s:self.model(v,scale=s),u,x,self.rng('UL'))
         return labeled,logp.exp(),q,valid
     def u_weight(self):
