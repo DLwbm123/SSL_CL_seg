@@ -320,6 +320,7 @@ def main_matrix(ledger):
         models[name] = load_policy(CAMPAIGN/'jobs'/f'learn_{domain}_{name}'/'FROZEN_POLICY.pt')
     schedules = {}; endpoints = []
     for method in p.METHODS:
+        method_started = time.time()
         e.restore(t, initial)
         actions = []; active = 0; outside = 0; feature_count = 0
         shuffled = None
@@ -358,11 +359,13 @@ def main_matrix(ledger):
             status('MAIN_MATRIX', seed=seed, domain=domain, method=method, step=t.step, H=p.HORIZONS[domain])
         schedules[method] = actions
         endpoints.append(dict(seed=seed, domain=domain, method=method, step=t.step, active_U_calls=active,
+                              training_wall_seconds=time.time()-method_started,
                               out_of_range_fraction=outside/feature_count if feature_count else None,
                               action_counts=[actions.count(a) for a in range(3)],
                               path=str(ROOT/f'{method}_{t.step}.pt')))
         e.write(ROOT/'ENDPOINT_REGISTRY.json', endpoints)
     assert ledger.count['main'] == len(p.METHODS)*p.HORIZONS[domain]
+    assert all(e.same(saved['state'], e.cpu(model.state_dict())) for model, saved in models.values()), 'main changed controller parameters'
     del t, models, initial; gc.collect(); torch.cuda.empty_cache()
     # Confirmation scores are produced only after all methods in this cell are frozen.
     status('EVALUATION', seed=seed, domain=domain)
@@ -386,6 +389,15 @@ def audit(ledger):
     b = Counter((r['category'], r['key']) for r in events if r['event'] == 'success')
     assert a == b and all(n == 1 for n in a.values())
     assert all(ledger.count[k] == v for k, v in C['caps'].items())
+    if C['job'] == 'main':
+        expected = {('main', f'{m}/{b}/{k}') for m in p.METHODS
+                    for b in range(p.HORIZONS[C['domain']]//p.BLOCK) for k in range(p.BLOCK)}
+        assert set(a) == expected
+    elif C['job'] == 'learn':
+        expected = {('development', f'{episode}/{b}/{k}') for episode in range(p.EPISODES)
+                    for b in range(p.HORIZONS[C['domain']]//p.BLOCK) for k in range(p.BLOCK)}
+        expected |= {('controller', f'{episode}/{k}') for episode in range(p.EPISODES) for k in range(4)}
+        assert set(a) == expected
     e.write(ROOT/'COMPLETION_AUDIT.json', dict(status='PASS', physical_calls=dict(ledger.count),
                                              failures=0, duplicate_keys=0, commit=C['commit']))
 

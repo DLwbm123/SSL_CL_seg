@@ -33,7 +33,7 @@ def compare(rows, candidate, reference, minimum_gain=0.):
     lookup = {(r['seed'], r['domain'], r['method']): r for r in rows}
     cells = [dict(seed=s, domain=d, **{k: lookup[s, d, candidate][k] - lookup[s, d, reference][k]
              for k in ('macro_Dice', 'old_REFUGE')}) for s in CONFIRMATION_SEEDS for d in DOMAINS]
-    seeds = [{k: mean(r[k] for r in cells if r['seed'] == s) for k in ('macro_Dice', 'old_REFUGE')}
+    seeds = [dict(seed=s, **{k: mean(r[k] for r in cells if r['seed'] == s) for k in ('macro_Dice', 'old_REFUGE')})
              for s in CONFIRMATION_SEEDS]
     averages = {k: mean(r[k] for r in cells) for k in ('macro_Dice', 'old_REFUGE')}
     domains = {d: {k: mean(r[k] for r in cells if r['domain'] == d) for k in averages} for d in DOMAINS}

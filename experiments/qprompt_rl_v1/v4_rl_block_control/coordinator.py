@@ -106,6 +106,9 @@ def run_phase(index, queue):
 def report():
     rows = []
     counts = Counter()
+    operations = Counter()
+    feature_cost = dict(extractions=0, VJP=0, virtual_previews=0, seconds=0.)
+    resources = []
     audits = []
     for phase in jobs():
         for job in phase:
@@ -114,11 +117,22 @@ def report():
             assert audit['status'] == 'PASS'
             counts.update(audit['physical_calls'])
             audits.append(dict(job=job['id'], **audit))
+            operations.update(read(root/'operations'/'operation_counts.json')['counts'])
+            final, launch = read(root/'FINAL.json'), read(root/'LAUNCH.json')
+            resources.append(dict(job=job['id'], gpu=launch['gpu'], seconds=final['time']-launch['time'],
+                                  peak_cuda_allocated=final['peak_cuda_allocated']))
+            if (root/'FEATURE_COST.jsonl').exists():
+                for line in (root/'FEATURE_COST.jsonl').read_text().splitlines():
+                    record = json.loads(line)
+                    feature_cost['extractions'] += 1
+                    for key in ('VJP', 'virtual_previews', 'seconds'):
+                        feature_cost[key] += record[key]
             if job['job'] == 'main':
                 rows.extend(read(root/'RESULTS.json'))
     expected = p.expected_calls()
     assert all(counts[k] == expected[k] for k in ('source', 'panel', 'development', 'main'))
     assert counts['smoke'] == 390 and counts['controller'] == 2848
+    assert operations['optimizer_steps'] == operations['optimizer_steps_attempts'] == sum(counts.values())+268
     assert len(rows) == len(p.CONFIRMATION_SEEDS)*len(p.DOMAINS)*len(p.METHODS)
     with (ROOT/'ENDPOINTS.csv').open('w') as f:
         writer = csv.DictWriter(f, fieldnames=list(rows[0]))
@@ -136,6 +150,7 @@ def report():
     write(ROOT/'SUMMARY.json', summary)
     write(ROOT/'DECISION.json', decision)
     write(ROOT/'ALL_COSTS.json', dict(physical_optimizer_calls=dict(counts), synthetic_controller_calls=268,
+          feature_cost=feature_cost, operation_counts=dict(operations), job_resources=resources,
           total_optimizer_calls=sum(counts.values())+268, wall_seconds=time.time()-read(ROOT/'SESSION.json')['start'],
           reused_source_history=24000, no_time_limit=True, compute_matching='same retained student horizons; controller/development/feature overhead differs'))
     write(ROOT/'COMPLETION_AUDIT.json', dict(status='PASS', jobs=audits, endpoints=len(rows), physical_calls=dict(counts),
