@@ -49,8 +49,8 @@ def group_advantage(rewards,kind,scale,permutation=None):
 def optimizers(model,lr=.0003):
     return torch.optim.Adam(model.actor.parameters(),lr=lr), (torch.optim.Adam(model.critic.parameters(),lr=lr) if model.critic is not None else None)
 
-def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,clip_high=.2,group_size=4):
-    assert group_size in (2,4) and len(trajectories)==group_size and len({len(t) for t in trajectories})==1
+def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,clip_high=.2,group_size=4,minibatches=4,epochs=4,entropy_weight=.01):
+    assert group_size in (2,4,8) and len(trajectories)==group_size and len({len(t) for t in trajectories})==1
     assert all(t and all(not r.get('reference',False) for r in t) for t in trajectories)
     flat=[r for t in trajectories for r in t]
     x=torch.stack([r['x'].detach() for r in flat]);a=torch.tensor([r['action'] for r in flat])
@@ -65,18 +65,18 @@ def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,cli
         adv=np.repeat(group_advantage(terminal,kind,scale,permutation),len(trajectories[0]))
     adv=torch.tensor(adv,dtype=torch.float32)
     assert not any(v.requires_grad for v in (x,old,oldp,adv))
-    records=[];n=len(flat);assert n%4==0
-    for epoch in range(4):
-        for batch,indices in enumerate(np.array_split(rng.permutation(n),4)):
+    records=[];n=len(flat);assert minibatches>0 and epochs>0 and n%minibatches==0
+    for epoch in range(epochs):
+        for batch,indices in enumerate(np.array_split(rng.permutation(n),minibatches)):
             logits,values=model(x[indices]);dist=distribution(logits)
             ratio=(dist.log_prob(a[indices])-old[indices]).exp();aa=adv[indices]
             raw=ratio*aa;clipped=ratio.clamp(1-clip_low,1+clip_high)*aa
             actor_loss=-torch.minimum(raw,clipped).mean();entropy=dist.entropy().mean()
-            loss=actor_loss-.01*entropy
+            loss=actor_loss-entropy_weight*entropy
             assert torch.isfinite(loss)
             opts[0].zero_grad(set_to_none=True);loss.backward()
             norm=float(nn.utils.clip_grad_norm_(model.actor.parameters(),1.,error_if_nonfinite=True))
-            step(opts[0],'actor',epoch*4+batch)
+            step(opts[0],'actor',epoch*minibatches+batch)
             with torch.no_grad():
                 pos=aa>0;neg=aa<0
                 stats=dict(epoch=epoch,batch=batch,actor_loss=float(actor_loss.detach()),entropy=float(entropy.detach()),actor_raw_grad_norm=norm,actor_clip_coefficient=min(1.,1/(norm+1e-6)),ratio_min=float(ratio.min()),ratio_max=float(ratio.max()),raw_outside_fraction=float(((ratio<1-clip_low)|(ratio>1+clip_high)).float().mean()),positive_count=int(pos.sum()),positive_active_count=int((pos&(ratio>1+clip_high)).sum()),negative_count=int(neg.sum()),negative_active_count=int((neg&(ratio<1-clip_low)).sum()),kl_behavior=float(torch.distributions.kl_divergence(torch.distributions.Categorical(probs=oldp[indices]),dist).mean()),critic_loss=None,critic_raw_grad_norm=None,critic_clip_coefficient=None,explained_variance=None,return_mse=None)
@@ -84,7 +84,7 @@ def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,cli
                 target=targets[indices];value_loss=.5*(values-target).square().mean()
                 assert torch.isfinite(value_loss)
                 opts[1].zero_grad(set_to_none=True);value_loss.backward()
-                normv=float(nn.utils.clip_grad_norm_(model.critic.parameters(),1.,error_if_nonfinite=True));step(opts[1],'critic',epoch*4+batch)
+                normv=float(nn.utils.clip_grad_norm_(model.critic.parameters(),1.,error_if_nonfinite=True));step(opts[1],'critic',epoch*minibatches+batch)
                 error=(target-values).detach();variance=float(target.var(unbiased=False))
                 stats.update(critic_loss=float(value_loss.detach()),critic_raw_grad_norm=normv,critic_clip_coefficient=min(1.,1/(normv+1e-6)),return_mse=float(error.square().mean()),explained_variance=1-float(error.var(unbiased=False))/variance if variance>0 else None)
             records.append(stats)

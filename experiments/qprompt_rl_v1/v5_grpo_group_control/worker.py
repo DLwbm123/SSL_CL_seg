@@ -229,7 +229,7 @@ def learn(ledger):
         diag=q.update(model,opts,trajectories,rewards,m,sr,e.stable('V5/update',c,d,g),lambda opt,kind,k:ledger.step(opt,kind,f'{g}/{k}'),clip_high=.28 if m=='GRPO_FS_CLIPHI' else .2,group_size=p.GROUP_SIZE)
         assert e.same(student_before,snapshot(t)), 'controller update mutated student state'
         del student_before
-        record=dict(group=g,seed=s,domain=d,controller=c,method=m,trajectories=out,reference=ref,relative_rewards=rewards,reward_mean=float(np.mean(rewards)),reward_population_std=float(np.std(rewards)),unique_sequences=len({tuple(r['actions']) for r in out}),audit_order=np.argsort([r['audit'] for r in out]).tolist(),online_order=np.argsort([r['online'] for r in out]).tolist(),**diag)
+        record=dict(group=g,seed=s,domain=d,controller=c,method=m,trajectories=out,reference=ref,relative_rewards=rewards,reward_mean=float(np.mean(rewards)),reward_population_std=float(np.std(rewards)),unique_sequences=len({tuple(r['actions']) for r in out}),audit_order=np.argsort([r['audit'] for r in out]).tolist() if all(r['audit'] is not None for r in out) else None,online_order=np.argsort([r['online'] for r in out]).tolist(),**diag)
         summaries.append(record);e.write(ROOT/'GROUP_DIAGNOSTICS.json',summaries)
         panels.append(dict(group=g,**q.panel(model,init['panel'],init['initial_logits'],old_logits)))
         e.write(ROOT/'POLICY_PANEL.private.json',panels)
