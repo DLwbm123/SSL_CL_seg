@@ -21,7 +21,9 @@ Baseline: `90eacbacca00d3c03e1296d5c7e6ac22a047df3b`. The full authorized specif
 
 ## Pre-performance engineering correction
 
-Reward-shuffle permutations use their own `RandomState(seed ^ 0x5A17)`, leaving the shared minibatch stream unchanged. The original qualification worker completes once (690 real updates); its immutable receipt is adopted into the final campaign without rerunning or resetting those updates. One additional synthetic four-trajectory shuffle update (16 actor calls, zero real student updates) checks this correction before performance launch. Both source commits and the dependency hold are retained. No reward/performance result determined this correction.
+Reward-shuffle permutations use their own `RandomState(seed ^ 0x5A17)`, leaving the shared minibatch stream unchanged. The first qualification passed all 12 synthetic learnability checks and the legacy CPU checks, then failed during native model construction because CUBLAS_WORKSPACE_CONFIG was absent. Physical student optimizer calls were zero. The failed source/receipts/cost ledger remain immutable. No performance stage ran.
+
+The remaining qualification sets the native deterministic launch environment `CUBLAS_WORKSPACE_CONFIG=:4096:8`, reuses the successful synthetic evidence without repeating its calls, and executes the originally budgeted 690 native updates once. A fixed additional synthetic four-trajectory shuffle update uses 16 actor calls and zero real student calls. The cost report includes the failed setup's operations and all successful synthetic calls; the original session start is retained. No result-dependent tuning, student replay, counter reset or budget increase occurs. Native engine/source parameters remain unchanged.
 
 ## Authorized specification
 

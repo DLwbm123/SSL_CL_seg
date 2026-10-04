@@ -9,6 +9,7 @@ import sys
 import time
 import traceback
 from contextlib import contextmanager
+from unittest.mock import patch
 from collections import Counter
 from pathlib import Path
 import numpy as np
@@ -104,12 +105,33 @@ def initialize(ledger):
     e.write(ROOT/'V4_REWARD_DIAGNOSTICS.json',dict(rows=diagnostics,selection_used=False))
 
 def qualification_job(ledger):
-    initials={}
-    for d in p.DOMAINS:
-        state,_,x,_,_=old_initial(d);initials[d]=(state,x[0])
-    # No native student or real feedback calls in these fixed synthetic tasks.
-    e.write(ROOT/'SYNTHETIC_CHECK.json',qualification.run(initials))
-    v4.smoke(ledger)  # unchanged 390 native calls + 268 legacy synthetic optimizer calls
+    prior=C.get('qualification_prefix')
+    if prior:
+        prior=Path(prior)
+        assert e.read(prior/'status.json')['physical_calls']=={}, 'no replay of prior student calls'
+        passed=e.read(prior/'SYNTHETIC_CHECK.json');assert passed['status']=='PASS'
+        e.write(ROOT/'SYNTHETIC_CHECK.json',dict(passed,reused_from=str(prior),no_repeat=True))
+        legacy=e.read(prior/'CONTROLLER_SELF_CHECK.json');assert legacy['status']=='PASS'
+        with patch.object(v4.policy,'self_check',lambda:legacy):
+            v4.smoke(ledger)
+    else:
+        initials={}
+        for d in p.DOMAINS:
+            state,_,x,_,_=old_initial(d);initials[d]=(state,x[0])
+        e.write(ROOT/'SYNTHETIC_CHECK.json',qualification.run(initials))
+        v4.smoke(ledger)
+    # Fixed additional CPU correction check, before any performance stage.
+    torch.manual_seed(516);model=q.Policy(q.ActorCritic().state_dict());opts=q.optimizers(model)
+    x=torch.zeros(40)
+    with torch.no_grad():
+        dist=q.distribution(model.actor(x))
+        row=dict(x=x,action=0,logp=float(dist.log_prob(torch.tensor(0))),probs=dist.probs.tolist(),value=0.,reward=0.)
+    steps=[]
+    def checked_step(opt,kind,i):steps.append((kind,i));opt.step()
+    diag=q.update(model,opts,[[copy.deepcopy(row) for _ in range(4)] for _ in range(4)],[0.,1.,2.,3.],'GRPO_FS_SHUFFLE',1.,517,checked_step)
+    assert diag['permutation']==np.random.RandomState(517 ^ 0x5A17).permutation(4).tolist()
+    assert len(steps)==16 and sorted(diag['permutation'])==list(range(4))
+    e.write(ROOT/'RNG_QUALIFICATION.json',dict(status='PASS',optimizer_calls=16,independent_reward_permutation_stream=True,student_calls=0))
     checks={}
     for d in p.DOMAINS:
         t=create(168,d,True,ledger);entry=snapshot(t)
