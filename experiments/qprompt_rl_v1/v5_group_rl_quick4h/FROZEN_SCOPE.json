@@ -1,0 +1,48 @@
+{
+  "protocol": "V5_QUICK4H",
+  "authorization": "User requested reducing group trajectories and obtaining results within four hours",
+  "supersedes": "V5_GROUP_RL full matrix; historical plan/results preserved",
+  "original_start": 1791108777.4689112,
+  "hard_deadline": 1791123177.4689112,
+  "training_deadline": 1791122277.4689112,
+  "deadline_CST": "2026-10-04T22:12:57.468911+08:00",
+  "segmentation_seeds": [
+    168
+  ],
+  "controller_seeds": [
+    401
+  ],
+  "domains": {
+    "RIM_ONE_r3": 3200,
+    "Drishti_GS": 2100
+  },
+  "group_size": 2,
+  "groups": 1,
+  "learners": [
+    "GRPO_FS",
+    "PPO_MATCHED"
+  ],
+  "endpoints": [
+    "ORIGINAL",
+    "OFFLINE_25",
+    "GRPO_FS",
+    "PPO_MATCHED"
+  ],
+  "endpoint_count": 8,
+  "actor_steps_per_learner_domain": 16,
+  "calibration": "Retain source168 two-domain G4 plus U0 calibration already running; cancel source169 and all queued calibration",
+  "student_budget": {
+    "calibration": 26500,
+    "reference": 5300,
+    "development": 21200,
+    "endpoints": 21200,
+    "performance_total": 74200,
+    "qualification_already_used": 690,
+    "retired_source169": "all attempts remain charged separately; never reset"
+  },
+  "synthetic_additional_group2_calls": 16,
+  "no_automatic_promotion": true,
+  "ClipHigher": false,
+  "repeat_controllers": false,
+  "new_confirmation_sources": false
+}

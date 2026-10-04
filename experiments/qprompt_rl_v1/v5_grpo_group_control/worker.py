@@ -88,7 +88,7 @@ def old_initial(domain):
 
 def load_init(domain,method=None):
     value=torch.load(CAMPAIGN/'jobs'/('init_'+domain)/'INITIAL.private.pt',map_location='cpu',weights_only=False)
-    model=q.Policy(value['state'],method in p.LEARNERS[:2]);model.eval()
+    model=q.Policy(value['state'],method in ('PPO_MATCHED','BANDIT_MATCHED'));model.eval()
     return model,value
 
 def initialize(ledger):
@@ -198,8 +198,8 @@ def scale(ledger):
         root=CAMPAIGN/'jobs'/f'cal_{s}_{d}';values.append(e.read(root/'CALIBRATION.json')['relative_rewards'])
         trajectories.extend(torch.load(root/'CALIBRATION.private.pt',map_location='cpu',weights_only=False)['trajectories'])
     a=np.array(values);sr=max(1e-4,float(np.sqrt(np.mean((a-a.mean(1,keepdims=True))**2))))
-    e.write(ROOT/'SCALE.json',dict(domain=d,S_R=sr,groups=3,trajectories=12,online_only=True,dynamic_updates=0))
-    for method in p.LEARNERS[:2]:
+    e.write(ROOT/'SCALE.json',dict(domain=d,S_R=sr,groups=len(values),trajectories=len(trajectories),online_only=True,dynamic_updates=0))
+    for method in (m for m in p.LEARNERS if m in ('PPO_MATCHED','BANDIT_MATCHED')):
         model,_=load_init(d,method)
         diagnostics=q.warmup(model,trajectories,method,sr,lambda opt,i:ledger.step(opt,'critic_warmup',f'{method}/{i}'))
         e.atomic_save(dict(critic=e.cpu(model.critic.state_dict())),ROOT/(method+'.private.pt'))
@@ -212,13 +212,13 @@ def learn(ledger):
         warm=torch.load(CAMPAIGN/'jobs'/('scale_'+d)/(m+'.private.pt'),map_location='cpu',weights_only=False)
         model.critic.load_state_dict(warm['critic'])
     opts=q.optimizers(model);summaries=[];panels=[]
-    for g in range(6):
-        s=p.DEVELOPMENT_SEEDS[g%3];t=create(s,d,True,ledger);entry=snapshot(t)
+    for g in range(p.GROUPS):
+        s=p.DEVELOPMENT_SEEDS[g%len(p.DEVELOPMENT_SEEDS)];t=create(s,d,True,ledger);entry=snapshot(t)
         refroot=CAMPAIGN/'jobs'/f'ref_{g}_{d}';ref=e.read(refroot/'REFERENCE.json')
         cached=torch.load(refroot/'ENTRY.private.pt',map_location='cpu',weights_only=False)
         assert ref['identity']==reference_identity(t,g)==cached['identity'] and e.same(entry,cached['state']), 'U0 cache state/provenance mismatch'
         trajectories=[];out=[];behavior=e.cpu(model.state_dict());old_logits=model.actor(init['panel']).detach()
-        for i in range(4):
+        for i in range(p.GROUP_SIZE):
             traj,summary=rollout(t,entry,model,init,ledger,'development',f'{g}/{i}',e.stable('V5/action',c,d,g,i))
             trajectories.append(traj);out.append(summary)
             assert e.same(behavior,e.cpu(model.state_dict())),'behavior changed inside group'
@@ -226,7 +226,7 @@ def learn(ledger):
         # Preserve the complete pre-update batch before any optimizer call.
         e.atomic_save(dict(trajectories=trajectories,rewards=rewards,behavior=behavior,optimizers=[o.state_dict() if o else None for o in opts],group=g),ROOT/'group_latest.private.pt')
         student_before=snapshot(t)
-        diag=q.update(model,opts,trajectories,rewards,m,sr,e.stable('V5/update',c,d,g),lambda opt,kind,k:ledger.step(opt,kind,f'{g}/{k}'),clip_high=.28 if m=='GRPO_FS_CLIPHI' else .2)
+        diag=q.update(model,opts,trajectories,rewards,m,sr,e.stable('V5/update',c,d,g),lambda opt,kind,k:ledger.step(opt,kind,f'{g}/{k}'),clip_high=.28 if m=='GRPO_FS_CLIPHI' else .2,group_size=p.GROUP_SIZE)
         assert e.same(student_before,snapshot(t)), 'controller update mutated student state'
         del student_before
         record=dict(group=g,seed=s,domain=d,controller=c,method=m,trajectories=out,reference=ref,relative_rewards=rewards,reward_mean=float(np.mean(rewards)),reward_population_std=float(np.std(rewards)),unique_sequences=len({tuple(r['actions']) for r in out}),audit_order=np.argsort([r['audit'] for r in out]).tolist(),online_order=np.argsort([r['online'] for r in out]).tolist(),**diag)
@@ -235,7 +235,7 @@ def learn(ledger):
         e.write(ROOT/'POLICY_PANEL.private.json',panels)
         e.atomic_save(dict(state=e.cpu(model.state_dict()),optimizers=[e.cpu(o.state_dict()) if o else None for o in opts],group=g,scaler=init['scaler'],S_R=sr,commit=C['commit']),ROOT/'latest_policy.private.pt')
         del t,entry,cached,trajectories;gc.collect();torch.cuda.empty_cache()
-    e.atomic_save(dict(state=e.cpu(model.state_dict()),scaler=init['scaler'],method=m,controller=c,groups=6,commit=C['commit']),ROOT/'FROZEN_POLICY.private.pt')
+    e.atomic_save(dict(state=e.cpu(model.state_dict()),scaler=init['scaler'],method=m,controller=c,groups=p.GROUPS,commit=C['commit']),ROOT/'FROZEN_POLICY.private.pt')
 
 def load_final(d,m,c):
     raw=torch.load(CAMPAIGN/'jobs'/f'learn_{c}_{d}_{m}'/'FROZEN_POLICY.private.pt',map_location='cpu',weights_only=False)
@@ -246,7 +246,7 @@ def endpoint(ledger):
     d,s,stage=C['domain'],C['seed'],C['stage'];t=create(s,d,False,ledger);entry=snapshot(t)
     save_student(t,ROOT/'ENTRY.private.pt');io.export(t,ROOT/'entry.pt')
     schedules={};endpoints=[]
-    for m,c in p.endpoint_methods(stage):
+    for m,c in C.get('endpoint_methods',p.endpoint_methods(stage)):
         restore(t,entry);key=m+(f'_{c}' if c else '');actions=[];outside=clipped=0;model=scaler=None
         if m=='OFFLINE_25':
             old=torch.load(V4/'jobs'/f'fit_{d}'/'OFFLINE_25.pt',map_location='cpu',weights_only=False);model=q.Policy(old['state']);scaler=old['scaler']

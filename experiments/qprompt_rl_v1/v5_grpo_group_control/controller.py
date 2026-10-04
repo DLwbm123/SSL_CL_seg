@@ -49,8 +49,8 @@ def group_advantage(rewards,kind,scale,permutation=None):
 def optimizers(model,lr=.0003):
     return torch.optim.Adam(model.actor.parameters(),lr=lr), (torch.optim.Adam(model.critic.parameters(),lr=lr) if model.critic is not None else None)
 
-def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,clip_high=.2):
-    assert len(trajectories)==4 and len({len(t) for t in trajectories})==1
+def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,clip_high=.2,group_size=4):
+    assert group_size in (2,4) and len(trajectories)==group_size and len({len(t) for t in trajectories})==1
     assert all(t and all(not r.get('reference',False) for r in t) for t in trajectories)
     flat=[r for t in trajectories for r in t]
     x=torch.stack([r['x'].detach() for r in flat]);a=torch.tensor([r['action'] for r in flat])
@@ -61,7 +61,7 @@ def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,cli
         adv=np.concatenate([z[0] for z in pairs]);targets=torch.tensor(np.concatenate([z[1] for z in pairs]),dtype=torch.float32)
         if kind=='PPO_MATCHED':adv=(adv-adv.mean())/max(adv.std(ddof=0),1e-8)
     else:
-        if kind=='GRPO_FS_SHUFFLE':permutation=np.random.RandomState(seed ^ 0x5A17).permutation(4)
+        if kind=='GRPO_FS_SHUFFLE':permutation=np.random.RandomState(seed ^ 0x5A17).permutation(group_size)
         adv=np.repeat(group_advantage(terminal,kind,scale,permutation),len(trajectories[0]))
     adv=torch.tensor(adv,dtype=torch.float32)
     assert not any(v.requires_grad for v in (x,old,oldp,adv))
