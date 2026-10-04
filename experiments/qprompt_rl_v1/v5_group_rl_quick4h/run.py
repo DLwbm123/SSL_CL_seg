@@ -90,7 +90,11 @@ def nodes():
     return result
 
 def endpoint_node(d,m,deps=None):
-    return dict(id=f'quick4h_168_{d}_{m}',job='endpoint',stage='quick4h',deps=deps or [],seed=168,domain=d,endpoint_methods=[[m,None if m in ('ORIGINAL','OFFLINE_25') else 401]],caps=dict(endpoint=HORIZONS[d]))
+    deps=list(deps or [])
+    if m!='ORIGINAL':deps.append(f'quick4h_168_{d}_ORIGINAL')
+    result=dict(id=f'quick4h_168_{d}_{m}',job='endpoint',stage='quick4h',deps=deps,seed=168,domain=d,endpoint_methods=[[m,None if m in ('ORIGINAL','OFFLINE_25') else 401]],caps=dict(endpoint=HORIZONS[d]))
+    if m!='ORIGINAL':result['shared_entry_path']=str(ROOT/'jobs'/f'quick4h_168_{d}_ORIGINAL'/'ENTRY.private.pt')
+    return result
 
 def alive(info):
     path=Path('/proc')/str(info['pid'])/'stat'

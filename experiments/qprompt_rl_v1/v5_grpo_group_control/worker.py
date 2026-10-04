@@ -244,6 +244,10 @@ def load_final(d,m,c):
 
 def endpoint(ledger):
     d,s,stage=C['domain'],C['seed'],C['stage'];t=create(s,d,False,ledger);entry=snapshot(t)
+    if C.get('shared_entry_path'):
+        shared=torch.load(C['shared_entry_path'],map_location='cpu',weights_only=False)
+        assert e.same(entry,shared['state']), 'cross-job endpoint entry mismatch'
+        del shared
     save_student(t,ROOT/'ENTRY.private.pt');io.export(t,ROOT/'entry.pt')
     schedules={};endpoints=[]
     for m,c in C.get('endpoint_methods',p.endpoint_methods(stage)):
