@@ -19,6 +19,10 @@ Baseline: `90eacbacca00d3c03e1296d5c7e6ac22a047df3b`. The full authorized specif
 - New snapshot wrapper adds options, physical update count, teacher modes, Provider immutable identity and dataset checked sets to the V4 full state. Native algorithm unchanged. Diagnostic read-only wrappers restore these bookkeeping fields as well.
 - U0 cache/source identity hashing is required protocol provenance, not a full NAS file audit. Private role maps, state panels, models, trajectories and case scores never enter Git.
 
+## Pre-performance engineering correction
+
+Reward-shuffle permutations use their own `RandomState(seed ^ 0x5A17)`, leaving the shared minibatch stream unchanged. The original qualification worker completes once (690 real updates); its immutable receipt is adopted into the final campaign without rerunning or resetting those updates. One additional synthetic four-trajectory shuffle update (16 actor calls, zero real student updates) checks this correction before performance launch. Both source commits and the dependency hold are retained. No reward/performance result determined this correction.
+
 ## Authorized specification
 
 请在 SSL_CL_seg 项目中设计、实现并执行下一轮实验：

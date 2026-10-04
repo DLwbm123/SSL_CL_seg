@@ -61,7 +61,7 @@ def update(model,opts,trajectories,terminal,kind,scale,seed,step,clip_low=.2,cli
         adv=np.concatenate([z[0] for z in pairs]);targets=torch.tensor(np.concatenate([z[1] for z in pairs]),dtype=torch.float32)
         if kind=='PPO_MATCHED':adv=(adv-adv.mean())/max(adv.std(ddof=0),1e-8)
     else:
-        if kind=='GRPO_FS_SHUFFLE':permutation=rng.permutation(4)
+        if kind=='GRPO_FS_SHUFFLE':permutation=np.random.RandomState(seed ^ 0x5A17).permutation(4)
         adv=np.repeat(group_advantage(terminal,kind,scale,permutation),len(trajectories[0]))
     adv=torch.tensor(adv,dtype=torch.float32)
     assert not any(v.requires_grad for v in (x,old,oldp,adv))

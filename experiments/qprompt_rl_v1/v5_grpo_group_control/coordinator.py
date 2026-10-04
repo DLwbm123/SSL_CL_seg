@@ -110,9 +110,10 @@ def report(pilot,promotion,confirmation=None,cliphi=None):
     expected+=p.P0_CALLS+(143100 if cliphi is not None else 0)
     assert student==expected,(student,expected)
     synthetic_calls=sum(synthetic['optimizer_calls'].values())+268
+    extra_synthetic=read(ROOT/'RNG_QUALIFICATION.json')['optimizer_calls'] if (ROOT/'RNG_QUALIFICATION.json').exists() else 0
     assert ops['optimizer_steps']==sum(costs.values())+synthetic_calls
     write(ROOT/'POLICY_DIAGNOSTICS.json',policy);write(ROOT/'REWARD_DIAGNOSTICS.json',rewards)
-    write(ROOT/'ALL_COSTS.json',dict(physical_calls=dict(costs),student_calls=student,synthetic_calls=synthetic_calls,synthetic_detail=synthetic['optimizer_calls'],historical_source_updates_reused=24000,operation_counts=dict(ops),measured_intervals=dict(measured),feature_counts=dict(features),job_resources=resources,evaluator=evaluator,wall_seconds=time.time()-read(ROOT/'SESSION.json')['start'],GPU_measurement='per-process CUDA command intervals including host gaps; pmon samples private, not exact kernel occupancy/energy; other GPU jobs not charged',fairness='matched student rollouts/reward opportunities; PPO/Bandit additional critic calls explicitly charged'))
+    write(ROOT/'ALL_COSTS.json',dict(physical_calls=dict(costs),student_calls=student,synthetic_calls=synthetic_calls+extra_synthetic,preperformance_rng_check_calls=extra_synthetic,synthetic_detail=synthetic['optimizer_calls'],historical_source_updates_reused=24000,operation_counts=dict(ops),measured_intervals=dict(measured),feature_counts=dict(features),job_resources=resources,evaluator=evaluator,wall_seconds=time.time()-read(ROOT/'SESSION.json')['start'],GPU_measurement='per-process CUDA command intervals including host gaps; pmon samples private, not exact kernel occupancy/energy; other GPU jobs not charged',fairness='matched student rollouts/reward opportunities; PPO/Bandit additional critic calls explicitly charged'))
     write(ROOT/'COMPLETION_AUDIT.json',dict(status='PASS',jobs=audits,student_calls=student,expected=expected,pilot_endpoints=len(pilot),confirmation_endpoints=len(confirmation) if confirmation is not None else 0,cliphi_endpoints=len(cliphi) if cliphi is not None else 0,global_val_barriers=True,endpoint_controller_updates=0,no_retries=True,test_sealed=True,hidden_U_labels_read=False))
     text='# V5_GROUP_RL results\n\n'
     text+='Pilot completed with 54 endpoints. Promotion: '+str(promotion['promoted'])+'. '
@@ -127,12 +128,21 @@ def main():
     lock=(ROOT/'COORDINATOR.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     assert not (ROOT/'RUN_LOCK.json').exists(),'no automatic resume'
     (ROOT/'jobs').mkdir(exist_ok=False);(ROOT/'sources').mkdir(exist_ok=False)
+    adopted=C.get('qualified_job')
+    if adopted:
+        qualified=Path(adopted)
+        assert read(qualified/'QUALIFICATION.json')['status']=='PASS'
+        assert read(qualified/'COMPLETION_AUDIT.json')['physical_calls']=={'smoke':p.P0_CALLS}
+        assert read(ROOT/'RNG_QUALIFICATION.json')['status']=='PASS'
+        (ROOT/'jobs'/'qualification').symlink_to(qualified, target_is_directory=True)
+        write(ROOT/'QUALIFICATION_ADOPTION.json',dict(path=str(qualified),original_commit=read(qualified/'FINAL.json')['commit'],execution_commit=C['commit'],native_updates_reused=p.P0_CALLS,student_retries=0,reason='Pre-performance RNG-only correction; native engine/qualification unchanged'))
     write(ROOT/'RUN_LOCK.json',dict(protocol='V5_GROUP_RL',commit=C['commit'],baseline=p.BASELINE,budget=p.budget(),optimizer_deadline=None,hard_deadline=None,retries=0))
     write(ROOT/'PROCESS.json',dict(pid=os.getpid(),time=time.time(),process_start_ticks=Path(f'/proc/{os.getpid()}/stat').read_text().split()[21]))
     matrix=p.jobs()
     try:
         for stage in ('qualification','initialize','calibration','references','scale','learn401'):
-            write(ROOT/'status.json',dict(status='RUNNING',phase=stage,time=time.time()));run_phase(stage,matrix[stage])
+            write(ROOT/'status.json',dict(status='RUNNING',phase=stage,time=time.time()))
+            if not (stage=='qualification' and adopted):run_phase(stage,matrix[stage])
             if stage=='qualification':assert read(ROOT/'jobs'/'qualification'/'QUALIFICATION.json')['status']=='PASS'
         trigger=clipping_gate()
         write(ROOT/'PILOT_POLICY_LOCK.json',dict(time=time.time(),controllers=[401],selection='group6 final; no feedback-based checkpoint choice',commit=C['commit']))
