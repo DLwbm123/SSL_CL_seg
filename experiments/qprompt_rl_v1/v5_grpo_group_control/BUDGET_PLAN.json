@@ -1,0 +1,884 @@
+{
+  "stages": {
+    "qualification": 690,
+    "initialize": 0,
+    "calibration": 79500,
+    "references": 31800,
+    "scale": 0,
+    "learn401": 636000,
+    "pilot": 143100,
+    "extension": 1272000,
+    "sources": 40000,
+    "confirmation": 556500,
+    "cliphi_learn": 127200,
+    "cliphi": 15900
+  },
+  "pilot_without_P0": 890400,
+  "full_without_P0": 2758900,
+  "conditional_extra": 143100,
+  "P0": 690,
+  "maximum_all": 2902690,
+  "reused_source_updates": 24000,
+  "shared_reference_entries": 12,
+  "reference_sharing": "exact entry state + provider state + source receipt + code commit + domain + group; verified before use",
+  "source_seed_history": "Not used in V5 development. Project-wide novelty not established; inaccessible historical directory exists.",
+  "jobs": {
+    "qualification": [
+      {
+        "id": "qualification",
+        "job": "qualification",
+        "caps": {
+          "smoke": 690
+        }
+      }
+    ],
+    "initialize": [
+      {
+        "id": "init_RIM_ONE_r3",
+        "job": "initialize",
+        "domain": "RIM_ONE_r3",
+        "caps": {}
+      },
+      {
+        "id": "init_Drishti_GS",
+        "job": "initialize",
+        "domain": "Drishti_GS",
+        "caps": {}
+      }
+    ],
+    "calibration": [
+      {
+        "id": "cal_168_RIM_ONE_r3",
+        "job": "calibration",
+        "seed": 168,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "calibration": 16000
+        }
+      },
+      {
+        "id": "cal_168_Drishti_GS",
+        "job": "calibration",
+        "seed": 168,
+        "domain": "Drishti_GS",
+        "caps": {
+          "calibration": 10500
+        }
+      },
+      {
+        "id": "cal_169_RIM_ONE_r3",
+        "job": "calibration",
+        "seed": 169,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "calibration": 16000
+        }
+      },
+      {
+        "id": "cal_169_Drishti_GS",
+        "job": "calibration",
+        "seed": 169,
+        "domain": "Drishti_GS",
+        "caps": {
+          "calibration": 10500
+        }
+      },
+      {
+        "id": "cal_170_RIM_ONE_r3",
+        "job": "calibration",
+        "seed": 170,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "calibration": 16000
+        }
+      },
+      {
+        "id": "cal_170_Drishti_GS",
+        "job": "calibration",
+        "seed": 170,
+        "domain": "Drishti_GS",
+        "caps": {
+          "calibration": 10500
+        }
+      }
+    ],
+    "references": [
+      {
+        "id": "ref_0_RIM_ONE_r3",
+        "job": "reference",
+        "group": 0,
+        "seed": 168,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "reference": 3200
+        }
+      },
+      {
+        "id": "ref_0_Drishti_GS",
+        "job": "reference",
+        "group": 0,
+        "seed": 168,
+        "domain": "Drishti_GS",
+        "caps": {
+          "reference": 2100
+        }
+      },
+      {
+        "id": "ref_1_RIM_ONE_r3",
+        "job": "reference",
+        "group": 1,
+        "seed": 169,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "reference": 3200
+        }
+      },
+      {
+        "id": "ref_1_Drishti_GS",
+        "job": "reference",
+        "group": 1,
+        "seed": 169,
+        "domain": "Drishti_GS",
+        "caps": {
+          "reference": 2100
+        }
+      },
+      {
+        "id": "ref_2_RIM_ONE_r3",
+        "job": "reference",
+        "group": 2,
+        "seed": 170,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "reference": 3200
+        }
+      },
+      {
+        "id": "ref_2_Drishti_GS",
+        "job": "reference",
+        "group": 2,
+        "seed": 170,
+        "domain": "Drishti_GS",
+        "caps": {
+          "reference": 2100
+        }
+      },
+      {
+        "id": "ref_3_RIM_ONE_r3",
+        "job": "reference",
+        "group": 3,
+        "seed": 168,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "reference": 3200
+        }
+      },
+      {
+        "id": "ref_3_Drishti_GS",
+        "job": "reference",
+        "group": 3,
+        "seed": 168,
+        "domain": "Drishti_GS",
+        "caps": {
+          "reference": 2100
+        }
+      },
+      {
+        "id": "ref_4_RIM_ONE_r3",
+        "job": "reference",
+        "group": 4,
+        "seed": 169,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "reference": 3200
+        }
+      },
+      {
+        "id": "ref_4_Drishti_GS",
+        "job": "reference",
+        "group": 4,
+        "seed": 169,
+        "domain": "Drishti_GS",
+        "caps": {
+          "reference": 2100
+        }
+      },
+      {
+        "id": "ref_5_RIM_ONE_r3",
+        "job": "reference",
+        "group": 5,
+        "seed": 170,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "reference": 3200
+        }
+      },
+      {
+        "id": "ref_5_Drishti_GS",
+        "job": "reference",
+        "group": 5,
+        "seed": 170,
+        "domain": "Drishti_GS",
+        "caps": {
+          "reference": 2100
+        }
+      }
+    ],
+    "scale": [
+      {
+        "id": "scale_RIM_ONE_r3",
+        "job": "scale",
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "critic_warmup": 128
+        }
+      },
+      {
+        "id": "scale_Drishti_GS",
+        "job": "scale",
+        "domain": "Drishti_GS",
+        "caps": {
+          "critic_warmup": 128
+        }
+      }
+    ],
+    "learn401": [
+      {
+        "id": "learn_401_RIM_ONE_r3_PPO_MATCHED",
+        "job": "learn",
+        "controller": 401,
+        "domain": "RIM_ONE_r3",
+        "method": "PPO_MATCHED",
+        "caps": {
+          "development": 76800,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_401_RIM_ONE_r3_BANDIT_MATCHED",
+        "job": "learn",
+        "controller": 401,
+        "domain": "RIM_ONE_r3",
+        "method": "BANDIT_MATCHED",
+        "caps": {
+          "development": 76800,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_401_RIM_ONE_r3_GRPO_STD",
+        "job": "learn",
+        "controller": 401,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_STD",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_401_RIM_ONE_r3_GRPO_FS",
+        "job": "learn",
+        "controller": 401,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_FS",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_401_RIM_ONE_r3_GRPO_FS_SHUFFLE",
+        "job": "learn",
+        "controller": 401,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_FS_SHUFFLE",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_401_Drishti_GS_PPO_MATCHED",
+        "job": "learn",
+        "controller": 401,
+        "domain": "Drishti_GS",
+        "method": "PPO_MATCHED",
+        "caps": {
+          "development": 50400,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_401_Drishti_GS_BANDIT_MATCHED",
+        "job": "learn",
+        "controller": 401,
+        "domain": "Drishti_GS",
+        "method": "BANDIT_MATCHED",
+        "caps": {
+          "development": 50400,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_401_Drishti_GS_GRPO_STD",
+        "job": "learn",
+        "controller": 401,
+        "domain": "Drishti_GS",
+        "method": "GRPO_STD",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_401_Drishti_GS_GRPO_FS",
+        "job": "learn",
+        "controller": 401,
+        "domain": "Drishti_GS",
+        "method": "GRPO_FS",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_401_Drishti_GS_GRPO_FS_SHUFFLE",
+        "job": "learn",
+        "controller": 401,
+        "domain": "Drishti_GS",
+        "method": "GRPO_FS_SHUFFLE",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      }
+    ],
+    "pilot": [
+      {
+        "id": "pilot_168_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "pilot",
+        "seed": 168,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 28800
+        }
+      },
+      {
+        "id": "pilot_168_Drishti_GS",
+        "job": "endpoint",
+        "stage": "pilot",
+        "seed": 168,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 18900
+        }
+      },
+      {
+        "id": "pilot_169_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "pilot",
+        "seed": 169,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 28800
+        }
+      },
+      {
+        "id": "pilot_169_Drishti_GS",
+        "job": "endpoint",
+        "stage": "pilot",
+        "seed": 169,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 18900
+        }
+      },
+      {
+        "id": "pilot_170_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "pilot",
+        "seed": 170,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 28800
+        }
+      },
+      {
+        "id": "pilot_170_Drishti_GS",
+        "job": "endpoint",
+        "stage": "pilot",
+        "seed": 170,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 18900
+        }
+      }
+    ],
+    "extension": [
+      {
+        "id": "learn_402_RIM_ONE_r3_PPO_MATCHED",
+        "job": "learn",
+        "controller": 402,
+        "domain": "RIM_ONE_r3",
+        "method": "PPO_MATCHED",
+        "caps": {
+          "development": 76800,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_402_RIM_ONE_r3_BANDIT_MATCHED",
+        "job": "learn",
+        "controller": 402,
+        "domain": "RIM_ONE_r3",
+        "method": "BANDIT_MATCHED",
+        "caps": {
+          "development": 76800,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_402_RIM_ONE_r3_GRPO_STD",
+        "job": "learn",
+        "controller": 402,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_STD",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_402_RIM_ONE_r3_GRPO_FS",
+        "job": "learn",
+        "controller": 402,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_FS",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_402_RIM_ONE_r3_GRPO_FS_SHUFFLE",
+        "job": "learn",
+        "controller": 402,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_FS_SHUFFLE",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_402_Drishti_GS_PPO_MATCHED",
+        "job": "learn",
+        "controller": 402,
+        "domain": "Drishti_GS",
+        "method": "PPO_MATCHED",
+        "caps": {
+          "development": 50400,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_402_Drishti_GS_BANDIT_MATCHED",
+        "job": "learn",
+        "controller": 402,
+        "domain": "Drishti_GS",
+        "method": "BANDIT_MATCHED",
+        "caps": {
+          "development": 50400,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_402_Drishti_GS_GRPO_STD",
+        "job": "learn",
+        "controller": 402,
+        "domain": "Drishti_GS",
+        "method": "GRPO_STD",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_402_Drishti_GS_GRPO_FS",
+        "job": "learn",
+        "controller": 402,
+        "domain": "Drishti_GS",
+        "method": "GRPO_FS",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_402_Drishti_GS_GRPO_FS_SHUFFLE",
+        "job": "learn",
+        "controller": 402,
+        "domain": "Drishti_GS",
+        "method": "GRPO_FS_SHUFFLE",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_403_RIM_ONE_r3_PPO_MATCHED",
+        "job": "learn",
+        "controller": 403,
+        "domain": "RIM_ONE_r3",
+        "method": "PPO_MATCHED",
+        "caps": {
+          "development": 76800,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_403_RIM_ONE_r3_BANDIT_MATCHED",
+        "job": "learn",
+        "controller": 403,
+        "domain": "RIM_ONE_r3",
+        "method": "BANDIT_MATCHED",
+        "caps": {
+          "development": 76800,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_403_RIM_ONE_r3_GRPO_STD",
+        "job": "learn",
+        "controller": 403,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_STD",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_403_RIM_ONE_r3_GRPO_FS",
+        "job": "learn",
+        "controller": 403,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_FS",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_403_RIM_ONE_r3_GRPO_FS_SHUFFLE",
+        "job": "learn",
+        "controller": 403,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_FS_SHUFFLE",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_403_Drishti_GS_PPO_MATCHED",
+        "job": "learn",
+        "controller": 403,
+        "domain": "Drishti_GS",
+        "method": "PPO_MATCHED",
+        "caps": {
+          "development": 50400,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_403_Drishti_GS_BANDIT_MATCHED",
+        "job": "learn",
+        "controller": 403,
+        "domain": "Drishti_GS",
+        "method": "BANDIT_MATCHED",
+        "caps": {
+          "development": 50400,
+          "actor": 96,
+          "critic": 96
+        }
+      },
+      {
+        "id": "learn_403_Drishti_GS_GRPO_STD",
+        "job": "learn",
+        "controller": 403,
+        "domain": "Drishti_GS",
+        "method": "GRPO_STD",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_403_Drishti_GS_GRPO_FS",
+        "job": "learn",
+        "controller": 403,
+        "domain": "Drishti_GS",
+        "method": "GRPO_FS",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_403_Drishti_GS_GRPO_FS_SHUFFLE",
+        "job": "learn",
+        "controller": 403,
+        "domain": "Drishti_GS",
+        "method": "GRPO_FS_SHUFFLE",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      }
+    ],
+    "sources": [
+      {
+        "id": "source_183",
+        "job": "source",
+        "seed": 183,
+        "caps": {
+          "source": 8000
+        }
+      },
+      {
+        "id": "source_184",
+        "job": "source",
+        "seed": 184,
+        "caps": {
+          "source": 8000
+        }
+      },
+      {
+        "id": "source_185",
+        "job": "source",
+        "seed": 185,
+        "caps": {
+          "source": 8000
+        }
+      },
+      {
+        "id": "source_186",
+        "job": "source",
+        "seed": 186,
+        "caps": {
+          "source": 8000
+        }
+      },
+      {
+        "id": "source_187",
+        "job": "source",
+        "seed": 187,
+        "caps": {
+          "source": 8000
+        }
+      }
+    ],
+    "confirmation": [
+      {
+        "id": "confirmation_183_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 183,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 67200
+        }
+      },
+      {
+        "id": "confirmation_183_Drishti_GS",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 183,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 44100
+        }
+      },
+      {
+        "id": "confirmation_184_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 184,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 67200
+        }
+      },
+      {
+        "id": "confirmation_184_Drishti_GS",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 184,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 44100
+        }
+      },
+      {
+        "id": "confirmation_185_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 185,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 67200
+        }
+      },
+      {
+        "id": "confirmation_185_Drishti_GS",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 185,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 44100
+        }
+      },
+      {
+        "id": "confirmation_186_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 186,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 67200
+        }
+      },
+      {
+        "id": "confirmation_186_Drishti_GS",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 186,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 44100
+        }
+      },
+      {
+        "id": "confirmation_187_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 187,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 67200
+        }
+      },
+      {
+        "id": "confirmation_187_Drishti_GS",
+        "job": "endpoint",
+        "stage": "confirmation",
+        "seed": 187,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 44100
+        }
+      }
+    ],
+    "cliphi_learn": [
+      {
+        "id": "learn_401_RIM_ONE_r3_GRPO_FS_CLIPHI",
+        "job": "learn",
+        "controller": 401,
+        "domain": "RIM_ONE_r3",
+        "method": "GRPO_FS_CLIPHI",
+        "caps": {
+          "development": 76800,
+          "actor": 96
+        }
+      },
+      {
+        "id": "learn_401_Drishti_GS_GRPO_FS_CLIPHI",
+        "job": "learn",
+        "controller": 401,
+        "domain": "Drishti_GS",
+        "method": "GRPO_FS_CLIPHI",
+        "caps": {
+          "development": 50400,
+          "actor": 96
+        }
+      }
+    ],
+    "cliphi": [
+      {
+        "id": "cliphi_168_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "cliphi",
+        "seed": 168,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 3200
+        }
+      },
+      {
+        "id": "cliphi_168_Drishti_GS",
+        "job": "endpoint",
+        "stage": "cliphi",
+        "seed": 168,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 2100
+        }
+      },
+      {
+        "id": "cliphi_169_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "cliphi",
+        "seed": 169,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 3200
+        }
+      },
+      {
+        "id": "cliphi_169_Drishti_GS",
+        "job": "endpoint",
+        "stage": "cliphi",
+        "seed": 169,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 2100
+        }
+      },
+      {
+        "id": "cliphi_170_RIM_ONE_r3",
+        "job": "endpoint",
+        "stage": "cliphi",
+        "seed": 170,
+        "domain": "RIM_ONE_r3",
+        "caps": {
+          "endpoint": 3200
+        }
+      },
+      {
+        "id": "cliphi_170_Drishti_GS",
+        "job": "endpoint",
+        "stage": "cliphi",
+        "seed": 170,
+        "domain": "Drishti_GS",
+        "caps": {
+          "endpoint": 2100
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "protocol": "V5_GROUP_RL",
+  "baseline": "90eacbacca00d3c03e1296d5c7e6ac22a047df3b",
+  "development_seeds": [
+    168,
+    169,
+    170
+  ],
+  "confirmation_seeds": [
+    183,
+    184,
+    185,
+    186,
+    187
+  ],
+  "controller_seeds": [
+    401,
+    402,
+    403
+  ],
+  "group_size": 4,
+  "groups": 6,
+  "block": 25,
+  "weights": [
+    0,
+    0.125,
+    0.5
+  ],
+  "actor_lr": 0.0003,
+  "critic_lr": 0.0003,
+  "warmup_lr": 0.001,
+  "warmup_steps": 64,
+  "gamma": 1,
+  "gae_lambda": 0.95,
+  "epochs": 4,
+  "minibatches": 4,
+  "clip_low": 0.2,
+  "clip_high": 0.2,
+  "conditional_clip_high": 0.28,
+  "entropy": 0.01,
+  "reference_KL": 0,
+  "grad_clip": 1,
+  "softening_entropy_fraction": 0.8,
+  "softening_bisection_steps": 64,
+  "reward_scale_floor": 0.0001,
+  "GRPO_STD_epsilon": 1e-08,
+  "primary": "GRPO_FS",
+  "P0_student_calls": 690,
+  "synthetic_groups": 256,
+  "wall_deadline": null,
+  "retries": 0
+}
