@@ -1,0 +1,211 @@
+{
+  "time": 1791129367.4622104,
+  "run_id": "v6_low_label_r0_20261004T155101Z",
+  "execution_commit": "51caea6359fd196962d21b8c85e231a37f52b87d",
+  "status": {
+    "status": "RUNNING",
+    "phase": "TRAIN",
+    "time": 1791129222.9882548
+  },
+  "controller_check": {
+    "status": "PASS",
+    "variants": [
+      {
+        "group_size": 2,
+        "groups": 4,
+        "actor_calls": 32,
+        "sample_presentations": 128
+      },
+      {
+        "group_size": 4,
+        "groups": 2,
+        "actor_calls": 32,
+        "sample_presentations": 128
+      },
+      {
+        "group_size": 8,
+        "groups": 1,
+        "actor_calls": 32,
+        "sample_presentations": 128
+      }
+    ],
+    "synthetic_actor_calls": 96,
+    "student_calls": 0
+  },
+  "qualifications": [
+    {
+      "scope": "b05_s5101",
+      "domain": "RIM_ONE_r3",
+      "status": "PASS",
+      "student_calls": 8,
+      "feature_immutable": true,
+      "feedback_immutable": true,
+      "exact_action_replay": true,
+      "checkpoint_restore": true,
+      "label_budget": {
+        "label_percent": 5,
+        "labeled_patients": 4,
+        "fit_patients": 3,
+        "reward_patients": 1,
+        "audit_patients": 0,
+        "unlabeled_images": 75,
+        "total_train_images": 79,
+        "student_training_images": 78,
+        "original_steps_per_epoch": 32,
+        "hidden_label_fields_in_U": 0,
+        "development": true
+      }
+    },
+    {
+      "scope": "b05_s5101",
+      "domain": "Drishti_GS",
+      "status": "PASS",
+      "student_calls": 8,
+      "feature_immutable": true,
+      "feedback_immutable": true,
+      "exact_action_replay": true,
+      "checkpoint_restore": true,
+      "label_budget": {
+        "label_percent": 5,
+        "labeled_patients": 3,
+        "fit_patients": 2,
+        "reward_patients": 1,
+        "audit_patients": 0,
+        "unlabeled_images": 48,
+        "total_train_images": 51,
+        "student_training_images": 50,
+        "original_steps_per_epoch": 21,
+        "hidden_label_fields_in_U": 0,
+        "development": true
+      }
+    },
+    {
+      "scope": "b10_s5101",
+      "domain": "RIM_ONE_r3",
+      "status": "PASS",
+      "student_calls": 8,
+      "feature_immutable": true,
+      "feedback_immutable": true,
+      "exact_action_replay": true,
+      "checkpoint_restore": true,
+      "label_budget": {
+        "label_percent": 10,
+        "labeled_patients": 8,
+        "fit_patients": 7,
+        "reward_patients": 1,
+        "audit_patients": 0,
+        "unlabeled_images": 71,
+        "total_train_images": 79,
+        "student_training_images": 78,
+        "original_steps_per_epoch": 32,
+        "hidden_label_fields_in_U": 0,
+        "development": true
+      }
+    },
+    {
+      "scope": "b10_s5101",
+      "domain": "Drishti_GS",
+      "status": "PASS",
+      "student_calls": 8,
+      "feature_immutable": true,
+      "feedback_immutable": true,
+      "exact_action_replay": true,
+      "checkpoint_restore": true,
+      "label_budget": {
+        "label_percent": 10,
+        "labeled_patients": 5,
+        "fit_patients": 4,
+        "reward_patients": 1,
+        "audit_patients": 0,
+        "unlabeled_images": 46,
+        "total_train_images": 51,
+        "student_training_images": 50,
+        "original_steps_per_epoch": 21,
+        "hidden_label_fields_in_U": 0,
+        "development": true
+      }
+    },
+    {
+      "scope": "b20_s5101",
+      "domain": "RIM_ONE_r3",
+      "status": "PASS",
+      "student_calls": 8,
+      "feature_immutable": true,
+      "feedback_immutable": true,
+      "exact_action_replay": true,
+      "checkpoint_restore": true,
+      "label_budget": {
+        "label_percent": 20,
+        "labeled_patients": 16,
+        "fit_patients": 15,
+        "reward_patients": 1,
+        "audit_patients": 0,
+        "unlabeled_images": 63,
+        "total_train_images": 79,
+        "student_training_images": 78,
+        "original_steps_per_epoch": 32,
+        "hidden_label_fields_in_U": 0,
+        "development": true
+      }
+    },
+    {
+      "scope": "b20_s5101",
+      "domain": "Drishti_GS",
+      "status": "PASS",
+      "student_calls": 8,
+      "feature_immutable": true,
+      "feedback_immutable": true,
+      "exact_action_replay": true,
+      "checkpoint_restore": true,
+      "label_budget": {
+        "label_percent": 20,
+        "labeled_patients": 10,
+        "fit_patients": 9,
+        "reward_patients": 1,
+        "audit_patients": 0,
+        "unlabeled_images": 41,
+        "total_train_images": 51,
+        "student_training_images": 50,
+        "original_steps_per_epoch": 21,
+        "hidden_label_fields_in_U": 0,
+        "development": true
+      }
+    }
+  ],
+  "active": [
+    {
+      "job": "b20_s5101__panel_168_RIM_ONE_r3",
+      "gpu": 6,
+      "neutral_argv": true,
+      "gpu_process_visible": true,
+      "physical": {
+        "panel": 375
+      },
+      "step": 150
+    },
+    {
+      "job": "b20_s5101__ref_0_RIM_ONE_r3",
+      "gpu": 7,
+      "neutral_argv": true,
+      "gpu_process_visible": true,
+      "physical": {
+        "reference": 600
+      },
+      "step": 600
+    },
+    {
+      "job": "b20_s5101__endpoint_RIM_ONE_r3_ORIGINAL",
+      "gpu": 5,
+      "neutral_argv": true,
+      "gpu_process_visible": true,
+      "physical": {
+        "endpoint": 350
+      },
+      "step": 350
+    }
+  ],
+  "completed_jobs": 6,
+  "failed": [],
+  "pending_jobs": 117,
+  "wall_clock_limit": null
+}
