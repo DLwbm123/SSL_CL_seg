@@ -1,0 +1,80 @@
+{
+  "protocol": "V6_LOW_LABEL_R0",
+  "source_commit": "51caea6359fd196962d21b8c85e231a37f52b87d",
+  "source_seed": 168,
+  "segmentation_seed": 168,
+  "subset_seeds": [
+    5101
+  ],
+  "controller_seeds": [
+    401
+  ],
+  "label_percents": [
+    20,
+    10,
+    5
+  ],
+  "variants": [
+    {
+      "variant": "GRPO_FS_G4",
+      "method": "GRPO_FS",
+      "group_size": 4
+    },
+    {
+      "variant": "PPO_MATCHED_G4",
+      "method": "PPO_MATCHED",
+      "group_size": 4
+    },
+    {
+      "variant": "GRPO_FS_G2",
+      "method": "GRPO_FS",
+      "group_size": 2
+    },
+    {
+      "variant": "PPO_MATCHED_G2",
+      "method": "PPO_MATCHED",
+      "group_size": 2
+    },
+    {
+      "variant": "GRPO_FS_G8",
+      "method": "GRPO_FS",
+      "group_size": 8
+    },
+    {
+      "variant": "PPO_MATCHED_G8",
+      "method": "PPO_MATCHED",
+      "group_size": 8
+    }
+  ],
+  "full_horizons": {
+    "RIM_ONE_r3": 3200,
+    "Drishti_GS": 2100
+  },
+  "trajectories_per_learner_domain_budget": 8,
+  "actor_calls_per_learner": 32,
+  "sample_epochs": 4,
+  "wall_clock_limit": null,
+  "physical_gpus": [
+    5,
+    6,
+    7
+  ],
+  "endpoints": 54,
+  "physical_caps": {
+    "smoke": 48,
+    "panel": 39750,
+    "controller": 1536,
+    "calibration": 79500,
+    "critic_warmup": 384,
+    "reference": 15900,
+    "endpoint": 143100,
+    "development": 763200,
+    "actor": 1152,
+    "critic": 576
+  },
+  "new_student_calls": 1041498,
+  "synthetic_actor_calls": 96,
+  "annotation_budget_includes_online_reward": true,
+  "legacy_target_policy_reused": false,
+  "replication_required": true
+}
