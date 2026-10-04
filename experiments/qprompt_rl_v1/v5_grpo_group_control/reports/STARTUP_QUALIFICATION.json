@@ -1,0 +1,254 @@
+{
+  "time": 1791109464.262867,
+  "run_id": "v5_group_rl_20261004T102000Z",
+  "execution_commit": "77cf65db6802ebbeaf2cd6b7c097fc11f0ebc2cc",
+  "baseline": "90eacbacca00d3c03e1296d5c7e6ac22a047df3b",
+  "qualification": {
+    "status": "PASS",
+    "native_calls": 690,
+    "full_replay": {
+      "RIM_ONE_r3": {
+        "full_state_exact": true,
+        "three_action_blocks": 75,
+        "feature_immutable": true,
+        "stateless_provider": true
+      },
+      "Drishti_GS": {
+        "full_state_exact": true,
+        "three_action_blocks": 75,
+        "feature_immutable": true,
+        "stateless_provider": true
+      }
+    },
+    "baseline_qualification": "V4 unchanged 390-step suite",
+    "legacy_synthetic_calls": 268
+  },
+  "native_audit": {
+    "status": "PASS",
+    "physical_calls": {
+      "smoke": 690
+    },
+    "duplicate_keys": 0,
+    "failures": 0,
+    "commit": "77cf65db6802ebbeaf2cd6b7c097fc11f0ebc2cc"
+  },
+  "native_final": {
+    "status": "COMPLETE",
+    "commit": "77cf65db6802ebbeaf2cd6b7c097fc11f0ebc2cc",
+    "time": 1791109428.392259,
+    "physical_calls": {
+      "smoke": 690
+    },
+    "peak_cuda_allocated": 1345675776
+  },
+  "synthetic": {
+    "status": "PASS",
+    "results": [
+      {
+        "task": "immediate",
+        "method": "PPO_MATCHED",
+        "before": 0.3333333432674408,
+        "after": 0.9864626526832581,
+        "target": 1,
+        "groups": 256
+      },
+      {
+        "task": "immediate",
+        "method": "GRPO_STD",
+        "before": 0.3333333432674408,
+        "after": 0.9978070855140686,
+        "target": 1,
+        "groups": 256
+      },
+      {
+        "task": "immediate",
+        "method": "GRPO_FS",
+        "before": 0.3333333432674408,
+        "after": 0.9969172477722168,
+        "target": 1,
+        "groups": 256
+      },
+      {
+        "task": "delayed",
+        "method": "PPO_MATCHED",
+        "before": 0.3333333432674408,
+        "after": 0.9497824907302856,
+        "target": 1,
+        "groups": 256
+      },
+      {
+        "task": "delayed",
+        "method": "GRPO_STD",
+        "before": 0.3333333432674408,
+        "after": 0.9937019348144531,
+        "target": 1,
+        "groups": 256
+      },
+      {
+        "task": "delayed",
+        "method": "GRPO_FS",
+        "before": 0.3333333432674408,
+        "after": 0.9940570592880249,
+        "target": 1,
+        "groups": 256
+      },
+      {
+        "task": "offline_RIM_ONE_r3",
+        "method": "PPO_MATCHED",
+        "before": 0.09955200552940369,
+        "after": 0.9914685487747192,
+        "target": 0,
+        "groups": 256
+      },
+      {
+        "task": "offline_RIM_ONE_r3",
+        "method": "GRPO_STD",
+        "before": 0.09955200552940369,
+        "after": 0.996285080909729,
+        "target": 0,
+        "groups": 256
+      },
+      {
+        "task": "offline_RIM_ONE_r3",
+        "method": "GRPO_FS",
+        "before": 0.09955200552940369,
+        "after": 0.9958705306053162,
+        "target": 0,
+        "groups": 256
+      },
+      {
+        "task": "offline_Drishti_GS",
+        "method": "PPO_MATCHED",
+        "before": 0.034819360822439194,
+        "after": 0.9809026718139648,
+        "target": 2,
+        "groups": 256
+      },
+      {
+        "task": "offline_Drishti_GS",
+        "method": "GRPO_STD",
+        "before": 0.034819360822439194,
+        "after": 0.991204559803009,
+        "target": 2,
+        "groups": 256
+      },
+      {
+        "task": "offline_Drishti_GS",
+        "method": "GRPO_FS",
+        "before": 0.034819360822439194,
+        "after": 0.9925312399864197,
+        "target": 2,
+        "groups": 256
+      }
+    ],
+    "optimizer_calls": {
+      "actor": 49200,
+      "critic": 16416
+    },
+    "math": {
+      "shift_invariance": true,
+      "population_std": true,
+      "equal_rewards_zero": true,
+      "clip_signs": true,
+      "GAE_terminal": true,
+      "shuffle_multiset": true,
+      "optimizer_restore_exact": true,
+      "U0_excluded": true
+    },
+    "real_reward_accesses": 0,
+    "no_repeat": true
+  },
+  "rng_correction_check": {
+    "status": "PASS",
+    "optimizer_calls": 16,
+    "independent_reward_permutation_stream": true,
+    "student_calls": 0
+  },
+  "role_check": {
+    "RIM_ONE_r3": {
+      "exact_V4_identity_match": true,
+      "counts": {
+        "online": 2,
+        "audit": 2,
+        "fit": 12
+      }
+    },
+    "Drishti_GS": {
+      "exact_V4_identity_match": true,
+      "counts": {
+        "online": 2,
+        "audit": 2,
+        "fit": 6
+      }
+    }
+  },
+  "initialization": {
+    "RIM_ONE_r3": {
+      "domain": "RIM_ONE_r3",
+      "panel_source": "all V4 h25 development states, seed then step",
+      "contexts": 192,
+      "alpha": 0.17641905695199966,
+      "entropy_before": 0.1402197629213333,
+      "entropy_after": 0.8788898587226868,
+      "argmax_agreement": 1.0,
+      "target": 0.8788898309344879,
+      "iterations": 64,
+      "reward_accesses": 0
+    },
+    "Drishti_GS": {
+      "domain": "Drishti_GS",
+      "panel_source": "all V4 h25 development states, seed then step",
+      "contexts": 126,
+      "alpha": 0.16336635500192642,
+      "entropy_before": 0.09252353757619858,
+      "entropy_after": 0.878889799118042,
+      "argmax_agreement": 1.0,
+      "target": 0.8788898309344879,
+      "iterations": 64,
+      "reward_accesses": 0
+    }
+  },
+  "phase": "calibration",
+  "active": [
+    {
+      "job": "cal_168_RIM_ONE_r3",
+      "gpu": 5,
+      "student_step": 50,
+      "physical_calls": {
+        "calibration": 50
+      },
+      "neutral_command_verified": true
+    },
+    {
+      "job": "cal_168_Drishti_GS",
+      "gpu": 6,
+      "student_step": 100,
+      "physical_calls": {
+        "calibration": 100
+      },
+      "neutral_command_verified": true
+    },
+    {
+      "job": "cal_169_RIM_ONE_r3",
+      "gpu": 7,
+      "student_step": 75,
+      "physical_calls": {
+        "calibration": 75
+      },
+      "neutral_command_verified": true
+    }
+  ],
+  "failed": [],
+  "pending": [
+    "cal_169_Drishti_GS",
+    "cal_170_RIM_ONE_r3",
+    "cal_170_Drishti_GS"
+  ],
+  "prior_setup": {
+    "run_id": "v5_group_rl_20261004T101244Z",
+    "student_calls": 0,
+    "synthetic_calls_retained": 65884,
+    "reason": "CuBLAS deterministic environment missing before first native update; corrected explicitly; no student replay"
+  },
+  "gpu_processes_verified": true
+}
