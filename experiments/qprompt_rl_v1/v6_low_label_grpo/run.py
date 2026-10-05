@@ -76,7 +76,7 @@ def start(root,c,j,gpu):
     if j.get('entry_job'):cfg['shared_entry_path']=str(dest.parent/j['entry_job']/'ENTRY.private.pt')
     write(dest/'CONFIG.private.json',cfg);write(dest/'SESSION.json',dict(start=time.time(),wall_clock_limit=None,fixed_caps=j['caps']))
     env=dict(os.environ,EXEC_RUN=str(dest),EXEC_CONFIG=str(dest/'CONFIG.private.json'),
-             EXEC_MODULE='experiments.qprompt_rl_v1.v6_low_label_grpo.worker',CUDA_VISIBLE_DEVICES=str(gpu))
+             EXEC_MODULE=c.get('worker_module','experiments.qprompt_rl_v1.v6_low_label_grpo.worker'),CUDA_VISIBLE_DEVICES=str(gpu))
     with (dest/'worker.log').open('a') as log:
         proc=subprocess.Popen(['bash','./with_nas_storage.sh']+COMMAND,cwd=Path(c['code'])/'experiments/lcrseg/scripts',
                               env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)

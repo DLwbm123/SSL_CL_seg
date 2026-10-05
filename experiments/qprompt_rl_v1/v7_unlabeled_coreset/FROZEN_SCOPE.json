@@ -1,0 +1,59 @@
+{
+  "protocol": "V7_UNLABELED_CORESET_PILOT",
+  "source_seed": 168,
+  "role_seed": 7101,
+  "nominal_label_percent": 20,
+  "labels": {
+    "RIM_ONE_r3": 16,
+    "Drishti_GS": 10
+  },
+  "reward_labels": {
+    "RIM_ONE_r3": 4,
+    "Drishti_GS": 2
+  },
+  "unlabeled_images": {
+    "RIM_ONE_r3": 63,
+    "Drishti_GS": 41
+  },
+  "selected_images": {
+    "RIM_ONE_r3": 16,
+    "Drishti_GS": 11
+  },
+  "horizons": {
+    "RIM_ONE_r3": 3200,
+    "Drishti_GS": 2100
+  },
+  "selection_interval": 100,
+  "grpo_group_size": 4,
+  "controller_seeds": [
+    601,
+    602
+  ],
+  "grpo_lr": 0.001,
+  "clip": 0.2,
+  "entropy": 0.01,
+  "group_reward_normalization": "population std, floor 1e-6",
+  "source_KL_penalty": 0.1,
+  "source_confidence_threshold": 0.7,
+  "unlabeled_source_anchors": 8,
+  "fixed_lambda_U": 0.5,
+  "endpoint_jobs": 18,
+  "preparation_training_jobs": 24,
+  "calls": {
+    "smoke": 24,
+    "development": 42400,
+    "actor": 1696,
+    "endpoint": 47700
+  },
+  "student_calls": 90124,
+  "synthetic_actor_calls": 16,
+  "wall_clock_limit": null,
+  "gpus": [
+    5,
+    6,
+    7
+  ],
+  "sealed_test_access": false,
+  "validation": "all campaign training complete before any val",
+  "prototype_RL": "deferred; not implemented in this pilot"
+}

@@ -1,0 +1,35 @@
+# V7: GRPO unlabeled-image coreset pilot
+
+Authorized 2026-10-05: start an experiment using GRPO; RETRIEVE is allowed. This finite mechanism pilot follows the stopped V6 campaign; it never resumes V6. Prototype/CLIP RL is deferred. No automatic follow-on experiment or retry.
+
+## Fixed population and student
+
+One frozen REFUGE source (segmentation seed 168, 8,000 updates), two independent adaptation endpoints: RIM_ONE_r3 3,200 updates and Drishti_GS 2,100 updates. Reuse the immutable original 20% labeled split: 16/10 labeled and 63/41 unlabeled images. Role seed 7101 removes 4/2 labeled patients for controller reward, leaving 12/8 student fit patients in **every** method, including NO_U and ALL_U. This does not acquire new annotations. Never read U ground truth or sealed test. Original 20 validation patients are historical development data, used only after all training is frozen. They cannot establish independent-patient confirmation.
+
+The native student, Adam, schedule, augmentation, EMA, three-class consistency KL and confidence threshold .7 are unchanged. Lambda U is .5, or 0 for NO_U. Every 100 updates select K=ceil(.25N), namely 16/11 U images. Within the next window the native stateless batch/geometry code samples from the canonically sorted subset; original steps-per-epoch stays fixed. All endpoints have identical student horizons. Reduced pool size is **not** a compute reduction claim.
+
+## GRPO
+
+Each domain has controller seeds 601 and 602. A 14→32 tanh→1 CPU policy scores each U image with twelve detached features: foreground teacher confidence (all-pixel fallback), confidence coverage, normalized entropy, rim/cup predicted fractions, foreground mass, teacher/student JS, argmax disagreement, log1p(clean consistency loss), normalized step, LR ratio, normalized actual image exposure; plus distance to the selected set and selected fraction. Embeddings are normalized spatial-mean native features. Initial logits are zero. Sample an ordered K-subset without replacement, train its canonically sorted set.
+
+At every window use four subsets drawn from the same policy and **same complete student/Adam/scheduler/EMA/RNG/provider entry state**. Each branch takes 100 real native updates. Reward is objective(after) minus objective(before), where objective is held-out labeled quality minus .1 source-probability KL. Quality is negative class-balanced NLL plus mean rim/cup soft-Dice loss. The source proxy is mean KL(source||current) on eight fixed target U images with source confidence >.7, normalized by all pixels. It measures prediction drift, not true old-domain retention. Old-domain Dice is evaluated separately after freeze.
+
+Use population group-standardized advantage with SD floor 1e-6, tokenwise clipped ratios [.8,1.2], entropy .01, Adam .001, gradient norm limit 1, four epochs of four sequence minibatches = 16 actor optimizer calls/window. No critic or extra reward scaling. After the policy update retain branch zero regardless of reward. Save branch transactions and latest policy/student state; interrupted work is not automatically retried. The final per-domain controller is frozen, then deployed greedily from the original common source; GRPO deployment never reads reward labels. The same patients underpin policy development and deployment, so this is a mechanism pilot, not domain generalization.
+
+## Matched controls
+
+Per domain: NO_U, ALL_U, foreground CONFIDENCE, embedding KCENTER, RETRIEVE_FO, and RANDOM/GRPO at both controller seeds (9 endpoints/domain, 18 total). Confidence and k-center recompute every 100 steps. K-center starts farthest from the pool mean, then maximizes nearest selected distance. RANDOM uses a private deterministic stream and no feature pass.
+
+RETRIEVE_FO is explicitly an adaptation of the first-order greedy approach in [RETRIEVE, NeurIPS 2021, equations 5–7](https://proceedings.neurips.cc/paper_files/paper/2021/file/793bc52a941b3951dfdb85fb04f9fd06-Paper.pdf), **not an official reproduction**. Compute clean per-image native consistency gradients across all trainable native adapter parameters; compute the clean student-fit labeled quality gradient. Greedily maximize LR-weighted alignment with the outer loss gradient at virtual theta = entry theta - per-parameter-group LR × (fit gradient + .5 × sum selected U gradients / K). Recompute outer gradient after each addition. Outer loss is the negative GRPO objective with the same held-out labels and source-drift proxy. Restore all parameters, buffers, RNG and optimizer state after selection; virtual steps never count as student optimizer updates, but all VJPs/image accesses and wall/CUDA intervals are recorded. Deviations from the paper include clean surrogate, full adapter gradients, held-out/proxy outer objective, native group LR and deterministic full greedy selection.
+
+## Qualification and finite budget
+
+Before performance training: CPU checks of unique subset sampling, replayed log probabilities, permutation equivariance and 16 nonzero actor updates. Each domain qualification checks absence of U labels; exact native ALL_U batch equivalence; feature/reward/virtual-selection state isolation; exact saved/restored continuation for ALL_U, subset and NO_U, with 2+2 updates each (12/domain). Reuse established native-engine golden/backward tests; no alteration of native equations.
+
+24 preparation/training jobs: 2 qualification, 4 learners, 18 endpoints. Student optimizer calls = 24 qualification + 42,400 development + 47,700 endpoints = **90,124**. Actor calls = 1,696 native-policy learning + 16 synthetic. Then 18 separate endpoint evaluation jobs, each evaluating source and endpoint on old REFUGE and its target domain. No wall-clock cutoff, no automatic scope expansion. GPUs 5/6/7, NAS-only outputs/cache/temp, neutral process arguments. All jobs depend on both qualifications. Failed work remains recorded and requires diagnosed, explicit repair; it is never silently erased from cost.
+
+## Prespecified screening and report
+
+Report all 18 rows (rim/cup/union/new macro/old REFUGE), paired differences, total development/selection/student/evaluation costs, reward dispersion and subset coverage. For each GRPO repeat compare with best of five fixed controls plus its matched RANDOM. Screen gate: mean gain versus best non-RL ≥.005; mean gain versus matched RANDOM ≥.005; mean old Dice change versus ALL_U ≥−.005; every old difference ≥−.01; every new difference versus best non-RL ≥−.0025; each controller's mean new gain positive. This is a screening signal only. Negative results remain negative; two controller random seeds do not provide independent patients or source seeds. No tuning, new method or second-stage run follows automatically.
+
+At actual completion publish source, frozen scope, sanitized results/costs/diagnostics and report to the project GitHub repository, then verify remote commit and anonymous access. Private images, patient IDs, raw checkpoints and runtime data remain on NAS. Background launch delivery does not claim experiment completion and does not create monitoring without a new request.
