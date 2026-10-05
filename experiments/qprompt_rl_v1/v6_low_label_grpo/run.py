@@ -160,7 +160,8 @@ def report(root,c,jobs,evaluations):
         writer=csv.DictWriter(f,fieldnames=list(rows[0]));writer.writeheader();writer.writerows(rows)
     write(root/'COSTS.json',dict(completed_calls=dict(cost),failed_attempt_calls=dict(retired),total_calls=dict(total),unparseable_failed_ledger_lines=partial_lines,synthetic_check=read(root/'CONTROLLER_CHECK.json'),measured_completed_intervals=dict(intervals),evaluators=eval_resources,note='CUDA intervals include host gaps, not exact kernel busy time; failed detail intervals may be incomplete.'))
     write(root/'POLICY_DIAGNOSTICS.json',policies);write(root/'REWARD_SUMMARY.json',rewards)
-    write(root/'COMPLETION_AUDIT.json',dict(status='PASS' if partial_lines==0 else 'COST_RECONCILIATION_REQUIRED',endpoints=len(rows),expected=len(evaluations),all_training_locked_before_val=True,jobs=audits))
+    early = read(root/'EARLY_EVALUATION_AMENDMENT.json') if (root/'EARLY_EVALUATION_AMENDMENT.json').exists() else None
+    write(root/'COMPLETION_AUDIT.json',dict(status='PASS' if partial_lines==0 else 'COST_RECONCILIATION_REQUIRED',endpoints=len(rows),expected=len(evaluations),all_training_locked_before_val=early is None,early_evaluation_amendment=early,jobs=audits))
     comparisons=[]
     for r in rows:
         if r['method']!='GRPO_FS':continue
