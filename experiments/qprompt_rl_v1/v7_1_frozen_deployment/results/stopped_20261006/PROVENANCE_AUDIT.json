@@ -1,0 +1,311 @@
+{
+  "status": "PASS",
+  "baseline_commit": "03224a49cef09a3325abb7d32ffd8762e678e880",
+  "actual_training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+  "execution_commit": "e22b71a65c644e97cffb163b04d6c9ab890b730f",
+  "source_student_hash": "ce999b296b43bc0640ad6cf11ae9a63490f97a1809fde71ed9f233d968b0649c",
+  "source_training_commit": "39f840b6d8a805116774149ade31427f3613388c",
+  "source_steps": 8000,
+  "source_seed": 168,
+  "policies": {
+    "RIM_ONE_r3/601": {
+      "sha256": "128d65a04fb595d580d03dcaacc40dea464be9f8cfdb18351deed8afec459e4c",
+      "tensor_hash": "be897f71f653537bad3c44d365ec552194819936c0607925aab43a4ee98ff302",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    },
+    "RIM_ONE_r3/602": {
+      "sha256": "a7813e76a3ec6ca7b6b27125367db14910eea19b342b5dbfbf3698850bb5d028",
+      "tensor_hash": "b285310d5b1b3f71eda8183720ef2c1dd33048eb0c1c7d9fb4976ba75bfee706",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    },
+    "Drishti_GS/601": {
+      "sha256": "d5d21e4e705a66e6d515e76a81c731c487a0535d3a7ebc6c73f3ef312a9fd9f4",
+      "tensor_hash": "3e830662dbca1b49b18b3616179b1c5aae803db8609413df44967646f94b9974",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    },
+    "Drishti_GS/602": {
+      "sha256": "05a70dccab89408ef3fd43ddbf65e2652ba0e4bf1132f7b2bf6d97fa6929bf83",
+      "tensor_hash": "c19588617962196ea8b03fb96373736ed6fda64ad05e0b6905697aec7e67c1cf",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    }
+  },
+  "roles": {
+    "RIM_ONE_r3": {
+      "sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "fit": 12,
+      "reward": 4,
+      "U": 63
+    },
+    "Drishti_GS": {
+      "sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "fit": 8,
+      "reward": 2,
+      "U": 41
+    }
+  },
+  "manifest_sha256": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "split_sha256": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "native_config": {
+    "RIM_ONE_r3": {
+      "total_steps": 3200,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 0.5,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.7,
+      "PAS_cosine": 0.5,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    },
+    "Drishti_GS": {
+      "total_steps": 2100,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 0.5,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.7,
+      "PAS_cosine": 0.5,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    }
+  },
+  "native_code_bindings": {
+    "experiments/qprompt_rl_v1/v7_unlabeled_coreset/controller.py": "9d62b1fd5dab75e3c6567a2930b8a7c1bec9fa3a15591a7d7810f787cdbf84f4",
+    "experiments/qprompt_rl_v1/v7_unlabeled_coreset/worker.py": "059d0d5b670987ebbfe74ba6658587cd266fd64303a25dc377c42d2cbfb47f30",
+    "experiments/qprompt_rl_v1/v7_unlabeled_coreset/protocol.py": "79338b18326d9984fb86a88fcad50618faa0cc0629d9a6aa329741d4a6fbb6a4",
+    "experiments/qprompt_rl_v1/v5_grpo_group_control/worker.py": "e378773199f36cf378eb68444ac80237630bec280bac71c15e9e48aaaf61aeb6",
+    "experiments/qprompt_rl_v1/v5_grpo_group_control/evaluator.py": "ec3bf971dddd5f7a7fd2d9ff979e5a62c9a758aa5d041d6597e765d0d1084154",
+    "experiments/qprompt_rl_v1/v4_rl_block_control/worker.py": "65e0f86aa514e6346c884d73a1bd87b0a019f65518d9701d0025a1c05e209f3b",
+    "experiments/qprompt_rl_v1/v4_rl_block_control/protocol.py": "4fb25472e6b98c376edb37dc9f1b53ae45a29e5dc9f1e5e3200779c637427df9",
+    "experiments/qprompt_rl_v1/v3b_lrref_endpoint/engine.py": "5b72d25c1664afa8bcffd17ab556c8fae00ef3cf6ee39c3232cb02a177833ea9",
+    "experiments/qprompt_rl_v1/v3b_lrref_endpoint/maths.py": "3c13ad28625b504be8355709855181993252e4a82283cd3d18a15608b31f7f15",
+    "experiments/qprompt_rl_v1/v3b_lrref_endpoint/runner.py": "cf226857572b3712fef0bad0e82ad8719777051a48b802d4345c50c82a5a7e8a",
+    "experiments/qprompt_rl_v1/v3b_lrref_endpoint/evaluator.py": "eed952349e30be4604adbe61b06123c70530eac776d84b7307c12be73ef2eb1d",
+    "experiments/lcrseg/five_frameworks_v1/native_parent.py": "79fc5f98638b4e9076bb361cabf129a3d090d77222029b4be234bb953e7e0ea1",
+    "experiments/lcrseg/five_frameworks_v1/native_data.py": "60d6cb311902581563be69d52f3f3f05d28763935d7a90e31ddafaa18e80905b",
+    "experiments/lcrseg/five_frameworks_v1/native_runner.py": "35da00bba9f50ac9a68ff0e1dc5d35695f87901939bfcbb99d9775a6f4d3fa98",
+    "experiments/lcrseg/five_frameworks_v1/train_stage.py": "6cc45591f7a2d47699964ba4ffc7dda334d77890f991e6e839a928ed4f9cd112",
+    "experiments/lcrseg/five_frameworks_v1/model.py": "1b5528269a3cbbf6522254b3cd626a8215fae05f07e52010b3c4caf07c2532eb",
+    "experiments/lcrseg/five_frameworks_v1/recipes.py": "07b09d04ec32df4cc0ab7c86ebca55c0f420d4a275db2a8dcb7e80a04d5686bf",
+    "experiments/lcrseg/five_frameworks_v1/checkpoint.py": "02f9a3342c107a5ade78b4637d449d25e8b69c94f6fb3f067d6e886d4cd4d64e",
+    "experiments/lcrseg/five_frameworks_v1/semantics.py": "65a05fe4a2a051670ef1eb23f6e583bb55270019939e5235db7a65e0b0351876",
+    "experiments/lcrseg/five_frameworks_v1/numerics.py": "333fa23815629b970fa947fe06d3146f35f8e5f3a5fd9e1cd67d619e6a21a23a",
+    "experiments/lcrseg/single_teacher_scd_v0_1/data.py": "ff9ef65819bbee6b69594fcf9547cf43d5edebef6094f9b5e38b43274227fa81",
+    "experiments/lcrseg/single_teacher_scd_v0_1/engine.py": "daa62edc53ce4a7d3971aadceafcde399613045667fbcc018e44ed4a53c05a29",
+    "experiments/lcrseg/lctx_weight_memory_v0_1/core.py": "ccb12f5283a45825eee8b52ea8e5b1f26fb3d62dab737c43128bf693487fa7c1",
+    "experiments/lcrseg/di_dmpa_jascl/modeling.py": "3c6f0c1621eb90b53bfcbd814bc511342e6bf677847906bbe06769d1e77af190",
+    "experiments/lcrseg/ssl_anchored_mix_v0_1/core.py": "63e27d44d5f1c265c9caa3b4c34512ba25fb94a0b55699ef4bf88a6cffc06878"
+  },
+  "reference_upstream": "3c93ca70784fc3a1d2a887f8d7dce5af6bc75f53",
+  "baselines": [
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "NO_U",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "ALL_U",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "CONFIDENCE",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "KCENTER",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "RETRIEVE_FO",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "RANDOM",
+      "controller": 601,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "GRPO",
+      "controller": 601,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "RANDOM",
+      "controller": 602,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "RIM_ONE_r3",
+      "method": "GRPO",
+      "controller": 602,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "NO_U",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "ALL_U",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "CONFIDENCE",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "KCENTER",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "RETRIEVE_FO",
+      "controller": null,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "RANDOM",
+      "controller": 601,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "GRPO",
+      "controller": 601,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "RANDOM",
+      "controller": 602,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    },
+    {
+      "domain": "Drishti_GS",
+      "method": "GRPO",
+      "controller": 602,
+      "source_old": 0.8312521893690732,
+      "role_sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "entry_state_hash": "a3cf45edd15b235c44d1a2b72788bffda296ba4be8b94f45b0c664959574096e",
+      "status": "PASS",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d"
+    }
+  ],
+  "read_scope": "metadata and saved states only; no image reads"
+}

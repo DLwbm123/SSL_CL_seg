@@ -1,5 +1,6 @@
 """Read-only diagnostics of states that actually survived V7."""
 import copy, itertools, math, io as bytesio
+from pathlib import Path
 import numpy as np
 import torch
 from .worker import v,w,e,q,p,ROOT,C,load,policy,oldjob,Uniform,sample

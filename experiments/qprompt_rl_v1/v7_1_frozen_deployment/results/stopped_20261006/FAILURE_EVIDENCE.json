@@ -1,0 +1,16 @@
+{
+  "status": "FAILED",
+  "error_type": "NameError",
+  "message": "name 'Path' is not defined",
+  "file": "experiments/qprompt_rl_v1/v7_1_frozen_deployment/diagnosis.py",
+  "executed_line": 121,
+  "executed_commit": "e22b71a65c644e97cffb163b04d6c9ab890b730f",
+  "failed_jobs": [
+    "diagnosis_Drishti_GS",
+    "diagnosis_RIM_ONE_r3"
+  ],
+  "phase": "A_DIAGNOSIS_C1",
+  "cause": "Missing pathlib.Path import in new diagnostic module, encountered while assembling historical exposure diagnostics.",
+  "remediation": "One missing import corrected in subsequent local source; no run or qualification retry. Executed NAS snapshot and failure logs preserved.",
+  "diagnostic_metrics": "Policy distributions and partial reward decompositions computed in memory were not serialized before failure; unavailable as verified result artifacts."
+}
