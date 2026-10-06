@@ -1,10 +1,17 @@
 {
-  "status": "SPECIFIED_NOT_IMPLEMENTED",
-  "first_domain": "0.25*(new25-new_entry)+0.75*(new100-new_entry)-max(0,old_memory_reference-old100-.005)",
-  "target": "0.25*(probe25-probe_entry)+0.75*(probe100-probe_entry)-.1*max(0,K_after-K_entry)",
-  "sigma_floor": "max(1e-4,median(abs(r_stream1-r_stream2))/sqrt(2))",
-  "measured_sigma_floor": null,
-  "query_roles": "NOT_ASSIGNED",
-  "dev_improvement_operational_definition": "NOT_FROZEN",
-  "note": "No rewards, role splits, actors, auxiliary model or training trajectories exist."
+  "status": "FROZEN",
+  "dice": "image-equal rim/cup-equal soft Dice; smoothing +1 numerator and denominator; valid label !=255",
+  "D1_gain": ".25*(new25-new_entry)+.75*(new100-new_entry)",
+  "D1_forget": "max(0,old_frozen_memory_reference-old100-.005)",
+  "D1_reward": "gain-forget",
+  "sigma_floor": "max(1e-4,median(abs(r1-r2))/sqrt(2))",
+  "fixed_best": "mean reward across all 8 contexts and both streams; tie native, smaller alpha, action ID",
+  "target_gain": "same 25/100 probe gain",
+  "target_forget": ".1*max(0,current_U_KL_after-current_U_KL_entry)",
+  "target_anchors": "first 8 lexicographically sorted current U cases; frozen task-entry argmax regions bg/rim/cup; mean full categorical KL per supported region then supported-region mean; missing regions excluded and recorded",
+  "actor_epochs": 4,
+  "full_group": true,
+  "entropy": 0.01,
+  "behavior_KL_stop": 0.02,
+  "temperature": 1
 }

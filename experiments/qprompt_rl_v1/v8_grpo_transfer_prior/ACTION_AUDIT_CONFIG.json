@@ -1,0 +1,84 @@
+{
+  "status": "FROZEN",
+  "role_seed": 8601,
+  "unit": "image",
+  "memory_steps": [
+    2000,
+    8000
+  ],
+  "supports": [
+    2,
+    8
+  ],
+  "train_conditions": [
+    [
+      "brightness",
+      0.8
+    ],
+    [
+      "contrast",
+      1.2
+    ]
+  ],
+  "dev_conditions": [
+    [
+      "brightness",
+      1.2
+    ],
+    [
+      "contrast",
+      0.8
+    ]
+  ],
+  "dev_contexts": [
+    [
+      2000,
+      2,
+      "brightness",
+      1.2
+    ],
+    [
+      2000,
+      8,
+      "contrast",
+      0.8
+    ],
+    [
+      8000,
+      2,
+      "contrast",
+      0.8
+    ],
+    [
+      8000,
+      8,
+      "brightness",
+      1.2
+    ]
+  ],
+  "photo_primitive": "brightness and luminance-centered contrast formulas from native data.strong; deterministic, spatially aligned",
+  "student_stream_seeds": [
+    10168,
+    20168
+  ],
+  "global_stream_seeds": [
+    860101,
+    860102
+  ],
+  "entry_seed": 168,
+  "virtual_training_horizon": 900,
+  "virtual_development_horizon": 300,
+  "entry_steps": 100,
+  "rollout_steps": 100,
+  "paired_actions": true,
+  "dev_learning_retention_OR": [
+    {
+      "new_gain_min": 0.002,
+      "old_change_min": -0.005
+    },
+    {
+      "old_change_min": 0.005,
+      "new_gain_min": -0.0025
+    }
+  ]
+}

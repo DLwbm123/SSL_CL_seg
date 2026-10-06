@@ -1,27 +1,121 @@
 {
-  "status": "NOT_FINALIZED",
-  "reason": "Stopped before operational schema and role freezing; no controller implemented.",
-  "requested_dimensions": 24,
-  "architecture": [
-    24,
-    32,
-    9
+  "status": "FROZEN",
+  "dimension": 24,
+  "features": [
+    {
+      "index": 0,
+      "name": "progress"
+    },
+    {
+      "index": 1,
+      "name": "lr_ratio"
+    },
+    {
+      "index": 2,
+      "name": "bg_fraction"
+    },
+    {
+      "index": 3,
+      "name": "rim_fraction"
+    },
+    {
+      "index": 4,
+      "name": "cup_fraction"
+    },
+    {
+      "index": 5,
+      "name": "bg_probability"
+    },
+    {
+      "index": 6,
+      "name": "rim_probability"
+    },
+    {
+      "index": 7,
+      "name": "cup_probability"
+    },
+    {
+      "index": 8,
+      "name": "entropy_three"
+    },
+    {
+      "index": 9,
+      "name": "entropy_disc_bg"
+    },
+    {
+      "index": 10,
+      "name": "conditional_rim_cup_entropy"
+    },
+    {
+      "index": 11,
+      "name": "fine_confidence"
+    },
+    {
+      "index": 12,
+      "name": "coarse_confidence"
+    },
+    {
+      "index": 13,
+      "name": "student_EMA_JS"
+    },
+    {
+      "index": 14,
+      "name": "supervised_loss_bounded"
+    },
+    {
+      "index": 15,
+      "name": "student_EMA_disagreement"
+    },
+    {
+      "index": 16,
+      "name": "memory_available"
+    },
+    {
+      "index": 17,
+      "name": "label_fraction"
+    },
+    {
+      "index": 18,
+      "name": "memory_confidence"
+    },
+    {
+      "index": 19,
+      "name": "memory_flip_agreement"
+    },
+    {
+      "index": 20,
+      "name": "memory_EMA_JS"
+    },
+    {
+      "index": 21,
+      "name": "rim_memory_EMA_JS"
+    },
+    {
+      "index": 22,
+      "name": "cup_memory_EMA_JS"
+    },
+    {
+      "index": 23,
+      "name": "effective_weight_change"
+    }
   ],
-  "activation": "Tanh",
-  "zero_output_layer": true,
-  "base_dimensions": 16,
-  "progress": "step / registered_current_task_steps",
-  "new_features": [
-    "memory_available",
-    "n_L/(n_L+n_U)",
-    "memory_confident_fraction",
-    "memory_flip_agreement",
-    "normalized_JS_overall",
-    "normalized_JS_rim",
-    "normalized_JS_cup",
-    "normalized_effective_weight_change"
+  "progress": "step / registered task horizon; 900 virtual train, 300 virtual dev, 3200 RIM, 2100 Drishti",
+  "native16": "existing state_vector except progress denominator",
+  "normalization": "JS / ln(2), entropies / ln(classes), supervised loss L/(1+L); effective-weight Frobenius delta/(entry norm+delta)",
+  "regions": "current EMA detached argmax == rim/cup within valid",
+  "missing": "empty region -> 0; memory-unavailable -> features 18..22 = 0 with memory_available=0",
+  "source": "current fit L and current U only",
+  "roles": [
+    "A_fit",
+    "U_adapt",
+    "current_target_fit",
+    "current_target_U"
   ],
-  "missing_values": "NOT_FROZEN",
-  "region_rules": "NOT_FROZEN",
-  "access_roles": "NOT_ASSIGNED"
+  "forbidden": [
+    "query labels",
+    "domain name",
+    "image ID",
+    "old validation",
+    "sealed test"
+  ]
 }
