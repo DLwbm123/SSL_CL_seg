@@ -1,59 +1,35 @@
 {
-  "run_id": "v8_image_20261006T114750Z_envfix_fp32",
-  "execution_commit": "9db606e802671edc08be2748e7d8d2282bfb918f",
-  "gpu": 5,
-  "checked_at": 1791288361.0929296,
-  "status": {
-    "status": "RUNNING",
-    "phase": "ACTION_AUDIT",
-    "completed": 5,
-    "total": 144,
-    "physical": {
-      "qualification": 21,
-      "actor_qualification": 4,
-      "auxiliary": 8000,
-      "entries": 100,
-      "audit": 500
+  "status": "STOP_PRIOR_NOT_TRANSFERABLE_IN_D1_SCREEN",
+  "gates": {
+    "601": {
+      "utility_improved": false,
+      "learning_retention_improved": false,
+      "new_vs_uniform": -0.0015290100127458572,
+      "old_vs_uniform": -0.0002617165446281433
+    },
+    "602": {
+      "utility_improved": false,
+      "learning_retention_improved": false,
+      "new_vs_uniform": -0.0005645006895065308,
+      "old_vs_uniform": 0.00013288110494613647
     }
   },
-  "qualification": {
-    "status": "PASS",
-    "checks": {
-      "native_loss_gradient": "PASS",
-      "target_detach_normalization_and_empty_support": "PASS",
-      "private_rng_zero_uniform_legal_mask": "PASS",
-      "native_update": "PASS",
-      "continuous_vs_2_plus_2_and_full_restore": "PASS",
-      "isolated_features_and_frozen_memory": "PASS",
-      "actor_isolation_full_group": "PASS",
-      "physical_ledger_not_rolled_back": "PASS",
-      "role_scoping_and_history_free_query": "PASS",
-      "permit_required": "PASS",
-      "A_only_and_single_student_deployment": "PASS"
-    },
-    "physical_counts": {
-      "qualification": 21,
-      "actor_qualification": 4
-    },
-    "scope": "image-level exploratory; not patient-independent"
+  "physical": {
+    "entries": 400,
+    "development": 4000
   },
-  "counts": {
-    "qualification": 21,
-    "actor_qualification": 4,
+  "C": "NOT_RUN_IMPLEMENTATION_PENDING",
+  "D": "NOT_RUN",
+  "time": 1791311431.6286907,
+  "physical_cumulative": {
+    "qualification": 29,
+    "actor_qualification": 8,
     "auxiliary": 8000,
-    "entries": 100,
-    "audit": 558
+    "entries": 1200,
+    "audit": 14400,
+    "prior": 51200,
+    "actor_prior": 136,
+    "development": 4000
   },
-  "success": {
-    "qualification": 21,
-    "actor_qualification": 4,
-    "auxiliary": 8000,
-    "entries": 100,
-    "audit": 558
-  },
-  "action_run_id": "v8_image_20261006T114750Z_actions",
-  "action_execution_commit": "24aff31a8464fcb95e8b1ecea7139c00785689ee",
-  "handoff": "A reserved create-only boundary holds the source worker after all 8000 auxiliary updates; a detached coordinator carries ledger and roles into the corrected action worker without source retraining.",
-  "snapshot_note": "Time-stamped physical attempts and successes; not a live progress stream.",
-  "source_status": "SEALED"
+  "publication": "PENDING"
 }

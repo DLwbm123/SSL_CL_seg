@@ -1,9 +1,5 @@
-# First-domain GRPO prior — running
+# First-domain priors: complete, gate failed
 
-Stage A passed exactly 4/8 contexts. Both controller seeds 601 and 602 have started after stage-B qualification passed (8 additional real student updates and 4 actor qualification updates). Stage A/repair costs are carried forward, not reset.
+Both seeds completed 64 groups and 25,600 candidate student updates. Actor 601 made 72 optimizer updates and skipped 46 groups; actor 602 made 64 updates and skipped 48 groups. Both final checkpoints are retained on NAS. All group rewards, states, probabilities and diagnostics are published in B_PRIOR_601_GROUPS.jsonl and B_PRIOR_602_GROUPS.jsonl.
 
-Each prior has 64 groups, four 100-step candidates per group, paired full-state entry restoration and branch-zero continuation. Low-signal groups are skipped without replacement. The frozen sigma floor is 0.002027520245732116. Actor updates are at most four full-group epochs per group. Both final policies are retained.
-
-The registered development stage runs 20 endpoints (four fixed contexts × five methods, 200 updates each), plus 400 shared entry updates. All 20 finish training before Q_dev is read. Development gates and utility are frozen in B_RUN_CONFIG.json. No target-domain endpoint has run.
-
-No GRPO effectiveness conclusion is available yet. Progress is a time-stamped snapshot in B_RUN_STATUS.json, not a live counter.
+All 20 development endpoints were sealed before readout. Both priors have lower mean utility than the matched uniform controller. See B_FINAL_REPORT.md and B_DEVELOPMENT_RESULTS.json. No target training or low-label comparison ran.

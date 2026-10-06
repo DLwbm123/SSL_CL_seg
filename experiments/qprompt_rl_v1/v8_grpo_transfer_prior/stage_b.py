@@ -157,6 +157,12 @@ def main():
     decision=e.read(Path(config['action_root'])/'ACTION_DECISION.json');assert decision['status']=='PASS_ACTION_SIGNAL'
     roles=c.split_roles(config['data']);assert roles==e.read(Path(config['action_root'])/'ROLES.private.json')
     config.update(sigma_floor=decision['sigma_floor'],fixed_best=decision['fixed_best'],action_rows=[json.loads(s) for s in (Path(config['action_root'])/'ACTION_ROWS.jsonl').read_text().splitlines()])
+    if 'sigma_floor_override' in config:
+        from experiments.qprompt_rl_v1.v81_paired_noise.round import paired_floor
+        assert config['protocol']=='V81_PAIRED_NOISE'
+        assert e.read(Path(config['prior_campaign'])/'DECISION.json')['status']=='STOP_PRIOR_NOT_TRANSFERABLE_IN_D1_SCREEN'
+        assert abs(config['sigma_floor_override']-paired_floor(config['action_rows']))<1e-12
+        config['sigma_floor']=config['sigma_floor_override']
     try:
         {'qualification':qualify,'prior':learn,'development':development}[config['job']](root,config,roles,ledger)
         if config['job']=='qualification':e.write(root/'FINAL.json',dict(status='COMPLETE',physical=dict(ledger.count)))

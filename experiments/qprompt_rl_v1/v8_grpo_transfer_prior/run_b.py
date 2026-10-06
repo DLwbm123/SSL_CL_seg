@@ -16,8 +16,9 @@ JOBS=[dict(id='qualification',job='qualification',caps=dict(qualification=8,acto
 
 
 class Accounting:
-    def __init__(self,root):
+    def __init__(self,root,caps=None):
         self.root=root;self.offsets={};self.count=Counter();self.success=Counter();self.failure=Counter()
+        self.caps=caps or dict(qualification=128,actor_qualification=128,auxiliary=8000,entries=1200,audit=14400,prior=51200,actor_prior=512,development=4000)
         for line in (root/'PHYSICAL_LEDGER.jsonl').read_text().splitlines():
             row=json.loads(line);self.consume(row)
     def consume(self,row):
@@ -33,8 +34,7 @@ class Accounting:
                     if not line or not line.endswith('\n'):self.offsets[job['id']]=pos;break
                     row=dict(json.loads(line),job=job['id']);self.consume(row)
                     with (self.root/'PHYSICAL_LEDGER.jsonl').open('a') as out:out.write(json.dumps(row)+'\n');out.flush()
-        caps=dict(qualification=128,actor_qualification=128,auxiliary=8000,entries=1200,audit=14400,prior=51200,actor_prior=512,development=4000)
-        assert all(n<=caps[k] for k,n in self.count.items())
+        assert all(n<=self.caps[k] for k,n in self.count.items())
         write(self.root/'COSTS.json',dict(attempts=dict(self.count),success=dict(self.success),failures=dict(self.failure),includes_stage_A=True,common_source_historical_student_updates=8000,updated=time.time()))
 
 

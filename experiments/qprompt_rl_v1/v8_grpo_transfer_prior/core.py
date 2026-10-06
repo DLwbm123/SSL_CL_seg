@@ -190,7 +190,8 @@ class Trainer(e.Trainer):
 def permit(config,seed=168,order=1,stage=0):
     domain=e.primitive.DOMAINS[0] if stage==0 else e.DOMAINS[order-1]
     identity=dict(domain=domain,seed=seed,order=order,stage=stage,manifest=e.primitive.MANIFEST_SHA,split=e.primitive.SPLIT_SHA)
-    return e.ExecutionPermit(dict(execution_scope='formal',code_commit=config['commit'],authorized_manifest_digests=[e.digest(identity)],authorization='V8 image-level user amendment'),('V8',),CAPS,e._PERMIT_SEAL)
+    protocol=config.get('protocol','V8')
+    return e.ExecutionPermit(dict(execution_scope='formal',code_commit=config['commit'],authorized_manifest_digests=[e.digest(identity)],authorization=protocol+' image-level user amendment and continuing iteration authority'),(protocol,),CAPS,e._PERMIT_SEAL)
 
 
 def create(config,roles,payload,ledger,n=8,condition=('brightness',.8),seed=168,horizon=900):
