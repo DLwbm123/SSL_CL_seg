@@ -25,7 +25,7 @@ def scores(t,roles,role,condition):
 
 
 def qualify(root,config,roles,ledger):
-    checks={};torch.manual_seed(8601)
+    start_count=ledger.count.copy();checks={};torch.manual_seed(8601)
     logits=torch.randn(2,3,5,5,requires_grad=True);p=logits.softmax(1);q=torch.randn_like(p).softmax(1);q[:,0]=.9;q[:,1:]=.05;valid=torch.ones(2,5,5,dtype=torch.bool)
     a=c.transfer_loss(p,q,valid,0)[0];b=e.u_loss(p,q,valid,2)[0]
     assert torch.equal(a,b) and torch.equal(torch.autograd.grad(a,logits,retain_graph=True)[0],torch.autograd.grad(b,logits)[0]);checks['native_loss_gradient']='PASS'
@@ -59,13 +59,13 @@ def qualify(root,config,roles,ledger):
     mid=c.snapshot(t);e.atomic_save(mid,root/'QUALIFICATION_ENTRY.private.pt');loaded=torch.load(root/'QUALIFICATION_ENTRY.private.pt',map_location='cpu',weights_only=False);c.restore(t,loaded)
     for _ in range(2):t.update()
     assert e.same(continuous,c.snapshot(t));checks['continuous_vs_2_plus_2_and_full_restore']='PASS'
-    before=c.snapshot(t);z=t.extract();assert e.same(before,c.snapshot(t));assert float(z[0])==float(torch.tensor(t.step/t.options['total_steps']))
+    before=c.snapshot(t);z=t.extract();assert e.same(before,c.snapshot(t)), 'feature isolation changed full state';assert float(z[0])==float(torch.tensor(t.step/t.options['total_steps']))
     mem=e.cpu(t.memory.state_dict());t.action=8;t.update();assert e.same(mem,t.memory.state_dict()) and all(p.grad is None for p in t.memory.parameters())
     checks['isolated_features_and_frozen_memory']='PASS'
     before=c.snapshot(t);opt=torch.optim.Adam(actor.parameters(),lr=.001)
     result=c.actor_update(actor,opt,z,[0,1,2,3],[0.,.01,.02,.03],1e-4,ledger,'actor_qualification','full_group')
     assert len(result['updates'])<=4 and e.same(before,c.snapshot(t));checks['actor_isolation_full_group']='PASS'
-    count=ledger.count.copy();c.restore(t,entry);assert ledger.count==count and ledger.count['qualification']==11;checks['physical_ledger_not_rolled_back']='PASS'
+    count=ledger.count.copy();c.restore(t,entry);assert ledger.count==count and ledger.count['qualification']-start_count['qualification']==11;checks['physical_ledger_not_rolled_back']='PASS'
     fit={r['case_id'] for r in t.provider._l.rows};u={r['case_id'] for r in t.provider._u.rows};queries=set(x for k,v in roles.items() if k.startswith('Q_') for x in v)
     assert not (fit|u)&queries and not any('label' in k for r in t.provider._u.rows for k in r)
     try:c.subset(t.provider._l,roles['Q_train_old'])

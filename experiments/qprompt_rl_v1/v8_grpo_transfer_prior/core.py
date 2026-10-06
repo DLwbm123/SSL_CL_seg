@@ -184,7 +184,7 @@ class Trainer(e.Trainer):
                 delta=sum(float((a.effective_weight()-w.to(a.a)).square().sum()) for a,w in zip(self.model.parent.adapters,self.entry_weights))**.5
                 norm=sum(float(w.square().sum()) for w in self.entry_weights)**.5
                 extra += [delta/max(norm+delta,1e-12)]
-            z=torch.cat((base.cpu(),torch.tensor(extra)));assert z.shape==(24,) and torch.isfinite(z).all();return z
+            z=torch.cat((base.cpu(),torch.tensor(extra))).float();assert z.shape==(24,) and torch.isfinite(z).all();return z
 
 
 def permit(config,seed=168,order=1,stage=0):
