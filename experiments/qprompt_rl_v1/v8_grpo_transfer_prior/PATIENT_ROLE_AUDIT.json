@@ -1,5 +1,5 @@
 {
-  "status": "BLOCKED_PATIENT_IDENTITY_UNVERIFIED",
+  "status": "AUTHORIZED_IMAGE_LEVEL_EXPLORATION",
   "metadata_consistency": "PASS",
   "counts": {
     "REFUGE": {
@@ -41,10 +41,10 @@
   },
   "distinct_clinical_patients": null,
   "manifest_patient_id_origin": "case_id alias",
-  "patient_disjointness": "UNVERIFIED",
+  "patient_disjointness": "UNVERIFIED_NOT_CLAIMED",
   "case_uniqueness": "PASS",
   "actual_leakage_demonstrated": false,
-  "roles_assigned": false,
+  "roles_assigned": true,
   "proposed_counts_if_one_case_per_patient": {
     "M_fit": 16,
     "A_fit": 8,
@@ -53,7 +53,7 @@
     "Q_dev_old": 4,
     "Q_dev_new": 4
   },
-  "first_domain_label_budget_status": "UNRESOLVED_PATIENT_COUNT",
+  "first_domain_label_budget_status": "40_IMAGES_AUTHORIZED_NO_LABEL_EXPANSION",
   "note": "40 labeled images meet the arithmetic threshold only if 40 distinct patients are verified. No clinical patient map or binding one-image-per-patient provenance was supplied. A case-level disjointness test cannot establish patient disjointness.",
   "reads": {
     "metadata_only": true,
@@ -75,5 +75,17 @@
     "local_metadata_sidecars_found": 0,
     "new_optimizer_calls": 0,
     "report": "IDENTITY_RESOLUTION.md"
-  }
+  },
+  "case_disjointness": "PASS_RUNTIME_ASSERTION",
+  "actual_image_roles": {
+    "M_fit": 16,
+    "A_fit": 8,
+    "Q_train_old": 4,
+    "Q_train_new": 4,
+    "Q_dev_old": 4,
+    "Q_dev_new": 4,
+    "U_memory": 80,
+    "U_adapt": 80
+  },
+  "unit": "image"
 }

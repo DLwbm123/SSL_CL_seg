@@ -1,3 +1,5 @@
 # Prior training
 
-Status: **NOT_RUN**. Patient identity admission was blocked before training. No measured action effects, policy learning, transfer, or performance conclusions are available. See PATIENT_ROLE_AUDIT.json and FINAL_INTERPRETATION.md.
+NOT_RUN; permitted only after the frozen action screen passes. Actor qualification updates are not policy pretraining.
+
+Image-level exploration is explicitly authorized; patient independence remains unverified and is not claimed. See RUN_STATUS.json and QUALIFICATION.json.

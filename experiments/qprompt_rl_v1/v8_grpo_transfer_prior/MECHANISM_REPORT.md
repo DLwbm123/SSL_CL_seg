@@ -1,3 +1,5 @@
 # Mechanism
 
-Status: **NOT_RUN**. Patient identity admission was blocked before training. No measured action effects, policy learning, transfer, or performance conclusions are available. See PATIENT_ROLE_AUDIT.json and FINAL_INTERPRETATION.md.
+Native loss/update parity, restoration, feature isolation, frozen memory and actor isolation passed. Performance mechanisms remain unmeasured.
+
+Image-level exploration is explicitly authorized; patient independence remains unverified and is not claimed. See RUN_STATUS.json and QUALIFICATION.json.

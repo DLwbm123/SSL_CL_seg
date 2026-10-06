@@ -1,44 +1,22 @@
-# V8 — 训练前患者身份阻断
+# V8 image-level exploratory campaign — running
 
-状态：**BLOCKED_PATIENT_IDENTITY_UNVERIFIED**。本轮完成了只读准入审计，性能实验未启动；学生和控制器 optimizer.step 均为 **0**。
+The user explicitly authorized image-level exploration without claims of patient-independent generalization. Forty permitted REFUGE labeled images are split 16/8/4/4/4/4 across memory fit, adaptation fit, and four query roles; 160 U images are split 80/80. Clinical patient disjointness remains unverified. No extra labels are unlocked.
 
-## 阻断证据
+Native qualification passed. Clean auxiliary first-task training is running; it starts from native random initialization and accesses only the 16 M_fit labels. The native source entry does not consume U. No validation or query readout is performed by auxiliary training. Its 2,000- and 8,000-step states feed the frozen paired action screen.
 
-服务器冻结清单与 split 元数据一致，规定的原有摘要检查通过。REFUGE 当前允许 **40 张标注图像、160 张 U 图像**；RIM 为 16/63，Drishti 为 10/41。
+The CUDA launch environment was repaired before any optimizer update. A feature precision qualification assertion was then repaired; its 10 student updates remain in the cumulative ledger. Successful qualification added 11 student and 4 actor updates. Static undefined-name checks passed.
 
-但 `experiments/lcrseg/lcrseg/audit.py` 的 `_fundus_pairs()` 明确将 `patient_id` 设置为文件级 `case_id`。`splits.py` 的历史 `patient_overlap_check=passed` 检查这些生成标识的唯一性，不能据此证明临床患者互斥。检查到的原始 7 份索引只有 image/mask 列，没有患者映射。
+Stage A is implemented and queued after auxiliary training. B/C/D remain NOT_RUN and require their implementation and qualification before dependent launch. An A failure stops this V8 branch; the hourly workflow may propose and preregister a separate improvement round under the user's continuing authorization.
 
-因此，目前只能核验图像及清单标识数量，不能确认“40 位独立患者”，也不能确认 query 患者与所有训练 U 互斥。如果每张图像确属不同患者，16/8/4/4/4/4 的角色数量在算术上满足要求；这份角色划分尚未实施。此处不是 `FIRST_DOMAIN_LABEL_BUDGET_INSUFFICIENT`，因为真实人数尚未得到确认；也没有证明发生患者重复或数据泄漏。
+## Questions not yet answered
 
-补充查阅了 [REFUGE 原始论文第 3.1 节](https://arxiv.org/html/1910.03667)，其中说明了图像采集及匿名化，但该节不能将本地文件绑定到独立患者。没有据此假定患者映射。
+1. Useful action signal: not measured yet.
+2. GRPO versus uniform: not run.
+3. GRPO versus fixed structure: not run.
+4. First-domain prior versus target cold start: not run.
+5. Online cost/value: not run.
+6. Low-label advantage: not run.
+7. Relative retention versus absolute forgetting: not measured.
+8. Deployment recommendation: no evidence yet.
 
-你的方案要求“遇到来源、患者角色、训练恢复、权限或预算阻断时，保存证据并停止”。本次按此要求停止，不使用 case 互斥替代患者互斥，不修改历史冻结 split。V7/V7.1 既有结果保持原样，本次不据缺失证据判定它们已经泄漏。
-
-## 已核验的底座
-
-基准提交为 `09d33e8d031ce7f4e50ea4d7a384360528b1127d`。共同 REFUGE 源的现场 receipt 记录 seed 168、8,000 次历史更新，身份与 V7.1 记录相符；本次未读取 checkpoint payload，也不声称重新验证了其字节或张量。原生首任务使用随机初始化、完整参数监督 CE 训练、Adam 与原有多项式学习率；原生首任务不使用 U 或 EMA。后续阶段使用指定的 A-only 参数化和单学生部署，均未修改。
-
-已保存完整授权方案及预算。仅实现、检查了可复用的元数据审计。性能实现、患者角色分配、完整特征缺失语义和执行许可均未完成/签发；对应文件明确标记状态，不能作为训练资格通过的证据。未读取图像、标签数组或 sealed-test payload。
-
-## 八个问题逐项回答
-
-1. 动作空间是否存在可利用信号：**NOT_RUN，无法判断**。
-2. GRPO 是否超过均匀动作：**NOT_RUN，无法判断**。
-3. GRPO 是否超过固定监督配方：**NOT_RUN，无法判断**。
-4. 第一域预训练是否优于目标域冷启动：**NOT_RUN，无法判断**。
-5. 在线适应是否值得标签与计算成本：**NOT_RUN，无法判断**。
-6. 低标注收益是否成立：**NOT_RUN，无法判断**；未生成低标注性能结果。
-7. 旧域改善属于相对保持还是绝对遗忘减少：**没有 V8 性能数据**。
-8. 当前证据支持哪种部署方式：**不能推荐 V8 部署**；阻断不是 GRPO 无效的科学结论。
-
-阶段 A/B/C/D 均未执行。既有共同源 8,000 次历史更新单独披露，本次新训练成本为零。没有训练辅助模型、控制器或任何目标域端点，没有自动重试或扩大范围。
-
-## 解除阻断所需材料
-
-需要能绑定当前数据版本的图像—患者映射，或权威的一图一患者来源证据，再核验真实人数、所有角色与 U 的患者交集。若改为图像/病例级研究，须明确修改当前方案及结论边界；本轮没有自行作此替换。
-
-公开材料仅包含审计源码、完整方案与匿名阻断汇总，不包含图像、标签、患者映射、模型权重、缓存或私有存储路径。发布状态以 PUBLICATION_RECEIPT.json 和远端提交验证为准。
-
-## 追加自主溯源
-
-已查到官方论文允许双眼同时收录的明确说明，但未恢复具体患者映射。详见 [IDENTITY_RESOLUTION.md](IDENTITY_RESOLUTION.md)。已准备不增加标签、种子或预算的图像级探索修订；该修订尚未批准，患者级原方案仍阻断，训练仍为零。
+See RUN_STATUS.json for the time-stamped startup snapshot. Hourly monitoring follows the live private run pointer; this file is not a live progress stream.

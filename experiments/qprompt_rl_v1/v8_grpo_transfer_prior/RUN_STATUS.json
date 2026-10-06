@@ -1,0 +1,49 @@
+{
+  "run_id": "v8_image_20261006T114750Z_envfix_fp32",
+  "execution_commit": "9db606e802671edc08be2748e7d8d2282bfb918f",
+  "gpu": 5,
+  "checked_at": 1791287671.3600485,
+  "status": {
+    "status": "RUNNING",
+    "phase": "CLEAN_AUXILIARY"
+  },
+  "qualification": {
+    "status": "PASS",
+    "checks": {
+      "native_loss_gradient": "PASS",
+      "target_detach_normalization_and_empty_support": "PASS",
+      "private_rng_zero_uniform_legal_mask": "PASS",
+      "native_update": "PASS",
+      "continuous_vs_2_plus_2_and_full_restore": "PASS",
+      "isolated_features_and_frozen_memory": "PASS",
+      "actor_isolation_full_group": "PASS",
+      "physical_ledger_not_rolled_back": "PASS",
+      "role_scoping_and_history_free_query": "PASS",
+      "permit_required": "PASS",
+      "A_only_and_single_student_deployment": "PASS"
+    },
+    "physical_counts": {
+      "qualification": 21,
+      "actor_qualification": 4
+    },
+    "scope": "image-level exploratory; not patient-independent"
+  },
+  "counts": {
+    "qualification": 21,
+    "actor_qualification": 4,
+    "auxiliary": 1183
+  },
+  "success": {
+    "qualification": 21,
+    "actor_qualification": 4,
+    "auxiliary": 1183
+  },
+  "auxiliary_progress": {
+    "node_id": "V8_CLEAN_AUXILIARY",
+    "successful_updates": 1120,
+    "physical_updates": 1120,
+    "loss": 0.031076043844223022,
+    "execution_commit": "9db606e802671edc08be2748e7d8d2282bfb918f",
+    "time": 1791287667.0085862
+  }
+}

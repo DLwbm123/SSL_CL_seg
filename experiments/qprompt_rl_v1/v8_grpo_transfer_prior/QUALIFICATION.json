@@ -1,26 +1,36 @@
 {
-  "status": "BLOCKED_BEFORE_TRAINING_QUALIFICATION",
-  "metadata_only_selfcheck": "PASS",
-  "static_check": "PASS_AST_COMPILE_AND_SELF_CHECK",
-  "native_checks": "NOT_RUN",
-  "qualification_items": {
-    "1": "NOT_RUN",
-    "2": "NOT_RUN",
-    "3": "NOT_RUN",
-    "4": "NOT_RUN",
-    "5": "NOT_RUN",
-    "6": "NOT_RUN",
-    "7": "NOT_RUN",
-    "8": "NOT_RUN",
-    "9": "NOT_RUN",
-    "10": "NOT_RUN",
-    "11": "NOT_RUN",
-    "12": "NOT_RUN",
-    "13": "NOT_RUN",
-    "14": "NOT_RUN",
-    "15": "NOT_RUN"
+  "status": "PASS",
+  "checks": {
+    "native_loss_gradient": "PASS",
+    "target_detach_normalization_and_empty_support": "PASS",
+    "private_rng_zero_uniform_legal_mask": "PASS",
+    "native_update": "PASS",
+    "continuous_vs_2_plus_2_and_full_restore": "PASS",
+    "isolated_features_and_frozen_memory": "PASS",
+    "actor_isolation_full_group": "PASS",
+    "physical_ledger_not_rolled_back": "PASS",
+    "role_scoping_and_history_free_query": "PASS",
+    "permit_required": "PASS",
+    "A_only_and_single_student_deployment": "PASS"
   },
-  "optimizer_calls": 0,
-  "execution_permit_modified": false,
-  "reason": "Patient-role admission prerequisite unverified; no false qualification PASS."
+  "physical_counts": {
+    "qualification": 21,
+    "actor_qualification": 4
+  },
+  "scope": "image-level exploratory; not patient-independent",
+  "execution_commit": "9db606e802671edc08be2748e7d8d2282bfb918f",
+  "static_undefined_names": "ruff F821,F822,F823 PASS",
+  "prior_attempts": [
+    {
+      "reason": "missing deterministic CUDA environment",
+      "student": 0,
+      "actor": 0
+    },
+    {
+      "reason": "FP64 feature versus FP32 strict comparison; state isolation unchanged",
+      "student": 10,
+      "actor": 0
+    }
+  ],
+  "performance_training_allowed": true
 }
