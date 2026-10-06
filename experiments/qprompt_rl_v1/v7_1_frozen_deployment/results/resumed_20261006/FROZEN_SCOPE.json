@@ -1,0 +1,231 @@
+{
+  "protocol": "V7.1 Frozen-policy deployment diagnosis",
+  "baseline_commit": "03224a49cef09a3325abb7d32ffd8762e678e880",
+  "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+  "source_seed": 168,
+  "source_updates": 8000,
+  "roles_seed": 7101,
+  "label_percent": 20,
+  "domains": {
+    "RIM_ONE_r3": 3200,
+    "Drishti_GS": 2100
+  },
+  "U": {
+    "RIM_ONE_r3": 63,
+    "Drishti_GS": 41
+  },
+  "labels": {
+    "RIM_ONE_r3": 16,
+    "Drishti_GS": 10
+  },
+  "reward_labels": {
+    "RIM_ONE_r3": 4,
+    "Drishti_GS": 2
+  },
+  "K": {
+    "RIM_ONE_r3": 16,
+    "Drishti_GS": 11
+  },
+  "interval": 100,
+  "lambda_U": 0.5,
+  "confidence": 0.7,
+  "temperature": 1,
+  "methods": [
+    "GRPO_SAMPLE",
+    "UNIFORM_MATCHED"
+  ],
+  "controllers": [
+    601,
+    602
+  ],
+  "qualification_updates": 32,
+  "endpoint_updates": 21200,
+  "student_budget": 21232,
+  "controller_updates": 0,
+  "virtual_updates": 0,
+  "replay_updates": 0,
+  "gpus": [
+    5,
+    6,
+    7
+  ],
+  "automatic_retry": false,
+  "sealed_test": false,
+  "rng": "stable(\"V7.1/deploy\", domain, controller_seed, block); private CPU torch.Generator; no method key",
+  "evaluation": "all eight final checkpoints frozen before any new historical-development validation",
+  "D1_descriptive_recovery": "overall equal-pair mean new-domain delta > 0; mixed cells always disclosed; no significance claim",
+  "D2": {
+    "mean_new_pp": 0.5,
+    "positive_pairs": 3,
+    "each_seed_mean_new_positive": true,
+    "mean_old_pp": -0.5,
+    "min_old_pp": -1
+  },
+  "D3": {
+    "mean_best_nonRL_pp": 0.5,
+    "mean_random_pp": 0.5,
+    "mean_old_allU_pp": -0.5,
+    "min_old_allU_pp": -1,
+    "min_best_nonRL_pp": -0.25,
+    "each_seed_mean_best_positive": true
+  },
+  "native": "NATIVE_LR_SRC_A_3DOMAIN_V1; A-only projection; not exact original KI reproduction",
+  "jobs": [
+    {
+      "id": "v71__diagnosis_RIM_ONE_r3",
+      "scope": "v71",
+      "name": "diagnosis_RIM_ONE_r3",
+      "job": "diagnosis",
+      "domain": "RIM_ONE_r3",
+      "seed": 168,
+      "caps": {},
+      "deps": []
+    },
+    {
+      "id": "v71__diagnosis_Drishti_GS",
+      "scope": "v71",
+      "name": "diagnosis_Drishti_GS",
+      "job": "diagnosis",
+      "domain": "Drishti_GS",
+      "seed": 168,
+      "caps": {},
+      "deps": []
+    },
+    {
+      "id": "v71__qualification_RIM_ONE_r3",
+      "scope": "v71",
+      "name": "qualification_RIM_ONE_r3",
+      "job": "qualification",
+      "domain": "RIM_ONE_r3",
+      "seed": 168,
+      "caps": {
+        "smoke": 16
+      },
+      "deps": []
+    },
+    {
+      "id": "v71__qualification_Drishti_GS",
+      "scope": "v71",
+      "name": "qualification_Drishti_GS",
+      "job": "qualification",
+      "domain": "Drishti_GS",
+      "seed": 168,
+      "caps": {
+        "smoke": 16
+      },
+      "deps": []
+    },
+    {
+      "id": "v71__endpoint_RIM_ONE_r3_GRPO_SAMPLE_601",
+      "scope": "v71",
+      "name": "endpoint_RIM_ONE_r3_GRPO_SAMPLE_601",
+      "job": "endpoint",
+      "domain": "RIM_ONE_r3",
+      "seed": 168,
+      "caps": {
+        "endpoint": 3200
+      },
+      "deps": [],
+      "controller": 601,
+      "method": "GRPO_SAMPLE"
+    },
+    {
+      "id": "v71__endpoint_RIM_ONE_r3_UNIFORM_MATCHED_601",
+      "scope": "v71",
+      "name": "endpoint_RIM_ONE_r3_UNIFORM_MATCHED_601",
+      "job": "endpoint",
+      "domain": "RIM_ONE_r3",
+      "seed": 168,
+      "caps": {
+        "endpoint": 3200
+      },
+      "deps": [],
+      "controller": 601,
+      "method": "UNIFORM_MATCHED"
+    },
+    {
+      "id": "v71__endpoint_RIM_ONE_r3_GRPO_SAMPLE_602",
+      "scope": "v71",
+      "name": "endpoint_RIM_ONE_r3_GRPO_SAMPLE_602",
+      "job": "endpoint",
+      "domain": "RIM_ONE_r3",
+      "seed": 168,
+      "caps": {
+        "endpoint": 3200
+      },
+      "deps": [],
+      "controller": 602,
+      "method": "GRPO_SAMPLE"
+    },
+    {
+      "id": "v71__endpoint_RIM_ONE_r3_UNIFORM_MATCHED_602",
+      "scope": "v71",
+      "name": "endpoint_RIM_ONE_r3_UNIFORM_MATCHED_602",
+      "job": "endpoint",
+      "domain": "RIM_ONE_r3",
+      "seed": 168,
+      "caps": {
+        "endpoint": 3200
+      },
+      "deps": [],
+      "controller": 602,
+      "method": "UNIFORM_MATCHED"
+    },
+    {
+      "id": "v71__endpoint_Drishti_GS_GRPO_SAMPLE_601",
+      "scope": "v71",
+      "name": "endpoint_Drishti_GS_GRPO_SAMPLE_601",
+      "job": "endpoint",
+      "domain": "Drishti_GS",
+      "seed": 168,
+      "caps": {
+        "endpoint": 2100
+      },
+      "deps": [],
+      "controller": 601,
+      "method": "GRPO_SAMPLE"
+    },
+    {
+      "id": "v71__endpoint_Drishti_GS_UNIFORM_MATCHED_601",
+      "scope": "v71",
+      "name": "endpoint_Drishti_GS_UNIFORM_MATCHED_601",
+      "job": "endpoint",
+      "domain": "Drishti_GS",
+      "seed": 168,
+      "caps": {
+        "endpoint": 2100
+      },
+      "deps": [],
+      "controller": 601,
+      "method": "UNIFORM_MATCHED"
+    },
+    {
+      "id": "v71__endpoint_Drishti_GS_GRPO_SAMPLE_602",
+      "scope": "v71",
+      "name": "endpoint_Drishti_GS_GRPO_SAMPLE_602",
+      "job": "endpoint",
+      "domain": "Drishti_GS",
+      "seed": 168,
+      "caps": {
+        "endpoint": 2100
+      },
+      "deps": [],
+      "controller": 602,
+      "method": "GRPO_SAMPLE"
+    },
+    {
+      "id": "v71__endpoint_Drishti_GS_UNIFORM_MATCHED_602",
+      "scope": "v71",
+      "name": "endpoint_Drishti_GS_UNIFORM_MATCHED_602",
+      "job": "endpoint",
+      "domain": "Drishti_GS",
+      "seed": 168,
+      "caps": {
+        "endpoint": 2100
+      },
+      "deps": [],
+      "controller": 602,
+      "method": "UNIFORM_MATCHED"
+    }
+  ]
+}

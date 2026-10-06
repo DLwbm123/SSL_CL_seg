@@ -1,0 +1,351 @@
+{
+  "frozen_at_epoch": 1791266519.212148,
+  "execution_commit": "04595f555a5af1b55fb40ea2a5027abf9e6993f0",
+  "provenance_sha256": "9dd0abb4473d021b5b28fb6e24519a1c5bff1681d32cf7f2e33ecba6d3e1f577",
+  "scope": {
+    "protocol": "V7.1 Frozen-policy deployment diagnosis",
+    "baseline_commit": "03224a49cef09a3325abb7d32ffd8762e678e880",
+    "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+    "source_seed": 168,
+    "source_updates": 8000,
+    "roles_seed": 7101,
+    "label_percent": 20,
+    "domains": {
+      "RIM_ONE_r3": 3200,
+      "Drishti_GS": 2100
+    },
+    "U": {
+      "RIM_ONE_r3": 63,
+      "Drishti_GS": 41
+    },
+    "labels": {
+      "RIM_ONE_r3": 16,
+      "Drishti_GS": 10
+    },
+    "reward_labels": {
+      "RIM_ONE_r3": 4,
+      "Drishti_GS": 2
+    },
+    "K": {
+      "RIM_ONE_r3": 16,
+      "Drishti_GS": 11
+    },
+    "interval": 100,
+    "lambda_U": 0.5,
+    "confidence": 0.7,
+    "temperature": 1,
+    "methods": [
+      "GRPO_SAMPLE",
+      "UNIFORM_MATCHED"
+    ],
+    "controllers": [
+      601,
+      602
+    ],
+    "qualification_updates": 32,
+    "endpoint_updates": 21200,
+    "student_budget": 21232,
+    "controller_updates": 0,
+    "virtual_updates": 0,
+    "replay_updates": 0,
+    "gpus": [
+      5,
+      6,
+      7
+    ],
+    "automatic_retry": false,
+    "sealed_test": false,
+    "rng": "stable(\"V7.1/deploy\", domain, controller_seed, block); private CPU torch.Generator; no method key",
+    "evaluation": "all eight final checkpoints frozen before any new historical-development validation",
+    "D1_descriptive_recovery": "overall equal-pair mean new-domain delta > 0; mixed cells always disclosed; no significance claim",
+    "D2": {
+      "mean_new_pp": 0.5,
+      "positive_pairs": 3,
+      "each_seed_mean_new_positive": true,
+      "mean_old_pp": -0.5,
+      "min_old_pp": -1
+    },
+    "D3": {
+      "mean_best_nonRL_pp": 0.5,
+      "mean_random_pp": 0.5,
+      "mean_old_allU_pp": -0.5,
+      "min_old_allU_pp": -1,
+      "min_best_nonRL_pp": -0.25,
+      "each_seed_mean_best_positive": true
+    },
+    "native": "NATIVE_LR_SRC_A_3DOMAIN_V1; A-only projection; not exact original KI reproduction",
+    "jobs": [
+      {
+        "id": "v71__diagnosis_RIM_ONE_r3",
+        "scope": "v71",
+        "name": "diagnosis_RIM_ONE_r3",
+        "job": "diagnosis",
+        "domain": "RIM_ONE_r3",
+        "seed": 168,
+        "caps": {},
+        "deps": []
+      },
+      {
+        "id": "v71__diagnosis_Drishti_GS",
+        "scope": "v71",
+        "name": "diagnosis_Drishti_GS",
+        "job": "diagnosis",
+        "domain": "Drishti_GS",
+        "seed": 168,
+        "caps": {},
+        "deps": []
+      },
+      {
+        "id": "v71__qualification_RIM_ONE_r3",
+        "scope": "v71",
+        "name": "qualification_RIM_ONE_r3",
+        "job": "qualification",
+        "domain": "RIM_ONE_r3",
+        "seed": 168,
+        "caps": {
+          "smoke": 16
+        },
+        "deps": []
+      },
+      {
+        "id": "v71__qualification_Drishti_GS",
+        "scope": "v71",
+        "name": "qualification_Drishti_GS",
+        "job": "qualification",
+        "domain": "Drishti_GS",
+        "seed": 168,
+        "caps": {
+          "smoke": 16
+        },
+        "deps": []
+      },
+      {
+        "id": "v71__endpoint_RIM_ONE_r3_GRPO_SAMPLE_601",
+        "scope": "v71",
+        "name": "endpoint_RIM_ONE_r3_GRPO_SAMPLE_601",
+        "job": "endpoint",
+        "domain": "RIM_ONE_r3",
+        "seed": 168,
+        "caps": {
+          "endpoint": 3200
+        },
+        "deps": [],
+        "controller": 601,
+        "method": "GRPO_SAMPLE"
+      },
+      {
+        "id": "v71__endpoint_RIM_ONE_r3_UNIFORM_MATCHED_601",
+        "scope": "v71",
+        "name": "endpoint_RIM_ONE_r3_UNIFORM_MATCHED_601",
+        "job": "endpoint",
+        "domain": "RIM_ONE_r3",
+        "seed": 168,
+        "caps": {
+          "endpoint": 3200
+        },
+        "deps": [],
+        "controller": 601,
+        "method": "UNIFORM_MATCHED"
+      },
+      {
+        "id": "v71__endpoint_RIM_ONE_r3_GRPO_SAMPLE_602",
+        "scope": "v71",
+        "name": "endpoint_RIM_ONE_r3_GRPO_SAMPLE_602",
+        "job": "endpoint",
+        "domain": "RIM_ONE_r3",
+        "seed": 168,
+        "caps": {
+          "endpoint": 3200
+        },
+        "deps": [],
+        "controller": 602,
+        "method": "GRPO_SAMPLE"
+      },
+      {
+        "id": "v71__endpoint_RIM_ONE_r3_UNIFORM_MATCHED_602",
+        "scope": "v71",
+        "name": "endpoint_RIM_ONE_r3_UNIFORM_MATCHED_602",
+        "job": "endpoint",
+        "domain": "RIM_ONE_r3",
+        "seed": 168,
+        "caps": {
+          "endpoint": 3200
+        },
+        "deps": [],
+        "controller": 602,
+        "method": "UNIFORM_MATCHED"
+      },
+      {
+        "id": "v71__endpoint_Drishti_GS_GRPO_SAMPLE_601",
+        "scope": "v71",
+        "name": "endpoint_Drishti_GS_GRPO_SAMPLE_601",
+        "job": "endpoint",
+        "domain": "Drishti_GS",
+        "seed": 168,
+        "caps": {
+          "endpoint": 2100
+        },
+        "deps": [],
+        "controller": 601,
+        "method": "GRPO_SAMPLE"
+      },
+      {
+        "id": "v71__endpoint_Drishti_GS_UNIFORM_MATCHED_601",
+        "scope": "v71",
+        "name": "endpoint_Drishti_GS_UNIFORM_MATCHED_601",
+        "job": "endpoint",
+        "domain": "Drishti_GS",
+        "seed": 168,
+        "caps": {
+          "endpoint": 2100
+        },
+        "deps": [],
+        "controller": 601,
+        "method": "UNIFORM_MATCHED"
+      },
+      {
+        "id": "v71__endpoint_Drishti_GS_GRPO_SAMPLE_602",
+        "scope": "v71",
+        "name": "endpoint_Drishti_GS_GRPO_SAMPLE_602",
+        "job": "endpoint",
+        "domain": "Drishti_GS",
+        "seed": 168,
+        "caps": {
+          "endpoint": 2100
+        },
+        "deps": [],
+        "controller": 602,
+        "method": "GRPO_SAMPLE"
+      },
+      {
+        "id": "v71__endpoint_Drishti_GS_UNIFORM_MATCHED_602",
+        "scope": "v71",
+        "name": "endpoint_Drishti_GS_UNIFORM_MATCHED_602",
+        "job": "endpoint",
+        "domain": "Drishti_GS",
+        "seed": 168,
+        "caps": {
+          "endpoint": 2100
+        },
+        "deps": [],
+        "controller": 602,
+        "method": "UNIFORM_MATCHED"
+      }
+    ]
+  },
+  "environment": {
+    "python": "3.10.6 | packaged by conda-forge | (main, Aug 22 2022, 20:36:39) [GCC 10.4.0]",
+    "torch": "2.2.1+cu121",
+    "cuda": "12.1",
+    "platform": "Linux-6.8.0-138-generic-x86_64-with-glibc2.39",
+    "hardware": [
+      "0, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02",
+      "1, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02",
+      "2, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02",
+      "3, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02",
+      "4, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02",
+      "5, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02",
+      "6, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02",
+      "7, NVIDIA GeForce RTX 3090, 24576 MiB, 580.173.02"
+    ]
+  },
+  "native_config": {
+    "RIM_ONE_r3": {
+      "total_steps": 3200,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 0.5,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.7,
+      "PAS_cosine": 0.5,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    },
+    "Drishti_GS": {
+      "total_steps": 2100,
+      "warmup_fraction": 0.2,
+      "U_ramp_fraction": 0.2,
+      "lr": 0.001,
+      "weight_decay": 4e-05,
+      "parent_lr_multiplier": 0.5,
+      "lr_B_over_A": 1.0,
+      "feature_lr_multiplier": 1.0,
+      "feature_weight_decay_multiplier": 1.0,
+      "lambda_U": 0.5,
+      "lambda_JML": 0.25,
+      "lambda_structure": 0.1,
+      "lambda_shape": 0.1,
+      "lambda_SWD": 0.05,
+      "probe_layers": "last_two_parent_adapters",
+      "PAS_confidence": 0.7,
+      "PAS_cosine": 0.5,
+      "kappa": 0.5,
+      "prototype_uncertainty_mix": 0.0,
+      "inner_steps": 3,
+      "trust_fraction": 0.05
+    }
+  },
+  "source_hash": "ce999b296b43bc0640ad6cf11ae9a63490f97a1809fde71ed9f233d968b0649c",
+  "policies": {
+    "RIM_ONE_r3/601": {
+      "sha256": "128d65a04fb595d580d03dcaacc40dea464be9f8cfdb18351deed8afec459e4c",
+      "tensor_hash": "be897f71f653537bad3c44d365ec552194819936c0607925aab43a4ee98ff302",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    },
+    "RIM_ONE_r3/602": {
+      "sha256": "a7813e76a3ec6ca7b6b27125367db14910eea19b342b5dbfbf3698850bb5d028",
+      "tensor_hash": "b285310d5b1b3f71eda8183720ef2c1dd33048eb0c1c7d9fb4976ba75bfee706",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    },
+    "Drishti_GS/601": {
+      "sha256": "d5d21e4e705a66e6d515e76a81c731c487a0535d3a7ebc6c73f3ef312a9fd9f4",
+      "tensor_hash": "3e830662dbca1b49b18b3616179b1c5aae803db8609413df44967646f94b9974",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    },
+    "Drishti_GS/602": {
+      "sha256": "05a70dccab89408ef3fd43ddbf65e2652ba0e4bf1132f7b2bf6d97fa6929bf83",
+      "tensor_hash": "c19588617962196ea8b03fb96373736ed6fda64ad05e0b6905697aec7e67c1cf",
+      "training_commit": "37ac930652dc2da6585342a437d014ae3b4b995d",
+      "status": "PASS"
+    }
+  },
+  "data_roles": {
+    "RIM_ONE_r3": {
+      "sha256": "c61e364c698f57b03ad5c87a3e1f0d1a7ba8b4835af1aa5eb10b0abf30ae4823",
+      "fit": 12,
+      "reward": 4,
+      "U": 63
+    },
+    "Drishti_GS": {
+      "sha256": "bb1be6e4960a42568a6bf1cf024ed1ec6dda3b934e2638f00ac8fa5e82141acb",
+      "fit": 8,
+      "reward": 2,
+      "U": 41
+    }
+  },
+  "evaluation_order": [
+    "endpoint_RIM_ONE_r3_GRPO_SAMPLE_601",
+    "endpoint_RIM_ONE_r3_UNIFORM_MATCHED_601",
+    "endpoint_RIM_ONE_r3_GRPO_SAMPLE_602",
+    "endpoint_RIM_ONE_r3_UNIFORM_MATCHED_602",
+    "endpoint_Drishti_GS_GRPO_SAMPLE_601",
+    "endpoint_Drishti_GS_UNIFORM_MATCHED_601",
+    "endpoint_Drishti_GS_GRPO_SAMPLE_602",
+    "endpoint_Drishti_GS_UNIFORM_MATCHED_602"
+  ]
+}

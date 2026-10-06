@@ -1,0 +1,134 @@
+{
+  "status": "STOPPED",
+  "physical_attempts": {},
+  "physical_successes": {},
+  "physical_student_updates": 0,
+  "controller_updates": 0,
+  "qualification_training_updates": 0,
+  "endpoint_training_updates": 0,
+  "evaluation_calls": 0,
+  "diagnostic_optimizer_updates": 0,
+  "virtual_updates": 0,
+  "measured_diagnostics": {
+    "U_image_accesses": 896,
+    "features_calls": 16,
+    "features_cuda_interval_seconds": 18.123127624511717,
+    "features_wall_seconds": 18.12318058172241,
+    "feature_image_pairs": 832,
+    "policy_diagnostic_backward_calls": 8,
+    "reward_label_sample_accesses": 24,
+    "retention_forward_images": 64,
+    "job_wall_seconds": 26.736822366714478
+  },
+  "diagnosis_jobs": [
+    {
+      "job": "diagnosis_Drishti_GS",
+      "costs": {
+        "U_image_accesses": 360,
+        "features_calls": 8,
+        "features_cuda_interval_seconds": 7.27110333251953,
+        "features_wall_seconds": 7.271139805205166,
+        "feature_image_pairs": 328,
+        "policy_diagnostic_backward_calls": 4,
+        "reward_label_sample_accesses": 8,
+        "retention_forward_images": 32,
+        "job_wall_seconds": 11.408998727798462
+      },
+      "operations": {
+        "status": "FAIL",
+        "error": "NameError(\"name 'Path' is not defined\")",
+        "counts": {
+          "sample_train_unlabeled_attempts": 365,
+          "sample_access_attempts": 373,
+          "hdf5_mode_r": 381,
+          "hdf5_open_attempts": 381,
+          "hdf5_open": 381,
+          "sample_access": 373,
+          "sample_train_unlabeled": 365,
+          "features_attempts": 696,
+          "features": 696,
+          "native_readout_attempts": 696,
+          "native_readout": 696,
+          "autograd_grad_attempts": 4,
+          "autograd_grad": 4,
+          "sample_train_labeled_attempts": 8,
+          "sample_train_labeled": 8
+        }
+      },
+      "session": {
+        "start": 1791265932.1516085,
+        "wall_clock_limit": null,
+        "fixed_caps": {}
+      },
+      "exit": {
+        "time": 1791265947.2255013,
+        "exit_code": 1
+      },
+      "serialization": {
+        "status": "PASS",
+        "optimizer_updates": 0
+      },
+      "physical_ledger_present": false
+    },
+    {
+      "job": "diagnosis_RIM_ONE_r3",
+      "costs": {
+        "U_image_accesses": 536,
+        "features_calls": 8,
+        "features_cuda_interval_seconds": 10.852024291992187,
+        "features_wall_seconds": 10.852040776517242,
+        "feature_image_pairs": 504,
+        "policy_diagnostic_backward_calls": 4,
+        "reward_label_sample_accesses": 16,
+        "retention_forward_images": 32,
+        "job_wall_seconds": 15.327823638916016
+      },
+      "operations": {
+        "status": "FAIL",
+        "error": "NameError(\"name 'Path' is not defined\")",
+        "counts": {
+          "sample_train_unlabeled_attempts": 541,
+          "sample_access_attempts": 557,
+          "hdf5_mode_r": 573,
+          "hdf5_open_attempts": 573,
+          "hdf5_open": 573,
+          "sample_access": 557,
+          "sample_train_unlabeled": 541,
+          "features_attempts": 1056,
+          "features": 1056,
+          "native_readout_attempts": 1056,
+          "native_readout": 1056,
+          "autograd_grad_attempts": 4,
+          "autograd_grad": 4,
+          "sample_train_labeled_attempts": 16,
+          "sample_train_labeled": 16
+        }
+      },
+      "session": {
+        "start": 1791265932.0234787,
+        "wall_clock_limit": null,
+        "fixed_caps": {}
+      },
+      "exit": {
+        "time": 1791265952.261013,
+        "exit_code": 1
+      },
+      "serialization": {
+        "status": "PASS",
+        "optimizer_updates": 0
+      },
+      "physical_ledger_present": false
+    }
+  ],
+  "budget_student_updates": 21232,
+  "unconsumed_budget": 21232,
+  "prior_V7_policy_learning_student_updates": 42400,
+  "prior_V7_policy_learning_controller_updates": 1696,
+  "notes": [
+    "Failed diagnostic forwards/backwards are retained as consumed cost.",
+    "Job wall seconds are summed over two parallel jobs, not elapsed wall time.",
+    "CUDA intervals include host gaps; no exact GPU-busy-time or speedup claim.",
+    "Prior V7 learning costs are historical method costs, not updates in this attempt.",
+    "Peak allocated memory was not serialized on the failure path; unavailable."
+  ]
+}
