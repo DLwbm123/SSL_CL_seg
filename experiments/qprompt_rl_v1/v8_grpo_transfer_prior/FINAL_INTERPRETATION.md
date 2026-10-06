@@ -6,11 +6,11 @@ Native qualification passed. Clean auxiliary first-task training completed all 8
 
 The CUDA launch environment was repaired before any optimizer update. A feature precision qualification assertion was then repaired; its 10 student updates remain in the cumulative ledger. Successful qualification added 11 student and 4 actor updates. Static undefined-name checks passed.
 
-Stage A is running on GPU 5 after the sealed auxiliary checkpoint handoff. B/C/D remain NOT_RUN and require their implementation and qualification before dependent launch. An A failure stops this V8 branch; the hourly workflow may propose and preregister a separate improvement round under the user's continuing authorization.
+Stage A completed all 144 branches and passed in exactly 4/8 contexts, all with 2 support images. Stage B implementation/qualification is in progress. B/C/D remain NOT_RUN and require their implementation and qualification before dependent launch. An A failure stops this V8 branch; the hourly workflow may propose and preregister a separate improvement round under the user's continuing authorization.
 
 ## Questions not yet answered
 
-1. Useful action signal: not measured yet.
+1. Useful action signal: yes under the engineering gate in 4/8 contexts, exclusively the 2-image support settings; no claim of statistical confirmation.
 2. GRPO versus uniform: not run.
 3. GRPO versus fixed structure: not run.
 4. First-domain prior versus target cold start: not run.

@@ -1,0 +1,45 @@
+{
+  "status": "FROZEN_BEFORE_B",
+  "controllers": [
+    601,
+    602
+  ],
+  "groups_per_controller": 64,
+  "branches": 4,
+  "branch_steps": 100,
+  "retain": "branch_0",
+  "context_order": "memory 2000/8000, support 2/8, brightness/contrast, repeat exact balanced order eight times",
+  "support_and_U": "Original role sets; native stateless shuffle/geometry advances with retained cursor, identical paired candidate entry",
+  "actor_lr": 0.001,
+  "actor_epochs": 4,
+  "actor_entry": "zero output layer, private sampler seed equals controller seed",
+  "reward_floor": "use frozen ACTION_DECISION sigma_floor unchanged",
+  "training_horizon": 900,
+  "development_horizon": 300,
+  "development_methods": [
+    "NATIVE",
+    "FIXED_BEST",
+    "UNIFORM_ACTION",
+    "PRE_FROZEN_601",
+    "PRE_FROZEN_602"
+  ],
+  "development_sampler_seeds": [
+    860301,
+    860302,
+    860303,
+    860304
+  ],
+  "development_utility": ".25*(Qdev_new50-entry)+.75*(Qdev_new200-entry)-max(0,Qdev_old_frozen_memory-Qdev_old200-.005)",
+  "development_access": "Read all Q_dev only after all 20 development training endpoints sealed; save step50 and final student states for readout.",
+  "dev_improvement": "Each prior versus UNIFORM: utility strictly higher OR new >= .002 and old >= -.005 OR old >= .005 and new >= -.0025. Pass if at least one prior meets any rule; preserve both priors.",
+  "new_caps": {
+    "qualification_student": 8,
+    "qualification_actor": 8,
+    "prior_student": 51200,
+    "prior_actor": 512,
+    "development_entry_student": 400,
+    "development_student": 4000
+  },
+  "historical_costs": "Carry all stage A and repair costs; source checkpoint historical8000 disclosed separately",
+  "C_D": "NOT_IMPLEMENTED_NOT_RUN"
+}
