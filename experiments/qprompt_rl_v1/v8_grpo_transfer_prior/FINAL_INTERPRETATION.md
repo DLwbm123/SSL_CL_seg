@@ -20,3 +20,5 @@ Stage A is implemented and queued after auxiliary training. B/C/D remain NOT_RUN
 8. Deployment recommendation: no evidence yet.
 
 See RUN_STATUS.json for the time-stamped startup snapshot. Hourly monitoring follows the live private run pointer; this file is not a live progress stream.
+
+The paired action worker additionally records both old/new queries at step 25, raw/normalized structure weights, both losses and final parameter differences against NATIVE. A detached phase handoff preserves the already-running auxiliary model and all physical costs; no action updates were spent before this correction.
