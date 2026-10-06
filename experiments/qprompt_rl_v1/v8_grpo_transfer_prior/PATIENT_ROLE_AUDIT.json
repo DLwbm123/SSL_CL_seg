@@ -1,0 +1,70 @@
+{
+  "status": "BLOCKED_PATIENT_IDENTITY_UNVERIFIED",
+  "metadata_consistency": "PASS",
+  "counts": {
+    "REFUGE": {
+      "train_labeled": {
+        "images": 40,
+        "unique_manifest_ids": 40,
+        "ids_equal_case": 40
+      },
+      "train_unlabeled": {
+        "images": 160,
+        "unique_manifest_ids": 160,
+        "ids_equal_case": 160
+      }
+    },
+    "RIM_ONE_r3": {
+      "train_labeled": {
+        "images": 16,
+        "unique_manifest_ids": 16,
+        "ids_equal_case": 16
+      },
+      "train_unlabeled": {
+        "images": 63,
+        "unique_manifest_ids": 63,
+        "ids_equal_case": 63
+      }
+    },
+    "Drishti_GS": {
+      "train_labeled": {
+        "images": 10,
+        "unique_manifest_ids": 10,
+        "ids_equal_case": 10
+      },
+      "train_unlabeled": {
+        "images": 41,
+        "unique_manifest_ids": 41,
+        "ids_equal_case": 41
+      }
+    }
+  },
+  "distinct_clinical_patients": null,
+  "manifest_patient_id_origin": "case_id alias",
+  "patient_disjointness": "UNVERIFIED",
+  "case_uniqueness": "PASS",
+  "actual_leakage_demonstrated": false,
+  "roles_assigned": false,
+  "proposed_counts_if_one_case_per_patient": {
+    "M_fit": 16,
+    "A_fit": 8,
+    "Q_train_old": 4,
+    "Q_train_new": 4,
+    "Q_dev_old": 4,
+    "Q_dev_new": 4
+  },
+  "first_domain_label_budget_status": "UNRESOLVED_PATIENT_COUNT",
+  "note": "40 labeled images meet the arithmetic threshold only if 40 distinct patients are verified. No clinical patient map or binding one-image-per-patient provenance was supplied. A case-level disjointness test cannot establish patient disjointness.",
+  "reads": {
+    "metadata_only": true,
+    "image_arrays": 0,
+    "label_arrays": 0,
+    "checkpoint_payloads": 0,
+    "optimizer_calls": 0
+  },
+  "baseline_commit": "09d33e8d031ce7f4e50ea4d7a384360528b1127d",
+  "frozen_manifest_digest": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+  "frozen_split_digest": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+  "historical_overlap_flag": "passed",
+  "historical_overlap_flag_scope": "uniqueness of generated identifiers"
+}
