@@ -2,10 +2,19 @@
   "run_id": "v8_image_20261006T114750Z_envfix_fp32",
   "execution_commit": "9db606e802671edc08be2748e7d8d2282bfb918f",
   "gpu": 5,
-  "checked_at": 1791287671.3600485,
+  "checked_at": 1791288361.0929296,
   "status": {
     "status": "RUNNING",
-    "phase": "ACTION_AUDIT"
+    "phase": "ACTION_AUDIT",
+    "completed": 5,
+    "total": 144,
+    "physical": {
+      "qualification": 21,
+      "actor_qualification": 4,
+      "auxiliary": 8000,
+      "entries": 100,
+      "audit": 500
+    }
   },
   "qualification": {
     "status": "PASS",
@@ -33,24 +42,18 @@
     "actor_qualification": 4,
     "auxiliary": 8000,
     "entries": 100,
-    "audit": 52
+    "audit": 558
   },
   "success": {
     "qualification": 21,
     "actor_qualification": 4,
-    "auxiliary": 1183
-  },
-  "auxiliary_progress": {
-    "node_id": "V8_CLEAN_AUXILIARY",
-    "successful_updates": 1120,
-    "physical_updates": 1120,
-    "loss": 0.031076043844223022,
-    "execution_commit": "9db606e802671edc08be2748e7d8d2282bfb918f",
-    "time": 1791287667.0085862
+    "auxiliary": 8000,
+    "entries": 100,
+    "audit": 558
   },
   "action_run_id": "v8_image_20261006T114750Z_actions",
   "action_execution_commit": "24aff31a8464fcb95e8b1ecea7139c00785689ee",
   "handoff": "A reserved create-only boundary holds the source worker after all 8000 auxiliary updates; a detached coordinator carries ledger and roles into the corrected action worker without source retraining.",
-  "snapshot_note": "Handoff startup verified; auxiliary sealed at 8000, action worker alive with 52 physical audit attempts at the check. Values are a startup snapshot, not live progress.",
-  "checked_at_utc": "2026-10-06T12:04:58.055682+00:00"
+  "snapshot_note": "Time-stamped physical attempts and successes; not a live progress stream.",
+  "source_status": "SEALED"
 }
