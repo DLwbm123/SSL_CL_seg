@@ -1,0 +1,31 @@
+{
+  "status": "PROPOSED_NOT_AUTHORIZED",
+  "id": "V8_IMAGE_LEVEL_EXPLORATORY_AMENDMENT",
+  "reason": "Clinical patient grouping cannot be reconstructed from available metadata; official dataset paper allows bilateral images.",
+  "unit": "original_image_case",
+  "patient_independence": "UNVERIFIED_NOT_CLAIMED",
+  "role_seed": 8601,
+  "role_order": [
+    "M_fit",
+    "A_fit",
+    "Q_train_old",
+    "Q_train_new",
+    "Q_dev_old",
+    "Q_dev_new"
+  ],
+  "role_counts": [
+    16,
+    8,
+    4,
+    4,
+    4,
+    4
+  ],
+  "split_rule": "Sort case IDs lexicographically, then shuffle with random.Random(8601) in a fixed pinned Python runtime; first chunks in role_order. U uses a separately initialized Random(8601), 80 then 80. Assign only after explicit protocol approval.",
+  "labels_unlocked": 0,
+  "student_budget_unchanged": 255160,
+  "controller_budget_unchanged": 960,
+  "algorithm_gates_unchanged": true,
+  "patient_bootstrap": false,
+  "training_allowed": false
+}
