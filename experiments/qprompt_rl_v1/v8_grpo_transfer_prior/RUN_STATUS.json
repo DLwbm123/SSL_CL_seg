@@ -5,7 +5,7 @@
   "checked_at": 1791287671.3600485,
   "status": {
     "status": "RUNNING",
-    "phase": "CLEAN_AUXILIARY"
+    "phase": "ACTION_AUDIT"
   },
   "qualification": {
     "status": "PASS",
@@ -31,7 +31,9 @@
   "counts": {
     "qualification": 21,
     "actor_qualification": 4,
-    "auxiliary": 1183
+    "auxiliary": 8000,
+    "entries": 100,
+    "audit": 52
   },
   "success": {
     "qualification": 21,
@@ -48,5 +50,7 @@
   },
   "action_run_id": "v8_image_20261006T114750Z_actions",
   "action_execution_commit": "24aff31a8464fcb95e8b1ecea7139c00785689ee",
-  "handoff": "A reserved create-only boundary holds the source worker after all 8000 auxiliary updates; a detached coordinator carries ledger and roles into the corrected action worker without source retraining."
+  "handoff": "A reserved create-only boundary holds the source worker after all 8000 auxiliary updates; a detached coordinator carries ledger and roles into the corrected action worker without source retraining.",
+  "snapshot_note": "Handoff startup verified; auxiliary sealed at 8000, action worker alive with 52 physical audit attempts at the check. Values are a startup snapshot, not live progress.",
+  "checked_at_utc": "2026-10-06T12:04:58.055682+00:00"
 }
