@@ -119,17 +119,21 @@ def action_screen(root,config,roles,ledger):
                 for _ in range(100):t.update()
                 entry=c.snapshot(t);e.atomic_save(entry,dest/'ENTRY.private.pt');entrynew=scores(t,roles,'Q_train_new',condition)['macro']
                 for stream in (1,2):
+                    native_parameters=None
                     for action in range(9):
                         c.restore(t,entry);t.provider.seed=168+stream*10000
                         random.seed(860100+stream);np.random.seed(860100+stream);torch.manual_seed(860100+stream);torch.cuda.manual_seed_all(860100+stream)
-                        t.category='audit';t.key=f'{key}/s{stream}/a{action}';t.action=action;mid=None;stats=[];grads=[]
+                        t.category='audit';t.key=f'{key}/s{stream}/a{action}';t.action=action;mid=None;old25=None;stats=[];grads=[];losses=[]
                         for step in range(100):
-                            t.update();stats.append(copy.deepcopy(t.last['transfer']))
+                            t.update();stats.append(copy.deepcopy(t.last['transfer']));losses.append((t.last['labeled_loss'],t.last['unlabeled_loss']))
                             grads.append(sum(float(p.grad.square().sum()) for p in t.model.parameters() if p.grad is not None)**.5)
-                            if step==24:mid=scores(t,roles,'Q_train_new',condition)['macro']
+                            if step==24:
+                                mid=scores(t,roles,'Q_train_new',condition)['macro'];old25=scores(t,roles,'Q_train_old',('identity',1.))
                         new=scores(t,roles,'Q_train_new',condition);old=scores(t,roles,'Q_train_old',('identity',1.));gain=.25*(mid-entrynew)+.75*(new['macro']-entrynew);forget=max(0.,reference-old['macro']-.005)
                         difference=sum(float((p.detach().cpu()-entry['student'][name]).square().sum()) for name,p in t.model.named_parameters())**.5
-                        row=dict(entry_parameter_delta=difference,context=key,stream=stream,action=action,new=new,old=old,new25=mid,entry_new=entrynew,memory_old=reference,reward=gain-forget,gain=gain,forget_penalty=forget,gate=float(np.mean([s['gate'] for s in stats])),admitted=float(np.mean([s['admitted'] for s in stats])),gradient_norm=float(np.mean(grads)),update_norm=float(sum(v*v for v in t.last['actual_update_norms'].values())**.5))
+                        if action==0:native_parameters={name:p.detach().cpu().clone() for name,p in t.model.named_parameters()}
+                        native_difference=sum(float((p.detach().cpu()-native_parameters[name]).square().sum()) for name,p in t.model.named_parameters())**.5
+                        row=dict(old25=old25,parameter_delta_vs_native=native_difference,labeled_loss=float(np.mean([v[0] for v in losses])),unlabeled_loss_weighted=float(np.mean([v[1] for v in losses])),weight_raw=float(np.mean([v['weight_raw'] for v in stats])),weight_normalized=float(np.mean([v['weight_normalized'] for v in stats])),entry_parameter_delta=difference,context=key,stream=stream,action=action,new=new,old=old,new25=mid,entry_new=entrynew,memory_old=reference,reward=gain-forget,gain=gain,forget_penalty=forget,gate=float(np.mean([s['gate'] for s in stats])),admitted=float(np.mean([s['admitted'] for s in stats])),gradient_norm=float(np.mean(grads)),update_norm=float(sum(v*v for v in t.last['actual_update_norms'].values())**.5))
                         allrows.append(row);e.append(root/'ACTION_ROWS.jsonl',row);e.write(root/'STATUS.json',dict(status='RUNNING',phase='ACTION_AUDIT',completed=len(allrows),total=144,physical=dict(ledger.count)))
                         t.provider.seed=168
                 del t;torch.cuda.empty_cache()
@@ -153,10 +157,20 @@ def main():
     torch.set_num_threads(2);torch.cuda.set_device(0);random.seed(168);np.random.seed(168);torch.manual_seed(168)
     if (root/'STARTED.json').exists():raise RuntimeError('create-only; no automatic retry')
     e.write(root/'STARTED.json',dict(pid=os.getpid(),time=time.time(),commit=config['commit']))
-    roles=c.split_roles(config['data']);e.write(root/'ROLES.private.json',roles)
+    roles=c.split_roles(config['data'])
+    if config.get('start_phase')=='A':
+        assert roles==e.read(root/'ROLES.private.json'), 'source/action role mismatch'
+        receipt=e.read(root/'A_CONTINUATION.json');receipt['roles_match']=True;e.write(root/'A_CONTINUATION.json',receipt)
+    e.write(root/'ROLES.private.json',roles)
     try:
-        e.write(root/'STATUS.json',dict(status='RUNNING',phase='QUALIFICATION'));qualify(root,config,roles,ledger)
-        e.write(root/'STATUS.json',dict(status='RUNNING',phase='CLEAN_AUXILIARY'));auxiliary(root,config,roles,ledger)
+        if config.get('start_phase')=='A':
+            assert e.read(root/'QUALIFICATION.json')['status']=='PASS'
+            assert ledger.count['auxiliary']==8000 and ledger.count['audit']==ledger.count['entries']==0
+            assert e.read(root/'auxiliary/receipt.json')['status']=='SEALED'
+            assert e.read(root/'A_CONTINUATION.json')['roles_match'] is True
+        else:
+            e.write(root/'STATUS.json',dict(status='RUNNING',phase='QUALIFICATION'));qualify(root,config,roles,ledger)
+            e.write(root/'STATUS.json',dict(status='RUNNING',phase='CLEAN_AUXILIARY'));auxiliary(root,config,roles,ledger)
         e.write(root/'STATUS.json',dict(status='RUNNING',phase='ACTION_AUDIT'));action_screen(root,config,roles,ledger)
     except BaseException as exc:
         e.write(root/'STATUS.json',dict(status='ENGINEERING_STOP',error=repr(exc),traceback=traceback.format_exc(),physical=dict(ledger.count)));raise
