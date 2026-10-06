@@ -71,6 +71,10 @@ def report(root,c,jobs,evals):
     write(root/'DECISION.json',decision);write(root/'POLICY_DISTRIBUTION_DIAGNOSTICS.json',distribution);write(root/'REWARD_COMPONENT_DIAGNOSTICS.json',reward);write(root/'EXPOSURE_DIAGNOSTICS.json',exposures)
     historical=read(Path(c['old_campaign'])/'COSTS.json')
     cost=dict(physical_student_updates=sum(totals.values()),physical_calls=dict(totals),controller_updates=0,diagnostic_optimizer_updates=0,virtual_updates=0,measured_new=dict(measured),per_job=per_job,evaluators=evaluator,prior_policy_learning_student_updates=42400,prior_policy_learning_controller_updates=1696,historical_V7_total_costs=historical,notes=['CUDA intervals contain host gaps, not exact GPU busy time.','Deployment timings include feature/selection/checkpoint work; separate component clocks are also reported.','Prior source training 8000 is common to all methods. Existing V7 policy learning is additional method cost.','Same 25% subsets and fixed updates do not establish training speedup; shared hardware and scheduling can affect wall time.'])
+    if (root/'PRIOR_ATTEMPT_COSTS.json').exists():
+        prior=read(root/'PRIOR_ATTEMPT_COSTS.json');assert prior['physical_student_updates']==prior['controller_updates']==0
+        cost['prior_failed_attempt']=prior;cost['measured_current_attempt']=dict(measured)
+        combined=Counter(measured);combined.update(prior['measured_diagnostics']);cost['measured_new']=dict(combined)
     write(root/'COSTS.json',cost)
     write(root/'COMPLETION_AUDIT.json',dict(status='PASS',endpoints=8,expected=8,student_updates=21232,controller_updates=0,all_training_locked_before_validation=True,all_common_source_scores_match=True,all_policy_hashes_unchanged=True,source_repeats=1,jobs=audits))
     mechanism='# Mechanism audit\n\nZero student/controller updates and no virtual steps. Features and all restored native snapshot fields were checked exactly. Physical operation counts are outside restored model state.\n\n'

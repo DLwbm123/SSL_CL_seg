@@ -118,6 +118,7 @@ def diagnosis(ledger):
         rewards.append(dict(domain=d,controller=seed,last_group_block=group['block'],saved_group_rewards=group['rewards'],branch0=parts,branch0_recomputed_delta=delta,full_history_decomposition='unavailable: other branch states and earlier groups not retained; no training replay',source_KL_semantics='target U source predictions; not old-domain retention guarantee'))
         assert e.same(weights,e.cpu(model.state_dict())) and all(par.grad is None for par in model.parameters())
     v.restore(t,entry);assert e.same(entry,v.snapshot(t)) and not ledger.count
+    e.write(ROOT/'POLICY_DISTRIBUTION_DIAGNOSTICS.json',diagnostics);e.write(ROOT/'REWARD_COMPONENT_DIAGNOSTICS.json',rewards)
     exposures=[]
     for path in sorted((Path(C['old_campaign'])/'scopes/pilot/jobs').glob('endpoint_'+d+'_*')):
         cfg=e.read(path/'CONFIG.private.json');exposures.append(dict(domain=d,method=cfg['method'],controller=cfg['controller'],**exposure(path,d)))

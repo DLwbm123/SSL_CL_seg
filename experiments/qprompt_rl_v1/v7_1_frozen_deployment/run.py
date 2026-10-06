@@ -34,7 +34,7 @@ class Accounting:
             manifest.append(record)
         assert sum(self.count.values())<=21232 and not set(self.count)-{'smoke','endpoint'}
         write(self.root/'JOB_MANIFEST.json',dict(updated=stamp(),jobs=manifest))
-        write(self.root/'COSTS.json',dict(updated=stamp(),physical_attempts=dict(self.count),physical_successes=dict(self.success),physical_failures=dict(self.failures),student_budget=21232,controller_updates=0))
+        write(self.root/'COSTS.json',dict(prior_failed_attempt=read(self.root/'PRIOR_ATTEMPT_COSTS.json') if (self.root/'PRIOR_ATTEMPT_COSTS.json').exists() else None,updated=stamp(),physical_attempts=dict(self.count),physical_successes=dict(self.success),physical_failures=dict(self.failures),student_budget=21232,controller_updates=0))
 
 def schedule(root,c,jobs,account,alljobs,phase):
     pending=list(jobs);active={};failed=[];done=[]
@@ -66,6 +66,11 @@ def coordinator(root,c):
     write(root/'PROCESS.json',dict(pid=os.getpid(),started=stamp(),process_start_ticks=Path(f'/proc/{os.getpid()}/stat').read_text().split()[21]))
     (root/'scopes/v71/jobs').mkdir(parents=True,exist_ok=False)
     write(root/'STATUS.json',dict(status='RUNNING',phase='PROVENANCE',updated=stamp()))
+    if c.get('prior_attempt'):
+        prior=read(Path(c['prior_attempt'])/'stopped_report/COSTS.json')
+        assert prior['physical_student_updates']==prior['controller_updates']==0, 'no budget reset across attempts'
+        write(root/'PRIOR_ATTEMPT_COSTS.json',prior)
+        write(root/'RESUMPTION.json',dict(authorized_by='User: 为什么失败，你解决一下',prior_attempt=Path(c['prior_attempt']).name,prior_student_updates=0,prior_controller_updates=0,prior_diagnostic_costs_preserved=True,scope_and_budget_unchanged=True,automatic_retry=False,started=stamp()))
     from .provenance import run
     try:run(root,c)
     except BaseException as exc:
