@@ -1,0 +1,26 @@
+{
+  "stage": "V97_FINITE_ACTION_SEQUENCE_FEASIBILITY",
+  "created_at_utc": "2026-10-07T23:20:08.880721+00:00",
+  "purpose": "Before another actor-objective change, test whether the existing action space can meet frozen practical margins on the already observed D1 development entry states and original native streams. This is an adaptive diagnostic, not a policy improvement claim or independent validation.",
+  "hypothesis": "Some combination of the existing two-decision action sequences can simultaneously exceed all historical arm-mean utility by .0005 and the fixed practical tradeoffs against strongest prior RL/CE and uniform. Failure would limit further actor-only search on these fixed conditions; success only establishes post-hoc sequence feasibility.",
+  "matrix": "4originaldevcontexts x9firstactions x9secondactions=324endpoints. Start originalENTRY100,totalH300; first action100->200, second200->300. Save150new-readout snapshot perfirstaction. Reuse each100->200prefix within its9second branches. Reset complete student/RNG/provider/optimizer/EMA state to paired prefix before eachsecond action. No randomstream addition or reset of physical ledger.",
+  "deployment_boundary": "These are fixed counterfactual branches, not a new deployment policy. Existing T1categorical policies and24->32->9actors are unchanged. Do not deploy selected grid sequences or use Q_dev rewards/actions to train actors. No claim of unbiased performance upper bound; only an empirical maximum on these finite frozen trajectories.",
+  "budget": {
+    "actor_updates": 0,
+    "student_qualification": 8,
+    "student_prefix": 3600,
+    "student_suffix": 32400,
+    "student_total": 36008,
+    "training_query_image_evaluations": 0,
+    "development_query_image_evaluations": 2736,
+    "new_unique_images": 0
+  },
+  "reuse": "Historical168endpoints fromV96 are audited context/sequence reference metrics only. All324gridendpoints are newly executed; sharedprefixreuse reduces newupdates to36000 vs64800naive. Do not count old actors or endpoints as newreplicates.",
+  "qualification": "Reuse native engine;8native pairedrestore/inference-isolation qualification updates. Synthetic CPU feasibilitycheck positive/negative threshold cases, Cartesian index mapping, aggregation. After readout, every historical actionsequence observed in a context must match newgrid newshort/new/old channel scores,gain,forgetting,utility within1e-7; mismatch is engineeringSTOP, not scientificfailure.",
+  "barrier": "All324finalsnapshots and36mid150snapshots sealed before any new Q_dev readout. No candidate inspection, pruning, trainingfit, sampling or adaptive resourceallocation based on unsealed outcomes.",
+  "readout": "For eachcontext,scoreeachfirst-actionMID150once onQ_dev_new(9x4) andall81FINAL300onQ_dev_new+old(81x8). Originalutility .25(new150-entry)+.75(new300-entry)-max(0,oldmemoryref-old300-.005). Reportall324rows plus completeoldcontrols.",
+  "analysis": "Enumerate81^4=43046721 combinations of one sequence percontext in deterministic actionIDlexicographicorder. Equalcontextmean. Reportunconstrainedbestutility and bestfeasibleutility; firstlexicographictie. Feasible requiresmeanutility>=everyhistoricalarmmean+.0005 AND eachtradeoff againstUNIFORM_ACTION,CONTINUE_CE,POOLED_RL: (new>=controlnew+.002old>=controlold-.0025)OR(old>=controlold+.005new>=controlnew-.0025). No pvalues orpatientindependence.",
+  "pass_status": "ACTION_SEQUENCE_MARGIN_EXISTS_ON_FROZEN_D1_ONLY",
+  "fail_status": "NO_ACTION_SEQUENCE_MARGIN_ON_FROZEN_D1_STREAMS",
+  "limits": "Same4repeatedlyobservedD1contexts/sharedqueryimages/originalstudentstreams. Not newdomain,independentvalidation,GRPOsuccess ordeployableoracle. NohiddenUlabels/newroles/realnextdomains/sealedtest. PreserveallhistoricalSTOPs/V84NOT_RUN. Fullgridandcostspublished;privatecheckpoints/states/rolesstayNAS."
+}
