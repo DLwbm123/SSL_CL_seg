@@ -1,0 +1,9 @@
+# V91 training objective diagnostic; development pending
+
+The existing KL reference reduces the reward preferred by the objective even at its exact per-state optimum. Normalized dense return at the old-reference optimum is1.072617/1.051953 for601/602, below the frozen denseCE policy1.249769/1.249067. This is objective-level evidence on the fixed training table, not a bound on student deployment performance.
+
+With matched denseCE initialization, OLD_ANCHOR_RL reaches1.071576/1.051294, close to those old-reference optima. ALIGNED_ANCHOR_RL reaches1.324870/1.325217, close to its own exact optima1.325515/1.325994. ContinuedCE reaches1.268233/1.268234. Thus the paired experiment has substantially reduced optimizer-fit error and isolated the old-versus-aligned reference for this finite training objective. Neither deployment benefit nor independent generalization follows from this table alone.
+
+The closed form is p*=softmax((advantage+0.25log(reference))/0.26), from the fixed0.25KL and0.01negative-entropy coefficients. The runnable algebraic check verifies L(p)-L(p*)=0.26KL(p||p*); all achieved policy objectives were checked against the exact optimum. Diagnostic loss in FIT_SUMMARY is the RL expression for comparability, including on CONTINUE_CE; actual optimization losses are recorded in FIT_LOG. No model, seed, coefficient or checkpoint was selected from these diagnostics.
+
+Six fits completed6144updates with zero failures. Native two-context continuous/restored qualification passed8updates and policy/student RNG isolation. New development is running; all88 endpoints must be sealed before the288new development image evaluations. Original V90 primary remains STOP. V91's code and preregistration are locally committed and saved to NAS before launch; GitHub push currently returns serverHTTP500, so V91 public delivery is pending.
