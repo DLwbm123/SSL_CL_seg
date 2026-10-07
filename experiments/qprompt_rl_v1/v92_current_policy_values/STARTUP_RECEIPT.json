@@ -1,0 +1,106 @@
+{
+  "run_id": "v92_values_20261007T161821Z",
+  "initial_pid": 1656339,
+  "preregistration_commit": "7d272b6",
+  "execution_commit": "3cb1e24d4df67d7c9dac9e6b56361ce5f3beae91",
+  "status": "COLLECTION_RUNNING_QUALIFICATION_PASS",
+  "student_cap": 44808,
+  "actor_cap": 4096,
+  "training_query_cap": 2752,
+  "development_query_cap": 192,
+  "storage": "NFS14.6TiBfree,create/write/readprobePASS",
+  "GPU_admission": "GPUs5/6 each24124MiBfree,7 has22937MiB; everylaunchrechecks>=12000MiB",
+  "checks": {
+    "STATUS.json": {
+      "status": "RUNNING",
+      "active": [
+        "collect0_1",
+        "collect0_2",
+        "collect1_1"
+      ],
+      "pending": [
+        "collect1_2",
+        "collect2_1",
+        "collect2_2",
+        "collect3_1",
+        "collect3_2",
+        "collect4_1",
+        "collect4_2",
+        "collect5_1",
+        "collect5_2",
+        "collect6_1",
+        "collect6_2",
+        "collect7_1",
+        "collect7_2"
+      ],
+      "completed": [],
+      "failed": [],
+      "physical": {
+        "qualification": 8,
+        "audit": 22
+      },
+      "time": 1791389932.6527712
+    },
+    "COSTS.json": {
+      "scope": "V92_NEW_ONLY",
+      "attempts": {
+        "qualification": 8,
+        "audit": 22
+      },
+      "success": {
+        "qualification": 8,
+        "audit": 22
+      },
+      "failures": {},
+      "student_cap": 44808,
+      "actor_cap": 4096
+    },
+    "REUSE_AUDIT.json": {
+      "status": "PASS",
+      "endpoints": 88,
+      "source": "V91 complete sealed and evaluated endpoints, including audited V83/V87/V89/V90 controls",
+      "new_updates": 0
+    },
+    "jobs/qualification/QUALIFICATION.json": {
+      "status": "PASS",
+      "native_updates": 8,
+      "exact_pairs": 2,
+      "policy_student_rng_isolation": true,
+      "query_accesses": 0,
+      "native_engine_checks": "REUSED_V83"
+    },
+    "processes": [
+      {
+        "job": "coordinator",
+        "pid": 1656339,
+        "start": "Thu Oct  8 00:18:21 2026",
+        "exact_run": true,
+        "neutral_cmdline": true
+      },
+      {
+        "job": "collect0_1",
+        "pid": 1656771,
+        "start": "Thu Oct  8 00:18:41 2026",
+        "exact_run": true,
+        "neutral_cmdline": true
+      },
+      {
+        "job": "collect0_2",
+        "pid": 1656780,
+        "start": "Thu Oct  8 00:18:41 2026",
+        "exact_run": true,
+        "neutral_cmdline": true
+      },
+      {
+        "job": "collect1_1",
+        "pid": 1656852,
+        "start": "Thu Oct  8 00:18:41 2026",
+        "exact_run": true,
+        "neutral_cmdline": true
+      }
+    ],
+    "lock_held": true,
+    "checked_epoch": 1791389943.0947175
+  },
+  "neutral_gpu_process_names_verified": true
+}
