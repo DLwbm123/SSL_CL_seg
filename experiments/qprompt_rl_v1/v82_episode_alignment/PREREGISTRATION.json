@@ -1,0 +1,39 @@
+{
+  "status": "FROZEN_BEFORE_NEW_UPDATES",
+  "protocol": "V82_EPISODE_ALIGNMENT",
+  "principal_change": "match policy training episodes to 300-step deployment episodes",
+  "training_horizon": 300,
+  "episode_groups": 2,
+  "decisions": [
+    100,
+    200
+  ],
+  "episodes_per_context": 4,
+  "controller_seeds": [
+    601,
+    602
+  ],
+  "groups_per_controller": 64,
+  "candidates": 4,
+  "steps_per_candidate": 100,
+  "sigma_floor": 0.0007379373167760999,
+  "unchanged": "V81 calibrated floor, actions, loss, fixed-reference reward, actor optimizer/epochs, branch-zero retention, roles, source, training photo conditions, all dev controls",
+  "fresh_native_entry_steps": 800,
+  "qualification_student_cap": 8,
+  "qualification_actor_cap": 8,
+  "prior_student_cap": 51200,
+  "prior_actor_cap": 512,
+  "dev_entry_cap": 400,
+  "dev_student_cap": 4000,
+  "new_student_cap": 56408,
+  "new_actor_cap": 520,
+  "success": "At least one fixed prior utility >= uniform +0.0005 and >= matching V81 prior +0.0005, new >= uniform -0.0025, old >= uniform -0.005",
+  "failure": "STOP_EPISODE_ALIGNMENT_NO_PRACTICAL_GAIN; retire this episodic intervention and no automatic target run",
+  "Q_dev": "previously seen repeated diagnostic, NOT independent validation",
+  "unit": "image",
+  "patient_independence": "NOT_CLAIMED",
+  "sealed_test": "FORBIDDEN",
+  "previous_student_invocations": 134437,
+  "previous_actor_invocations": 412,
+  "common_historical_source": 8000
+}

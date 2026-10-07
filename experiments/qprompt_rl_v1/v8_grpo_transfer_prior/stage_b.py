@@ -24,7 +24,8 @@ def contexts():
     return [(m,n,(kind,factor),f'm{m}_n{n}_{kind}') for m in (2000,8000) for n in (2,8) for kind,factor in (('brightness',.8),('contrast',1.2))]
 
 
-def make(config,roles,ledger,context,horizon=900):
+def make(config,roles,ledger,context,horizon=None):
+    horizon=config.get('training_horizon',900) if horizon is None else horizon
     m,n,condition,_=context
     payload=torch.load(Path(config['action_root'])/'auxiliary'/f'step{m}.pt',map_location='cpu',weights_only=False)
     assert payload['step']==m
@@ -64,7 +65,8 @@ def group(t,roles,actor,opt,g,floor,reference,ledger,key,steps=100,category='pri
 
 def qualify(root,config,roles,ledger):
     ctx=contexts()[0];t=make(config,roles,ledger,ctx)
-    v=torch.load(Path(config['action_root'])/ctx[3]/'ENTRY.private.pt',map_location='cpu',weights_only=False);c.restore(t,v)
+    if config.get('protocol')!='V82_EPISODE_ALIGNMENT':
+        v=torch.load(Path(config['action_root'])/ctx[3]/'ENTRY.private.pt',map_location='cpu',weights_only=False);c.restore(t,v)
     actor=c.Actor(601);opt=torch.optim.Adam(actor.parameters(),lr=.001);g=torch.Generator().manual_seed(601)
     before=c.snapshot(t);e.atomic_save(before,root/'ENTRY.private.pt')
     reference=next(r['memory_old'] for r in config['action_rows'] if r['context']==ctx[3])
@@ -76,26 +78,46 @@ def qualify(root,config,roles,ledger):
     e.write(root/'QUALIFICATION.json',dict(status='PASS',real_student_updates=8,actor_updates=ledger.count['actor_qualification'],checks=['four paired restored branches','branch zero retained','fixed memory reference','query readout isolation','actor update isolation','low-signal skip and full-group core reused'],source_qualification_reused=True,commit=config['commit']))
 
 
+def training_entries(root,config,roles,ledger):
+    assert config['protocol']=='V82_EPISODE_ALIGNMENT' and config['training_horizon']==300
+    assert e.read(Path(config['campaign'])/'jobs/qualification/QUALIFICATION.json')['status']=='PASS'
+    for ctx in contexts():
+        dest=root/ctx[3];dest.mkdir(exist_ok=False);t=make(config,roles,ledger,ctx)
+        t.category='entries';t.key=ctx[3];t.action=0
+        for _ in range(100):t.update()
+        assert t.step==100 and t.options['total_steps']==300
+        assert abs(float(t.extract()[0])-1/3)<1e-6
+        e.atomic_save(c.snapshot(t),dest/'ENTRY.private.pt');del t;torch.cuda.empty_cache()
+    assert ledger.count['entries']==800
+    e.write(root/'FINAL.json',dict(status='COMPLETE',entries=8,physical=dict(ledger.count),time=time.time()))
+
+
 def learn(root,config,roles,ledger):
     assert e.read(Path(config['campaign'])/'jobs/qualification/QUALIFICATION.json')['status']=='PASS'
     seed=config['controller'];actor=c.Actor(seed);opt=torch.optim.Adam(actor.parameters(),lr=.001);g=torch.Generator().manual_seed(seed)
-    states={ctx[3]:torch.load(Path(config['action_root'])/ctx[3]/'ENTRY.private.pt',map_location='cpu',weights_only=False) for ctx in contexts()}
+    entry_root=Path(config.get('training_entry_root',config['action_root']))
+    states={ctx[3]:torch.load(entry_root/ctx[3]/'ENTRY.private.pt',map_location='cpu',weights_only=False) for ctx in contexts()}
+    episode=config.get('episode_groups',8)
     references={}
     for ctx in contexts():
         values=[r['memory_old'] for r in config['action_rows'] if r['context']==ctx[3]]
         assert max(values)-min(values)<1e-8;references[ctx[3]]=values[0]
     for k in range(64):
-        ctx=contexts()[k%8];key=ctx[3];t=make(config,roles,ledger,ctx);c.restore(t,states[key]);assert t.step==100+100*(k//8)
+        ctx=contexts()[k%8];key=ctx[3];visit=k//8
+        if config.get('protocol')=='V82_EPISODE_ALIGNMENT' and visit%episode==0:states[key]=torch.load(entry_root/key/'ENTRY.private.pt',map_location='cpu',weights_only=False)
+        t=make(config,roles,ledger,ctx);c.restore(t,states[key]);assert t.step==100+100*(visit%episode)
         e.atomic_save(dict(student=states[key],actor=actor.state_dict(),optimizer=opt.state_dict(),private_rng=g.get_state(),group=k,context=key),root/'GROUP_ENTRY.private.pt')
         try:result=group(t,roles,actor,opt,g,config['sigma_floor'],references[key],ledger,f'g{k:02d}/{key}')
         except BaseException:
             e.atomic_save(c.snapshot(t),root/'FAILED_STATE.private.pt');raise
+        if config.get('protocol')=='V82_EPISODE_ALIGNMENT':
+            assert t.options['total_steps']==300 and abs(result['state'][0]-(100+100*(visit%2))/300)<1e-6
         states[key]=c.snapshot(t);e.atomic_save(states[key],root/(key+'.private.pt'))
         e.append(root/'GROUPS.jsonl',dict(group=k,context=key,controller=seed,**result))
         e.atomic_save(dict(actor=actor.state_dict(),optimizer=opt.state_dict(),rng=g.get_state(),completed_groups=k+1,controller=seed),root/'actor_latest.pt')
         e.write(root/'STATUS.json',dict(status='RUNNING',phase='PRIOR_TRAINING',controller=seed,groups=k+1,total=64,physical=dict(ledger.count),time=time.time()))
         del t;torch.cuda.empty_cache()
-    assert ledger.count['prior']==25600 and all(v['step']==900 for v in states.values())
+    assert ledger.count['prior']==25600 and all(v['step']==100+100*episode for v in states.values())
     e.atomic_save(dict(actor=actor.state_dict(),controller=seed,groups=64,commit=config['commit']),root/'actor_final.pt')
     e.write(root/'FINAL.json',dict(status='COMPLETE',controller=seed,groups=64,physical=dict(ledger.count),selection='final checkpoint, both seeds retained',time=time.time()))
 
@@ -159,12 +181,16 @@ def main():
     config.update(sigma_floor=decision['sigma_floor'],fixed_best=decision['fixed_best'],action_rows=[json.loads(s) for s in (Path(config['action_root'])/'ACTION_ROWS.jsonl').read_text().splitlines()])
     if 'sigma_floor_override' in config:
         from experiments.qprompt_rl_v1.v81_paired_noise.round import paired_floor
-        assert config['protocol']=='V81_PAIRED_NOISE'
-        assert e.read(Path(config['prior_campaign'])/'DECISION.json')['status']=='STOP_PRIOR_NOT_TRANSFERABLE_IN_D1_SCREEN'
+        stops={'V81_PAIRED_NOISE':'STOP_PRIOR_NOT_TRANSFERABLE_IN_D1_SCREEN','V82_EPISODE_ALIGNMENT':'STOP_PAIRED_NOISE_NO_PRACTICAL_GAIN'}
+        assert config['protocol'] in stops
+        assert e.read(Path(config['prior_campaign'])/'DECISION.json')['status']==stops[config['protocol']]
         assert abs(config['sigma_floor_override']-paired_floor(config['action_rows']))<1e-12
         config['sigma_floor']=config['sigma_floor_override']
+    if config.get('protocol')=='V82_EPISODE_ALIGNMENT':
+        assert config['training_horizon']==300 and config['episode_groups']==2
+        assert Path(config['training_entry_root'])==Path(config['campaign'])/'jobs/training_entries'
     try:
-        {'qualification':qualify,'prior':learn,'development':development}[config['job']](root,config,roles,ledger)
+        {'qualification':qualify,'training_entries':training_entries,'prior':learn,'development':development}[config['job']](root,config,roles,ledger)
         if config['job']=='qualification':e.write(root/'FINAL.json',dict(status='COMPLETE',physical=dict(ledger.count)))
     except BaseException as exc:
         e.write(root/'STATUS.json',dict(status='ENGINEERING_STOP',error=repr(exc),traceback=traceback.format_exc(),physical=dict(ledger.count)));raise

@@ -16,15 +16,16 @@ JOBS=[dict(id='qualification',job='qualification',caps=dict(qualification=8,acto
 
 
 class Accounting:
-    def __init__(self,root,caps=None):
+    def __init__(self,root,caps=None,jobs=None):
         self.root=root;self.offsets={};self.count=Counter();self.success=Counter();self.failure=Counter()
         self.caps=caps or dict(qualification=128,actor_qualification=128,auxiliary=8000,entries=1200,audit=14400,prior=51200,actor_prior=512,development=4000)
+        self.jobs=JOBS if jobs is None else jobs
         for line in (root/'PHYSICAL_LEDGER.jsonl').read_text().splitlines():
             row=json.loads(line);self.consume(row)
     def consume(self,row):
         {'attempt':self.count,'success':self.success,'failure':self.failure}[row['event']][row['category']]+=1
     def refresh(self):
-        for job in JOBS:
+        for job in self.jobs:
             source=self.root/'jobs'/job['id']/'PHYSICAL_LEDGER.jsonl'
             if not source.exists():continue
             with source.open() as f:
@@ -61,7 +62,7 @@ def schedule(root,config,jobs,account):
                 write(path/'LAUNCH.json',dict(pid=p.pid,gpu=gpu,commit=config['commit'],time=time.time()));active[gpu]=(p,j)
         account.refresh()
         states={j['id']:read(root/'jobs'/j['id']/'STATUS.json') if (root/'jobs'/j['id']/'STATUS.json').exists() else {} for j in jobs}
-        write(root/'STATUS.json',dict(status='ENGINEERING_STOP' if failed else 'RUNNING',phase='STAGE_B',active=[j['id'] for _,j in active.values()],pending=[j['id'] for j in pending],completed=done,failed=failed,job_progress=states,physical=dict(account.count),updated=time.time()))
+        write(root/'STATUS.json',dict(status='ENGINEERING_STOP' if failed else 'RUNNING',phase=config.get('phase','STAGE_B'),active=[j['id'] for _,j in active.values()],pending=[j['id'] for j in pending],completed=done,failed=failed,job_progress=states,physical=dict(account.count),updated=time.time()))
         if failed and not active:return False
         if active or pending:time.sleep(10)
     return True

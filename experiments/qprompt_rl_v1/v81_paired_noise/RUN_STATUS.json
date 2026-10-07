@@ -1,26 +1,44 @@
 {
-  "status": "RUNNING",
-  "phase": "STAGE_B",
-  "active": [
-    "prior_601",
-    "prior_602"
-  ],
-  "pending": [],
-  "completed": [],
-  "failed": [],
-  "job_progress": {
-    "prior_601": {},
-    "prior_602": {}
+  "status": "STOP_PAIRED_NOISE_NO_PRACTICAL_GAIN",
+  "gates": {
+    "601": {
+      "passed": false,
+      "utility_vs_uniform": -0.0020210938528180122,
+      "utility_vs_original_prior": -0.00015591178089380264,
+      "new_vs_uniform": -0.0001998376101255417,
+      "old_vs_uniform": -0.0019963830709457397
+    },
+    "602": {
+      "passed": false,
+      "utility_vs_uniform": -0.0011042696423828602,
+      "utility_vs_original_prior": -0.00016098422929644585,
+      "new_vs_uniform": -0.0007019154727458954,
+      "old_vs_uniform": 5.204230546951294e-06
+    }
   },
-  "physical": {
+  "diagnostics": {
+    "601": {
+      "skipped": 30,
+      "groups": 64
+    },
+    "602": {
+      "skipped": 32,
+      "groups": 64
+    }
+  },
+  "physical_cumulative": {
     "qualification": 37,
     "actor_qualification": 12,
     "auxiliary": 8000,
-    "entries": 1200,
+    "entries": 1600,
     "audit": 14400,
-    "prior": 51293,
-    "actor_prior": 136,
-    "development": 4000
+    "prior": 102400,
+    "actor_prior": 400,
+    "development": 8000
   },
-  "updated": 1791315439.7008882
+  "C": "NOT_RUN",
+  "D": "NOT_RUN",
+  "development": "REUSED_DIAGNOSTIC_NOT_INDEPENDENT",
+  "time": 1791330661.993451,
+  "publication": "PENDING"
 }
