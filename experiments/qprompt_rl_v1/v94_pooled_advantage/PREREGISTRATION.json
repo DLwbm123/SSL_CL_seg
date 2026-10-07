@@ -1,0 +1,34 @@
+{
+  "stage": "V94_POOLED_ADVANTAGE_SCALE",
+  "created_at_utc": "2026-10-07T20:23:39.642932+00:00",
+  "basis": "V93 head freezing gives no gain; V92 RL policies are sharper and exhibit more between-seed entry-state variation than CE. Hypothesis: per-state unit-variance normalization suppresses absolute reward gaps and overemphasizes small-gap states. This is unconfirmed and motivated by repeatedly observed D1 development.",
+  "intervention": "Exactly one change from V92: center each 9-action reward row, divide all rows by one pooled training-only RMS of centered rewards, floored at existing 0.0007379373167760999, and clamp [-3,3]. No dev statistics, temperature search, extra data or random streams.",
+  "arms": [
+    "POOLED_CE",
+    "POOLED_RL"
+  ],
+  "seeds": [
+    601,
+    602
+  ],
+  "initialization": "Own V90 DENSE_CE actor/scaler/reference as V92 FRESH_CE/RL; full 1097-parameter 24->32Tanh->9 actor. Adam lr .001, clip1, exactly1024 steps each; final checkpoint only.",
+  "data": "Exact V92 32-state x9 dense signed-retention reward table. Same .25 short/.75 final new gain + old final - old entry reward. Zero new training rollouts or query accesses.",
+  "objectives": "CE target softmax(pooled_adv/.25), entropy .01. RL expected pooled_adv, KL .25 to own frozen V90 CE reference, entropy .01. Same objectives and coefficients as V92; only state-dependent versus pooled advantage scale changes.",
+  "controls": "All120V93 endpoints reused. Primary matched full-network per-state controls are V92 FRESH_CE/FRESH_RL. Own pooled CE controls general effects of scaling. Same initialization/data/steps, not a FLOPs or walltime match.",
+  "diagnostics": "Before fitting, save per-state raw population std, old floored scale, pooled scale, normalization ratio, clipping counts; disclose pooled RMS. Zero optimizer/query diagnostics. Do not use diagnostics to alter recipe or criteria.",
+  "budget": {
+    "actor_fit": 4096,
+    "student_qualification": 8,
+    "student_development": 3200,
+    "student_total": 3208,
+    "training_query_image_evaluations": 0,
+    "development_query_image_evaluations": 192,
+    "new_unique_images": 0
+  },
+  "qualification": "Executable pooled-scale selfcheck: shift invariance per row, unequal raw amplitudes preserved under pooled scale, positive global scaling invariance when floor/clipping inactive; finite gradients on actual fit. Eight native paired-restore and inference-isolation updates with new RL, zero query.",
+  "deployment": "Same4contexts/ENTRY100/H300/100and200 decisions/T1 categorical/private860301+context/save150and300. 120reused+16new=136sealed before192new dev image-evaluations.",
+  "primary": "MeanPOOLED_RLutility>=+.0005vs every old arm mean and POOLED_CE; each seed >matched FRESH_RL and POOLED_CE; practicaltradeoff against UNIFORM,CONTINUE_CE,FRESH_CE,POOLED_CE: (new>=+.002 and old>=-.0025) OR (old>=+.005 and new>=-.0025). Original deployment utility unchanged.",
+  "pass_status": "PASS_V94_POOLED_ADVANTAGE_D1_ONLY",
+  "fail_status": "STOP_V94_NO_POOLED_ADVANTAGE_INCREMENTAL_GAIN",
+  "stops": "No extra seeds, epochs, tuning, new losses/actions/data/roles/hiddenUlabels/realnextdomains/sealedtest. Preserve all priorSTOPs,V84NOT_RUN. No independent or paper-ready claim from reused D1 development."
+}
