@@ -1,0 +1,55 @@
+{
+  "status": "FROZEN_BEFORE_NEW_UPDATES",
+  "protocol": "V83_DENSE_REWARD",
+  "principal_change": "replace sampled GRPO by complete-action reward-supervised policy fitting",
+  "grpo_success_claim": false,
+  "training_horizon": 300,
+  "decision_steps": [
+    100,
+    200
+  ],
+  "teacher_contexts": 8,
+  "actions": 9,
+  "paired_streams": [
+    1,
+    2
+  ],
+  "rollout_steps": 100,
+  "teacher_rows": 288,
+  "sigma_floor": 0.0007379373167760999,
+  "preferences": "mean two stream rewards per action; center/scale by max(population std over 9 actions, frozen floor), clip logits to [-3,3], softmax temperature 1",
+  "policy_architecture": "24 -> 32 Tanh -> 9, zero final logits",
+  "policy_seeds": [
+    601,
+    602
+  ],
+  "actor_optimizer": "Adam lr .001, 64 complete-table steps, entropy .01, gradient clip 1, final checkpoint only",
+  "new_student_cap": 34008,
+  "new_actor_cap": 137,
+  "qualification_student_cap": 8,
+  "qualification_actor_cap": 9,
+  "teacher_entry_cap": 800,
+  "teacher_rollout_cap": 28800,
+  "actor_fit_cap": 128,
+  "dev_entry_cap": 400,
+  "dev_student_cap": 4000,
+  "baseline_entry": "reuse V82 immutable H300 ENTRY100; advance native 100 steps to obtain ENTRY200",
+  "controls": [
+    "NATIVE",
+    "FIXED_BEST_FROM_SAME_DENSE_TABLE",
+    "UNIFORM_ACTION",
+    "DENSE_601",
+    "DENSE_602"
+  ],
+  "fixed_selection": "global mean reward over all 16 states using identical complete training information; tie native then low alpha/action id; fixed before dev",
+  "success": "at least one final dense actor mean utility >= each native/fixed/uniform +.0005 and matching V82 actor +.0005, new >= uniform -.0025, old >= uniform -.005",
+  "failure": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN; no automatic targets, retire dense-supervision intervention",
+  "unchanged": "native losses, fit/query roles, source snapshots, 9 actions, fixed-reference reward, paired RNG seeds, photo conditions, decision horizon, development endpoints and evaluation ordering",
+  "Q_dev": "already observed repeated diagnostic, no independent validation claim",
+  "unit": "image",
+  "patient_independence": "NOT_CLAIMED",
+  "sealed_test": "FORBIDDEN",
+  "previous_student_invocations": 190845,
+  "previous_actor_invocations": 704,
+  "common_historical_source_student": 8000
+}

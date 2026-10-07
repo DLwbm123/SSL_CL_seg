@@ -33,7 +33,7 @@ def make(config,roles,ledger,context,horizon=None):
 
 
 def rollout(t,roles,condition,steps=100,category='prior'):
-    assert (category=='prior' and steps==100) or (category=='qualification' and steps==2)
+    assert (category in ('prior','audit') and steps==100) or (category=='qualification' and steps==2)
     short=25 if steps==100 else 1;mid=None;t.category=category
     gradient=[];gate=[];losses=[]
     for step in range(steps):
@@ -65,7 +65,7 @@ def group(t,roles,actor,opt,g,floor,reference,ledger,key,steps=100,category='pri
 
 def qualify(root,config,roles,ledger):
     ctx=contexts()[0];t=make(config,roles,ledger,ctx)
-    if config.get('protocol')!='V82_EPISODE_ALIGNMENT':
+    if config.get('protocol') not in ('V82_EPISODE_ALIGNMENT','V83_DENSE_REWARD'):
         v=torch.load(Path(config['action_root'])/ctx[3]/'ENTRY.private.pt',map_location='cpu',weights_only=False);c.restore(t,v)
     actor=c.Actor(601);opt=torch.optim.Adam(actor.parameters(),lr=.001);g=torch.Generator().manual_seed(601)
     before=c.snapshot(t);e.atomic_save(before,root/'ENTRY.private.pt')

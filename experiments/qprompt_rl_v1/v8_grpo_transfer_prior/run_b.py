@@ -56,7 +56,7 @@ def schedule(root,config,jobs,account):
                 if free<12000:continue
                 j=pending.pop(0);path=root/'jobs'/j['id'];path.mkdir(exist_ok=False);cfg=dict(config,**j,campaign=str(root),gpu=gpu)
                 write(path/'CONFIG.private.json',cfg)
-                env=dict(os.environ,EXEC_RUN=str(path),EXEC_CONFIG=str(path/'CONFIG.private.json'),EXEC_MODULE='experiments.qprompt_rl_v1.v8_grpo_transfer_prior.stage_b',PYTHONPATH=config['code'],CUDA_VISIBLE_DEVICES=str(gpu),CUBLAS_WORKSPACE_CONFIG=':4096:8')
+                env=dict(os.environ,EXEC_RUN=str(path),EXEC_CONFIG=str(path/'CONFIG.private.json'),EXEC_MODULE=config.get('worker_module','experiments.qprompt_rl_v1.v8_grpo_transfer_prior.stage_b'),PYTHONPATH=config['code'],CUDA_VISIBLE_DEVICES=str(gpu),CUBLAS_WORKSPACE_CONFIG=':4096:8')
                 with (path/'worker.log').open('a') as log:
                     p=subprocess.Popen(['bash','./with_nas_storage.sh',config['python'],'-c','import os,runpy;runpy.run_module(os.environ["EXEC_MODULE"],run_name="__main__")'],cwd=config['code']+'/experiments/lcrseg/scripts',env=env,stdout=log,stderr=subprocess.STDOUT,start_new_session=True)
                 write(path/'LAUNCH.json',dict(pid=p.pid,gpu=gpu,commit=config['commit'],time=time.time()));active[gpu]=(p,j)
