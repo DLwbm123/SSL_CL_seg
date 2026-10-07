@@ -1,0 +1,43 @@
+{
+  "protocol": "V88_ZERO_UPDATE_STATE_COVERAGE",
+  "frozen_at_utc": "2026-10-07T11:30:59.308554+00:00",
+  "status": "FROZEN_BEFORE_NEW_FEATURE_ANALYSIS",
+  "exposure": "V87 allendpointresults/actions already observed; adaptive diagnosis, not independent evidence",
+  "sources": [
+    "V83 sealed 16-state dense table",
+    "V85/V86 sealed full-table actors and scalers",
+    "V87 saved 56decision records and sealed endpoint summaries"
+  ],
+  "hypotheses": [
+    "H1 training-to-deployment feature coverage gap, especially endogenous step200 states",
+    "H2 excessive hidden-unit saturation/confident action concentration outside training coverage",
+    "H3 poor endpoint changes concentrate in shifted states; association only, not causation"
+  ],
+  "primary": "V87 Z_1024 decisions for both601/602, report all four contexts and both times; duplicated/shared states explicitly disclosed",
+  "secondary": "allother saved V87 methoddecisions; six frozen actors evaluated on same saved states without sampling/retraining",
+  "metrics": {
+    "distance": "root-mean-square standardized Euclidean over24 features to nearest of8 trainingstates at same time; frozen V86 Z full-table scaler",
+    "training_reference": "for each of16 trainingstates find nearest trainingstate at same time excluding owncontext, using same full-table scaler; report max/median",
+    "coverage_flag": "deployment NN distance > maximum training leave-context-out nearest distance for same time",
+    "range_flags": "number of dimensions outside training same-time min/max; absolute standardized value>5; shifted globallyconstant dimensions separately",
+    "saturation": "fraction of32 hidden Tanh activations with abs>=.99",
+    "policy": "normalized entropy, maximumprobability, probability assigned to actuallysampled action; no new action sample",
+    "repeatability": "recomputed originating-policy probabilities within1e-6 of saved V87 probabilities; entry100 features identical acrossmethods/seed for samecontext",
+    "association": "descriptive percontext alignment with already-observed V87 utility/forgetting changes; no pvalues or causalclaim"
+  },
+  "diagnostic_rule": {
+    "coverage_priority": "at least half of unique primary step200 states flagged beyond same-time trainingLOCOmax; no claim of calibrated OOD detection",
+    "saturation_priority": "primary step200 median hidden saturation exceeds same-time training median by>=.25",
+    "otherwise": "coverage/saturation evidence not established by these descriptive rules; inspect horizon/objective mismatch without fabricating an OODcause"
+  },
+  "budget": {
+    "student_updates": 0,
+    "actor_updates": 0,
+    "new_query_accesses": 0,
+    "new_images": 0,
+    "GPU_training": false
+  },
+  "next": "No automatic GPU experiment or protocol change from this diagnostic; use result to separately preregister the smallest causal intervention. V84 NOT_RUN and priorSTOPs unchanged.",
+  "public_boundary": "publish aggregated/derived scalar diagnostics and featureindices, never raw featurevectors, weights, image data or identities",
+  "stop": "Missing input/probability mismatch is engineering STOP; no reconstructed states or student updates"
+}
