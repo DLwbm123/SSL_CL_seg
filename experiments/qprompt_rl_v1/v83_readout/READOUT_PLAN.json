@@ -1,0 +1,178 @@
+{
+  "protocol": "V83_R_ACTION_LEARNABILITY",
+  "frozen_at_utc": "2026-10-07T06:57:17.207853+00:00",
+  "status": "FROZEN_BEFORE_NEW_ANALYSIS",
+  "authority": "EXECUTION_REQUEST.md",
+  "sequence": [
+    "seal original V83 under its own screen",
+    "B1 audit",
+    "B2 cross-stream",
+    "B3 CPU LOCO",
+    "B4 saved-state interpretation",
+    "save all diagnostics then decide",
+    "V84 only if READY"
+  ],
+  "eligibility": [
+    "V83 engineering complete",
+    "288 unique finite reward rows",
+    "both final actors sealed",
+    "20 endpoints sealed before readout",
+    "original V83 decision and costs archived"
+  ],
+  "exposure": {
+    "new_V83_reward_values_seen": false,
+    "new_V83_endpoint_values_seen": false,
+    "new_B2_B3_results_seen": false,
+    "prior_V82_decision_seen": true,
+    "code_and_live_progress_seen": true,
+    "prior_analysis_exposure_elsewhere": "UNKNOWN; annotate any discovered prior result as exploratory; no retroactive preregistration"
+  },
+  "B1": {
+    "keys": [
+      "context",
+      "entry_step",
+      "action",
+      "stream"
+    ],
+    "shape": [
+      8,
+      2,
+      9,
+      2
+    ],
+    "same_state_per_18_rows": true,
+    "features": 24,
+    "progress": [
+      0.3333333333333333,
+      0.6666666666666666
+    ],
+    "fixed_memory_reference_per_context": true,
+    "gain": ".25*(new_short-new_entry)+.75*(new_end-new_entry)",
+    "forget_penalty": "max(0,memory_reference-old_end-.005)",
+    "reward": "gain-forget_penalty",
+    "numeric_audit_absolute_tolerance": 1e-08,
+    "progress_tolerance": 1e-06,
+    "full_entry_and_stream_pairing": true,
+    "discard_all_candidates": true,
+    "query_or_reward_in_state": "FORBIDDEN",
+    "no_student_updates": true
+  },
+  "B2": {
+    "tie_order": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "directions": [
+      [
+        1,
+        2
+      ],
+      [
+        2,
+        1
+      ]
+    ],
+    "uniform": "exact arithmetic mean over nine actions",
+    "selectors": [
+      "state",
+      "global",
+      "time"
+    ],
+    "comparisons": [
+      "state-uniform",
+      "state-global",
+      "state-time",
+      "global-uniform"
+    ],
+    "components": [
+      "reward",
+      "gain",
+      "forget_penalty"
+    ],
+    "aggregate": "average times within context, then equal-weight eight contexts; equal-weight directions",
+    "slices": [
+      "direction",
+      "bidirectional",
+      "context",
+      "step",
+      "support"
+    ],
+    "ranking": "Spearman with average ranks for ties; constant vector yields null, never zero-filled",
+    "best_action_agreement": true,
+    "same_stream_max_label": "same-table post-hoc best reference, not deployable or unbiased"
+  },
+  "B3": {
+    "device": "cpu",
+    "folds": 8,
+    "holdout": "both times of one context",
+    "train_states": 14,
+    "test_states": 2,
+    "seeds": [
+      601,
+      602
+    ],
+    "architecture": "24->32 Tanh->9; zero output layer",
+    "optimizer": "fresh Adam lr .001",
+    "updates_per_fold_seed": 64,
+    "entropy_coefficient": 0.01,
+    "gradient_clip": 1.0,
+    "checkpoint": "final only",
+    "sigma_floor": 0.0007379373167760999,
+    "targets": "mean streams per action; center within state; divide by max(population std,floor); clip [-3,3]; softmax T=1",
+    "normalization": "none added",
+    "controls": "uniform, global and time actions selected only from that fold training states",
+    "metric": "sum_a pi(a|state)*mean_stream_reward; raw reward units",
+    "formal_actor_fit": [
+      "soft target cross entropy and KL",
+      "entropy",
+      "all action probabilities",
+      "raw expected reward",
+      "deltas to uniform/global/time"
+    ],
+    "search": "FORBIDDEN"
+  },
+  "B4": {
+    "inputs": "saved states/actions/checkpoints only",
+    "reports": [
+      "action distribution at each decision",
+      "within-time policy variation",
+      "table-fit vs endpoint improvement"
+    ],
+    "progress_only_causality": "distribution summaries alone do not establish exclusive use of progress",
+    "missing_deployment_state_200": "DEPLOYMENT_STATE_200_NOT_AVAILABLE",
+    "substitute_150_or_300": false,
+    "extra_student_updates": false
+  },
+  "budget": {
+    "student_updates": 0,
+    "loco_actor_updates": 1024,
+    "synthetic_actor_updates_max": 16,
+    "actor_updates_max": 1040
+  },
+  "claims": {
+    "unit": "image",
+    "patient_independence": false,
+    "cross_stream": "training stochastic stability on fixed contexts, shared query images",
+    "LOCO": "shared D1 images/auxiliary sources, not independent cross-domain validation",
+    "V83_PASS": "complete-action reward-supervised development diagnostic only",
+    "dev_label": "REUSED_D1_DEVELOPMENT_NOT_INDEPENDENT"
+  },
+  "outputs": [
+    "ACTION_TABLE_AUDIT.json",
+    "CROSS_STREAM_VALUE.csv",
+    "LOCO_RESULTS.csv",
+    "POLICY_FIT_REPORT.md",
+    "STATE_COVERAGE_REPORT.md",
+    "NEXT_STAGE_DECISION.json",
+    "FINAL_INTERPRETATION.md"
+  ],
+  "completion": "publish anonymized results/code/reports through configured GitHub proxy and verify anonymous access; never publish weights, private role mappings or raw data",
+  "background": "existing V83 continues unchanged; no new monitor or automatic follow-up has been launched"
+}

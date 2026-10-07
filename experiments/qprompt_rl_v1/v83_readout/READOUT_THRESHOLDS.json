@@ -1,0 +1,60 @@
+{
+  "status": "FROZEN_BEFORE_NEW_ANALYSIS",
+  "frozen_at_utc": "2026-10-07T06:57:17.207853+00:00",
+  "nature": "user-prespecified engineering continuation criteria, not significance or validated optimum",
+  "ordered_decision": [
+    {
+      "if": "original V83 screen fails",
+      "status": "STOP_V83_PRIMARY_GATE_FAILED"
+    },
+    {
+      "if": "either state-global or state-time not >0 in each direction, or either bidirectional mean <.0005",
+      "status": "STOP_CONDITIONAL_ACTION_VALUE_NOT_ESTABLISHED"
+    },
+    {
+      "if": "either LOCO seed average expected reward fails to exceed both fold-trained global and time controls strictly",
+      "status": "STOP_STATE_TO_ACTION_MAPPING_NOT_ESTABLISHED"
+    },
+    {
+      "if": "all above pass",
+      "status": "READY_FOR_V84_WARM_START_GRPO"
+    }
+  ],
+  "engineering_failure": "BLOCKED_ENGINEERING; never a method-negative result; do not bypass with V84",
+  "V83_screen_owner": "v83_dense_reward/round.py:screen; unchanged",
+  "V84_contract": {
+    "student_cap": 66016,
+    "actor_cap": 712,
+    "combined_actor_cap": 1752,
+    "teacher_entry_cost": 800,
+    "teacher_reward_cost": 28800,
+    "joint_warm_cost": 42400,
+    "joint_cold_cost": 42400,
+    "warm_groups_per_seed": 16,
+    "cold_groups_per_seed": 53,
+    "cold_intermediate_group": 16,
+    "endpoints": 52,
+    "method_instances": 13,
+    "source_mismatch": "BUDGET_CONTRACT_MISMATCH before GPU training",
+    "full_definition": "EXECUTION_REQUEST.md sections 9-12"
+  },
+  "V84_primary": {
+    "name": "GRPO_EXTRA_STAGE_GAIN",
+    "warm_mean_utility_vs_each": [
+      "DENSE_FROZEN",
+      "DENSE_CONTINUE",
+      "NATIVE",
+      "FIXED_BEST",
+      "UNIFORM_ACTION"
+    ],
+    "minimum_delta": 0.0005,
+    "each_seed_vs_dense_continue": ">0",
+    "tradeoff_vs_dense_continue_and_uniform": "new>=+.20pp and old>=-.25pp OR old>=+.50pp and new>=-.25pp",
+    "failure": "STOP_NO_GRPO_EXTRA_STAGE_GAIN"
+  },
+  "V84_secondary": {
+    "WARM_START_HELPFUL": "warm16-cold16 mean utility>=.0005 and each seed>0",
+    "STUDENT_BUDGET_MATCHED_GAIN": "warm16-cold53 mean utility>=.0005 and each seed>0; mean new and old each>=-.25pp"
+  },
+  "no_automatic_next_domains": true
+}

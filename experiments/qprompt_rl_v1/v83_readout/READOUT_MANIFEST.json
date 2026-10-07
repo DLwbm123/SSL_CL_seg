@@ -1,0 +1,78 @@
+{
+  "frozen_at_utc": "2026-10-07T06:57:17.207853+00:00",
+  "input_status": "V83_RUNNING_INPUTS_NOT_YET_SEALED",
+  "V83_run_id": "v83_dense_20261007T060054Z",
+  "execution_commit_declared_by_launch_and_config": "451d6a6d081bbd0a5132409b90b3fb165e6df776",
+  "execution_checkout": "exported source; no .git metadata; seven owning code hashes match public revision",
+  "public_revision": "09a3169872e8fc0fc2ac7c087c96dfd322b1034b",
+  "code_sha256": {
+    "v83_dense_reward/round.py": "0a263c6f107cd2f2160674aa53e0a3885160feac4fcacdcb6a8b39fb99da8d51",
+    "v83_dense_reward/worker.py": "7269b23eaac554b3e7b9746736e04bc7e0c4f693e0827895f8978153d5b46e53",
+    "v82_episode_alignment/round.py": "2f5209bc213e417e2adb6431a3631a406cbf21be9c9dce735642bd1b679670cb",
+    "v81_paired_noise/round.py": "f44bc036924d2d78d17938259fe2042d2022ddf139311ed4f1052324bd02c18f",
+    "v8_grpo_transfer_prior/core.py": "c9d3687f70f5f04a5a50cca617f1c002f951da5ae2c4ba23b19a6687d956370b",
+    "v8_grpo_transfer_prior/stage_b.py": "92ecf206677eab1ed57ff3f7270403738ddd45fe4cd1eda985670b80622ce221",
+    "v8_grpo_transfer_prior/worker.py": "159e2c5e84b8c5288c4d15afb1ee04a9807a630cbc8b2bf0e7b5bc16d08beef2"
+  },
+  "role_counts": {
+    "M_fit": 16,
+    "A_fit": 8,
+    "Q_train_old": 4,
+    "Q_train_new": 4,
+    "Q_dev_old": 4,
+    "Q_dev_new": 4,
+    "U_memory": 80,
+    "U_adapt": 80
+  },
+  "role_summary_sha256": "f529149967037945790c427297688e7ec83430aa606f9f3825d73318682eec85",
+  "role_summary_hash_encoding": "UTF-8 json.dumps(summary,sort_keys=True,separators=(comma,colon))",
+  "private_role_file_sha256": "bfc2e608b7713ad8a9b546154244c0ec5e0dafd87be8d82987349d486954e921",
+  "actor_sources": {
+    "601": "V83 jobs/prior_601/actor_final.pt; NOT_YET_CREATED",
+    "602": "V83 jobs/prior_602/actor_final.pt; NOT_YET_CREATED"
+  },
+  "final_input_hashes": "must append a separate sealed-input receipt after V83 finishes; never edit frozen plan to match results",
+  "configuration": {
+    "training_horizon": 300,
+    "decision_steps": [
+      100,
+      200
+    ],
+    "student_stream_seeds": [
+      10168,
+      20168
+    ],
+    "global_stream_seeds": [
+      860101,
+      860102
+    ],
+    "entry_seed": 168,
+    "deployment_rng": "860301+development_context_index",
+    "deployment": "categorical T=1",
+    "branch_short_readout": "entry+25",
+    "branch_end_readout": "entry+100",
+    "endpoint_short_readout": 150,
+    "endpoint_end_readout": 300,
+    "reward_formula_unchanged": true,
+    "schema_horizon_note": "V8 FEATURE_SCHEMA/ACTION_AUDIT_CONFIG retain historical 900 text; live V83 configuration overrides training horizon to 300"
+  },
+  "snapshot_consistency": {
+    "code": "seven audited files match",
+    "public_RUN_STATUS": "older decision_entries snapshot",
+    "live_status_observed": "audit_1 48/144; audit_2 49/144",
+    "public_snapshot_not_live_process_proof": true
+  },
+  "qualification": {
+    "status": "PASS",
+    "student_updates": 8,
+    "actor_updates": 5
+  },
+  "decision_entries": {
+    "status": "COMPLETE",
+    "new_student_updates": 800
+  },
+  "original_V83_decision": "PENDING",
+  "sealed_endpoints": "NOT_YET_CREATED",
+  "new_readout_student_updates": 0,
+  "new_readout_actor_updates": 0
+}
