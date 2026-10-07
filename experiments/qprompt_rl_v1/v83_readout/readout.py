@@ -286,13 +286,14 @@ def policy_rows(actor, table, indices, global_action, time_actions, seed):
 
 
 class Budget:
-    def __init__(self, root):
+    def __init__(self, root, caps=None):
         self.path = root/'PHYSICAL_LEDGER.jsonl'
         assert not self.path.exists(), 'no implicit retry or ledger reset'
         self.count = Counter()
+        self.caps = {'qualification': 16, 'LOCO': 1024} if caps is None else dict(caps)
 
     def step(self, category, key, optimizer):
-        cap = {'qualification': 16, 'LOCO': 1024}[category]
+        cap = self.caps[category]
         assert self.count[category] < cap, 'actor budget exhausted'
         self.count[category] += 1
         row = dict(category=category, key=key, ordinal=self.count[category])
@@ -394,7 +395,7 @@ def selfcheck():
     # Unequal row counts must not give one context more macro weight.
     assert macro([dict(context='a', v=1.)]*3+[dict(context='b', v=0.)], 'v') == .5
     # No optimization call is possible at an exhausted budget.
-    budget = Budget.__new__(Budget);budget.count = Counter(LOCO=1024)
+    budget = Budget.__new__(Budget);budget.count = Counter(LOCO=1024);budget.caps = {'LOCO': 1024}
     try:budget.step('LOCO', 'overrun', None)
     except AssertionError:pass
     else:raise AssertionError('exhausted budget accepted')
