@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "rows": 288,
+  "states": 16,
+  "numeric_checks": [
+    "unique complete finite keys",
+    "paired 24D states and progress",
+    "fixed memory reference",
+    "gain/penalty/reward recomputation"
+  ],
+  "implementation_evidence": {
+    "paired_entry": "same complete ENTRY restored before each action",
+    "streams": "provider 10168/20168 and global RNG 860101/860102",
+    "candidates": "all discarded; native ENTRY200 prepared separately",
+    "features": "fit/U only; core.Trainer.extract, no query or reward input"
+  },
+  "evidence_limit": "Execution code and qualification plus stored results; no per-action full-state digest trace.",
+  "branch_readout": "entry+25 and entry+100",
+  "endpoint_readout": "150 and 300 relative to ENTRY100"
+}

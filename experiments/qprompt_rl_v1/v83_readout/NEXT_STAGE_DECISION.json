@@ -1,11 +1,28 @@
 {
-  "status": "WAITING_FOR_V83_COMPLETION_AND_SEAL",
-  "V83_primary_gate": "PENDING",
-  "cross_stream": "NOT_RUN",
-  "LOCO": "NOT_RUN",
-  "V84": "NOT_AUTHORIZED_BY_GATE_YET",
-  "new_student_updates": 0,
-  "new_actor_updates": 0,
-  "automatic_continuation_launched": false,
-  "reason": "Existing V83 is still running; both actors and all endpoints must be sealed and original decision archived first."
+  "status": "STOP_V83_PRIMARY_GATE_FAILED",
+  "original_V83_pass": false,
+  "conditional_action_value": true,
+  "direction_deltas": {
+    "1->2": {
+      "state_minus_global_reward": 0.0007978351786732674,
+      "state_minus_time_reward": 0.000635653268545866
+    },
+    "2->1": {
+      "state_minus_global_reward": 0.0008257519220933318,
+      "state_minus_time_reward": 0.000661925645545125
+    }
+  },
+  "state_mapping": false,
+  "LOCO_seed_deltas": {
+    "601": {
+      "actor_minus_global": 3.0226270830384654e-05,
+      "actor_minus_time": -0.00025082691696087344
+    },
+    "602": {
+      "actor_minus_global": 3.1090449394070786e-05,
+      "actor_minus_time": -0.0002499627383971873
+    }
+  },
+  "engineering_criteria_not_significance": true,
+  "independent_generalization": false
 }
