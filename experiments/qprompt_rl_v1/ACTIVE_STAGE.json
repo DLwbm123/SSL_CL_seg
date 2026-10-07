@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-07T22:15:54.527108+00:00",
-  "active_stage": "V95_UNCLIPPED_POOLED_ADVANTAGE",
-  "status": "COMPLETE",
-  "preregistration_commit": "6c40e62",
-  "execution_commit": "14f1e0c27cd3843807522fca54dd9b4a97a80734",
+  "updated_at_utc": "2026-10-07T22:19:42.270750+00:00",
+  "active_stage": "V96_PAIRED_STREAM_TARGETS",
+  "status": "RUNNING",
+  "preregistration_commit": "fb24e60",
+  "execution_commit": "177357bcdc0c0091e225c2acf103ca9edab63bcc",
   "student_updates_cap": 3208,
   "actor_updates_cap": 4096,
   "prior_stages": {
@@ -18,7 +18,8 @@
     "V91": "STOP_V91_NO_ALIGNED_ANCHOR_INCREMENTAL_GAIN",
     "V92": "STOP_V92_NO_CURRENT_POLICY_INCREMENTAL_GAIN",
     "V93": "STOP_V93_NO_FIXED_REPRESENTATION_INCREMENTAL_GAIN",
-    "V94": "STOP_V94_NO_POOLED_ADVANTAGE_INCREMENTAL_GAIN"
+    "V94": "STOP_V94_NO_POOLED_ADVANTAGE_INCREMENTAL_GAIN",
+    "V95": "STOP_V95_NO_UNCLIPPED_ADVANTAGE_INCREMENTAL_GAIN"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -35,16 +36,18 @@
     "V93": "34d0a70df5ae92951c7231cef33f94b612b7cc41",
     "V93_startup": "981a9760155be984e48dbf6c017b5b075fff0180",
     "V94": "ad0e5643d4c94b24241252bd16d0ae8b2afb73cc",
-    "V94_startup": "d1ac8328eb60569f762c1b89941ada3af28340af"
+    "V94_startup": "d1ac8328eb60569f762c1b89941ada3af28340af",
+    "V95": "9f14ab9cfee20db647157fdc384cd9bf9b3241a5",
+    "V95_startup": "6554fc7507ddafeb80a0bd805219f444cf9c9bda"
   },
-  "next": "Publish V95 full negative ablation; independently preregister paired-stream target pooling.",
-  "run_id": "v95_unclip_20261007T211725Z",
-  "decision": "STOP_V95_NO_UNCLIPPED_ADVANTAGE_INCREMENTAL_GAIN",
-  "initial_pid": 1872011,
+  "next": "At next hourly check verify V96 live FINAL/identity/lock/physical ledger. Normal running: no mutations. On completion audit168endpoints,10jobs,barrier,192devqueries,3208native4096actor; report pairedtarget versus individualstream RL/CE and diagnostics/costs then publish. Preserve all prior STOPs and no independent D1 claim.",
+  "run_id": "v96_pair_20261007T221745Z",
+  "decision": "PENDING",
+  "initial_pid": 1917971,
   "startup_physical": {
     "actor_fit": 4096,
     "qualification": 8,
-    "development": 19
+    "development": 79
   },
-  "publication": "PENDING"
+  "publication": "V95_COMPLETE_PUBLIC_VERIFIED_V96_STARTUP_PENDING"
 }
