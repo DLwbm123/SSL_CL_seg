@@ -1,0 +1,35 @@
+{
+  "stage": "V93_FIXED_ACTOR_REPRESENTATION",
+  "registered_at": "2026-10-07T19:23:14.091067+00:00",
+  "observed": "V92freshRL achieveshighertraining return(1.3501/1.3499)thanCE(1.2983/1.2982)butworsedevutility; similartrainingfits acrossseeds yielddifferentdev. Noadditionalactor/state decomposition orcrossstream auditseenbeforethisregistration.",
+  "hypothesis": "End-to-end actor updates can disturb a useful CE state representation while sharpening the action distribution. Freezing the hidden layer during RL may improve current-D1 development transfer with the same reward/objective/update count.",
+  "diagnostics": "Before anynewoptimizerstep: complete-action cross-stream selection agreement and normalizedtransfer regret forV90/V92 at100/200, withsame-state equality flagged; differingstep200states meancontext-time robustness,notpureMCnoise. OnV92saveddecisionstates replay32categoricaldecisions exactly; compareactorseed distributions only atidenticalstep100states; reporttrain/dev entropyandhidden/head logit-shift magnitude decomposition. Thesearezero-query/zero-update descriptive diagnostics, not gates ornewperformanceestimates.",
+  "arms": [
+    "HEAD_CE",
+    "HEAD_RL"
+  ],
+  "seeds": [
+    601,
+    602
+  ],
+  "data": "UseexactV92fresh32-state/288-action dense rewardtable, no newrollouts, images, labels orrewardqueries.",
+  "initialization": "OwnV90DENSE_CE/scaler, asV92FRESH_CE/FRESH_RL. Freeze24->32linear weight/bias; keep32->9head trainable; architecture24->32Tanh->9unchanged. NewAdam onhead only,1024stepslr.001clip1. No hyperparametersearch.",
+  "objectives": "SameV92advantages/std-floor.0007379373167760999/clamp[-3,3],CEtemp.25entropy.01;RLexpectedadv+KL.25toownfrozenV90CE+entropy.01. Onlytrainableparameter subset changes.",
+  "controls": "All104V92endpointsreused. Full-networkmatchedcontrols areV92FRESH_CE/FRESH_RL withidenticalinitialization,data,objective,1024updates; params297head vs1097full,stepsmatchednotFLOPs. NewHEAD_CE controlsparameterrestrictionunderCE.",
+  "budget": {
+    "actor_fit": 4096,
+    "actor_qualification": 0,
+    "student_qualification": 8,
+    "student_development": 3200,
+    "student_total": 3208,
+    "training_query_image_evaluations": 0,
+    "development_query_image_evaluations": 192,
+    "new_unique_images": 0
+  },
+  "qualification": "Optimizer includeshead parameters only; hidden requires_gradfalse/gradNone and weightsbitwiseunchanged beforeandafterfit; firstrealbackward nonzeroheadgradient; noextraoptimizerchecks. Reuseunchangednativeenginequalification;8native pairedrestore/inferencechecks withnewheadRLbeforedeployment.",
+  "deployment": "Same4devcontexts/ENTRY100H300/100200/T1categoricalprivate860301+ctx/save150300;104reused+16new=120endpointssealedbefore192newdevimageevaluations.",
+  "primary": "MeanHEAD_RLutility>=+.0005vsalloldarmmeansandHEAD_CE; eachseed>matchedFRESH_RL(fullnetwork)andHEAD_CE;tradeoffvsUNIFORM,CONTINUE_CE,FRESH_CE,HEAD_CE:(new>=+.002old>=-.0025)OR(old>=+.005new>=-.0025).",
+  "pass_status": "PASS_V93_FIXED_REPRESENTATION_D1_ONLY",
+  "fail_status": "STOP_V93_NO_FIXED_REPRESENTATION_INCREMENTAL_GAIN",
+  "stops": "No additional seeds/streams/epochs/layers/coefficients, no source/student losschange, no hidden Ulabels/newdata/realnextdomains/sealedtest. PreserveallpriorSTOPs/V84NOT_RUN; repeatedlyobservedD1development notindependent. Diagnostics do notselectfits orchangefrozencriteria."
+}
