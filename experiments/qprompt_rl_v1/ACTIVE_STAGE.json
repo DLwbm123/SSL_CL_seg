@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-07T23:19:11.792081+00:00",
-  "active_stage": "V96_PAIRED_STREAM_TARGETS",
-  "status": "COMPLETE",
-  "preregistration_commit": "fb24e60",
-  "execution_commit": "177357bcdc0c0091e225c2acf103ca9edab63bcc",
-  "student_updates_cap": 3208,
-  "actor_updates_cap": 4096,
+  "updated_at_utc": "2026-10-07T23:24:28.706996+00:00",
+  "active_stage": "V97_FINITE_ACTION_SEQUENCE_FEASIBILITY",
+  "status": "RUNNING",
+  "preregistration_commit": "45ceef2",
+  "execution_commit": "9f14afa5ea7bf5976665b888e124a56f50cef8fb",
+  "student_updates_cap": 36008,
+  "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -19,7 +19,8 @@
     "V92": "STOP_V92_NO_CURRENT_POLICY_INCREMENTAL_GAIN",
     "V93": "STOP_V93_NO_FIXED_REPRESENTATION_INCREMENTAL_GAIN",
     "V94": "STOP_V94_NO_POOLED_ADVANTAGE_INCREMENTAL_GAIN",
-    "V95": "STOP_V95_NO_UNCLIPPED_ADVANTAGE_INCREMENTAL_GAIN"
+    "V95": "STOP_V95_NO_UNCLIPPED_ADVANTAGE_INCREMENTAL_GAIN",
+    "V96": "STOP_V96_NO_PAIRED_TARGET_INCREMENTAL_GAIN"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -38,16 +39,17 @@
     "V94": "ad0e5643d4c94b24241252bd16d0ae8b2afb73cc",
     "V94_startup": "d1ac8328eb60569f762c1b89941ada3af28340af",
     "V95": "9f14ab9cfee20db647157fdc384cd9bf9b3241a5",
-    "V95_startup": "6554fc7507ddafeb80a0bd805219f444cf9c9bda"
+    "V95_startup": "6554fc7507ddafeb80a0bd805219f444cf9c9bda",
+    "V96": "fdefce4a1991309e300f22dd448e5e127875c534",
+    "V96_startup": "599a9d58e8b646ca7a9c2308a0ea02e235c2405d"
   },
-  "next": "Publish V96; independently audit finite action-sequence feasibility before further actor changes.",
-  "run_id": "v96_pair_20261007T221745Z",
-  "decision": "STOP_V96_NO_PAIRED_TARGET_INCREMENTAL_GAIN",
-  "initial_pid": 1917971,
+  "next": "At next hourly check verify V97 live owner/lock/ledger/FINAL.9jobs:qualification+4gridtrain+4eval;36008native0actor;all324endpoints+36midpointssealedbefore2736devimageevaluations. On completion audit every historical sequence replay, full324grid, exact81^4 feasibility and costs; publish full report. Never deploy oracle sequences or feed Q_dev grid rewards into actor training. Preserve priorSTOPs and repeated-D1 boundary.",
+  "run_id": "v97_grid_20261007T232309Z",
+  "decision": "PENDING",
+  "initial_pid": 1973413,
   "startup_physical": {
-    "actor_fit": 4096,
     "qualification": 8,
-    "development": 79
+    "audit": 262
   },
-  "publication": "PENDING"
+  "publication": "V96_COMPLETE_PUBLIC_VERIFIED_V97_STARTUP_PENDING"
 }
