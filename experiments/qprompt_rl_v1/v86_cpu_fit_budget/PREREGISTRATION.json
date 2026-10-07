@@ -1,0 +1,57 @@
+{
+  "protocol": "V86_CPU_OPTIMIZATION_BUDGET",
+  "status": "FROZEN_BEFORE_NEW_FITS",
+  "frozen_at_utc": "2026-10-07T09:55:15.057932+00:00",
+  "source_delivery_commit": "88a4a17da270ea7a0d00e60ab354ad98f0d13361",
+  "authority": "User continued evidence-driven research authorization of 2026-10-07; no new data permissions",
+  "exposure": "Adaptive exploratory follow-up after all V85 results; not independent confirmation.",
+  "hypothesis": "At 64 updates the standardized sharpened model still has substantial full-table target KL (~.55) and underperforms time control despite an exact target expected reward of .002550264. A single longer fixed optimization budget tests underfitting without changing data, targets, architecture or seeds.",
+  "only_new_intervention": "total actor updates per fit increase from 64 to exactly 1024; from the same zero-output initialization and fresh Adam; no intermediate checkpoint selection",
+  "arms": [
+    "RAW_64_REUSED",
+    "Z_64_REUSED",
+    "RAW_1024",
+    "Z_1024"
+  ],
+  "primary_arm": "Z_1024",
+  "targets": "exact same V85 T=.25 sharpened preferences; no temperature change",
+  "conditioning": "same raw or fold-training-only standardization as V85; std<1e-6 uses scale1, no clipping",
+  "prefix_check": "At update64 of each new trajectory compare all actor tensors with the corresponding sealed V85 checkpoint; mismatch is engineering STOP, not performance failure. No optimizer restart at64.",
+  "network": "24->32 Tanh->9; zero output layer",
+  "seeds": [
+    601,
+    602
+  ],
+  "optimizer": "Adam lr .001, entropy .01, gradient clip1",
+  "folds": 8,
+  "holdout": "both times of one context",
+  "train_states": 14,
+  "test_states": 2,
+  "full_table_fits": 4,
+  "final_only": true,
+  "training_loss_logs": [
+    1,
+    64,
+    256,
+    1024
+  ],
+  "primary_gate": {
+    "each_seed": "Z_1024 held-context mean expected reward strictly exceeds uniform/global/time controls",
+    "mean_gain_vs_Z_64_REUSED": 0.0005,
+    "pass": "READY_FOR_SEPARATELY_PREREGISTERED_DEV_CONFIRMATION",
+    "failure": "STOP_V86_OPTIMIZATION_BUDGET_INSUFFICIENT",
+    "secondary_RAW_1024_cannot_replace_primary": true
+  },
+  "budget": {
+    "student_updates": 0,
+    "LOCO_actor_updates": 32768,
+    "full_table_actor_updates": 4096,
+    "synthetic_actor_updates_max": 2,
+    "total_actor_updates_max": 36866,
+    "query_image_accesses": 0,
+    "GPU_training": false
+  },
+  "stop_rules": "Exactly one 1024-update comparison; no subsequent length doubling, extra seeds or epoch search under this protocol. Any future proposal needs a distinct evidence-based hypothesis and independent preregistration, not a silent continuation.",
+  "development": "No student endpoint in this protocol. Only a pass permits a separately preregistered current-D1 development confirmation. V84 stays NOT_RUN; original STOPs unchanged.",
+  "claims": "same-table exploratory optimization diagnostic, shared D1 sources, no independent-image/patient/generalization claim"
+}
