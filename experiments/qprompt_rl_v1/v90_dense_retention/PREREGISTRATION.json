@@ -1,0 +1,45 @@
+{
+  "stage": "V90_DENSE_RETENTION",
+  "registered_at": "2026-10-07T14:09:56.072441+00:00",
+  "prior_observation": "Exploratory V89: 0/288 active local and episodic forgetting penalties; all development penalties positive. V89 RL loses to uniform and local CE. No new old-score readout seen before registration.",
+  "hypothesis": "The clipped reference penalty suppresses all retention feedback in training. Signed old-score change will supply action-dependent retention credit and improve the fixed deployment utility.",
+  "data": "Only existing V89 private branch checkpoints and Q_train_old; no new images, roles, streams or hidden labels. Current D1 development repeatedly seen; not independent.",
+  "reward": "dense = existing episodic gain + old_final_Qtrain - old_ENTRY100_Qtrain. Unit old weight fixed. At both decisions use the original episode ENTRY100 baseline. No clipping of old change; all other transformations/objectives unchanged.",
+  "readout": {
+    "entry100": 8,
+    "final_branches": 272,
+    "image_evaluations": 1120,
+    "old_role_images": 4,
+    "reused_second_branches": 16,
+    "student_updates": 0,
+    "actor_updates": 0
+  },
+  "signal_gate": "All finite; median old_final action range across 32 states >= 0.0001; otherwise STOP_V90_NO_DENSE_OLD_SIGNAL before fitting/deployment. Gate does not establish generalization.",
+  "arms": [
+    "DENSE_CE",
+    "DENSE_RL"
+  ],
+  "seeds": [
+    601,
+    602
+  ],
+  "initialization": "Own frozen V86 Z1024 model and its frozen scaler, exactly as V89; fresh Adam 0.001; 1024 updates/fit; clip1; advantage per-state center/std floor0.0007379373167760999 then clamp[-3,3]; same entropy0.01; RL KL0.25 to own initial policy; CE temperature0.25.",
+  "deployment": "Same four preregistered dev contexts, ENTRY100/H300, decisions100/200, T1 categorical private generator860301+context. Save150/300. All64 endpoints sealed before new dev readout.",
+  "controls": "All48 V89 endpoints REUSED, including local CE, episodic CE, episodic RL, frozen Z1024 and four simple controls.16 new endpoints from two arms x two seeds x four contexts.",
+  "budget": {
+    "native_qualification": 8,
+    "student_development": 3200,
+    "student_total": 3208,
+    "actor_fit": 4096,
+    "actor_qualification": 0,
+    "training_query_image_evaluations": 1120,
+    "development_query_image_evaluations": 192,
+    "new_unique_images": 0
+  },
+  "qualification": "Reuse V89 synthetic CE/RL objective qualification unchanged. Readout repeatability: reused branch identity and scores checked for16 reused rows without repeat model queries. Native continuous2/restored2 at two training contexts with actor inference,8updates before new dev train.",
+  "primary": "Mean DENSE_RL utility >= +0.0005 vs each NATIVE,FIXED_BEST,UNIFORM,TIME,Z1024,LOCAL_CE,EPISODIC_CE,EPISODIC_RL,DENSE_CE; each seed > matched DENSE_CE and matched EPISODIC_RL; tradeoff vs uniform and DENSE_CE: (new>=+.002 and old>=-.0025) OR (old>=+.005 and new>=-.0025).",
+  "success": "PASS_V90_DENSE_RETENTION_CURRENT_D1_ONLY",
+  "failure": "STOP_V90_NO_DENSE_RETENTION_GAIN",
+  "stops": "No retry, budget extension, coefficient/seed/temperature search, new data, real later domain or sealed-test access. Preserve all old STOPs and V84 NOT_RUN.",
+  "interpretation": "One offline full-action policy improvement with matched data/fit budgets. Dense vs original RL isolates reward change for these fixed objectives; dense RL vs dense CE tests complete objective difference. No GRPO claim."
+}
