@@ -1,0 +1,150 @@
+{
+  "protocol": "V87_CURRENT_D1_DEPLOYMENT_CONFIRMATION",
+  "status": "FROZEN_BEFORE_GPU_DEPLOYMENT",
+  "frozen_at_utc": "2026-10-07T10:13:54.396845+00:00",
+  "source_delivery_commit": "5a20b07a0d181987cdbddb7577226935dcb77338",
+  "authority": "2026-10-07 user continued independent research authorization",
+  "hypothesis": "The V86 fixed 1024-update standardized sharpened actor improves native student outcomes relative to the same64-update actor and matched1024-update raw actor; a saved-table expected-reward improvement alone is insufficient.",
+  "exposure": "Adaptive current-D1 development after V83/R/V85/V86. Reused controls and development labels have been seen. Not independent confirmation.",
+  "methods": [
+    "NATIVE",
+    "FIXED_BEST",
+    "UNIFORM_ACTION",
+    "TIME_FIXED",
+    "Z_64_601",
+    "Z_64_602",
+    "RAW_1024_601",
+    "RAW_1024_602",
+    "Z_1024_601",
+    "Z_1024_602"
+  ],
+  "primary": "two-seed mean Z_1024",
+  "seeds": [
+    601,
+    602
+  ],
+  "contexts": [
+    [
+      2000,
+      2,
+      "brightness",
+      1.2
+    ],
+    [
+      2000,
+      8,
+      "contrast",
+      0.8
+    ],
+    [
+      8000,
+      2,
+      "contrast",
+      0.8
+    ],
+    [
+      8000,
+      8,
+      "brightness",
+      1.2
+    ]
+  ],
+  "architecture": "24->32 Tanh->9",
+  "deployment": {
+    "horizon": 300,
+    "entry_step": 100,
+    "decision_steps": [
+      100,
+      200
+    ],
+    "temperature": 1,
+    "sampling": "categorical via private CPU Generator seed860301+context index, reset per method; never argmax",
+    "time_fixed": {
+      "100": 6,
+      "200": 8
+    },
+    "global_fixed": 8,
+    "standardization": "frozen full-table training mean/scale from V85/V86, std<1e-6 ->1, no clipping"
+  },
+  "reused": {
+    "entries": 4,
+    "endpoints": 12,
+    "methods": [
+      "NATIVE",
+      "FIXED_BEST",
+      "UNIFORM_ACTION"
+    ],
+    "source": "sealed V83 development; audit source config/role identity/H300/full entry restoration and step150/300 artifacts before admission; no duplicate optimizer updates"
+  },
+  "new": {
+    "endpoints": 28,
+    "methods": [
+      "TIME_FIXED",
+      "Z_64_601",
+      "Z_64_602",
+      "RAW_1024_601",
+      "RAW_1024_602",
+      "Z_1024_601",
+      "Z_1024_602"
+    ]
+  },
+  "budget": {
+    "student_qualification": 8,
+    "student_development": 5600,
+    "student_total_max": 5608,
+    "actor_updates": 0,
+    "new_entries": 0,
+    "wall_time_limit": null
+  },
+  "qualification": "dev0/dev3 each continuous2 versus restored2 updates with all six actor inference calls inserted; exact complete snapshot equality, extraction/inference no student/global RNG changes, current role manifest check.4 updates percontext. Native engine reused.",
+  "seal": "All28 new endpoints plus12 audited historical endpoints locked before any new Q_dev evaluation. Reuse historical entry/reference values. Evaluate new at150/300 andold at300.",
+  "utility": ".25*(new150-entrynew)+.75*(new300-entrynew)-max(0,old_memory_reference-old300-.005)",
+  "primary_gate": {
+    "mean_utility_min_gain": 0.0005,
+    "comparators": [
+      "NATIVE",
+      "FIXED_BEST",
+      "UNIFORM_ACTION",
+      "TIME_FIXED",
+      "two-seed mean Z_64",
+      "two-seed mean RAW_1024"
+    ],
+    "each_seed": "Z_1024 strictly improves utility over seed-matched Z_64",
+    "tradeoff_comparators": [
+      "UNIFORM_ACTION",
+      "two-seed mean Z_64"
+    ],
+    "tradeoff": "(new gain>=.002 and old change>=-.0025) OR (old gain>=.005 and new change>=-.0025)",
+    "pass_status": "PASS_V87_CURRENT_D1_DEV_ONLY",
+    "fail_status": "STOP_V87_NO_PRACTICAL_DEPLOYMENT_GAIN",
+    "no_secondary_primary_replacement": true
+  },
+  "report": [
+    "all40 endpoints; each rim/cup/macro channel",
+    "means, context-wise/worst-case changes, absolute forgetting",
+    "paired seed differences; actual sampled actions",
+    "information and compute costs including full prior history; failures retained"
+  ],
+  "boundaries": [
+    "history-free A-only current-image native engine/loss/memory gate",
+    "no U hidden labels; only existing D1 roles",
+    "16memory-fit images; adaptation support2/8; Qtrain4old+4new and Qdev4old+4new",
+    "no patient-independence, clinical, true old-domain or GRPO claim",
+    "V83/R/V85 STOPs and V84 NOT_RUN unchanged",
+    "no extra seeds, stream search, checkpoint selection, retries or additional optimizer calls under this budget; failures stop and require recorded diagnosis"
+  ],
+  "historical_cost": {
+    "dense_information_student": 29600,
+    "V83_cumulative_student": 224853,
+    "common_source_separate_student": 8000,
+    "CPU_followup_actor": 41350,
+    "V83_cumulative_actor": 837
+  },
+  "new_query_budget": {
+    "Qdev_unique_images": 8,
+    "Qdev_image_evaluations": 336,
+    "Qtrain_image_evaluations": 0,
+    "qualification_query_evaluations": 0,
+    "entry_and_old_reference_values": "REUSED"
+  }
+}
