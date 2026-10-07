@@ -25,3 +25,9 @@ Matrix: native, fixed-global8, uniform (all reused), time-fixed6/8, Z64 bothseed
 The coordinator automatically proceeds only if qualification passes, queues jobs onGPUs5/6/7 when at least12GB free, and stops on any job failure without retry. A finished stage still requires complete public collection, interpretation, costs, proxy push and anonymous verification. Check every hour per the existing authorized automation; do not create duplicate automation or retrain a failed prefix blindly. Preserve V83/R/V85 STOPs and V84 NOT_RUN; currentD1 remains repeatedly observed development.
 
 Startup follow-up: qualification PASS with8 updates and two exact full-state pairs; train0/train1/train2 running onGPUs5/6/7, train3 queued. Last startup snapshot205 development calls, no failed jobs. Neutral worker command lines and nvidia-smi names checked. No formal new development score read yet.
+
+## V8.7 complete — 2026-10-07 18:43 Asia/Shanghai
+
+V8.7 completed40 endpoints and all9 jobs exited0. New physical cost5,608 student /0 actor, no failures. All new scoring began after the endpoint lock. Frozen result STOP_V87_NO_PRACTICAL_DEPLOYMENT_GAIN: Z1024 mean new/old soft Dice73.940168/81.183862 versus uniform73.775267/81.289067. Utility gain+0.000183593 fails0.0005, and new gain0.164901pp fails0.20pp. Both seeds improve over Z64; uniform comparison remains mixed across seeds and contexts. Full results and audited ledger are in v87_deployment_confirmation. Actual final receipts override stale per-job progress snapshots.
+
+No next experiment is launched. At the next authorized research continuation, independently freeze a zero-update analysis of saved step100/200 deployment features to diagnose table-to-deployment shift before deciding another optimizer intervention. OriginalSTOPs and V84NOT_RUN remain. Do not treat this diagnostic suggestion as a frozen plan or claim.
