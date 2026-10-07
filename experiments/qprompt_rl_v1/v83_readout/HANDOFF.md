@@ -13,3 +13,15 @@ The next authorized work is publication of this completed round, then a separate
 V8.3/V8.3-R were published and anonymously verified at 9b01b3f; V8.5's full negative 2×2 CPU attribution was published and verified at 88a4a17. V8.5 used 3,459 CPU actor updates and zero student updates. It did not unlock a GPU test.
 
 V8.6 is the next independently frozen, single optimization-budget diagnostic. Protocol and implementation are in v86_cpu_fit_budget; preregistration ccf4915, execution046e334. NAS run v86_cpu_20261007T100027Z is CPU-only, with a 36,866 actor-update cap and zero students. It compares 1,024-update raw/standardized sharpened-target fits against reused 64-update counterparts, with an exact update64 tensor-prefix check. Do not launch a duplicate or repeat any failed training blindly. ACTIVE_STAGE.json is the current stage pointer; this section supersedes earlier tentative next-step wording. V8.4 remains NOT_RUN.
+
+## V8.7 active — supersedes V8.6 pointer
+
+V8.6 completed with its primary gate PASS, all36 update64 tensor prefixes matching, and36,866 CPU actor updates; full results are publicly verified at5a20b07. The Z1024 held-context expected reward exceeds time control by about0.00117 for both seeds. This is a saved-table diagnostic, not deployment or independent evidence.
+
+V8.7 was separately frozen atf6f6eb7 and implemented at7103305. Runv87_dev_20261007T101829Z is now on the project NAS protocols root; initial coordinator1371631, startup qualification1371830. Verify current identities before acting; these PIDs are clues only. The new root owns run.py, CONFIG.private.json, jobs, PHYSICAL_LEDGER.jsonl and coordinator.log. The native owning engine remains the audited originalV83 exported source. All12 existing controls passed reuse audit.
+
+Matrix: native, fixed-global8, uniform (all reused), time-fixed6/8, Z64 bothseeds, RAW1024 bothseeds, Z1024 bothseeds. Four original development contexts,40 endpoints,28 new; exactly8 qualification+5,600 development student calls, zero actor updates. Entry100 and private categorical seed860301+context are paired; H300, decisions100/200, final-only T1 deployment. No wall-clock deadline. All endpoints lock before new Qdev scores. Outputs remain onNAS and checkpoints stay private.
+
+The coordinator automatically proceeds only if qualification passes, queues jobs onGPUs5/6/7 when at least12GB free, and stops on any job failure without retry. A finished stage still requires complete public collection, interpretation, costs, proxy push and anonymous verification. Check every hour per the existing authorized automation; do not create duplicate automation or retrain a failed prefix blindly. Preserve V83/R/V85 STOPs and V84 NOT_RUN; currentD1 remains repeatedly observed development.
+
+Startup follow-up: qualification PASS with8 updates and two exact full-state pairs; train0/train1/train2 running onGPUs5/6/7, train3 queued. Last startup snapshot205 development calls, no failed jobs. Neutral worker command lines and nvidia-smi names checked. No formal new development score read yet.
