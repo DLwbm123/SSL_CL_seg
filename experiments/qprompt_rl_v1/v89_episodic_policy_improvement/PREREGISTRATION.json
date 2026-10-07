@@ -1,0 +1,130 @@
+{
+  "protocol": "V89_EPISODIC_POLICY_IMPROVEMENT",
+  "status": "FROZEN_BEFORE_NEW_ROLLOUTS",
+  "frozen_at_utc": "2026-10-07T11:44:02.794873+00:00",
+  "authority": "2026-10-07 continued research authorization plus explicit request to improve RL",
+  "previous_delivery": "c07dd30a17d135ec94cb878ee51da38658f18093",
+  "exposure": "Adaptive after V87 endpoints and V88 diagnosis; repeatedly seen D1, not independent validation",
+  "hypotheses": [
+    "Local100-step reward misses first-action consequences at300",
+    "Current-policy step200 states better match deployment",
+    "Expected-return policy optimization adds benefit over identical-data episodic distillation; only this is primary RL claim"
+  ],
+  "training": {
+    "contexts": "all original8 b.contexts; no development context for actor fitting",
+    "streams": [
+      1,
+      2
+    ],
+    "student_rng": "same V83 provider168+10000*stream and global860100+stream; reset paired branches",
+    "behavior": "frozen mean probabilities of V86 Z_1024_601/602, T1 categorical",
+    "private_rng": "860901+100*stream+context_index; reuse post-first-draw generator state across first-action continuations"
+  },
+  "rollouts": {
+    "entry": "reuse original native H300 ENTRY100",
+    "first": "all9 actions each100updates to200, then behavior policy chooses second action for100updates to300",
+    "second": "use step200 snapshot of branch matching initially sampled first action; enumerate9 second actions. Already executed continuation is REUSED with225/300 readouts;8 newbranches",
+    "updates_per_context_stream": 2600,
+    "context_streams": 16,
+    "new_student_updates": 41600,
+    "training_states": 32,
+    "action_values_per_objective": 288
+  },
+  "returns": {
+    "LOCAL_CE": ".25*(new_entryplus25-new_entry)+.75*(new_entryplus100-new_entry)-max(0,memory_ref-old_entryplus100-.005)",
+    "EPISODIC_CE": ".25*(new150-new100)+.75*(new300-new100)-max(0,memory_ref-old300-.005); first action includes frozen-policy continuation",
+    "EPISODIC_RL": "identical episodic returns to EPISODIC_CE",
+    "stage2": "new150/new100 prefix terms fixed over9 actions; centered advantages remove commonbaseline"
+  },
+  "actor_training": {
+    "arms": [
+      "LOCAL_CE",
+      "EPISODIC_CE",
+      "EPISODIC_RL"
+    ],
+    "seeds": [
+      601,
+      602
+    ],
+    "network": "unchanged24->32 Tanh->9",
+    "initialization": "own sealed V86 Z1024 checkpoint; frozen V86 full-table scaler; no input clipping/refit",
+    "optimizer": "fresh Adam lr.001, clip1, exactly1024updates perfit, finalonly",
+    "advantage": "(return-mean9)/max(population_std9,.0007379373167760999), clipped[-3,3]",
+    "CE": "target softmax(clipped_advantage/.25); crossentropy+.01*sum(p log p)",
+    "RL": "-sum(p*clipped_advantage)+.25*KL(p||frozen_own_V86_prior)+.01*sum(p log p), mean over32states; full-action expected policy gradient, not GRPO",
+    "KL_coefficient": ".25 fixed from existing target-sharpness scale; no search",
+    "fits": 6,
+    "fit_updates": 6144,
+    "synthetic_qualification_updates": 2
+  },
+  "qualification": "8 students:2contexts each paired2vsrestored2 with behavior-inference isolation; oneCE andoneRL synthetic objective-decrease check; scalar reward/gate selfcheck; no qualification queries",
+  "development": {
+    "methods": [
+      "NATIVE",
+      "FIXED_BEST",
+      "UNIFORM_ACTION",
+      "TIME_FIXED",
+      "Z_1024_601",
+      "Z_1024_602",
+      "LOCAL_CE_601",
+      "LOCAL_CE_602",
+      "EPISODIC_CE_601",
+      "EPISODIC_CE_602",
+      "EPISODIC_RL_601",
+      "EPISODIC_RL_602"
+    ],
+    "contexts": "same4 V87 contexts",
+    "reused_endpoints": 24,
+    "new_endpoints": 24,
+    "total_endpoints": 48,
+    "new_student_updates": 4800,
+    "entry": "sameENTRY100, H300",
+    "sampling": "privateCPU860301+context reset per method; T1categorical at100/200; noargmax",
+    "sealing": "all24new+24audited historical endpoints before any new Qdev scoring"
+  },
+  "primary_gate": {
+    "primary": "two-seed mean EPISODIC_RL",
+    "utility_gain_min": 0.0005,
+    "comparators": [
+      "NATIVE",
+      "FIXED_BEST",
+      "UNIFORM_ACTION",
+      "TIME_FIXED",
+      "mean Z_1024",
+      "mean LOCAL_CE",
+      "mean EPISODIC_CE"
+    ],
+    "each_seed": "utility>matching EPISODIC_CE",
+    "tradeoff_comparators": [
+      "UNIFORM_ACTION",
+      "mean EPISODIC_CE"
+    ],
+    "tradeoff": "new>=+.002 andold>=-.0025 OR old>=+.005 andnew>=-.0025",
+    "pass_status": "PASS_V89_EPISODIC_RL_CURRENT_D1_ONLY",
+    "fail_status": "STOP_V89_NO_RL_INCREMENTAL_GAIN",
+    "secondary": "EPISODIC_CE versusLOCAL_CE andnewarms versusfrozen are attribution only, cannot replace primary"
+  },
+  "budget": {
+    "student_qualification": 8,
+    "student_reward_collection": 41600,
+    "student_development": 4800,
+    "student_total_max": 46408,
+    "actor_total_max": 6146,
+    "training_query_image_evaluations": 5056,
+    "development_query_image_evaluations": 288,
+    "new_unique_images": 0,
+    "wall_clock_limit": null
+  },
+  "query_contract": "Firstbranch125/150/200new+200old/300new+300old=24imageevals;9branches=216. Selectedbranch225new+4.8newsecondbranches225new/300new/300old=96.316*16=5056. Entry/reference reused. Development24*12=288.",
+  "information": "allthree arms receive identical32states and complete9-action local+episodic returns; only objective differs; shared collection cost disclosed",
+  "stops": [
+    "caps include physical failures; no ledger reset",
+    "missinginput/illegalreuse/inference mutation/nonfinite are engineeringSTOP",
+    "one policy-improvement round; no extra seeds, KL/entropy/rewardweight search orcheckpointselection",
+    "no partialdevreadout orsecondaryprimaryreplacement",
+    "priorSTOPs and V84NOT_RUN unchanged",
+    "existingD1 roles only; nohiddenUlabels/newdata/realsubsequentdomains/sealedtest",
+    "no independentgeneralization orclinicalefficacy claims"
+  ],
+  "public": "source plans aggregate48endpoints rewardsummary costs failures; privateweights/rawfeatures/images/roleidentities stayNAS"
+}
