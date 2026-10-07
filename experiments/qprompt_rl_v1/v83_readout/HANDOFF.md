@@ -50,3 +50,6 @@ V89 startup check: both qualification jobs PASS (2CPU actor+8native students). C
 
 
 V89 completed 2026-10-07 14:03:52 UTC, STOP_V89_NO_RL_INCREMENTAL_GAIN. 46408 native /6146 actor updates, no failures. RL73.870208% new/81.180788% old versus uniform73.775267%/81.289067%; utility delta-.000218390. RL exceeds matched episodic CE by+.001379741 but loses to local CE and frozen actor. All48 endpoints and27 zero-exit jobs audited. Training penalty inactive in all288 rows (exploratory). Next stage must be separate and preregistered.
+
+
+V89 published and anonymousHTTP200 verified at a9dbe223ad2878dc92c0f5efadc652235039e3c6;26 public artifacts archived onNAS. V90 independently preregistered44910f2 and executed913e15af7fbe3e7599d814dcdfc6f93a867f9a64. Run v90_dense_20261007T141425Z, coordinator1555960, started2026-10-07 14:14:25UTC. Signed retention reward replaces inactive training penalty, fixed coefficient1; original deployment metric unchanged. First readout6/8 jobs complete at14:15:33UTC, no optimizer yet, no failures; exact process identity/neutralcmd and lock confirmed. Signal gate and native qualification pending; do not claim performance or qualificationPASS prematurely. Whole cap3208student4096actor;64endpoints with48reused. Existing hourly monitor continues.
