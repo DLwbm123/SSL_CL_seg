@@ -178,18 +178,22 @@ def sealed(source):
     assert decision['status'] in ('PASS_DENSE_REWARD_DIAGNOSTIC', 'STOP_DENSE_REWARD_NO_PRACTICAL_GAIN')
     assert read(source/'jobs/qualification/QUALIFICATION.json')['status'] == 'PASS'
     dev = source/'jobs/development'
-    lock = read(dev/'ENDPOINT_LOCK.json')
+    lock_path = dev/'ENDPOINT_LOCK.json'
+    lock = read(lock_path)
     assert lock['all_twenty_sealed'] is True and (dev/'FINAL.json').exists()
     assert decision['time'] >= lock['time']
+    # NFS mtime is assigned by a different clock than the writer's time.time().
+    lock_mtime = lock_path.stat().st_mtime
+    assert lock_mtime <= (dev/'DEVELOPMENT_RESULTS.json').stat().st_mtime
     endpoints = []
     for c in range(4):
         for method in METHODS:
             f = dev/f'dev{c}'/(method+'_TRAINING.json')
             row = read(f)
             assert row['status'] == 'SEALED' and row['steps'] == 200 and len(row['actions']) == 2
-            assert all(a in range(9) for a in row['actions']) and f.stat().st_mtime <= lock['time']
+            assert all(a in range(9) for a in row['actions']) and f.stat().st_mtime <= lock_mtime
             final = f.with_name(method+'_FINAL.private.pt')
-            assert final.is_file() and final.stat().st_mtime <= lock['time']
+            assert final.is_file() and final.stat().st_mtime <= lock_mtime
             endpoints.append(dict(context=f'dev{c}', method=method, actions=row['actions'],
                                   status='SEALED', checkpoint_sha256=digest(final)))
     for seed in SEEDS:
