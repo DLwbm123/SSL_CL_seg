@@ -1,0 +1,40 @@
+{
+  "stage": "V91_ALIGNED_RETENTION_ANCHOR",
+  "registered_at": "2026-10-07T15:07:21.432501+00:00",
+  "observed": "V90 denseCE improves bothdevchannels vsuniform, denseRL fails. Training normalizedreturn denseCE1.2498/1.2491 vsdenseRL1.0563/.8803. This motivates separating initialization, old KL anchor, and aligned KL anchor; mechanism not yet established.",
+  "hypothesis": "A KL reference trained for the old reward restrains improvement toward retention-aware actions. Starting all arms at the same V90denseCE and changing only the KL reference isolates anchor choice from starting-policy quality.",
+  "arms": [
+    "CONTINUE_CE",
+    "OLD_ANCHOR_RL",
+    "ALIGNED_ANCHOR_RL"
+  ],
+  "seeds": [
+    601,
+    602
+  ],
+  "initialization": "Every newarm starts from ownseed V90DENSE_CE checkpoint and frozen scaler; freshAdam.0011024updatesclip1. Shared historical initialCEcost1024updates perseed, counted once and disclosed. No new student reward rollouts or query labels.",
+  "reward": "Exact same V90dense retention table,32states x9actions; sameadvnormalization/std-floor/clipping. No coefficients or reward changes.",
+  "objectives": {
+    "CONTINUE_CE": "SameCEtargettemperature.25+entropy.01;1024additionalsteps",
+    "OLD_ANCHOR_RL": "V89expected-advantage loss+KL.25 to own frozen V86Z1024+entropy.01, now initializedV90denseCE",
+    "ALIGNED_ANCHOR_RL": "IdenticalRL loss, KL reference own frozen V90denseCE; sameinitialweights/data/optimizer/steps as otherarms"
+  },
+  "analytic": "Before fit, no updates/queries: for eachseed andbothKLanchors evaluate closed-form per-state optimum softmax((adv+.25logprior)/.26), expectedadvantage/rawdense reward/entropy/KL/objective, compare achievedV90RL and initialV90CE; assert analyticobjective <= achievedobjective within1e-5. Reference diagnostic only, not a gate or claim of new student performance.",
+  "deployment": "Four originalD1devcontexts,ENTRY100/H300,100/200decisions,T1categoricalprivategenerator860301+ctx,save150/300. All88endpoints sealed before newevaluation.",
+  "reuse": "All64V90endpoints retained; add24new endpoints from3arms x2seeds x4contexts.",
+  "budget": {
+    "actor_updates": 6144,
+    "student_qualification": 8,
+    "student_development": 4800,
+    "student_total": 4808,
+    "training_queries": 0,
+    "development_query_image_evaluations": 288,
+    "new_unique_images": 0
+  },
+  "qualification": "ReuseunchangedV89syntheticobjective checks andV90nativeengine checks; new8update pairedrestorecheck with fittedalignedactors at2contexts beforedeployment. Algebraicoptimizer-free check foranalyticformula.",
+  "primary": "Mean ALIGNED_ANCHOR_RL utility >=+.0005 vsNATIVE,FIXED_BEST,UNIFORM,TIME,Z1024,LOCALCE,EPISODICCE,EPISODICRL,DENSECE,DENSERL,CONTINUECE,OLDANCHORRL. Eachseedutility>matchedCONTINUECEandOLDANCHORRL. Practicaltradeoffvsuniform,DENSECE,CONTINUECE:(new>=+.002old>=-.0025)OR(old>=+.005new>=-.0025).",
+  "pass_status": "PASS_V91_ALIGNED_ANCHOR_CURRENT_D1_ONLY",
+  "fail_status": "STOP_V91_NO_ALIGNED_ANCHOR_INCREMENTAL_GAIN",
+  "attribution": "OLDANCHORRLvsV90DENSERL changesinitializationandaddsCEcompute, reportasexploratory. ALIGNEDvsOLDANCHOR matchesinitialweights/data/updates and isolatesKLreference for thisfixedrecipe. ContinuedCE controls extra optimization budget. Allpreparation costs disclosed.",
+  "stops": "No KL/entropy/step/seed sweeps, no checkpointschosenbyscore, no newdomains/data/testlabels, nohiddenUlabels, no change priorSTOPs orV84NOT_RUN. CurrentD1repeateddevonly; paper-ready performance requires laterindependentauthorization/confirmation."
+}
