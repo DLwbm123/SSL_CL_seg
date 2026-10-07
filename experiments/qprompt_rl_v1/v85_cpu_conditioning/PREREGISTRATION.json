@@ -1,0 +1,93 @@
+{
+  "protocol": "V85_CPU_TARGET_AND_CONDITIONING",
+  "status": "FROZEN_BEFORE_NEW_FITS",
+  "frozen_at_utc": "2026-10-07T09:45:11.040278+00:00",
+  "authority": "User 2026-10-07 hourly autonomous repair, analysis and independent improvement instruction; current D1 data scope only",
+  "source_round": "V83 and V83-R delivered at 9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3; original STOPs remain unchanged; V84 not run",
+  "exposure": "Adaptive exploratory follow-up after seeing all V83-R results and exact registered-soft-target expectation. No new V85 fit or target-temperature result observed before this freeze. Not independent confirmation.",
+  "question": "Are weak contextual selection and reward below time controls attributable to soft target dilution and/or poorly conditioned inputs under the same 64-update recipe?",
+  "primary_arm": "Z_T025",
+  "arms": {
+    "RAW_T1": {
+      "input": "raw",
+      "target_temperature": 1.0,
+      "status": "REUSED from V83-R; zero new fits"
+    },
+    "RAW_T025": {
+      "input": "raw",
+      "target_temperature": 0.25
+    },
+    "Z_T1": {
+      "input": "fold-training standardized",
+      "target_temperature": 1.0
+    },
+    "Z_T025": {
+      "input": "fold-training standardized",
+      "target_temperature": 0.25
+    }
+  },
+  "target": "mean two stream rewards per action; center within state; divide by max(population std,frozen sigma_floor); clip [-3,3]; softmax(logits / target_temperature)",
+  "deployment_temperature": 1.0,
+  "sigma_floor": 0.0007379373167760999,
+  "conditioning": "per-feature population mean/std of 14 training states in each fold; scale=std if std>=1e-6 else 1; transform (state-mean)/scale; no clipping, extra features or capacity change. Full-table actors fit mean/std on 16 training states.",
+  "folds": 8,
+  "holdout": "entire context, both steps",
+  "seeds": [
+    601,
+    602
+  ],
+  "model": "same 24->32 Tanh->9 with zero output initialization",
+  "optimizer": "fresh Adam lr .001",
+  "updates_per_fit": 64,
+  "entropy_coefficient": 0.01,
+  "gradient_clip": 1.0,
+  "checkpoint_selection": "final only",
+  "controls": "fold-trained uniform/global-fixed/time-fixed as in V83-R; never select from heldout rewards",
+  "metrics": [
+    "expected raw reward",
+    "actor-minus-uniform/global/time",
+    "entropy",
+    "all action probabilities",
+    "soft-target CE/KL",
+    "paired differences between all four arms",
+    "conditioning effect at each target temperature",
+    "target sharpness effect at each conditioning level",
+    "interaction difference-in-differences"
+  ],
+  "in_table_analysis": "report exact target expected reward and full-table fitted reward, explicitly descriptive same-table quantities",
+  "primary_gate": {
+    "each_seed": "Z_T025 held-context mean expected reward strictly exceeds uniform, global and time controls",
+    "joint_gain": "two-seed equal-weight Z_T025 minus RAW_T1 >= .0005 raw reward",
+    "pass": "READY_FOR_SEPARATELY_PREREGISTERED_DEV_CONFIRMATION",
+    "failure": "STOP_V85_PRIMARY_MAPPING_GATE_FAILED",
+    "secondary_arm_cannot_replace_primary": true
+  },
+  "budget": {
+    "student_updates": 0,
+    "new_loco_actor_updates": 3072,
+    "new_full_table_actor_updates": 384,
+    "synthetic_actor_updates_max": 3,
+    "actor_updates_total_max": 3459,
+    "GPU_training": false,
+    "query_image_accesses": 0,
+    "new_seeds": 0
+  },
+  "no_search": "No temperature/normalization/epoch sweep, added seed, or checkpoint picking beyond the registered 2x2 attribution; original raw/T1 reused.",
+  "scope": "CPU diagnostic only. No new student endpoints in this round. If the primary gate passes, freeze a separate matched development confirmation before any GPU update; no automatic V84 or real subsequent-domain launch.",
+  "evidence_limits": [
+    "same saved reward table and shared D1 sources",
+    "image-level, not patient-independent",
+    "context holdout, not heldout patient or image validation",
+    "adaptive research iteration, no significance claim"
+  ],
+  "deliver": [
+    "PREREGISTRATION.json",
+    "LOCO_RESULTS.csv",
+    "FORMAL_POLICY_FIT.csv",
+    "FACTORIAL_CONTRASTS.csv",
+    "NEXT_STAGE_DECISION.json",
+    "PHYSICAL_LEDGER.jsonl",
+    "COSTS.json",
+    "FINAL_INTERPRETATION.md"
+  ]
+}
