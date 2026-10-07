@@ -1,0 +1,37 @@
+{
+  "stage": "V92_CURRENT_POLICY_VALUE_COLLECTION",
+  "registered_at": "2026-10-07T16:15:21.565938+00:00",
+  "basis": "V91alignedRL improves vsoldanchor atbothseeds butfailscontinuedCE; olddata usesV86behavior whilecurrent/referenceisV90denseCE. Largestdevlossisdev2seed602firstaction8vsCE2; notproven tobe causedbycollection mismatch.",
+  "hypothesis": "Collecting complete action values and second-decision states under the current retention-aware policy rather than the obsolete local-reward behavior improves one fixed offline RL step.",
+  "behavior": "Frozen arithmeticmean of V90DENSE_CE601/602 T1 categorical; usedonlyfor collecting first-action state visitation and continuation action at200.",
+  "paired_collection": "Same8original trainingcontexts andtwoexistingstreams asV89; originalENTRY100; providerseed168+10000s/global860100+s/private860901+100s+contextindex. Samplefirstbehavioraction; enumerate9firstactions withpairedafter-first privateRNG continuation; retain sampledbranchENTRY200; enumerate9secondactions with1alreadyexecutedcontinuationREUSED. No newrandomseeds or bestbranchselection.",
+  "reward": "dense = .25*(new150-newENTRY100)+.75*(new300-newENTRY100)+old300-oldENTRY100. ExistingQtrainnewentryandV90oldentryreusedafterstudentidentityaudit. First9branches querynew150,new300,old300;8newsecondbranches querynew300,old300. 172imageevals/job x16=2752.",
+  "arms": [
+    "FRESH_CE",
+    "FRESH_RL"
+  ],
+  "seeds": [
+    601,
+    602
+  ],
+  "fit": "OwnV90DENSE_CEinit/scaler, Adam.0011024stepsclip1, complete32statesx9actions, sameadvfloor.0007379373167760999/clamp[-3,3]. CEtemp.25entropy.01; RLexpectedadv+KL.25toownfrozenV90denseCE+entropy.01. No coefficient/step changes.",
+  "controls": "All88V91endpointsREUSED including stale-data CONTINUE_CE and ALIGNED_ANCHOR_RL. Stale/fresh RL have sameinitialweights/objective/1024fitbudget; only collection behavior and resulting MC states/values differ. CE uses samefresh data asfreshRL.",
+  "budget": {
+    "student_qualification": 8,
+    "student_collection": 41600,
+    "student_development": 3200,
+    "student_total": 44808,
+    "actor_fit": 4096,
+    "actor_qualification": 0,
+    "training_query_image_evaluations": 2752,
+    "development_query_image_evaluations": 192,
+    "new_unique_images": 0
+  },
+  "qualification": "Reuse unchanged syntheticCE/RL/nativeengine eligibility. Beforecollection, new8-update continuous/restored2pairs with newbehavior, privateRNGisolation. Eachjob verifies exactENTRY100student/sharedbaseline and16same-branchreuse identities. Freeze all104endpoints before newdevqueries.",
+  "deployment": "Original4devcontexts/ENTRY100/H300/100200/T1categoricalsameprivate860301+ctx/save150300,exactly4methodinstances x4contexts=16new +88reused=104.",
+  "primary": "MeanFRESH_RLutility >=+.0005 vsalloldarmmeans(NATIVE,FIXED,UNIFORM,TIME,Z1024,LOCALCE,EPICE,EPIRL,DENSECE,DENSERL,CONTINUECE,OLDANCHORRL,ALIGNEDANCHORRL)andFRESHCE;eachseed>matchedFRESHCEandstaleALIGNEDRL;practicaltradeoffvsUNIFORM,CONTINUECE,FRESHCE:(new>=+.002old>=-.0025)OR(old>=+.005new>=-.0025).",
+  "pass_status": "PASS_V92_CURRENT_POLICY_VALUES_D1_ONLY",
+  "fail_status": "STOP_V92_NO_CURRENT_POLICY_INCREMENTAL_GAIN",
+  "report": "SeparatefreshRLvsstaleRL, freshCEvsstaleCE, freshRLvsfreshCE andallseed/contextscores. Old andnewcollectioneach41600nativeupdates; reuse savesactualwork butmethodsrequiring tablesbear collectioncost. No walltime/FLOPs equal-costclaim. Include querybudgets andallhistorical costs.",
+  "stops": "No extra seeds/streams/epochs/coefficientsearch, no Uhiddenlabels,newroles/newdomains/sealedtest. AllpreviousSTOPs/V84NOTRUNpreserved. RepeatedD1development isnotindependent confirmation."
+}
