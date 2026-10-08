@@ -1,0 +1,38 @@
+{
+  "stage": "V102_TRAINING_SIGNAL_IDENTIFIABILITY",
+  "status": "FROZEN_BEFORE_REWARD_ANALYSIS",
+  "created_at_utc": "2026-10-08T13:55:46.181726+00:00",
+  "authority": "Human requested promptly execute the proposed reward reliability, state prediction and analytical objective diagnostics. No new native collection or development query.",
+  "structural_precheck": "V101 table32groups x12actions x24D; none of8pairedstatevectors equal atstep100 orstep200. V92 code restores common ENTRY100 student thenchangesprovider/randomstream. This structural observation precedes the freeze; reward rankings and diagnostic outcomes have not been computed.",
+  "datasets": "PrimaryV101current384returns. SecondaryV99originalexpanded384=288V92+96V99; separate analyses, neverpool. Useonly Q_train returns andstates; noQ_dev/grid/results lookup.",
+  "reliability": "For16context/timepairs pertable compare exactstate equality, studentweight equality fromexistingprefix snapshots, fullsnapshot equality, rankSpearman withaverage ties, pairwise ranking agreement, top1margin/overlap. Bothdirections transfertrainstream topaction tootherstream andcomparethatstream outcome withglobal/time actions selectedusingtrainingstreamonly. Reportdense reward,newgain,oldchange separately. Differentstates/prefixes are transfer, notsame-state rewardnoise. No newrollouts.",
+  "prediction": {
+    "folds": "2streamswap folds (16train16test),8leave-one-condition-context-out folds (28train4test),eachprotocolscoresall32groupsonce. Conditionholdoutisnotnewpatient/sourcevalidation; sameQ_trainimage poolunderliescontexts, independent-sourceholdoutNA.",
+    "controls": [
+      "UNIFORM_EXPECTATION",
+      "TRAIN_GLOBAL",
+      "TRAIN_TIME",
+      "STATE_RIDGE",
+      "STATE_1NN"
+    ],
+    "ridge": "Rawreturn targets rowcentered across12actions. Standardize24Dfeaturesusingtrainfoldmean/populationstd only, std<1e-6 set1. Fitunpenalizedintercept+linearweights withobjective mean squared vectorerror+1.0*sum(weight^2); solve(ZTZ/n+I)W=ZT(Y-Ymean)/n. Nohyperparametersearch. LowestIDargmaxties.",
+    "nearest": "1nearestneighborEuclideandistance ontrainfoldstandardizedfeatures; exactties choosefirstcanonicalcontext/stream/timeorder. Copythatstate12returns; lowestIDargmax.",
+    "report": "Alltestselecteddense/newgain/oldchange,regret againsttesttablebest (evaluationonly), bothstreamdirections andeachheldcontext, plusaggregates. Currentfrozenactors notcalledheldoutmodels: theyhavealreadyseenthetable andtheirinitializationhasrelatedtraininghistory.",
+    "budget": "20ridgeclosedformfits=2tables x10folds;same20NNtrainingreferences;0neural/actoroptimizerupdates. Trainfoldcentering/features neverusetestrows; nofittedprior."
+  },
+  "analytic": "V101only,eachseed601602. Exactactualclippedadvantages currentfirst9mean/fixedV94scale, referenceownV99CE. GroupONLYbitwiseequal24Dstatevectors; averagealreadyclippedadvantageswithinidenticalstate. Unconstrainedgroupoptimal logpi=(Abar+.25logpi0)/.26-logsumexp. EvaluateexistingV101CE/RL andreference,reportJstar-Jactor andidentity=.26KL(actor||optimal),expecteddense andentropy. Nooracledeployment/performanceclaim. Sharedactor gapcombinescapacity/representationandoptimization,notpureoptimizerfailure.",
+  "diagnostic_rules": "Reportcontinuousresultsallfolds. Describe crossstreamtoptransfer andstatepredictor gains as direction-consistent onlyifpositive vsbothtrain-globalandtime inbothdirections. Conditionholdout gains reportall8signs,noindependencetests. No scientific gateautomaticallystopsfuturework; newnativeallocationmustfollowevidence.",
+  "budget": {
+    "native_updates": 0,
+    "actor_optimizer_updates": 0,
+    "new_training_image_evaluations": 0,
+    "new_development_image_evaluations": 0,
+    "new_unique_images": 0,
+    "ridge_solves": 20,
+    "datasets": 2,
+    "neural_refits": 0
+  },
+  "qualification": "Syntheticfoldprediction invarianttoheldoutlabelchanges;constantfeature handling;rankties;analyticKLgapidentity;duplicate-stateaverage-before-softmax; datasetkeys/finite/384rows/old+newassemblyverified.",
+  "limits": "Two streams do not identify population rewardnoise. Allconditionsshare source/queryroles; independentpatient/sourceholdout unavailable. NohiddenUlabels/newdomains/sealedtest. Keyisolation/A-only/history-freemethodunchanged.",
+  "completion": "RunCPUviaNASwrapperneutralentry,privatearraysonNAS,publictables+diagnostics+report+source throughproxyGitHub verifiedandNASarchive. Preserveeverynegativefoldandallpriorcosts."
+}
