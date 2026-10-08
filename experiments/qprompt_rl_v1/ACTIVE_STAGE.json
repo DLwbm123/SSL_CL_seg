@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-08T17:29:15.832794+00:00",
+  "updated_at_utc": "2026-10-08T20:20:39.430435+00:00",
   "active_stage": "V107_TRAINING_STATE_COVERAGE_COLLECTION",
-  "status": "RUNNING",
+  "status": "COMPLETE_METADATA_RECOVERED_PUBLICATION_PENDING",
   "preregistration_commit": "39cbb9cd689e5f2242a044c8639b78f1117133fc",
   "execution_commit": "f5d534858069e43ec6a8b43668a056df2fd68b3b",
   "student_updates_cap": 85208,
@@ -63,9 +63,9 @@
     "V105": "9993b96d95d6c7170d0cc40a8d569e8395c5d396",
     "V106": "7eadd6b29eaea85fffa3284e33b76115223d5a7b"
   },
-  "next": "Complete fixed training collection; publish; preregister matched fits and actual sequential deployment",
+  "next": "Publish V107 and separately preregister V108 coverage-expanded matched sequential deployment",
   "run_id": "v107_coverage_20261008T172804Z",
-  "decision": "PENDING_TRAINING_ONLY_NO_PERFORMANCE_CLAIM",
+  "decision": "TRAINING_COVERAGE_DATASET_ONLY_NO_PERFORMANCE_CLAIM",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -106,5 +106,34 @@
   },
   "physical_observed_at_startup": {
     "qualification": 8
+  },
+  "physical": {
+    "native_updates": 85208,
+    "actor_optimizer_updates": 0,
+    "linear_solves": 0,
+    "physical": {
+      "qualification": 8,
+      "entries": 1200,
+      "audit": 84000
+    },
+    "success": {
+      "qualification": 8,
+      "entries": 1200,
+      "audit": 84000
+    },
+    "failures": {},
+    "counts": {
+      "behavior_extractions": 340,
+      "item_attempts_train_labeled": 348688,
+      "item_success_train_labeled": 348688,
+      "student_image_forwards": 684608,
+      "item_attempts_train_unlabeled": 343024,
+      "item_success_train_unlabeled": 343024,
+      "ema_image_forwards": 171512,
+      "memory_image_forwards": 343024,
+      "probe_extractions": 208,
+      "query_images": 5664
+    },
+    "new_annotation_cases": 0
   }
 }
