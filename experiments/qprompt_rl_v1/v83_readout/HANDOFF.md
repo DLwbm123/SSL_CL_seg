@@ -169,3 +169,7 @@ V108 publicdelivery8437b42e062fdf2f41945fcf0721d6191cf57827 verifiedremoteHEAD/a
 ## V109 completed (2026-10-08 UTC)
 
 All41 jobs/root exit0;12012native,960Qtrain,120behavior,0actor/Qdev. OFF−best original mean−.001188273192,35positive45negative; bothstreams meannegative. Full80formulas/old960columns and allledger pairs verified. Next separately frozen OFF-prefix coverage closes known missing states before13-action matched deployment. No performance claim.
+
+## V110 startup (2026-10-08 UTC)
+
+Run v110_prefix_20261008T232621Z, source 50f8e2a31af841e1b55bcb86be071c590ca73e38, prereg 74e42e76ef17ed5841b12c8cb61f639ecd376625. GPU4–7; qualification8 and first100updates on each4worker passed. Fixed48008native/3840Qtrain/176stableprobes/40originalextracts/0actor/Qdev. All40 OFFprefixes×13returns; reuse40previouscontinuations. Append120state1560returns without changing old80. First launch232510Z metadata naming collision exit1 before jobs/ledger;zero model operations, all original evidence preserved. Corrected run232621Z active. Completion then V111matched13-action actual deployment, no further automatic coverage expansion. Hourly automation ssl-cl staysactive; original gates unchanged.

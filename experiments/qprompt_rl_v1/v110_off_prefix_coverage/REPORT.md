@@ -1,0 +1,9 @@
+# V110 — OFF-prefix coverage startup
+
+RUNNING, not complete and not a performance result. All 40 saved OFF-first step-200 prefixes will receive complete 13-action training returns. One previously computed continuation per prefix is reused. The fixed matrix is 48,008 native updates, 3,840 Q_train image evaluations, 176 stable probes and 40 original-state extractions; zero actor updates, linear solves or Q_dev evaluations.
+
+The 8-update native qualification passed: two repeated stable-probe arrays, two paired OFF continuations, full snapshot/RNG isolation, and no U reads during OFF updates. Four workers on GPU4–7 each completed at least one 100-update branch at the startup check; no worker or optimizer failures were observed. Process identities, complete neutral command lines and GPU displays were verified, along with NAS mount/write/read and sufficient free memory.
+
+The first launch failed before creating jobs or any physical ledger because an uploaded source selfcheck receipt collided with the create-only runtime filename. Its original directory, traceback and exit status were preserved. The source receipt was renamed and uploaded inputs restricted, then the same frozen protocol launched in a new directory. This failed attempt consumed zero model updates or queries; LAUNCH_FAILURE.json records it. No scientific budget was reset or altered.
+
+This round only closes the documented OFF-prefix training coverage gap. After completion and full public delivery, separately freeze 13-action WARM/CE/RL/target-matched CE fitting and actual sequential deployment, including fixed OFF and simple controls. Training-table margins do not establish RL value; existing practical gates and subsequent fresh-stream confirmation remain required. Private features, snapshots, weights and raw logs remain on NAS.

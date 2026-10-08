@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-10-08T23:22:21.054671+00:00",
-  "active_stage": "V109_SUPERVISED_ONLY_ACTION_MARGINS",
-  "status": "COMPLETE_PUBLIC_VERIFIED",
-  "preregistration_commit": "fa3c8188f51c37a062a46f19ae2b37febe7d5b9d",
-  "execution_commit": "0cd3d8b687514c34c9af902a92d9b2d5f06c3e08",
-  "student_updates_cap": 12012,
+  "updated_at_utc": "2026-10-08T23:28:13.477693+00:00",
+  "active_stage": "V110_OFF_PREFIX_COVERAGE",
+  "status": "RUNNING",
+  "preregistration_commit": "74e42e76ef17ed5841b12c8cb61f639ecd376625",
+  "execution_commit": "50f8e2a31af841e1b55bcb86be071c590ca73e38",
+  "student_updates_cap": 48008,
   "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
@@ -69,9 +69,9 @@
     "V108": "8437b42e062fdf2f41945fcf0721d6191cf57827",
     "V109": "202ffb030afab1695d324b5d0996bce5cd2c486a"
   },
-  "next": "Separately freeze OFF-prefix training coverage, then matched13-action actual deployment",
-  "run_id": "v109_off_20261008T222808Z",
-  "decision": "ACTION_MARGIN_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
+  "next": "Complete and publish all40 OFF-prefix13-action tables; then separately freeze V111 matched13-action fits and actual sequential deployment with fixedOFF control",
+  "run_id": "v110_prefix_20261008T232621Z",
+  "decision": "PENDING_TRAINING_COVERAGE_ONLY",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -141,24 +141,29 @@
   },
   "startup": {
     "status": "RUNNING",
-    "run_id": "v109_off_20261008T222808Z",
-    "execution_commit": "0cd3d8b687514c34c9af902a92d9b2d5f06c3e08",
-    "preregistration_commit": "fa3c8188f51c37a062a46f19ae2b37febe7d5b9d",
-    "observed_at_utc": "2026-10-08T22:30:12.408416+00:00",
-    "phase": "TRAINING_ACTION_COLLECTION",
+    "run_id": "v110_prefix_20261008T232621Z",
+    "execution_commit": "50f8e2a31af841e1b55bcb86be071c590ca73e38",
+    "preregistration_commit": "74e42e76ef17ed5841b12c8cb61f639ecd376625",
+    "observed_at_utc": "2026-10-08T23:28:13.477693+00:00",
+    "phase": "OFF_PREFIX_COLLECTION",
     "gpus": [
       4,
       5,
       6,
       7
     ],
-    "qualification_updates": 12,
+    "qualification": {
+      "status": "PASS",
+      "paired_OFF_continuation_exact": 2,
+      "stable_repeat_exact": 2,
+      "full_snapshot_RNG_isolation": true,
+      "off_zero_U_reads": true,
+      "native_updates": 8,
+      "queries": 0
+    },
     "qualification_exit_code": 0,
-    "off_supervised_full_snapshot_exact": 2,
-    "old_action_full_snapshot_exact": 2,
-    "off_zero_U_reads": true,
-    "off_unlabeled_loss_none": true,
     "workers_started_and_advanced": 4,
+    "minimum_updates_per_worker": 100,
     "run_identities_verified": true,
     "neutral_parent_child_argv_and_gpu_display": "PASS",
     "nas_mount_write_probe": "PASS",
@@ -169,11 +174,14 @@
       "7": 24124
     },
     "failed_jobs_at_check": 0,
-    "planned_native_updates": 12012,
-    "planned_Q_train_images": 960,
-    "planned_behavior_extractions": 120,
+    "planned_native_updates": 48008,
+    "planned_Q_train_images": 3840,
+    "planned_probe_extractions": 176,
+    "planned_behavior_extractions": 40,
     "planned_actor_updates": 0,
-    "planned_Q_dev_images": 0
+    "planned_Q_dev_images": 0,
+    "prior_launch_metadata_failures": 1,
+    "prior_failed_launch_model_operations": 0
   },
   "previous_stage_physical_V108": {
     "native_updates": 48008,
