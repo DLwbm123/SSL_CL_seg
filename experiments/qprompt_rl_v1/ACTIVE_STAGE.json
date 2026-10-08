@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-08T16:06:56.713330+00:00",
+  "updated_at_utc": "2026-10-08T17:20:29.498449+00:00",
   "active_stage": "V106_STABLE_STATE_SEQUENTIAL_DEPLOYMENT",
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "preregistration_commit": "4081ad9079f194a6df7442265e7f8f185f009405",
   "execution_commit": "22ab368d8e5cd75030e8509b5d20ff4ff4a9c07e",
   "student_updates_cap": 48008,
@@ -61,19 +61,46 @@
     "V104": "76c4117ee28576e218bf1595131054c3ef866c25",
     "V105": "9993b96d95d6c7170d0cc40a8d569e8395c5d396"
   },
-  "next": "Verify launch and continue hourly. Complete full V106 before analyzing results; no concurrent new scientific round.",
+  "next": "Preregister a single training-state coverage intervention using existing allowed roles; keep12actions/stableprobes/matchedtargetCE. No new run yet.",
   "run_id": "v106_sequence_20261008T160655Z",
-  "decision": "PENDING",
-  "publication": "STARTUP_VERIFIED",
+  "decision": "V106_NO_PRACTICAL_SEQUENTIAL_RL_GAIN",
+  "publication": "PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "physical": {
-    "actor_qualification": 1,
-    "warmup": 1024,
-    "CE": 1024,
-    "RL": 1024,
-    "distillation": 1024,
-    "qualification": 8,
-    "development": 941
+    "native_updates": 48008,
+    "actor_optimizer_updates": 4097,
+    "linear_data_solves": 1,
+    "physical": {
+      "actor_qualification": 1,
+      "warmup": 1024,
+      "CE": 1024,
+      "RL": 1024,
+      "distillation": 1024,
+      "qualification": 8,
+      "development": 48000
+    },
+    "success": {
+      "actor_qualification": 1,
+      "warmup": 1024,
+      "CE": 1024,
+      "RL": 1024,
+      "distillation": 1024,
+      "qualification": 8,
+      "development": 48000
+    },
+    "failures": {},
+    "counts": {
+      "probe_extractions": 1936,
+      "item_attempts_train_labeled": 202656,
+      "item_success_train_labeled": 202656,
+      "student_image_forwards": 399552,
+      "item_attempts_train_unlabeled": 199776,
+      "item_success_train_unlabeled": 199776,
+      "ema_image_forwards": 99888,
+      "memory_image_forwards": 199776,
+      "query_images": 2880
+    },
+    "new_annotation_cases": 0
   }
 }

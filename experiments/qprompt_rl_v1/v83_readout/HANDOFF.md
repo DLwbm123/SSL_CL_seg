@@ -145,3 +145,6 @@ V105 completed target-matched CE control:20,481 actor calls,0native/image/query,
 
 
 V106 startup: v106_sequence_20261008T160655Z source22ab368d8e5cd75030e8509b5d20ff4ff4a9c07e prereg4081ad9079f194a6df7442265e7f8f185f009405. GPU4-7 four active native workers;4097actor+one ridge fit completed,8native qualification/two old stable states exact/PIDstartEXEC_RUNneutralargv/nvidia/lock verified. Frozen240trajectories/480snapshots before2880Qdev;native48008/actor4097,1936probes. No result yet. Follow v106_stable_sequential/PREREGISTRATION.json and rl_iteration/CAMPAIGN.md. Hourlyssl-cl belongs to current chat;preserveall prior negatives and counts.
+
+
+V106 COMPLETE negative:48,008native/4,097actor/1ridge/2,880Qdevimages,all26jobs+rootexit0,240actualtrajectories480snapshots sealedbeforequeries,52,105physicalpairs. RL-CE new-.093915pp old-.124227pp utility-.002156739;all6seedstream utilitycomparisonsnegative. RL-DISTILL +.000115112utility,seed602exacttie. Argmaxalsofails. State exploratory ENTRY100 mean6/24dimsoutside trainranges;notcalibratedOODorprovenunique cause. Next training-only statecoverage expansion with same12actions/stableprobes/objectives/strongerCE,ownpreregistration;noactiverun. Cumulative523365nativeexclsource/173265actor/55solves.
