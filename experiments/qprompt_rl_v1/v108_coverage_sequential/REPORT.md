@@ -1,11 +1,45 @@
-# V108 startup: matched sequential evaluation after coverage expansion
+# V108 completed: coverage helps, matched RL advantage absent
 
-RUNNING, not complete. Both seeds' full-table fits completed: 4,097 actor optimizer updates including one synthetic step, eight sealed actors and one verified ridge solve. The 80-state / 960-return training dataset passed admission, with the old feature and reward arrays preserved. Fit and native qualification workers exited zero. Eight native qualification updates passed exact archived stable-state replay, paired continuation replay and state/RNG isolation. Four native trajectory workers have started and advanced on GPUs 4–7. Their run identities, parent/child command lines and GPU process displays were verified; no startup failures were observed.
+V108 completed with all 26 jobs and the coordinator exiting zero. Expanding the training table from 32 to 80 stable states improved actual sequential results relative to V106, but the preregistered RL criterion failed. RL was almost identical to analytical-target CE and slightly below 1NN. This does not qualify for fresh-stream success confirmation.
 
-The sole scientific change from V106 is expanded training coverage. The same architecture, objectives, actor seeds, update counts, 12 actions, stable probes, 20 policies, development contexts and paired random streams 3/4/5 are retained. Frozen new scope: 48,008 native updates, 4,097 actor updates, one ridge solve, 1,936 stable probes and 2,880 development image evaluations; all 480 snapshots from 240 actual trajectories must be sealed before readout. There is no GPU wall-clock limit.
+## Primary sequential outcomes
 
-V107 collection was delivered at 98bddfadd7805e535f6f3542448c6fa04a44727d with its metadata-only recovery disclosed. Its original finalization exit1 remains preserved; all37 workers and85,208 native updates succeeded. No collection was rerun. Historical costs remain separate from this round.
+| Method | New Dice | Old Dice | Utility |
+|---|---:|---:|---:|
+| SAMPLE_WARM | 0.735384276 | 0.814542681 | -0.070299283 |
+| SAMPLE_CE | 0.735592152 | 0.814681188 | -0.070047816 |
+| SAMPLE_RL | 0.736164813 | 0.815055909 | -0.069106095 |
+| SAMPLE_DISTILL | 0.736183643 | 0.815047358 | -0.069102556 |
+| UNIFORM | 0.728196609 | 0.810065453 | -0.080632810 |
+| GLOBAL | 0.728686742 | 0.812254683 | -0.078464928 |
+| RIDGE | 0.734512831 | 0.813939322 | -0.071445044 |
+| NN | 0.736031180 | 0.815277888 | -0.069023449 |
 
-No new performance conclusion exists yet. The added training factors overlap previously viewed development conditions; the same evaluation streams permit paired coverage comparisons, not independent confirmation. Actual RL comparisons retain original CE, analytical-target CE, WARM and simple controls. A candidate must pass the unchanged sampled primary gates in both actor seeds and then undergo a separately frozen complete fresh-stream confirmation. Shared patients/source remain a limitation even then.
+RL minus original CE: new +0.057266 percentage points, old +0.037472 points, utility +0.000941721. Both actor-seed means were positive, but stream-specific gains occurred only on stream 5; streams 3 and 4 tied. The new/old improvement did not meet the fixed practical tradeoff.
 
-At completion publish every context/stream/method outcome, all costs, positive and negative comparisons, and paired V108-minus-V106 outcomes. Private feature tensors, images, weights and raw logs remain on NAS. Public source reuses the sequential helper through an optional training-table argument; its default V106 decision output was replayed exactly. The archived V106 execution source remains unchanged.
+RL minus analytical-target CE: new −0.001883 percentage points, old +0.000855 points, utility −0.000003538. Seed 601 was slightly negative (−0.000007077 utility), seed 602 tied exactly. RL minus 1NN utility was −0.000082645. All eight fixed-argmax actors produced identical aggregate outcomes, so argmax is not an alternative positive result. Full context/stream/method outcomes and action distributions are retained.
+
+## Paired effect of training coverage
+
+| Method | New change, pp | Old change, pp | Utility change |
+|---|---:|---:|---:|
+| SAMPLE_WARM | 0.394275 | 0.459824 | 0.008055762 |
+| SAMPLE_CE | 0.360560 | 0.407242 | 0.007140743 |
+| SAMPLE_RL | 0.511741 | 0.568941 | 0.010239203 |
+| SAMPLE_DISTILL | 0.519614 | 0.573100 | 0.010357854 |
+| UNIFORM | 0.000000 | 0.000000 | 0.000000000 |
+| GLOBAL | -0.123176 | 0.358965 | 0.002218488 |
+| RIDGE | 0.299393 | 0.426649 | 0.007051485 |
+| NN | 0.423296 | 0.499848 | 0.008144151 |
+
+Every paired result uses the same context, random stream, method and entry/reference values as V106. UNIFORM was unchanged exactly. Coverage improved multiple learned controls as well as RL; it does not establish an RL-specific mechanism. Added photometric factors were already seen in development, and source cases, entry checkpoints and development streams are shared. These are paired development findings, not independent patient/domain confirmation.
+
+## Verification and cost
+
+All 52,105 optimizer attempt/success pairs match their child ledgers: 48,008 native and 4,097 actor updates, with zero failed calls. One ridge solve, 1,936 probes and 720 query calls / 2,880 image evaluations were recorded. All 240 reward formulas, method means, 480 decision distributions/actions and paired coverage keys were checked. All native trajectories completed before the endpoint barrier and all evaluation workers started afterward. No additional model queries were used for this report.
+
+Cumulative through V108: 656,581 native updates excluding shared source training (664,581 including 8,000 source updates), 177,362 actor updates, and 56 linear solves (52 data, 4 synthetic). V107’s preserved metadata failure and zero-cost recovery remain in its report.
+
+The remaining average old-reference drop for sampled RL is about 4.803 percentage points. All current 12 actions keep the unlabeled loss active, even action 0. Next, separately freeze a training-only test adding a true supervised-only action through the existing native supervised loss path. Keep old returns, conditions and states fixed and assess its action margins before any separately frozen 13-action fit/deployment. This is a new action-space hypothesis, not a revision to V108 or its thresholds.
+
+Public delivery includes source, frozen protocol, all aggregate results and paired differences, fit summaries, action traces without private state features, accounting and this report. Images, private feature tensors, checkpoints and raw logs remain on NAS.
