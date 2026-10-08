@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-08T22:22:46.012124+00:00",
-  "active_stage": "V108_COVERAGE_EXPANDED_SEQUENTIAL_DEPLOYMENT",
-  "status": "COMPLETE_PUBLIC_VERIFIED",
-  "preregistration_commit": "c0006ba5c7bf630cb8eaa780c189f89e9e0cbeb0",
-  "execution_commit": "0835ec1a952ea175d7350a203bb13f8f2f8695e4",
-  "student_updates_cap": 48008,
-  "actor_updates_cap": 4097,
+  "updated_at_utc": "2026-10-08T22:30:12.408416+00:00",
+  "active_stage": "V109_SUPERVISED_ONLY_ACTION_MARGINS",
+  "status": "RUNNING",
+  "preregistration_commit": "fa3c8188f51c37a062a46f19ae2b37febe7d5b9d",
+  "execution_commit": "0cd3d8b687514c34c9af902a92d9b2d5f06c3e08",
+  "student_updates_cap": 12012,
+  "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -31,7 +31,8 @@
     "V104": "FOLD_LOCAL_POLICY_DIAGNOSTIC_COMPLETE",
     "V105": "TARGET_MATCHED_DIAGNOSTIC_COMPLETE",
     "V106": "NO_PRACTICAL_SEQUENTIAL_RL_GAIN",
-    "V107": "TRAINING_COVERAGE_DATASET_COMPLETE_METADATA_RECOVERED"
+    "V107": "TRAINING_COVERAGE_DATASET_COMPLETE_METADATA_RECOVERED",
+    "V108": "NO_PRACTICAL_MATCHED_SEQUENTIAL_RL_GAIN"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -66,9 +67,9 @@
     "V107": "98bddfadd7805e535f6f3542448c6fa04a44727d",
     "V108": "8437b42e062fdf2f41945fcf0721d6191cf57827"
   },
-  "next": "Publish V108 and preregister training-only true no-U action margin collection",
-  "run_id": "v108_sequence_20261008T202356Z",
-  "decision": "V108_NO_PRACTICAL_SEQUENTIAL_RL_GAIN",
+  "next": "Complete and publish all80 OFF-action margins; separately freeze policy fitting/deployment or next single hypothesis based on complete results",
+  "run_id": "v109_off_20261008T222808Z",
+  "decision": "PENDING_TRAINING_MARGIN_ONLY",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -138,31 +139,24 @@
   },
   "startup": {
     "status": "RUNNING",
-    "run_id": "v108_sequence_20261008T202356Z",
-    "execution_commit": "0835ec1a952ea175d7350a203bb13f8f2f8695e4",
-    "preregistration_commit": "c0006ba5c7bf630cb8eaa780c189f89e9e0cbeb0",
-    "observed_at_utc": "2026-10-08T20:26:21.111855+00:00",
-    "phase": "NATIVE_SEQUENTIAL_TRAINING",
+    "run_id": "v109_off_20261008T222808Z",
+    "execution_commit": "0cd3d8b687514c34c9af902a92d9b2d5f06c3e08",
+    "preregistration_commit": "fa3c8188f51c37a062a46f19ae2b37febe7d5b9d",
+    "observed_at_utc": "2026-10-08T22:30:12.408416+00:00",
+    "phase": "TRAINING_ACTION_COLLECTION",
     "gpus": [
       4,
       5,
       6,
       7
     ],
-    "fit_actor_updates": 4097,
-    "fit_linear_solves": 1,
-    "fit_actors_sealed": 8,
-    "training_states": 80,
-    "training_returns": 960,
-    "old_arrays_preserved": true,
-    "fit_exit_code": 0,
-    "native_qualification_updates": 8,
+    "qualification_updates": 12,
     "qualification_exit_code": 0,
-    "old_stable_states_exact": 2,
-    "paired_restore_exact": 2,
-    "state_rng_isolation": "PASS",
-    "native_workers_started": 4,
-    "native_workers_progress_observed": true,
+    "off_supervised_full_snapshot_exact": 2,
+    "old_action_full_snapshot_exact": 2,
+    "off_zero_U_reads": true,
+    "off_unlabeled_loss_none": true,
+    "workers_started_and_advanced": 4,
     "run_identities_verified": true,
     "neutral_parent_child_argv_and_gpu_display": "PASS",
     "nas_mount_write_probe": "PASS",
@@ -173,11 +167,13 @@
       "7": 24124
     },
     "failed_jobs_at_check": 0,
-    "planned_native_updates": 48008,
-    "planned_development_images": 2880,
-    "no_development_readout_yet": true
+    "planned_native_updates": 12012,
+    "planned_Q_train_images": 960,
+    "planned_behavior_extractions": 120,
+    "planned_actor_updates": 0,
+    "planned_Q_dev_images": 0
   },
-  "physical": {
+  "previous_stage_physical_V108": {
     "native_updates": 48008,
     "actor_optimizer_updates": 4097,
     "linear_data_solves": 1,
