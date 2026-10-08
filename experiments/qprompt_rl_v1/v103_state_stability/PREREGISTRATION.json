@@ -1,0 +1,48 @@
+{
+  "stage": "V103_FIXED_PROBE_STATE_STABILITY",
+  "status": "FROZEN_BEFORE_FEATURE_EXTRACTION",
+  "created_at_utc": "2026-10-08T14:12:45.361891+00:00",
+  "authority": "Continuing authorized performance research; inference-only diagnostic following V102. No new native reward collection.",
+  "dataset": "Only V101 32 training states and existing 384 training returns; V92 ENTRY100 and V101 ON_POLICY_ENTRY200. No Qdev/grid access.",
+  "intervention": {
+    "representations": [
+      "ORIGINAL",
+      "FIXED_SINGLE",
+      "FIXED_MEAN4"
+    ],
+    "probe_count": 4,
+    "provider_seed": 168,
+    "cursors": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "global_rng_seeds": [
+      861030,
+      861031,
+      861032,
+      861033
+    ],
+    "semantics": "Keep checkpoint step, scheduler, weights, EMA, memory and feature definitions. For each probe temporarily set provider.seed=168, cursor=j, and Python/NumPy/Torch RNG=861030+j. Existing generator also uses provider.seed/cursor. Call unchanged 24D extract; restore original seed/cursor/full native snapshot in finally. FIXED_SINGLE is probe0; FIXED_MEAN4 is componentwise float64 mean of all four. Original is exact historical float32 state. Different probe seed and batch are deliberate; averaging effect distinguished using FIXED_SINGLE."
+  },
+  "qualification": "Before any novel probes, replay ALL32 original states exactly and prove snapshot/student/optimizer/RNG and explicit provider.seed unchanged. Fail without retry on mismatch. For each new probe assert extraction snapshot unchanged within probe, then full restoration matches original. Empty optimizer ledger blocks all updates. Support labels restricted existing A_fit[:n], U_adapt image+validity only. No Q labels.",
+  "prediction": "Reuse V102 trainfold-only standardized ridge lambda1 and 1NN, global/time/uniform, 2 stream-swap plus8 condition-LOCO per representation; all960 rows retained. No pretrained initialization. Compare both directions and all8 held conditions. Same-source conditions are not independent patients.",
+  "stability": "Within each state, report variance across four fixed probes; report paired crossstream RMS for original/single/mean. RMS in original24D units is descriptive, includes heterogeneous feature scales; no population-noise claim. Compare mean4 vs fixed-single as well as original. Full features stay private.",
+  "budget": {
+    "native_updates": 0,
+    "actor_optimizer_updates": 0,
+    "training_query_image_evaluations": 0,
+    "development_query_image_evaluations": 0,
+    "original_state_replays": 32,
+    "new_probe_extractions": 128,
+    "total_extractions": 160,
+    "ridge_solves": 30,
+    "synthetic_ridge_solves": 2,
+    "nearest_neighbor_reference_sets": 30
+  },
+  "accounting": "Append attempted/success/failed extraction entries before/after each invocation. Count dataset item loads and model/EMA/memory image forwards by hooks independently of native telemetry restoration. All reads are existing training roles, no new annotation. Report actual elapsed time; no retry or budget reset.",
+  "diagnostic": "Continuous results only; mean4 considered direction-consistent if both stream folds beat both train-global/time. Also disclose delta vs original and single, all condition folds. No new deployment performance claim or automatic scientific stop.",
+  "limits": "Probe changes batch/augmentation context but preserves feature semantics; shared sources/rewards and reached states limit interpretation. Does not identify unique causal bottleneck, and cannot establish independent transfer.",
+  "completion": "Create-only NAS run through required wrapper, neutral process arguments; public code/results/report via proxy GitHub with anonymous access and NAS public copy. Raw features and snapshots excluded."
+}
