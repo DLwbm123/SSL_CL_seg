@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-08T15:16:26.577781+00:00",
+  "updated_at_utc": "2026-10-08T15:18:22.195204+00:00",
   "active_stage": "V104_FOLD_LOCAL_CE_RL_GENERALIZATION",
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "preregistration_commit": "e46a182b63795594da73f04853140a69d4e43d8f",
   "execution_commit": "23fa0bf3c85be14ca334c3076e24e2d6c15f6d71",
   "student_updates_cap": 0,
@@ -57,17 +57,28 @@
     "V102": "7c2eefacb786e046d16e7fd3ab9d59813de925d3",
     "V103": "b9698bf05dc48b4c5f397d59d1d038cc0b7bc792"
   },
-  "next": "Complete fixed61442actor-step training-only diagnostic; no extra images/native/query.",
+  "next": "Publish V104 then separately preregister fold-local CE distillation of analytical RL-optimal target from the same warm policy, same512steps; reuse original/mean4 and all folds/seeds without new native/query. No active run.",
   "run_id": "v104_policy_20261008T151430Z",
-  "decision": "PENDING",
-  "publication": "STARTUP_PENDING",
+  "decision": "FOLD_LOCAL_POLICY_DIAGNOSTIC_COMPLETE",
+  "publication": "V104_COMPLETE_DELIVERY_PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "physical": {
-    "qualification": 2,
-    "warmup": 512,
-    "CE": 512,
-    "RL": 512
-  },
-  "initial_pid": 2714963
+    "native_updates": 0,
+    "actor_optimizer_updates": 61442,
+    "physical": {
+      "qualification": 2,
+      "warmup": 20480,
+      "CE": 20480,
+      "RL": 20480
+    },
+    "new_ridge_solves": 0,
+    "image_inference": 0,
+    "training_query_image_evaluations": 0,
+    "development_query_image_evaluations": 0,
+    "new_annotation_cases": 0,
+    "models": 120,
+    "heldout_rows": 1536,
+    "reused_control_rows": 640
+  }
 }
