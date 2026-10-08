@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-08T20:20:39.430435+00:00",
-  "active_stage": "V107_TRAINING_STATE_COVERAGE_COLLECTION",
-  "status": "COMPLETE_PUBLIC_VERIFIED_METADATA_RECOVERY",
-  "preregistration_commit": "39cbb9cd689e5f2242a044c8639b78f1117133fc",
-  "execution_commit": "f5d534858069e43ec6a8b43668a056df2fd68b3b",
-  "student_updates_cap": 85208,
-  "actor_updates_cap": 0,
+  "updated_at_utc": "2026-10-08T20:24:47.997253+00:00",
+  "active_stage": "V108_COVERAGE_EXPANDED_SEQUENTIAL_DEPLOYMENT",
+  "status": "RUNNING",
+  "preregistration_commit": "c0006ba5c7bf630cb8eaa780c189f89e9e0cbeb0",
+  "execution_commit": "0835ec1a952ea175d7350a203bb13f8f2f8695e4",
+  "student_updates_cap": 48008,
+  "actor_updates_cap": 4097,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -30,7 +30,8 @@
     "V103": "STATE_PROBE_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
     "V104": "FOLD_LOCAL_POLICY_DIAGNOSTIC_COMPLETE",
     "V105": "TARGET_MATCHED_DIAGNOSTIC_COMPLETE",
-    "V106": "NO_PRACTICAL_SEQUENTIAL_RL_GAIN"
+    "V106": "NO_PRACTICAL_SEQUENTIAL_RL_GAIN",
+    "V107": "TRAINING_COVERAGE_DATASET_COMPLETE_METADATA_RECOVERED"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -64,9 +65,9 @@
     "V106": "7eadd6b29eaea85fffa3284e33b76115223d5a7b",
     "V107": "98bddfadd7805e535f6f3542448c6fa04a44727d"
   },
-  "next": "Publish V107 and separately preregister V108 coverage-expanded matched sequential deployment",
-  "run_id": "v107_coverage_20261008T172804Z",
-  "decision": "TRAINING_COVERAGE_DATASET_ONLY_NO_PERFORMANCE_CLAIM",
+  "next": "Complete V108 fixed deployment; publish every result plus paired V106 coverage deltas; if candidate separately freeze fresh-stream confirmation, otherwise next single hypothesis",
+  "run_id": "v108_sequence_20261008T202356Z",
+  "decision": "PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -105,10 +106,7 @@
     },
     "new_annotation_cases": 0
   },
-  "physical_observed_at_startup": {
-    "qualification": 8
-  },
-  "physical": {
+  "previous_stage_physical_V107": {
     "native_updates": 85208,
     "actor_optimizer_updates": 0,
     "linear_solves": 0,
@@ -136,5 +134,46 @@
       "query_images": 5664
     },
     "new_annotation_cases": 0
+  },
+  "startup": {
+    "status": "RUNNING",
+    "run_id": "v108_sequence_20261008T202356Z",
+    "execution_commit": "0835ec1a952ea175d7350a203bb13f8f2f8695e4",
+    "preregistration_commit": "c0006ba5c7bf630cb8eaa780c189f89e9e0cbeb0",
+    "observed_at_utc": "2026-10-08T20:26:21.111855+00:00",
+    "phase": "NATIVE_SEQUENTIAL_TRAINING",
+    "gpus": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "fit_actor_updates": 4097,
+    "fit_linear_solves": 1,
+    "fit_actors_sealed": 8,
+    "training_states": 80,
+    "training_returns": 960,
+    "old_arrays_preserved": true,
+    "fit_exit_code": 0,
+    "native_qualification_updates": 8,
+    "qualification_exit_code": 0,
+    "old_stable_states_exact": 2,
+    "paired_restore_exact": 2,
+    "state_rng_isolation": "PASS",
+    "native_workers_started": 4,
+    "native_workers_progress_observed": true,
+    "run_identities_verified": true,
+    "neutral_parent_child_argv_and_gpu_display": "PASS",
+    "nas_mount_write_probe": "PASS",
+    "free_memory_at_admission_mib": {
+      "4": 24124,
+      "5": 24124,
+      "6": 24124,
+      "7": 24124
+    },
+    "failed_jobs_at_check": 0,
+    "planned_native_updates": 48008,
+    "planned_development_images": 2880,
+    "no_development_readout_yet": true
   }
 }
