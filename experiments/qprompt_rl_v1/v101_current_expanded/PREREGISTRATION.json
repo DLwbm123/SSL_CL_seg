@@ -1,0 +1,64 @@
+{
+  "stage": "V101_CURRENT_EXPANDED_POLICY_RETURNS",
+  "status": "FROZEN_BEFORE_NEW_RETURNS",
+  "created_at_utc": "2026-10-08T10:59:54.803603+00:00",
+  "hypothesis": "The V99 reward table uses old nine-action continuation and reached states. Refresh full twelve-action returns under a symmetric current expanded CE/RL behavior ensemble to reduce continuation/state distribution mismatch; compare matched CE/RL fits.",
+  "authority": "Human2026-10-08 ongoing evidence-driven performance improvements; no new data/hidden label/sealed test permissions.",
+  "behavior": "Equal probability mean of all four frozen V99 EXPANDED_CE/RL601602, T1categorical. Same8trainingcontexts and2existingstreams/provider seeds168+10000stream,privategenerator860901+100stream+i. Same original ENTRY100_STREAM from V92; no added seeds.",
+  "collection": {
+    "first": "At ENTRY100 choose ensemble firstaction and save private generator state. For each of12firstactions execute200nativeupdates, draw ownsecondaction at200 fromsamecurrentexpandedensemble withsamepostfirstprivategeneratorstate. Querynew150/new300/old300. Saveactualselectedfirst PREFIX200 andallfinals.",
+    "second": "Restoreactualsampledfirst PREFIX200; the12secondactions sharethisstate. Reusealreadyexecutedselectedsecond final/reward, execute11otherbranches x100updates. Gain=sampledfirstgain+.75*(newfinal-sampledfirstnewfinal); oldfinalqueried. No MID200 substitution.",
+    "perjob_native": 3500,
+    "perjob_training_image_evaluations": 232,
+    "jobs": 16,
+    "table_rows": 384,
+    "reused_old_reward_rows": 0,
+    "reused_current_second_returns": 16,
+    "entry_state": "Originalstep100state mustexactlymatchV92; step200comesfromcurrentexpandedbehavior, deliberatelychanged."
+  },
+  "fit": {
+    "initialization": "OwnseedV99EXPANDED_CE, includingitsoriginal24Dscaler; bothCE/RLstartidentical. REFRESH_INITisthissameunfittedcontrol.",
+    "seeds": [
+      601,
+      602
+    ],
+    "updates_each": 1024,
+    "arms": [
+      "REFRESH_CE",
+      "REFRESH_RL"
+    ],
+    "optimizer": "Adam.001,clip1,1196params,finalonly",
+    "advantages": "Subtractcurrentfirst9actionmean perstate; dividebyfixedV94pooledRMS.0026099849492311478; clamp[-3,3]. No rescale basedonnewreturns.",
+    "CE": "softmaxadv/.25crossentropy-entropy.01",
+    "RL": "negativeexpectedadv+KL.25toREFRESH_INIT-entropy.01",
+    "controls": "REFRESH_INIT601602,UNIFORM12,andglobal/timeargmax fromcurrentQ_trainreturns; retainall204V99sampledrows.",
+    "fairness": "CurrentCE/RLsame384rows,initialization,optimization,labelaccess. Historicalactorfamiliesuseddifferentcollectioninformation/cost,explicitlydisclose."
+  },
+  "readout": {
+    "source": "Useall52privateunlabeledstatevectors alreadyqualifiedV100; reconstructfloat32CPUtensors,neverfitondevstates.",
+    "qualification": "Beforecollection,exactlyrecompute104probabilityvectors ofthetwoV99CEactors fromcachedstates andtheir8sampledpairs. Failengineeringbeforecollectionifmismatch.",
+    "barriers": "Allfits/trainingcontrolssealbeforeCPUreadout. All36newdistributions/choicessealbeforeV98gridlookup. Readsnewactorprobabilitiesatall52states,312vectors. No queryorstudentupdate.",
+    "modes": [
+      "ORIGINAL_T1_SAMPLE",
+      "EXACT_T1_EXPECTATION",
+      "FIXED_ARGMAX"
+    ],
+    "primary": "OriginalprivateT1categorical860301+i; noseed/readoutselection. Exactexpectationandargmaxsecondary,allreported.",
+    "primary_comparisons": "REFRESH_RLvsREFRESH_CE/INIT,newuniform/global/time,originalCONTINUE_CE/POOLED_RL,V99EXPANDED_CE/RL/INIT. Meanutility>=all+.0005,bothseedRLminusCEandINIT>0,practicalnew+.002old>=-.0025 OR old+.005new>=-.0025 vsnewuniform/CE/INIT/CONTINUE_CE. Gatesdiagnosticnotautomaticfuturestop.",
+    "sampled_rows": 36,
+    "historical_sampled_rows": 204,
+    "all_mode_rows": 108
+  },
+  "budget": {
+    "native_qualification": 8,
+    "native_collection": 56000,
+    "native_total": 56008,
+    "actor_fit": 4096,
+    "training_image_evaluations": 3712,
+    "development_image_evaluations": 0,
+    "new_unique_images": 0,
+    "total_jobs": 20
+  },
+  "limits": "RepeatedD1/simulatedold;16memoryfit,8support withsupport2/8,4old4newQtrain and4old4newQdev;sharedqueryimages/no patientindependence. NoQdevtargetselection,hiddenUlabels,newdomains,sealedtest. Retainalloldnegativeverdicts/costs. NotGRPO.",
+  "completion": "Publishfulltables,allseedcontrols/readouts,receipts/costs/reportthroughproxyGitHubandNAS. Backgroundruncheckthenhourlymonitor;ordinaryprogressquiet."
+}
