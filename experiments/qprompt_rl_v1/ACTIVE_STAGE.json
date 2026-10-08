@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-10-08T10:14:12.041757+00:00",
-  "active_stage": "V100_FROZEN_POLICY_DISTRIBUTION_READOUT",
-  "status": "COMPLETE",
-  "preregistration_commit": "3b0a3a21a555f17d5dc70c5354f1a81f35bfa9ef",
-  "execution_commit": "4ac238e0a9d20a6f87e634104d86895896e6de2e",
-  "student_updates_cap": 14408,
+  "updated_at_utc": "2026-10-08T11:05:26.129438+00:00",
+  "active_stage": "V101_CURRENT_EXPANDED_POLICY_RETURNS",
+  "status": "RUNNING",
+  "preregistration_commit": "454b129c787f2d9e94eab2c9e60ab0b7a9635bf5",
+  "execution_commit": "883d342546846aed6ee503d899dc0f3987e47ccc",
+  "student_updates_cap": 56008,
   "actor_updates_cap": 4096,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
@@ -23,7 +23,8 @@
     "V96": "STOP_V96_NO_PAIRED_TARGET_INCREMENTAL_GAIN",
     "V97": "NO_ACTION_SEQUENCE_MARGIN_ON_FROZEN_D1_STREAMS",
     "V98": "EXPANDED_ACTION_MARGIN_EXISTS_ON_FROZEN_D1_ONLY",
-    "V99": "NO_V99_EXPANDED_RL_INCREMENTAL_GAIN"
+    "V99": "NO_V99_EXPANDED_RL_INCREMENTAL_GAIN",
+    "V100": "NO_V100_ARGMAX_RL_INCREMENTAL_GAIN"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -47,31 +48,18 @@
     "V96_startup": "599a9d58e8b646ca7a9c2308a0ea02e235c2405d",
     "V97": "149dcaf7f3e30c545112392b904e1d9d5bb06a07",
     "V98": "b60de9851ea40a46591acc7a6e9f2248c4b2cd9b",
-    "V99": "bd81d993c4c5e105664cce94f71b6931035ba9e9"
+    "V99": "bd81d993c4c5e105664cce94f71b6931035ba9e9",
+    "V100": "f8cd9ac53a5562572aac36885b67854509749c30"
   },
-  "next": "Publish V100 then freeze V101 refreshed training-only returns under current expanded CE/RL ensemble behavior, with matched actor fitting and qualified cached evaluation.",
-  "run_id": "v100_readout_20261008T105500Z",
-  "decision": "NO_V100_ARGMAX_RL_INCREMENTAL_GAIN",
-  "initial_pid": 2482017,
-  "startup_physical": {
-    "qualification": 8,
-    "audit": 214
-  },
-  "publication": "V100_COMPLETE_DELIVERY_PENDING",
+  "next": "Hourly V101 live owner/lock/ledger checks.20jobs cachedqual/nativequal/16collect/fit/select;56008native4096actor3712trainimageeval0devquery. New384currentpolicyreturns,16selectedsecondreturns reused. Allfits seal beforedevstateinference;all36distributionssealbeforelookup;240sampled108mode rows. Auditreport/publication/NAS thennext evidence-based independently frozen improvement. Old scientific verdicts do not automatically stop research.",
+  "run_id": "v101_current_20261008T110421Z",
+  "decision": "PENDING",
+  "initial_pid": 2527563,
+  "publication": "V99_V100_COMPLETE_PUBLIC_VERIFIED_V101_STARTUP_PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
-  "physical": {
-    "student_updates": 0,
-    "actor_updates": 0,
-    "training_image_evaluations": 0,
-    "development_image_evaluations": 0,
-    "new_unique_images": 0,
-    "unique_cached_grid_rows": 576,
-    "weighted_policy_rows": 36,
-    "argmax_policy_rows": 36,
-    "original_sampled_rows": 36,
-    "actor_probability_vectors": 312,
-    "extracted_states": 52,
-    "failed_updates": 0
+  "startup_physical": {
+    "qualification": 8,
+    "audit": 190
   }
 }
