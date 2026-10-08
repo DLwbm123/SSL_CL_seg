@@ -1,0 +1,42 @@
+{
+  "stage": "V100_FROZEN_POLICY_DISTRIBUTION_READOUT",
+  "status": "FROZEN_BEFORE_PROBABILITY_EXTRACTION",
+  "created_at_utc": "2026-10-08T10:51:46.537691+00:00",
+  "hypothesis": "V99 sampled trajectories may obscure policy-level performance. Exact conditional expectation and a fixed argmax deployment separate sampling from distribution quality, without another actor fit.",
+  "sources": "All six frozen V99 expanded actors, original ENTRY100 and twelve V97/V98 PREFIX200 per development context; full frozen V98 grid. No training or new image evaluation.",
+  "arms": [
+    "EXPANDED_INIT_601",
+    "EXPANDED_INIT_602",
+    "EXPANDED_CE_601",
+    "EXPANDED_CE_602",
+    "EXPANDED_RL_601",
+    "EXPANDED_RL_602",
+    "UNIFORM_12",
+    "GLOBAL_12",
+    "TIME_12"
+  ],
+  "readouts": [
+    "EXACT_T1_EXPECTATION",
+    "FIXED_ARGMAX",
+    "ORIGINAL_V99_T1_SAMPLE"
+  ],
+  "primary": "FIXED_ARGMAX EXPANDED_RL compared with same readout CE/INIT, fixed training-global/time and UNIFORM exact expectation. Also original CONTINUE_CE and POOLED_RL sampled historical reference; all modes reported regardless result. Both seeds must improve utility over CE and INIT, mean utility >=.0005 over all controls, new>=+.002 with old>=-.0025 OR old>=+.005 with new>=-.0025 versus CE/INIT/uniform/CONTINUE_CE.",
+  "expectation": "For each context and actor, p100(a)*p200(b|PREFIX_a) weights each of144cached trajectories. Normalize each float64 probability vector once to sum1. Sum each trajectory utility including its own retention hinge; never hinge the expected old score. Exact only conditional on this frozen student/data stream, not population or unseen stream.",
+  "argmax": "Lowest action ID ties; first argmax p100, second argmax p200 conditional on that first action. No temperature search, no seed/arm selection or retraining. Uniform argmax action0 included as mechanical tie control; primary uniform comparison uses expectation.",
+  "barrier": "Extract all52states and312actor probability vectors (4contexts x13states x6actors) before reading scores. All probabilities and24actorargmaxpairs plus12simplepairs sealed, then read frozen grid. Workers cannot access Qdev metric files or run scores.",
+  "qualification": "Exact all72 saved V99 selected-state probability vectors and36action pairs including simple controls using original private categorical generator. Native state snapshot before/after extraction identical; zero native/actor updates and no query access. Positive/negative selfchecks: conditional expectation differs from independent action marginal, pointmass equals grid row, uniform equals gridmean, argmax tie rule.",
+  "budget": {
+    "student_updates": 0,
+    "actor_updates": 0,
+    "query_image_evaluations": 0,
+    "new_unique_images": 0,
+    "gpu_jobs": 4,
+    "unique_cached_grid_rows": 576,
+    "policy_weighted_rows": 36,
+    "policy_argmax_rows": 36,
+    "original_policy_rows": 36
+  },
+  "controls_fairness": "CE/RL fits remain matched V99 models. Readout modes are secondary development analyses, not new independent replications. Do not select a favorable readout and describe it as preregistered V99 performance.",
+  "limits": "Repeated D1, same queries and simulated old. All prior failures remain. New methodological iteration permitted by user, but hidden U labels, real later domains or sealed test remain out of scope.",
+  "completion": "Publish all distributions, mode-level and context/seed outcomes, receipts and costs through proxy GitHub and NAS. This finite diagnostic is not a hyperparameter search or new scientific confirmation."
+}
