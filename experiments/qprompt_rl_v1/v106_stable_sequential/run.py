@@ -15,6 +15,7 @@ from pathlib import Path
 import numpy as np
 import torch
 
+STAGE = 'V106'
 ARMS = ('WARM', 'CE', 'RL', 'DISTILL')
 SEEDS = (601, 602)
 STREAMS = (3, 4, 5)
@@ -30,7 +31,7 @@ def load(name, path):
     return module
 
 
-def fit(root, cfg):
+def fit(root, cfg, training=None):
     torch.set_num_threads(1)
     budget = runpy.run_path(cfg['budget_helper'])['Budget'](root, {k:CAPS[k] for k in ('actor_qualification','warmup','CE','RL','distillation')})
     # V105 uses its own qualification category; map only that single synthetic call.
@@ -39,10 +40,16 @@ def fit(root, cfg):
             assert category == 'qualification'
             budget.step('actor_qualification', key, optimizer)
     M.selfcheck(H,V,D,Qualification())
-    keys, original, rewards, _, _ = D.dataset(cfg,'V101')
-    saved = np.load(Path(cfg['v103'])/'FEATURES.private.npz')
-    assert np.array_equal(saved['original'],original)
-    values = saved['probes'].mean(1); x=torch.tensor(values,dtype=torch.float32);returns=torch.tensor(rewards,dtype=torch.float32)
+    if training is None:
+        keys, original, rewards, _, _ = D.dataset(cfg,'V101')
+        saved = np.load(Path(cfg['v103'])/'FEATURES.private.npz')
+        assert np.array_equal(saved['original'],original)
+        values = saved['probes'].mean(1)
+    else:
+        keys, values, rewards = training
+    assert values.shape==(len(keys),24) and rewards.shape==(len(keys),12)
+    assert np.isfinite(values).all() and np.isfinite(rewards).all()
+    x=torch.tensor(values,dtype=torch.float32);returns=torch.tensor(rewards,dtype=torch.float32)
     global_action = int(rewards.mean(0).argmax())
     assert all(int(rewards[[i for i,k in enumerate(keys) if k[2]==step]].mean(0).argmax())==global_action for step in (100,200)), 'time control admission changed'
     fitrows=[]; logs=[]; distrows=[]
@@ -73,7 +80,7 @@ def fit(root, cfg):
     c.e.append(root/'LINEAR_SOLVE_LEDGER.jsonl',dict(event='success',**record))
     assert np.allclose(matrix@coef,rhs,atol=1e-12,rtol=1e-10) and np.isfinite(coef).all()
     np.savez(root/'PREDICTORS.private.npz',mean=mean,scale=scale,z=z,returns=rewards,coef=coef,intercept=intercept)
-    D.write(root/'CONTROLS.json',dict(global_action=global_action,time_equals_global=True,ridge_lambda=1,training_states=32))
+    D.write(root/'CONTROLS.json',dict(global_action=global_action,time_equals_global=True,ridge_lambda=1,training_states=len(keys)))
     assert dict(budget.count)=={k:CAPS[k] for k in ('actor_qualification','warmup','CE','RL','distillation')}
     for name,rows in [('FIT_SUMMARY',fitrows),('FIT_LOG',logs),('DISTILL_SUMMARY',distrows)]:D.write(root/(name+'.json'),rows);D.table(root/(name+'.csv'),rows)
     D.write(root/'QUALIFICATION.json',dict(status='PASS',synthetic_actor_updates=1,grouped_target_and_KL_checks=True,ridge_residual_pass=True,global_time_identity=True))
@@ -224,7 +231,7 @@ def summary(rows):
     paired={f'{arm}_{s}':means[f'SAMPLE_RL_{s}']['utility']-means[f'SAMPLE_{arm}_{s}']['utility'] for arm in ('WARM','CE','DISTILL') for s in SEEDS}
     trade={m:(delta[m]['new']>=.002 and delta[m]['old']>=-.0025) or (delta[m]['old']>=.005 and delta[m]['new']>=-.0025) for m in ('SAMPLE_WARM','SAMPLE_CE','SAMPLE_DISTILL','UNIFORM')}
     passed=all(v>0 for v in paired.values()) and all(v['utility']>=.0005 for v in delta.values()) and all(trade.values())
-    return dict(status='V106_POSITIVE_CANDIDATE_REQUIRES_CONFIRMATION' if passed else 'V106_NO_PRACTICAL_SEQUENTIAL_RL_GAIN',means=means,primary_deltas=delta,paired_seed_utility=paired,practical_tradeoff=trade,independent_patient_or_source_confirmation=False)
+    return dict(status=STAGE+'_POSITIVE_CANDIDATE_REQUIRES_CONFIRMATION' if passed else STAGE+'_NO_PRACTICAL_SEQUENTIAL_RL_GAIN',means=means,primary_deltas=delta,paired_seed_utility=paired,practical_tradeoff=trade,independent_patient_or_source_confirmation=False)
 
 
 def selfcheck():
@@ -234,9 +241,9 @@ def selfcheck():
             for method in METHODS:
                 good=method.startswith('SAMPLE_RL_')
                 rows.append(dict(context=f'dev{i}',stream=stream,method=method,**{k:(.803 if good else .8) if k in ('new','old') else (.003 if good else 0.) for k in METRICS}))
-    assert summary(rows)['status'].startswith('V106_POSITIVE')
+    assert summary(rows)['status'].startswith(STAGE+'_POSITIVE')
     for r in rows:r['utility']=0.
-    assert summary(rows)['status'].startswith('V106_NO_')
+    assert summary(rows)['status'].startswith(STAGE+'_NO_')
     assert len(METHODS)==20 and len(rows)==240 and 240*200==CAPS['development']
     state=torch.zeros(24);pred=dict(mean=np.zeros(24),scale=np.ones(24),z=np.zeros((2,24)),returns=np.array([[0.,1.]+[0.]*10,[1.,0.]+[0.]*10]),coef=np.zeros((24,12)),intercept=np.zeros(12))
     assert select(state,'RIDGE',{},pred,0,torch.Generator())[0]==0
