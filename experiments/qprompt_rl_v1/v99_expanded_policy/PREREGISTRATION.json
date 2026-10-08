@@ -1,0 +1,90 @@
+{
+  "stage": "V99_EXPANDED_ACTION_POLICY_LEARNING",
+  "status": "FROZEN_BEFORE_NEW_TRAINING_VALUES_OR_FITS",
+  "created_at_utc": "2026-10-08T09:57:00.215363+00:00",
+  "authority": "Human2026-10-08 authorizes V98 and evidence-based performance improvements beyond old scientific gates. Routine methodology changes authorized; no hidden-label/new-domain permissions implied.",
+  "hypothesis": "V98 showed alpha=.75 adds feasible finite-trajectory margins. The same expanded actions can be selected by a policy trained only on Q_train rewards; expected-return RL adds benefit over matched CE and expanded initialization. V98 best sequences are forbidden targets.",
+  "action_dictionary": "The same12actions asV98, original9unchanged; alpha.75 withthreeoldweightvectors. Nativeengine/loss/gate/detach/A-only/history-free/H300/100200unchanged.",
+  "training_table": {
+    "source": "V92 complete32states x9returns, sameV90denseCEensemblebehavior andoriginal8trainingcontexts x2streams",
+    "reuse": 288,
+    "new_rows": 96,
+    "total": 384,
+    "first_new": "For actions9..11 restore existingV92ENTRY100_STREAM; execute200updates each, switchat200 using sameold9-actionV90denseCEensemble andoriginalprivategenerator stateafterfirst draw.",
+    "second_new": "For actions9..11 restore existingV92ON_POLICY_ENTRY200; execute100updates each. Keep originalstate200 andprefix. Existingselectedfirstfinal is queried once onQ_train_new to compute newgain=oldselectedgain+.75*(newfinal-oldselectedfinal). No substitutedMID200 forMID150.",
+    "query_budget_per_context_stream": "3firstbranches x12imageeval +3secondbranches x8imageeval +1cachedselectedfinal x4imageeval=64,16jobs=1024",
+    "state_checks": "Newstates must exactlymatch each correspondingoldV92state; old288values reusedunchanged. NoQ_devfile/score used incollectionorfit."
+  },
+  "initialization": {
+    "source": "OwnseedV90DENSE_CE_601/602, old24Dscalerunchanged",
+    "architecture": "24->32Tanh->12,1196parameters; hidden andoldoutputweightsloaded. Newoutputrows9..11cloneold6..8, subtractlog2 frombiases6..8 and9..11. Theirpairwise probabilitysums equalold6..8 mass; old0..5 probabilities unchanged.",
+    "reference": "This sameexpandedinitialpolicy forRLKL andbothCE/RL starts. EXPANDED_INIT controls have0fitupdates."
+  },
+  "targets": "All12returnadvantages subtracttheoriginal9-action mean ofthatstate anddivide bytheoriginalV94 pooledRMS(floor unchanged),clamp[-3,3]. Original9advantages remainexactlyV94. No recenter/rescale based on newactions ordev data.",
+  "fit": {
+    "arms": [
+      "EXPANDED_CE",
+      "EXPANDED_RL"
+    ],
+    "seeds": [
+      601,
+      602
+    ],
+    "updates_each": 1024,
+    "total_actor_updates": 4096,
+    "optimizer": "freshAdam lr.001,gradientclip1,all1196parameters",
+    "CE": "softmax(adv/.25)crossentropy minusentropy.01",
+    "RL": "negativeexactexpectedadvantage +KL.25 toexpandedinit minusentropy.01",
+    "checkpoint": "finalonly;noepoch/seed/hyperparameterselection"
+  },
+  "controls": {
+    "new": [
+      "EXPANDED_INIT_601",
+      "EXPANDED_INIT_602",
+      "EXPANDED_CE_601",
+      "EXPANDED_CE_602",
+      "EXPANDED_RL_601",
+      "EXPANDED_RL_602",
+      "UNIFORM_12",
+      "GLOBAL_12",
+      "TIME_12"
+    ],
+    "historical": "All168V96policyendpointrows retained; V94 POOLED9CE/RL are cached actionspace references, not extra new fits.",
+    "simple": "UNIFORM_12 usesT1privatecategorical;GLOBAL_12argmaxaverageall32trainingrawreturns;TIME_12argmaxtrainingrawreturnsseparately100/200. Deterministic lowestactionIDties. Neverselectfromdevelopmentgrid.",
+    "fairness": "EXPANDED_CE/RL shareall384trainingrows/initialization/1024steps/reference/labels. Nine-action references hadonly288actions andlessvaluegenerationcost; reportthisratherthanclaimallcomparisonsareinformation/costmatched."
+  },
+  "readout": {
+    "type": "CACHED_FINITE_TRAJECTORY_POLICY_READOUT_NOT_NEW_INDEPENDENT_VALIDATION",
+    "qualification": "Beforecollection/fit, fourreadonlyjobs exactlyreplay16V94POOLEDCE/RLseed/context two-action sequences AND24Dstates/9probabilities fromsaveddecisiontraces usingoriginalENTRY100andV97PREFIX200. Zerooptim/query; mismatchstopsengineering.",
+    "selection": "Afterallactors andtrainselectedglobal/timecontrolssealed, fourreadonlyjobs selectall9policyinstances ineachcontext. Foractors useT1categorical private860301+i. RestoreoriginalENTRY100; choosefirst;restorematchingV97(first<9)/V98(first>=9)PREFIX200;choosesecond. Student/actor inference cannotalterstudent/globalRNG.",
+    "barrier": "All36newpolicyactionpairs sealed BEFORE root retrievescorrespondingV98gridrows. RecordsmarkedREUSED_GRID_OUTCOME,notnewlytrainedendpoints. All576gridscoresalreadyobservedinV98;barrierdoesnotrestoreindependence.",
+    "image_queries": 0,
+    "new_student_development_updates": 0,
+    "cached_policy_rows": 36,
+    "cached_image_evaluation_equivalents": 432,
+    "history_rows": 168,
+    "total_policy_rows": 204
+  },
+  "budget": {
+    "student_qualification": 8,
+    "student_new_training_values": 14400,
+    "student_total": 14408,
+    "actor_fit": 4096,
+    "training_query_image_evaluations": 1024,
+    "development_query_image_evaluations": 0,
+    "new_unique_images": 0,
+    "readonly_qualification_updates": 0
+  },
+  "qualification": [
+    "V98newactionnative8pairedrestore/inferenceisolation",
+    "Synthetic12-actorprobabilitymasspreservation/newmemorymask/finiteCEandRLgradients/oldadvantageidentity/nooptimizerstep",
+    "V92all16collectionjobscomplete/old288rowsunique andall4V94modelsavailable",
+    "All16historicalpolicydecisions/probability/state exactcachedreplaybeforeanynewtrainingvaluecollection",
+    "All36newchoicessealed andlookupsequenceIDsexact; nofit/selectionfromdevoracle"
+  ],
+  "evaluation": "PrimaryEXPANDED_RL: reportmeannew/old/utilitydeltaversusallhistoricalarmmeans,EXPANDED_CE/INIT,UNIFORM_12/GLOBAL_12/TIME_12; bothseedpairedRL-minusCE andRL-minusINIT. Originaldiagnostic screen: meanutility>=eachcontrol+.0005,allpaired>0,tradeoffagainstUNIFORM_12,CONTINUE_CE,POOLED_RL,EXPANDED_CE(new>=+.002old>=-.0025 ORold>=+.005new>=-.0025). Reporteverycontinuousdifferencewhetherpassorfail; noautomaticresearchstop.",
+  "pass_status": "PASS_V99_EXPANDED_RL_CACHED_D1_ONLY",
+  "fail_status": "NO_V99_EXPANDED_RL_INCREMENTAL_GAIN",
+  "limits": "NoGRPOclaim; explicitfull-actionexpected-returnRL. RepeatedlyobservedD1/sharedqueryimages/simulatedold/no patient independence. Cachedreadoutvalidonlythisoriginalstudentstream; nonewindependentrepetitions. NoQ_devtraining,hiddenUlabels,sealedtest,realnextdomains. Everyactualcost/failurekept. OriginalSTOPs/V84NOT_RUN preserved.",
+  "completion": "Fullsource/results/receipts/costs/reportpublicproxyGitHub+NASarchive. Nextseparatelypreregisteredimprovementmayfollowregardlessdiagnosticgate,underhumanperformanceauthority."
+}

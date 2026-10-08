@@ -1,0 +1,11 @@
+# V99 learn the expanded actions
+
+V98 establishes only post-hoc finite-trajectory capacity. V99 tests whether training-only rewards support a learned improvement, with matched twelve-action CE/RL and expanded-initialization controls. No development maximizing action is a training target.
+
+Reuse the V92 32x9 training table, states and entry checkpoints. Add only three actions at each existing state: 16 jobs x900 student updates, 96 additional rewards. First-action branches retain the same old nine-action behavior continuation. One existing selected-final Q_train_new readout per job recovers the common short-prefix contribution for second-action returns; total1,024training image-evaluations. All original288 rewards remain unchanged. Scale and center use only their original V94 values, preserving their original normalized advantages.
+
+Expand each seed's denseCE 24->32->9 actor to12 outputs by splitting eachalpha=.5head's probability mass equally between its existing and newalpha=.75head. Train CE and RL for1,024steps eachseed from the same expanded initializer, same384rows and same optimizer. Include untouched expanded initialization, uniform12, and global/time choices derived only from training returns. Originalnine-actioncontrols remain clearly labeled historical and used less reward-generation information.
+
+The complete V97/V98 action grid permits zero-update cached policy evaluation. First exactly replay all16 V94 CE/RL seed/context action sequences, states and probabilities from stored traces. Failures stop engineering before new reward collection. Then fit allactors, select and seal every newpolicy's two actions using only original unlabeled state inputs and the originalprivateT1categoricalstream, and only afterward retrieve matching cached outcome metrics. This yields36cachedpolicyrows, not36newstudentreplicates or432newimagequeries.
+
+Newbudget14,408nativeupdates(8qualification+14,400collection),4,096actorupdates,1,024training image-evaluations,zero development queries/newimages. All36choices seal before outcome lookup; all204policyrows and costs are reported. Diagnostics retain original magnitude criteria but do not automatically stop future research. No independent validation or RL benefit is promised.
