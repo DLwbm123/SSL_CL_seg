@@ -1,0 +1,439 @@
+{
+  "status": "TRAINING_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
+  "integrity": [
+    {
+      "dataset": "V101",
+      "groups": 32,
+      "actions": 384,
+      "unique_states": 32,
+      "exact_crossstream_state_pairs": 0,
+      "same_student_weight_pairs": 8,
+      "same_full_snapshot_pairs": 0
+    },
+    {
+      "dataset": "V99",
+      "groups": 32,
+      "actions": 384,
+      "unique_states": 32,
+      "exact_crossstream_state_pairs": 0,
+      "same_student_weight_pairs": 8,
+      "same_full_snapshot_pairs": 0
+    }
+  ],
+  "rank_summary": [
+    {
+      "dataset": "V101",
+      "step": 100,
+      "n": 8,
+      "spearman": 0.9082167832167832,
+      "pairwise_agreement": 0.9071969696969697,
+      "top1_equal": 0.875,
+      "top_gap_stream1": 0.00037212902680039406,
+      "top_gap_stream2": 0.00038771028630435467
+    },
+    {
+      "dataset": "V101",
+      "step": 200,
+      "n": 8,
+      "spearman": 0.8522727272727273,
+      "pairwise_agreement": 0.8863636363636364,
+      "top1_equal": 0.875,
+      "top_gap_stream1": 0.0003978742752224207,
+      "top_gap_stream2": 0.0003644302487373352
+    },
+    {
+      "dataset": "V99",
+      "step": 100,
+      "n": 8,
+      "spearman": 0.888986013986014,
+      "pairwise_agreement": 0.8920454545454546,
+      "top1_equal": 0.625,
+      "top_gap_stream1": 0.0003717569634318352,
+      "top_gap_stream2": 0.00035568862222135067
+    },
+    {
+      "dataset": "V99",
+      "step": 200,
+      "n": 8,
+      "spearman": 0.8470279720279721,
+      "pairwise_agreement": 0.8901515151515151,
+      "top1_equal": 0.875,
+      "top_gap_stream1": 0.0003818145487457514,
+      "top_gap_stream2": 0.00040343357250094414
+    }
+  ],
+  "transfer_summary": [
+    {
+      "dataset": "V101",
+      "source_stream": 1,
+      "n": 16,
+      "dense_minus_global": 0.0008520559640601277,
+      "dense_minus_time": 0.0008520559640601277,
+      "gain_minus_global": 0.0003598845796659589,
+      "old_change_minus_global": 0.0004921713843941689,
+      "target_advantage_over_uniform": 0.0028879668874045215
+    },
+    {
+      "dataset": "V101",
+      "source_stream": 2,
+      "n": 16,
+      "dense_minus_global": 0.0008539456175640225,
+      "dense_minus_time": 0.0008539456175640225,
+      "gain_minus_global": 0.000320577179081738,
+      "old_change_minus_global": 0.0005333684384822845,
+      "target_advantage_over_uniform": 0.0029663653889050083
+    },
+    {
+      "dataset": "V99",
+      "source_stream": 1,
+      "n": 16,
+      "dense_minus_global": 0.0006115516880527139,
+      "dense_minus_time": 0.0006115516880527139,
+      "gain_minus_global": 0.00024864927399903536,
+      "old_change_minus_global": 0.0003629024140536785,
+      "target_advantage_over_uniform": 0.002907715456482644
+    },
+    {
+      "dataset": "V99",
+      "source_stream": 2,
+      "n": 16,
+      "dense_minus_global": 0.000805477611720562,
+      "dense_minus_time": 0.000805477611720562,
+      "gain_minus_global": 0.00031199585646390915,
+      "old_change_minus_global": 0.0004934817552566528,
+      "target_advantage_over_uniform": 0.0031671428005211055
+    }
+  ],
+  "cv_summary": [
+    {
+      "dataset": "V101",
+      "protocol": "CONDITION_LOCO",
+      "method": "STATE_1NN",
+      "n": 32,
+      "dense": 0.005795877310447395,
+      "gain": 0.005770837073214352,
+      "old_change": 2.5040237233042717e-05,
+      "regret": 0.0006759538664482534
+    },
+    {
+      "dataset": "V101",
+      "protocol": "CONDITION_LOCO",
+      "method": "STATE_RIDGE",
+      "n": 32,
+      "dense": 0.00546043470967561,
+      "gain": 0.005814128438942134,
+      "old_change": -0.0003536937292665243,
+      "regret": 0.0010113964672200382
+    },
+    {
+      "dataset": "V101",
+      "protocol": "CONDITION_LOCO",
+      "method": "TRAIN_GLOBAL",
+      "n": 32,
+      "dense": 0.005335002206265926,
+      "gain": 0.005704130977392197,
+      "old_change": -0.0003691287711262703,
+      "regret": 0.0011368289706297219
+    },
+    {
+      "dataset": "V101",
+      "protocol": "CONDITION_LOCO",
+      "method": "TRAIN_TIME",
+      "n": 32,
+      "dense": 0.005335002206265926,
+      "gain": 0.005704130977392197,
+      "old_change": -0.0003691287711262703,
+      "regret": 0.0011368289706297219
+    },
+    {
+      "dataset": "V101",
+      "protocol": "CONDITION_LOCO",
+      "method": "UNIFORM_EXPECTATION",
+      "n": 32,
+      "dense": 0.0032608368589232364,
+      "gain": 0.004929893999360502,
+      "old_change": -0.0016690571404372652,
+      "regret": 0.003210994317972412
+    },
+    {
+      "dataset": "V101",
+      "protocol": "STREAM_SWAP",
+      "method": "STATE_1NN",
+      "n": 32,
+      "dense": 0.00550649338401854,
+      "gain": 0.005850694607943296,
+      "old_change": -0.00034420122392475605,
+      "regret": 0.0009653377928771079
+    },
+    {
+      "dataset": "V101",
+      "protocol": "STREAM_SWAP",
+      "method": "STATE_RIDGE",
+      "n": 32,
+      "dense": 0.005498359212651849,
+      "gain": 0.0057315516751259565,
+      "old_change": -0.00023319246247410774,
+      "regret": 0.0009734719642437994
+    },
+    {
+      "dataset": "V101",
+      "protocol": "STREAM_SWAP",
+      "method": "TRAIN_GLOBAL",
+      "n": 32,
+      "dense": 0.005335002206265926,
+      "gain": 0.005704130977392197,
+      "old_change": -0.0003691287711262703,
+      "regret": 0.0011368289706297219
+    },
+    {
+      "dataset": "V101",
+      "protocol": "STREAM_SWAP",
+      "method": "TRAIN_TIME",
+      "n": 32,
+      "dense": 0.005335002206265926,
+      "gain": 0.005704130977392197,
+      "old_change": -0.0003691287711262703,
+      "regret": 0.0011368289706297219
+    },
+    {
+      "dataset": "V101",
+      "protocol": "STREAM_SWAP",
+      "method": "UNIFORM_EXPECTATION",
+      "n": 32,
+      "dense": 0.0032608368589232364,
+      "gain": 0.004929893999360502,
+      "old_change": -0.0016690571404372652,
+      "regret": 0.003210994317972412
+    },
+    {
+      "dataset": "V99",
+      "protocol": "CONDITION_LOCO",
+      "method": "STATE_1NN",
+      "n": 32,
+      "dense": 0.004751763481181115,
+      "gain": 0.005284902814310044,
+      "old_change": -0.0005331393331289291,
+      "regret": 0.0006209246348589659
+    },
+    {
+      "dataset": "V99",
+      "protocol": "CONDITION_LOCO",
+      "method": "STATE_RIDGE",
+      "n": 32,
+      "dense": 0.004325236193835735,
+      "gain": 0.005164165515452623,
+      "old_change": -0.000838929321616888,
+      "regret": 0.0010474519222043455
+    },
+    {
+      "dataset": "V99",
+      "protocol": "CONDITION_LOCO",
+      "method": "TRAIN_GLOBAL",
+      "n": 32,
+      "dense": 0.0042648002272471786,
+      "gain": 0.0051549532217904925,
+      "old_change": -0.000890152994543314,
+      "regret": 0.0011078878887929022
+    },
+    {
+      "dataset": "V99",
+      "protocol": "CONDITION_LOCO",
+      "method": "TRAIN_TIME",
+      "n": 32,
+      "dense": 0.0042648002272471786,
+      "gain": 0.0051549532217904925,
+      "old_change": -0.000890152994543314,
+      "regret": 0.0011078878887929022
+    },
+    {
+      "dataset": "V99",
+      "protocol": "CONDITION_LOCO",
+      "method": "UNIFORM_EXPECTATION",
+      "n": 32,
+      "dense": 0.0019358857486319416,
+      "gain": 0.0042603184847394004,
+      "old_change": -0.002324432736107459,
+      "regret": 0.003436802367408139
+    },
+    {
+      "dataset": "V99",
+      "protocol": "STREAM_SWAP",
+      "method": "STATE_1NN",
+      "n": 32,
+      "dense": 0.004497198737226427,
+      "gain": 0.005397752276621759,
+      "old_change": -0.0009005535393953323,
+      "regret": 0.0008754893788136542
+    },
+    {
+      "dataset": "V99",
+      "protocol": "STREAM_SWAP",
+      "method": "STATE_RIDGE",
+      "n": 32,
+      "dense": 0.0045397558133117855,
+      "gain": 0.005229799950029701,
+      "old_change": -0.0006900441367179155,
+      "regret": 0.0008329323027282953
+    },
+    {
+      "dataset": "V99",
+      "protocol": "STREAM_SWAP",
+      "method": "TRAIN_GLOBAL",
+      "n": 32,
+      "dense": 0.0042648002272471786,
+      "gain": 0.0051549532217904925,
+      "old_change": -0.000890152994543314,
+      "regret": 0.0011078878887929022
+    },
+    {
+      "dataset": "V99",
+      "protocol": "STREAM_SWAP",
+      "method": "TRAIN_TIME",
+      "n": 32,
+      "dense": 0.0042648002272471786,
+      "gain": 0.0051549532217904925,
+      "old_change": -0.000890152994543314,
+      "regret": 0.0011078878887929022
+    },
+    {
+      "dataset": "V99",
+      "protocol": "STREAM_SWAP",
+      "method": "UNIFORM_EXPECTATION",
+      "n": 32,
+      "dense": 0.0019358857486319416,
+      "gain": 0.0042603184847394004,
+      "old_change": -0.002324432736107459,
+      "regret": 0.003436802367408139
+    }
+  ],
+  "state_prediction_consistency": [
+    {
+      "dataset": "V101",
+      "method": "STATE_RIDGE",
+      "positive_both_directions_vs_both_controls": false,
+      "deltas": [
+        {
+          "fold": "stream1",
+          "vs_global": -2.271612174808979e-05,
+          "vs_time": -2.271612174808979e-05
+        },
+        {
+          "fold": "stream2",
+          "vs_global": 0.00034943013451993465,
+          "vs_time": 0.00034943013451993465
+        }
+      ]
+    },
+    {
+      "dataset": "V101",
+      "method": "STATE_1NN",
+      "positive_both_directions_vs_both_controls": false,
+      "deltas": [
+        {
+          "fold": "stream1",
+          "vs_global": 0.0006258824141696095,
+          "vs_time": 0.0006258824141696095
+        },
+        {
+          "fold": "stream2",
+          "vs_global": -0.0002829000586643815,
+          "vs_time": -0.0002829000586643815
+        }
+      ]
+    },
+    {
+      "dataset": "V99",
+      "method": "STATE_RIDGE",
+      "positive_both_directions_vs_both_controls": true,
+      "deltas": [
+        {
+          "fold": "stream1",
+          "vs_global": 0.0001766214845702052,
+          "vs_time": 0.0001766214845702052
+        },
+        {
+          "fold": "stream2",
+          "vs_global": 0.0003732896875590086,
+          "vs_time": 0.0003732896875590086
+        }
+      ]
+    },
+    {
+      "dataset": "V99",
+      "method": "STATE_1NN",
+      "positive_both_directions_vs_both_controls": false,
+      "deltas": [
+        {
+          "fold": "stream1",
+          "vs_global": 0.0006059921579435468,
+          "vs_time": 0.0006059921579435468
+        },
+        {
+          "fold": "stream2",
+          "vs_global": -0.00014119513798505068,
+          "vs_time": -0.00014119513798505068
+        }
+      ]
+    }
+  ],
+  "analytic_summary": [
+    {
+      "seed": 601,
+      "arm": "INITIAL",
+      "objective": 1.2436248887187382,
+      "unconstrained_objective": 1.2926585385499578,
+      "gap": 0.04903364983122002,
+      "raw_expected_dense": 0.0060858805880867894,
+      "entropy": 1.4428353325314416
+    },
+    {
+      "seed": 601,
+      "arm": "REFRESH_CE",
+      "objective": 1.2449956775837474,
+      "unconstrained_objective": 1.2926585385499578,
+      "gap": 0.047662860966210696,
+      "raw_expected_dense": 0.0061027203616723594,
+      "entropy": 1.441318947941122
+    },
+    {
+      "seed": 601,
+      "arm": "REFRESH_RL",
+      "objective": 1.2924525880030755,
+      "unconstrained_objective": 1.2926585385499578,
+      "gap": 0.00020595054688207033,
+      "raw_expected_dense": 0.00630626947231336,
+      "entropy": 1.027271679655767
+    },
+    {
+      "seed": 602,
+      "arm": "INITIAL",
+      "objective": 1.2438095988607945,
+      "unconstrained_objective": 1.292715735954398,
+      "gap": 0.04890613709360324,
+      "raw_expected_dense": 0.0060864550229626675,
+      "entropy": 1.4433332975193216
+    },
+    {
+      "seed": 602,
+      "arm": "REFRESH_CE",
+      "objective": 1.2452990567850883,
+      "unconstrained_objective": 1.292715735954398,
+      "gap": 0.04741667916930941,
+      "raw_expected_dense": 0.006102655643159552,
+      "entropy": 1.441368840322028
+    },
+    {
+      "seed": 602,
+      "arm": "REFRESH_RL",
+      "objective": 1.2925158499391927,
+      "unconstrained_objective": 1.292715735954398,
+      "gap": 0.00019988601520485108,
+      "raw_expected_dense": 0.006306687352447033,
+      "entropy": 1.0273873476266848
+    }
+  ],
+  "unique_V101_state_groups": 32,
+  "independent_source_validation": "NA_SHARED_SOURCE_QUERY_ROLES",
+  "same_state_noise_identification": "Only exact state/full-prefix pairs qualify; crossstream comparisons otherwise describe transfer.",
+  "neural_refits": 0
+}
