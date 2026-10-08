@@ -148,3 +148,8 @@ V106 startup: v106_sequence_20261008T160655Z source22ab368d8e5cd75030e8509b5d20f
 
 
 V106 COMPLETE negative:48,008native/4,097actor/1ridge/2,880Qdevimages,all26jobs+rootexit0,240actualtrajectories480snapshots sealedbeforequeries,52,105physicalpairs. RL-CE new-.093915pp old-.124227pp utility-.002156739;all6seedstream utilitycomparisonsnegative. RL-DISTILL +.000115112utility,seed602exacttie. Argmaxalsofails. State exploratory ENTRY100 mean6/24dimsoutside trainranges;notcalibratedOODorprovenunique cause. Next training-only statecoverage expansion with same12actions/stableprobes/objectives/strongerCE,ownpreregistration;noactiverun. Cumulative523365nativeexclsource/173265actor/55solves.
+
+
+## V107 training coverage launched (2026-10-08T17:29:15.832794+00:00)
+
+V106 full negative result published and anonymously verified at 7eadd6b29eaea85fffa3284e33b76115223d5a7b. V107 prereg 39cbb9cd689e5f2242a044c8639b78f1117133fc, source f5d534858069e43ec6a8b43668a056df2fd68b3b, run `v107_coverage_20261008T172804Z`. Native 8-update qualification passed with exact stable-state and paired-continuation replay; four entry workers admitted on GPUs4–7. See `v107_training_coverage/PROTOCOL.md` and `STARTUP_RECEIPT.json`. This collection is training-only, 12 new contexts ×2 streams, 85208 total native updates, 5664 Q_train images, 0 actor/0 Q_dev. Added factors overlap previously viewed development factors; no independent success claim. Reuse all old data unchanged. Finish, publish aggregate results, then separately freeze matched CE/RL/target-CE fits and continuous deployment. Preserve every historical result and cost; no time limit or silent retries.
