@@ -1,0 +1,35 @@
+{
+  "stage": "V104_FOLD_LOCAL_CE_RL_GENERALIZATION",
+  "status": "FROZEN_BEFORE_FITTING",
+  "created_at_utc": "2026-10-08T15:11:37.610657+00:00",
+  "authority": "Authorized continuing training-only diagnostic after V103. No new native collection, image inference or query.",
+  "inputs": "V103 cached ORIGINAL and FIXED_MEAN4 features; V101 fixed32x12 training reward/gain/old-change table. Same sorted context/stream/step key order verified. No full-table actor initialization or Qdev file access.",
+  "folds": "Same 2 stream-swap and8 condition-LOCO as V102/V103, independently per representation and seed601/602. Source/query roles overlap across conditions; not independent-patient validation.",
+  "model": "Reuse V99 model12 architecture24->32tanh->12 (1196params). Seed hidden layer using existing Actor(seed); explicitly zero final12head weights/bias to uniform initial policy. Actor construction must preserve global RNG and identical seed yields identical weights across folds/representations.",
+  "normalization": "Trainfold-only feature mean/population std (std<1e-6 =>1). Trainfold reward center perrow is mean of first9actions; scale RMS over centered first9 entries of trainfold, lower bound fixed numeric1e-4; all12 advantages divided by this scale then clipped[-3,3]. No old full-table scaler/floor. Heldout targets never passed to fitting.",
+  "fitting": {
+    "warmup": "512full-batch CEupdates from fresh seeded model, Adam lr.001 gradientclip1, zero weightdecay. Existing actor_loss CE includes entropy bonus. Trainfoldonly.",
+    "branches": "Deepcopy same warm actor to CE andRL. Both use fresh Adam (warmup optimizer discarded for both),512full-batch updates, lr.001 gradientclip1. RL reference is frozen own-fold warm actor. Save warm/CE/RL and transformations private.",
+    "CE": "Existing actor_loss: soft target softmax(adv/.25) cross-entropy minus.01entropy.",
+    "RL": "Existing actor_loss: negative expected clipped advantage +.25KL(policy||own-fold-warm) minus.01entropy.",
+    "budget": "2representations x10folds x2seeds x(512warm+512CE+512RL)=61440data optimizer updates. Plus2synthetic qualificationupdates=61442. No early stopping, checkpoint selection, tuning or repeatedseed."
+  },
+  "readout": "Seal all120models before any heldout return scoring. Primary exact T1 expectation over12frozen action returns; fixed lowest-ID argmax secondary, all modes retained. Score raw dense/newgain/oldchange/regret. Full probabilities and keys retained, features private. This is offline one-decision training-table transfer under frozen continuation, not new sequential deployment.",
+  "controls": "Reuse matching V103 uniform/global/time/ridge/1NN fold results without refits. Warm actor is additional matched control. Report all folds, both seeds; compare RL-CE, RL-warm, stable-original and all simple controls. No replacement of primary by argmax.",
+  "training_diagnostics": "For warm/CE/RL report objective, raw/normalized expected return, entropy,KLtowarm, own CE loss. Training-only per-identical-feature grouped analytical RL optimum and gap (mean alreadyclippedadv) discloses training-fit adequacy; no oracle deployment.",
+  "qualification": "Two synthetic optimizersteps, one CE oneRL, finite loss/gradient and decreasing own objective; seeded model identity/globalRNG preservation; constantfeature and fold-only scale preparation; no heldoutlabel input to fit function; exact paired branch initialweights.",
+  "decision": "Report continuous paired deltas. Direction-consistent RL gain only if primary RL-CE positive for BOTH seeds in BOTH stream folds; condition-LOCO all8signs perseed and mean reported separately. No scientific stop automaticallyblocks research, no new native collection justified merely by meanpositive.",
+  "budget": {
+    "native_updates": 0,
+    "actor_warmup_updates": 20480,
+    "actor_CE_updates": 20480,
+    "actor_RL_updates": 20480,
+    "synthetic_actor_updates": 2,
+    "total_actor_updates": 61442,
+    "new_ridge_solves": 0,
+    "image_inference": 0,
+    "query_evaluations": 0,
+    "new_annotation_cases": 0
+  },
+  "completion": "CPU via required NAS wrapper,create-only run/private arrays/models NAS,neutral process argv. Physical attempt/success ledger retained immutable NAS; public per-fit/category exact accounting, source, all heldout results and report; proxy GitHub plus anonymous access verification and NAS public copy. Preserve failures and no silent budget reset."
+}
