@@ -9,6 +9,7 @@ import time
 from collections import Counter
 from pathlib import Path
 import numpy as np
+os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 import torch
 
 
@@ -32,7 +33,14 @@ def probe(t,j,c):
 def main(root,cfg):
     from experiments.qprompt_rl_v1.v8_grpo_transfer_prior import core as c,stage_b as b
     d=load(cfg['diagnostic_entry']);torch.set_num_threads(2);torch.cuda.set_device(0)
-    d.SOLVE_LEDGER=root/'LINEAR_SOLVE_LEDGER.jsonl';d.selfcheck();d.PHASE='diagnostic'
+    d.SOLVE_LEDGER=root/'LINEAR_SOLVE_LEDGER.jsonl'
+    if cfg.get('recovery_source'):
+        previous=Path(cfg['recovery_source']);events=[json.loads(v) for v in (previous/'LINEAR_SOLVE_LEDGER.jsonl').read_text().splitlines()]
+        assert Counter((v['event'],v['phase']) for v in events)==Counter({('attempt','synthetic'):2,('success','synthetic'):2})
+        assert not (previous/'EXTRACTION_LEDGER.jsonl').exists() and d.read(previous/'SYNTHETIC_QUALIFICATION.json')['status']=='PASS'
+        d.SOLVES['synthetic']=2
+    else:d.selfcheck()
+    d.PHASE='diagnostic'
     d.write(root/'SYNTHETIC_QUALIFICATION.json',dict(status='PASS',synthetic_ridge_solves=2,scope='V102 fold predictor checks; actual probe restoration assertions run on every real extraction.'))
     roles=c.split_roles(cfg['data']);assert roles==d.read(Path(cfg['action_root'])/'ROLES.private.json')
     keys,original,reward,gain,old=d.dataset(cfg,'V101');contexts=b.contexts();ledger=b.JobLedger(root,{})
