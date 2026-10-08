@@ -165,3 +165,7 @@ V108 COMPLETE all26jobs/rootexit0,48008native4097actor1ridge1936probe2880Qdev,52
 
 
 V108 publicdelivery8437b42e062fdf2f41945fcf0721d6191cf57827 verifiedremoteHEAD/anon200,NAS34filespublic_delivery+FINAL_PUBLICATION. V109 launched `v109_off_20261008T222808Z` source0cd3d8b687514c34c9af902a92d9b2d5f06c3e08 preregfa3c8188f51c37a062a46f19ae2b37febe7d5b9d. Action12=directnativeStageTrainer supervisedonly,noUloss/noUread duringnativeupdate; probes/behaviorstilluseauthorizedU. Qual12updatesexit0,2OFFfullsnapshot/directnative matches+2oldaction9matches,4workersGPU4–7 progressed,neutralargv/identitiesverified. Planned12012native/960Qtrainimages/120behaviorstateextractions,0actor/linear/stableprobe/Qdev. Fixed40contextstreamjobs,80newreturns appendedtoexisting80x12table;oldbehaviorcontinuationfirstOFF,newretainedstatesnotusedforchoosingbranches. Originalbaselinefinalnew explicitlyrescoredonce4images/job included960total. Finish/publishallmargins,thenownprereg for13actionfits/deploymentorothernextsinglehypothesis.
+
+## V109 completed (2026-10-08 UTC)
+
+All41 jobs/root exit0;12012native,960Qtrain,120behavior,0actor/Qdev. OFF−best original mean−.001188273192,35positive45negative; bothstreams meannegative. Full80formulas/old960columns and allledger pairs verified. Next separately frozen OFF-prefix coverage closes known missing states before13-action matched deployment. No performance claim.
