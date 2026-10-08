@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-08T14:17:23.959362+00:00",
-  "active_stage": "V103_FIXED_PROBE_STATE_STABILITY",
-  "status": "COMPLETE",
-  "preregistration_commit": "f800a683f21584fab57dc83eb84537d6028c8449",
-  "execution_commit": "7ccaa9c601ad392f700969252206159676811f81",
+  "updated_at_utc": "2026-10-08T15:16:26.577781+00:00",
+  "active_stage": "V104_FOLD_LOCAL_CE_RL_GENERALIZATION",
+  "status": "RUNNING",
+  "preregistration_commit": "e46a182b63795594da73f04853140a69d4e43d8f",
+  "execution_commit": "23fa0bf3c85be14ca334c3076e24e2d6c15f6d71",
   "student_updates_cap": 0,
-  "actor_updates_cap": 0,
+  "actor_updates_cap": 61442,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -26,7 +26,8 @@
     "V99": "NO_V99_EXPANDED_RL_INCREMENTAL_GAIN",
     "V100": "NO_V100_ARGMAX_RL_INCREMENTAL_GAIN",
     "V101": "NO_V101_CURRENT_EXPANDED_RL_INCREMENTAL_GAIN",
-    "V102": "TRAINING_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM"
+    "V102": "TRAINING_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
+    "V103": "STATE_PROBE_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -56,34 +57,17 @@
     "V102": "7c2eefacb786e046d16e7fd3ab9d59813de925d3",
     "V103": "b9698bf05dc48b4c5f397d59d1d038cc0b7bc792"
   },
-  "next": "Next hourly research: separately preregister training-only matched CE/RL using stable versus original states, fold-local initialization/feature and reward scaling, fixed seeds/budget and simple controls. No active run, new native collection or queries; independent-source confirmation requires its own concrete authorization.",
-  "run_id": "v103_state_20261008T141452Z",
-  "decision": "STATE_PROBE_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
-  "publication": "COMPLETE_PUBLIC_VERIFIED",
+  "next": "Complete fixed61442actor-step training-only diagnostic; no extra images/native/query.",
+  "run_id": "v104_policy_20261008T151430Z",
+  "decision": "PENDING",
+  "publication": "STARTUP_PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "physical": {
-    "native_updates": 0,
-    "actor_optimizer_updates": 0,
-    "training_query_image_evaluations": 0,
-    "development_query_image_evaluations": 0,
-    "ridge_solves": 30,
-    "synthetic_ridge_solves": 2,
-    "nearest_neighbor_reference_sets": 30,
-    "counts": {
-      "extractions": 160,
-      "dataset_item_attempts_train_labeled": 640,
-      "dataset_item_success_train_labeled": 640,
-      "student_image_forwards": 1280,
-      "dataset_item_attempts_train_unlabeled": 640,
-      "dataset_item_success_train_unlabeled": 640,
-      "ema_image_forwards": 320,
-      "memory_image_forwards": 640
-    },
-    "unique_existing_training_images": {
-      "train_labeled": 8,
-      "train_unlabeled": 15
-    },
-    "new_annotation_cases": 0
-  }
+    "qualification": 2,
+    "warmup": 512,
+    "CE": 512,
+    "RL": 512
+  },
+  "initial_pid": 2714963
 }
