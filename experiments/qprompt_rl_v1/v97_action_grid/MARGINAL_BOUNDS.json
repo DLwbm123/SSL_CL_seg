@@ -1,0 +1,84 @@
+{
+  "status": "EXPLORATORY_ANALYSIS_AFTER_GRID_READOUT",
+  "bounds": {
+    "new": {
+      "maximum": 0.7428498500958085,
+      "per_context": [
+        {
+          "context": "dev0",
+          "first": 7,
+          "second": 7,
+          "score": 0.7396445125341415
+        },
+        {
+          "context": "dev1",
+          "first": 0,
+          "second": 0,
+          "score": 0.7723061889410019
+        },
+        {
+          "context": "dev2",
+          "first": 2,
+          "second": 2,
+          "score": 0.6870018430054188
+        },
+        {
+          "context": "dev3",
+          "first": 0,
+          "second": 8,
+          "score": 0.7724468559026718
+        }
+      ]
+    },
+    "old": {
+      "maximum": 0.8165352493524551,
+      "per_context": [
+        {
+          "context": "dev0",
+          "first": 8,
+          "second": 7,
+          "score": 0.8147085458040237
+        },
+        {
+          "context": "dev1",
+          "first": 6,
+          "second": 6,
+          "score": 0.8072361350059509
+        },
+        {
+          "context": "dev2",
+          "first": 0,
+          "second": 0,
+          "score": 0.8313727453351021
+        },
+        {
+          "context": "dev3",
+          "first": 6,
+          "second": 8,
+          "score": 0.8128235712647438
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "UNIFORM_ACTION": {
+      "max_new_delta": 0.0050971778109669685,
+      "max_old_delta": 0.003644583746790886,
+      "both_necessary_margins_unattainable": false
+    },
+    "CONTINUE_CE": {
+      "max_new_delta": 0.0011473726481199265,
+      "max_old_delta": 0.002609148621559143,
+      "both_necessary_margins_unattainable": true
+    },
+    "POOLED_RL": {
+      "max_new_delta": 0.001316651701927185,
+      "max_old_delta": 0.002155674621462822,
+      "both_necessary_margins_unattainable": true
+    }
+  },
+  "formula": "For each score separately: arithmetic mean over four contexts of the maximum of all 81 sequence scores in that context.",
+  "scope": "Exact marginal empirical bounds only for this complete finite grid and mixtures over its outcomes. Not unseen streams, domains, populations, changed student engine, action dictionary, or horizon. Different marginal maxima need not be jointly achievable.",
+  "optimizer_updates": 0,
+  "new_queries": 0
+}
