@@ -1,0 +1,19 @@
+# Autonomous RL improvement campaign
+
+Human authorization on 2026-10-08: continue the proposed research on GPU 4,5,6,7; monitor hourly, analyze each completed result and continue experiments until a reproducible positive result. No cumulative or per-round GPU-time limit. Small CPU-only diagnostics remain CPU-only.
+
+The existing ssl-cl heartbeat is transferred to the current chat. ACTIVE_STAGE.json is the mutable current pointer; immutable per-stage protocols, results and physical accounting remain authoritative. Do not run overlapping coordinators or duplicate old rounds.
+
+## Sequence
+
+1. V105: complete the target-matched CE diagnostic from existing fold-local WARM actors.
+2. Independently freeze a stable-state sequential policy evaluation, training policies only on Q_train; compare matched original CE, analytical-target CE, RL, warm and simple controls. Preserve sampled versus deterministic readout distinctions. Do not deploy condition-ID lookup tables.
+3. Use observed failures to choose ONE intervention per subsequent round: state coverage, action structure, a true no-unlabeled-update action, or sampled GRPO group-size comparison. Keep the existing 12 actions until evidence motivates a separately frozen change. G=4 versus8 must use equal branch costs and the same starting states, not relabel full enumeration as GRPO.
+
+## Positive-result criterion
+
+A training-table gain alone does not finish this campaign. For a sequential deployment candidate require paired primary utility gains in both fixed actor seeds over matched original CE and target-matched CE, mean utility improvement at least0.0005 over matched controls, and the existing practical tradeoff: new Dice gain at least0.002 with old decrease no more than0.0025, OR old Dice gain at least0.005 with new decrease no more than0.0025. Compare warm and simple controls as well, and report every context. Freeze concrete aggregation and controls before new evaluation. Confirm a candidate on a newly preregistered complete random-stream matrix without selecting seeds. This is same-source confirmation unless independently authorized data exist; never claim patient/domain independence. Preserve all historical thresholds and outcomes.
+
+No time limit is not permission to reset counts, silently retry, discard negatives or change an ongoing experiment. Each round fixes complete operation counts, seeds, labels, metrics, practical criteria and configurations. Engineering recovery preserves every consumed operation. Future scientific hypotheses are not blocked automatically by historical negative gates. Hidden U labels, sealed tests and new data permissions remain unchanged.
+
+Publish each completed round's code, protocol, aggregate positive/negative results, accounting and report through the configured proxy, verify remote commit and anonymous report access, and keep private assets on NAS. On confirmed positive sequential results, publish the campaign report and pause the heartbeat. Notify only meaningful results, launches, failures or required user actions.

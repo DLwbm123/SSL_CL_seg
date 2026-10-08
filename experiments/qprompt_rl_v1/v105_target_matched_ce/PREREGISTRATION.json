@@ -1,0 +1,35 @@
+{
+  "stage": "V105_TARGET_MATCHED_CE",
+  "created_at_utc": "2026-10-08T15:53:42.129531+00:00",
+  "status": "FROZEN_BEFORE_FITTING",
+  "hypothesis": "V104 RL improvement over CE is partly attributable to its target distribution. Compare forward-KL distillation against existing reverse-KL RL with the same analytical target.",
+  "inputs": "Existing V104 fold-local WARM, feature/reward transforms; V103 original/mean4 states; V101 training returns. No new image features or query access.",
+  "matrix": {
+    "representations": [
+      "ORIGINAL",
+      "FIXED_MEAN4"
+    ],
+    "folds": "2 stream-swap + 8 condition-LOCO",
+    "seeds": [
+      601,
+      602
+    ],
+    "models": 40
+  },
+  "target": "For identical normalized training states average ALREADY clipped advantages, then logtarget=logsoftmax((mean_adv+.25*logwarm)/.26). Same per-row weighting as V104; do not average per-row optimal probabilities. No heldout input to target construction.",
+  "training": "Copy own fold WARM exactly. Fresh Adam lr .001, grad norm clip1,512 full-batch steps, float32 actor. Plain CE to float64 analytical target cast float32 for training. No added entropy, KL, checkpoint selection or early stopping. Existing WARM/CE/RL reused without updates.",
+  "qualification": "One synthetic distillation optimizer step; verify target grouping and permutation/shift invariance, forward-KL CE identity, reverse-KL RL identity, finite decreasing synthetic loss; exact V104 normalizer/scale replay and all120 old models heldout probability/argmax replay before fitting.",
+  "readout": "Seal all40 endpoints before new heldout scoring. Exact expectation primary, lowest-ID argmax secondary. Report dense/new-gain/old-change/regret and full probabilities. Compare RL-DISTILL, DISTILL-CE, DISTILL-WARM and all existing simple controls in every fold/seed.",
+  "decision": "Positive RL increment over target-matched CE requires all4 stable stream comparisons >0; report every condition sign and means separately. Diagnostic result only; no deployment success.",
+  "budget": {
+    "native_updates": 0,
+    "actor_distillation": 20480,
+    "actor_synthetic": 1,
+    "total_actor_optimizer_updates": 20481,
+    "image_inference": 0,
+    "queries": 0,
+    "new_annotations": 0
+  },
+  "limits": "Shared-source training table; condition matching and repeated campaign adaptation preclude independent generalization claim. Frozen behavior continuation differs from deployed learned trajectories.",
+  "execution": "CPU for tiny actor table; subsequent native experiments restricted to GPU4,5,6,7. No GPU wallclock limit; operation counts fixed per protocol. Create-only NAS, physical ledger, neutral commandline, reliable detached execution, full public aggregate delivery."
+}
