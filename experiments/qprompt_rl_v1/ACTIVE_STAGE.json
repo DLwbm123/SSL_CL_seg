@@ -1,6 +1,6 @@
 {
   "updated_at_utc": "2026-10-08T10:14:12.041757+00:00",
-  "active_stage": "V99_EXPANDED_ACTION_POLICY_LEARNING",
+  "active_stage": "V100_FROZEN_POLICY_DISTRIBUTION_READOUT",
   "status": "COMPLETE",
   "preregistration_commit": "3b0a3a21a555f17d5dc70c5354f1a81f35bfa9ef",
   "execution_commit": "4ac238e0a9d20a6f87e634104d86895896e6de2e",
@@ -22,7 +22,8 @@
     "V95": "STOP_V95_NO_UNCLIPPED_ADVANTAGE_INCREMENTAL_GAIN",
     "V96": "STOP_V96_NO_PAIRED_TARGET_INCREMENTAL_GAIN",
     "V97": "NO_ACTION_SEQUENCE_MARGIN_ON_FROZEN_D1_STREAMS",
-    "V98": "EXPANDED_ACTION_MARGIN_EXISTS_ON_FROZEN_D1_ONLY"
+    "V98": "EXPANDED_ACTION_MARGIN_EXISTS_ON_FROZEN_D1_ONLY",
+    "V99": "NO_V99_EXPANDED_RL_INCREMENTAL_GAIN"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -45,40 +46,32 @@
     "V96": "fdefce4a1991309e300f22dd448e5e127875c534",
     "V96_startup": "599a9d58e8b646ca7a9c2308a0ea02e235c2405d",
     "V97": "149dcaf7f3e30c545112392b904e1d9d5bb06a07",
-    "V98": "b60de9851ea40a46591acc7a6e9f2248c4b2cd9b"
+    "V98": "b60de9851ea40a46591acc7a6e9f2248c4b2cd9b",
+    "V99": "bd81d993c4c5e105664cce94f71b6931035ba9e9"
   },
-  "next": "Publish audited V99, then separately preregister V100 frozen policy exact expectation and argmax cached readout, zero fitting/student/query cost. Preserve original sampled outcomes and every matched control.",
-  "run_id": "v99_policy_20261008T101304Z",
-  "decision": "NO_V99_EXPANDED_RL_INCREMENTAL_GAIN",
+  "next": "Publish V100 then freeze V101 refreshed training-only returns under current expanded CE/RL ensemble behavior, with matched actor fitting and qualified cached evaluation.",
+  "run_id": "v100_readout_20261008T105500Z",
+  "decision": "NO_V100_ARGMAX_RL_INCREMENTAL_GAIN",
   "initial_pid": 2482017,
   "startup_physical": {
     "qualification": 8,
     "audit": 214
   },
-  "publication": "V99_COMPLETE_DELIVERY_PENDING",
+  "publication": "V100_COMPLETE_DELIVERY_PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "physical": {
-    "attempts": {
-      "qualification": 8,
-      "audit": 14400,
-      "actor_fit": 4096
-    },
-    "success": {
-      "qualification": 8,
-      "audit": 14400,
-      "actor_fit": 4096
-    },
-    "failures": {},
-    "student_total": 14408,
-    "actor_total": 4096,
-    "training_query_image_evaluations": 1024,
-    "development_query_image_evaluations": 0,
-    "cached_policy_rows": 36,
-    "cached_image_evaluation_equivalents": 432,
-    "historical_policy_rows": 168,
-    "reused_training_rewards": 288,
-    "new_training_rewards": 96,
-    "new_unique_images": 0
+    "student_updates": 0,
+    "actor_updates": 0,
+    "training_image_evaluations": 0,
+    "development_image_evaluations": 0,
+    "new_unique_images": 0,
+    "unique_cached_grid_rows": 576,
+    "weighted_policy_rows": 36,
+    "argmax_policy_rows": 36,
+    "original_sampled_rows": 36,
+    "actor_probability_vectors": 312,
+    "extracted_states": 52,
+    "failed_updates": 0
   }
 }

@@ -106,3 +106,6 @@ V98 fullgrid/report/costs publicb60de9851ea40a46591acc7a6e9f2248c4b2cd9b remoteS
 
 
 V99 COMPLETE 2026-10-08T10:46:52.101077+00:00 NO_V99_EXPANDED_RL_INCREMENTAL_GAIN. All26zerojobs,14408native4096actor1024trainingimageeval0devqueries,0failure,allbarriers/204rows/ledgers/decisionPASS. RLmeannew.741900093old.814100843utility-.065445736; vsCEutility+.000374378,seed601+.000859406/602-.000110651; bothbelowexpandedinit(-.000244163/-.001398906). Global/timeboth11,11poor. Cumulative419349nativeexcl8000source/83149actor. NextV100separatelypreregisterzero-update exact-policyexpectation andargmax readout fromallprefixes; originalsampledreadoutretained,noautomaticgate-stop.
+
+
+V100 COMPLETE 2026-10-08T10:55:57.815407+00:00 NO_V100_ARGMAX_RL_INCREMENTAL_GAIN. 4zerojobs/52states312probvectors/48historicalactortracevectors36sampledchoicesexact/108rowsallrecomputed/0updates0queries. ArgmaxRL-minusCEutility-.000498287,bothseedsnegative. ExpectedRL-minusCE+.001115678/INIT+.000740163 butnew+.053709pp/+.047773ppsmall; originalsamplemorefavorablethanexpectation. Keepallmodes,noindependentconfirmation. NextV101refreshcurrent-expanded-policyQ_traincontinuation/states,nottemperaturesearch.
