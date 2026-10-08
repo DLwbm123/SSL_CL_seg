@@ -142,3 +142,6 @@ V104 fully published 76c4117ee28576e218bf1595131054c3ef866c25 (report/results128
 
 
 V105 completed target-matched CE control:20,481 actor calls,0native/image/query,exit0,all1536 old probability rows exact,512new metric rows audited. Stable stream RL-DISTILL mean+1.8495303654921403e-06;distillation explains 99.32879418578388% of old RL-CE mean. Four positive residuals but exact same argmax outcomes; conditionLOCO mixed. Do not call RL-specific or deployment success. Current human authorizes GPU4-7/hourly autonomous iterations/noGPU-timecap;campaign contract at rl_iteration/CAMPAIGN.md. ssl-cl heartbeat moved to this chat. Next stable-state sequential native deployment retains matched-target CE.
+
+
+V106 startup: v106_sequence_20261008T160655Z source22ab368d8e5cd75030e8509b5d20ff4ff4a9c07e prereg4081ad9079f194a6df7442265e7f8f185f009405. GPU4-7 four active native workers;4097actor+one ridge fit completed,8native qualification/two old stable states exact/PIDstartEXEC_RUNneutralargv/nvidia/lock verified. Frozen240trajectories/480snapshots before2880Qdev;native48008/actor4097,1936probes. No result yet. Follow v106_stable_sequential/PREREGISTRATION.json and rl_iteration/CAMPAIGN.md. Hourlyssl-cl belongs to current chat;preserveall prior negatives and counts.

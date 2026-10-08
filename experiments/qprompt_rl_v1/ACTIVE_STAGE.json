@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-08T15:58:36.435141+00:00",
-  "active_stage": "V105_TARGET_MATCHED_CE",
-  "status": "COMPLETE",
-  "preregistration_commit": "91e60cc146e578c3e48ef49fddce5c758a744a17",
-  "execution_commit": "c633a27bc527e825294988d2a487066affaf0443",
-  "student_updates_cap": 0,
-  "actor_updates_cap": 20481,
+  "updated_at_utc": "2026-10-08T16:06:56.713330+00:00",
+  "active_stage": "V106_STABLE_STATE_SEQUENTIAL_DEPLOYMENT",
+  "status": "RUNNING",
+  "preregistration_commit": "4081ad9079f194a6df7442265e7f8f185f009405",
+  "execution_commit": "22ab368d8e5cd75030e8509b5d20ff4ff4a9c07e",
+  "student_updates_cap": 48008,
+  "actor_updates_cap": 4097,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -28,7 +28,8 @@
     "V101": "NO_V101_CURRENT_EXPANDED_RL_INCREMENTAL_GAIN",
     "V102": "TRAINING_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
     "V103": "STATE_PROBE_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
-    "V104": "FOLD_LOCAL_POLICY_DIAGNOSTIC_COMPLETE"
+    "V104": "FOLD_LOCAL_POLICY_DIAGNOSTIC_COMPLETE",
+    "V105": "TARGET_MATCHED_DIAGNOSTIC_COMPLETE"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -60,24 +61,19 @@
     "V104": "76c4117ee28576e218bf1595131054c3ef866c25",
     "V105": "9993b96d95d6c7170d0cc40a8d569e8395c5d396"
   },
-  "next": "Preregister stable-state full-table policies and real sequential deployment with matched original and analytical-target CE on GPU4-7. No new experiment started yet.",
-  "run_id": "v105_target_20261008T155527Z",
-  "decision": "TARGET_MATCHED_DIAGNOSTIC_COMPLETE",
-  "publication": "COMPLETE_PUBLIC_VERIFIED",
+  "next": "Verify launch and continue hourly. Complete full V106 before analyzing results; no concurrent new scientific round.",
+  "run_id": "v106_sequence_20261008T160655Z",
+  "decision": "PENDING",
+  "publication": "STARTUP_VERIFIED",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "physical": {
-    "native_updates": 0,
-    "actor_optimizer_updates": 20481,
-    "physical": {
-      "qualification": 1,
-      "distillation": 20480
-    },
-    "image_inference": 0,
-    "queries": 0,
-    "new_annotations": 0,
-    "new_models": 40,
-    "reused_models": 120,
-    "new_heldout_rows": 512
+    "actor_qualification": 1,
+    "warmup": 1024,
+    "CE": 1024,
+    "RL": 1024,
+    "distillation": 1024,
+    "qualification": 8,
+    "development": 941
   }
 }
