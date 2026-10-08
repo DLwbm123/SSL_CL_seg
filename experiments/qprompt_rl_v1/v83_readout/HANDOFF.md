@@ -139,3 +139,6 @@ V104 COMPLETE 2026-10-08T15:18:22.195204Z. CPU230.8sec,exit0/noerrors,61442actor
 
 
 V104 fully published 76c4117ee28576e218bf1595131054c3ef866c25 (report/results128a4f8,CSVlineending-only76c4117),remoteSHA/anonymousHTTP200verified;27NASpublic_deliveryfiles+FINAL_PUBLICATION. COMPLETE_PUBLIC_VERIFIED,noactiveprocess. Nextanalytical-targetCEcontrol separatefreeze,trainfoldonlytargets/groupidenticalstates,plainCE noextraentropy;reuseexistingwarmactors61442costretained,onlynewcontrolupdatescharged.
+
+
+V105 completed target-matched CE control:20,481 actor calls,0native/image/query,exit0,all1536 old probability rows exact,512new metric rows audited. Stable stream RL-DISTILL mean+1.8495303654921403e-06;distillation explains 99.32879418578388% of old RL-CE mean. Four positive residuals but exact same argmax outcomes; conditionLOCO mixed. Do not call RL-specific or deployment success. Current human authorizes GPU4-7/hourly autonomous iterations/noGPU-timecap;campaign contract at rl_iteration/CAMPAIGN.md. ssl-cl heartbeat moved to this chat. Next stable-state sequential native deployment retains matched-target CE.

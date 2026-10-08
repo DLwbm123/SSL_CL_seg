@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-08T15:18:22.195204+00:00",
-  "active_stage": "V104_FOLD_LOCAL_CE_RL_GENERALIZATION",
+  "updated_at_utc": "2026-10-08T15:58:36.435141+00:00",
+  "active_stage": "V105_TARGET_MATCHED_CE",
   "status": "COMPLETE",
-  "preregistration_commit": "e46a182b63795594da73f04853140a69d4e43d8f",
-  "execution_commit": "23fa0bf3c85be14ca334c3076e24e2d6c15f6d71",
+  "preregistration_commit": "91e60cc146e578c3e48ef49fddce5c758a744a17",
+  "execution_commit": "c633a27bc527e825294988d2a487066affaf0443",
   "student_updates_cap": 0,
-  "actor_updates_cap": 61442,
+  "actor_updates_cap": 20481,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -27,7 +27,8 @@
     "V100": "NO_V100_ARGMAX_RL_INCREMENTAL_GAIN",
     "V101": "NO_V101_CURRENT_EXPANDED_RL_INCREMENTAL_GAIN",
     "V102": "TRAINING_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
-    "V103": "STATE_PROBE_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM"
+    "V103": "STATE_PROBE_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
+    "V104": "FOLD_LOCAL_POLICY_DIAGNOSTIC_COMPLETE"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -58,28 +59,24 @@
     "V103": "b9698bf05dc48b4c5f397d59d1d038cc0b7bc792",
     "V104": "76c4117ee28576e218bf1595131054c3ef866c25"
   },
-  "next": "Next hourly step: separately preregister analytical-target CE distillation from existing fold-local V104 warm actors, same512continuation steps, both representations/seeds/folds. Compare target-matched forward-KL distillation with existing reverse-KL RL; no new native/query/features. No active experiment.",
-  "run_id": "v104_policy_20261008T151430Z",
-  "decision": "FOLD_LOCAL_POLICY_DIAGNOSTIC_COMPLETE",
-  "publication": "COMPLETE_PUBLIC_VERIFIED",
+  "next": "Preregister stable-state full-table policies and real sequential deployment with matched original and analytical-target CE on GPU4-7. No new experiment started yet.",
+  "run_id": "v105_target_20261008T155527Z",
+  "decision": "TARGET_MATCHED_DIAGNOSTIC_COMPLETE",
+  "publication": "PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "physical": {
     "native_updates": 0,
-    "actor_optimizer_updates": 61442,
+    "actor_optimizer_updates": 20481,
     "physical": {
-      "qualification": 2,
-      "warmup": 20480,
-      "CE": 20480,
-      "RL": 20480
+      "qualification": 1,
+      "distillation": 20480
     },
-    "new_ridge_solves": 0,
     "image_inference": 0,
-    "training_query_image_evaluations": 0,
-    "development_query_image_evaluations": 0,
-    "new_annotation_cases": 0,
-    "models": 120,
-    "heldout_rows": 1536,
-    "reused_control_rows": 640
+    "queries": 0,
+    "new_annotations": 0,
+    "new_models": 40,
+    "reused_models": 120,
+    "new_heldout_rows": 512
   }
 }
