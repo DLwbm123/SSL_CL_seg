@@ -181,7 +181,7 @@ def coordinator(root,cfg):
     public=[{k:v for k,v in r.items() if k!='state'} for r in rows]
     D.write(root/'NEW_RETURN_TABLE.json',public);D.table(root/'NEW_RETURN_TABLE.csv',public)
     D.write(root/'DATASET_LOCK.json',dict(status='SEALED',old_states=32,new_states=48,total_states=80,actions=12,total_returns=960,old_arrays_preserved=True,no_development_access=True,time=time.time()))
-    D.write(root/'COSTS.json',dict(native_updates=85208,actor_optimizer_updates=0,linear_solves=0,physical=dict(account.count),success=dict(account.success),failures=dict(account.failure),counts=dict(counts),new_annotation_cases=0))
+    B.write(root/'COSTS.json',dict(native_updates=85208,actor_optimizer_updates=0,linear_solves=0,physical=dict(account.count),success=dict(account.success),failures=dict(account.failure),counts=dict(counts),new_annotation_cases=0))
     D.write(root/'FINAL.json',dict(status='COMPLETE',decision='TRAINING_COVERAGE_DATASET_ONLY_NO_PERFORMANCE_CLAIM',physical=dict(account.count),publication='PENDING',time=time.time()));B.write(root/'STATUS.json',D.read(root/'FINAL.json'))
 
 
