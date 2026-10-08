@@ -1,0 +1,9 @@
+# V108: expanded-coverage matched sequential evaluation
+
+Freeze before fitting or new deployment. The only scientific intervention from V106 is the V107 sealed 80-state training table, replacing 32 states. Architecture, objectives, actor seeds 601/602, 512 CE warmup plus 512 continuation updates, 12 actions, stable probes, original ENTRY100, streams 3/4/5, all 20 methods, 240 real trajectories, 480-snapshot barrier before queries, and original success gates remain unchanged. See PREREGISTRATION.json for full inherited details.
+
+Fixed new work: 4,097 actor optimizer calls (including one synthetic), one ridge solve, 48,008 native updates (including eight qualification), 1,936 stable probes and 2,880 Q_dev image evaluations. No Q_train readouts, source training, new annotation or new data. GPU 4–7, no wall-clock limit. Historical V107 collection costs remain separate. Every matched learned/control fit uses all 80 states. The global/time action 9 equivalence was established using training returns before preregistration and is asserted during fitting.
+
+Primary sampled RL must beat same-seed WARM, original CE and analytical-target CE in both seeds; mean utility must improve by at least 0.0005 above all fixed controls and meet the unchanged practical new/old tradeoff. Argmax is secondary and cannot replace the primary result. If qualified, freeze a complete fresh-random-stream confirmation separately before claiming campaign completion.
+
+Also publish paired V108-minus-V106 outcomes per context/stream/method to describe coverage. The same evaluation streams provide pairing; this is not fresh-stream confirmation. Added training factors were already seen in development, and patients and domains are shared. No choices based on new readouts. Preserve all negative results and costs. On engineering failure preserve consumption and recover minimally, never reset the coordinator or fits.

@@ -1,0 +1,53 @@
+{
+  "stage": "V108_COVERAGE_EXPANDED_SEQUENTIAL_DEPLOYMENT",
+  "status": "FROZEN_BEFORE_FULL_FITS_OR_NEW_TRAJECTORIES",
+  "created_at_utc": "2026-10-08T20:21:48.309196+00:00",
+  "authority": "2026-10-08 human requests autonomous RL improvement on GPU4,5,6,7, hourly monitoring and no GPU time limit.",
+  "hypothesis": "The V107 expanded training-state coverage improves actual deployment. Change only the training table from32 to80 stable states; keep V106 architecture/objectives/updates/seeds/actions/streams/deployment/readout/gates. This is development-informed design, not unseen-condition validation.",
+  "fitting": {
+    "data": "All80 V107 sealed states and960 existing Q_train action returns, with float64 mean over the unchanged4 stable probes. First32 states/384returns/features are unchangedV101/V103; additional48states/576returns fromV107. NoQdev inputs to fits. Existing keys validated; no re-collection.",
+    "model": "Existing24->32Tanh->12,1196params, fresh seeds601/602 with zero final head. Full training-only V104 normalization: feature mean/popstd with threshold1e-6, first9-action per-row center/pooledRMS floor1e-4,clip[-3,3].",
+    "arms": "512CE warmup perseed; preserveWARM then copy to originalCE,RL,DISTILL each512updates freshAdam. Reuse V104 originalCE/RL objectives and V105 grouped analytical-target plainCE. lr.001,gradclip1,float32actor; same512warm+512continuation path and sharedwarm chargedonce.",
+    "simple": "Same uniform,global,ridge lambda1 and1NN asV106. V107 training-only summary fixed global/time action9 at both100/200; retain20method matrix and assert global/time identity before deployment.",
+    "cost": "4096data actor updates+1V105synthetic step. One full-training ridge solve with residual assertion; no tuning."
+  },
+  "deployment": {
+    "contexts": "Same four registered development contexts from originalV8 action audit; originalENTRY100 weights/optimizer restored. H300,decisions100/200,MID150,END300; same12actions and native loss/gates/teacherdetach/A-only/history-free memory.",
+    "streams": [
+      3,
+      4,
+      5
+    ],
+    "student_randomness": "At ENTRY100 after restore set provider.seed=168+10000*stream and Python/NumPy/Torch/CUDA seed860100+stream, then save paired starting snapshot. All methods restore this snapshot. This changes future random stream only; source/entry checkpoints shared.",
+    "policy_randomness": "Private categorical generator seed862600+1000*stream+context_index, same paired draws across actorseeds and methods; never re-sample favorable action pairs.",
+    "state": "Unchanged V103 fixedprovider168/probes0..3/globalRNG861030+j;float64average thenfloat32model input. Each probe restores fullstudent/optimizer/memory/provider/RNG and explicit providerseed. All20methods percontextstream extract at both decision steps, including simplecontrols, to keep inference accounting transparent.",
+    "primary": "T1 sampled WARM/CE/RL/DISTILL eachseed601/602; plusUNIFORM/GLOBAL/RIDGE/1NN. Equal mean over fourcontexts and threestudentstreams. Bothactorseed means reported and all12contextstream rows kept.",
+    "secondary": "Fixed lowest-ID argmax for all8actors on the same3streams;deterministicGLOBAL/RIDGE/1NN control trajectories reused for secondary comparison,UNIFORM remains stochastic and explicitly labeled. No argmax replacement of primary or posthoc temperature search.",
+    "matrix": "12contextstream jobs x(8sampledactors+8argmaxactors+4simplecontrols)=240trajectories,each200studentupdates. Preserve all480MID/FINALsnapshots before anynewQdevreadout. No finite-grid lookup or newtrainingreturns."
+  },
+  "qualification": "Same V106 synthetic target check and8native paired replay. Additionally verify80x12 dataset shapes, finite values, unique context-stream-step keys, two decision steps per20contexts\u00d72streams, and first32 original/probe arrays and returns equal frozen inputs. Noextra optimizer/query calls.",
+  "readout": {
+    "barrier": "All8actors andsimplepredictors sealed beforedeployment;all240trajectories and480snapshots sealed beforeevaluation jobs. Training jobs prohibit all queryroles; evaluation onlyQ_dev_new/old and nooptimizer.",
+    "metrics": "Reused native softDice macro(rim,cup),midnew/finalnew/finalold; utility=.25*(midnew-entrynew)+.75*(finalnew-entrynew)-max(0,memoryreference-old-.005). Entry and memory reference reused from original samecontextV87. Dense trainingobjective has different retention formulation; disclose mismatch.",
+    "primary_success": "Bothactorseed meanRL utility strictly exceeds matchedCE,DISTILL,WARM. MeanRL utility exceeds eachCE,DISTILL,WARM,UNIFORM,GLOBAL,RIDGE,1NN by>=.0005. ForCE,DISTILL,WARM,UNIFORM additionally newgain>=.002 andoldchange>=-.0025 ORoldgain>=.005 andnewchange>=-.0025. Report everycontinuousdelta and seed/stream/context;condition-level negatives not hidden.",
+    "confirmation": "PASS is a same-source candidate only. A separate preregistered complete fresh-stream confirmation is needed to finishcampaign. These streams are not independentpatients/domains and repeateddevelopmentdesign remains disclosed."
+  },
+  "budget": {
+    "native_qualification": 8,
+    "native_deployment": 48000,
+    "native_total": 48008,
+    "actor_optimizer_updates": 4097,
+    "linear_data_solves": 1,
+    "training_query_image_evaluations": 0,
+    "development_query_image_evaluations": 2880,
+    "probe_extractions": 1936,
+    "new_annotation_cases": 0,
+    "trajectories": 240,
+    "snapshots": 480
+  },
+  "runtime": "GPU4,5,6,7 only;free memory>=12000MiB peradmission. CPUfullfits. No GPUwallclock timeout. Reliable detachedcoordinator, perjobneutralargv, with_nas_storage.sh, createonlyNAS directories, capturedexit/status/append-onlyattempt-successledger; failstopsnewjobs whileactiveonesfinish,neverauto-resetcounts.",
+  "publication": "Complete code/protocol/aggregate allpositiveandnegative results/accounting/report to GitHub via proxy withremoteSHA/anonymousverification plusNASpubliccopy. Images/identities/features/weights/rawlogs remainprivate.",
+  "coverage_comparison": "Report each matched V108 minus V106 context/stream/method outcome on streams3/4/5 without extra queries. Original V106 negatives remain. Reusing streams pairs the coverage intervention but is not fresh-stream confirmation, nor independently selected conditions. No posthoc search or alternative primary endpoint.",
+  "implementation": "Reuse V106 native scheduler/trainer/readout by a small V108 entrypoint and backward-compatible optional training-table argument. Archived V106 execution source remains unchanged. Fresh actors are trained once on expanded data, equal update budget across methods. Existing helper selfchecks remain and the matrix/failure gate tests must pass.",
+  "limitations": "V107 contexts include photometric factors observed in V106 development. Shared patients/source, shared source/entry snapshots, shared development roles and streams; no independent source or clinical-efficacy claim. Dense training reward differs from deployment capped-forgetting utility as before."
+}
