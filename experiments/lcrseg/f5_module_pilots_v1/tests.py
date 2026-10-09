@@ -44,8 +44,8 @@ class GeneratedDomain(SyntheticCurrentDomain):
 
 def mathematical_tests(physical=None):
     torch.manual_seed(9);calls=0;checks=[]
-    y=GeneratedDomain(size=20).labeled(0)[1]
-    logits=torch.randn(2,3,20,20,requires_grad=True)
+    y=GeneratedDomain(size=40).labeled(0)[1]
+    logits=torch.randn(2,3,40,40,requires_grad=True)
     bl,il,counts=boundary_interior(logits.log_softmax(1),y)
     (bl+il).backward();assert torch.isfinite(logits.grad).all() and logits.grad.abs().sum()>0
     assert counts['boundary_pixels']>0 and counts['interior_classes']>0
@@ -53,9 +53,9 @@ def mathematical_tests(physical=None):
     assert z==0
     checks.append('boundary GT/ignore/grid and nonzero gradient')
     # The two spatial marginals agree for a constant confidence on the GT interior.
-    uniform=torch.zeros(2,3,20,20).log_softmax(1)
+    uniform=torch.zeros(2,3,40,40).log_softmax(1)
     assert float(boundary_interior(uniform,y)[1])<1e-12
-    mix=torch.zeros_like(y,dtype=torch.bool);mix[:,:,:10]=True
+    mix=torch.zeros_like(y,dtype=torch.bool);mix[:,:,:20]=True
     masked=boundary_interior(logits.log_softmax(1),y,mix)[2]
     assert masked['boundary_pixels']<counts['boundary_pixels']
     checks.append('interior CDF zero case and seam exclusion')
@@ -68,7 +68,7 @@ def mathematical_tests(physical=None):
     assert torch.allclose(g[0,0],numeric,atol=2e-4,rtol=2e-3)
     checks.append('Sinkhorn self-zero and finite-difference envelope gradient')
     # Two-case module overfit checks, with explicit optimization accounting.
-    fit=torch.nn.Parameter(torch.randn(2,3,20,20));opt=torch.optim.Adam([fit],lr=.15)
+    fit=torch.nn.Parameter(torch.randn(2,3,40,40));opt=torch.optim.Adam([fit],lr=.15)
     start=None
     for step in range(64):
         opt.zero_grad();a,b,_=boundary_interior(fit.log_softmax(1),y);loss=a+b
@@ -113,12 +113,17 @@ def qualify(config):
     from ..five_frameworks_v1.native_operations import NativeOperations
     from ..five_frameworks_v1.train_stage import StageTrainer
     root=Path(config['run_root'])
-    if (root/'QUALIFICATION.json').exists():raise FileExistsError('qualification already attempted')
+    if (root/'QUALIFICATION.json').exists():
+        previous=read(root/'QUALIFICATION.json')
+        if previous['status']=='PASS' or previous['execution_commit']==config['execution_commit']:
+            raise FileExistsError('qualification already attempted for this code')
+    attempt=root/'qualification_attempts'/config['execution_commit'];attempt.mkdir(parents=True,exist_ok=False)
     torch.set_num_threads(2);device=torch.device('cuda:0');torch.cuda.set_device(device)
     permit=admission(config,'qualification')
     cpu_counter=Counter(root/'qualification_cpu_physical.jsonl',CAPS['cpu_optimizer_updates'])
     cuda_counter=Counter(root/'qualification_cuda_physical.jsonl',CAPS['synthetic_cuda_updates'])
     smoke_counter=Counter(root/'smoke_physical.jsonl',CAPS['real_smoke_updates']);rows=[]
+    initial_cuda,initial_smoke=cuda_counter.count,smoke_counter.count
     options={**OPTIONS,'total_steps':4,'warmup_fraction':.25,'U_ramp_fraction':.25,'PAS_confidence':0.,'PAS_cosine':-1.}
     fixture=GeneratedDomain(seed=163,size=384,device=device,stage_source=dict(kind='generated',seed=163,domain='REFUGE'))
     def generated(arm):
@@ -129,8 +134,8 @@ def qualify(config):
         model=make_model(NativeLRParent(native,163,provider.stage_source),arm,options,None,generator(163,1,1,0,'pilot_adapter_initialization')).to(device)
         return PilotTrainer(model,provider,options,arm=arm,execution=permit)
     try:
-        cpu=mathematical_tests(cpu_counter.call);write(root/'CPU_TEST_REPORT.json',cpu)
-        with NativeOperations(root/'qualification_operations') as operations:
+        cpu=mathematical_tests(cpu_counter.call);write(attempt/'CPU_TEST_REPORT.json',cpu)
+        with NativeOperations(attempt/'operations') as operations:
             # Baseline parity with the actual historical trainer source, not a fabricated approval.
             legacy_path=Path(config['legacy_code'])/'experiments/lcrseg/five_frameworks_v1/train_stage.py'
             namespace=dict(__name__='experiments.lcrseg.five_frameworks_v1.legacy_stage',__package__='experiments.lcrseg.five_frameworks_v1')
@@ -156,10 +161,10 @@ def qualify(config):
                 after=deployed(torch.zeros(2,3,384,384,device=device)).detach()
                 assert torch.allclose(before,after,atol=2e-5,rtol=2e-5);del deployed
                 ident=dict(family='F5',seed=163,order=1,stage=1,arm=arm)
-                checkpoint.save(t,root/f'{arm}_qualification.pt',ident)
+                checkpoint.save(t,attempt/f'{arm}_qualification.pt',ident)
                 second=PilotTrainer.for_resume(copy.deepcopy(t.model),copy.deepcopy(t.provider),options,arm=arm,execution=permit)
                 second.entry_fingerprint=t.entry_fingerprint
-                checkpoint.restore(second,root/f'{arm}_qualification.pt',ident);cuda_counter.wrap(second.optimizer)
+                checkpoint.restore(second,attempt/f'{arm}_qualification.pt',ident);cuda_counter.wrap(second.optimizer)
                 t.update();second.update();equal(snapshot(t),snapshot(second))
                 del second
                 deployment=t.model.deploy();native=deployment.parent.native;previous=deployment.transform.detach().clone();del deployment
@@ -196,11 +201,13 @@ def qualify(config):
                     source_schema_generated_forward=sources,costs=dict(cpu_optimizer_updates=cpu_counter.count,
                     synthetic_cuda_updates=cuda_counter.count,real_L_smoke_updates=smoke_counter.count,
                     operations=dict(operations.counts),qualification_extra_gradient_vjps=4))
-        assert cuda_counter.count==28 and smoke_counter.count==16
+        assert cuda_counter.count-initial_cuda==28 and smoke_counter.count-initial_smoke==16
+        write(attempt/'QUALIFICATION.json',report)
         write(root/'QUALIFICATION.json',report)
     except BaseException as e:
-        write(root/'QUALIFICATION_FAILURE.private.json',dict(error=repr(e),traceback=__import__('traceback').format_exc()))
-        write(root/'QUALIFICATION.json',dict(status='FAIL',execution_commit=config['execution_commit'],
+        write(attempt/'FAILURE.private.json',dict(error=repr(e),traceback=__import__('traceback').format_exc()))
+        failure=dict(status='FAIL',execution_commit=config['execution_commit'],
              costs=dict(cpu_optimizer_updates=cpu_counter.count,synthetic_cuda_updates=cuda_counter.count,
-                        real_L_smoke_updates=smoke_counter.count)))
+                        real_L_smoke_updates=smoke_counter.count))
+        write(attempt/'QUALIFICATION.json',failure);write(root/'QUALIFICATION.json',failure)
         raise

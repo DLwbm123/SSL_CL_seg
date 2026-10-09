@@ -192,6 +192,7 @@ class PilotTrainer(StageTrainer):
         return None
 
     def gradient_audit(self,labeled,unlabeled):
+        if not self.native or self.execution.bindings.get('execution_scope')!='formal':return
         total=self.options['total_steps']
         if unlabeled is None or self.step+1 not in {max(1,int(total*p)) for p in (.25,.5,.75,1.)}:return
         params=self.model.sidecar.optimizer_parameters()
