@@ -242,3 +242,8 @@ After V116 final ef59c7e and diagnosis c57943f publication receipts, freeze trai
 
 
 V117 actual launch07:08:19UTC, prereg/executiona5fe4173e9e297a0fd2fd5ac0692229731888482. At76seconds qual8/fullstate replayPASS, fourGPU4–7collectors each3branchrows, root705prior+8qual successful/no failures, heldlock/neutralargv/NASprobePASS. Other4collectors queued. No additional poll this turn; existing hourly monitor follows V117. Completion script audits all9jobs/12808native/9604selectors/896queries/256rows; do not rerun if existing audit. No result claim.
+
+
+## V117 complete — 2026-10-09
+
+Completed07:25:03UTC root/all9jobs exit0/lockFREE, fullaudit12808native/rate9604selector896Qtrainpairs3584images256branchrowsPASS. No failures/Qdev/actoroptimizer/solves;146CPUselfcheckactorforwards separately. NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL. NNabsolute and oracleabsolute true only for50step training branches, not a full continuation. NN−GLOBAL_LOCO/COVERAGE reward−.00054552345 (new+.00027659198 old−.00075113587), bothseedlower,2/8positivefolds. Oracle−bestfixedreward+.00048673517 below.0005 and practicalfails; no roundingpass. Coverage is everyfoldGLOBAL. Fullbranch/allpolicy/context/seed/selected results published; no RL trained. Cumulative831449native exclsource839449incl181593actor57solves. No next experiment launched during human status closeout; nextsinglehypothesis must be separatelyfrozen afterpublicdelivery.

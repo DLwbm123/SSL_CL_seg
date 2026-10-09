@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-09T07:10:25.765072+00:00",
+  "updated_at_utc": "2026-10-09T07:34:57.824919+00:00",
   "active_stage": "V117_MACRO_SELECTION",
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "preregistration_commit": "a5fe4173e9e297a0fd2fd5ac0692229731888482",
   "execution_commit": "a5fe4173e9e297a0fd2fd5ac0692229731888482",
   "student_updates_cap": 12808,
@@ -40,7 +40,8 @@
     "V113": "RATE_SENSITIVITY_PARTIAL_MITIGATION_NO_ABSOLUTE_POSITIVE",
     "V114": "NO_BROAD_OPTIMIZER_STATE_SENSITIVITY_SIGNAL",
     "V115": "NO_BROAD_AGREEMENT_GATE_SIGNAL",
-    "V116": "NO_RELIABLE_REGION_SELECTION_SIGNAL"
+    "V116": "NO_RELIABLE_REGION_SELECTION_SIGNAL",
+    "V117": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -83,9 +84,9 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "One hourly bounded status check; on completion run V117 full audit once, publish all anonymous outcomes, then independently freeze next hypothesis. No Qdev, actor training or retry in V117.",
+  "next": "V117 complete and audited; finish public delivery, then use full results to separately freeze a new evidence-selection hypothesis under campaign authorization; do not rerun V117 or infer RL gain.",
   "run_id": "v117_macro_20261009T070553Z",
-  "decision": "PENDING",
+  "decision": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -719,5 +720,70 @@
     "prereg_anonymous_http": "200",
     "anonymous_raw_initial_attempt": "TLS35; subsequent GitHub blob200 via same proxy",
     "result_status": "NOT_RESULTS"
+  },
+  "V117_complete": {
+    "decision": {
+      "status": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
+      "oracle_absolute": true,
+      "oracle_vs_best_fixed": {
+        "gain": 0.000505344505654648,
+        "final_new_gain": 0.0006285844137892127,
+        "old_gain": -1.860933844000101e-05,
+        "reward": 0.00048673516721464694,
+        "pass": false
+      },
+      "NN_absolute": true,
+      "NN_comparisons": {
+        "GLOBAL_LOCO": {
+          "gain": 0.00020561242126859725,
+          "final_new_gain": 0.0002765919780358672,
+          "old_gain": -0.0007511358708143234,
+          "reward": -0.0005455234495457262,
+          "pass": false
+        },
+        "RANDOM": {
+          "gain": -0.00025692404597066343,
+          "final_new_gain": -0.00031386001501232386,
+          "old_gain": 0.0003009946085512638,
+          "reward": 4.407056258060038e-05,
+          "pass": false
+        },
+        "CONFIDENCE": {
+          "gain": 0.00018222388462163508,
+          "final_new_gain": 0.00020309106912463903,
+          "old_gain": 0.0026362008647993207,
+          "reward": 0.0028184247494209558,
+          "pass": false
+        },
+        "COVERAGE": {
+          "gain": 0.00020561242126859725,
+          "final_new_gain": 0.0002765919780358672,
+          "old_gain": -0.0007511358708143234,
+          "reward": -0.0005455234495457262,
+          "pass": false
+        },
+        "OFF": {
+          "gain": 0.00033948649070225656,
+          "final_new_gain": 0.00040193425957113504,
+          "old_gain": 0.0026482996763661504,
+          "reward": 0.002987786167068407,
+          "pass": false
+        }
+      },
+      "NN_each_seed_beats_fold_global": false,
+      "NN_positive_context_folds": 2,
+      "train_only_signal": false,
+      "campaign_success": false,
+      "independent_confirmation": false,
+      "actor_updates": 0
+    },
+    "actual_native_updates": 12808,
+    "query_calls": 896,
+    "query_images": 3584,
+    "Q_dev_images": 0,
+    "cumulative_native_excluding_source": 831449,
+    "cumulative_native_including_source": 839449,
+    "cumulative_actor": 181593,
+    "cumulative_linear_solves": 57
   }
 }
