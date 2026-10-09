@@ -31,3 +31,8 @@ Execute the absolute-benefit-first plan. Preserve V111 in flight. V112 adds exac
 ## V115 launched — 2026-10-09
 
 V114 published e4419dba2ae49850352d032d0d9dc04c4785c834, remoteHEAD/anonymous200/NASdelivery verified. V115run v115_agreement_20261009T044504Z, prereg2f70b8b89226bcb61cd9c35f650b11e80ac1d5b5, execution0051aa0e6803977c57f3b592b9aaee4eae70c8d6. Single memory/EMA argmax-agreement gate, exact oldloss reused, fixedV113quarter/noreset. GLOBAL/TIME24trajectories vsstoredV113; OFFreuse. Planned4808native208probe288Qdev3604gate0actor/solves. Qual8PASS/16probes,4gate records exactpaired;4GPU4–7workers MID150,root305deploy+8qual/no failure,neutralidentity/argv/NAS admissionPASS. complete.py ready for all25jobs/4808nativeRATE/3604gate/48sealed/72queries and all24paired/absoluteresults. Mechanismdiagnostic notRL; no extra poll this turn.
+
+
+## V115 complete and new human direction
+
+V115all25jobs/rootexit0 fullaudit4808native/rate3604gate208probe288Qdev48seal24pairedPASS. GateNO_BROAD_AGREEMENT_GATE_SIGNAL,noabsolutepositive. PooledΔvsV113new−.0003691163534919421 old−.00104165015121301 utility−.0013003130443394186;bothpoliciesnegative. Cumulative788633nativeexclsource796633incl,181459actor57solves. Human explicitly authorizes rapid implementation/experiment of1–2literature mechanisms. Next a learned fixed-budget regional evidence selector with priorselectedcoverage, equal-budget heuristics and imitation controls; separate prereg required. Do not interpret deterministicgate or pilot as originalRLcampaignsuccess.
