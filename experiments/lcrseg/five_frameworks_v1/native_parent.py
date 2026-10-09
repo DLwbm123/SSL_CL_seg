@@ -17,9 +17,9 @@ IDENTITY='NATIVE_LR_SRC_A_3DOMAIN_V1'
 
 
 def build(reference,device,seed):
-    if subprocess.check_output(['git','-C',str(reference),'rev-parse','HEAD'],text=True).strip()!=UPSTREAM:
+    if subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip()!=UPSTREAM:
         raise ValueError('wrong native upstream commit')
-    subprocess.run(['git','-C',str(reference),'diff','--quiet','HEAD'],check=True)
+    subprocess.run(['git','diff','--quiet','HEAD'],cwd=reference,check=True)
     with rng(device,'native_upstream_import'):_official_probabilistic_classifier(reference,upstream_path=UPSTREAM_PATH)
     with rng(device,IDENTITY,seed,'REFUGE','initialization'):
         model=build_lcrseg_unet_jascl_model(reference,upstream_path=UPSTREAM_PATH,input_channels=3,num_classes=3)
