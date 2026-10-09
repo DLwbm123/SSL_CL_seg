@@ -175,3 +175,40 @@ History-free trained-parameter memory is preserved; prototypes remain transient 
 New40current-labeled image/context reads/evaluations,160model-image forwards(40each EMA/memory/flipped-memory/student),40prototype assignments. Four target arms reuse these same forwards. V119–V121 combined480segmentation forwards/120labeled evaluations, separately charged. Zero native/actor optimizer updates, solves,Q_train/Q_dev,U-image reads,hidden labels or new annotations. Cumulative training841061native excluding8000source(849061including),181593actor,57solves unchanged; all prior failures and separate512/146CPUactor-forward diagnostics retained. Synthetic selfcheck and scalar completion audit add0model/image/optimization calls.
 
 Public delivery includes source/protocol/selfcheck,all32anonymous metric rows,8control summaries,all3comparisons with fullcontext/subgroup outcomes,support/reference/qualification/cost/execution/audit/report. Private image metrics/support indices/features/data/weights/raw logs stay on NAS. Committed-file NAS delivery plus proxy GitHub push/remote branch/anonymous report checks are recorded in FINAL_PUBLICATION.json.
+
+
+## Requested posthoc interpretation: class suggestion, location and memory conflict
+
+This section adds only published-scalar arithmetic and inspection of the existing target/control source. No model/image/query/fit/optimization was performed. The original NO_RELIABLE_INCREMENTAL_PROTOTYPE_SIGNAL gate remains unchanged. All past costs/results remain intact.
+
+### What the identical EMA intervention does establish
+
+All3858candidate destinations agree with EMA. Because the same original probabilities are exchanged at the same locations, PROTO and EMA are exactly the same target operation here, not merely statistically similar. No additional class suggestion is established on these candidates. This comparison tests which class to propose CONDITIONAL ON the prototype-derived region. It does not test how to find that region without prototypes. In particular, the pre-registered joint gate tests a stronger proposition than mere selector utility: a method can in principle be useful by selecting when to trust EMA without inventing a different destination. Its gate failure must not be paraphrased as proof that all prototype information is useless.
+
+### Code-derived localization of the conflict
+
+The unchanged action11 source in v98_action_capacity/run.py sets target=q when memory gate g=0, and target=.25*q+.75*qm when g=1. The memory gate requires max(qm)>.7 and agreement with flipped-memory argmax. On any valid g=1 pixel, the memory winning class has target probability>.75*.7=.525, while any other class has probability<.25+.75*.3=.475. Thus the blended target argmax necessarily equals memory argmax. If blended argmax differs from EMA, the gate must be on: when off the target equals EMA exactly.
+
+Combining this code property with the observed3858/3858 EMA-prototype agreement shows that every current candidate is a memory-gate-on EMA-versus-memory disagreement, and the exchange restores EMA's winning CLASS. This is a logical consequence of source plus recorded agreement, not an extra measurement of hidden U labels. The exchange does not restore the entire EMA probability vector: it retains and permutes the blended probability values. Nor does this establish that memory should be removed, the entire gate is faulty, or V118's training loss has a uniquely proven cause. Old-task protection and U training are not measured here; current EMA already trained on these labeled targets.
+
+### Most of this local mean benefit survives the coarse conflict prior
+
+SHUFFLE also improves both target metrics versus BASE in8/8contexts. It preserves approximately89.2837% of PROTO's equal-context weighted accuracy effect and99.7943% of its mean NLL improvement. These are ratios of observed mean effects, not causal variance explained or a performance bound. They suggest that the coarse original-class×EMA-class conflict strata and their allocated intervention budgets account for much of the observed benefit under this diagnostic.
+
+Crucially, the shuffle is NOT prototype-free. For each image/stratum, its changed count K and destination/no-change tokens come from PROTO. Thus both same-region EMA and the matched shuffle inherit information from prototypes. V121 has not evaluated an EMA-only selector or an independently specified intervention allocation; it cannot conclude that simple EMA gates reproduce the result without this information. The reported12774shuffle-pool pixels cover only active strata, and the one sampled3858-pixel result cannot be called accuracy on all12774 or all EMA-memory disagreements.
+
+### There is a hard-label location signal, but unstable soft-target increment
+
+PROTO repairs3817/3858changed exposures(98.9373%), SHUFFLE3649/3858(94.5827%). PROTO's weighted accuracy is higher in7/8contexts. This is a real descriptive advantage and should not be erased by the failed joint gate. However, NLL improves over SHUFFLE in only3/8contexts and worsens in5/8. Its equal-context NLL increment is merely−0.0000038561. As an explicitly posthoc sensitivity description, omitting context5 would reverse that mean to+0.0000721602; no context is actually dropped and no original decision is recalculated. The mean is not evidence of broad probabilistic-supervision improvement.
+
+The current data are consistent with useful classification-focused location ranking that does not yet provide stable soft-target benefits, but are insufficient for a general selector claim. A single frozen random permutation gives one comparison, not an expectation or significance test, and the reused V120-selected candidate cannot count as independent confirmation.
+
+### The matched control still has important limits
+
+The shuffle retains1840/3858original changed locations(47.6931%) and replaces2018. It destroys correspondence partially, not completely. Do not subtract this overlap out of scores or invent disjoint-only metrics absent from saved statistics. Counts, destinations and EMA weight strata are matched, but weighted target L1 change is9.9271% larger in SHUFFLE and larger in all8contexts. Continuous confidence/perturbation amplitudes and exact native gradients are not matched, so the difference is not a clean isolation of prototype semantics alone. This limitation does not invalidate the exact same-region EMA equality.
+
+### Implication for the research question
+
+The most concrete current question is whether deployment-visible evidence can identify when frozen-memory class dominance should yield to the current EMA, without damaging retention. Prototype evidence could act as a corroborating selector, even when the destination class already comes from EMA. This is a narrower hypothesis than a new pseudo-label source; it does not call for changing the history-free architecture, removing parameter memory, or returning to a loss-weight sweep.
+
+Before considering a new run, distinguish the untested contributions: EMA-only location and budget selection; prototype's incremental selection value after that control; reliability on genuinely model-unseen training-only images; and translation to new/old-task training gains. Any future comparison requires a separate frozen protocol and must retain all original results/gates. Do not jump to full GRPO, expand the same eight-condition diagnostics indefinitely, or replace a failed gate with an easier after-the-fact success definition. This analysis launches no further experiment.
