@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-10-09T10:43:55.701967+00:00",
-  "active_stage": "V123_MODEL_HOLDOUT",
-  "status": "COMPLETE",
-  "preregistration_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
-  "execution_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
-  "student_updates_cap": 35224,
+  "updated_at_utc": "2026-10-09T10:54:39.306755+00:00",
+  "active_stage": "V124_CONFLICT_ABSTENTION",
+  "status": "PREREGISTERED_NOT_STARTED",
+  "preregistration_commit": null,
+  "execution_commit": null,
+  "student_updates_cap": 32024,
   "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
@@ -46,7 +46,8 @@
     "V119": "NO_RELIABLE_CROSS_IMAGE_TARGET_QUALITY_SIGNAL",
     "V120": "OBSERVABLE_TRANSITION_QUALITY_SIGNAL",
     "V121": "NO_RELIABLE_INCREMENTAL_PROTOTYPE_SIGNAL",
-    "V122": "DEVELOPMENT_EMA_CONFLICT_SIGNAL"
+    "V122": "DEVELOPMENT_EMA_CONFLICT_SIGNAL",
+    "V123": "STOP_NO_MODEL_HELD_OUT_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -89,9 +90,9 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "V123 prerequisite failed; conditional five-arm training NOT RUN. Preserve full results and final publication; no implicit retry, gate change or same-rule Stage B.",
-  "run_id": "v123_holdout_20261009T101910Z",
-  "decision": "STOP_NO_MODEL_HELD_OUT_SIGNAL",
+  "next": "Launch separately authorized V124 fixed conflict-abstention protocol after source publication; preserve V123 failure and all historical costs.",
+  "run_id": "v124_abstention_20261009T105359Z",
+  "decision": "PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -2998,5 +2999,28 @@
       "stream_joint_agreement": 15,
       "new_model_image_query_optimizer_calls": 0
     }
+  },
+  "V124": {
+    "status": "PREREGISTERED_NOT_STARTED",
+    "run_id": "v124_abstention_20261009T105359Z",
+    "methods": [
+      "BASE",
+      "IGNORE_C",
+      "RANDOM_MATCHED",
+      "UNIFORM_MATCHED",
+      "OFF"
+    ],
+    "reused_V123_entries": 32,
+    "native_updates_cap": 32024,
+    "performance_query_calls_cap": 704,
+    "performance_images_cap": 2816,
+    "actor_updates": 0,
+    "linear_solves": 0,
+    "prior_cumulative_native_ex_source": 844285,
+    "prior_cumulative_native_including_source": 852285,
+    "prior_actor": 181593,
+    "prior_solves": 57,
+    "model_level_holdout": true,
+    "independent_confirmation": false
   }
 }
