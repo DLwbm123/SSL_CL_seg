@@ -1,7 +1,7 @@
 {
   "updated_at_utc": "2026-10-09T01:28:31.554067+00:00",
   "active_stage": "V111_THIRTEEN_ACTION_SEQUENTIAL",
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "preregistration_commit": "5d20279fe97f54e259c4d480488ba5c8d704e16e",
   "execution_commit": "d046788f820d92b53a2014c2d3b9b5882b3f19a9",
   "student_updates_cap": 52808,
@@ -34,7 +34,8 @@
     "V107": "TRAINING_COVERAGE_DATASET_COMPLETE_METADATA_RECOVERED",
     "V108": "NO_PRACTICAL_MATCHED_SEQUENTIAL_RL_GAIN",
     "V109": "ACTION_MARGIN_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
-    "V110": "OFF_PREFIX_COVERAGE_COMPLETE_NO_DEPLOYMENT_CLAIM"
+    "V110": "OFF_PREFIX_COVERAGE_COMPLETE_NO_DEPLOYMENT_CLAIM",
+    "V111": "V111_NO_PRACTICAL_SEQUENTIAL_RL_GAIN"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -71,9 +72,9 @@
     "V109": "202ffb030afab1695d324b5d0996bce5cd2c486a",
     "V110": "8586e79433bd706f08dbe3ddc3ac3789b28d909d"
   },
-  "next": "Complete and publish V111; execute frozen V11216-image/zero-update entry diagnostic; admit conditional V113 only from complete outcomes.",
+  "next": "Publish V111 and execute frozen V112 entry absolute diagnostic",
   "run_id": "v111_sequence_20261009T012631Z",
-  "decision": "PENDING_COMPLETE_SEQUENTIAL_READOUT",
+  "decision": "V111_NO_PRACTICAL_SEQUENTIAL_RL_GAIN",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -303,5 +304,42 @@
     "development_query_images": 0,
     "new_annotation_cases": 0
   },
-  "human_amendment_20261009": "Execute absolute-benefit-first follow-up: finish unchanged V111, measure missing ENTRY100 old baseline once (V112), then choose the predeclared conditional branch. Quarter-rate V113 may run only if all22 V111 policies continue to degrade on both mean weighted new gain and final new change; otherwise analyze the complete mixed outcome."
+  "human_amendment_20261009": "Execute absolute-benefit-first follow-up: finish unchanged V111, measure missing ENTRY100 old baseline once (V112), then choose the predeclared conditional branch. Quarter-rate V113 may run only if all22 V111 policies continue to degrade on both mean weighted new gain and final new change; otherwise analyze the complete mixed outcome.",
+  "previous_stage_physical_V111": {
+    "native_updates": 52808,
+    "actor_optimizer_updates": 4097,
+    "linear_data_solves": 1,
+    "physical": {
+      "actor_qualification": 1,
+      "warmup": 1024,
+      "CE": 1024,
+      "RL": 1024,
+      "distillation": 1024,
+      "qualification": 8,
+      "development": 52800
+    },
+    "success": {
+      "actor_qualification": 1,
+      "warmup": 1024,
+      "CE": 1024,
+      "RL": 1024,
+      "distillation": 1024,
+      "qualification": 8,
+      "development": 52800
+    },
+    "failures": {},
+    "counts": {
+      "probe_extractions": 2128,
+      "item_attempts_train_labeled": 169104,
+      "item_success_train_labeled": 169104,
+      "student_image_forwards": 331872,
+      "item_attempts_train_unlabeled": 112128,
+      "item_success_train_unlabeled": 112128,
+      "ema_image_forwards": 56064,
+      "memory_image_forwards": 112128,
+      "off_updates": 26904,
+      "query_images": 3168
+    },
+    "new_annotation_cases": 0
+  }
 }
