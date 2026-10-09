@@ -81,7 +81,7 @@ def coordinator(root,cfg):
     for j in jobs:counts.update(N.D.read(root/'jobs'/j['id']/'COUNTS.json'))
     assert len(rows)==576 and counts['forward_success']==counts['forward_attempts']==counts['image_reads']==2112 and not account.count
     N.D.write(root/'RESULTS.json',rows);N.D.table(root/'RESULTS.csv',rows)
-    N.D.write(root/'COSTS.json',dict(native_updates=0,actor_updates=0,linear_solves=0,new_annotation=0,Q_dev=0,**dict(counts)))
+    N.B.write(root/'COSTS.json',dict(native_updates=0,actor_updates=0,linear_solves=0,new_annotation=0,Q_dev=0,**dict(counts)))
     N.D.write(root/'FINAL.json',dict(status='COMPLETE',rows=576,readout_state_unchanged=True,prior_scores_match=True,time=time.time()));N.B.write(root/'STATUS.json',N.D.read(root/'FINAL.json'))
 
 
