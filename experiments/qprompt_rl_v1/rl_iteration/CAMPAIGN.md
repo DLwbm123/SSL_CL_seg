@@ -1,3 +1,5 @@
+> 最新交接（2026-10-09）：请先读 [V127 新会话交接](../HANDOFF_20261009_V127.md) 和实时 `ACTIVE_STAGE.json`。下文保留历史记录，其中“当前/下一轮”不应覆盖最新状态。
+
 # Autonomous RL improvement campaign
 
 Human authorization on 2026-10-08: continue the proposed research on GPU 4,5,6,7; monitor hourly, analyze each completed result and continue experiments until a reproducible positive result. No cumulative or per-round GPU-time limit. Small CPU-only diagnostics remain CPU-only.

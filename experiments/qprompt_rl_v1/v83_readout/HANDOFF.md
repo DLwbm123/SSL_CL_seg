@@ -1,3 +1,5 @@
+> 最新交接（2026-10-09）：请先读 [V127 新会话交接](../HANDOFF_20261009_V127.md) 和实时 `ACTIVE_STAGE.json`。下文保留历史记录，其中“当前/下一轮”不应覆盖最新状态。
+
 # Current handoff — 2026-10-07
 
 V8.3 finished with STOP_DENSE_REWARD_NO_PRACTICAL_GAIN. V8.3-R completed with STOP_V83_PRIMARY_GATE_FAILED. The original screen and all cumulative physical ledger counts were reproduced, all 288 rows audited, both final actors retained and all 20 endpoints confirmed before their development readout. No V8.4 training is permitted by this result.
