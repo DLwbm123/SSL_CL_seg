@@ -64,3 +64,8 @@ Completed07:25:03UTC root/all9jobs exit0/lockFREE, fullaudit12808native/rate9604
 
 
 V117 requested posthoc analysis (published scalars only,0model/query/fit): independent coordinatewise table bounds over3rules vsCOVERAGE FINALnew+.00101233297<.002 and old+.00013250031<.005, so no statewise selector can meet either practical arm on this observed table; not population orV116fine-tile upperbound. NN losses81.68% from16confidence switches:10smallwins/6largelosses. Folds2positive3tie3negative. Oracleheadroom95.42%ctx2/3;12/64statesall4actionsnegative. HypotheticalOFF fourthoracleonly+.00000284935 (posthoc, originalreadoutunchanged). Shortgainsmostlyearly, never sumcounterfactualbranches ascontinuousrollout. Statefirstminibatchmean/std limitations are hypotheses, notcausalproof. ReadfullREPORTposthoc and POSTHOC_ANALYSIS.json before futurefreeze; no newexperiment launched duringanalysis.
+
+
+## V118 separately frozen — 2026-10-09
+
+User authorized continuing after V117/Pro analysis. Single semantic pseudo-target correction diagnostic; BASE/SEMANTIC/ROTATED with equal current-label EMA prototype compute, probability-permutation entropy/confidence preservation and unchanged COVERAGE/mass. Eight training contexts×streams3/4×three arms,48 continuous100→300 trajectories,192 snapshots sealed before Q_train-only readout. Reuse exact V117 entry scores. Planned9612native/9610extraEMA/384querycalls1536images,0actor/solve/Qdev. Source selfcheck PASS with0model/query/optimizer. Run v118_semantic_20261009T080849Z prepared, not launched. See v118_semantic_target/PREREG.md for frozen gate and budget. Preserve all prior costs/gates; pass cannot mean RL/campaign success.
