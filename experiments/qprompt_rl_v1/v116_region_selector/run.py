@@ -5,6 +5,8 @@ import importlib.util
 import json
 import os
 import random
+import shutil
+import tempfile
 import time
 import traceback
 from collections import Counter
@@ -25,6 +27,10 @@ def configure(cfg,root):
     Q=load('quarter',cfg['quarter_entry']);Q.configure(cfg,root);N=Q.N;c=N.c;b=N.b
     N.STAGE='V116';N.CAPS=CAPS;c.CAPS.update(CAPS)
     S=load('selector',cfg['selector_entry'])
+
+
+def save_trajectories(branches,path):
+    c.e.atomic_save(dict(branches=branches),path)
 
 
 def worker(root,cfg):
@@ -104,7 +110,7 @@ def worker(root,cfg):
             c.restore(t,retained);before=c.snapshot(t)
             details=S.update(rl,ce,rlopt,ceopt,branches,[r['reward'] for r in outputs],lambda label,fn:ledger.call(label,f'g{group}',fn))
             assert c.e.same(before,c.snapshot(t))
-            c.e.atomic_save(retained,root/f'STATE_{i}.private.pt');c.e.atomic_save(branches,root/f'GROUP_{group:02d}_TRAJECTORIES.private.pt')
+            c.e.atomic_save(retained,root/f'STATE_{i}.private.pt');save_trajectories(branches,root/f'GROUP_{group:02d}_TRAJECTORIES.private.pt')
             c.e.append(root/'GROUPS.jsonl',dict(group=group,context=i,cycle=cycle,seed=seed,entry_step=entry['step'],retained_branch=0,branches=outputs,actor=details))
             c.e.atomic_save(dict(rl=rl.state_dict(),ce=ce.state_dict(),rl_optimizer=rlopt.state_dict(),ce_optimizer=ceopt.state_dict(),selector_rng=generator.get_state(),groups=group+1),root/'ACTORS.private.pt')
             N.B.write(root/'STATUS.json',dict(status='RUNNING',groups=group+1,total=32,physical=dict(ledger.count)));del t;torch.cuda.empty_cache()
@@ -154,7 +160,12 @@ def coordinator(root,cfg):
     train=[dict(id=f'train{i}_{s}',job='train',context_index=i,stream=s,caps=dict(development=1400)) for i in range(4) for s in (3,4,5)]
     evaluate=[dict(id=f'evaluate{i}_{s}',job='evaluate',context_index=i,stream=s,caps={}) for i in range(4) for s in (3,4,5)]
     account=Accounting(root,caps=CAPS,jobs=qual+learn+train+evaluate)
-    N.schedule(root,cfg,qual,account);N.schedule(root,cfg,learn,account)
+    if cfg.get('qualification_source'):
+        source=Path(cfg['qualification_source'])/'jobs/qualification'
+        assert N.D.read(source/'QUALIFICATION.json')['status']=='PASS' and N.D.read(source/'PROCESS_EXIT.json')['exit_code']==0
+        shutil.copytree(source,root/'jobs/qualification');account.refresh()
+    else:N.schedule(root,cfg,qual,account)
+    N.schedule(root,cfg,learn,account)
     N.D.write(root/'ACTOR_LOCK.json',dict(status='SEALED_BEFORE_DEPLOYMENT',time=time.time(),actors=4))
     N.schedule(root,cfg,train,account);assert dict(account.count)==CAPS and not account.failure
     assert sum(len(list((root/'jobs'/j['id']).glob('*_TRAINING.json'))) for j in train)==84
@@ -171,7 +182,13 @@ def coordinator(root,cfg):
 if __name__=='__main__':
     root=Path(os.environ['EXEC_RUN']);cfg=json.loads(Path(os.environ['EXEC_CONFIG']).read_text());configure(cfg,root)
     if os.environ.get('EXEC_SELFCHECK')=='1':
-        original=N.E.install_actions(c);N.E.action_check(c,original);print(json.dumps(S.selfcheck(c.transfer_loss)))
+        original=N.E.install_actions(c);N.E.action_check(c,original);result=S.selfcheck(c.transfer_loss)
+        with tempfile.TemporaryDirectory(dir=root,prefix='checkpoint_check_') as folder:
+            path=Path(folder)/'trajectories.pt';branches=[S.pack([]),dict(x=torch.ones(2,16,18),legal=torch.ones(2,16,dtype=torch.bool),action=torch.tensor([0,1]))]
+            save_trajectories(branches,path)
+            assert c.e.same(torch.load(path,map_location='cpu',weights_only=False)['branches'],branches)
+            assert json.loads(path.with_suffix('.pt.receipt.json').read_text())['committed']
+        result['checks'].append('production trajectory checkpoint and receipt roundtrip');print(json.dumps(result))
     else:
         N.D.write(root/'STARTED.json',dict(pid=os.getpid(),time=time.time(),commit=cfg['commit']))
         try:

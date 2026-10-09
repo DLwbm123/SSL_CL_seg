@@ -1,4 +1,4 @@
-# V116 running — learned fixed-budget regional pseudo-label selection
+# V116 — regional selector pilot and engineering recovery
 
 The user authorized rapid implementation and experiment with the most valuable1–2literature mechanisms. V116 combines regional evidence selection with conditioning on already-selected class coverage. It is one learnedselector, compared with random/confidence/coverage rules and same-data imitation. V115's fixed agreement gate was negative and is not used. Its complete report is public at6e81af29d61407ac132be91b5a1af468e7bb6c10.
 
@@ -10,6 +10,11 @@ The sevenmethods are RL601/RL602/CE601/CE602/RANDOM/CONFIDENCE/COVERAGE. All84de
 
 CPUchecks passed exactpixelbudget,legaluniquetiles,privateRNGreplay,fullbudgetnative loss/gradient equality,teacher-detach,emptysupport,history-dependent coverage andfiniteactorgradients, usingzerooptimizer/modelforward calls. Completionaudit haspositive/negative gatechecks and requiresallroot/childphysicalpairs,selectionbudgets,ratepairs,64groups/256rewards andsealingbarriers. Actualstartupstatus isrecorded inSTARTUP_RECEIPT.json.
 
-Status: RUNNING, not results. Candidate andabsolute gates areseparate, andcampaign_success remainsfalse until separately matchedtargettraining/freshstreamconfirmation. Sharedsource/patients and repeatedly vieweddevelopment cannotestablishindependentgeneralization. Publicsource/protocol/anonymousreceipts areavailable;privateimages/features/checkpoints/decisiontrajectories/rawlogs remainNAS.
+Initial startup status below was superseded by an engineering stop at 2026-10-09 05:09 UTC. The first learning group of each seed failed while writing a trajectory checkpoint receipt. No Q_dev readout ran. A user-authorized recovery is prepared; see REPAIR.md and RECOVERY.json. There are no performance results. Candidate andabsolute gates areseparate, andcampaign_success remainsfalse until separately matchedtargettraining/freshstreamconfirmation. Sharedsource/patients and repeatedly vieweddevelopment cannotestablishindependentgeneralization. Publicsource/protocol/anonymousreceipts areavailable;privateimages/features/checkpoints/decisiontrajectories/rawlogs remainNAS.
 
 Startup at56seconds:8native+2syntheticactor qualificationupdates PASS, twoexactfull-state/selector-trace replays, frozenmemory andactor-update studentisolation passed. All8qualificationselectionrecords satisfy perimage floor(eligible/2). Nonzero finiteRL/CEgradients verified. Bothseedlearningjobs run onGPU4/5; rootrefresh212prior+8qualification native and2qualificationactor successfulcalls,0failures. Actual coordinator/child EXEC_RUN identities, heldlock andneutralps/nvidia names verified; GPU4–7 admitted24124MiBfreeeach, NASmount/write-readprobePASS. Deployment will useGPU4–7afterbothactors seal.
+
+
+## Engineering repair — 2026-10-09
+
+The trajectory list now uses a dictionary checkpoint envelope. The actual production writer, tensor reload and committed receipt passed a CPU regression check with zero model/optimizer/query calls. The successful qualification is reused. Both learning seeds restart from their original entries because post-update actors were not saved. Original failure artifacts remain intact. Combined completed-campaign budget is 30008 native updates, 134 actor updates and 4704 query images; failed-attempt overhead is included. Recovery launch status will be recorded separately.

@@ -42,6 +42,13 @@ def main(root):
     assert read(root/'FINAL.json')['status']=='COMPLETE' and read(root/'EXIT.json')['exit_code']==0 and not (root/'FAILURE.json').exists()
     caps=dict(qualification=8,prior=12800,development=16800,actor_qualification=2,selector_RL=64,selector_CE=64);costs=read(root/'COSTS.json');assert costs['physical']==costs['success']==caps and not costs['failures']
     assert costs['native_updates']==29608 and costs['actor_optimizer_updates']==130 and costs['linear_solves']==0
+    if (root/'RECOVERY.json').exists():
+        recovery=read(root/'RECOVERY.json');source=Path(read(root/'CONFIG.private.json')['qualification_source'])
+        assert read(source/'EXIT.json')['exit_code']==1
+        assert read(source/'COSTS.json')['attempts']==dict(qualification=8,actor_qualification=2,prior=400,selector_RL=2,selector_CE=2)
+        assert recovery['campaign_planned']==dict(native_updates=30008,actor_optimizer_updates=134,query_images=4704,query_calls=1176)
+        assert (root/'jobs/qualification/PHYSICAL_LEDGER.jsonl').read_text()==(source/'jobs/qualification/PHYSICAL_LEDGER.jsonl').read_text()
+        write(root/'RECOVERY_COMPLETION.json',dict(status='PASS',qualification_reused=True,failed_attempt_retained=True,combined_actual=recovery['campaign_planned'],additional_execution=dict(native_updates=29600,actor_optimizer_updates=128,query_images=4592,query_calls=1148)))
     actorbarrier=read(root/'ACTOR_LOCK.json')['time'];endpointbarrier=read(root/'ENDPOINT_LOCK.json')['time'];assert read(root/'ENDPOINT_LOCK.json')['snapshots']==168
     joint=Counter();counts=Counter();jobs=[];queries=rates=selections=0;selection_groups={};groups=[]
     for job in sorted((root/'jobs').iterdir()):

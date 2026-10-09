@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-09T05:08:25.002595+00:00",
+  "updated_at_utc": "2026-10-09T05:33:42.590904+00:00",
   "active_stage": "V116_REGION_SELECTOR",
-  "status": "RUNNING",
+  "status": "RECOVERY_PREPARED",
   "preregistration_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
   "execution_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
   "student_updates_cap": 29608,
@@ -82,7 +82,7 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10"
   },
   "next": "Complete two learned selectors and all84 trajectories; audit full cost/selection/query/actor barriers and publish all results; preserve historical targetCE/freshstream gates",
-  "run_id": "v116_regions_20261009T050728Z",
+  "run_id": "v116_recovery_20261009T053320Z",
   "decision": "PENDING_LEARNED_REGION_SELECTION_PILOT",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
@@ -470,5 +470,36 @@
     "planned_training_query_images": 3584,
     "planned_development_query_images": 1008,
     "planned_trajectories": 84
+  },
+  "V116_engineering_recovery": {
+    "failed_run": "v116_regions_20261009T050728Z",
+    "failed_status": "ENGINEERING_STOP",
+    "failed_physical": {
+      "qualification": 8,
+      "actor_qualification": 2,
+      "prior": 400,
+      "selector_RL": 2,
+      "selector_CE": 2
+    },
+    "failed_query_calls": {
+      "Q_train_old": 10,
+      "Q_train_new": 18
+    },
+    "failed_query_images": 112,
+    "qualification_reused": true,
+    "additional_execution": {
+      "native_updates": 29600,
+      "actor_optimizer_updates": 128,
+      "query_images": 4592,
+      "query_calls": 1148
+    },
+    "campaign_planned": {
+      "native_updates": 30008,
+      "actor_optimizer_updates": 134,
+      "query_images": 4704,
+      "query_calls": 1176
+    },
+    "configuration_changed": false,
+    "authorization": "Human explicitly requested fix and continue on 2026-10-09"
   }
 }
