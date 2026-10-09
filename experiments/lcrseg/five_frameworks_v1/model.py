@@ -50,7 +50,8 @@ class Model(nn.Module):
         self.train(); self.role='student'
         self.parent.configure_stage_training()
         if self.sidecar is not None:
-            self.sidecar.previous.requires_grad_(False);self.sidecar.r.requires_grad_(True)
+            self.sidecar.previous.requires_grad_(False)
+            for p in self.sidecar.optimizer_parameters():p.requires_grad_(True)
 
     @classmethod
     def for_resume(cls,parent,family,ratio=.5,previous=None):
@@ -71,7 +72,7 @@ class Model(nn.Module):
 
     def u_parameters(self):
         groups=self.parent.parameter_groups()
-        if self.family in ('F1','F3','F4','F5'): return [self.sidecar.r]
+        if self.family in ('F1','F3','F4','F5'): return self.sidecar.optimizer_parameters()
         if self.family=='F2': return groups['output_factors']
         return [p for p in self.parameters() if p.requires_grad]
 

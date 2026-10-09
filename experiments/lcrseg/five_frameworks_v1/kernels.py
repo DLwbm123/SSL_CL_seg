@@ -173,6 +173,16 @@ class StageSubspaceAdapter(nn.Module):
         self.previous = nn.Parameter(previous.detach().clone(), requires_grad=False)
         self.r = nn.Parameter(q.new_zeros(k, k))
 
+    def current_matrix(self):
+        return self.r
+
+    def optimizer_parameters(self):
+        return [self.r]
+
+    @torch.no_grad()
+    def update_teacher(self, teacher, decay=.99):
+        teacher.r.mul_(decay).add_(self.current_matrix(), alpha=1-decay)
+
     def forward(self, h: Tensor, *, detach_parent: bool = False,
                 backward_scale: Tensor | None = None,
                 return_pre_previous: bool = False):
@@ -180,7 +190,7 @@ class StageSubspaceAdapter(nn.Module):
             raise ValueError("feature channel mismatch")
         x = h.detach() if detach_parent else h
         z = torch.einsum('dk,bdhw->bkhw', self.q, x)
-        shift = torch.einsum('ij,bjhw->bihw', self.r, z)
+        shift = torch.einsum('ij,bjhw->bihw', self.current_matrix(), z)
         if backward_scale is not None:
             shift = gradient_scale_identity(shift, backward_scale)
         before = x + torch.einsum('dk,bkhw->bdhw', self.q, shift)
@@ -190,7 +200,7 @@ class StageSubspaceAdapter(nn.Module):
     def effective(self) -> Tensor:
         d = self.q.shape[0]
         return self.previous @ (torch.eye(d, device=self.q.device, dtype=self.q.dtype)
-                                + self.q @ self.r @ self.q.T)
+                                + self.q @ self.current_matrix() @ self.q.T)
 
     @torch.no_grad()
     def seal(self) -> Tensor:

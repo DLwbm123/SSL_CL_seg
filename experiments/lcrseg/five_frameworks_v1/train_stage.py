@@ -61,7 +61,7 @@ class StageTrainer:
             self.prototypes.commit(p,s);self.telemetry['teacher_full_forwards']+=1
         groups=model.parent.optimizer_groups(self.options)
         if model.sidecar is not None:
-            groups.append({'params':[model.sidecar.r],'lr':self.options.get('lr',.01)*self.options.get('feature_lr_multiplier',1.),
+            groups.append({'params':model.sidecar.optimizer_parameters(),'lr':self.options.get('lr',.01)*self.options.get('feature_lr_multiplier',1.),
                            'weight_decay':self.options.get('weight_decay',0.)*self.options.get('feature_weight_decay_multiplier',1.),'name':'R'})
         self.optimizer=torch.optim.Adam(groups,weight_decay=self.options.get('weight_decay',0.))
         self.scheduler=torch.optim.lr_scheduler.LambdaLR(self.optimizer,
@@ -139,6 +139,15 @@ class StageTrainer:
     def fine_kl(self, logits, target, valid):
         return masked_kl(logits, target, valid)
 
+    def labeled_addition(self, logp, labels, mix_mask):
+        return None
+
+    def f5_addition(self, student, teacher, u_classes, l_classes, valid):
+        return None
+
+    def gradient_audit(self, labeled, unlabeled):
+        pass
+
     def losses(self):
         opt=self.options;m=self.model;t=self.ema
         x,y,patients=self.provider.labeled(self.cursor)
@@ -149,11 +158,13 @@ class StageTrainer:
             self.telemetry['student_full_forwards']+=1
             return m(v,detach_parent=detach,scale=s)
         if active:
-            logp,_=collected_forward(lambda v,s:forward(v,s),x,x.flip(0),self.rng('LCTX'))
-        else:logp=forward(x).log_softmax(1)
+            logp,mix_mask=collected_forward(lambda v,s:forward(v,s),x,x.flip(0),self.rng('LCTX'))
+        else:logp=forward(x).log_softmax(1);mix_mask=None
         supervised=m.parent.supervised(logp,y);constraint=m.parent.constraint_loss()
         finite((supervised,constraint),'active supervised/constraint losses')
         labeled=supervised+constraint
+        extra=self.labeled_addition(logp,y,mix_mask)
+        if extra is not None:labeled=labeled+extra
         if m.family=='F2':
             structure=self.structural(logp.exp(),y);finite(structure,'active CWMI loss')
             labeled=labeled+opt.get('lambda_structure',.1)*self.probe['scale']*structure
@@ -205,6 +216,8 @@ class StageTrainer:
             swd,counts=class_swd(zu,zl,uc,lclasses,uv,self.rng('swd_sampling'))
             unlabeled=unlabeled+opt.get('lambda_SWD',.05)*swd
             self.last['swd_counts']=counts
+            extra=self.f5_addition(zu,zl,uc,lclasses,uv)
+            if extra is not None:unlabeled=unlabeled+extra
         ramp=min(1.,(self.step-warmup+1)/max(1,math.ceil(opt["U_ramp_fraction"]*total)))
         unlabeled=unlabeled*opt.get('lambda_U',.5)*ramp
         self.last.update(active_U=True,accepted=int(valid.sum()),missing_support=(~self.prototypes.support).tolist(),
@@ -227,6 +240,7 @@ class StageTrainer:
         labeled,unlabeled,pending=self.losses()
         finite((labeled,unlabeled),"active L/U losses")
         finite(labeled if unlabeled is None else labeled+unlabeled,"combined objective")
+        self.gradient_audit(labeled,unlabeled)
         grads=split_gradients(self.model,labeled,unlabeled)
         if skip:
             self.optimizer.zero_grad(set_to_none=True);self.telemetry['skipped_updates']+=1
@@ -250,13 +264,13 @@ class StageTrainer:
         with torch.no_grad():
             if self.native:
                 self.model.parent.update_dense_ema(self.ema.parent)
-                if self.model.sidecar is not None:self.ema.sidecar.r.mul_(.99).add_(self.model.sidecar.r,alpha=.01)
             else:
-                for a,b in zip(self.ema.parameters(),self.model.parameters()):
+                for a,b in zip(self.ema.parent.parameters(),self.model.parent.parameters()):
                     if a is b:continue
                     if b.requires_grad:a.mul_(.99).add_(b,alpha=.01)
                     else:a.copy_(b)
-                for a,b in zip(self.ema.buffers(),self.model.buffers()):a.copy_(b)
+                for a,b in zip(self.ema.parent.buffers(),self.model.parent.buffers()):a.copy_(b)
+            if self.model.sidecar is not None:self.model.sidecar.update_teacher(self.ema.sidecar)
         inject('after_ema')
         if pending:self.prototypes.commit(*pending)
         self.step+=1;self.cursor+=1
