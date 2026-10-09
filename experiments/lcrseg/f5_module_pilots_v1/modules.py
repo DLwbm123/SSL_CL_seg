@@ -54,8 +54,9 @@ def boundary_interior(logp, labels, mix_mask=None):
             gt=inside.to(logp);pred=logp[i,c].exp()*gt
             gt=gt/gt.sum();pred=pred/pred.sum().clamp_min(1e-12)
             # Two spatial marginals adapt the paper's temporal CDF; this is not topology preservation.
-            terms.append(sum((pred.sum(axis).cumsum(0)-gt.sum(axis).cumsum(0)).square().mean()
-                             for axis in (0,1))/2)
+            # Torch 2.2 has no deterministic floating CUDA cumsum; transfer only two marginals.
+            terms.append(sum((pred.sum(axis).cpu().cumsum(0)-gt.sum(axis).cpu().cumsum(0)).square().mean()
+                             for axis in (0,1)).to(logp)/2)
             points+=n
     interior=torch.stack(terms).mean() if terms else logp.sum()*0
     return bl,interior,dict(boundary_pixels=int(mask.sum()),interior_pixels=points,
