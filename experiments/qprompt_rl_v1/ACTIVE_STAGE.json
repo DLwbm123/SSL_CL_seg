@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T09:00:34.333404+00:00",
-  "active_stage": "V119_CROSS_IMAGE",
-  "status": "COMPLETE",
-  "preregistration_commit": "84b0ea55bced3d7d239d461ad420633f3fe8dcd8",
-  "execution_commit": "84b0ea55bced3d7d239d461ad420633f3fe8dcd8",
+  "updated_at_utc": "2026-10-09T09:19:39.045723+00:00",
+  "active_stage": "V120_TRANSITION",
+  "status": "PRE_REGISTERED_NOT_STARTED",
+  "preregistration_commit": null,
+  "execution_commit": null,
   "student_updates_cap": 0,
   "actor_updates_cap": 0,
   "prior_stages": {
@@ -42,7 +42,8 @@
     "V115": "NO_BROAD_AGREEMENT_GATE_SIGNAL",
     "V116": "NO_RELIABLE_REGION_SELECTION_SIGNAL",
     "V117": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
-    "V118": "NO_RELIABLE_TRAIN_ONLY_TARGET_REPAIR_SIGNAL"
+    "V118": "NO_RELIABLE_TRAIN_ONLY_TARGET_REPAIR_SIGNAL",
+    "V119": "NO_RELIABLE_CROSS_IMAGE_TARGET_QUALITY_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -86,7 +87,7 @@
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
   "next": "Read V117 posthoc analysis before any separately frozen next hypothesis: current three-action observed table cannot meet practical gates even at coordinatewise oracle; no more full RL/deployment of identical recipe based on state learning alone.",
-  "run_id": "v117_macro_20261009T070553Z",
+  "run_id": "v120_transition_20261009T091857Z",
   "decision": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
@@ -993,5 +994,18 @@
     "largest_V118_new_loss_context": 5,
     "diagnostic_not_sufficient_for_training_gain": true,
     "reference": "v119_cross_image/REPORT.md"
+  },
+  "V120_plan": {
+    "run_id": "v120_transition_20261009T091857Z",
+    "contexts": 8,
+    "labeled_diagnostic_exposures": 40,
+    "model_image_forwards": 160,
+    "native_updates": 0,
+    "actor_updates": 0,
+    "query_calls": 0,
+    "U_images": 0,
+    "aggregate_rows": 296,
+    "candidate_actions": 6,
+    "scope": "observable target transitions; reused development data, not independent"
   }
 }
