@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T05:33:42.590904+00:00",
+  "updated_at_utc": "2026-10-09T05:35:51.693257+00:00",
   "active_stage": "V116_REGION_SELECTOR",
-  "status": "RECOVERY_PREPARED",
+  "status": "RUNNING",
   "preregistration_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
-  "execution_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
+  "execution_commit": "25c4547bb546f9ca555b85713bebc166d6a7588d",
   "student_updates_cap": 29608,
   "actor_updates_cap": 130,
   "prior_stages": {
@@ -501,5 +501,57 @@
     },
     "configuration_changed": false,
     "authorization": "Human explicitly requested fix and continue on 2026-10-09"
+  },
+  "V116_recovery_launch": {
+    "run_id": "v116_recovery_20261009T053320Z",
+    "commit": "25c4547bb546f9ca555b85713bebc166d6a7588d",
+    "qualification_reused": true,
+    "storage_probe": "PASS"
+  },
+  "V116_recovery_startup": {
+    "status": "RUNNING",
+    "run_id": "v116_recovery_20261009T053320Z",
+    "execution_commit": "25c4547bb546f9ca555b85713bebc166d6a7588d",
+    "checked_at_utc": "2026-10-09T05:35:51.693257+00:00",
+    "elapsed_seconds": 101.00698566436768,
+    "qualification_reused": true,
+    "jobs": [
+      {
+        "job": "learn601",
+        "groups": 1,
+        "actor_checkpoint_committed": true,
+        "trajectory_checkpoint_committed": true
+      },
+      {
+        "job": "learn602",
+        "groups": 1,
+        "actor_checkpoint_committed": true,
+        "trajectory_checkpoint_committed": true
+      }
+    ],
+    "logical_ledger_last_refresh": {
+      "attempts": {
+        "qualification": 8,
+        "actor_qualification": 2,
+        "prior": 504,
+        "selector_RL": 2,
+        "selector_CE": 2
+      },
+      "success": {
+        "qualification": 8,
+        "actor_qualification": 2,
+        "prior": 504,
+        "selector_RL": 2,
+        "selector_CE": 2
+      },
+      "failures": {},
+      "includes_stage_A": true,
+      "common_source_historical_student_updates": 8000,
+      "updated": 1791524143.6682665
+    },
+    "coordinator_lock": "HELD",
+    "parent_child_identity_neutral_argv": "PASS",
+    "GPU_process_names_neutral": true,
+    "original_failure_preserved": true
   }
 }
