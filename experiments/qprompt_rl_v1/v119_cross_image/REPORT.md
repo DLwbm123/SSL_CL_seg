@@ -92,3 +92,39 @@ Do not claim this diagnosis causally reproduces V118's training damage. It uses 
 40A_fit image/context reads and40 new labeled diagnostic evaluations;160 model-image forwards (40each EMA, memory, flipped memory and clean student),40 cross-image target assignments. All attempt/success pairs match. Zero optimizer/actor/solve/Q_train/Q_dev/U-image/new-annotation calls. Synthetic selfcheck0model/image/query/optimizer; the scalar audit and report also add0model/image/query/optimizer. Cumulative training remains841061native excluding8000source(849061including),181593actor,57solves; all prior failed attempts and separate512/146CPUactor-forward diagnostics preserved. This round's160segmentation forwards/40labeled evaluations are separately charged, not erased because there is no training.
 
 Public: frozen source/protocol/selfcheck, all104anonymous aggregate rows, full positive and negative strata, support summaries, execution/costs/qualification/audit and report. Individual image metrics, original images/labels/features and weights stay on NAS. Proxy remote/anonymous verification and NAS committed-file delivery recorded in FINAL_PUBLICATION.json. No campaign success or independent confirmation.
+
+
+## Requested interpretation: what the diagnostic can and cannot explain
+
+Posthoc arithmetic uses only already published V118/V119 aggregates; no new model/image/query/fit/optimization. posthoc.py reproduces POSTHOC_ANALYSIS.json. Frozen original results, sign gate and all budgets are unchanged.
+
+Only3.70766% of selected labeled pixel exposures change target argmax in V119. The overall average includes96.29234% unchanged exposures, so a small whole-mask accuracy delta must not conceal that61.06% of actual changes harm and38.94% repair. Equal-context weighted disagreement net accuracy is−0.1048230585, versus−0.0024533786 over all selected; these are separately normalized context means, not a rate to obtain by dividing one pooled percentage by the other. No independent-pixel significance claim is warranted.
+
+Class-wise pooled net correct-target changes are background−44415, class1+12478, class2+7919; the foreground gains20397 do not offset44415 net background errors. This is a structural assignment tradeoff on the observed labeled targets. True-class2 improvement conditions on y=2, so it concerns correctness/true-label probability on actual class2 pixels. It does not reveal false positives entering class2 from other true classes. The saved marginal tables lack the original-target→corrected-target×truth transition matrix; class2 precision, target Dice, and the fraction of new foreground errors assigned to class1 versusclass2 cannot be reconstructed. Thus class2's8/8 positive stratum is not proof of class2 Dice improvement or a deployable selection rule.
+
+The observable EMA-predicted-class2 stratum is a different set from the true-class2 stratum. It has6positive contexts,1exact tie(context3),1negative(context7), not8positive. Original action11 target also mixes EMA with gated frozen memory, so EMA argmax need not equal original blended-target argmax. The two class2 marginal tables cannot identify which original→proposed transition is beneficial. Do not combine their apparent benefits as though they refer to the same pixels.
+
+NLL here is−log(target probability at the true label), equivalently KL(one-hot truth || target). Native training uses KL(target || student). The diagnostic log score is a measure of target quality; it is not the native training loss or its gradient norm. More argmax repairs can coexist with worse log score when a smaller number of highly confident wrong assignments produces greater log-probability cost. Context4 shows this with2323repairs/1917harms butweightedNLLdelta+.02595894. It does not mathematically establish a proportional effect on student optimization or Dice.
+
+The first-order softmax logit-gradient change caused by target exchange is original_target−corrected_target, which is bounded per component even when log-score deterioration is large near zero target probability. Therefore the earlier confidence-transfer concern remains mechanistically plausible, but V119 should not be presented as a measurement of gradient damage or a unique causal explanation of V118.
+
+### Direct cross-round comparison
+
+Each context identity is matched, but data role and intervention setting differ: V119 scores frozen-model current A_fit labels with disjoint prototype support; V118 measures Q_train after actual U-driven continuous updates. V119 n=2 has1support image, whereas V118 uses2; geometry/step distribution also differs. The table is descriptive, not an isolated causal comparison.
+
+| Context | V119 weighted net accuracy | V119 weighted NLL delta | V118 final-new delta vs BASE | V118 old delta vs BASE |
+| --- | --- | --- | --- | --- |
+| 0 | -0.017002816 | 0.048496016 | -0.011394434 | -0.005616847 |
+| 1 | -0.010543562 | 0.053694968 | -0.024433579 | -0.000692479 |
+| 2 | -0.014494727 | 0.049848428 | -0.007924505 | -0.008341927 |
+| 3 | -0.015924353 | 0.053960273 | -0.010403316 | -0.006835815 |
+| 4 | 0.009901094 | 0.025958941 | -0.022938978 | -0.020434622 |
+| 5 | 0.029943402 | -0.000711757 | -0.032198217 | -0.010582358 |
+| 6 | 0.000684154 | 0.039229126 | -0.007307395 | -0.003604755 |
+| 7 | -0.002190221 | 0.060949875 | -0.008350417 | 0.002241671 |
+
+Context5 is the only joint positive V119 context(+2.99434percentage-point weighted accuracy, NLL−.00071176), yet it has the largest V118 final-new loss versusBASE(−3.21982Dice percentage points) and old loss−1.05824points. The two observations are compatible because their settings differ. They show that this observed local diagnostic pass is not sufficient evidence to predict training benefit. It is not appropriate to start a context5-only positive-result campaign from this posthoc slice.
+
+The low-confidence[.7,.8) stratum is also structured: contexts0–3(auxiliary2000) worsen both metrics, while4–7(auxiliary8000) improve both. Its overall positive mean is not broad robustness. These source families differ in coupled model/teacher states; this is an interaction in observed results, not proof that longer source training causes prototype reliability. A posthoc rule combining source8000 and low confidence would reuse already-seen labels and must not be called fresh confirmation.
+
+The appropriate current decision remains: do not train an RL controller to enable this complete forced target replacement. Preserve the original target as reference. If target correction is revisited, an observable original-class→proposed-class disagreement signal must demonstrate reliability without access to U truth, and a separately frozen continuous-training comparison must then verify transfer. A cross-image target-quality pass alone is not enough. This analysis neither authorizes nor runs a new sweep or experiment; the pre-existing campaign still requires a new explicit pre-registration for any next hypothesis.
