@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-09T10:57:07.089634+00:00",
+  "updated_at_utc": "2026-10-09T12:25:45.002737+00:00",
   "active_stage": "V124_CONFLICT_ABSTENTION",
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "preregistration_commit": "3267e68401a8974a63bd0ecf402ec2577c7c2ba3",
   "execution_commit": "3267e68401a8974a63bd0ecf402ec2577c7c2ba3",
   "student_updates_cap": 32024,
@@ -90,9 +90,9 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "Let the fixed V124 five-arm background experiment finish; no restart, tuning or new experiment. On completion audit once and publish all results.",
+  "next": "V124 complete; preserve negative result and full delivery. Assess the attainable policy margin on the sealed payoff table before any further learned training, under a separate protocol.",
   "run_id": "v124_abstention_20261009T105359Z",
-  "decision": "PENDING",
+  "decision": "NO_RELIABLE_MODEL_HELD_OUT_ABSTENTION_SIGNAL",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -3001,7 +3001,7 @@
     }
   },
   "V124": {
-    "status": "RUNNING",
+    "status": "COMPLETE",
     "run_id": "v124_abstention_20261009T105359Z",
     "methods": [
       "BASE",
@@ -3060,6 +3060,112 @@
       "neutral_main_and_all_worker_ps_nvidia": true,
       "no_immediate_failure": true,
       "scientific_result": null
-    }
+    },
+    "decision": {
+      "status": "NO_RELIABLE_MODEL_HELD_OUT_ABSTENTION_SIGNAL",
+      "passed": false,
+      "absolute": false,
+      "comparisons": [
+        {
+          "control": "BASE",
+          "gain": -0.0010896088788285851,
+          "final_new_gain": -0.0012540053576231003,
+          "old_gain": -0.0021626807283610106,
+          "reward": -0.0032522896071895957,
+          "practical_tradeoff": false,
+          "fold_stream_positive": false,
+          "positive_contexts": 3,
+          "passed": false
+        },
+        {
+          "control": "RANDOM_MATCHED",
+          "gain": -0.0008954397490015253,
+          "final_new_gain": -0.001043650379870087,
+          "old_gain": -0.002051383024081588,
+          "reward": -0.002946822773083113,
+          "practical_tradeoff": false,
+          "fold_stream_positive": false,
+          "positive_contexts": 3,
+          "passed": false
+        },
+        {
+          "control": "UNIFORM_MATCHED",
+          "gain": -0.0010144212865270674,
+          "final_new_gain": -0.0011706416262313724,
+          "old_gain": -0.0020792235154658556,
+          "reward": -0.003093644801992923,
+          "practical_tradeoff": false,
+          "fold_stream_positive": false,
+          "positive_contexts": 3,
+          "passed": false
+        },
+        {
+          "control": "OFF",
+          "gain": 0.007447331758157816,
+          "final_new_gain": 0.008217898372095078,
+          "old_gain": 0.012495716684497893,
+          "reward": 0.01994304844265571,
+          "practical_tradeoff": true,
+          "fold_stream_positive": true,
+          "positive_contexts": 15,
+          "passed": true
+        }
+      ],
+      "independent_confirmation": false,
+      "campaign_success": false,
+      "RL_benefit_tested": false
+    },
+    "costs": {
+      "native_updates": 32024,
+      "physical": {
+        "qualification": 24,
+        "prior": 32000
+      },
+      "success": {
+        "qualification": 24,
+        "prior": 32000
+      },
+      "failures": {},
+      "counts": {
+        "image_attempts_train_labeled": 130912,
+        "image_success_train_labeled": 130912,
+        "student_image_forwards": 256192,
+        "image_attempts_train_unlabeled": 128096,
+        "image_success_train_unlabeled": 128096,
+        "ema_image_forwards": 64048,
+        "memory_image_forwards": 128096,
+        "selector_calls": 32024,
+        "rate_records": 32024,
+        "query_attempts": 704,
+        "query_success": 704,
+        "query_images": 2816
+      },
+      "actor_optimizer_updates": 0,
+      "linear_solves": 0,
+      "Q_dev_images": 0,
+      "new_annotation_cases": 0,
+      "new_entry_updates": 0,
+      "diagnostic_image_forwards": 0,
+      "performance_query_calls": 704,
+      "performance_query_images": 2816
+    },
+    "completion_audit": {
+      "status": "PASS",
+      "jobs": 65,
+      "native_pairs": 32024,
+      "selector_records": 32024,
+      "diagnostic_forward_pairs": 0,
+      "performance_query_pairs": 704,
+      "all_root_child_pairs_exact": true,
+      "all_partition_exclusions": true,
+      "all_endpoints_sealed_before_readout": true,
+      "all_removal_controls_valid": true,
+      "readout_recomputed": true,
+      "independent_confirmation": false,
+      "campaign_success": false
+    },
+    "finished_at": "2026-10-09T19:42:41.473952+08:00",
+    "cumulative_native_ex_source": 876309,
+    "cumulative_native_including_source": 884309
   }
 }

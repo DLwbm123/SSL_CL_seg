@@ -1,0 +1,11 @@
+{
+  "status": "SOURCE_AND_LEDGER_DERIVED_ACCOUNTING_SUPPLEMENT",
+  "recorded_student_module_hook_image_forwards": 256192,
+  "additional_clean_readout_image_forwards": 2816,
+  "total_student_image_forwards": 259008,
+  "ema_image_forwards": 64048,
+  "memory_image_forwards": 128096,
+  "total_image_forwards": 451152,
+  "reason": "Trainer.clean calls parent.features/native_readout directly and bypasses student module forward hooks. Each of the audited2816 performance images invokes it once; no other clean diagnostic in this protocol. Original COSTS is preserved.",
+  "new_model_calls": 0
+}
