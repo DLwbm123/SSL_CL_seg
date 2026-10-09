@@ -1,0 +1,373 @@
+{
+  "study_id": "F5_MODULE_PILOTS_V1",
+  "parent": "F5_C02",
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "arms": [
+    "F5",
+    "BOUNDARY",
+    "OT_TRIPLET",
+    "LOSS_ADAPTER"
+  ],
+  "module_spec": {
+    "boundary_weight": 0.05,
+    "interior_weight": 0.05,
+    "boundary_radius": 2,
+    "ot_weight": 0.2,
+    "ot_epsilon": 0.1,
+    "ot_iterations": 100,
+    "ot_margin": 0.1,
+    "ot_samples": 32,
+    "ot_min_support": 8,
+    "ot_modes": 2,
+    "adapter_branches": 3,
+    "adapter_rank": 1,
+    "adapter_scale": 1,
+    "orthogonal_weight": 0.001
+  },
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 0.00004,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1,
+    "feature_lr_multiplier": 1,
+    "feature_weight_decay_multiplier": 1,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 84800,
+    "source_updates": 0,
+    "real_smoke_updates": 16,
+    "synthetic_cuda_updates": 64,
+    "cpu_optimizer_updates": 768,
+    "diagnostic_vjps": 272
+  },
+  "jobs": [
+    {
+      "id": "F5_S163_O1",
+      "arm": "F5",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "F5_S163_O2",
+      "arm": "F5",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "F5_S164_O1",
+      "arm": "F5",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "F5_S164_O2",
+      "arm": "F5",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "BOUNDARY_S163_O1",
+      "arm": "BOUNDARY",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "BOUNDARY_S163_O2",
+      "arm": "BOUNDARY",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "BOUNDARY_S164_O1",
+      "arm": "BOUNDARY",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "BOUNDARY_S164_O2",
+      "arm": "BOUNDARY",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "OT_TRIPLET_S163_O1",
+      "arm": "OT_TRIPLET",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "OT_TRIPLET_S163_O2",
+      "arm": "OT_TRIPLET",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "OT_TRIPLET_S164_O1",
+      "arm": "OT_TRIPLET",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "OT_TRIPLET_S164_O2",
+      "arm": "OT_TRIPLET",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "LOSS_ADAPTER_S163_O1",
+      "arm": "LOSS_ADAPTER",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "LOSS_ADAPTER_S163_O2",
+      "arm": "LOSS_ADAPTER",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "LOSS_ADAPTER_S164_O1",
+      "arm": "LOSS_ADAPTER",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "LOSS_ADAPTER_S164_O2",
+      "arm": "LOSS_ADAPTER",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "sequence": "fresh F5 control, boundary/interior, OT triplet, loss-indexed linear adapters",
+  "evaluation": "seal all 32 target students before 80 seen-domain evaluations; reuse historical B0/B2 aggregates",
+  "retries": 0,
+  "hyperparameter_search": false,
+  "combined_module_arm": false,
+  "train_access": "current L image/GT and current U image/geometry only; no historical images",
+  "authority": "user 2026-10-09: 按照优先级，对这几个方法的模块都进行尝试，设置每小时监测",
+  "boundary": "probability-derived 2D edge BCE plus x/y marginal interior CDF; 2px band and mix-seam exclusion; CDF after original warmup",
+  "ot": "two current-L teacher centroids per foreground class; uniform empirical Sinkhorn triplet; no persistent bank; U gradients remain R only",
+  "adapter": "R_eff=R+(1/3)sum_k up_k@down_k, three rank1 linear branches; 0.001 down-vector orthogonality; shared-output losses; effective-matrix EMA",
+  "limitations": [
+    "development cohort reused",
+    "two optimization seeds only",
+    "linear adapter is an adaptation, not nonlinear PINN reproduction",
+    "OT centroids are current-batch fixed references, not the paper learned prototypes",
+    "spatial marginal CDF is not topology preservation"
+  ],
+  "plan_id": "16341ff3b7bb6118b6802ec49f3665a0db590042f6cb0f6f6fdb9aa019f18c73"
+}

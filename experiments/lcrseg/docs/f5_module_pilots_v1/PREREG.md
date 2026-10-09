@@ -34,4 +34,12 @@ Primary increment is each module minus fresh F5: average orders within seed, ret
 
 This reuses repeatedly observed development patients. Optimization-seed checks are not independent patient confirmation, SOTA, clinical safety or proof of novelty. The observed seed164 F5 weakness and historical failed gates stay in the comparison; no favorable subgroup selection.
 
+## Execution qualification and startup
+
+Execution commit `c86ae7fe77d5afb2bc6744b392fa441f81b62775` passed native qualification and started the four matched F5 control workers on GPUs4–7. `STARTUP.json` records the one brief startup check; it is not a completion receipt. The hourly heartbeat id is `f5`; prior RL monitoring remains paused.
+
+Three failed engineering qualification attempts remain in `QUALIFICATION.json`: a generated image too small for the fixed interior-support rule (0 optimizer calls), missing deterministic CuBLAS configuration (192 cumulative CPU, 0 CUDA calls), and unsupported deterministic floating CUDA cumsum (192 cumulative CPU, 10 CUDA calls). The final passing attempt brings totals to384 CPU,38 generated CUDA and16 discarded real-L smoke calls, within the original caps. These include failed and deliberately interrupted optimizer invocations. No formal work was retried or validation read before startup.
+
+Only the generated test grid was enlarged. Deterministic CUDA uses `CUBLAS_WORKSPACE_CONFIG=:4096:8`; spatial CDF transfers the two small marginals to CPU for cumulative summation while preserving gradients. Successful CPU tests may be reused only when the tested mathematical function and module source signatures match. All frozen scientific definitions, coefficients, data boundaries and optimizer caps remained unchanged.
+
 Every hour, check compact status/ledger/exit evidence once. Stay quiet without a meaningful change. On completion, audit once and publish only source, protocol, aggregate results, costs and report to this project's GitHub branch through the required proxy. Keep raw data, patient rows, weights, private configuration/logs on NAS. After verified delivery, pause this pilot's heartbeat; the prior RL automation remains paused.

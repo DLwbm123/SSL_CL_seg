@@ -1,0 +1,196 @@
+{
+  "current": {
+    "status": "PASS",
+    "execution_commit": "c86ae7fe77d5afb2bc6744b392fa441f81b62775",
+    "plan_id": "16341ff3b7bb6118b6802ec49f3665a0db590042f6cb0f6f6fdb9aa019f18c73",
+    "checks": [
+      {
+        "check": "native historical F5 warmup/active full-state parity",
+        "status": "PASS"
+      },
+      {
+        "arm": "F5",
+        "check": "backward, U permissions, teacher frozen, merge, checkpoint continuation",
+        "status": "PASS"
+      },
+      {
+        "arm": "F5",
+        "check": "own-prefix transition and failed invocation remains uncommitted",
+        "status": "PASS"
+      },
+      {
+        "arm": "BOUNDARY",
+        "check": "backward, U permissions, teacher frozen, merge, checkpoint continuation",
+        "status": "PASS"
+      },
+      {
+        "arm": "BOUNDARY",
+        "check": "own-prefix transition and failed invocation remains uncommitted",
+        "status": "PASS"
+      },
+      {
+        "arm": "OT_TRIPLET",
+        "check": "backward, U permissions, teacher frozen, merge, checkpoint continuation",
+        "status": "PASS"
+      },
+      {
+        "arm": "OT_TRIPLET",
+        "check": "own-prefix transition and failed invocation remains uncommitted",
+        "status": "PASS"
+      },
+      {
+        "arm": "LOSS_ADAPTER",
+        "check": "backward, U permissions, teacher frozen, merge, checkpoint continuation",
+        "status": "PASS"
+      },
+      {
+        "arm": "LOSS_ADAPTER",
+        "check": "own-prefix transition and failed invocation remains uncommitted",
+        "status": "PASS"
+      },
+      {
+        "arm": "F5",
+        "stage": 1,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      },
+      {
+        "arm": "F5",
+        "stage": 2,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      },
+      {
+        "arm": "BOUNDARY",
+        "stage": 1,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      },
+      {
+        "arm": "BOUNDARY",
+        "stage": 2,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      },
+      {
+        "arm": "OT_TRIPLET",
+        "stage": 1,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      },
+      {
+        "arm": "OT_TRIPLET",
+        "stage": 2,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      },
+      {
+        "arm": "LOSS_ADAPTER",
+        "stage": 1,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      },
+      {
+        "arm": "LOSS_ADAPTER",
+        "stage": 2,
+        "check": "discarded actual current-L smoke",
+        "status": "PASS"
+      }
+    ],
+    "source_schema_generated_forward": [
+      163,
+      164
+    ],
+    "costs": {
+      "cpu_optimizer_updates": 384,
+      "synthetic_cuda_updates": 38,
+      "real_L_smoke_updates": 16,
+      "operations": {
+        "features_attempts": 206,
+        "features": 206,
+        "native_readout_attempts": 144,
+        "native_readout": 144,
+        "autograd_grad_attempts": 66,
+        "autograd_grad": 66,
+        "optimizer_steps_attempts": 44,
+        "optimizer_steps": 44,
+        "update_dense_ema_validation_attempts": 40,
+        "update_dense_ema_validation": 40,
+        "update_dense_ema_attempts": 40,
+        "update_dense_ema": 40,
+        "model_forward_attempts": 2,
+        "model_forward": 2,
+        "image_forward": 4,
+        "sample_train_labeled_attempts": 48,
+        "sample_access_attempts": 48,
+        "hdf5_mode_r": 96,
+        "hdf5_open_attempts": 96,
+        "hdf5_open": 96,
+        "sample_access": 48,
+        "sample_train_labeled": 48
+      },
+      "qualification_extra_gradient_vjps": 4
+    }
+  },
+  "prior_failed_attempts": [
+    {
+      "status": "FAIL",
+      "execution_commit": "a0808632ee4e9d71d7cfa7eb2071c94af2071645",
+      "costs": {
+        "cpu_optimizer_updates": 0,
+        "synthetic_cuda_updates": 0,
+        "real_L_smoke_updates": 0
+      },
+      "engineering_reason": "generated image too small for registered interior support"
+    },
+    {
+      "status": "FAIL",
+      "execution_commit": "f67b3e8d5e39bfae5bc420e8d39500d066366005",
+      "costs": {
+        "cpu_optimizer_updates": 192,
+        "synthetic_cuda_updates": 0,
+        "real_L_smoke_updates": 0
+      },
+      "engineering_reason": "missing deterministic CuBLAS workspace environment"
+    },
+    {
+      "status": "FAIL",
+      "execution_commit": "f802ce4947a72246891efc3f6e9849786216e58d",
+      "costs": {
+        "cpu_optimizer_updates": 192,
+        "synthetic_cuda_updates": 10,
+        "real_L_smoke_updates": 0
+      },
+      "engineering_reason": "installed CUDA float cumsum lacks deterministic implementation"
+    }
+  ],
+  "cumulative_native_operation_counts": {
+    "features_attempts": 267,
+    "features": 267,
+    "native_readout_attempts": 186,
+    "native_readout": 186,
+    "autograd_grad_attempts": 83,
+    "autograd_grad": 83,
+    "optimizer_steps_attempts": 54,
+    "optimizer_steps": 54,
+    "update_dense_ema_validation_attempts": 49,
+    "update_dense_ema_validation": 49,
+    "update_dense_ema_attempts": 49,
+    "update_dense_ema": 49,
+    "model_forward_attempts": 2,
+    "model_forward": 2,
+    "image_forward": 4,
+    "sample_train_labeled_attempts": 48,
+    "sample_access_attempts": 48,
+    "hdf5_mode_r": 96,
+    "hdf5_open_attempts": 96,
+    "hdf5_open": 96,
+    "sample_access": 48,
+    "sample_train_labeled": 48
+  },
+  "qualification_extra_native_vjps_including_failed_attempts": 5,
+  "cpu_extra_grad_calls_including_failed_attempts": 5,
+  "diagnostic_total_cap": 272,
+  "formal_diagnostic_cap": 256,
+  "accounting": "Cumulative physical optimizer ledgers retained across repairs; no resets. Ordinary training backward calls are included in optimizer qualification, not the extra diagnostic VJP count."
+}
