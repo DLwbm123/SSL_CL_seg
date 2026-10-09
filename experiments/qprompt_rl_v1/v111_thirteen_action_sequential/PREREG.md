@@ -1,0 +1,29 @@
+# V111 — matched13-action continuous deployment
+
+Frozen after complete V110 collection, before any V111 fitting or development evaluation. Hypothesis: with OFF-prefix coverage, a state-dependent policy can use the true supervised-only action selectively and improve actual sequential outcomes. V109/V110 training margins alone are not success. No further coverage collection, new data or retraining of source models is included.
+
+## Shared training information and objective
+
+Use exactly V110120states×13returns and their stable4probe float64 mean. Every unique state has equal1/120 weight for allarms and controls:40 step100states receive one third totalweight;80 step200states (40original +40OFFprefix) receive two thirds. This weighting is fixed, not selected on development outcomes. Normalize feature mean/populationstd on all120 trainingstates, replacing std<1e-6 with1. Return baseline remains perstate mean of original first9actions; shared pooled RMS over those same first9columns/all120rows floored1e-4; clip every13-action advantage to[-3,3]. OFF is excluded from baseline/scale estimation, consistently with the previous12-action expansion. Alltrainingcases remain Q_train-derived; no Q_dev fit or target selection.
+
+Actors: same24→32Tanh network with13output logits (1229parameters), fixed601/602hidden seeds, zerooutputhead, constructor leaves globaltorch RNG intact. Perseed512CEwarm then copied512CE,512RL,512targetCE, each freshAdam lr.001/gradclip1. CE uses softmax(adv/.25) with-.01entropy; RL maximizes full-action expected advantage−.25KLtowarm+.01entropy. It is full-expectation optimization, not sampledGRPO. TargetCE uses analytical RL optimum softmax((meanadv+.25logwarm)/.26), grouping exactly identical normalizedstates, plainforwardCE with no additionalentropy. Equalstateweight applies to grouped targets too. All8models sealed before deployment. Training diagnostics reported, never used to extend steps or choose aseed.
+
+Controls: UNIFORM over13actions; GLOBAL maximizes mean trainingreturn; TIME separately maximizes mean trainingreturn within step100 and step200; RIDGEλ1 and1NN use all120states, equalweights and numpy train-onlyfeature normalization as before; OFF alwaysaction12. Always includeGLOBAL/TIME separately even if equivalent. Lowestindex breaks allties. NewtrueOFF is precisely V109 native supervised loss; actions0–11 and studentoptimizer/scheduler/constraints/EMA unchanged. Probes can still read authorizedU_adapt; OFFnative updates must read noU.
+
+## Actual trajectory matrix and readout
+
+4existingdevcontexts ×streams3/4/5 ×22methods =264independent trajectories from existingENTRY100 to300 with decisions100/200. Methods: sampled andargmax WARM/CE/RL/DISTILL forbothseeds (16) plusUNIFORM/GLOBAL/TIME/RIDGE/NN/OFF (6). Matched teacher/source initialization, provider168+10000stream, globalRNG860100+stream; privatepolicygenerator862600+1000stream+context pertrajectory. Sampledactors andUNIFORM use privategenerator;others argmax. Stable4probes at each decision, restoringfullstate/providerseed/RNG. Fixedsimplecontrols receive identicalprobe accounting. SnapshotsMID150 andFINAL300 for all264trajectories must be sealed before anynewQ_devquery. EvaluateQ_dev_new4 atMID andFINAL, Q_dev_old4 atFINAL:3168images/792querycalls. Reuse pre-existing entry/reference scalars, never choosebestcheckpoint.
+
+Qualification8native updates: contexts0/7stream1, old action9 andOFF12 respectively, pairedtwo-step snapshot/RNG exact replay with identical sampled13-action policy and stableprobes. Botholdstablemean4states must stillmatch archivedvalues; qualification16probes. Existing V109 directnative OFF proof remains applicable; additionally assert zeroUreads on everyOFFupdate. Synthetic13-action actor/CEtarget/KL grouping check costs1actorupdate. Noadditional optimizer selftests outside declaredledger.
+
+## Frozen costs and evidence
+
+52800deployment+8qualification =52808native updates;4096dataactor+1synthetic=4097actor updates;1data ridge solve;2128stableprobes=264×2×4+16;3168Q_devimages;0newQ_trainqueries/newannotations.26jobs total:fit,qualification,12train,12evaluate. Pertrainjob4400native; explicitly adapt oldlocaldevelopment cap4000 to4400 for V111 only. NoGPUwalltimelimit. GPU4–7, NAScreate-onlymount/probe/wrapper, neutralargv. Failed attempts and costs retained.
+
+At completion publish all264outcomes/528action traces and perstreamseed comparisons, costs and gates. Also compare every240 common method/context/stream key against V108 saved results, including both actorarms and allsimplecontrols, with noextraqueries. Historical13-vs12 contrast combines newaction,extraOFF-prefix states and prescribedstateweighting; it does not isolateRL orOFFcausality. Uniform13 differsfromuniform12. Samepreviouslyvieweddevstreams enablepairing, notindependentconfirmation.
+
+## Decision frozen before execution
+
+Primary sampledRL averaged equally over2seeds×4contexts×3streams. Both601/602 must have strictlypositive meanutility gains over same-seedWARM/CE/targetCE. MeanRL utility improvement>=.0005 over each of9controls (sampledWARM/CE/DISTILL plus6simplecontrols). Practicaltradeoff for eachcontrol: new>=.002 andold>=−.0025 ORold>=.005 andnew>=−.0025. Argmaxsecondary cannotreplace a failedsampledprimary. These retainprevious numericthresholds and apply them to allspecifiedcontrols, notweaken oldgates. Fulltableortrainingpositivity is insufficient.
+
+A passingcandidate requires a separatepreregistration for completefresh-stream confirmation beforecampaignsuccess. Sharedsource/patients/development-informedfactors are notindependentgeneralization. No hiddenUlabels, sealedtest, newpatients oractual laterdomains. Allfailures/negativearms remainpublicaggregates; privateimages/features/weights/rawlogs remainNAS. If negative, analyze completeoutcomes before choosing a new single hypothesis; no automatic retries orongoingtuning.
