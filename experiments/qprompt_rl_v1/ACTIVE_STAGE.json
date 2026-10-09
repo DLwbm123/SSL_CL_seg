@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-09T10:22:17.903008+00:00",
+  "updated_at_utc": "2026-10-09T10:34:05.940836+00:00",
   "active_stage": "V123_MODEL_HOLDOUT",
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "preregistration_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
   "execution_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
   "student_updates_cap": 35224,
@@ -89,9 +89,9 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "Execute only frozen V123:32 newly fitted image-held-out entries; gate prerequisite before five-arm paired training. No parallel variant, actor fit or gate change.",
+  "next": "V123 prerequisite failed; conditional five-arm training NOT RUN. Preserve full results and final publication; no implicit retry, gate change or same-rule Stage B.",
   "run_id": "v123_holdout_20261009T101910Z",
-  "decision": "PENDING_MODEL_HELDOUT_GATE",
+  "decision": "STOP_NO_MODEL_HELD_OUT_SIGNAL",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -2689,6 +2689,283 @@
       "initial_failures": [],
       "selfcheck": "PASS",
       "warning": "PyTorch reports optimizer.step wrapper replacement; existing engine calls optimizer.step before scheduler.step. Per-update rates recorded. No runtime failure at startup."
-    }
+    },
+    "status": "COMPLETE",
+    "decision": {
+      "status": "STOP_NO_MODEL_HELD_OUT_SIGNAL",
+      "passed": false,
+      "pooled": {
+        "weighted_net_accuracy": -0.0014363821428892848,
+        "weighted_nll_delta": 0.0018030706124309989
+      },
+      "joint_positive_contexts": 4,
+      "contexts": [
+        {
+          "context": 0,
+          "fold": 0,
+          "source_step": 2000,
+          "labeled_images": 2,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": -0.005491895277723126,
+          "weighted_nll_delta": 0.005312285608665437
+        },
+        {
+          "context": 1,
+          "fold": 0,
+          "source_step": 2000,
+          "labeled_images": 2,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": 0.0008563148931296487,
+          "weighted_nll_delta": 7.40618697568043e-05
+        },
+        {
+          "context": 2,
+          "fold": 0,
+          "source_step": 2000,
+          "labeled_images": 4,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": -0.005534757373858788,
+          "weighted_nll_delta": 0.00535361055623525
+        },
+        {
+          "context": 3,
+          "fold": 0,
+          "source_step": 2000,
+          "labeled_images": 4,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": -0.006987773485760872,
+          "weighted_nll_delta": 0.008945181000499755
+        },
+        {
+          "context": 4,
+          "fold": 0,
+          "source_step": 8000,
+          "labeled_images": 2,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": -0.004557718582476179,
+          "weighted_nll_delta": 0.005149811458732099
+        },
+        {
+          "context": 5,
+          "fold": 0,
+          "source_step": 8000,
+          "labeled_images": 2,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": 5.757858229340862e-05,
+          "weighted_nll_delta": 0.00044437420812768136
+        },
+        {
+          "context": 6,
+          "fold": 0,
+          "source_step": 8000,
+          "labeled_images": 4,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": -0.004424346326155543,
+          "weighted_nll_delta": 0.004850826719382511
+        },
+        {
+          "context": 7,
+          "fold": 0,
+          "source_step": 8000,
+          "labeled_images": 4,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": -0.0019510829305678453,
+          "weighted_nll_delta": 0.002736238857181268
+        },
+        {
+          "context": 8,
+          "fold": 1,
+          "source_step": 2000,
+          "labeled_images": 2,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": 0.0015079050365088545,
+          "weighted_nll_delta": -0.001109824986364244
+        },
+        {
+          "context": 9,
+          "fold": 1,
+          "source_step": 2000,
+          "labeled_images": 2,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": 0.0024034002833151153,
+          "weighted_nll_delta": -0.002252548008110181
+        },
+        {
+          "context": 10,
+          "fold": 1,
+          "source_step": 2000,
+          "labeled_images": 4,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": -0.003012328289567404,
+          "weighted_nll_delta": 0.0032814397213642896
+        },
+        {
+          "context": 11,
+          "fold": 1,
+          "source_step": 2000,
+          "labeled_images": 4,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": -0.00034526845186063314,
+          "weighted_nll_delta": 0.00016907501182989614
+        },
+        {
+          "context": 12,
+          "fold": 1,
+          "source_step": 8000,
+          "labeled_images": 2,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": -9.469080785237196e-05,
+          "weighted_nll_delta": 0.0003588015614649492
+        },
+        {
+          "context": 13,
+          "fold": 1,
+          "source_step": 8000,
+          "labeled_images": 2,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": 0.003020457035583103,
+          "weighted_nll_delta": -0.0031369981051464816
+        },
+        {
+          "context": 14,
+          "fold": 1,
+          "source_step": 8000,
+          "labeled_images": 4,
+          "condition": "brightness",
+          "factor": 0.8,
+          "weighted_net_accuracy": -0.0002845110148426862,
+          "weighted_nll_delta": 0.0004867182593064766
+        },
+        {
+          "context": 15,
+          "fold": 1,
+          "source_step": 8000,
+          "labeled_images": 4,
+          "condition": "contrast",
+          "factor": 1.2,
+          "weighted_net_accuracy": 0.0018566024236067588,
+          "weighted_nll_delta": -0.001813923934029528
+        }
+      ],
+      "groups": [
+        {
+          "group": "fold=0",
+          "weighted_net_accuracy": -0.0035042100626399117,
+          "weighted_nll_delta": 0.004108298784822601
+        },
+        {
+          "group": "fold=1",
+          "weighted_net_accuracy": 0.0006314457768613421,
+          "weighted_nll_delta": -0.0005021575599606029
+        },
+        {
+          "group": "stream=3",
+          "weighted_net_accuracy": -0.0015133733781910756,
+          "weighted_nll_delta": 0.0018698979879153519
+        },
+        {
+          "group": "stream=4",
+          "weighted_net_accuracy": -0.0013593909075874941,
+          "weighted_nll_delta": 0.001736243236946646
+        },
+        {
+          "group": "source_step=2000",
+          "weighted_net_accuracy": -0.0020755503332271505,
+          "weighted_nll_delta": 0.0024716600967346256
+        },
+        {
+          "group": "source_step=8000",
+          "weighted_net_accuracy": -0.0007972139525514195,
+          "weighted_nll_delta": 0.0011344811281273721
+        },
+        {
+          "group": "labeled_images=2",
+          "weighted_net_accuracy": -0.0002873311046526934,
+          "weighted_nll_delta": 0.0006049954508907582
+        },
+        {
+          "group": "labeled_images=4",
+          "weighted_net_accuracy": -0.0025854331811258767,
+          "weighted_nll_delta": 0.00300114577397124
+        },
+        {
+          "group": "condition=brightness",
+          "weighted_net_accuracy": -0.0027365428294959054,
+          "weighted_nll_delta": 0.002960458612348346
+        },
+        {
+          "group": "condition=contrast",
+          "weighted_net_accuracy": -0.00013622145628266455,
+          "weighted_nll_delta": 0.0006456826125136517
+        }
+      ],
+      "model_level_holdout": true,
+      "independent_confirmation": false,
+      "campaign_success": false
+    },
+    "actual_costs": {
+      "native_updates": 3224,
+      "physical": {
+        "entries": 3200,
+        "qualification": 24
+      },
+      "success": {
+        "entries": 3200,
+        "qualification": 24
+      },
+      "failures": {},
+      "counts": {
+        "image_attempts_train_labeled": 13024,
+        "image_success_train_labeled": 13024,
+        "student_image_forwards": 21952,
+        "image_attempts_train_unlabeled": 12896,
+        "image_success_train_unlabeled": 12896,
+        "ema_image_forwards": 6576,
+        "memory_image_forwards": 13152,
+        "rate_records": 3224,
+        "selector_calls": 24,
+        "diagnostic_forward_attempts": 512,
+        "diagnostic_forward_success": 512
+      },
+      "actor_optimizer_updates": 0,
+      "linear_solves": 0,
+      "Q_dev_images": 0,
+      "new_annotation_cases": 0,
+      "held_out_diagnostic_images": 128,
+      "diagnostic_image_forwards": 512,
+      "stage_B_executed": false
+    },
+    "completion_audit": {
+      "status": "PASS",
+      "jobs": 65,
+      "stage_B_executed": false,
+      "native_pairs": 3224,
+      "selector_records": 24,
+      "diagnostic_forward_pairs": 512,
+      "performance_query_pairs": 0,
+      "all_root_child_pairs_exact": true,
+      "all_partition_exclusions": true,
+      "all_entries_and_endpoints_sealed_before_readout": true,
+      "readout_recomputed": true,
+      "independent_confirmation": false,
+      "campaign_success": false
+    },
+    "finished_at": "2026-10-09T18:27:50.457729+08:00",
+    "cumulative_native_excluding_source": 844285,
+    "cumulative_native_including_source": 852285
   }
 }
