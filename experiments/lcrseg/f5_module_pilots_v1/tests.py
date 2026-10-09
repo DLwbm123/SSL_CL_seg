@@ -134,7 +134,16 @@ def qualify(config):
         model=make_model(NativeLRParent(native,163,provider.stage_source),arm,options,None,generator(163,1,1,0,'pilot_adapter_initialization')).to(device)
         return PilotTrainer(model,provider,options,arm=arm,execution=permit)
     try:
-        cpu=mathematical_tests(cpu_counter.call);write(attempt/'CPU_TEST_REPORT.json',cpu)
+        from ..five_frameworks_v1.gate import digest
+        signature=digest(dict(function=__import__('inspect').getsource(mathematical_tests),
+                              module=Path(__file__).with_name('modules.py').read_text()))
+        cache=root/'CPU_QUALIFICATION.json'
+        if cache.exists() and read(cache).get('tested_code')==signature:
+            cpu=read(cache);assert cpu['status']=='PASS'
+        else:
+            cpu={**mathematical_tests(cpu_counter.call),'tested_code':signature}
+            write(cache,cpu)
+        write(attempt/'CPU_TEST_REPORT.json',cpu)
         with NativeOperations(attempt/'operations') as operations:
             # Baseline parity with the actual historical trainer source, not a fabricated approval.
             legacy_path=Path(config['legacy_code'])/'experiments/lcrseg/five_frameworks_v1/train_stage.py'
