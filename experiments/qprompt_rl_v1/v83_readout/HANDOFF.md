@@ -200,3 +200,8 @@ V114v114_restart_20261009T034414Z RUNNING,prereg/execution40fce0948aeb1f24061e18
 ## V114 complete — 2026-10-09
 
 25 jobs/root exit0; full audit7208native/rate pairs40resets304probes108query/432images36paired72sealed PASS. Pooled newΔvsV113+.0000129251016511 old+.0006219425963031 utility+.000682447416087; broadgate fails new>=.002. All3 policies negative absolute continuation. GLOBAL newΔ.001998111606 must not round to .002. Full policy/context/stream results and costs published in v114_adam_restart. Cumulative783825native exclsource/791825incl,181459actor57solves. Next separately freeze class-agreement gating of conflicting memory pseudo-labels, responding to human request for more meaningful evidence-selection actions; deterministic diagnostic, not an RL claim.
+
+
+## V115 launched — 2026-10-09
+
+V114 published e4419dba2ae49850352d032d0d9dc04c4785c834, remoteHEAD/anonymous200/NASdelivery verified. V115run v115_agreement_20261009T044504Z, prereg2f70b8b89226bcb61cd9c35f650b11e80ac1d5b5, execution0051aa0e6803977c57f3b592b9aaee4eae70c8d6. Single memory/EMA argmax-agreement gate, exact oldloss reused, fixedV113quarter/noreset. GLOBAL/TIME24trajectories vsstoredV113; OFFreuse. Planned4808native208probe288Qdev3604gate0actor/solves. Qual8PASS/16probes,4gate records exactpaired;4GPU4–7workers MID150,root305deploy+8qual/no failure,neutralidentity/argv/NAS admissionPASS. complete.py ready for all25jobs/4808nativeRATE/3604gate/48sealed/72queries and all24paired/absoluteresults. Mechanismdiagnostic notRL; no extra poll this turn.
