@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-09T06:53:48.841293+00:00",
-  "active_stage": "V116_REGION_SELECTOR",
-  "status": "COMPLETE",
-  "preregistration_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
-  "execution_commit": "25c4547bb546f9ca555b85713bebc166d6a7588d",
-  "student_updates_cap": 29608,
-  "actor_updates_cap": 130,
+  "updated_at_utc": "2026-10-09T07:07:01.215779+00:00",
+  "active_stage": "V117_MACRO_SELECTION",
+  "status": "PREREGISTERED_NOT_LAUNCHED",
+  "preregistration_commit": null,
+  "execution_commit": null,
+  "student_updates_cap": 12808,
+  "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -80,11 +80,12 @@
     "V112": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
     "V113": "ee6f49de113396d432e1c03969c52f45e062ed2d",
     "V114": "e4419dba2ae49850352d032d0d9dc04c4785c834",
-    "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10"
+    "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
+    "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "Read V116 DIAGNOSIS and POLICY_AUDIT before separately freezing a next hypothesis: final actor is near uniform on observed training states, mandatory fixed-mass allocation cannot abstain, and absolute continuation remains negative",
-  "run_id": "v116_recovery_20261009T053320Z",
-  "decision": "NO_RELIABLE_REGION_SELECTION_SIGNAL",
+  "next": "Launch frozen train-only macro-selector diagnostic after publication; no Qdev or actor training",
+  "run_id": "v117_macro_20261009T070553Z",
+  "decision": "PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -641,5 +642,16 @@
     "new_queries": 0,
     "optimizer_updates": 0,
     "reference": "v116_region_selector/DIAGNOSIS.md"
+  },
+  "V117_planned": {
+    "native_updates": 12808,
+    "query_calls": 896,
+    "query_images": 3584,
+    "Q_dev_images": 0,
+    "actor_updates": 0,
+    "linear_solves": 0,
+    "states": 64,
+    "actions": 4,
+    "jobs": 9
   }
 }
