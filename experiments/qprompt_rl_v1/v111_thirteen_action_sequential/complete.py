@@ -57,6 +57,17 @@ def main(root):
     methods=sorted({r['method'] for r in rows})
     for method in methods:
         for k in metrics:assert abs(st.mean(r[k] for r in rows if r['method']==method)-data['means'][method][k])<1e-14
+    means=dict(data['means'])
+    for mode in ('SAMPLE','ARGMAX'):
+        for arm in ('WARM','CE','RL','DISTILL'):
+            for k in metrics:assert abs(means[f'{mode}_{arm}'][k]-st.mean(means[f'{mode}_{arm}_{seed}'][k] for seed in (601,602)))<1e-14
+    controls=('SAMPLE_WARM','SAMPLE_CE','SAMPLE_DISTILL','UNIFORM','GLOBAL','RIDGE','NN','TIME','OFF')
+    delta={m:{k:means['SAMPLE_RL'][k]-means[m][k] for k in ('new','old','utility')} for m in controls}
+    paired_gate={f'{a}_{seed}':means[f'SAMPLE_RL_{seed}']['utility']-means[f'SAMPLE_{a}_{seed}']['utility'] for a in ('WARM','CE','DISTILL') for seed in (601,602)}
+    trade={m:(r['new']>=.002 and r['old']>=-.0025) or (r['old']>=.005 and r['new']>=-.0025) for m,r in delta.items()}
+    passed=all(v>0 for v in paired_gate.values()) and all(v['utility']>=.0005 for v in delta.values()) and all(trade.values())
+    assert delta==data['primary_deltas'] and paired_gate==data['paired_seed_utility'] and trade==data['practical_tradeoff']
+    assert data['status']==('V111_POSITIVE_CANDIDATE_REQUIRES_CONFIRMATION' if passed else 'V111_NO_PRACTICAL_SEQUENTIAL_RL_GAIN')
     old=read(Path(read(root/'CONFIG.private.json')['v108'])/'DEVELOPMENT_RESULTS.json');prior={(r['context'],r['stream'],r['method']):r for r in old['rows']};assert len(prior)==240 and prior.keys()<lookup.keys()
     differences=[]
     for key in prior:

@@ -67,7 +67,12 @@ def main(root,cfg):
         groups={}
         for r in rows:groups.setdefault(tuple(r[f] for f in fields),[]).append(r)
         return [dict(zip(fields,key),n=len(rs),**{k:st.mean(r[k] for r in rs) for k in metrics}) for key,rs in sorted(groups.items())]
-    for name,values in [('ENTRY_BASELINES',entries),('ABSOLUTE_RESULTS',rows),('METHOD_SUMMARY',aggregate(['stage','method'])),('ARM_SUMMARY',aggregate(['stage','arm'])),('CONTEXT_METHOD_SUMMARY',aggregate(['stage','context','method'])),('SEQUENCE_SUMMARY',aggregate(['stage','method','action_sequence']))]:D.write(root/(name+'.json'),values);D.table(root/(name+'.csv'),values)
+    sequence=aggregate(['stage','method','action_sequence'])
+    present={(r['stage'],r['method'],r['action_sequence']) for r in sequence}
+    for stage,method in sorted({(r['stage'],r['method']) for r in rows}):
+        for category in ('OFF->OFF','OFF->ON','ON->OFF','ON->ON'):
+            if (stage,method,category) not in present:sequence.append(dict(stage=stage,method=method,action_sequence=category,n=0,**{k:None for k in metrics}))
+    for name,values in [('ENTRY_BASELINES',entries),('ABSOLUTE_RESULTS',rows),('METHOD_SUMMARY',aggregate(['stage','method'])),('ARM_SUMMARY',aggregate(['stage','arm'])),('CONTEXT_METHOD_SUMMARY',aggregate(['stage','context','method'])),('SEQUENCE_SUMMARY',sequence)]:D.write(root/(name+'.json'),values);D.table(root/(name+'.csv'),values)
     D.write(root/'COSTS.json',dict(native_updates=0,actor_optimizer_updates=0,linear_solves=0,development_query_images=16,query_calls=4,counts=dict(counts),reused_V111_rows=264,reused_V108_rows=240,new_annotation_cases=0))
     D.write(root/'QUALIFICATION.json',dict(status='PASS',synthetic_arithmetic=True,all4_query_snapshot_RNG_preserved=True,query_role_guard=True,no_optimizer_capability=True,optimizer_calls=0))
     D.write(root/'FINAL.json',dict(status='COMPLETE',decision='ABSOLUTE_DIAGNOSTIC_NO_ORIGINAL_GATE_CHANGE',V111_original_decision=data['status'],publication='PENDING',time=time.time()))
