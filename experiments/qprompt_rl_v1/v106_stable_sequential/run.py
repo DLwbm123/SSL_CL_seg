@@ -16,6 +16,11 @@ import numpy as np
 import torch
 
 STAGE = 'V106'
+ACTION_COUNT = 12
+EXTRA_ACTION_INSTALLER = None
+QUALIFICATION_ACTIONS = ((0,9),(7,11))
+CONTROL_NAMES = ('SAMPLE_WARM','SAMPLE_CE','SAMPLE_DISTILL','UNIFORM','GLOBAL','RIDGE','NN')
+TRADE_CONTROLS = ('SAMPLE_WARM','SAMPLE_CE','SAMPLE_DISTILL','UNIFORM')
 ARMS = ('WARM', 'CE', 'RL', 'DISTILL')
 SEEDS = (601, 602)
 STREAMS = (3, 4, 5)
@@ -39,7 +44,8 @@ def fit(root, cfg, training=None):
         def step(self, category, key, optimizer):
             assert category == 'qualification'
             budget.step('actor_qualification', key, optimizer)
-    M.selfcheck(H,V,D,Qualification())
+    if ACTION_COUNT==12:M.selfcheck(H,V,D,Qualification())
+    else:M.selfcheck(H,V,D,Qualification(),actions=ACTION_COUNT)
     if training is None:
         keys, original, rewards, _, _ = D.dataset(cfg,'V101')
         saved = np.load(Path(cfg['v103'])/'FEATURES.private.npz')
@@ -47,11 +53,12 @@ def fit(root, cfg, training=None):
         values = saved['probes'].mean(1)
     else:
         keys, values, rewards = training
-    assert values.shape==(len(keys),24) and rewards.shape==(len(keys),12)
+    assert values.shape==(len(keys),24) and rewards.shape==(len(keys),ACTION_COUNT)
     assert np.isfinite(values).all() and np.isfinite(rewards).all()
     x=torch.tensor(values,dtype=torch.float32);returns=torch.tensor(rewards,dtype=torch.float32)
     global_action = int(rewards.mean(0).argmax())
-    assert all(int(rewards[[i for i,k in enumerate(keys) if k[2]==step]].mean(0).argmax())==global_action for step in (100,200)), 'time control admission changed'
+    time_actions=[int(rewards[[i for i,k in enumerate(keys) if k[2]==step]].mean(0).argmax()) for step in (100,200)]
+    if 'TIME' not in METHODS:assert all(a==global_action for a in time_actions), 'time control admission changed'
     fitrows=[]; logs=[]; distrows=[]
     for seed in SEEDS:
         rows,part = H.train_pair(x,returns,seed,f'FULL/{seed}',V,B,D,budget,root)
@@ -79,11 +86,11 @@ def fit(root, cfg, training=None):
     except BaseException:c.e.append(root/'LINEAR_SOLVE_LEDGER.jsonl',dict(event='failure',**record));raise
     c.e.append(root/'LINEAR_SOLVE_LEDGER.jsonl',dict(event='success',**record))
     assert np.allclose(matrix@coef,rhs,atol=1e-12,rtol=1e-10) and np.isfinite(coef).all()
-    np.savez(root/'PREDICTORS.private.npz',mean=mean,scale=scale,z=z,returns=rewards,coef=coef,intercept=intercept)
-    D.write(root/'CONTROLS.json',dict(global_action=global_action,time_equals_global=True,ridge_lambda=1,training_states=len(keys)))
+    np.savez(root/'PREDICTORS.private.npz',mean=mean,scale=scale,z=z,returns=rewards,coef=coef,intercept=intercept,time_actions=np.array(time_actions))
+    D.write(root/'CONTROLS.json',dict(global_action=global_action,time_actions=time_actions,time_equals_global=all(a==global_action for a in time_actions),ridge_lambda=1,training_states=len(keys)))
     assert dict(budget.count)=={k:CAPS[k] for k in ('actor_qualification','warmup','CE','RL','distillation')}
     for name,rows in [('FIT_SUMMARY',fitrows),('FIT_LOG',logs),('DISTILL_SUMMARY',distrows)]:D.write(root/(name+'.json'),rows);D.table(root/(name+'.csv'),rows)
-    D.write(root/'QUALIFICATION.json',dict(status='PASS',synthetic_actor_updates=1,grouped_target_and_KL_checks=True,ridge_residual_pass=True,global_time_identity=True))
+    D.write(root/'QUALIFICATION.json',dict(status='PASS',synthetic_actor_updates=1,grouped_target_and_KL_checks=True,ridge_residual_pass=True,global_time_identity=all(a==global_action for a in time_actions)))
     D.write(root/'FINAL.json',dict(status='COMPLETE',physical=dict(budget.count),models=8,linear_solves=1,time=time.time()))
 
 
@@ -101,15 +108,18 @@ def distribution(state, method, fitted, predictor, global_action):
     if method.startswith(('SAMPLE_','ARGMAX_')):
         actor,mean,std=fitted[method.split('_',1)[1]]
         with torch.no_grad():prob=actor((state.float()-mean)/std).softmax(-1)
-    elif method=='UNIFORM':prob=torch.ones(12)/12
+    elif method=='UNIFORM':prob=torch.ones(ACTION_COUNT)/ACTION_COUNT
     else:
         z=(state.double().numpy()-predictor['mean'])/predictor['scale']
         if method=='GLOBAL':action=global_action
+        elif method=='OFF':
+            assert ACTION_COUNT==13;action=12
+        elif method=='TIME':action=int(predictor['time_actions'][0 if float(state[0])<.5 else 1])
         elif method=='RIDGE':action=int((predictor['intercept']+z@predictor['coef']).argmax())
         elif method=='NN':action=int(predictor['returns'][int(np.argmin(((predictor['z']-z)**2).sum(-1)))].argmax())
         else:raise ValueError('unknown policy')
-        prob=torch.zeros(12);prob[action]=1.
-    assert prob.shape==(12,) and torch.isfinite(prob).all() and (prob>=0).all() and abs(float(prob.sum())-1)<1e-6
+        prob=torch.zeros(ACTION_COUNT);prob[action]=1.
+    assert prob.shape==(ACTION_COUNT,) and torch.isfinite(prob).all() and (prob>=0).all() and abs(float(prob.sum())-1)<1e-6
     return prob
 
 
@@ -124,6 +134,7 @@ def gpu_job(root,cfg):
     torch.set_num_threads(2);torch.cuda.set_device(0)
     random.seed(168);np.random.seed(168);torch.manual_seed(168)
     original=E.install_actions(c);E.action_check(c,original)
+    if EXTRA_ACTION_INSTALLER is not None:EXTRA_ACTION_INSTALLER(c)
     roles=c.split_roles(cfg['data']);assert roles==D.read(Path(cfg['action_root'])/'ROLES.private.json')
     ledger=b.JobLedger(root,cfg['caps']);campaign=Path(cfg['campaign']);counts=Counter()
     fitted=models(campaign) if cfg['job']!='evaluate' else {}
@@ -143,6 +154,10 @@ def gpu_job(root,cfg):
             def hook(module,args,name=name):counts[name+'_image_forwards']+=len(args[0])
             model.register_forward_pre_hook(hook)
         return t
+    def update(t):
+        before=t.provider.u_reads;t.update()
+        if t.action==12:
+            assert ACTION_COUNT==13 and t.provider.u_reads==before and not t.last['active_U'];counts['off_updates']+=1
     def state(t,key):
         parts=[]
         for j in range(4):
@@ -154,19 +169,19 @@ def gpu_job(root,cfg):
         return torch.tensor(np.mean(parts,axis=0),dtype=torch.float64)
     if cfg['job']=='qualification':
         keys,_,_,_,_=D.dataset(cfg,'V101');saved=np.load(Path(cfg['v103'])/'FEATURES.private.npz')['probes'].mean(1)
-        for i,action in ((0,9),(7,11)):
+        for i,action in QUALIFICATION_ACTIONS:
             ctx=b.contexts()[i];t=create(ctx);t.provider.seed=10168
             entry=torch.load(Path(cfg['v92'])/f'jobs/collect{i}_1/ENTRY100_STREAM.private.pt',map_location='cpu',weights_only=False)
             c.restore(t,entry);before=c.snapshot(t);s=state(t,f'{i}/first')
             assert torch.equal(s,torch.tensor(saved[keys.index((ctx[3],1,100))],dtype=torch.float64))
             chosen,prob=select(s,'SAMPLE_RL_601',fitted,predictor,global_action,torch.Generator().manual_seed(862600+i))
             assert c.e.same(before,c.snapshot(t));t.category='qualification';t.key=f'{i}';t.action=action
-            for _ in range(2):t.update()
+            for _ in range(2):update(t)
             expected=c.snapshot(t);c.restore(t,entry);s2=state(t,f'{i}/repeat')
             again,prob2=select(s2,'SAMPLE_RL_601',fitted,predictor,global_action,torch.Generator().manual_seed(862600+i))
             assert torch.equal(s,s2) and chosen==again and prob==prob2 and c.e.same(before,c.snapshot(t))
             t.action=action
-            for _ in range(2):t.update()
+            for _ in range(2):update(t)
             assert c.e.same(expected,c.snapshot(t))
             del t;torch.cuda.empty_cache()
         assert dict(ledger.count)=={'qualification':8} and counts['probe_extractions']==16
@@ -191,15 +206,15 @@ def gpu_job(root,cfg):
                         action,prob=select(s,method,fitted,predictor,global_action,generator)
                         assert c.e.same(before,c.snapshot(t));t.action=action
                         trace.append(dict(step=t.step,state=s.tolist(),probabilities=prob,action=action))
-                    t.update()
+                    update(t)
                     if t.step==150:c.e.atomic_save(c.snapshot(t),root/(method+'_MID.private.pt'))
                     if t.step%50==0:B.write(root/'STATUS.json',dict(status='RUNNING',method=method,step=t.step,physical=dict(ledger.count)))
                 c.e.atomic_save(c.snapshot(t),root/(method+'_FINAL.private.pt'))
                 D.write(root/(method+'_DECISIONS.private.json'),trace)
                 D.write(root/(method+'_TRAINING.json'),dict(status='SEALED',method=method,context=ctx[3],stream=stream,updates=200,actions=[r['action'] for r in trace]))
-            assert dict(ledger.count)=={'development':4000} and counts['probe_extractions']==160
+            assert dict(ledger.count)=={'development':200*len(METHODS)} and counts['probe_extractions']==8*len(METHODS)
         elif cfg['job']=='evaluate':
-            assert D.read(campaign/'ENDPOINT_LOCK.json')['trajectories']==240
+            assert D.read(campaign/'ENDPOINT_LOCK.json')['trajectories']==len(METHODS)*4*len(STREAMS)
             references=[r for r in D.read(Path(cfg['v87'])/'DEVELOPMENT_RESULTS.json')['rows'] if r['context']==ctx[3]]
             assert len({r['new_entry'] for r in references})==len({r['old_memory_reference'] for r in references})==1
             entrynew,reference=references[0]['new_entry'],references[0]['old_memory_reference'];rows=[]
@@ -215,7 +230,7 @@ def gpu_job(root,cfg):
                 c.restore(t,torch.load(src/(method+'_FINAL.private.pt'),map_location='cpu',weights_only=False));new=query('Q_dev_new',ctx[2]);old=query('Q_dev_old',('identity',1.))
                 value=B.reward(mid['macro'],new['macro'],entrynew,old['macro'],reference)
                 rows.append(dict(context=ctx[3],stream=stream,method=method,mid_new=mid['macro'],new=new['macro'],old=old['macro'],utility=value['reward'],gain=value['gain'],forget_penalty=value['forget_penalty'],absolute_forgetting=reference-old['macro'],new_entry=entrynew,old_memory_reference=reference,actions=D.read(src/(method+'_TRAINING.json'))['actions']))
-            assert not ledger.count and counts['query_images']==240
+            assert not ledger.count and counts['query_images']==12*len(METHODS)
             D.write(root/'RESULTS.json',rows)
         else:raise ValueError('unknown GPU job')
     D.write(root/'COUNTS.json',dict(counts))
@@ -226,10 +241,10 @@ def summary(rows):
     means={m:{k:st.mean(r[k] for r in rows if r['method']==m) for k in METRICS} for m in METHODS}
     for mode in ('SAMPLE','ARGMAX'):
         for arm in ARMS:means[f'{mode}_{arm}']={k:st.mean(means[f'{mode}_{arm}_{s}'][k] for s in SEEDS) for k in METRICS}
-    control_names=('SAMPLE_WARM','SAMPLE_CE','SAMPLE_DISTILL','UNIFORM','GLOBAL','RIDGE','NN')
+    control_names=CONTROL_NAMES
     delta={m:{k:means['SAMPLE_RL'][k]-means[m][k] for k in ('new','old','utility')} for m in control_names}
     paired={f'{arm}_{s}':means[f'SAMPLE_RL_{s}']['utility']-means[f'SAMPLE_{arm}_{s}']['utility'] for arm in ('WARM','CE','DISTILL') for s in SEEDS}
-    trade={m:(delta[m]['new']>=.002 and delta[m]['old']>=-.0025) or (delta[m]['old']>=.005 and delta[m]['new']>=-.0025) for m in ('SAMPLE_WARM','SAMPLE_CE','SAMPLE_DISTILL','UNIFORM')}
+    trade={m:(delta[m]['new']>=.002 and delta[m]['old']>=-.0025) or (delta[m]['old']>=.005 and delta[m]['new']>=-.0025) for m in TRADE_CONTROLS}
     passed=all(v>0 for v in paired.values()) and all(v['utility']>=.0005 for v in delta.values()) and all(trade.values())
     return dict(status=STAGE+'_POSITIVE_CANDIDATE_REQUIRES_CONFIRMATION' if passed else STAGE+'_NO_PRACTICAL_SEQUENTIAL_RL_GAIN',means=means,primary_deltas=delta,paired_seed_utility=paired,practical_tradeoff=trade,independent_patient_or_source_confirmation=False)
 
@@ -244,8 +259,8 @@ def selfcheck():
     assert summary(rows)['status'].startswith(STAGE+'_POSITIVE')
     for r in rows:r['utility']=0.
     assert summary(rows)['status'].startswith(STAGE+'_NO_')
-    assert len(METHODS)==20 and len(rows)==240 and 240*200==CAPS['development']
-    state=torch.zeros(24);pred=dict(mean=np.zeros(24),scale=np.ones(24),z=np.zeros((2,24)),returns=np.array([[0.,1.]+[0.]*10,[1.,0.]+[0.]*10]),coef=np.zeros((24,12)),intercept=np.zeros(12))
+    assert len(rows)==len(METHODS)*4*len(STREAMS) and len(rows)*200==CAPS['development']
+    state=torch.zeros(24);pred=dict(mean=np.zeros(24),scale=np.ones(24),z=np.zeros((2,24)),returns=np.array([[0.,1.]+[0.]*(ACTION_COUNT-2),[1.,0.]+[0.]*(ACTION_COUNT-2)]),coef=np.zeros((24,ACTION_COUNT)),intercept=np.zeros(ACTION_COUNT))
     assert select(state,'RIDGE',{},pred,0,torch.Generator())[0]==0
     assert select(state,'NN',{},pred,0,torch.Generator())[0]==1
     assert select(state,'GLOBAL',{},pred,3,torch.Generator())[0]==3
@@ -280,27 +295,27 @@ def coordinator(root,cfg):
     lock=(root/'COORDINATOR.lock').open('a');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
     selfcheck();D.write(root/'SELF_CHECK.json',dict(status='PASS',optimizer_updates=0,checks=['positive_and_negative_decision','full_matrix_counts','simple_action_ties']))
     fitjobs=[dict(id='fit',job='fit',caps={})];qual=[dict(id='qualification',job='qualification',caps=dict(qualification=8))]
-    train=[dict(id=f'train{i}_{s}',job='train',context_index=i,stream=s,caps=dict(development=4000)) for i in range(4) for s in STREAMS]
+    train=[dict(id=f'train{i}_{s}',job='train',context_index=i,stream=s,caps=dict(development=200*len(METHODS))) for i in range(4) for s in STREAMS]
     evaluate=[dict(id=f'evaluate{i}_{s}',job='evaluate',context_index=i,stream=s,caps={}) for i in range(4) for s in STREAMS]
     jobs=fitjobs+qual+train+evaluate
     (root/'jobs').mkdir(exist_ok=False);(root/'PHYSICAL_LEDGER.jsonl').touch(exist_ok=False)
     account=Accounting(root,caps=CAPS,jobs=jobs)
     schedule(root,cfg,fitjobs,account,cpu=True)
-    D.write(root/'FIT_LOCK.json',dict(status='SEALED_BEFORE_DEPLOYMENT',actors=8,controls=4,time=time.time()))
+    D.write(root/'FIT_LOCK.json',dict(status='SEALED_BEFORE_DEPLOYMENT',actors=8,controls=len(METHODS)-16,time=time.time()))
     schedule(root,cfg,qual,account);schedule(root,cfg,train,account)
     assert dict(account.count)==CAPS and not account.failure
-    assert sum(len(list((root/'jobs'/j['id']).glob('*_TRAINING.json'))) for j in train)==240
-    D.write(root/'ENDPOINT_LOCK.json',dict(status='SEALED_BEFORE_QUERY_READOUT',trajectories=240,snapshots=480,time=time.time(),physical=dict(account.count)))
+    assert sum(len(list((root/'jobs'/j['id']).glob('*_TRAINING.json'))) for j in train)==len(METHODS)*len(train)
+    D.write(root/'ENDPOINT_LOCK.json',dict(status='SEALED_BEFORE_QUERY_READOUT',trajectories=len(METHODS)*len(train),snapshots=2*len(METHODS)*len(train),time=time.time(),physical=dict(account.count)))
     schedule(root,cfg,evaluate,account)
     rows=sum((D.read(root/'jobs'/j['id']/'RESULTS.json') for j in evaluate),[])
-    assert len(rows)==len({(r['context'],r['stream'],r['method']) for r in rows})==240
+    assert len(rows)==len({(r['context'],r['stream'],r['method']) for r in rows})==len(METHODS)*len(train)
     counts=Counter()
     for j in qual+train+evaluate:counts.update(D.read(root/'jobs'/j['id']/'COUNTS.json'))
-    assert counts['query_images']==2880 and counts['probe_extractions']==1936
+    assert counts['query_images']==12*len(rows) and counts['probe_extractions']==8*len(rows)+16
     decision=summary(rows)
     D.write(root/'DEVELOPMENT_RESULTS.json',dict(rows=rows,**decision));D.table(root/'DEVELOPMENT_RESULTS.csv',rows)
     D.write(root/'DECISION.json',decision)
-    B.write(root/'COSTS.json',dict(native_updates=48008,actor_optimizer_updates=4097,linear_data_solves=1,physical=dict(account.count),success=dict(account.success),failures=dict(account.failure),counts=dict(counts),new_annotation_cases=0))
+    B.write(root/'COSTS.json',dict(native_updates=CAPS['development']+CAPS['qualification'],actor_optimizer_updates=4097,linear_data_solves=1,physical=dict(account.count),success=dict(account.success),failures=dict(account.failure),counts=dict(counts),new_annotation_cases=0))
     D.write(root/'FINAL.json',dict(status='COMPLETE',decision=decision['status'],time=time.time(),physical=dict(account.count),publication='PENDING'))
     B.write(root/'STATUS.json',D.read(root/'FINAL.json'))
 

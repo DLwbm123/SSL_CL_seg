@@ -37,9 +37,9 @@ def update(actor, opt, z, logtarget, budget, category, key):
     return float(value.detach())
 
 
-def selfcheck(h, v, d, budget):
+def selfcheck(h, v, d, budget, actions=12):
     z = torch.zeros((3, 24)); z[2] = 1
-    adv = torch.linspace(-2, 2, 36).reshape(3, 12)
+    adv = torch.linspace(-2, 2, 3*actions).reshape(3, actions)
     actor = h.fresh(v, 601); prior = actor(z).detach().log_softmax(-1)
     star = target(z, adv, prior, d)
     assert torch.equal(star[0], star[1])
