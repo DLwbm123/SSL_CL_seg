@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T10:20:13.276863+00:00",
+  "updated_at_utc": "2026-10-09T10:22:17.903008+00:00",
   "active_stage": "V123_MODEL_HOLDOUT",
-  "status": "PREPARED_NOT_STARTED",
-  "preregistration_commit": null,
-  "execution_commit": null,
+  "status": "RUNNING",
+  "preregistration_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
+  "execution_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
   "student_updates_cap": 35224,
   "actor_updates_cap": 0,
   "prior_stages": {
@@ -2654,6 +2654,41 @@
     ],
     "model_holdout": true,
     "research_independent": false,
-    "report": "experiments/qprompt_rl_v1/v123_model_holdout/REPORT.md"
+    "report": "experiments/qprompt_rl_v1/v123_model_holdout/REPORT.md",
+    "startup": {
+      "status": "RUNNING_STARTUP_VERIFIED",
+      "run_id": "v123_holdout_20261009T101910Z",
+      "execution_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
+      "launch_time_utc": "2026-10-09T10:20:33.480552+00:00",
+      "GPU_ids": [
+        4,
+        5,
+        6,
+        7
+      ],
+      "free_memory_mib": {
+        "4": 24121,
+        "5": 24121,
+        "6": 24121,
+        "7": 24121
+      },
+      "NAS_mount_probe": "PASS",
+      "free_storage_gib": 13991.7,
+      "no_overlapping_EXEC_RUN": true,
+      "neutral_coordinator_and_child_argv": true,
+      "neutral_GPU_processes": true,
+      "initial_active_jobs": [
+        "entry0_3",
+        "entry0_4",
+        "entry1_3",
+        "entry1_4"
+      ],
+      "initial_physical": {
+        "entries": 81
+      },
+      "initial_failures": [],
+      "selfcheck": "PASS",
+      "warning": "PyTorch reports optimizer.step wrapper replacement; existing engine calls optimizer.step before scheduler.step. Per-update rates recorded. No runtime failure at startup."
+    }
   }
 }
