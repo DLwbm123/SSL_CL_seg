@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T08:55:41.783951+00:00",
+  "updated_at_utc": "2026-10-09T09:00:34.333404+00:00",
   "active_stage": "V119_CROSS_IMAGE",
-  "status": "PREREGISTERED_NOT_STARTED",
-  "preregistration_commit": "PENDING",
-  "execution_commit": null,
+  "status": "COMPLETE",
+  "preregistration_commit": "84b0ea55bced3d7d239d461ad420633f3fe8dcd8",
+  "execution_commit": "84b0ea55bced3d7d239d461ad420633f3fe8dcd8",
   "student_updates_cap": 0,
   "actor_updates_cap": 0,
   "prior_stages": {
@@ -927,5 +927,49 @@
     "query_calls": 0,
     "U_images": 0,
     "scope": "A_fit prototype-held-out only; model trained on same images"
+  },
+  "V119_complete": {
+    "decision": {
+      "status": "NO_RELIABLE_CROSS_IMAGE_TARGET_QUALITY_SIGNAL",
+      "equal_context_weighted_net_accuracy": -0.002453378645410874,
+      "equal_context_weighted_nll_delta": 0.041428233627873096,
+      "joint_positive_contexts": 1,
+      "groups": [
+        {
+          "group": "labeled_images=2",
+          "weighted_net_accuracy": 0.0030745294510588616,
+          "weighted_nll_delta": 0.03185954186171738
+        },
+        {
+          "group": "labeled_images=8",
+          "weighted_net_accuracy": -0.007981286741880611,
+          "weighted_nll_delta": 0.0509969253940288
+        },
+        {
+          "group": "source_step=2000",
+          "weighted_net_accuracy": -0.014491364565078338,
+          "weighted_nll_delta": 0.05149992122133013
+        },
+        {
+          "group": "source_step=8000",
+          "weighted_net_accuracy": 0.00958460727425659,
+          "weighted_nll_delta": 0.031356546034416045
+        }
+      ],
+      "train_only_signal": false,
+      "campaign_success": false,
+      "independent_confirmation": false,
+      "held_out_from_model_training": false
+    },
+    "native_updates": 0,
+    "model_image_forwards": 160,
+    "current_labeled_diagnostic_images": 40,
+    "query_calls": 0,
+    "repair_count": 42293,
+    "harm_count": 66311,
+    "cumulative_native_excluding_source": 841061,
+    "cumulative_native_including_source": 849061,
+    "cumulative_actor": 181593,
+    "cumulative_linear_solves": 57
   }
 }
