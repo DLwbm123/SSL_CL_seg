@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T09:21:46.918953+00:00",
-  "active_stage": "V120_TRANSITION",
-  "status": "COMPLETE",
-  "preregistration_commit": "231ab451ee2469ff01f83c5758267f7839500360",
-  "execution_commit": "231ab451ee2469ff01f83c5758267f7839500360",
+  "updated_at_utc": "2026-10-09T09:29:55.090290+00:00",
+  "active_stage": "V121_INCREMENTAL",
+  "status": "PRE_REGISTERED_NOT_STARTED",
+  "preregistration_commit": null,
+  "execution_commit": null,
   "student_updates_cap": 0,
   "actor_updates_cap": 0,
   "prior_stages": {
@@ -43,7 +43,8 @@
     "V116": "NO_RELIABLE_REGION_SELECTION_SIGNAL",
     "V117": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
     "V118": "NO_RELIABLE_TRAIN_ONLY_TARGET_REPAIR_SIGNAL",
-    "V119": "NO_RELIABLE_CROSS_IMAGE_TARGET_QUALITY_SIGNAL"
+    "V119": "NO_RELIABLE_CROSS_IMAGE_TARGET_QUALITY_SIGNAL",
+    "V120": "OBSERVABLE_TRANSITION_QUALITY_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -87,7 +88,7 @@
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
   "next": "Read V117 posthoc analysis before any separately frozen next hypothesis: current three-action observed table cannot meet practical gates even at coordinatewise oracle; no more full RL/deployment of identical recipe based on state learning alone.",
-  "run_id": "v120_transition_20261009T091857Z",
+  "run_id": "v121_incremental_20261009T092927Z",
   "decision": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
@@ -1636,5 +1637,24 @@
     "retain_history_free_parameter_memory": true,
     "no_full_RL_promotion": true,
     "reference": "v120_transition/REPORT.md"
+  },
+  "V121_plan": {
+    "run_id": "v121_incremental_20261009T092927Z",
+    "arms": [
+      "BASE",
+      "PROTO",
+      "EMA",
+      "SHUFFLE"
+    ],
+    "candidate": "V120 transition1->0 union2->1",
+    "contexts": 8,
+    "labeled_diagnostic_exposures": 40,
+    "model_image_forwards": 160,
+    "native_updates": 0,
+    "actor_updates": 0,
+    "query_calls": 0,
+    "U_images": 0,
+    "aggregate_rows": 32,
+    "scope": "incremental prototype information; development only"
   }
 }
