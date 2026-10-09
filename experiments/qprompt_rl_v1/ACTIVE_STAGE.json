@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T10:54:39.306755+00:00",
+  "updated_at_utc": "2026-10-09T10:57:07.089634+00:00",
   "active_stage": "V124_CONFLICT_ABSTENTION",
-  "status": "PREREGISTERED_NOT_STARTED",
-  "preregistration_commit": null,
-  "execution_commit": null,
+  "status": "RUNNING",
+  "preregistration_commit": "3267e68401a8974a63bd0ecf402ec2577c7c2ba3",
+  "execution_commit": "3267e68401a8974a63bd0ecf402ec2577c7c2ba3",
   "student_updates_cap": 32024,
   "actor_updates_cap": 0,
   "prior_stages": {
@@ -90,7 +90,7 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "Launch separately authorized V124 fixed conflict-abstention protocol after source publication; preserve V123 failure and all historical costs.",
+  "next": "Let the fixed V124 five-arm background experiment finish; no restart, tuning or new experiment. On completion audit once and publish all results.",
   "run_id": "v124_abstention_20261009T105359Z",
   "decision": "PENDING",
   "automation_id": "ssl-cl",
@@ -3001,7 +3001,7 @@
     }
   },
   "V124": {
-    "status": "PREREGISTERED_NOT_STARTED",
+    "status": "RUNNING",
     "run_id": "v124_abstention_20261009T105359Z",
     "methods": [
       "BASE",
@@ -3021,6 +3021,45 @@
     "prior_actor": 181593,
     "prior_solves": 57,
     "model_level_holdout": true,
-    "independent_confirmation": false
+    "independent_confirmation": false,
+    "startup": {
+      "launch": {
+        "run_id": "v124_abstention_20261009T105359Z",
+        "pid": 3565403,
+        "commit": "3267e68401a8974a63bd0ecf402ec2577c7c2ba3",
+        "time": 1791543330.2408473,
+        "storage_probe": "PASS",
+        "mount": "nfs",
+        "free_memory_mib": {
+          "4": 24121,
+          "5": 24121,
+          "6": 24121,
+          "7": 24121
+        },
+        "free_storage_gib": 13990.0,
+        "no_overlapping_EXEC_RUN": true
+      },
+      "checked_at_utc": "2026-10-09T10:56:38.183461+00:00",
+      "status": "RUNNING",
+      "qualification": {
+        "status": "PASS",
+        "native_updates": 24,
+        "BASE_golden_exact": true,
+        "all_five_checkpoint_replays_exact": true,
+        "frozen_memory": true,
+        "teacher_gradients_none": true
+      },
+      "workers": [
+        3565732,
+        3565742,
+        3565751,
+        3565760
+      ],
+      "gpu_worker_count": 4,
+      "gpu_worker_memory_mib_each": 2196,
+      "neutral_main_and_all_worker_ps_nvidia": true,
+      "no_immediate_failure": true,
+      "scientific_result": null
+    }
   }
 }
