@@ -82,3 +82,7 @@ Cumulative campaign physical costs through V116: 818641 native updates excluding
 Published: executed source and frozen protocol/repair notes; every anonymous scalar trajectory and paired comparison; method/context/stream tables; all training-group branch rewards; selection summaries; costs and audit receipts. Private images, labels, decision features, checkpoints and raw logs remain on NAS. Recovery run: `v116_recovery_20261009T053320Z`; execution commit: `25c4547bb546f9ca555b85713bebc166d6a7588d`.
 
 This round is complete. No additional seed, epoch, threshold sweep or model query was added during readout. Further research requires a separately frozen single hypothesis; the original matched-target/fresh-stream confirmation gates remain in force.
+
+## Subsequent user-requested mechanism diagnosis
+
+The final policies were scored on all saved same-seed training decision states without new image evaluation or training. Mean normalized RL entropy is0.9999899/0.9999972, close to the uniform value1. Thus there is direct evidence of weak final selection preference on these training states; deployment-state entropy was not measured. See DIAGNOSIS.md, POLICY_AUDIT.json and policy_audit.py. This post-hoc diagnostic adds512CPU actor-forward calls,0segmentation forwards,0queries and0optimizer updates; original experiment counts and negative conclusions are unchanged.

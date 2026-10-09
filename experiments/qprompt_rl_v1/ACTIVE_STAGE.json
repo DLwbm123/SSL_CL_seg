@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-10-09T06:42:59.055013+00:00",
+  "updated_at_utc": "2026-10-09T06:53:48.841293+00:00",
   "active_stage": "V116_REGION_SELECTOR",
   "status": "COMPLETE",
   "preregistration_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
@@ -82,7 +82,7 @@
     "V114": "e4419dba2ae49850352d032d0d9dc04c4785c834",
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10"
   },
-  "next": "V116 complete: preserve negative pilot, full costs and limitations; separately preregister the next single evidence-selection hypothesis before any new model work",
+  "next": "Read V116 DIAGNOSIS and POLICY_AUDIT before separately freezing a next hypothesis: final actor is near uniform on observed training states, mandatory fixed-mass allocation cannot abstain, and absolute continuation remains negative",
   "run_id": "v116_recovery_20261009T053320Z",
   "decision": "NO_RELIABLE_REGION_SELECTION_SIGNAL",
   "automation_id": "ssl-cl",
@@ -623,5 +623,23 @@
     "cumulative_native_including_source": 826641,
     "cumulative_actor": 181593,
     "cumulative_linear_solves": 57
+  },
+  "V116_posthoc_diagnosis": {
+    "status": "COMPLETE",
+    "scope": "final actor scoring on all saved same-seed training decision states; not deployment or independent data",
+    "training_states": 217624,
+    "RL_normalized_entropy": [
+      0.9999899058167052,
+      0.9999971594447378
+    ],
+    "RL_total_variation_from_uniform": [
+      0.0028800688370865797,
+      0.001511308697703537
+    ],
+    "actor_forward_calls": 512,
+    "segmentation_forwards": 0,
+    "new_queries": 0,
+    "optimizer_updates": 0,
+    "reference": "v116_region_selector/DIAGNOSIS.md"
   }
 }
