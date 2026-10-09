@@ -1,7 +1,7 @@
 {
   "updated_at_utc": "2026-10-09T02:36:09.262849+00:00",
   "active_stage": "V113_QUARTER_SCHEDULE",
-  "status": "RUNNING",
+  "status": "COMPLETE_METADATA_RECOVERED",
   "preregistration_commit": "7947596f1fee0f35903b35c7b5748eebaaa49e2e",
   "execution_commit": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
   "student_updates_cap": 7208,
@@ -36,7 +36,8 @@
     "V109": "ACTION_MARGIN_DIAGNOSTIC_COMPLETE_NO_DEPLOYMENT_CLAIM",
     "V110": "OFF_PREFIX_COVERAGE_COMPLETE_NO_DEPLOYMENT_CLAIM",
     "V111": "V111_NO_PRACTICAL_SEQUENTIAL_RL_GAIN",
-    "V112": "ABSOLUTE_DIAGNOSTIC_COMPLETE"
+    "V112": "ABSOLUTE_DIAGNOSTIC_COMPLETE",
+    "V113": "RATE_SENSITIVITY_PARTIAL_MITIGATION_NO_ABSOLUTE_POSITIVE"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -75,9 +76,9 @@
     "V111": "9a20385c4640bbf1b3d5cc126ecfc5cf96e4beea",
     "V112": "8910a80c751f28589aaeb60c6fceb129fc668cfe"
   },
-  "next": "Complete V11336 paired trajectories; audit .25 effective rates and absolute entry benefit, publish all results, then freeze next single evidence-based hypothesis",
+  "next": "Publish V113 full paired/absolute result, freeze and launch Adam-state restart at fixed quarter rate",
   "run_id": "v113_quarter_20261009T023402Z",
-  "decision": "PENDING_COMPLETE_RATE_DIAGNOSTIC",
+  "decision": "RATE_SENSITIVITY_SIGNAL_ABSOLUTE_CONTINUATION_NEGATIVE",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -348,6 +349,33 @@
     },
     "reused_V111_rows": 264,
     "reused_V108_rows": 240,
+    "new_annotation_cases": 0
+  },
+  "previous_stage_physical_V113": {
+    "native_updates": 7208,
+    "actor_optimizer_updates": 0,
+    "linear_solves": 0,
+    "physical": {
+      "qualification": 8,
+      "development": 7200
+    },
+    "success": {
+      "qualification": 8,
+      "development": 7200
+    },
+    "failures": {},
+    "counts": {
+      "probe_extractions": 304,
+      "item_attempts_train_labeled": 23272,
+      "item_success_train_labeled": 23272,
+      "student_image_forwards": 45680,
+      "item_attempts_train_unlabeled": 15632,
+      "item_success_train_unlabeled": 15632,
+      "ema_image_forwards": 7816,
+      "memory_image_forwards": 15632,
+      "off_updates": 3604,
+      "query_images": 432
+    },
     "new_annotation_cases": 0
   }
 }

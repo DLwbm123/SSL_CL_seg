@@ -74,7 +74,7 @@ def coordinator(root,cfg):
     for j in qual+train+evaluate:counts.update(N.D.read(root/'jobs'/j['id']/'COUNTS.json'))
     assert counts['query_images']==432 and counts['probe_extractions']==304
     N.D.write(root/'DEVELOPMENT_RESULTS.json',dict(status='V113_COMPLETE_REQUIRES_MATCHED_ABSOLUTE_ANALYSIS',rows=rows));N.D.table(root/'DEVELOPMENT_RESULTS.csv',rows)
-    N.D.write(root/'COSTS.json',dict(native_updates=7208,actor_optimizer_updates=0,linear_solves=0,physical=dict(account.count),success=dict(account.success),failures=dict(account.failure),counts=dict(counts),new_annotation_cases=0))
+    N.B.write(root/'COSTS.json',dict(native_updates=7208,actor_optimizer_updates=0,linear_solves=0,physical=dict(account.count),success=dict(account.success),failures=dict(account.failure),counts=dict(counts),new_annotation_cases=0))
     N.D.write(root/'FINAL.json',dict(status='COMPLETE',decision='PENDING_MATCHED_ABSOLUTE_ANALYSIS',time=time.time(),publication='PENDING'));N.B.write(root/'STATUS.json',N.D.read(root/'FINAL.json'))
 
 

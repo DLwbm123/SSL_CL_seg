@@ -20,8 +20,11 @@ def table(path,rows):
 
 def main(root):
     lock=(root/'COORDINATOR.lock').open('r');fcntl.flock(lock,fcntl.LOCK_EX|fcntl.LOCK_NB)
-    assert read(root/'FINAL.json')['status']=='COMPLETE' and read(root/'EXIT.json')['exit_code']==0 and not (root/'FAILURE.json').exists()
-    costs=read(root/'COSTS.json');caps=costs['physical'];assert sum(caps.values())==7208
+    recovered=(root/'METADATA_RECOVERY.json').exists()
+    if recovered:
+        assert read(root/'METADATA_RECOVERY.json')['status']=='COMPLETE' and read(root/'EXIT.json')['exit_code']==1 and read(root/'FAILURE.json')['error']=="FileExistsError(17, 'File exists')"
+    else:assert read(root/'FINAL.json')['status']=='COMPLETE' and read(root/'EXIT.json')['exit_code']==0 and not (root/'FAILURE.json').exists()
+    costs=read(root/('COMPLETED_COSTS.json' if recovered else 'COSTS.json'));caps=costs['physical'];assert sum(caps.values())==7208
     ledger=events(root/'PHYSICAL_LEDGER.jsonl');keys=lambda r:(r['event'],r['category'],r['key'],r['ordinal'])
     joint=Counter();counts=Counter();jobs=[];queries=probes=0;barrier=read(root/'ENDPOINT_LOCK.json')['time']
     for job in sorted((root/'jobs').iterdir()):
@@ -67,7 +70,7 @@ def main(root):
     for name,values in [('PAIRED_RESULTS',paired),('METHOD_SUMMARY',summary)]:write(root/(name+'.json'),values);table(root/(name+'.csv'),values)
     decision=dict(status='RATE_SENSITIVITY_SIGNAL' if signal else 'NO_BROAD_RATE_SENSITIVITY_SIGNAL',positive_absolute_policies=[r['method'] for r in summary[:-1] if r['weighted_new_gain']>0 and r['final_new_minus_entry']>0],campaign_success=False)
     write(root/'DECISION.json',decision)
-    write(root/'COMPLETION_AUDIT.json',dict(status='PASS',jobs=jobs,all_root_child_optimizer_keys_exact=True,optimizer_attempt_success_pairs=7208,rate_invocations=7208,query_attempt_success_pairs=queries,probe_attempt_success_pairs=probes,all36_paired_actions_entry_references_exact=True,all72_snapshots_before_queries=True,root_exit_code=0))
+    write(root/'COMPLETION_AUDIT.json',dict(status='PASS',jobs=jobs,all_root_child_optimizer_keys_exact=True,optimizer_attempt_success_pairs=7208,rate_invocations=7208,query_attempt_success_pairs=queries,probe_attempt_success_pairs=probes,all36_paired_actions_entry_references_exact=True,all72_snapshots_before_queries=True,original_root_exit_code=read(root/'EXIT.json')['exit_code'],metadata_recovery=recovered))
     print(json.dumps(dict(decision=decision,summary=summary)))
 
 
