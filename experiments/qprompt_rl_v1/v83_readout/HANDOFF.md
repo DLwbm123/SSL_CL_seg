@@ -266,3 +266,8 @@ Completed08:27:09UTC/16:27local, root/all33jobs exit0 lockFREE; complete.py once
 
 
 V118 requested posthoc existing-scalar audit (0model/image/query/fit/opt): all9600updates have all3class support/noemptyprototype, so missing-class explanation ruled out. SEMANTICchanged7.9711% selected exposures vsROTATED99.5653%, firstsame-state6.5630%vs99.5604%; wrong-class control unmatched intervention size cannot isolate semantic value. NewscoreSEM−BASEnegative16/16 atall4checkpoints, gap−.00535779→−.01561886; changedfraction5.8076→9.8946% alongsidegrowingloss, feedbackonlyhypothesis. Firstsame-masknonbackgroundtargetshare+4.8462pp, notaccuracy/FPproof. Probability permutationtransfersconfidencewithoutvalidatingnewclass; argmaxdropsmargin, mayoverwritefrozenmemorytarget (notloggedseparately). Wholetrajectory3recipeoracleincrement0 on16measuredpairs, notdynamicRLbound. Updatepriorinterpretations; REPORTposthoc+POSTHOC_ANALYSIS.json. No newexperiment or queries.
+
+
+## V119 separately frozen — 2026-10-09
+
+User explicitly requested executing cross-image target-quality diagnostic. Frozen8ENTRY100states,40currentA_fit image/context exposures,160EMA/memory/flip/student imageforwards;0optimizer/solve/Qtrain/Qdev/Ureads. Fixedsupport nextmin(2,n−1)images cyclic excludesheldout; n2only1support/n8two; modelsalreadytrainedonAfit so notmodel-heldout/independent. Compare repair/harm,rawclassweightedrates,true-labelsoftNLL,all104context×scope aggregates;individualmetricsstayNAS. Single sign diagnosticgate only, fullhistoricalgatesunchanged. Run v119_cross_20261009T085455Z preparednotlaunched. Source/selfcheck/PREREG atv119_cross_image. Noautoextra supportset/threshold/snapshot searches.
