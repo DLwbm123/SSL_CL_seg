@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-09T01:21:41.922954+00:00",
-  "active_stage": "V110_OFF_PREFIX_COVERAGE",
-  "status": "COMPLETE_PUBLIC_VERIFIED",
-  "preregistration_commit": "74e42e76ef17ed5841b12c8cb61f639ecd376625",
-  "execution_commit": "50f8e2a31af841e1b55bcb86be071c590ca73e38",
-  "student_updates_cap": 48008,
-  "actor_updates_cap": 0,
+  "updated_at_utc": "2026-10-09T01:28:31.554067+00:00",
+  "active_stage": "V111_THIRTEEN_ACTION_SEQUENTIAL",
+  "status": "RUNNING",
+  "preregistration_commit": "5d20279fe97f54e259c4d480488ba5c8d704e16e",
+  "execution_commit": "d046788f820d92b53a2014c2d3b9b5882b3f19a9",
+  "student_updates_cap": 52808,
+  "actor_updates_cap": 4097,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -71,9 +71,9 @@
     "V109": "202ffb030afab1695d324b5d0996bce5cd2c486a",
     "V110": "8586e79433bd706f08dbe3ddc3ac3789b28d909d"
   },
-  "next": "Complete and publish all40 OFF-prefix13-action tables; then separately freeze V111 matched13-action fits and actual sequential deployment with fixedOFF control",
-  "run_id": "v110_prefix_20261008T232621Z",
-  "decision": "OFF_PREFIX_COVERAGE_COMPLETE_NO_DEPLOYMENT_CLAIM",
+  "next": "Complete264 trajectories and publish full matched13-action results plus all240 paired V108 differences; separately confirm a passing candidate or freeze next evidence-based hypothesis",
+  "run_id": "v111_sequence_20261009T012631Z",
+  "decision": "PENDING_COMPLETE_SEQUENTIAL_READOUT",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -143,29 +143,52 @@
   },
   "startup": {
     "status": "RUNNING",
-    "run_id": "v110_prefix_20261008T232621Z",
-    "execution_commit": "50f8e2a31af841e1b55bcb86be071c590ca73e38",
-    "preregistration_commit": "74e42e76ef17ed5841b12c8cb61f639ecd376625",
-    "observed_at_utc": "2026-10-08T23:28:13.477693+00:00",
-    "phase": "OFF_PREFIX_COLLECTION",
+    "run_id": "v111_sequence_20261009T012631Z",
+    "execution_commit": "d046788f820d92b53a2014c2d3b9b5882b3f19a9",
+    "preregistration_commit": "5d20279fe97f54e259c4d480488ba5c8d704e16e",
+    "observed_at_utc": "2026-10-09T01:28:31.554067+00:00",
+    "phase": "SEQUENTIAL_TRAINING",
     "gpus": [
       4,
       5,
       6,
       7
     ],
-    "qualification": {
-      "status": "PASS",
-      "paired_OFF_continuation_exact": 2,
-      "stable_repeat_exact": 2,
-      "full_snapshot_RNG_isolation": true,
-      "off_zero_U_reads": true,
-      "native_updates": 8,
-      "queries": 0
+    "fit": {
+      "status": "COMPLETE",
+      "physical": {
+        "actor_qualification": 1,
+        "warmup": 1024,
+        "CE": 1024,
+        "RL": 1024,
+        "distillation": 1024
+      },
+      "models": 8,
+      "linear_solves": 1,
+      "time": 1791509211.5704014
     },
-    "qualification_exit_code": 0,
+    "fit_qualification": {
+      "status": "PASS",
+      "synthetic_actor_updates": 1,
+      "grouped_target_and_KL_checks": true,
+      "ridge_residual_pass": true,
+      "global_time_identity": false
+    },
+    "native_qualification": {
+      "status": "PASS",
+      "native_updates": 8,
+      "paired_continuations": 2,
+      "old_stable_states_exact": 2,
+      "policy_student_RNG_isolation": true,
+      "probe_extractions": 16
+    },
+    "qualification_off_updates": 4,
+    "fit_and_qualification_exit_codes": [
+      0,
+      0
+    ],
     "workers_started_and_advanced": 4,
-    "minimum_updates_per_worker": 100,
+    "minimum_updates_per_worker": 50,
     "run_identities_verified": true,
     "neutral_parent_child_argv_and_gpu_display": "PASS",
     "nas_mount_write_probe": "PASS",
@@ -176,14 +199,13 @@
       "7": 24124
     },
     "failed_jobs_at_check": 0,
-    "planned_native_updates": 48008,
-    "planned_Q_train_images": 3840,
-    "planned_probe_extractions": 176,
-    "planned_behavior_extractions": 40,
-    "planned_actor_updates": 0,
-    "planned_Q_dev_images": 0,
-    "prior_launch_metadata_failures": 1,
-    "prior_failed_launch_model_operations": 0
+    "planned_native_updates": 52808,
+    "planned_actor_updates": 4097,
+    "planned_linear_data_solves": 1,
+    "planned_probe_extractions": 2128,
+    "planned_Q_dev_images": 3168,
+    "planned_Q_train_images": 0,
+    "planned_trajectories": 264
   },
   "previous_stage_physical_V108": {
     "native_updates": 48008,

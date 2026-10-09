@@ -1,0 +1,66 @@
+{
+  "status": "RUNNING",
+  "run_id": "v111_sequence_20261009T012631Z",
+  "execution_commit": "d046788f820d92b53a2014c2d3b9b5882b3f19a9",
+  "preregistration_commit": "5d20279fe97f54e259c4d480488ba5c8d704e16e",
+  "observed_at_utc": "2026-10-09T01:28:31.554067+00:00",
+  "phase": "SEQUENTIAL_TRAINING",
+  "gpus": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "fit": {
+    "status": "COMPLETE",
+    "physical": {
+      "actor_qualification": 1,
+      "warmup": 1024,
+      "CE": 1024,
+      "RL": 1024,
+      "distillation": 1024
+    },
+    "models": 8,
+    "linear_solves": 1,
+    "time": 1791509211.5704014
+  },
+  "fit_qualification": {
+    "status": "PASS",
+    "synthetic_actor_updates": 1,
+    "grouped_target_and_KL_checks": true,
+    "ridge_residual_pass": true,
+    "global_time_identity": false
+  },
+  "native_qualification": {
+    "status": "PASS",
+    "native_updates": 8,
+    "paired_continuations": 2,
+    "old_stable_states_exact": 2,
+    "policy_student_RNG_isolation": true,
+    "probe_extractions": 16
+  },
+  "qualification_off_updates": 4,
+  "fit_and_qualification_exit_codes": [
+    0,
+    0
+  ],
+  "workers_started_and_advanced": 4,
+  "minimum_updates_per_worker": 50,
+  "run_identities_verified": true,
+  "neutral_parent_child_argv_and_gpu_display": "PASS",
+  "nas_mount_write_probe": "PASS",
+  "free_memory_at_admission_mib": {
+    "4": 24124,
+    "5": 24124,
+    "6": 24124,
+    "7": 24124
+  },
+  "failed_jobs_at_check": 0,
+  "planned_native_updates": 52808,
+  "planned_actor_updates": 4097,
+  "planned_linear_data_solves": 1,
+  "planned_probe_extractions": 2128,
+  "planned_Q_dev_images": 3168,
+  "planned_Q_train_images": 0,
+  "planned_trajectories": 264
+}

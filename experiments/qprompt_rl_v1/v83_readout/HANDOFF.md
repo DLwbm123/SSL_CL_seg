@@ -177,3 +177,7 @@ Run v110_prefix_20261008T232621Z, source 50f8e2a31af841e1b55bcb86be071c590ca73e3
 ## V110 complete (2026-10-09 UTC)
 
 All41jobs/correctedrootexit0,48008native/3840Qtrain/176probe/40originalextracts;old80features1040returns exact,new520formulas and40reuse exact. OFFprefix continuedOFF13/40positive mean−.009720551083 vsoldbest. Equal120stateglobal11,step100OFF12,step20011; preserveTIME distinct nextstage. Cumulative716601nativeexclsource724601incl/177362actor/56solves. Initialzero-model-workmetadatafailure retained. NoQdev/noRLsuccess. NextV111matched13-action actualdeployment.
+
+## V111 startup (2026-10-09 UTC)
+
+V110fullypublished8586e79433bd706f08dbe3ddc3ac3789b28d909d withproxyremoteHEAD/anon200/NAS17files+FINAL_PUBLICATION. V111run v111_sequence_20261009T012631Z, prereg 5d20279fe97f54e259c4d480488ba5c8d704e16e, source d046788f820d92b53a2014c2d3b9b5882b3f19a9. Fit4097actor+1ridgeexit0,8modelssealed;qual8native/16probesaction9/OFF12 pairedexact/oldstate/RNGpass exit0. FourGPU4–7 workers atMID150/noerror/neutralargv/identityPASS. Frozen264trajectories528snapshots,52808native4097actor1ridge2128probes3168Qdev0Qtrain. Equal120stateweights,13actions,global/time separate,OFFtrue supervised. Numericgatesunchangednowall9controls. Must publish all240 pairedV108 differences;historycombined action/state/weight contrast notRLcausal orindependent. Hourlyactive, nofurtherpollnow.
