@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-10-09T12:25:45.002737+00:00",
-  "active_stage": "V124_CONFLICT_ABSTENTION",
+  "updated_at_utc": "2026-10-09T12:31:00.289107+00:00",
+  "active_stage": "V125_ACTION_MARGIN",
   "status": "COMPLETE",
-  "preregistration_commit": "3267e68401a8974a63bd0ecf402ec2577c7c2ba3",
-  "execution_commit": "3267e68401a8974a63bd0ecf402ec2577c7c2ba3",
-  "student_updates_cap": 32024,
+  "preregistration_commit": "2cd882726d611c05bd29d255faaa727bcf660694",
+  "execution_commit": "2cd882726d611c05bd29d255faaa727bcf660694",
+  "student_updates_cap": 0,
   "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
@@ -47,7 +47,8 @@
     "V120": "OBSERVABLE_TRANSITION_QUALITY_SIGNAL",
     "V121": "NO_RELIABLE_INCREMENTAL_PROTOTYPE_SIGNAL",
     "V122": "DEVELOPMENT_EMA_CONFLICT_SIGNAL",
-    "V123": "STOP_NO_MODEL_HELD_OUT_SIGNAL"
+    "V123": "STOP_NO_MODEL_HELD_OUT_SIGNAL",
+    "V124": "NO_RELIABLE_MODEL_HELD_OUT_ABSTENTION_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -90,9 +91,9 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "V124 complete; preserve negative result and full delivery. Assess the attainable policy margin on the sealed payoff table before any further learned training, under a separate protocol.",
-  "run_id": "v124_abstention_20261009T105359Z",
-  "decision": "NO_RELIABLE_MODEL_HELD_OUT_ABSTENTION_SIGNAL",
+  "next": "V125 bounds reject whole-trajectory selection among the five V124 recipes. Continuing campaign requires a separately frozen, different observable learning-usefulness hypothesis; no same-table selector/RL training or implicit re-run.",
+  "run_id": "v125_margin_20261009T122929Z",
+  "decision": "NO_PRACTICAL_POLICY_MARGIN_ON_FROZEN_TABLE",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -3167,5 +3168,474 @@
     "finished_at": "2026-10-09T19:42:41.473952+08:00",
     "cumulative_native_ex_source": 876309,
     "cumulative_native_including_source": 884309
+  },
+  "V125": {
+    "status": "COMPLETE",
+    "run_id": "v125_margin_20261009T122929Z",
+    "decision": {
+      "status": "NO_PRACTICAL_POLICY_MARGIN_ON_FROZEN_TABLE",
+      "full_gate_possible_not_ruled_out": false,
+      "absolute_upper_bound_failures": [
+        "fold=1: weighted new upper bound <=0",
+        "fold=1: final new upper bound <=0",
+        "stream=3: weighted new upper bound <=0",
+        "stream=3: final new upper bound <=0"
+      ],
+      "scope": "only whole-trajectory choice among these five measured actions on this finite table",
+      "independent_confirmation": false,
+      "learned_policy_tested": false,
+      "RL_benefit_tested": false,
+      "campaign_success": false
+    },
+    "comparisons": [
+      {
+        "control": "BASE",
+        "optimistic_upper_bounds": {
+          "gain": 0.0007109063881216571,
+          "final_new_gain": 0.0007114842883311212,
+          "old_gain": 9.936932474374771e-05,
+          "reward": 0.00043016683775931597
+        },
+        "fold_stream_reward_bounds": [
+          {
+            "group": "fold=0",
+            "reward": 5.193636752665043e-06
+          },
+          {
+            "group": "fold=1",
+            "reward": 0.0008551400387659669
+          },
+          {
+            "group": "stream=3",
+            "reward": 0.00021250772988423705
+          },
+          {
+            "group": "stream=4",
+            "reward": 0.0006478259456343949
+          }
+        ],
+        "context_reward_bounds": [
+          {
+            "context": 0,
+            "reward": 0.0
+          },
+          {
+            "context": 1,
+            "reward": 0.0
+          },
+          {
+            "context": 2,
+            "reward": 0.0
+          },
+          {
+            "context": 3,
+            "reward": 0.0
+          },
+          {
+            "context": 4,
+            "reward": 0.0
+          },
+          {
+            "context": 5,
+            "reward": 0.0
+          },
+          {
+            "context": 6,
+            "reward": 4.154909402132034e-05
+          },
+          {
+            "context": 7,
+            "reward": 0.0
+          },
+          {
+            "context": 8,
+            "reward": 0.0
+          },
+          {
+            "context": 9,
+            "reward": 0.0
+          },
+          {
+            "context": 10,
+            "reward": 3.130175173282623e-05
+          },
+          {
+            "context": 11,
+            "reward": 0.00541733019053936
+          },
+          {
+            "context": 12,
+            "reward": 0.0
+          },
+          {
+            "context": 13,
+            "reward": 0.0
+          },
+          {
+            "context": 14,
+            "reward": 0.0012886961922049522
+          },
+          {
+            "context": 15,
+            "reward": 0.00010379217565059662
+          }
+        ],
+        "possibly_positive_contexts": 5,
+        "necessary_conditions_pass": false,
+        "failure_reasons": [
+          "reward upper bound below .0005",
+          "both practical-arm upper bounds insufficient",
+          "fewer than12 potentially positive contexts"
+        ]
+      },
+      {
+        "control": "RANDOM_MATCHED",
+        "optimistic_upper_bounds": {
+          "gain": 0.0009050755179487169,
+          "final_new_gain": 0.0009218392660841346,
+          "old_gain": 0.00021066702902317047,
+          "reward": 0.0007356336718657985
+        },
+        "fold_stream_reward_bounds": [
+          {
+            "group": "fold=0",
+            "reward": 0.00042585740447975695
+          },
+          {
+            "group": "fold=1",
+            "reward": 0.0010454099392518401
+          },
+          {
+            "group": "stream=3",
+            "reward": 0.0004932463634759188
+          },
+          {
+            "group": "stream=4",
+            "reward": 0.0009780209802556783
+          }
+        ],
+        "context_reward_bounds": [
+          {
+            "context": 0,
+            "reward": 0.0006872944068163633
+          },
+          {
+            "context": 1,
+            "reward": 0.0013910047709941864
+          },
+          {
+            "context": 2,
+            "reward": 7.360265590250492e-05
+          },
+          {
+            "context": 3,
+            "reward": 0.0005315607413649559
+          },
+          {
+            "context": 4,
+            "reward": 0.00021464424207806587
+          },
+          {
+            "context": 5,
+            "reward": 0.00039751455187797546
+          },
+          {
+            "context": 6,
+            "reward": 0.0
+          },
+          {
+            "context": 7,
+            "reward": 0.00011123786680400372
+          },
+          {
+            "context": 8,
+            "reward": 0.0004295622929930687
+          },
+          {
+            "context": 9,
+            "reward": 0.00046921055763959885
+          },
+          {
+            "context": 10,
+            "reward": 2.6560388505458832e-05
+          },
+          {
+            "context": 11,
+            "reward": 0.005309781990945339
+          },
+          {
+            "context": 12,
+            "reward": 0.00035237614065408707
+          },
+          {
+            "context": 13,
+            "reward": 0.00046786293387413025
+          },
+          {
+            "context": 14,
+            "reward": 0.0011687837541103363
+          },
+          {
+            "context": 15,
+            "reward": 0.00013914145529270172
+          }
+        ],
+        "possibly_positive_contexts": 15,
+        "necessary_conditions_pass": false,
+        "failure_reasons": [
+          "both practical-arm upper bounds insufficient"
+        ]
+      },
+      {
+        "control": "UNIFORM_MATCHED",
+        "optimistic_upper_bounds": {
+          "gain": 0.0007860939804231748,
+          "final_new_gain": 0.0007948480197228491,
+          "old_gain": 0.00018282653763890266,
+          "reward": 0.0005888116429559886
+        },
+        "fold_stream_reward_bounds": [
+          {
+            "group": "fold=0",
+            "reward": 0.00023436383344233036
+          },
+          {
+            "group": "fold=1",
+            "reward": 0.0009432594524696469
+          },
+          {
+            "group": "stream=3",
+            "reward": 0.0003628883569035679
+          },
+          {
+            "group": "stream=4",
+            "reward": 0.0008147349290084094
+          }
+        ],
+        "context_reward_bounds": [
+          {
+            "context": 0,
+            "reward": 0.0002440321259200573
+          },
+          {
+            "context": 1,
+            "reward": 0.0005011889152228832
+          },
+          {
+            "context": 2,
+            "reward": 9.638839401304722e-05
+          },
+          {
+            "context": 3,
+            "reward": 0.00022109434939920902
+          },
+          {
+            "context": 4,
+            "reward": 0.00019293604418635368
+          },
+          {
+            "context": 5,
+            "reward": 0.0003656279295682907
+          },
+          {
+            "context": 6,
+            "reward": 0.00013222359120845795
+          },
+          {
+            "context": 7,
+            "reward": 0.00012141931802034378
+          },
+          {
+            "context": 8,
+            "reward": 0.00014351774007081985
+          },
+          {
+            "context": 9,
+            "reward": 0.00026380084455013275
+          },
+          {
+            "context": 10,
+            "reward": 0.0
+          },
+          {
+            "context": 11,
+            "reward": 0.00537201389670372
+          },
+          {
+            "context": 12,
+            "reward": 0.00016555003821849823
+          },
+          {
+            "context": 13,
+            "reward": 0.00023848935961723328
+          },
+          {
+            "context": 14,
+            "reward": 0.0012431228533387184
+          },
+          {
+            "context": 15,
+            "reward": 0.00011958088725805283
+          }
+        ],
+        "possibly_positive_contexts": 15,
+        "necessary_conditions_pass": false,
+        "failure_reasons": [
+          "both practical-arm upper bounds insufficient"
+        ]
+      },
+      {
+        "control": "OFF",
+        "optimistic_upper_bounds": {
+          "gain": 0.009247847025108058,
+          "final_new_gain": 0.0101833880180493,
+          "old_gain": 0.014757766737602651,
+          "reward": 0.02362550488760462
+        },
+        "fold_stream_reward_bounds": [
+          {
+            "group": "fold=0",
+            "reward": 0.026062781034852378
+          },
+          {
+            "group": "fold=1",
+            "reward": 0.021188228740356863
+          },
+          {
+            "group": "stream=3",
+            "reward": 0.023227708297781646
+          },
+          {
+            "group": "stream=4",
+            "reward": 0.024023301477427594
+          }
+        ],
+        "context_reward_bounds": [
+          {
+            "context": 0,
+            "reward": 0.015620463993400335
+          },
+          {
+            "context": 1,
+            "reward": 0.038357214303687215
+          },
+          {
+            "context": 2,
+            "reward": 0.015993510838598013
+          },
+          {
+            "context": 3,
+            "reward": 0.020134700811468065
+          },
+          {
+            "context": 4,
+            "reward": 0.029051775578409433
+          },
+          {
+            "context": 5,
+            "reward": 0.04640139173716307
+          },
+          {
+            "context": 6,
+            "reward": 0.02205416327342391
+          },
+          {
+            "context": 7,
+            "reward": 0.020889027742668986
+          },
+          {
+            "context": 8,
+            "reward": 0.034851230680942535
+          },
+          {
+            "context": 9,
+            "reward": 0.059529976919293404
+          },
+          {
+            "context": 10,
+            "reward": 0.007771468721330166
+          },
+          {
+            "context": 11,
+            "reward": 0.0
+          },
+          {
+            "context": 12,
+            "reward": 0.029162016697227955
+          },
+          {
+            "context": 13,
+            "reward": 0.02990627381950617
+          },
+          {
+            "context": 14,
+            "reward": 0.0035945791751146317
+          },
+          {
+            "context": 15,
+            "reward": 0.004690283909440041
+          }
+        ],
+        "possibly_positive_contexts": 15,
+        "necessary_conditions_pass": true,
+        "failure_reasons": []
+      }
+    ],
+    "oracles": [
+      {
+        "objective": "reward",
+        "gain": -0.0006240243965294212,
+        "final_new_gain": -0.0008917266386561096,
+        "old_gain": 0.009051861707121134,
+        "reward": 0.008427837310591713,
+        "selection_counts": {
+          "BASE": 22,
+          "RANDOM_MATCHED": 3,
+          "UNIFORM_MATCHED": 3,
+          "OFF": 3,
+          "IGNORE_C": 1
+        }
+      },
+      {
+        "objective": "final_new_gain",
+        "gain": -0.0003101209149463102,
+        "final_new_gain": -0.0005700571928173304,
+        "old_gain": 0.00812812172807753,
+        "reward": 0.00781800081313122,
+        "selection_counts": {
+          "BASE": 17,
+          "RANDOM_MATCHED": 1,
+          "IGNORE_C": 8,
+          "UNIFORM_MATCHED": 2,
+          "OFF": 4
+        }
+      },
+      {
+        "objective": "old_gain",
+        "gain": -0.0008716027368791401,
+        "final_new_gain": -0.0011380233336240053,
+        "old_gain": 0.009118067100644112,
+        "reward": 0.008246464363764971,
+        "selection_counts": {
+          "BASE": 20,
+          "RANDOM_MATCHED": 9,
+          "UNIFORM_MATCHED": 1,
+          "OFF": 1,
+          "IGNORE_C": 1
+        }
+      }
+    ],
+    "costs": {
+      "native_updates": 0,
+      "actor_updates": 0,
+      "linear_solves": 0,
+      "model_forwards": 0,
+      "image_reads": 0,
+      "query_calls": 0,
+      "new_annotation": 0,
+      "source_trajectories": 160,
+      "source_condition_streams": 32,
+      "oracle_rows": 96
+    }
   }
 }
