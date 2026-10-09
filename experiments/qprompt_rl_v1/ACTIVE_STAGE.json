@@ -1,7 +1,7 @@
 {
-  "updated_at_utc": "2026-10-09T05:35:51.693257+00:00",
+  "updated_at_utc": "2026-10-09T06:42:59.055013+00:00",
   "active_stage": "V116_REGION_SELECTOR",
-  "status": "RUNNING",
+  "status": "COMPLETE",
   "preregistration_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
   "execution_commit": "25c4547bb546f9ca555b85713bebc166d6a7588d",
   "student_updates_cap": 29608,
@@ -39,7 +39,8 @@
     "V112": "ABSOLUTE_DIAGNOSTIC_COMPLETE",
     "V113": "RATE_SENSITIVITY_PARTIAL_MITIGATION_NO_ABSOLUTE_POSITIVE",
     "V114": "NO_BROAD_OPTIMIZER_STATE_SENSITIVITY_SIGNAL",
-    "V115": "NO_BROAD_AGREEMENT_GATE_SIGNAL"
+    "V115": "NO_BROAD_AGREEMENT_GATE_SIGNAL",
+    "V116": "NO_RELIABLE_REGION_SELECTION_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -81,9 +82,9 @@
     "V114": "e4419dba2ae49850352d032d0d9dc04c4785c834",
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10"
   },
-  "next": "Complete two learned selectors and all84 trajectories; audit full cost/selection/query/actor barriers and publish all results; preserve historical targetCE/freshstream gates",
+  "next": "V116 complete: preserve negative pilot, full costs and limitations; separately preregister the next single evidence-selection hypothesis before any new model work",
   "run_id": "v116_recovery_20261009T053320Z",
-  "decision": "PENDING_LEARNED_REGION_SELECTION_PILOT",
+  "decision": "NO_RELIABLE_REGION_SELECTION_SIGNAL",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -553,5 +554,74 @@
     "parent_child_identity_neutral_argv": "PASS",
     "GPU_process_names_neutral": true,
     "original_failure_preserved": true
+  },
+  "V116_complete": {
+    "decision": {
+      "status": "NO_RELIABLE_REGION_SELECTION_SIGNAL",
+      "relative_gate": false,
+      "absolute_gate": false,
+      "each_seed_beats_imitation": true,
+      "comparisons": [
+        {
+          "control": "CE",
+          "new": 8.523308982455458e-05,
+          "old": 1.3817722598674642e-05,
+          "utility": 7.795076817274094e-05,
+          "utility_pass": false,
+          "practical_pass": false
+        },
+        {
+          "control": "RANDOM",
+          "new": 4.854612052440643e-05,
+          "old": -1.1196670432922495e-05,
+          "utility": 2.665421925485134e-05,
+          "utility_pass": false,
+          "practical_pass": false
+        },
+        {
+          "control": "CONFIDENCE",
+          "new": 0.003078959882259369,
+          "old": 0.0009298793350657197,
+          "utility": 0.003930810450886682,
+          "utility_pass": true,
+          "practical_pass": true
+        },
+        {
+          "control": "COVERAGE",
+          "new": -0.00031219981610774994,
+          "old": 0.0001362459734082222,
+          "utility": -0.00024248465585212375,
+          "utility_pass": false,
+          "practical_pass": false
+        },
+        {
+          "control": "GLOBAL_REUSED",
+          "new": 0.0008293365438779565,
+          "old": 5.531776696443558e-05,
+          "utility": 0.0008570659750451598,
+          "utility_pass": true,
+          "practical_pass": false
+        },
+        {
+          "control": "OFF_REUSED",
+          "new": 0.0027771182358264923,
+          "old": 0.0006999655937155458,
+          "utility": 0.003408838606749967,
+          "utility_pass": true,
+          "practical_pass": true
+        }
+      ],
+      "campaign_success": false
+    },
+    "recovery_actual": {
+      "native_updates": 30008,
+      "actor_optimizer_updates": 134,
+      "query_images": 4704,
+      "query_calls": 1176
+    },
+    "cumulative_native_excluding_source": 818641,
+    "cumulative_native_including_source": 826641,
+    "cumulative_actor": 181593,
+    "cumulative_linear_solves": 57
   }
 }
