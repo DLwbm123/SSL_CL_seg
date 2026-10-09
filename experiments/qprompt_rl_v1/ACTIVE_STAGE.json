@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-10-09T10:34:05.940836+00:00",
+  "updated_at_utc": "2026-10-09T10:43:55.701967+00:00",
   "active_stage": "V123_MODEL_HOLDOUT",
   "status": "COMPLETE",
   "preregistration_commit": "212c734d27ffda8e0b1bc75ded5efc15600fcedf",
@@ -2966,6 +2966,37 @@
     },
     "finished_at": "2026-10-09T18:27:50.457729+08:00",
     "cumulative_native_excluding_source": 844285,
-    "cumulative_native_including_source": 852285
+    "cumulative_native_including_source": 852285,
+    "posthoc": {
+      "status": "EXISTING_SCALARS_ONLY",
+      "changed_fraction": 0.006729243360157508,
+      "original_changed_accuracy": 0.6134932343469915,
+      "corrected_changed_accuracy": 0.38612604895382224,
+      "directions": [
+        {
+          "direction": "10",
+          "repaired": 10178.0,
+          "harmed": 21427.0,
+          "weighted_accuracy_contribution": -0.0009416161271118967,
+          "weighted_nll_contribution": 0.001052326561325793,
+          "joint_positive_contexts": 3
+        },
+        {
+          "direction": "21",
+          "repaired": 14163.0,
+          "harmed": 17247.0,
+          "weighted_accuracy_contribution": -0.0004947660157773882,
+          "weighted_nll_contribution": 0.0007507440511052057,
+          "joint_positive_contexts": 5
+        }
+      ],
+      "true_class_net": {
+        "class0": 10178.0,
+        "class1": -7264.0,
+        "class2": -17247.0
+      },
+      "stream_joint_agreement": 15,
+      "new_model_image_query_optimizer_calls": 0
+    }
   }
 }

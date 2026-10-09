@@ -114,3 +114,45 @@ A PyTorch warning notes optimizer.step wrapping after scheduler construction. Th
 Publish committed source/protocol, all32 quality rows and all16 context/subgroup summaries, exact costs, qualification, completion audit and this report. Private image IDs, images, labels, per-image details, checkpoints and raw logs remain on NAS. The startup publication is not the final publication; final delivery is confirmed separately by the NAS FINAL_PUBLICATION receipt with remote commit and anonymous HTTP status.
 
 This status closeout starts no next experiment. Preserve the failed prerequisite and the unspent conditional stage. Any future scientifically distinct hypothesis needs a separate frozen protocol and must not silently retry the failed rule or change this gate.
+
+
+## Posthoc analysis requested after completion
+
+Only existing public scalar results and code were read. No model/image/query/optimization call, new inference, seed, threshold, training or gate change. `posthoc.py` reconstructs the following additive contributions and checks synthetic known-count/NLL examples plus reconstruction identities for all32 rows. This is an exploratory decomposition, not additional preregistered passes or independent replications.
+
+### A small whole-mask change conceals an adverse conflict subset
+
+Only0.672924% of selected pixel exposures were changed. Restricted to the63,039 changed exposures, original target argmax accuracy was38,674/63,039=61.349323%, versus24,341/63,039=38.612605% after correction:−22.736719 percentage points. The other24 were wrong under both targets. These are pooled correlated pixel counts, not case means, deployment reliability or weighted primary metrics. Do not divide the equal-context primary delta by the pooled changed fraction to reconstruct a conditional primary effect.
+
+Unweighted equal-row accuracy also falls by0.153512pp and NLL worsens by0.001842043464. Thus the negative result is not solely produced by the specific EMA-class weights.
+
+### Exact action decomposition from available weights
+
+In this protocol only1→0 and2→1 can change targets, and scoring weights are fixed by original EMA argmax:0.5 for the former,1 for the latter. If R and Rw denote unweighted and weighted repair counts, R10=2(R−Rw), R21=2Rw−R; the same identities hold for harms. Unchanged pixels contribute zero NLL difference. For NLL sums D and Dw, D10=2(D−Dw), D21=2Dw−D. Normalize each weighted contribution by the original full selected-weight denominator before equal-row averaging. This reconstructs direction-specific additive target-quality effects without reopening images. It cannot identify how the24 both-wrong changes divide across directions or reconstruct probability margins/individual transitions.
+
+| direction | repaired | harmed | weighted accuracy contribution (pp) | weighted NLL contribution | jointly positive context means |
+| --- | --- | --- | --- | --- | --- |
+| 1→0 | 10178 | 21427 | -0.09416161 | +0.0010523266 | 3/16 |
+| 2→1 | 14163 | 17247 | -0.04947660 | +0.0007507441 | 5/16 |
+
+Both directions have adverse pooled accuracy and NLL effects.1→0 is negative in every fold/source/n/condition subgroup mean.2→1 has positive subgroup means in fold1, n2 and contrast, but remains negative overall and on the complementary groups; these are posthoc subsets, not deployable validation gates. Simply dropping1→0 does not produce an overall positive2→1 result on this evidence.
+
+The V122 published counts can likewise be decomposed:1→0 repaired8,964/harmed742;2→1 repaired5,308/harmed777. Those results and the V123 counts concern different states, fit membership and exposure sets; do not interpret their ratio as a controlled causal effect of holdout alone.
+
+### Directional limitation of the intervention
+
+Under the fixed rule, true class0 can only gain correctness through1→0; true class2 can only lose correctness through2→1. True class1 gains via2→1 and loses via1→0. Reconstructed unweighted net correct counts are therefore class0+10,178, class1−7,264, class2−17,247, summing to−14,333. Both-wrong changes contribute zero correctness difference. This is a structural consequence of the allowed class directions and exact target counts, not measured student under-segmentation or clinical performance. No class2 corrective action exists in this rule; a positive aggregate in V122 did not remove that limitation.
+
+At every changed location, the original selection admits EMAmax>.7. Under action11, disagreement between mixed-target and EMA argmax implies memory gate on; gate requires memorymax>.7 and memory/flip class agreement. The .75memory mixture then has memory's winning class (winning probability>.525, competing class<.475). Thus these are already confident EMA-versus-memory conflicts. The class-direction rule supplies no new location-specific evidence that EMA is correct. Replacing the swapped target by the full EMA vector at the same C positions would leave their argmax errors unchanged, although soft NLL/gradients could differ. Full-selected EMA_ONLY can also change positions outside C and has not been evaluated here.
+
+### Fold dependence is more evident than training-stream instability
+
+Both training streams have negative pooled accuracy/NLL effects, and the two streams agree on whether a context is jointly positive in15/16 contexts. This is descriptive consistency, not a significance test or independent-model replication.
+
+Fold0 changes44,969 exposures (0.961217% of selected), repairs14,936 and harms30,009:33.213992% repair share. Fold1 changes18,070 (0.385323%), repairs9,405 and harms8,665:52.047593% repair share. Within fold1,1→0 remains negative; positive2→1 offsets it. The folds switch both fitted and evaluated image sets, so their difference cannot isolate evaluation-image difficulty, training-image composition, anatomy or a specific causal mechanism. Selecting fold1 would be development-set selection, not recovery of the frozen gate.
+
+### Scientific consequence
+
+The exact two-direction rule is not qualified as a broadly reliable pseudo-target repair mechanism. More RL updates cannot supply evidence that the underlying correction action is beneficial. This finding does not prove that every learned arbitration policy is impossible or that all memory/EMA approaches fail. No paired continuous-training result exists here, so even a static negative cannot prove every downstream optimization outcome must be negative.
+
+The needed method question remains which observable evidence establishes when to retain, correct or abstain from memory/EMA supervision on unseen-to-model images. Neither high confidence nor the two class directions alone has established that reliability. Retain the historical-parameter-memory framework and the failed result; do not select a favorable fold/direction or relabel the halted StageB as authorized by unused budget. IGNORE_C itself is not known to help: on C the original target is correct more often than the replacement, so deleting C may also discard useful supervision. Any future training hypothesis must state this tradeoff and have its own frozen controls. No further experiment was launched for this analysis.
