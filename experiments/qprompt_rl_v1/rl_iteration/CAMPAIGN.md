@@ -72,3 +72,8 @@ User authorized continuing after V117/Pro analysis. Single semantic pseudo-targe
 
 
 V118 launched08:09:54UTC (16:09local), execution4d04cd7eb3dfb5fbfb179260023293c268f49ddd, runv118_semantic_20261009T080849Z. One startup check at68s:12native qualificationPASS, BASE goldenmatch, two checkpoint replays, frozenmemory/teachergradnone; activetrain0_3,train0_4,train1_3,train1_4, GPU4–7, heldlock/neutralargv/NASprobePASS. Full budget9612native9610prototype384Qtraincalls1536images, noQdev/actor/solve. Existing hourly automation follows this run; do not overlap/retry/tune. Complete.py create-only once after root/all33jobs exit0; publish all192points48trajectories/allmethods-contexts-streams/costs/audit/report.
+
+
+## V118 complete — 2026-10-09
+
+Completed08:27:09UTC/16:27local, root/all33jobs exit0 lockFREE; complete.py oncePASS9612native/rate/selector9610prototype384querypairs1536images192points48trajectories/seal-order/recomputedreadout. NO_RELIABLE_TRAIN_ONLY_TARGET_REPAIR_SIGNAL. SEMANTICvsBASE finalnew−.01561885513 old−.00673339143 reward−.01978698140,0/8positivecontexts/bothstreamslower/absoluteFalse. SEMANTICvsROTATEDreward+.180549819 is not usefulgain againstBASE. BASE meannewgain+.00250407355 old+.00509046763 reward+.00727676391 is reusedQtraincontinuous100→300development only; semanticnew−.01311478158 old−.00164292380 reward−.01251021749. NoQdev/actoropt/solve/failure/newannotation. Cumulative841061nativeexclsource849061incl181593actor57solve unchangedhistoricalfailures/512+146CPUforwards. Fullanonymousmatrix/source/cost/audit/report published; finalverification readNAS FINAL_PUBLICATION. No newexperiment launched in this human statuscloseout; do not promote exactsemanticcorrection toRL or tune afterseeingoutcome.
