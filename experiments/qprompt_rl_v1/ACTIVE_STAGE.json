@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T09:31:37.408016+00:00",
-  "active_stage": "V121_INCREMENTAL",
-  "status": "COMPLETE",
-  "preregistration_commit": "378963d7ed39d235bc25737957db9433a6be8c88",
-  "execution_commit": "378963d7ed39d235bc25737957db9433a6be8c88",
+  "updated_at_utc": "2026-10-09T09:56:53.565947+00:00",
+  "active_stage": "V122_EMA_SELECTION",
+  "status": "PRE_REGISTERED_NOT_STARTED",
+  "preregistration_commit": null,
+  "execution_commit": null,
   "student_updates_cap": 0,
   "actor_updates_cap": 0,
   "prior_stages": {
@@ -44,7 +44,8 @@
     "V117": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
     "V118": "NO_RELIABLE_TRAIN_ONLY_TARGET_REPAIR_SIGNAL",
     "V119": "NO_RELIABLE_CROSS_IMAGE_TARGET_QUALITY_SIGNAL",
-    "V120": "OBSERVABLE_TRANSITION_QUALITY_SIGNAL"
+    "V120": "OBSERVABLE_TRANSITION_QUALITY_SIGNAL",
+    "V121": "NO_RELIABLE_INCREMENTAL_PROTOTYPE_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -88,7 +89,7 @@
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
   "next": "Read V117 posthoc analysis before any separately frozen next hypothesis: current three-action observed table cannot meet practical gates even at coordinatewise oracle; no more full RL/deployment of identical recipe based on state learning alone.",
-  "run_id": "v121_incremental_20261009T092927Z",
+  "run_id": "v122_ema_selection_20261009T095622Z",
   "decision": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
@@ -1982,5 +1983,26 @@
     "query_calls": 0,
     "optimizer_updates": 0,
     "reference": "v121_incremental/REPORT.md"
+  },
+  "V122_plan": {
+    "run_id": "v122_ema_selection_20261009T095622Z",
+    "arms": [
+      "BASE",
+      "EMA_ALL",
+      "EMA_HALF",
+      "RANDOM_HALF",
+      "PROTO_HALF"
+    ],
+    "candidate": "selected AND mixed-target->EMA 1->0 or2->1",
+    "half_budget": "floor(CE pixels per image per transition/2)",
+    "contexts": 8,
+    "labeled_diagnostic_exposures": 40,
+    "model_image_forwards": 160,
+    "native_updates": 0,
+    "actor_updates": 0,
+    "query_calls": 0,
+    "U_images": 0,
+    "aggregate_rows": 40,
+    "scope": "prototype-independent EMA selection and prototype ranking; model-seen development only"
   }
 }
