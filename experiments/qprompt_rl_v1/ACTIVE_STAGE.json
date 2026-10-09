@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-10-09T12:58:51.376580+00:00",
-  "active_stage": "V126_GENERALIZATION_DRIFT",
-  "status": "COMPLETE",
-  "preregistration_commit": "3176ab14af5c03f5f3232cd1d01ad5a02e359bbb",
-  "execution_commit": "3176ab14af5c03f5f3232cd1d01ad5a02e359bbb",
-  "student_updates_cap": 0,
+  "updated_at_utc": "2026-10-09T13:05:43.248453+00:00",
+  "active_stage": "V127_EARLY_SOURCE_MEMORY",
+  "status": "RUNNING",
+  "preregistration_commit": "f8f8b258efb5a8e03248d1d594c5677591c267ff",
+  "execution_commit": "f8f8b258efb5a8e03248d1d594c5677591c267ff",
+  "student_updates_cap": 19308,
   "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
@@ -91,9 +91,9 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "Separately freeze early source-memory versus matched selected-EMA branches, preserving all16 conditions and SOURCE and ENTRY safety controls.",
-  "run_id": "v126_drift_20261009T125443Z",
-  "decision": "EARLY_GENERALIZATION_FAILURE_DIAGNOSTIC",
+  "next": "Finish fixed two-prefix experiment. Do not open performance before192 sealed snapshots; terminal audit and public delivery, no implicit retries or tuning.",
+  "run_id": "v127_early_20261009T130231Z",
+  "decision": "PENDING",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -3637,5 +3637,14 @@
       "source_condition_streams": 32,
       "oracle_rows": 96
     }
-  }
+  },
+  "previous_stage_physical_V126": {
+    "native_updates": 0,
+    "clean_student_image_forwards": 2112,
+    "image_reads": 2112,
+    "original_root_exit": 1,
+    "metadata_only_recovery": true
+  },
+  "startup_qualification": "PASS",
+  "startup_main_updates": 455
 }
