@@ -21,3 +21,8 @@ Publish each completed round's code, protocol, aggregate positive/negative resul
 ## Human amendment — 2026-10-09
 
 Execute the absolute-benefit-first plan. Preserve V111 in flight. V112 adds exactly16 Q_dev_old image evaluations at immutable ENTRY100 and no optimizer calls, then decomposes every V111/V108 outcome against frozen entry. Frozen entry is a diagnostic baseline, never continual-learning success. If all22 V111 methods have nonpositive mean weightednewgain and nonpositive FINALnew change, the separately frozen V113 tests only .25 of the remaining schedule for OFF/GLOBAL/TIME, preserving1x outcomes and all other settings. Mixed results require complete-result reasoning; do not force the rate branch. Keep the original RL gates and independent-confirmation boundaries.
+
+
+## V114 complete — 2026-10-09
+
+25 jobs/root exit0; full audit7208native/rate pairs40resets304probes108query/432images36paired72sealed PASS. Pooled newΔvsV113+.0000129251016511 old+.0006219425963031 utility+.000682447416087; broadgate fails new>=.002. All3 policies negative absolute continuation. GLOBAL newΔ.001998111606 must not round to .002. Full policy/context/stream results and costs published in v114_adam_restart. Cumulative783825native exclsource/791825incl,181459actor57solves. Next separately freeze class-agreement gating of conflicting memory pseudo-labels, responding to human request for more meaningful evidence-selection actions; deterministic diagnostic, not an RL claim.
