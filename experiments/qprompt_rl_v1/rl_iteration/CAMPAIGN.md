@@ -36,3 +36,8 @@ V114 published e4419dba2ae49850352d032d0d9dc04c4785c834, remoteHEAD/anonymous200
 ## V115 complete and new human direction
 
 V115all25jobs/rootexit0 fullaudit4808native/rate3604gate208probe288Qdev48seal24pairedPASS. GateNO_BROAD_AGREEMENT_GATE_SIGNAL,noabsolutepositive. PooledΔvsV113new−.0003691163534919421 old−.00104165015121301 utility−.0013003130443394186;bothpoliciesnegative. Cumulative788633nativeexclsource796633incl,181459actor57solves. Human explicitly authorizes rapid implementation/experiment of1–2literature mechanisms. Next a learned fixed-budget regional evidence selector with priorselectedcoverage, equal-budget heuristics and imitation controls; separate prereg required. Do not interpret deterministicgate or pilot as originalRLcampaignsuccess.
+
+
+## V116 running — explicit rapid mechanism pilot
+
+V115published6e81af29d61407ac132be91b5a1af468e7bb6c10,remoteHEAD/anon200/NASdeliveryverified. V116run v116_regions_20261009T050728Z, finalprereg/executionb88a7440d755bb4c6fe61b09e7ab7dcb226f2567 (initialprereg5ac0ed3; batchglobalnormalizationclarifiedbeforeanyexperiment). Onelearnedregional selectorcombinesvalue/selectedcoverage; 4x4tiles fixedhalfeligiblebudget, originalV113action11/.25rate/noreset. TwoRLseeds601/602andCEimitation onidenticalobservedbranches; noanalytic-targetCEclaim. Four50-stepbranches/group×32groups×2seeds, retainbranch0. Planned29608native130actor0solve0probe4592queryimages;84devtrajectories/168seal. Qual8native+2actorPASS, pixelbudgets/state/traceRNG/memorychecksPASS; bothlearnjobsGPU4/5 running,root212prior+8qual/2actor/no failures,neutralargv/identity/lock/NASadmissionverified. complete.py ready for fullaudit/pilotgates. Existinghourlymonitor followsrun; nofurtherpollthisturn.

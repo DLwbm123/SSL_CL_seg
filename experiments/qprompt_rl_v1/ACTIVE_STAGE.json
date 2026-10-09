@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-09T04:45:55.687733+00:00",
-  "active_stage": "V115_AGREEMENT_GATE",
-  "status": "COMPLETE_AUDITED_PENDING_PUBLICATION",
-  "preregistration_commit": "2f70b8b89226bcb61cd9c35f650b11e80ac1d5b5",
-  "execution_commit": "0051aa0e6803977c57f3b592b9aaee4eae70c8d6",
-  "student_updates_cap": 4808,
-  "actor_updates_cap": 0,
+  "updated_at_utc": "2026-10-09T05:08:25.002595+00:00",
+  "active_stage": "V116_REGION_SELECTOR",
+  "status": "RUNNING",
+  "preregistration_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
+  "execution_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
+  "student_updates_cap": 29608,
+  "actor_updates_cap": 130,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -38,7 +38,8 @@
     "V111": "V111_NO_PRACTICAL_SEQUENTIAL_RL_GAIN",
     "V112": "ABSOLUTE_DIAGNOSTIC_COMPLETE",
     "V113": "RATE_SENSITIVITY_PARTIAL_MITIGATION_NO_ABSOLUTE_POSITIVE",
-    "V114": "NO_BROAD_OPTIMIZER_STATE_SENSITIVITY_SIGNAL"
+    "V114": "NO_BROAD_OPTIMIZER_STATE_SENSITIVITY_SIGNAL",
+    "V115": "NO_BROAD_AGREEMENT_GATE_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -77,11 +78,12 @@
     "V111": "9a20385c4640bbf1b3d5cc126ecfc5cf96e4beea",
     "V112": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
     "V113": "ee6f49de113396d432e1c03969c52f45e062ed2d",
-    "V114": "e4419dba2ae49850352d032d0d9dc04c4785c834"
+    "V114": "e4419dba2ae49850352d032d0d9dc04c4785c834",
+    "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10"
   },
-  "next": "User-authorized rapid learned regional selector pilot; freeze before execution",
-  "run_id": "v115_agreement_20261009T044504Z",
-  "decision": "NO_BROAD_AGREEMENT_GATE_SIGNAL",
+  "next": "Complete two learned selectors and all84 trajectories; audit full cost/selection/query/actor barriers and publish all results; preserve historical targetCE/freshstream gates",
+  "run_id": "v116_regions_20261009T050728Z",
+  "decision": "PENDING_LEARNED_REGION_SELECTION_PILOT",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -353,186 +355,7 @@
     },
     "new_annotation_cases": 0
   },
-  "human_direction_20261009": "Absolute benefit first; literature request and criticism of loss-weight hyperparameter actions motivate evidence-selection diagnosis. V115 remains deterministic, not RL efficacy.",
-  "startup": {
-    "status": "RUNNING",
-    "run_id": "v115_agreement_20261009T044504Z",
-    "execution_commit": "0051aa0e6803977c57f3b592b9aaee4eae70c8d6",
-    "preregistration_commit": "2f70b8b89226bcb61cd9c35f650b11e80ac1d5b5",
-    "checked_at_utc": "2026-10-09T04:46:05.454973+00:00",
-    "phase": "TRAINING",
-    "gpus": [
-      4,
-      5,
-      6,
-      7
-    ],
-    "native_qualification": {
-      "status": "PASS",
-      "native_updates": 8,
-      "paired_continuations": 2,
-      "old_stable_states_exact": 2,
-      "policy_student_RNG_isolation": true,
-      "probe_extractions": 16
-    },
-    "qualification_exit_code": 0,
-    "gate_records": [
-      {
-        "ordinal": 1,
-        "action": 9,
-        "valid": 294912,
-        "admitted": 291698,
-        "eligible": 289634,
-        "rejected": 2152,
-        "transferred": 287482,
-        "class0": {
-          "valid": 262944,
-          "admitted": 262019,
-          "eligible": 261102,
-          "rejected": 544,
-          "transferred": 260558
-        },
-        "class1": {
-          "valid": 25015,
-          "admitted": 23427,
-          "eligible": 22523,
-          "rejected": 1546,
-          "transferred": 20977
-        },
-        "class2": {
-          "valid": 6953,
-          "admitted": 6252,
-          "eligible": 6009,
-          "rejected": 62,
-          "transferred": 5947
-        }
-      },
-      {
-        "ordinal": 2,
-        "action": 9,
-        "valid": 294912,
-        "admitted": 291830,
-        "eligible": 289972,
-        "rejected": 645,
-        "transferred": 289327,
-        "class0": {
-          "valid": 259328,
-          "admitted": 258608,
-          "eligible": 257809,
-          "rejected": 326,
-          "transferred": 257483
-        },
-        "class1": {
-          "valid": 28384,
-          "admitted": 26904,
-          "eligible": 25889,
-          "rejected": 316,
-          "transferred": 25573
-        },
-        "class2": {
-          "valid": 7200,
-          "admitted": 6318,
-          "eligible": 6274,
-          "rejected": 3,
-          "transferred": 6271
-        }
-      },
-      {
-        "ordinal": 3,
-        "action": 9,
-        "valid": 294912,
-        "admitted": 291698,
-        "eligible": 289634,
-        "rejected": 2152,
-        "transferred": 287482,
-        "class0": {
-          "valid": 262944,
-          "admitted": 262019,
-          "eligible": 261102,
-          "rejected": 544,
-          "transferred": 260558
-        },
-        "class1": {
-          "valid": 25015,
-          "admitted": 23427,
-          "eligible": 22523,
-          "rejected": 1546,
-          "transferred": 20977
-        },
-        "class2": {
-          "valid": 6953,
-          "admitted": 6252,
-          "eligible": 6009,
-          "rejected": 62,
-          "transferred": 5947
-        }
-      },
-      {
-        "ordinal": 4,
-        "action": 9,
-        "valid": 294912,
-        "admitted": 291830,
-        "eligible": 289972,
-        "rejected": 645,
-        "transferred": 289327,
-        "class0": {
-          "valid": 259328,
-          "admitted": 258608,
-          "eligible": 257809,
-          "rejected": 326,
-          "transferred": 257483
-        },
-        "class1": {
-          "valid": 28384,
-          "admitted": 26904,
-          "eligible": 25889,
-          "rejected": 316,
-          "transferred": 25573
-        },
-        "class2": {
-          "valid": 7200,
-          "admitted": 6318,
-          "eligible": 6274,
-          "rejected": 3,
-          "transferred": 6271
-        }
-      }
-    ],
-    "qualification_gate_replay_exact": true,
-    "workers": 4,
-    "minimum_native_updates_per_worker": 50,
-    "root_last_refresh_counts": {
-      "attempts": {
-        "qualification": 8,
-        "development": 305
-      },
-      "success": {
-        "qualification": 8,
-        "development": 305
-      },
-      "failures": {},
-      "includes_stage_A": true,
-      "common_source_historical_student_updates": 8000,
-      "updated": 1791521160.96789
-    },
-    "parent_child_identity_neutral_argv": "PASS",
-    "GPU_process_names_neutral": true,
-    "NAS_mount_write_probe": "PASS",
-    "free_memory_at_admission_mib": {
-      "4": 24124,
-      "5": 24124,
-      "6": 24124,
-      "7": 24124
-    },
-    "planned_native_updates": 4808,
-    "planned_actor_updates": 0,
-    "planned_solves": 0,
-    "planned_probes": 208,
-    "planned_query_images": 288,
-    "planned_gate_invocations": 3604,
-    "planned_trajectories": 24,
-    "existing_fit_reused_not_new_cost": true
-  },
+  "human_direction_20261009": "Explicitly implement and experiment rapidly with1\u20132literature mechanisms; regional learning-value selection and conditional coverage implemented in one selector, with equalfraction controls.",
   "previous_stage_physical_V115": {
     "native_updates": 4808,
     "actor_optimizer_updates": 0,
@@ -559,5 +382,93 @@
       "query_images": 288
     },
     "new_annotation_cases": 0
+  },
+  "startup": {
+    "status": "RUNNING",
+    "run_id": "v116_regions_20261009T050728Z",
+    "execution_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
+    "preregistration_commit": "b88a7440d755bb4c6fe61b09e7ab7dcb226f2567",
+    "checked_at_utc": "2026-10-09T05:08:28.524151+00:00",
+    "phase": "LEARNING",
+    "active_gpus": [
+      4,
+      5
+    ],
+    "deployment_gpus": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "qualification": {
+      "status": "PASS",
+      "native_updates": 8,
+      "actor_updates": 2,
+      "full_state_replays": 2,
+      "selection_trace_replay_exact": true,
+      "actor_update_student_isolation": true,
+      "frozen_memory": true,
+      "query_calls": 0,
+      "actor_check": {
+        "rl_loss": -0.01921476610004902,
+        "ce_loss": 2.4716386795043945,
+        "rl_gradient_norm": 0.062033530324697495,
+        "ce_gradient_norm": 0.004699041601270437,
+        "winner": 0,
+        "advantages": [
+          1.0,
+          -1.0
+        ]
+      }
+    },
+    "qualification_exit_code": 0,
+    "qualification_selection_records": 8,
+    "all_qualification_pixel_budgets_exact": true,
+    "qualification_counts": {
+      "item_attempts_train_labeled": 32,
+      "item_success_train_labeled": 32,
+      "student_image_forwards": 64,
+      "item_attempts_train_unlabeled": 32,
+      "item_success_train_unlabeled": 32,
+      "ema_image_forwards": 16,
+      "memory_image_forwards": 32,
+      "selector_invocations": 8,
+      "selection_decisions": 142,
+      "eligible_pixels": 2342568,
+      "selected_pixels": 1171280
+    },
+    "root_last_refresh_counts": {
+      "attempts": {
+        "qualification": 8,
+        "actor_qualification": 2,
+        "prior": 212
+      },
+      "success": {
+        "qualification": 8,
+        "actor_qualification": 2,
+        "prior": 212
+      },
+      "failures": {},
+      "includes_stage_A": true,
+      "common_source_historical_student_updates": 8000,
+      "updated": 1791522504.7737732
+    },
+    "coordinator_lock": "HELD",
+    "parent_child_identity_neutral_argv": "PASS",
+    "GPU_process_names_neutral": true,
+    "NAS_mount_write_probe": "PASS",
+    "free_memory_at_admission_mib": {
+      "4": 24124,
+      "5": 24124,
+      "6": 24124,
+      "7": 24124
+    },
+    "planned_native_updates": 29608,
+    "planned_actor_updates": 130,
+    "planned_solves": 0,
+    "planned_probes": 0,
+    "planned_training_query_images": 3584,
+    "planned_development_query_images": 1008,
+    "planned_trajectories": 84
   }
 }
