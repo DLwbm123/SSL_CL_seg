@@ -1,10 +1,10 @@
 {
-  "updated_at_utc": "2026-10-09T09:58:33.129635+00:00",
-  "active_stage": "V122_EMA_SELECTION",
-  "status": "COMPLETE",
-  "preregistration_commit": "5cdd7507b4473f798d45354a9af653a0f44bfb2f",
-  "execution_commit": "5cdd7507b4473f798d45354a9af653a0f44bfb2f",
-  "student_updates_cap": 0,
+  "updated_at_utc": "2026-10-09T10:20:13.276863+00:00",
+  "active_stage": "V123_MODEL_HOLDOUT",
+  "status": "PREPARED_NOT_STARTED",
+  "preregistration_commit": null,
+  "execution_commit": null,
+  "student_updates_cap": 35224,
   "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
@@ -45,7 +45,8 @@
     "V118": "NO_RELIABLE_TRAIN_ONLY_TARGET_REPAIR_SIGNAL",
     "V119": "NO_RELIABLE_CROSS_IMAGE_TARGET_QUALITY_SIGNAL",
     "V120": "OBSERVABLE_TRANSITION_QUALITY_SIGNAL",
-    "V121": "NO_RELIABLE_INCREMENTAL_PROTOTYPE_SIGNAL"
+    "V121": "NO_RELIABLE_INCREMENTAL_PROTOTYPE_SIGNAL",
+    "V122": "DEVELOPMENT_EMA_CONFLICT_SIGNAL"
   },
   "published": {
     "V83_and_V83_R": "9b01b3f8fa6926ec6fab4f298ef86fd8fcf0e9d3",
@@ -88,9 +89,9 @@
     "V115": "6e81af29d61407ac132be91b5a1af468e7bb6c10",
     "V116": "ef59c7e9b081a5cbdb384ba7a5e9d0b4f71e51aa"
   },
-  "next": "Read V117 posthoc analysis before any separately frozen next hypothesis: current three-action observed table cannot meet practical gates even at coordinatewise oracle; no more full RL/deployment of identical recipe based on state learning alone.",
-  "run_id": "v122_ema_selection_20261009T095622Z",
-  "decision": "NO_RELIABLE_TRAIN_ONLY_MACRO_SIGNAL",
+  "next": "Execute only frozen V123:32 newly fitted image-held-out entries; gate prerequisite before five-arm paired training. No parallel variant, actor fit or gate change.",
+  "run_id": "v123_holdout_20261009T101910Z",
+  "decision": "PENDING_MODEL_HELDOUT_GATE",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -2636,5 +2637,23 @@
     "cumulative_native_including_source": 849061,
     "cumulative_actor": 181593,
     "cumulative_linear_solves": 57
+  },
+  "V123": {
+    "stage_A_native_cap": 3224,
+    "stage_B_conditional_native_cap": 32000,
+    "diagnostic_image_forwards": 512,
+    "diagnostic_images": 128,
+    "conditional_query_calls": 704,
+    "conditional_query_images": 2816,
+    "arms": [
+      "BASE",
+      "RULE",
+      "IGNORE_C",
+      "EMA_ONLY",
+      "OFF"
+    ],
+    "model_holdout": true,
+    "research_independent": false,
+    "report": "experiments/qprompt_rl_v1/v123_model_holdout/REPORT.md"
   }
 }
