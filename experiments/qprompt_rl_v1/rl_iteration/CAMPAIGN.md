@@ -53,3 +53,6 @@ NO_RELIABLE_REGION_SELECTION_SIGNAL;relative=False absolute=False campaign=False
 ## V117 separately frozen — 2026-10-09
 
 After V116 final ef59c7e and diagnosis c57943f publication receipts, freeze train-only macro-selector action-space/learnability diagnostic, run v117_macro_20261009T070553Z. Reuse all64 saved V116 GROUP_ENTRY snapshots; paired RANDOM/CONFIDENCE/COVERAGE/OFF50step branches. OFF comparator only. Predict among3 selectors using fixed1NN leave-whole-context-out (both seeds/allcycles excluded), compare GLOBAL_LOCO/rules/OFF and descriptive oracle. Planned12808native896Qtraincalls3584images0Qdev0actor0solve; no science execution yet. Full protocol and readout code v117_macro_selection. Same-source diagnostic cannot grant campaign success. No tuning/retry/hidden labels; original failed costs and all gates preserved.
+
+
+V117 actual launch07:08:19UTC, prereg/executiona5fe4173e9e297a0fd2fd5ac0692229731888482. At76seconds qual8/fullstate replayPASS, fourGPU4–7collectors each3branchrows, root705prior+8qual successful/no failures, heldlock/neutralargv/NASprobePASS. Other4collectors queued. No additional poll this turn; existing hourly monitor follows V117. Completion script audits all9jobs/12808native/9604selectors/896queries/256rows; do not rerun if existing audit. No result claim.
