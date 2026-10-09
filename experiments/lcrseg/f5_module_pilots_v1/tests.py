@@ -124,6 +124,8 @@ def qualify(config):
     def generated(arm):
         provider=GeneratedDomain(seed=163,size=384,device=device,stage_source=fixture.stage_source)
         native=build(config['reference'],device,163)
+        from ..f5_confirmation_v1.native_qualification import foreground_fixture
+        foreground_fixture(native)
         model=make_model(NativeLRParent(native,163,provider.stage_source),arm,options,None,generator(163,1,1,0,'pilot_adapter_initialization')).to(device)
         return PilotTrainer(model,provider,options,arm=arm,execution=permit)
     try:
@@ -143,9 +145,12 @@ def qualify(config):
                 t=generated(arm);cuda_counter.wrap(t.optimizer);t.update();t.update()
                 assert all(p.grad is None for p in t.ema.parameters())
                 labeled,unlabeled,_=t.losses();g=t.model.u_parameters()
+                if arm=='OT_TRIPLET':assert t.module_stats['valid_classes']>=1
+                if arm=='BOUNDARY':assert t.module_stats['boundary_pixels']>0
                 gu=torch.autograd.grad(unlabeled,[p for p in t.model.parameters() if p.requires_grad],allow_unused=True)
                 for p,v in zip([p for p in t.model.parameters() if p.requires_grad],gu):
                     if id(p) not in {id(x) for x in g}:assert v is None or torch.count_nonzero(v)==0
+                del labeled,unlabeled,g,gu
                 before=t.model(torch.zeros(2,3,384,384,device=device)).detach()
                 deployed=t.model.deploy()
                 after=deployed(torch.zeros(2,3,384,384,device=device)).detach()
