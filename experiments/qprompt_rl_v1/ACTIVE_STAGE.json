@@ -1,11 +1,11 @@
 {
-  "updated_at_utc": "2026-10-09T01:28:31.554067+00:00",
-  "active_stage": "V112_ENTRY_ABSOLUTE",
-  "status": "COMPLETE",
-  "preregistration_commit": "d7a3a3dbb0a429024a5b1af65338244c5eda597c",
-  "execution_commit": "9a20385c4640bbf1b3d5cc126ecfc5cf96e4beea",
-  "student_updates_cap": 52808,
-  "actor_updates_cap": 4097,
+  "updated_at_utc": "2026-10-09T02:36:09.262849+00:00",
+  "active_stage": "V113_QUARTER_SCHEDULE",
+  "status": "RUNNING",
+  "preregistration_commit": "7947596f1fee0f35903b35c7b5748eebaaa49e2e",
+  "execution_commit": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
+  "student_updates_cap": 7208,
+  "actor_updates_cap": 0,
   "prior_stages": {
     "V83": "STOP_DENSE_REWARD_NO_PRACTICAL_GAIN",
     "V83_R": "STOP_V83_PRIMARY_GATE_FAILED",
@@ -72,11 +72,12 @@
     "V108": "8437b42e062fdf2f41945fcf0721d6191cf57827",
     "V109": "202ffb030afab1695d324b5d0996bce5cd2c486a",
     "V110": "8586e79433bd706f08dbe3ddc3ac3789b28d909d",
-    "V111": "9a20385c4640bbf1b3d5cc126ecfc5cf96e4beea"
+    "V111": "9a20385c4640bbf1b3d5cc126ecfc5cf96e4beea",
+    "V112": "8910a80c751f28589aaeb60c6fceb129fc668cfe"
   },
-  "next": "Publish V112 and launch conditionally frozen V113 quarter-rate fixed-policy diagnostic",
-  "run_id": "v112_entry_20261009T023203Z",
-  "decision": "ALL22_CONTINUATION_MEANS_NEGATIVE_ADMIT_V113",
+  "next": "Complete V11336 paired trajectories; audit .25 effective rates and absolute entry benefit, publish all results, then freeze next single evidence-based hypothesis",
+  "run_id": "v113_quarter_20261009T023402Z",
+  "decision": "PENDING_COMPLETE_RATE_DIAGNOSTIC",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -146,37 +147,17 @@
   },
   "startup": {
     "status": "RUNNING",
-    "run_id": "v111_sequence_20261009T012631Z",
-    "execution_commit": "d046788f820d92b53a2014c2d3b9b5882b3f19a9",
-    "preregistration_commit": "5d20279fe97f54e259c4d480488ba5c8d704e16e",
-    "observed_at_utc": "2026-10-09T01:28:31.554067+00:00",
-    "phase": "SEQUENTIAL_TRAINING",
+    "run_id": "v113_quarter_20261009T023402Z",
+    "observed_at_utc": "2026-10-09T02:36:09.262849+00:00",
+    "execution_commit": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
+    "preregistration_commit": "7947596f1fee0f35903b35c7b5748eebaaa49e2e",
+    "phase": "TRAINING",
     "gpus": [
       4,
       5,
       6,
       7
     ],
-    "fit": {
-      "status": "COMPLETE",
-      "physical": {
-        "actor_qualification": 1,
-        "warmup": 1024,
-        "CE": 1024,
-        "RL": 1024,
-        "distillation": 1024
-      },
-      "models": 8,
-      "linear_solves": 1,
-      "time": 1791509211.5704014
-    },
-    "fit_qualification": {
-      "status": "PASS",
-      "synthetic_actor_updates": 1,
-      "grouped_target_and_KL_checks": true,
-      "ridge_residual_pass": true,
-      "global_time_identity": false
-    },
     "native_qualification": {
       "status": "PASS",
       "native_updates": 8,
@@ -185,30 +166,39 @@
       "policy_student_RNG_isolation": true,
       "probe_extractions": 16
     },
-    "qualification_off_updates": 4,
-    "fit_and_qualification_exit_codes": [
-      0,
-      0
-    ],
-    "workers_started_and_advanced": 4,
-    "minimum_updates_per_worker": 50,
-    "run_identities_verified": true,
-    "neutral_parent_child_argv_and_gpu_display": "PASS",
-    "nas_mount_write_probe": "PASS",
+    "qualification_exit_code": 0,
+    "workers": 4,
+    "minimum_native_updates_per_worker": 200,
+    "physical_at_check": {
+      "attempts": {
+        "qualification": 8,
+        "development": 879
+      },
+      "success": {
+        "qualification": 8,
+        "development": 879
+      },
+      "failures": {},
+      "includes_stage_A": true,
+      "common_source_historical_student_updates": 8000,
+      "updated": 1791513317.192137
+    },
+    "parent_child_identity_and_neutral_argv": "PASS",
+    "GPU_process_names_neutral": true,
+    "storage_mount_probe": "PASS",
     "free_memory_at_admission_mib": {
       "4": 24124,
       "5": 24124,
       "6": 24124,
       "7": 24124
     },
-    "failed_jobs_at_check": 0,
-    "planned_native_updates": 52808,
-    "planned_actor_updates": 4097,
-    "planned_linear_data_solves": 1,
-    "planned_probe_extractions": 2128,
-    "planned_Q_dev_images": 3168,
-    "planned_Q_train_images": 0,
-    "planned_trajectories": 264
+    "planned_native_updates": 7208,
+    "planned_actor_updates": 0,
+    "planned_linear_solves": 0,
+    "planned_probes": 304,
+    "planned_Q_dev_images": 432,
+    "planned_trajectories": 36,
+    "existing_fit_reference_reused_not_new_cost": true
   },
   "previous_stage_physical_V108": {
     "native_updates": 48008,
