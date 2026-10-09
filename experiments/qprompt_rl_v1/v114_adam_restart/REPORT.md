@@ -1,0 +1,11 @@
+# V114 running: Adam-state restart at fixed quarter rate
+
+The complete V113 diagnostic showed strong relative improvement from the lower rate but persistent negative absolute continuation. V114 keeps that quarter-rate schedule and tests only one restart of inherited Adamstate atENTRY100. Bothmoments and biascorrectionstep restart together; weights, gradients, paramgroups, schedulerposition, actions and data stay fixed. No restart atstep200, no rategrid or earlystop.
+
+Four originaldevelopment entries and bothqualification entries were admitted with28Adamparameterstates atstep100. Eightnativequalificationupdates passed. Allfourqualification resets verified fullsnapshot equality after removing only optimizerstate, including scheduler, model/EMA/memory, gradients, provider andRNG. The two-step replays matched exactly. FourGPU4–7workers each reached200nativeupdates on their firstOFFtrajectory. The rootlastrefresh showed697deployment+8qualification successfulcalls and0failures; this refresh predates the childprogress observations. Processidentities andneutral main/childargv plusGPUdisplay were checked. NASmount/writeprobe andmemoryadmission passed.
+
+Frozen budget:36trajectories OFF/GLOBAL/TIME×4contexts×streams3/4/5,7200deployment+8qualification=7208nativeupdates,40Adamresets,304stableprobes,108Q_devquerycalls/432images,0actorupdates/solves/newannotations. All72MID/FINALsnapshots must seal before query. Primarypairedcomparison uses the36storedV113quarter-rate/no-restart trajectories. ExistingV111fit is a read-only compatibilitylink excluded fromnewcost.
+
+**Status:RUNNING, not results.** Report allrelative andENTRYabsolute changes, with oldENTRY andmemoryreference kept separate. Relative improvement while absolute continuation remains negative is partialmitigation; no optimizerdiagnostic can substitute for originalRL gates or freshstreamconfirmation.
+
+V113 metadatarecovery and its originalfailedexit remain preserved; no training/query was repeated. V114 uses the corrected existing operationalCOSTS writer in a newimmutable sourcecopy. Existing hourlyautomation follows this run. Publicfiles include source/protocol/admission/operationalstartupreceipt/report; images/features/weights/rawlogs remainNAS.

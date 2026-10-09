@@ -1,9 +1,9 @@
 {
-  "updated_at_utc": "2026-10-09T02:36:09.262849+00:00",
-  "active_stage": "V113_QUARTER_SCHEDULE",
-  "status": "COMPLETE_METADATA_RECOVERED",
-  "preregistration_commit": "7947596f1fee0f35903b35c7b5748eebaaa49e2e",
-  "execution_commit": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
+  "updated_at_utc": "2026-10-09T03:46:45.620588+00:00",
+  "active_stage": "V114_ADAM_RESTART",
+  "status": "RUNNING",
+  "preregistration_commit": "40fce0948aeb1f24061e1889f63def570bb3c67d",
+  "execution_commit": "40fce0948aeb1f24061e1889f63def570bb3c67d",
   "student_updates_cap": 7208,
   "actor_updates_cap": 0,
   "prior_stages": {
@@ -74,11 +74,12 @@
     "V109": "202ffb030afab1695d324b5d0996bce5cd2c486a",
     "V110": "8586e79433bd706f08dbe3ddc3ac3789b28d909d",
     "V111": "9a20385c4640bbf1b3d5cc126ecfc5cf96e4beea",
-    "V112": "8910a80c751f28589aaeb60c6fceb129fc668cfe"
+    "V112": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
+    "V113": "ee6f49de113396d432e1c03969c52f45e062ed2d"
   },
-  "next": "Publish V113 full paired/absolute result, freeze and launch Adam-state restart at fixed quarter rate",
-  "run_id": "v113_quarter_20261009T023402Z",
-  "decision": "RATE_SENSITIVITY_SIGNAL_ABSOLUTE_CONTINUATION_NEGATIVE",
+  "next": "Complete36 quarter-rate Adam-restart trajectories; audit native/rate/reset/query ledgers, publish full paired and absolute results, then freeze next single hypothesis",
+  "run_id": "v114_restart_20261009T034414Z",
+  "decision": "PENDING_MATCHED_ADAM_RESTART_READOUT",
   "automation_id": "ssl-cl",
   "human_amendment": "2026-10-08 authorizes action expansion and removes old scientific gates as automatic future-research blockers; preserve historical results, reproducibility and data boundaries.",
   "previous_stage_physical_V106": {
@@ -148,10 +149,10 @@
   },
   "startup": {
     "status": "RUNNING",
-    "run_id": "v113_quarter_20261009T023402Z",
-    "observed_at_utc": "2026-10-09T02:36:09.262849+00:00",
-    "execution_commit": "8910a80c751f28589aaeb60c6fceb129fc668cfe",
-    "preregistration_commit": "7947596f1fee0f35903b35c7b5748eebaaa49e2e",
+    "run_id": "v114_restart_20261009T034414Z",
+    "execution_commit": "40fce0948aeb1f24061e1889f63def570bb3c67d",
+    "preregistration_commit": "40fce0948aeb1f24061e1889f63def570bb3c67d",
+    "checked_at_utc": "2026-10-09T03:45:29.486169+00:00",
     "phase": "TRAINING",
     "gpus": [
       4,
@@ -168,25 +169,29 @@
       "probe_extractions": 16
     },
     "qualification_exit_code": 0,
+    "qualification_reset_records": 4,
+    "all4_fullsnapshot_except_optimizer_state_equal": true,
+    "scheduler_and_RNG_preserved": true,
     "workers": 4,
     "minimum_native_updates_per_worker": 200,
-    "physical_at_check": {
+    "root_last_refresh_counts": {
       "attempts": {
         "qualification": 8,
-        "development": 879
+        "development": 697
       },
       "success": {
         "qualification": 8,
-        "development": 879
+        "development": 697
       },
       "failures": {},
       "includes_stage_A": true,
       "common_source_historical_student_updates": 8000,
-      "updated": 1791513317.192137
+      "updated": 1791517519.652542
     },
-    "parent_child_identity_and_neutral_argv": "PASS",
+    "root_accounting_refresh_precedes_child_progress": true,
+    "parent_child_identity_neutral_argv": "PASS",
     "GPU_process_names_neutral": true,
-    "storage_mount_probe": "PASS",
+    "NAS_mount_write_probe": "PASS",
     "free_memory_at_admission_mib": {
       "4": 24124,
       "5": 24124,
@@ -195,11 +200,12 @@
     },
     "planned_native_updates": 7208,
     "planned_actor_updates": 0,
-    "planned_linear_solves": 0,
+    "planned_solves": 0,
     "planned_probes": 304,
-    "planned_Q_dev_images": 432,
+    "planned_query_images": 432,
+    "planned_resets": 40,
     "planned_trajectories": 36,
-    "existing_fit_reference_reused_not_new_cost": true
+    "existing_fit_reused_not_new_cost": true
   },
   "previous_stage_physical_V108": {
     "native_updates": 48008,
