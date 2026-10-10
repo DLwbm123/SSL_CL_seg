@@ -103,8 +103,12 @@ def qualify(config):
                 t.options['lambda_SWD']=0. if component=='KL' else saved_swd
                 if component=='SWD':t.fine_kl=lambda logits,target,valid:logits.sum()*0
                 _,u,_=t.losses()
-                gs=torch.autograd.grad(u,groups['output_factors'],allow_unused=True)
-                assert sum(float(g.norm()) for g in gs if g is not None)>0,component+' B gradient missing'
+                params=groups['output_factors']+[t.model.sidecar.r]
+                gs=torch.autograd.grad(u,params,allow_unused=True)
+                b_norm=sum(float(g.norm()) for g in gs[:-1] if g is not None)
+                if component=='SWD' and t.model.detach_u_parent(clean=True):
+                    assert b_norm==0 and gs[-1] is not None and gs[-1].norm()>0
+                else:assert b_norm>0,component+' B gradient missing'
                 t.fine_kl=saved_kl
             t.options['lambda_SWD']=saved_swd
             ident=dict(family='F5',seed=163,order=1,stage=1,arm='OUTPUT_U')

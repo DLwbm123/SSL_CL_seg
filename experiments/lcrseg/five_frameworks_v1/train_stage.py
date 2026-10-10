@@ -209,7 +209,7 @@ class StageTrainer:
         unlabeled=self.fine_kl(logu,target,valid)
         if m.family=='F1':unlabeled=unlabeled+opt.get('lambda_JML',.25)*masked_jml1(logu.exp(),target,valid)
         if m.family=='F5':
-            _,before_clean,_=m.parts(u,detach_parent=m.detach_u_parent())
+            _,before_clean,_=m.parts(u,detach_parent=m.detach_u_parent(clean=True))
             self.telemetry['student_full_forwards']+=1;self.telemetry['extra_clean_U_forwards']+=1
             qu=m.sidecar.q
             zu=torch.einsum('dk,bdhw->bkhw',qu,before_clean)

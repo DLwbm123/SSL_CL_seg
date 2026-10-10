@@ -10,7 +10,7 @@ class OutputUModel(Model):
         self.output_u=output_u
         super().__init__(*args,**kwargs)
 
-    def detach_u_parent(self):
+    def detach_u_parent(self,*,clean=False):
         return not self.output_u
 
     def u_parameters(self):
