@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "execution_commit": "d37a8d088f164564cd9921cdf06d7ceb605b7d78",
+  "plan_id": "5cacc5a4619229bf9df3244b3b33451cf6e23ce4e8742ca6799198f2cf60ce7f",
+  "costs": {
+    "cpu_optimizer_updates": 0,
+    "synthetic_cuda_updates": 4,
+    "real_L_smoke_updates": 0
+  },
+  "native_restores": [
+    {
+      "job": "B_NORMCAP_S163_O2",
+      "step": 1200,
+      "inherited_physical": 1396,
+      "semantic_and_identity": "PASS",
+      "new_optimizer_calls": 0
+    },
+    {
+      "job": "B_NORMCAP_S164_O1",
+      "step": 1200,
+      "inherited_physical": 1482,
+      "semantic_and_identity": "PASS",
+      "new_optimizer_calls": 0
+    },
+    {
+      "job": "B_NORMCAP_S164_O2",
+      "step": 1200,
+      "inherited_physical": 1395,
+      "semantic_and_identity": "PASS",
+      "new_optimizer_calls": 0
+    }
+  ],
+  "checks": [
+    "current-runtime generated checkpoint continuation incl optimizer/RNG/counters",
+    "teacher frozen",
+    "all three archived native checkpoints admit unchanged semantics/identity and cursor1200; no current patient sample reads"
+  ]
+}

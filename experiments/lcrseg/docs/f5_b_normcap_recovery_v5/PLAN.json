@@ -1,0 +1,163 @@
+{
+  "study_id": "F5_B_NORMCAP_RECOVERY_V5",
+  "parent": "F5_C02",
+  "authority": "user 2026-10-10: 授权按此方案恢复; new formal12300, including673 checkpoint replay; generated CUDA qualification<=4, CPU0, realL0; preserve original costs and sealed trajectory",
+  "jobs": [
+    {
+      "id": "B_NORMCAP_S163_O1",
+      "arm": "B_NORMCAP",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "B_NORMCAP_S163_O2",
+      "arm": "B_NORMCAP",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "B_NORMCAP_S164_O1",
+      "arm": "B_NORMCAP",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "B_NORMCAP_S164_O2",
+      "arm": "B_NORMCAP",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "B_NORMCAP"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21873,
+    "source_updates": 0,
+    "real_smoke_updates": 0,
+    "synthetic_cuda_updates": 4,
+    "cpu_optimizer_updates": 0,
+    "diagnostic_vjps": 64
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "B_NORMCAP_S163_O2",
+      "B_NORMCAP_S164_O1",
+      "B_NORMCAP_S164_O2"
+    ]
+  ],
+  "equation": "gA=gL; gB=gL+min(1,norm(gL_B)/norm(gU_B))*gU_KL; gR remains V4; zero L suppresses B U",
+  "hypothesis": "bound B KL-U magnitude by same-step supervised B gradient; V4 retention failure persisted after SWD B exclusion",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "reuse matched V1 F5 after disabled-output-U archived state parity; also qualify unchanged B2, restored V3-total-U, and cap-disabled archived V4 state parity; retain historical B0/B2 and report paired V5-V4",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "reuse previously completed S163/O1; resume remaining three without efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "B2 differs also in U weight and PAS thresholds; magnitude interference is an unproven hypothesis",
+    "raw gradient norm bound does not bound Adam displacement or guarantee retention",
+    "development patients reused"
+  ],
+  "inherited_formal_updates": 9573,
+  "inherited_unsealed_physical_updates": 4273,
+  "additional_formal_updates": 12300,
+  "scientific_updates": 21200,
+  "cumulative_formal_cap": 170273,
+  "recovery_steps": {
+    "B_NORMCAP_S163_O2": 1200,
+    "B_NORMCAP_S164_O1": 1200,
+    "B_NORMCAP_S164_O2": 1200
+  },
+  "recovery_prior_calls": {
+    "B_NORMCAP_S163_O2": 1396,
+    "B_NORMCAP_S164_O1": 1482,
+    "B_NORMCAP_S164_O2": 1395
+  },
+  "prior_execution_commit": "3b099335a021572695e42b1b43306628ea991ec9",
+  "recovery_exception": "single approved host-reboot continuation; no further formal retry",
+  "diagnostic_limit": "retain inherited counts; missing pre-checkpoint gradient rows are NA, never rerun",
+  "qualification": "four generated CUDA optimizer calls, native checkpoint semantic/identity validation without data reads",
+  "plan_id": "5cacc5a4619229bf9df3244b3b33451cf6e23ce4e8742ca6799198f2cf60ce7f"
+}
