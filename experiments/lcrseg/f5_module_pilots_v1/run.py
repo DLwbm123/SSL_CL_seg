@@ -119,7 +119,7 @@ def final_readout(config):
         for st in j['stages']:
             if not (root/'jobs'/j['id']/f'stage{st["stage"]}'/'SEALED.json').exists():
                 raise RuntimeError('unsealed target')
-    write(root/'READOUT_SEAL.json',dict(targets=32,all_sealed=True,time=time.time()))
+    write(root/'READOUT_SEAL.json',dict(targets=sum(len(j['stages']) for j in jobs()),all_sealed=True,time=time.time()))
     from ..five_frameworks_v1.model import Deployment
     device=torch.device('cuda:0');torch.set_num_threads(2)
     with NativeOperations(root/'readout_operations') as operations:

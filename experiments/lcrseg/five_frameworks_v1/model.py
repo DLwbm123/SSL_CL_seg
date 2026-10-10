@@ -76,6 +76,9 @@ class Model(nn.Module):
         if self.family=='F2': return groups['output_factors']
         return [p for p in self.parameters() if p.requires_grad]
 
+    def detach_u_parent(self):
+        return self.family in ('F1','F3','F4','F5')
+
     @torch.no_grad()
     def teacher(self):
         ema=copy.deepcopy(self).eval().requires_grad_(False)

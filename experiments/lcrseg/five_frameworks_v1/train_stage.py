@@ -196,7 +196,7 @@ class StageTrainer:
             ul=self.prototypes.uncertainty(t,ql,h_l,opt.get('prototype_uncertainty_mix',0.))[:len(u)]
             def scales(mask):
                 return mixed_feature_scales(m.parent,mask,uu,ul,h_u.shape[-2:],m.spectrum,opt.get('kappa',.5))
-        detach=m.family in ('F1','F3','F4','F5')
+        detach=m.detach_u_parent()
         logu,_=collected_forward(lambda v,s:forward(v,s,detach),u,donor,self.rng('UL'),scales)
         target=q
         if m.family=='F4':
@@ -209,7 +209,7 @@ class StageTrainer:
         unlabeled=self.fine_kl(logu,target,valid)
         if m.family=='F1':unlabeled=unlabeled+opt.get('lambda_JML',.25)*masked_jml1(logu.exp(),target,valid)
         if m.family=='F5':
-            _,before_clean,_=m.parts(u,detach_parent=True)
+            _,before_clean,_=m.parts(u,detach_parent=m.detach_u_parent())
             self.telemetry['student_full_forwards']+=1;self.telemetry['extra_clean_U_forwards']+=1
             qu=m.sidecar.q
             zu=torch.einsum('dk,bdhw->bkhw',qu,before_clean)
