@@ -1,0 +1,27 @@
+# F5 B norm bound V5: finite supervised-anchor experiment
+
+User authorization2026-10-10: directly start the most evidence-based next improvement and retain hourly monitoring until the unchanged success gate. V4 complete negatives and paired V3 contrast were delivered and anonymously verified at8a47db7f91569b2134fe7c1682ec0b18efc71a90. Prior rounds, costs and failures remain immutable.
+
+## Evidence and single hypothesis
+
+V4 Final64.5470%, Old61.0829%, Incoming71.4753%; versus matched F5 Final−0.8639pp/Old−2.0860pp/Incoming+1.5803pp, versus historical B2 Final−3.3541pp. V4−V3 Final−0.0440pp, Old−0.1629pp, Incoming+0.1938pp. S163/O1 severe old-domain failure persists (Old−10.8739pp vs F5), despite excluding SWD gradients from B. Both practical gates fail. Nonzero B KL-U appears in all16960 active-U updates. These observations do not support SWD B exposure as the main explanation in this configuration; they do not prove KL magnitude is the cause. Previous formal receipts did not measure the B L/U norm ratio.
+
+One main change: retain V4 KL->B/R, SWD->R and A->L-only routing, but bound the concatenated B KL-U gradient by the same-step concatenated B labeled gradient norm. With already weighted/ramped gradients, c=min(1,||gL_B||/||gU_B||), gB=gL_B+c*gU_B. Zero labeled gradient suppresses nonzero B U; zero U stays zero. Use double precision for norm arithmetic, retain parameter gradient dtype and reject nonfinite input. This fixed coefficient-free bound aims to prevent U magnitude dominating B's raw supervised direction. It does not bound Adam displacement, guarantee old-domain retention or establish a mechanism. Per-stage diagnostics record both norms, scale, cap calls/capped calls and effective nonzero post-cap U; inherited nonzero_output_U_calls is pre-cap evidence.
+
+Keep all F5_C02 architecture/input projection, rank0.25, Q/F_prev, EMA/PAS0.7/0.5, lambda_U0.25/lambda_SWD0.2, losses, data/sources, augmentations/random streams, Adam/weight decay/schedule/lrA/B0.0005/R0.001, warmup/ramp0.2 and deployment unchanged. No V2 projection, V1 module, extra loss/parameter/forward, replay or RL. Historical B2 also differs in U coefficient and PAS; its comparison does not isolate routing.
+
+## Qualification and frozen execution
+
+Fresh create-only NAS root and immutable commit snapshot; NAS mount/free capacity/real write-read probe and GPU4–7 free>=4GiB required. Matching CUDA/NVML libraries only in process-local environment; no system change or interruption of unrelated work. Neutral controller/worker argv through existing NAS wrapper.
+
+Reuse unchanged V4 mathematical/native checks: disabled-output-U F5 and unchanged B2 state parity; restored total-U archived V3 parity; KL B nonzero/SWD B exactly zero; teacher freeze, input constraints, own-prefix deployment and restore. Add cap zero/tiny/oversized/nonfinite checks, a two-case oversize-U SGD convergence check, cap-disabled archived V4 state parity, native cap slicing/forced-cap branch, cap-enabled checkpoint continuation/telemetry and failed-call accounting. The forced-cap branch reuses generated gradients without another image/VJP/optimizer call. Qualification caps CPU96/generated CUDA32/real L4; planned actual64/27/2, including two deliberate post-optimizer failures. L-only real smoke reuses unchanged V4 path because cap is inactive without U. All attempts and physical calls durable, no reset.
+
+Formal budget21200 optimizer calls, source0: seeds163/164 × orders1/2, four5300-step trajectories, eight target stages, RIM3200 and Drishti2100 per trajectory. First S163/O1 completes as an engineering diagnostic; remaining three start only after engineering success, without efficacy pruning. No formal failure retry or live tuning. Four predefined gradient points per stage,64 extra diagnostic VJPs inherited, no extra formal probes.
+
+## Readout and gate
+
+Seal all eight targets before20 seen-domain evaluations. Reuse matched F5 and historical B0/B2 after parity checks; report paired V5−V4 from delivered anonymous aggregates without rereading comparator patients. Current L image/GT and current U image/geometry only; previous source parameters are not historical patient replay. Frozen manifest/split unchanged, no U labels/sealed test/independent holdout.
+
+Apply original gate independently to F5 and B2: each seed after order average Final gain>0; overall mean Final gain>=0.005; each order average Old and Incoming>=−0.005; every seed/order/domain/rim or cup>=−0.05. Both comparisons must pass. Report all negative cells and B0; never relax thresholds or choose favorable checkpoints. Development patients reused; no independent generalization, statistical significance, SOTA or clinical-validation claim.
+
+Completed formal148400, qualification480CPU/80generatedCUDA/22realL. V5 cap21200 makes cumulative formal cap169600; planned qualification totals544CPU/107generatedCUDA/24realL. Source0 throughout. Preserve every failure and cross-round costs. Publish source, frozen protocol, complete anonymous positive/negative results, costs and report each round; verify proxied GitHub push and anonymous access. Private patients, per-patient scores, logs, config, weights and keys remain NAS. Hourly monitor ACTIVE until original gates and public delivery verified or user stops; RL monitor PAUSED. Success is not guaranteed.
