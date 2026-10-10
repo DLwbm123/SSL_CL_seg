@@ -31,4 +31,7 @@ def main():
     if os.environ.get('EXEC_MODE')=='qualify':
         from .tests import qualify
         qualify(config)
+    elif os.environ.get('EXEC_MODE')=='cpu_qualify':
+        from .tests import cpu_qualification
+        engine.admission(config,'qualification');cpu_qualification(config)
     else:engine.main()

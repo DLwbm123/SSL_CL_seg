@@ -33,6 +33,18 @@ def mathematical_checks(counter):
     return dict(status='PASS',checks=['conflict half-space and norm','aligned/zero unchanged','tiny finite gradients','two-case projected optimization'],optimizer_calls=32)
 
 
+def cpu_qualification(config):
+    from ..five_frameworks_v1.gate import digest
+    signature=digest(dict(function=__import__('inspect').getsource(mathematical_checks),
+                          projection=Path(__file__).with_name('projection.py').read_text()))
+    root=Path(config['run_root']);path=root/'CPU_QUALIFICATION.json'
+    if path.exists() and read(path).get('tested_code')==signature:return read(path)
+    counter=Counter(root/'qualification_cpu_physical.jsonl',CAPS['cpu_optimizer_updates'])
+    result={**mathematical_checks(counter),'tested_code':signature,'execution_commit':config['execution_commit'],
+            'cumulative_cpu_optimizer_updates':counter.count}
+    write(path,result);return result
+
+
 def qualify(config):
     from .run import engine,construct
     root=Path(config['run_root'])
@@ -56,7 +68,7 @@ def qualify(config):
         m=make_model(NativeLRParent(native,163,p.stage_source),'F5',options,None,generator(163,1,1,0,'pilot_adapter_initialization')).to(device)
         return ProjectionTrainer(m,p,options,arm='F5',execution=permit,project_enabled=enabled)
     try:
-        math=mathematical_checks(cpu);write(out/'MATHEMATICAL.json',math)
+        math=cpu_qualification(config);cpu.count=sum(1 for _ in cpu.path.open());write(out/'MATHEMATICAL.json',math)
         with NativeOperations(out/'operations') as operations:
             a=generated(False);m=copy.deepcopy(a.model);p=copy.deepcopy(a.provider)
             legacy=Path(config['parity_code'])/'experiments/lcrseg/five_frameworks_v1/train_stage.py'
