@@ -1,0 +1,148 @@
+{
+  "study_id": "F5_PROJECTION_V2",
+  "parent": "F5_C02",
+  "authority": "user 2026-10-09: 如果结果出来不满意，你可以自己分析并提升，直至成功",
+  "jobs": [
+    {
+      "id": "PROJECT_S163_O1",
+      "arm": "PROJECT",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "PROJECT_S163_O2",
+      "arm": "PROJECT",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "PROJECT_S164_O1",
+      "arm": "PROJECT",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "PROJECT_S164_O2",
+      "arm": "PROJECT",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "PROJECT"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 0.00004,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1,
+    "feature_lr_multiplier": 1,
+    "feature_weight_decay_multiplier": 1,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "real_smoke_updates": 4,
+    "synthetic_cuda_updates": 32,
+    "cpu_optimizer_updates": 96,
+    "diagnostic_vjps": 64
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "PROJECT_S163_O1"
+    ],
+    [
+      "PROJECT_S163_O2",
+      "PROJECT_S164_O1",
+      "PROJECT_S164_O2"
+    ]
+  ],
+  "equation": "R gradient: gL + gU - min(0,dot(gL,gU))/norm(gL)^2*gL; zero gL leaves gU unchanged",
+  "hypothesis": "filter observed conflicting total-U components without changing F5 architecture/objectives/data/permissions",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "reuse matched V1 F5 after disabled-projection historical state parity; retain historical B0/B2",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "sparse V1 conflict samples do not establish cause",
+    "one-sided adaptation is not symmetric PCGrad",
+    "raw gradient projection does not guarantee an Adam step or old-domain improvement",
+    "development patients reused"
+  ],
+  "plan_id": "459bc694b068af59913c5a6b983506e1481e1a01b7b764772447963e4229d406"
+}
