@@ -1,0 +1,78 @@
+{
+  "status": "INTERRUPTED_HOST_REBOOT",
+  "scientific_outcome": "NOT_AVAILABLE_INCOMPLETE",
+  "execution_commit": "3b099335a021572695e42b1b43306628ea991ec9",
+  "detected_utc": "2026-10-10T07:46:58.372806+00:00",
+  "boot_utc": "2026-10-10T06:23:19+00:00",
+  "original_status_is_stale": true,
+  "controller_exit_receipt": null,
+  "completed_jobs": 1,
+  "sealed_targets": 2,
+  "formal_physical_calls": 9573,
+  "rows": [
+    {
+      "job": "B_NORMCAP_S163_O1",
+      "stage": "stage1",
+      "physical_calls": 3200,
+      "sealed": true,
+      "last_call_utc": "2026-10-10T06:01:37.758510+00:00",
+      "checkpoint_step": 3200,
+      "uncommitted_since_checkpoint": 0
+    },
+    {
+      "job": "B_NORMCAP_S163_O1",
+      "stage": "stage2",
+      "physical_calls": 2100,
+      "sealed": true,
+      "last_call_utc": "2026-10-10T06:11:27.128715+00:00",
+      "checkpoint_step": 2100,
+      "uncommitted_since_checkpoint": 0
+    },
+    {
+      "job": "B_NORMCAP_S163_O2",
+      "stage": "stage1",
+      "physical_calls": 1396,
+      "sealed": false,
+      "last_call_utc": "2026-10-10T06:17:34.715228+00:00",
+      "checkpoint_step": 1200,
+      "uncommitted_since_checkpoint": 196
+    },
+    {
+      "job": "B_NORMCAP_S164_O1",
+      "stage": "stage1",
+      "physical_calls": 1482,
+      "sealed": false,
+      "last_call_utc": "2026-10-10T06:17:34.847479+00:00",
+      "checkpoint_step": 1200,
+      "uncommitted_since_checkpoint": 282
+    },
+    {
+      "job": "B_NORMCAP_S164_O2",
+      "stage": "stage1",
+      "physical_calls": 1395,
+      "sealed": false,
+      "last_call_utc": "2026-10-10T06:17:34.734033+00:00",
+      "checkpoint_step": 1200,
+      "uncommitted_since_checkpoint": 195
+    }
+  ],
+  "evidence": [
+    "controller and all recorded worker PIDs absent",
+    "physical ledgers unchanged across hourly checks",
+    "last recorded optimizer invocations precede current host boot",
+    "no controller/unfinished job EXIT receipts"
+  ],
+  "evaluation": "NOT_STARTED; do not read partial trajectory metrics",
+  "restart_or_retry": "NOT_AUTHORIZED_UNDER_FROZEN_V5_RULE",
+  "runtime": {
+    "loaded_driver": "580.178.04",
+    "legacy_library": "580.173.02",
+    "legacy_nvml_exit": 18,
+    "system_nvml_exit": 0,
+    "system_driver_modified_by_agent": false
+  },
+  "limitations": [
+    "physical optimizer ledger records attempted calls, not proof that the final invocation committed",
+    "host reboot confirmed; the earlier precise stop cause is not established"
+  ]
+}
