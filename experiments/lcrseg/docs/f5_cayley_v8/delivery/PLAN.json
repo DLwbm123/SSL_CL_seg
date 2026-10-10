@@ -1,0 +1,148 @@
+{
+  "study_id": "F5_CAYLEY_V8",
+  "parent": "F5_C02",
+  "authority": "user 2026-10-10: 下一轮优先做有依据的方法模块改进，不要只调整系数，继续每小时监测。",
+  "jobs": [
+    {
+      "id": "CAYLEY_S163_O1",
+      "arm": "CAYLEY",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "CAYLEY_S163_O2",
+      "arm": "CAYLEY",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "CAYLEY_S164_O1",
+      "arm": "CAYLEY",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "CAYLEY_S164_O2",
+      "arm": "CAYLEY",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "CAYLEY"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "CAYLEY_S163_O1"
+    ],
+    [
+      "CAYLEY_S163_O2",
+      "CAYLEY_S164_O1",
+      "CAYLEY_S164_O2"
+    ]
+  ],
+  "equation": "original F5 A/B L-only, R-only U; S=(R-R.T)/2, O=solve(I-S,I+S), G=I+Q(O-I)Q.T, F_next=F_prev G; EMA raw R",
+  "hypothesis": "remove adapter-induced cumulative feature scaling; original F5 sealed second-stage condition numbers1.93–2.36; V7 rejection gain0.0185pp insufficient",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "matched archived F5 via disabled-Cayley native parity; historical B0/B2; original lambda_U0.25/PAS0.7,0.5/SWD0.2 retained",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "orthogonality does not preserve classifier logits or backbone retention; scaling causality unproven",
+    "effective degrees of freedom28 instead of64 may restrict adaptation",
+    "B2 joint A/B U capacity and PAS differences persist",
+    "reused development; original OFT was not medical continual segmentation"
+  ],
+  "plan_id": "ab1b9fddfec37a0d7e1eeb335127d0991126325166a82af9855cf323f165ac80"
+}

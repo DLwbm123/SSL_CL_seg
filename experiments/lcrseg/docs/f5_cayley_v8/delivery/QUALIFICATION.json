@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "execution_commit": "9ebf1968452e385fc5697a862ac4ea65a972597e",
+  "plan_id": "ab1b9fddfec37a0d7e1eeb335127d0991126325166a82af9855cf323f165ac80",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "checks": [
+    "two-case actual Cayley rotation overfit and mathematical checks",
+    "disabled Cayley matches archived F5 state",
+    "actual native skew R gradient, orthogonal cumulative matrix, A/B U forbidden",
+    "raw-generator EMA and teacher freeze; checkpoint continuation incl telemetry and reject wrong actual flag",
+    "deployment/own-prefix stage transition",
+    "deliberate failed optimizer call accounted",
+    "discarded current-L smoke with zero U reads"
+  ],
+  "matched_control_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged previous parity retained; historical only"
+}
