@@ -54,9 +54,9 @@ def metrics(stages,source):
                 Forget=(source['scores'][seen[0]]['macro_Dice']-values[0]+first['scores'][seen[1]]['macro_Dice']-values[1])/2)
 
 
-def compare(rows,reference):
+def compare(rows,reference,arms=ARMS[1:]):
     table={(r['arm'],r['seed'],r['order']):r for r in rows};output={}
-    for arm in ARMS[1:]:
+    for arm in arms:
         pairs=[dict(seed=s,order=o,**{m:table[arm,s,o]['metrics'][m]-table[reference,s,o]['metrics'][m]
                                     for m in ('Final','Old','Incoming','Forget')}) for s in SEEDS for o in (1,2)]
         per_seed={str(s):{m:sum(r[m] for r in pairs if r['seed']==s)/2 for m in ('Final','Old','Incoming','Forget')} for s in SEEDS}

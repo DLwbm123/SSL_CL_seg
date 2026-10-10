@@ -138,31 +138,37 @@ def final_readout(config):
                 write(out/'EVALUATION.json',row);values.append(row);stage_rows.append(row)
             sr=read(Path(config['reuse_root'])/f'SOURCE_S{j["seed"]}'/'receipt.json')
             rows.append(dict(arm=j['arm'],seed=j['seed'],order=j['order'],scores=values[-1]['scores'],metrics=metrics(values,sr)))
-    historical=read(Path(config['reuse_root'])/'PUBLIC_RESULTS.json')
     refs=[]
-    for arm in ('B0_PARENT_LCTX','B2_PARENT_PAS_KL'):
+    historical=read(Path(config['reuse_root'])/'PUBLIC_RESULTS.json')
+    for arm in (() if config.get('reuse_comparison_results') else ('B0_PARENT_LCTX','B2_PARENT_PAS_KL')):
         for seed in (163,164):
             for order in (1,2):
                 stages=sorted([r for r in historical['rows'] if r['identity']['family']==arm and r['identity']['seed']==seed and r['identity']['order']==order],key=lambda r:r['identity']['stage'])
                 sr=read(Path(config['reuse_root'])/f'SOURCE_S{seed}'/'receipt.json')
                 refs.append(dict(arm=arm,seed=seed,order=order,scores=stages[-1]['scores'],metrics=metrics([
                     dict(scores=r['scores'],seen=list(ORDERS[order-1][:r['identity']['stage']+1])) for r in stages],sr),origin='historical aggregate import'))
+    if config.get('reuse_comparison_results'):
+        previous_results=read(config['reuse_comparison_results'])
+        refs=[{**r,'origin':('matched prior-round F5' if r['arm']=='F5' else 'historical aggregate import')}
+              for r in previous_results['rows']+previous_results['historical_refs']
+              if r['arm'] in ('F5','B0_PARENT_LCTX','B2_PARENT_PAS_KL')]
     output=dict(status='COMPLETE_DEVELOPMENT_ONLY',rows=rows,historical_refs=refs,stages=stage_rows,
-                vs_F5=compare(rows,'F5'),vs_B0=compare(rows+refs,'B0_PARENT_LCTX'),vs_B2=compare(rows+refs,'B2_PARENT_PAS_KL'),
+                vs_F5=compare(rows+refs,'F5'),vs_B0=compare(rows+refs,'B0_PARENT_LCTX'),vs_B2=compare(rows+refs,'B2_PARENT_PAS_KL'),
                 readout_operations=dict(operations.counts),automatic_followup=False)
     write(root/'RESULTS.json',output)
-    lines=['# F5 module pilots: completed development experiment','',
-           'Two optimization seeds, two orders; all 32 target students sealed before readout. No independent patient confirmation.','',
+    lines=['# '+plan()['study_id']+': completed development experiment','',
+           f'Two optimization seeds, two orders; all {len(stage_rows)} target students sealed before readout. No independent patient confirmation.','',
            '| Arm | Final | Old | Incoming | Forget |','|---|---:|---:|---:|---:|']
     for arm in ARMS:
-        v={m:sum(r['metrics'][m] for r in rows if r['arm']==arm)/4 for m in ('Final','Old','Incoming','Forget')}
+        selected=[r for r in rows+refs if r['arm']==arm]
+        v={m:sum(r['metrics'][m] for r in selected)/len(selected) for m in ('Final','Old','Incoming','Forget')}
         lines.append('|'+arm+'|'+'|'.join(f'{v[m]:.6f}' for m in ('Final','Old','Incoming','Forget'))+'|')
     lines+=['','All paired seed/order/class deltas, including negative outcomes, are in RESULTS.json.',
             'Paper adaptations and fixed coefficients are in PREREG.md and PLAN.json. No module combination or tuning was run.',
             'Private weights, patient rows, images, labels and runtime configuration remain on NAS.']
     (root/'REPORT.md').write_text('\n'.join(lines)+'\n')
     write(root/'FINAL.json',dict(status=output['status'],plan_id=plan()['plan_id'],execution_commit=config['execution_commit'],
-                               formal_updates=84800,source_updates=0,automatic_followup=False))
+                               formal_updates=CAPS['formal_updates'],source_updates=0,automatic_followup=False))
 
 
 def coordinator(config):
@@ -172,8 +178,9 @@ def coordinator(config):
     started=time.time()
     try:
         # Each batch ends before the next-priority module starts; no efficacy-based pruning.
-        for arm in ARMS:
-            batch=[j for j in jobs() if j['arm']==arm];children=[]
+        batches=plan().get('execution_batches') or [[j['id'] for j in jobs() if j['arm']==arm] for arm in ARMS]
+        for group in batches:
+            batch=[j for jid in group for j in jobs() if j['id']==jid];children=[];arm=batch[0]['arm']
             write(root/'STATUS.json',dict(status='RUNNING',phase='train',arm=arm,plan_id=plan()['plan_id']))
             free=subprocess.check_output(['nvidia-smi','--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True).splitlines()
             if any(int(free[g])<4096 for g in (4,5,6,7)):
@@ -201,7 +208,7 @@ def coordinator(config):
         if total!=CAPS['formal_updates']:raise RuntimeError('formal ledger mismatch')
         write(root/'COSTS.json',dict(formal_updates=total,source_updates=0,qualification=qualification['costs'],
                                    elapsed_seconds=time.time()-started))
-        write(root/'COMPLETION_AUDIT.json',dict(status='PASS',jobs=16,target_stages=32,formal_updates=total,
+        write(root/'COMPLETION_AUDIT.json',dict(status='PASS',jobs=len(jobs()),target_stages=sum(len(j['stages']) for j in jobs()),formal_updates=total,
                                               readout_seal=read(root/'READOUT_SEAL.json')))
         write(root/'STATUS.json',dict(status='COMPLETE_PENDING_PUBLIC_DELIVERY',phase='complete',plan_id=plan()['plan_id']))
         write(root/'CONTROLLER_EXIT.json',dict(exit_code=0,seconds=time.time()-started))

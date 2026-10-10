@@ -148,6 +148,9 @@ class StageTrainer:
     def gradient_audit(self, labeled, unlabeled):
         pass
 
+    def transform_gradients(self, gradients):
+        pass
+
     def losses(self):
         opt=self.options;m=self.model;t=self.ema
         x,y,patients=self.provider.labeled(self.cursor)
@@ -242,6 +245,7 @@ class StageTrainer:
         finite(labeled if unlabeled is None else labeled+unlabeled,"combined objective")
         self.gradient_audit(labeled,unlabeled)
         grads=split_gradients(self.model,labeled,unlabeled)
+        self.transform_gradients(grads)
         if skip:
             self.optimizer.zero_grad(set_to_none=True);self.telemetry['skipped_updates']+=1
             return grads
