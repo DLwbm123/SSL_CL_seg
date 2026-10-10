@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "execution_commit": "ac02d053a07a75b9e3af1f33b92d12f10f781bd5",
+  "plan_id": "5917afce50c81e62395461e2404bd917038f1fbc9fb06296c8c52268d748b2e8",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "checks": [
+    "two-case fixed-strength CPU optimization",
+    "lambda0.25 restored matches archived F5 state",
+    "lambda1 actual U loss and R gradients fourfold; A/B U forbidden",
+    "teacher freeze and checkpoint continuation incl telemetry",
+    "deployment/own-prefix stage transition",
+    "deliberate failed optimizer call accounted",
+    "discarded current-L smoke with zero U reads"
+  ],
+  "matched_control_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged previous parity retained; historical only"
+}
