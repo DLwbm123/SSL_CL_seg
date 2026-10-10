@@ -36,8 +36,11 @@ def validate_commit(trainer,pending):
         for a,b in zip(t.parent.adapters,m.parent.adapters):
             finite(b.base+ema_value(a.b,b.b)@ema_value(a.a,b.a),'candidate EMA effective adapter')
     if m.sidecar is not None:
-        q=m.sidecar.q;r=ema_value(t.sidecar.r,m.sidecar.current_matrix())
-        finite(m.sidecar.previous@(torch.eye(q.shape[0]).to(q)+q@r@q.T),'candidate EMA effective F')
+        if hasattr(m.sidecar,'ema_effective'):
+            finite(m.sidecar.ema_effective(t.sidecar),'candidate EMA effective F')
+        else:
+            q=m.sidecar.q;r=ema_value(t.sidecar.r,m.sidecar.current_matrix())
+            finite(m.sidecar.previous@(torch.eye(q.shape[0]).to(q)+q@r@q.T),'candidate EMA effective F')
     if pending:
         import copy
         candidate=copy.deepcopy(trainer.prototypes)

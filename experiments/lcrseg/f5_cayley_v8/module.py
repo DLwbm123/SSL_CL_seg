@@ -9,12 +9,19 @@ class CayleyAdapter(StageSubspaceAdapter):
             f=self.previous.detach();eye=torch.eye(f.shape[0],device=f.device,dtype=f.dtype)
             if not torch.allclose(f.T@f,eye,atol=2e-5,rtol=2e-5):raise ValueError('Cayley requires own orthogonal predecessor, not an archived linear F5 prefix')
     def current_matrix(self):
-        if not self.cayley_enabled:return self.r
-        if not torch.isfinite(self.r).all():raise FloatingPointError('nonfinite Cayley parameter')
-        skew=(self.r-self.r.T)/2;eye=torch.eye(skew.shape[0],device=skew.device,dtype=skew.dtype)
+        return self.map_generator(self.r)
+    def map_generator(self,r):
+        if not self.cayley_enabled:return r
+        if not torch.isfinite(r).all():raise FloatingPointError('nonfinite Cayley parameter')
+        skew=(r-r.T)/2;eye=torch.eye(skew.shape[0],device=skew.device,dtype=skew.dtype)
         rotation=torch.linalg.solve(eye-skew,eye+skew)
         if not torch.isfinite(rotation).all():raise FloatingPointError('nonfinite Cayley rotation')
         return rotation-eye
+    @torch.no_grad()
+    def ema_effective(self,teacher,decay=.99):
+        raw=teacher.r.detach().clone().mul_(decay).add_(self.r,alpha=1-decay)
+        eye=torch.eye(self.q.shape[0],device=self.q.device,dtype=self.q.dtype)
+        return self.previous@(eye+self.q@self.map_generator(raw)@self.q.T)
     @torch.no_grad()
     def update_teacher(self,teacher,decay=.99):
         if teacher.cayley_enabled!=self.cayley_enabled:raise ValueError('student/teacher Cayley contract mismatch')
