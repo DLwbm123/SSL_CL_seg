@@ -8,14 +8,14 @@ from ..five_frameworks_v1.native_data import NativeCurrentDomain
 from . import protocol
 
 
-def construct(config,j,stage,device,permit,previous=None,native=None,source_id=None,allow_u=True):
+def construct(config,j,stage,device,permit,previous=None,native=None,source_id=None,allow_u=True,initialize=True):
     if native is None:
         native,sr=engine.source(config,j['seed'],device)
         source_id=dict(node_id=sr['node_id'],student_hash=sr['student_hash'],seed=j['seed'],domain='REFUGE')
     provider=NativeCurrentDomain(config['data'],j['seed'],j['order'],stage,source_id,device,permit,allow_u=allow_u)
     options={**protocol.OPTIONS,'total_steps':protocol.STEPS[provider.domain]}
     model=SelectiveUModel(NativeLRParent(native,j['seed'],source_id),'F5',ratio=options['rank_ratio'],previous=previous).to(device)
-    return NormCapTrainer(model,provider,options,execution=permit)
+    return NormCapTrainer(model,provider,options,execution=permit,initialize=initialize)
 
 
 def bind():

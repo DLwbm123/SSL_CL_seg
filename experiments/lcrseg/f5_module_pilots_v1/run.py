@@ -78,9 +78,9 @@ def train_job(config,j):
             stage=st['stage'];out=jr/f'stage{stage}';out.mkdir(exist_ok=False)
             with NativeOperations(out/'operations') as operations:
                 trainer=construct(config,j,stage,device,permit,previous,native,source_id)
-                del native;counter=Counter(out/'physical.jsonl',st['steps']);counter.wrap(trainer.optimizer)
+                del native;counter=Counter(out/'physical.jsonl',st['steps']-trainer.step);counter.wrap(trainer.optimizer)
                 diagnostics=[];stat_rows=[]
-                for _ in range(st['steps']):
+                for _ in range(trainer.step,st['steps']):
                     trainer.update()
                     if trainer.step==1 or trainer.step%trainer.provider.steps_per_epoch==0:
                         write(out/'STATUS.json',dict(status='TRAINING',successful=trainer.step,attempts=counter.count,
@@ -90,6 +90,7 @@ def train_job(config,j):
                     if trainer.step%400==0 or trainer.step==st['steps']:
                         checkpoint.save(trainer,out/'latest.pt',dict(family='F5',seed=j['seed'],order=j['order'],stage=stage,arm=j['arm']))
                 costs=copy.deepcopy(trainer.telemetry);diagnostics=trainer.gradient_rows
+                recovery=copy.deepcopy(getattr(trainer,'recovery_receipt',None))
                 model=trainer.model;del trainer
                 deployment=model.deploy();del model
                 identity=dict(arm=j['arm'],seed=j['seed'],order=j['order'],stage=stage,
@@ -102,7 +103,8 @@ def train_job(config,j):
                 del deployment
             write(out/'SEALED.json',dict(identity=identity,steps=st['steps'],attempts=counter.count,cost=costs,
                                         module_diagnostics=stat_rows,gradient_diagnostics=diagnostics,
-                                        operation_counts=dict(operations.counts),evaluation='NOT_READ_YET'))
+                                        operation_counts=dict(operations.counts),evaluation='NOT_READ_YET',
+                                        **({'recovery':recovery,'physical_ledger_scope':'new_calls_only'} if recovery else {})))
         write(jr/'EXIT.json',dict(exit_code=0,seconds=time.time()-started,
                                  peak_cuda_allocated=torch.cuda.max_memory_allocated(),peak_cuda_reserved=torch.cuda.max_memory_reserved()))
     except BaseException as e:
@@ -205,9 +207,15 @@ def coordinator(config):
                            env=env,cwd=config['code'],stdout=log,stderr=subprocess.STDOUT,check=True)
         qualification=read(root/'QUALIFICATION.json')
         total=sum(sum(1 for _ in (root/'jobs'/j['id']/f'stage{st["stage"]}'/'physical.jsonl').open()) for j in jobs() for st in j['stages'])
+        total+=plan().get('inherited_unsealed_physical_updates',0)
         if total!=CAPS['formal_updates']:raise RuntimeError('formal ledger mismatch')
         write(root/'COSTS.json',dict(formal_updates=total,source_updates=0,qualification=qualification['costs'],
-                                   elapsed_seconds=time.time()-started))
+                                   elapsed_seconds=time.time()-started,
+                                   **({'inherited_formal_updates':plan()['inherited_formal_updates'],
+                                       'additional_formal_updates':total-plan()['inherited_formal_updates'],
+                                       'scientific_updates':plan()['scientific_updates'],
+                                       'interrupted_or_replayed_updates':total-plan()['scientific_updates']}
+                                      if 'inherited_formal_updates' in plan() else {})))
         write(root/'COMPLETION_AUDIT.json',dict(status='PASS',jobs=len(jobs()),target_stages=sum(len(j['stages']) for j in jobs()),formal_updates=total,
                                               readout_seal=read(root/'READOUT_SEAL.json')))
         write(root/'STATUS.json',dict(status='COMPLETE_PENDING_PUBLIC_DELIVERY',phase='complete',plan_id=plan()['plan_id']))
