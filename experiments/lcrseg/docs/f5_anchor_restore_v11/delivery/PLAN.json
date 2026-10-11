@@ -1,0 +1,148 @@
+{
+  "study_id": "F5_ANCHOR_RESTORE_V11",
+  "parent": "F5_C02",
+  "authority": "user 2026-10-11: 继续分析种子164旧域退化的原因，以V10为底座选一个最有依据的方法模块直接开展下一轮，不要只调系数，继续每小时监测直到超过B2并达到成功门槛。",
+  "jobs": [
+    {
+      "id": "ANCHOR_RESTORE_S163_O1",
+      "arm": "ANCHOR_RESTORE",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "ANCHOR_RESTORE_S163_O2",
+      "arm": "ANCHOR_RESTORE",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "ANCHOR_RESTORE_S164_O1",
+      "arm": "ANCHOR_RESTORE",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "ANCHOR_RESTORE_S164_O2",
+      "arm": "ANCHOR_RESTORE",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "ANCHOR_RESTORE"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "ANCHOR_RESTORE_S163_O1"
+    ],
+    [
+      "ANCHOR_RESTORE_S163_O2",
+      "ANCHOR_RESTORE_S164_O1",
+      "ANCHOR_RESTORE_S164_O2"
+    ]
+  ],
+  "equation": "V10 entry guard conflicts on original PAS support now use immutable entry soft target; other pixels use EMA; one KL normalized by original PAS support; SWD/L unchanged",
+  "hypothesis": "V10 rejects6.7872percent PAS support but seed164 Drishti cup still loses22.5312pp; restoration could provide missing corrective knowledge gradient; causality not established",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled restoration archived V10 native full-state parity; paired vs V10 plus matched F5 and historical B0/B2; original coefficients/PAS unchanged",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "entry teacher may be confidently wrong on current domain",
+    "restoring original PAS denominator also dilutes retained EMA pixels relative to V10; not isolated target-only causal attribution",
+    "current-U preservation does not constrain all supervised updates or guarantee old-domain retention",
+    "development reuse; LwF-inspired soft target routing, not independent confirmation or full paper reproduction"
+  ],
+  "plan_id": "d3ac1bfd90e2ab138a29e079d185c7411e1a653455d905576a0478e5f16072b2"
+}

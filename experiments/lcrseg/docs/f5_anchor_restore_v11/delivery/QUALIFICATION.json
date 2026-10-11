@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "execution_commit": "647b874d332793a00c03a6064fa33cf29a1163ff",
+  "plan_id": "d3ac1bfd90e2ab138a29e079d185c7411e1a653455d905576a0478e5f16072b2",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "checks": [
+    "two-case routed soft-target overfit; same/different/low-confidence/invalid support boundaries",
+    "disabled restoration matches archived V10 native model/EMA/optimizer/cursor/prototypes, including frozen training loss path",
+    "actual native A/B/R U gradients and summed L/U; clean SWD parent-detached feature route",
+    "immutable shared entry teacher, actual native rejected conflict restored to entry soft target and nonzero corrective gradient; original V10 zero on identical conflict, linear R EMA; checkpoint continuation incl anchor/telemetry and reject wrong actual flag",
+    "deployment/own-prefix stage transition",
+    "deliberate failed optimizer call accounted",
+    "discarded current-L smoke with zero U reads"
+  ],
+  "qualification_extra_gradient_vjps": 4,
+  "qualification_extra_anchor_full_forwards": 2,
+  "matched_control_reuse_qualified": true,
+  "matched_V10_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged previous parity retained; historical only"
+}
