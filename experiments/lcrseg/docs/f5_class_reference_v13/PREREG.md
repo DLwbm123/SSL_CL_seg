@@ -24,3 +24,6 @@ V12 Final67.3290%、vsV10+0.3737pp、F5+1.9181pp、历史B2−0.5721pp，两原�
 完整paired V13−V12（唯一参考归约差）/V10（正向底座）/V11背景，匹配F5、历史B0/B2来源明确；协议不可比补必要匹配对照。原双门槛同时vsF5和B2：每seed平均两order Final增益>0、总均值>=0.005，各order平均Old/Incoming>=−0.005，每seed/order/domain/rim或cup>=−0.05。全部负细胞/轮次报告，不事后放宽、选checkpoint或sealed test调参。重复开发患者不是独立泛化/SOTA/临床获益/创新证明。
 
 完成先复用审计、一次必要核对，公开源代码/冻结协议/完整匿名结果/激活正负发现/实际优化、forward/VJP和累计成本/报告；经本机7897代理Git HTTPS显式http.proxy、HTTP/gh代理防NO_PROXY绕过，验证远端SHA/匿名访问后再独立下一科学轮，不直连/强推。患者/逐患者读出/权重/private配置/原始私有log/密钥NAS不进Git。工程中断不伪装新科学轮绕过不可重试，新增恢复预算须明确许可。f5小时ACTIVE、RL PAUSED；只有原双门槛达标且完整公开验证后暂停，或明确用户停止。
+
+## 工程资格失败保留
+首次资格因注册器使用非标准USER_AUTHORIZATION结构被原引擎拒绝，优化0CPU/0CUDA/0真实L、EXIT1，另此前大环境载荷注册失败消耗0。原目录及失败永久保留，不覆盖或重置预算。新create-only绑定目录修正为原引擎严格instruction/plan_id/execution_commit三字段并保存代码快照CODE_COMMIT；同科学计划、总资格上限96/32/4、正式21200不变，资格实际跨attempt累计。
