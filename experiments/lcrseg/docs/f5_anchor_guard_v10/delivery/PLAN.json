@@ -1,0 +1,147 @@
+{
+  "study_id": "F5_ANCHOR_GUARD_V10",
+  "parent": "F5_C02",
+  "authority": "user 2026-10-10: \u4e0b\u4e00\u8f6e\u4f18\u5148\u505a\u6709\u4f9d\u636e\u7684\u65b9\u6cd5\u6a21\u5757\u6539\u8fdb\uff0c\u4e0d\u8981\u53ea\u8c03\u6574\u7cfb\u6570\uff0c\u7ee7\u7eed\u6bcf\u5c0f\u65f6\u76d1\u6d4b\u3002",
+  "jobs": [
+    {
+      "id": "ANCHOR_GUARD_S163_O1",
+      "arm": "ANCHOR_GUARD",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "ANCHOR_GUARD_S163_O2",
+      "arm": "ANCHOR_GUARD",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "ANCHOR_GUARD_S164_O1",
+      "arm": "ANCHOR_GUARD",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "ANCHOR_GUARD_S164_O2",
+      "arm": "ANCHOR_GUARD",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "ANCHOR_GUARD"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "ANCHOR_GUARD_S163_O1"
+    ],
+    [
+      "ANCHOR_GUARD_S163_O2",
+      "ANCHOR_GUARD_S164_O1",
+      "ANCHOR_GUARD_S164_O2"
+    ]
+  ],
+  "equation": "positive V9 joint KL; reject PAS KL pixels only if frozen stage-entry confidence>=original PAS0.7 and class disagrees with current EMA; original SWD/PAS/coefficients unchanged",
+  "hypothesis": "V9 passes F5 gate but seed164 Old remains5.9283pp below B2; immutable entry agreement could limit drift-amplifying KL feedback; incorrect pseudo-label causality unproven",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled guard archived V9 full native parity; original F5 plus historical B0/B2 reuse; additionally paired vs V9; lambda_U0.25/PAS0.7,0.5/SWD0.2 unchanged",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "entry teacher can be confidently wrong on new domain; rejection can reduce adaptation",
+    "entry predictions on current U are not old-domain supervision or retention guarantee",
+    "reused development; LwF-inspired rejection is not paper distillation reproduction or independent generalization"
+  ],
+  "plan_id": "8e505f9de490fe233b5c8fcbafbcac12bff8f815abae5220f058339bf44a2ec6"
+}

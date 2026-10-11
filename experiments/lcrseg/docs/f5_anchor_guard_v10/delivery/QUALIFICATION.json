@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "execution_commit": "c750a1e2c812b23cd103878428ba1642fae673d6",
+  "plan_id": "8e505f9de490fe233b5c8fcbafbcac12bff8f815abae5220f058339bf44a2ec6",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "checks": [
+    "two-case coupled low-rank factor overfit",
+    "disabled entry guard matches archived V9 native state",
+    "actual native A/B/R U gradients and summed L/U; clean SWD parent-detached feature route",
+    "immutable shared entry teacher, actual native conflict rejected/zero KL gradient, linear R EMA; checkpoint continuation incl anchor/telemetry and reject wrong actual flag",
+    "deployment/own-prefix stage transition",
+    "deliberate failed optimizer call accounted",
+    "discarded current-L smoke with zero U reads"
+  ],
+  "qualification_extra_gradient_vjps": 2,
+  "qualification_extra_anchor_full_forwards": 2,
+  "matched_control_reuse_qualified": true,
+  "matched_V9_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged previous parity retained; historical only"
+}
