@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "execution_commit": "2a64df4441f7725d62804973c274aacd89fb1ce9",
+  "plan_id": "13e11df0ee7b5a92e2e30ae4cd05dc08fb1b73cffdc203594334e6eccba2c7cf",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "checks": [
+    "half-space conflict/aligned/orthogonal/zero/grid/nonfinite/overflow; two-case orthogonal adaptation and entry retention",
+    "disabled entry-gradient guard matches archived V10 native complete state/loss path",
+    "actual native A/B/R U gradients and summed L/U; clean SWD parent-detached feature route",
+    "immutable shared entry teacher, original V10 zero rejected KL retained; nonzero reference; actual A/B/R merged conflicting direction projected, linear R EMA; checkpoint continuation incl anchor/telemetry and reject wrong actual flag",
+    "deployment/own-prefix stage transition",
+    "deliberate failed optimizer call accounted",
+    "discarded current-L smoke with zero U reads"
+  ],
+  "qualification_guard_vjps": 5,
+  "qualification_extra_gradient_vjps": 3,
+  "qualification_extra_generated_loss_calls": 1,
+  "qualification_extra_anchor_full_forwards": 2,
+  "matched_control_reuse_qualified": true,
+  "matched_V10_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged previous parity retained; historical only"
+}
