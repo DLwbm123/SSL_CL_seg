@@ -60,6 +60,9 @@ class EntryGradientTrainer(AnchorGuardTrainer):
             self.entry_reference_loss=None
             self.telemetry['entry_reference_vjps']+=1
 
+    def project_entry_gradients(self,merged,reference,grads,params):
+        return halfspace(merged,reference)
+
     def transform_gradients(self,grads):
         super().transform_gradients(grads)
         stats=dict(projected=False,dot_before=0.,dot_after=0.,reference_norm=0.)
@@ -67,7 +70,7 @@ class EntryGradientTrainer(AnchorGuardTrainer):
             params=[p for p in self.model.parameters() if p.requires_grad]
             merged=[torch.zeros_like(p) if p.grad is None else p.grad for p in params]
             reference=[torch.zeros_like(p) if g is None else g for p,g in zip(params,self.entry_reference_grads)]
-            projected,stats=halfspace(merged,reference)
+            projected,stats=self.project_entry_gradients(merged,reference,grads,params)
             for p,g in zip(params,projected):p.grad=g
             self.telemetry['entry_guard_calls']+=1;self.telemetry['entry_projected_calls']+=int(stats['projected'])
             self.entry_reference_grads=None
