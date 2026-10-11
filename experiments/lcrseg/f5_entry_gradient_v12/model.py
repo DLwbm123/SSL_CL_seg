@@ -33,13 +33,16 @@ class EntryGradientTrainer(AnchorGuardTrainer):
                 'projection':'merged A/B/R L+U raw gradient -> dot>=0 against confident original-PAS frozen-entry KL reference; zero-reference no-op; Adam unconstrained',
                 'entry_gradient_implementation':digest(Path(__file__).read_text())}
 
+    def entry_reference_objective(self,logits,anchor,support):
+        return self.fine_kl(logits,anchor,support)
+
     def kl_objective(self,images,logits,target,valid):
         if not self.model.entry_gradient:return super().kl_objective(images,logits,target,valid)
         with torch.no_grad():
             anchor=self.model.entry_anchor(images).softmax(1)
             kept=guarded_mask(anchor,target,valid,self.options['PAS_confidence'])
             support=valid & (anchor.max(1).values>=self.options['PAS_confidence'])
-        self.entry_reference_loss=self.fine_kl(logits,anchor,support)
+        self.entry_reference_loss=self.entry_reference_objective(logits,anchor,support)
         count=int((valid & ~kept).sum())
         self.telemetry['teacher_full_forwards']+=1;self.telemetry['anchor_full_forwards']+=1
         self.telemetry['anchor_candidate_pixels']+=int(valid.sum());self.telemetry['anchor_rejected_pixels']+=count
