@@ -139,6 +139,9 @@ class StageTrainer:
     def kl_admission(self, images, target, valid):
         return valid
 
+    def kl_objective(self, images, logits, target, valid):
+        return self.fine_kl(logits,target,self.kl_admission(images,target,valid))
+
     def fine_kl(self, logits, target, valid):
         return masked_kl(logits, target, valid)
 
@@ -209,7 +212,7 @@ class StageTrainer:
             self.telemetry['coordinate_vjps']+=stats['coordinate_vjps']
             self.telemetry['readout_only_forwards']+=stats['readout_only_forwards']
             self.last['repair']=stats
-        unlabeled=self.fine_kl(logu,target,self.kl_admission(u,target,valid))
+        unlabeled=self.kl_objective(u,logu,target,valid)
         if m.family=='F1':unlabeled=unlabeled+opt.get('lambda_JML',.25)*masked_jml1(logu.exp(),target,valid)
         if m.family=='F5':
             _,before_clean,_=m.parts(u,detach_parent=m.detach_u_parent(clean=True))
