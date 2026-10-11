@@ -1,0 +1,147 @@
+{
+  "study_id": "F5_JOINT_KL_BRIDGE_V9",
+  "parent": "F5_C02",
+  "authority": "user 2026-10-10: 下一轮优先做有依据的方法模块改进，不要只调整系数，继续每小时监测。",
+  "jobs": [
+    {
+      "id": "JOINT_KL_S163_O1",
+      "arm": "JOINT_KL",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "JOINT_KL_S163_O2",
+      "arm": "JOINT_KL",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "JOINT_KL_S164_O1",
+      "arm": "JOINT_KL",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "JOINT_KL_S164_O2",
+      "arm": "JOINT_KL",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "JOINT_KL"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "JOINT_KL_S163_O1"
+    ],
+    [
+      "JOINT_KL_S163_O2",
+      "JOINT_KL_S164_O1",
+      "JOINT_KL_S164_O2"
+    ]
+  ],
+  "equation": "original linear F5; KL jointly reaches all trainable A/B/R; SWD reaches R only; original coefficients and hard input projection",
+  "hypothesis": "V8 orthogonality achieved but Old dropped0.7446pp vs F5; B2 all-layer joint A/B U feedback remains untested by prior B-only V3–V5",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "matched archived F5 via disabled joint bridge native parity; historical B0/B2; original lambda_U0.25/PAS0.7,0.5/SWD0.2 retained",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "joint feedback may harm Old; capacity hypothesis is not causal proof",
+    "B2 differs in PAS/weight and has no R; this is not full B2 reproduction",
+    "reused development; not LoRA-Pro optimization, independent generalization or SOTA"
+  ],
+  "plan_id": "83d89d43217c005d957da279d051f24f95e4498b132f5e96437021b181ee80e6"
+}
