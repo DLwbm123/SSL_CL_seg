@@ -39,6 +39,8 @@ V15 当前冻结运行不变；其全部 8 阶段封存、4 个 EXIT0、统一 2
 
 只通过这些检查时状态为 **MATH_PASS_NOT_NATIVE_QUALIFICATION**。原生模型、Adam 真实调用、教师冻结、部署、checkpoint 和患者性能均尚未验证。新增 source 文件不改变 V15 已绑定执行快照。
 
+本次准备实际结果：执行 `e87a9374adad656069260fbfdbce908fe6f42fc2`，MATH_EXIT0，8 解析、64 随机及 5 无效输入检查通过。float32 回写后最小参考归一化内积 −2.1347434514222282e−08，按固定 1e−6 数值诊断容差通过，不称精确非负定理。生成坐标缩放例中 dot 从 −4.9 修正到约 1.94e−16。优化、模型前向、VJP、患者和 GPU 调用均 0，累计优化预算未增加。命令模板嵌套引号曾在本机解析阶段失败，尚未 SSH/建根/执行，0 成本记录保存在 PREPARATION_FAILURES。修正模板后首次数学执行成功；未重复已 PASS 检查。公开凭据见 `preparation/`。
+
 ## 比较、交付与监测
 
 各轮完整报告匹配底座、V13/V15 背景、F5/B0 和明确历史来源 B2；原双门槛保持：每 seed 平均两 order Final 增益均 >0，总均值 ≥0.005；每 order Old/Incoming ≥−0.005；每 seed/order/domain/rim 或 cup ≥−0.05。保留所有负细胞与正负轮，不放宽、挑 checkpoint 或利用 sealed test 调参。
