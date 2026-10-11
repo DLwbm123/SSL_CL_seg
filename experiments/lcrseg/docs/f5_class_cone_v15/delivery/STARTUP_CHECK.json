@@ -1,0 +1,60 @@
+{
+  "status": "PASS",
+  "execution_commit": "65ecc10f566fe5fe8150236e08ea1dd80b7d2cf6",
+  "version_match": true,
+  "root_status": {
+    "status": "RUNNING",
+    "phase": "train",
+    "arm": "CLASS_CONE",
+    "plan_id": "96f709aba4b8ca32cf76790f304c1f2e5e21aa449475ede47eaf12d9bfa8c417"
+  },
+  "formal_physical_updates": 47,
+  "source_updates": 0,
+  "sealed_stages": 0,
+  "stage_status": {
+    "jobs/CLASS_CONE_S163_O1/stage1/STATUS.json": {
+      "status": "TRAINING",
+      "successful": 32,
+      "attempts": 32,
+      "cap": 3200,
+      "module": {
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.0,
+        "B_U_norm": 0.0,
+        "R_U_norm": 0.0,
+        "anchor_guard": true,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 0.0,
+        "entry_dot_after": 0.0,
+        "entry_reference_norm": 0.0,
+        "class_reference": true,
+        "reference_class_pixels": [
+          0,
+          0,
+          0
+        ],
+        "class_cone": true
+      }
+    }
+  },
+  "exits": {},
+  "neutral_argv": [
+    [
+      1048568,
+      1,
+      "/home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy,json; from pathlib import Path; r=Path(os.environ[\"EXEC_CONFIG\"]).parent; code=1 try:  runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\"); code=0 finally:  (r/\"PROCESS_EXIT.json\").write_text(json.dumps(dict(exit_code=code)))"
+    ],
+    [
+      1048711,
+      1048568,
+      "/home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy; runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\")"
+    ]
+  ],
+  "neutral_gpu_names": [
+    "1048711, /home/jiangsuiyang/anaconda3/envs/py38/bin/python"
+  ],
+  "campaign_actual": 361120
+}
