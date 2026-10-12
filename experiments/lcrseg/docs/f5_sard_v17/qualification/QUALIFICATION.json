@@ -1,0 +1,53 @@
+{
+  "status": "PASS",
+  "execution_commit": "fe00f79c0200d5991628b2445eae8f8840710003",
+  "plan_id": "7603ccc403b5e7e7835400ef1c937f992b5b597022a2711c04b219a02c410710",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "formal_advancement": true,
+  "checks": [
+    "exact structure map and analytic weighted reference/detach; 32CPU two-case fit",
+    "disabled archived V13 native full-state and frozen loss/update parity",
+    "nonuniform generated-native spatial weights change aggregate reference; nonzero A/B/R reference and main U routes; clean SWD R-only",
+    "shared frozen entry/EMA, linear R EMA, original rejected main KL and active reference",
+    "checkpoint continuation and flag rejection; deployment own-prefix next stage; deliberate failed optimizer ledger; current L zeroU smoke"
+  ],
+  "math_result": {
+    "exact_structure_max_error": 1.1368683772161603e-13,
+    "two_case_initial": 0.24208152803130453,
+    "two_case_final": 0.0027232447198360515,
+    "cases": "unfold/eigensolver formula; flat/impulse localization; uniform V13 and zero fallback; analytic gradient and teacher/weight detach; empty/invalid; 32-step two-case fit"
+  },
+  "spatial_diagnostic": {
+    "uniform_gradient_difference_norm": 0.0003461363148960521,
+    "weighted_group_norms": {
+      "A": 2.269750604043666e-05,
+      "B": 0.0010349378814475685,
+      "R": 0.0014442883941431595
+    },
+    "score_shape": [
+      2,
+      384,
+      384
+    ],
+    "class_pixels": [
+      0,
+      294912,
+      0
+    ],
+    "uniform_fallback_classes": 0,
+    "weight_concentration": [
+      1.2260301113128662
+    ]
+  },
+  "qualification_reference_vjps": 5,
+  "qualification_extra_gradient_vjps": 4,
+  "qualification_extra_cpu_vjps": 2,
+  "qualification_extra_generated_loss_calls": 1,
+  "qualification_extra_anchor_full_forwards": 2,
+  "matched_V13_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged route/data parity; historical only"
+}

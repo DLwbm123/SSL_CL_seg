@@ -1,0 +1,151 @@
+{
+  "study_id": "F5_SARD_V17",
+  "parent": "F5_C02",
+  "authority": "explicit user authorization for independent GUA/SARD/REDistill/CaRE-KD queue after V15 and GUA public delivery; common V13 base, bounded methods, hourly original F5/B2 gates",
+  "jobs": [
+    {
+      "id": "SARD_S163_O1",
+      "arm": "SARD",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "SARD_S163_O2",
+      "arm": "SARD",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "SARD_S164_O1",
+      "arm": "SARD",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "SARD_S164_O2",
+      "arm": "SARD",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "SARD"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64,
+    "entry_reference_vjps": 16960
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "SARD_S163_O1"
+    ],
+    [
+      "SARD_S163_O2",
+      "SARD_S164_O1",
+      "SARD_S164_O2"
+    ]
+  ],
+  "equation": "V13 reference only: frozen own-entry post-prefix feature Sobel structure tensor; S=2(lambda1-lambda2)+sqrt(det J)+mean15x15 Euclidean feature deviation; replicate borders; mean of present-class S-normalized forward KL, class zero-mass uniform fallback; raw halfspace and all main losses unchanged",
+  "hypothesis": "V15 class constraints improved164 but lost163 cup; test spatially nonuniform entry protection within V13 class-balanced aggregate without adding independent class constraints; observed Dice damage does not establish spatial causation",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled full native archived V13 update/loss/state parity; V13 matched base, V15/V10 background, matched F5 and historical B0/B2",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "SARD spatial-weight component adapted to KL reference, not full representation/denoising distillation or tiny-object evidence",
+    "teacher structure may be incorrect; current U need not cover old domains",
+    "one aggregate raw-gradient constraint does not protect every class, actual Adam displacement or finite-step functions",
+    "fixed exact225-neighbor feature distances add runtime but no extra formal model forward/VJP",
+    "formal failure not retried; repeated development patients"
+  ],
+  "qualification_advancement": "all engineering checks PASS, exact small-grid structure formula, spatial localization/constant fallback/detach checks, and nonuniform generated-native spatial weights with nonzero reference gradient difference from V13; no patient performance gate",
+  "plan_id": "7603ccc403b5e7e7835400ef1c937f992b5b597022a2711c04b219a02c410710"
+}
