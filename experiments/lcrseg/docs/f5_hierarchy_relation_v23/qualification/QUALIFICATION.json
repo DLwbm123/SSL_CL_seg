@@ -1,0 +1,161 @@
+{
+  "status": "PASS",
+  "execution_commit": "05347ae9ae4ce989229570e9b9ae269cea84c034",
+  "plan_id": "6f3f91f2450b5ff41965db0b7f54d9bcfa376e8a5b5a0f78003fd24541c5fa15",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "formal_advancement": true,
+  "checks": [
+    "label-generic current-L hierarchy, detached targets/live alignment, bounded 32CPU two-case fit",
+    "disabled archived V13 native full-state and frozen loss/update parity",
+    "one unchanged V13 raw halfspace; hierarchy gradients A/B/R and unforced coarse/sibling activation; main U and SWD routes retained",
+    "shared frozen entry/EMA, linear R EMA, original rejected main KL and active reference",
+    "checkpoint continuation and flag rejection; deployment own-prefix next stage; deliberate failed optimizer ledger; current L zeroU smoke"
+  ],
+  "math_result": {
+    "status": "PASS",
+    "cpu_optimizer_updates": 32,
+    "extra_cpu_gradient_vjps": 6,
+    "finite_difference_error": 2.0650484106591498e-13,
+    "fit_initial": 0.00036853712905498545,
+    "fit_final": 1.2655757800311964e-05,
+    "invalid_rejections": 10,
+    "checks": [
+      "teacher detach; identity zero; student orthogonal rotation/positive scaling; leaf renaming/4leaf/2D3D/batch replication",
+      "live prototypes and student distance mean fixed-teacher finite difference; all-ignore/zero/singleton/duplicate zero gradients",
+      "ignored features excluded; strict invalid/nonfinite/unsupported precision rejection; bounded two-case relation fit"
+    ]
+  },
+  "native_hierarchy_cases": [
+    {
+      "joint_kl": true,
+      "SWD_parent_detached": true,
+      "lambda_U": 0.25,
+      "A_U_norm": 3.800814326771347e-06,
+      "B_U_norm": 0.0003041403716728902,
+      "R_U_norm": 0.006574915975741568,
+      "anchor_guard": true,
+      "candidate_pixels": 294912,
+      "rejected_pixels": 0,
+      "entry_reference_pixels": 294912,
+      "entry_gradient": true,
+      "entry_projected": false,
+      "entry_dot_before": 0.011026520389997277,
+      "entry_dot_after": 0.011026520389997277,
+      "entry_reference_norm": 0.0021093102688324035,
+      "class_reference": true,
+      "reference_class_pixels": [
+        0,
+        294912,
+        0
+      ],
+      "hierarchy": true,
+      "hierarchy_stats": {
+        "leaf_pixels": [
+          170252,
+          81100,
+          36416
+        ],
+        "parent_pixels": [
+          170252,
+          117516
+        ],
+        "coarse_classes": 2,
+        "fine_groups": 1,
+        "aligned_edges": 2,
+        "valid_pixels": 287768,
+        "zero_leaf_prototypes": 0,
+        "zero_parent_prototypes": 0,
+        "loss_coarse": 0.26703619956970215,
+        "loss_parts": 0.03786221146583557,
+        "loss_alignment": 0.31297367811203003,
+        "seam_excluded_pixels": 4080,
+        "labeled_feature_views": 2
+      },
+      "relation_stats": {
+        "relation_edges": 4,
+        "relation_triplets": 1,
+        "relation_supported_nodes": 5,
+        "relation_valid_pixels": 287768,
+        "relation_distance": 4.9714461056282744e-05,
+        "relation_angle": 8.694757980265422e-07
+      }
+    },
+    {
+      "joint_kl": true,
+      "SWD_parent_detached": true,
+      "lambda_U": 0.25,
+      "A_U_norm": 6.742653192153753e-06,
+      "B_U_norm": 0.00030881821564585977,
+      "R_U_norm": 0.006710800640997176,
+      "anchor_guard": true,
+      "candidate_pixels": 294912,
+      "rejected_pixels": 0,
+      "entry_reference_pixels": 294912,
+      "entry_gradient": true,
+      "entry_projected": false,
+      "entry_dot_before": 0.0106205200643519,
+      "entry_dot_after": 0.0106205200643519,
+      "entry_reference_norm": 0.002121921013944828,
+      "class_reference": true,
+      "reference_class_pixels": [
+        0,
+        294912,
+        0
+      ],
+      "hierarchy": true,
+      "hierarchy_stats": {
+        "leaf_pixels": [
+          170251,
+          81253,
+          36264
+        ],
+        "parent_pixels": [
+          170251,
+          117517
+        ],
+        "coarse_classes": 2,
+        "fine_groups": 1,
+        "aligned_edges": 2,
+        "valid_pixels": 287768,
+        "zero_leaf_prototypes": 0,
+        "zero_parent_prototypes": 0,
+        "loss_coarse": 0.27526071667671204,
+        "loss_parts": 0.03694771230220795,
+        "loss_alignment": 0.315231055021286,
+        "seam_excluded_pixels": 4080,
+        "labeled_feature_views": 2
+      },
+      "relation_stats": {
+        "relation_edges": 4,
+        "relation_triplets": 1,
+        "relation_supported_nodes": 5,
+        "relation_valid_pixels": 287768,
+        "relation_distance": 0.0001517508935648948,
+        "relation_angle": 3.588015715649817e-06
+      }
+    }
+  ],
+  "hierarchy_gradient_norms": {
+    "A": 0.04962446749685127,
+    "B": 3.371443670281224,
+    "R": 0.25728476582023124
+  },
+  "relation_gradient_norms": {
+    "A": 0.0008309724295308711,
+    "B": 0.06240545490067826,
+    "R": 0.0017202123037790048
+  },
+  "qualification_reference_vjps": 5,
+  "qualification_extra_gradient_vjps": 7,
+  "qualification_extra_cpu_vjps": 6,
+  "qualification_extra_generated_loss_calls": 1,
+  "qualification_extra_anchor_full_forwards": 2,
+  "qualification_extra_relation_teacher_full_forwards": 12,
+  "qualification_real_L_relation_teacher_full_forwards": 2,
+  "matched_V13_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged route/data parity; historical only"
+}
