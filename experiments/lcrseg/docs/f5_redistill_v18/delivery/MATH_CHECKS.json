@@ -1,0 +1,102 @@
+{
+  "status": "MATH_PASS_NOT_NATIVE_QUALIFICATION",
+  "execution_commit": "ce31c21289ec7253248d9872aa6d1c2d68472532",
+  "native_advancement": false,
+  "formal_advancement": false,
+  "cases": [
+    {
+      "name": "wrong_soft",
+      "teacher": [
+        0.005,
+        0.99,
+        0.005
+      ],
+      "student": [
+        0.99,
+        0.005,
+        0.005
+      ],
+      "power_loss": 29.372918603839608,
+      "KL_loss": 5.208943025234118,
+      "power_gradient": [
+        19.980037968281366,
+        -20.077947696960827,
+        0.09790972867946539
+      ],
+      "KL_gradient": [
+        0.9850000000000001,
+        -0.985,
+        1.734723475976807e-18
+      ],
+      "gradient_norm_ratio": 20.334185091407367
+    },
+    {
+      "name": "wrong_onehot",
+      "teacher": [
+        0,
+        1,
+        0
+      ],
+      "student": [
+        0.99,
+        0.005,
+        0.005
+      ],
+      "power_loss": 29.87956704018054,
+      "KL_loss": 5.298317366548036,
+      "power_gradient": [
+        20.314514246519156,
+        -20.417112803319757,
+        0.10259855680060183
+      ],
+      "KL_gradient": [
+        0.9900000000000001,
+        -0.995,
+        0.005000000000000002
+      ],
+      "gradient_norm_ratio": 20.519711360120358
+    },
+    {
+      "name": "aligned_soft",
+      "teacher": [
+        0.05,
+        0.9,
+        0.05
+      ],
+      "student": [
+        0.1,
+        0.8,
+        0.1
+      ],
+      "power_loss": 0.03286306120701992,
+      "KL_loss": 0.0366900140347506,
+      "power_gradient": [
+        0.04329205499871157,
+        -0.08658410999742305,
+        0.04329205499871157
+      ],
+      "KL_gradient": [
+        0.05000000000000002,
+        -0.09999999999999998,
+        0.05000000000000002
+      ],
+      "gradient_norm_ratio": 0.8658410999742308
+    }
+  ],
+  "mixed_case": {
+    "same_teacher_argmax_class": true,
+    "wrong_correct_pixel_norm_ratio_power": 267.11247659820594,
+    "wrong_correct_pixel_norm_ratio_KL": 11.373800303035628,
+    "normalized_reference_cosine": 0.9964691623744589,
+    "true_gradient_dot_after_power": 0.015014154245345485,
+    "true_gradient_dot_after_KL": 0.015037499999999995
+  },
+  "invalid_inputs_rejected": 5,
+  "successful_kernel_calls": 10,
+  "generated_cpu_vjps": 10,
+  "optimizer_updates": 0,
+  "model_forwards": 0,
+  "patient_access": 0,
+  "CUDA": 0,
+  "conclusion": "literal fixed divergence does not attenuate wrong-teacher gradient influence in the fixed generated fixtures"
+}
