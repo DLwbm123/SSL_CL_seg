@@ -1,0 +1,150 @@
+{
+  "study_id": "F5_CLASS_CONE_V15",
+  "parent": "F5_C02",
+  "authority": "user autonomous method-module follow-up on V13 base, no coefficient search, hourly until original F5/B2 gates and public delivery",
+  "jobs": [
+    {
+      "id": "CLASS_CONE_S163_O1",
+      "arm": "CLASS_CONE",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "CLASS_CONE_S163_O2",
+      "arm": "CLASS_CONE",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "CLASS_CONE_S164_O1",
+      "arm": "CLASS_CONE",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "CLASS_CONE_S164_O2",
+      "arm": "CLASS_CONE",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "CLASS_CONE"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64,
+    "entry_reference_vjps": 50880
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "CLASS_CONE_S163_O1"
+    ],
+    [
+      "CLASS_CONE_S163_O2",
+      "CLASS_CONE_S164_O1",
+      "CLASS_CONE_S164_O2"
+    ]
+  ],
+  "equation": "V13 losses unchanged; compute each present confident-PAS entry class KL gradient h_c; nearest raw merged L+U gradient with all dot(d,h_c)>=0, no current-L constraint",
+  "hypothesis": "V14 current-L constraint never binds and all anonymous results equalV13; balanced aggregate entry direction does not individually constrain rim/cup. Test separate present-class directions; formal classwise conflict was unmeasured, not established cause",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled class cone archived V13 complete native state/loss parity; paired V15-V13/V12/V10 and matched F5/historical B0/B2; V14 identical-result negative background retained",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "current-U proxy and entry predictions may miss old domains or be wrong",
+    "classwise raw constraints do not constrain Adam update or guarantee finite losses/old domain",
+    "opposing class directions can suppress learning, possibly worsening Incoming",
+    "up to3 reference VJPs per active step,50880 cap,16960 additional-call-independent guard count, fixed R diagnostic64",
+    "no new forward/loss/coefficient/teacher/replay; reused development only"
+  ],
+  "plan_id": "96f709aba4b8ca32cf76790f304c1f2e5e21aa449475ede47eaf12d9bfa8c417"
+}
