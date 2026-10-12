@@ -1,0 +1,151 @@
+{
+  "study_id": "F5_BLOCK_GUARD_V20",
+  "parent": "F5_C02",
+  "authority": "autonomous evidence-based independent follow-up after complete four-literature queue delivery and failed original dual gates; retain common V13",
+  "jobs": [
+    {
+      "id": "BLOCK_GUARD_S163_O1",
+      "arm": "BLOCK_GUARD",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "BLOCK_GUARD_S163_O2",
+      "arm": "BLOCK_GUARD",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "BLOCK_GUARD_S164_O1",
+      "arm": "BLOCK_GUARD",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "BLOCK_GUARD_S164_O2",
+      "arm": "BLOCK_GUARD",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "BLOCK_GUARD"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64,
+    "entry_reference_vjps": 16960
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "BLOCK_GUARD_S163_O1"
+    ],
+    [
+      "BLOCK_GUARD_S163_O2",
+      "BLOCK_GUARD_S164_O1",
+      "BLOCK_GUARD_S164_O2"
+    ]
+  ],
+  "equation": "same V13 class-balanced h, partition A/B/R; independent nearest raw halfspace gX dot hX>=0 for each parameter block; native Adam unchanged",
+  "hypothesis": "a global entry constraint can trade a negative A/B/R block contribution against a positive one; block constraints remove that cancellation without changing classes or reference divergence",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled archived V13 full native state/loss/update parity; V13 matched base and V15/V17/V19/V10 context, matched F5 and historical B0/B2",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "blockwise first-order Euclidean constraint only, not actual Adam or effective BA/finite-step guarantee",
+    "no new per-class constraints, GUA displacement, SARD or CaRE component",
+    "current-U teacher may be wrong and cannot cover all historical inputs",
+    "two generated native checks do not establish real patient incidence",
+    "no formal retry or coefficient search; repeated development data"
+  ],
+  "qualification_advancement": "all engineering checks PASS and at least one of exactly two unforced generated native active updates has a V13 counterfactual block cosine below -1e-6; otherwise preserve qualification-only negative without more probes/formal",
+  "plan_id": "f0966adb80aaf50d0668927f3e9bdd76c3c87c089a95b17680f0bd0d5c3d685e"
+}

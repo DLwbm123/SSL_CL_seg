@@ -1,0 +1,45 @@
+{
+  "status": "RUNNING_STARTUP_CHECK_PASS",
+  "execution_commit": "d5f1d01a02e3f33e476b92fc259823050f35549a",
+  "physical_updates": 402,
+  "sealed_targets": 0,
+  "stage_status": [
+    {
+      "stage": "jobs/BLOCK_GUARD_S163_O1/stage1",
+      "status": "TRAINING",
+      "successful": 384,
+      "cap": 3200,
+      "module": {
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.0,
+        "B_U_norm": 0.0,
+        "R_U_norm": 0.0,
+        "anchor_guard": true,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 0.0,
+        "entry_dot_after": 0.0,
+        "entry_reference_norm": 0.0,
+        "class_reference": true,
+        "reference_class_pixels": [
+          0,
+          0,
+          0
+        ],
+        "block_guard": true
+      }
+    }
+  ],
+  "neutral_process_check": true,
+  "neutral_gpu_check": true,
+  "processes": [
+    "1781750       1 /home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy,json;from pathlib import Path;r=Path(os.environ['EXEC_CONFIG']).parent;code=1 try:  runpy.run_path(os.environ['EXEC_ENTRY'],run_name='__main__');code=0 finally:  (r/'PROCESS_EXIT.json').write_text(json.dumps(dict(exit_code=code)))",
+    "1781768 1781750 /home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy; runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\")"
+  ],
+  "gpu_processes": [
+    "1781768, /home/jiangsuiyang/anaconda3/envs/py38/bin/python, 1012 MiB"
+  ],
+  "time": 1791786940.4237561
+}

@@ -1,0 +1,171 @@
+{
+  "status": "PASS",
+  "execution_commit": "d5f1d01a02e3f33e476b92fc259823050f35549a",
+  "plan_id": "f0966adb80aaf50d0668927f3e9bdd76c3c87c089a95b17680f0bd0d5c3d685e",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "formal_advancement": true,
+  "checks": [
+    "exact independent block halfspaces, partition checks and retained orthogonal fit; 32CPU two-case fit",
+    "disabled archived V13 native full-state and frozen loss/update parity",
+    "A/B/R partition and actual block projection; unforced V13 counterfactual block feasibility recorded; main U and SWD routes retained",
+    "shared frozen entry/EMA, linear R EMA, original rejected main KL and active reference",
+    "checkpoint continuation and flag rejection; deployment own-prefix next stage; deliberate failed optimizer ledger; current L zeroU smoke"
+  ],
+  "math_result": {
+    "analytic_cases": 4,
+    "random_cases": 64,
+    "invalid_cases": 5,
+    "max_closed_form_error": 4.440892098500626e-16,
+    "hidden_conflict_case": {
+      "projected": true,
+      "dot_before": 1.0,
+      "dot_after": 2.0,
+      "reference_norm": 1.7320508075688772,
+      "parameter_blocks": {
+        "A": {
+          "projected": true,
+          "dot_before": -1.0,
+          "dot_after": 0.0,
+          "reference_norm": 1.0,
+          "v13_dot": -1.0,
+          "v13_cosine": -0.7071067811865475
+        },
+        "B": {
+          "projected": false,
+          "dot_before": 2.0,
+          "dot_after": 2.0,
+          "reference_norm": 1.0,
+          "v13_dot": 2.0,
+          "v13_cosine": 0.8944271909999159
+        },
+        "R": {
+          "projected": false,
+          "dot_before": 0.0,
+          "dot_after": 0.0,
+          "reference_norm": 1.0,
+          "v13_dot": 0.0,
+          "v13_cosine": 0.0
+        }
+      },
+      "v13_block_violations": 1
+    },
+    "two_case_initial": 2.98,
+    "two_case_final": 0.9800012554203469,
+    "protected_coordinate_drift": 0.0
+  },
+  "native_counterfactual_cases": [
+    {
+      "joint_kl": true,
+      "SWD_parent_detached": true,
+      "lambda_U": 0.25,
+      "A_U_norm": 3.785404988814184e-06,
+      "B_U_norm": 0.0003041622508996024,
+      "R_U_norm": 0.0065729093608350225,
+      "anchor_guard": true,
+      "candidate_pixels": 294912,
+      "rejected_pixels": 0,
+      "entry_reference_pixels": 294912,
+      "entry_gradient": true,
+      "entry_projected": true,
+      "entry_dot_before": 0.011111370432355138,
+      "entry_dot_after": 0.011692206668909143,
+      "entry_reference_norm": 0.002109243566756071,
+      "entry_parameter_blocks": {
+        "A": {
+          "projected": true,
+          "dot_before": -6.431563014358795e-07,
+          "dot_after": 2.5448676089825906e-16,
+          "reference_norm": 1.5139504224077312e-05,
+          "v13_dot": -6.431563014358795e-07,
+          "v13_cosine": -0.21850499467703188
+        },
+        "B": {
+          "projected": true,
+          "dot_before": -0.000580193075738463,
+          "dot_after": 4.513851206873476e-12,
+          "reference_norm": 0.0012164810534791176,
+          "v13_dot": -0.000580193075738463,
+          "v13_cosine": -0.0390641239647831
+        },
+        "R": {
+          "projected": false,
+          "dot_before": 0.011692206664395037,
+          "dot_after": 0.011692206664395037,
+          "reference_norm": 0.0017230360024793614,
+          "v13_dot": 0.011692206664395037,
+          "v13_cosine": 0.9960654235415962
+        }
+      },
+      "entry_v13_block_violations": 2,
+      "class_reference": true,
+      "reference_class_pixels": [
+        0,
+        294912,
+        0
+      ],
+      "block_guard": true
+    },
+    {
+      "joint_kl": true,
+      "SWD_parent_detached": true,
+      "lambda_U": 0.25,
+      "A_U_norm": 6.7225742635478196e-06,
+      "B_U_norm": 0.00030821874024648127,
+      "R_U_norm": 0.006709066755574724,
+      "anchor_guard": true,
+      "candidate_pixels": 294912,
+      "rejected_pixels": 0,
+      "entry_reference_pixels": 294912,
+      "entry_gradient": true,
+      "entry_projected": true,
+      "entry_dot_before": 0.010743873910121812,
+      "entry_dot_after": 0.011492252689970872,
+      "entry_reference_norm": 0.0021197441849931985,
+      "entry_parameter_blocks": {
+        "A": {
+          "projected": true,
+          "dot_before": -1.9754064231938446e-06,
+          "dot_after": 4.291427205726974e-15,
+          "reference_norm": 2.6879847628933004e-05,
+          "v13_dot": -1.9754064231938446e-06,
+          "v13_cosine": -0.2169353932647447
+        },
+        "B": {
+          "projected": true,
+          "dot_before": -0.0007464033469314481,
+          "dot_after": 2.6490126390187052e-11,
+          "reference_norm": 0.0012324037806019067,
+          "v13_dot": -0.0007464033469314481,
+          "v13_cosine": -0.049266432635660926
+        },
+        "R": {
+          "projected": false,
+          "dot_before": 0.011492252663476454,
+          "dot_after": 0.011492252663476454,
+          "reference_norm": 0.0017244633383061677,
+          "v13_dot": 0.011492252663476454,
+          "v13_cosine": 0.9960003434063279
+        }
+      },
+      "entry_v13_block_violations": 2,
+      "class_reference": true,
+      "reference_class_pixels": [
+        0,
+        294912,
+        0
+      ],
+      "block_guard": true
+    }
+  ],
+  "qualification_reference_vjps": 5,
+  "qualification_extra_gradient_vjps": 3,
+  "qualification_extra_cpu_vjps": 0,
+  "qualification_extra_generated_loss_calls": 1,
+  "qualification_extra_anchor_full_forwards": 2,
+  "matched_V13_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged route/data parity; historical only"
+}
