@@ -1,0 +1,34 @@
+{
+  "status": "PASS",
+  "execution_commit": "3ba19c9f6c982427d98aa242c7b09816ba3fe1b0",
+  "plan_id": "1e045cbba368012765000daf7214c699300dddd8c1ba76acd95a3e591877da2c",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "formal_advancement": true,
+  "math_result": {
+    "strict_confidence_geometry": true,
+    "detached_teacher": true,
+    "empty_graph_zero": true,
+    "gradient_max_error": 2.7755575615628914e-17,
+    "two_case_initial": 0.3781870825713527,
+    "two_case_final": 0.0029002429766256943
+  },
+  "native_golden": {
+    "supported_pixels": 294912,
+    "actual_A_B_U_nonzero": true,
+    "rejected_prototype_mask_ignored": true,
+    "teacher_detached": true
+  },
+  "extra_generated_loss_calls": 1,
+  "checks": [
+    "archived built-in B1 native full state/loss/update parity",
+    "strict confidence and geometry, empty KL, detached teacher, two-case fit",
+    "prototype-mask bypass and actual nonzero native A/B U gradients",
+    "frozen EMA, actual checkpoint continuation and changed-family rejection",
+    "identity deployment and own-prefix next stage",
+    "deliberate failed-call ledger and real current-L zero-U smoke"
+  ]
+}

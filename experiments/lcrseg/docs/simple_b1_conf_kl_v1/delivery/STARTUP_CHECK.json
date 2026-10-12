@@ -1,0 +1,26 @@
+{
+  "status": "RUNNING_STARTUP_CHECK_PASS",
+  "execution_commit": "3ba19c9f6c982427d98aa242c7b09816ba3fe1b0",
+  "physical_updates": 181,
+  "sealed_targets": 0,
+  "stage_status": [
+    {
+      "stage": "jobs/SIMPLE_B1_S163_O1/stage1",
+      "status": "TRAINING",
+      "successful": 160,
+      "cap": 3200,
+      "module": {}
+    }
+  ],
+  "neutral_process_check": true,
+  "neutral_gpu_check": true,
+  "processes": [
+    "1801710       1 /home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy,json;from pathlib import Path;r=Path(os.environ[\"EXEC_CONFIG\"]).parent;code=1 try:  runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\");code=0 finally:  (r/\"PROCESS_EXIT.json\").write_text(json.dumps(dict(exit_code=code)))",
+    "1801723 1801710 /home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy; runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\")"
+  ],
+  "gpu_processes": [
+    "1801723, /home/jiangsuiyang/anaconda3/envs/py38/bin/python, 992 MiB"
+  ],
+  "utc": "2026-10-12T07:15:46.374478+00:00",
+  "time": 1791789346.3745298
+}
