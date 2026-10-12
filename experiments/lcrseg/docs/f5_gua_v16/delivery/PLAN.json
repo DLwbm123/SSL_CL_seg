@@ -1,0 +1,151 @@
+{
+  "study_id": "F5_GUA_V16",
+  "parent": "F5_C02",
+  "authority": "explicit user authorization for independent GUA/SARD/REDistill/CaRE-KD queue after V15 public delivery; common V13 base, bounded methods, hourly original F5/B2 gates",
+  "jobs": [
+    {
+      "id": "GUA_S163_O1",
+      "arm": "GUA",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "GUA_S163_O2",
+      "arm": "GUA",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "GUA_S164_O1",
+      "arm": "GUA",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "GUA_S164_O2",
+      "arm": "GUA",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "GUA"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64,
+    "entry_reference_vjps": 16960
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "GUA_S163_O1"
+    ],
+    [
+      "GUA_S163_O2",
+      "GUA_S164_O1",
+      "GUA_S164_O2"
+    ]
+  ],
+  "equation": "retain V13 raw-gradient halfspace and all losses; after Adam project actual descent displacement u=theta_before-theta_proposed against the same balanced entry gradient h in metric M=sqrt(vhat)+eps; keep Adam states; commit before constraints/scheduler/EMA",
+  "hypothesis": "classwise raw-gradient guard improved164 but lost163 cup; test whether Adam proposal violates balanced reference despite V13 raw projection, then repair displacement without changing losses/coefficients",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled full native archived V13 update/loss/state parity; V13 matched base, V15/V10 background, matched F5 and historical B0/B2",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "direction-only GUA adaptation; no momentum/variance alignment or rho search",
+    "same current-U entry reference may be wrong or fail to cover old domains",
+    "finite precision parameter copy is reported separately from projected mathematical displacement",
+    "not finite-step loss or effective BA-function guarantee; no extra formal VJP/forward",
+    "formal failure not retried; development patients reused"
+  ],
+  "qualification_advancement": "all engineering checks PASS and at least one unforced generated-native active update has proposal dot<0 while raw-gradient dot is nonnegative within 1e-6 normalized tolerance; no patient performance gate",
+  "plan_id": "c930167a4098ea1097fdad5c6b63c0692525a2620ddd0b56687336379973545b"
+}
