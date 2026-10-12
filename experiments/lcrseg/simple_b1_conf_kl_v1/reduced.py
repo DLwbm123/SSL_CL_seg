@@ -1,5 +1,6 @@
 """User-reduced single-trajectory completion; never runs an optimizer."""
 import copy
+import json
 import os
 import time
 from pathlib import Path
@@ -64,7 +65,7 @@ def check():
 def main():
     config = protocol.read(os.environ['EXEC_CONFIG']); root = Path(config['run_root'])
     original = protocol.read(root/'PLAN.json'); amendment = protocol.read(root/'SCOPE_AMENDMENT.json')
-    assert original == protocol.plan()
+    assert original == json.loads(json.dumps(protocol.plan()))
     assert amendment['selected_job'] == JOB and amendment['effective_formal_cap'] == 5300
     assert amendment['training_execution_commit'] == config['execution_commit']
     assert (root/'CODE_COMMIT').read_text().strip() == config['execution_commit']
