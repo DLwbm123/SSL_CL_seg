@@ -1,0 +1,133 @@
+{
+  "seed": 163,
+  "order": 1,
+  "sequence": [
+    "REFUGE",
+    "RIM_ONE_r3",
+    "Drishti_GS"
+  ],
+  "metric": "patient-mean rim/cup macro Dice; Final=(2Old+Incoming)/3",
+  "reference": "frozen historical B2_PARENT_PAS_KL, matching seed163/order1",
+  "rows": [
+    {
+      "label": "B2",
+      "arm": "B2_PARENT_PAS_KL",
+      "seed": 163,
+      "order": 1,
+      "scores": {
+        "REFUGE": {
+          "rim": 0.714951813655913,
+          "cup": 0.7205105914125619,
+          "disc_union": 0.8767946157031549,
+          "macro_Dice": 0.7177312025342375
+        },
+        "RIM_ONE_r3": {
+          "rim": 0.5401228878479282,
+          "cup": 0.5867033671078096,
+          "disc_union": 0.7736522963716268,
+          "macro_Dice": 0.5634131274778689
+        },
+        "Drishti_GS": {
+          "rim": 0.7146527621332295,
+          "cup": 0.7332979724523528,
+          "disc_union": 0.9356174084492718,
+          "macro_Dice": 0.7239753672927911
+        }
+      },
+      "metrics": {
+        "Final": 0.6683732324349658,
+        "Old": 0.6405721650060532,
+        "Incoming": 0.7239753672927911,
+        "Forget": 0.12319837079138385
+      },
+      "origin": "historical aggregate import"
+    },
+    {
+      "label": "B1",
+      "arm": "B1_PARENT_CONF_KL",
+      "seed": 163,
+      "order": 1,
+      "scores": {
+        "REFUGE": {
+          "rim": 0.7535134562521222,
+          "cup": 0.7568718293986326,
+          "disc_union": 0.8960598646161622,
+          "macro_Dice": 0.7551926428253775
+        },
+        "RIM_ONE_r3": {
+          "rim": 0.5279087415612794,
+          "cup": 0.5868668767784349,
+          "disc_union": 0.7482107858366451,
+          "macro_Dice": 0.5573878091698572
+        },
+        "Drishti_GS": {
+          "rim": 0.7275892963129855,
+          "cup": 0.7383688694439918,
+          "disc_union": 0.9362883760015943,
+          "macro_Dice": 0.7329790828784887
+        }
+      },
+      "metrics": {
+        "Final": 0.6818531782912411,
+        "Old": 0.6562902259976173,
+        "Incoming": 0.7329790828784887,
+        "Forget": 0.1065501883536708
+      }
+    },
+    {
+      "label": "V20",
+      "arm": "BLOCK_GUARD",
+      "seed": 163,
+      "order": 1,
+      "scores": {
+        "REFUGE": {
+          "rim": 0.8116472597912915,
+          "cup": 0.7715676021600905,
+          "disc_union": 0.9229224372954874,
+          "macro_Dice": 0.791607430975691
+        },
+        "RIM_ONE_r3": {
+          "rim": 0.6001152283040028,
+          "cup": 0.6147304416805935,
+          "disc_union": 0.7944586981821145,
+          "macro_Dice": 0.6074228349922981
+        },
+        "Drishti_GS": {
+          "rim": 0.733436232112358,
+          "cup": 0.6895385182579379,
+          "disc_union": 0.940918399242742,
+          "macro_Dice": 0.7114873751851479
+        }
+      },
+      "metrics": {
+        "Final": 0.703505880384379,
+        "Old": 0.6995151329839946,
+        "Incoming": 0.7114873751851479,
+        "Forget": 0.061050944109914074
+      }
+    }
+  ],
+  "delta_vs_B2_pp": {
+    "B2": {
+      "Final": 0.0,
+      "Old": 0.0,
+      "Incoming": 0.0,
+      "Forget": 0.0
+    },
+    "B1": {
+      "Final": 1.3479945856275322,
+      "Old": 1.5718060991564142,
+      "Incoming": 0.9003715585697569,
+      "Forget": -1.6648182437713044
+    },
+    "V20": {
+      "Final": 3.5132647949413176,
+      "Old": 5.894296797794141,
+      "Incoming": -1.2487992107643175,
+      "Forget": -6.214742668146977
+    }
+  },
+  "scope": "B1 user-reduced single trajectory; V20 selected row of completed four-trajectory matrix; no new evaluation",
+  "v20_full_matrix_B2_gate": false,
+  "b1_two_seed_gate_available": false
+}
