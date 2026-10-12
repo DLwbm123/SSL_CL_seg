@@ -13,7 +13,8 @@ from ..five_frameworks_v1.native_runner import Counter
 from ..five_frameworks_v1 import checkpoint
 
 def qualify(config):
-    root=Path(config['run_root']);cpu=Counter(root/'qualification_cpu_physical.jsonl',96);cuda=Counter(root/'qualification_cuda_physical.jsonl',32);smoke=Counter(root/'smoke_physical.jsonl',4)
+    root=Path(config['run_root']);prior=config.get('qualification_prior',{})
+    cpu=Counter(root/'qualification_cpu_physical.jsonl',96-prior.get('cpu_optimizer_updates',0));cuda=Counter(root/'qualification_cuda_physical.jsonl',32-prior.get('synthetic_cuda_updates',0));smoke=Counter(root/'smoke_physical.jsonl',4-prior.get('real_L_smoke_updates',0))
     if (root/'QUALIFICATION.json').exists():raise FileExistsError('no qualification retry')
     try:
         torch.set_num_threads(2);device=torch.device('cuda:0');torch.cuda.set_device(device);permit=engine.admission(config,'qualification')
@@ -29,8 +30,10 @@ def qualify(config):
             corrected,st=align_displacement([before-fit.detach()],[ [h] ],adam_metric(opt,[fit]))
             with torch.no_grad():fit.copy_(before-corrected[0])
             equal(state,opt.state_dict());projected_calls+=st['projected']
-            if i==0:opt.state[fit]['exp_avg'][:,0]=-initial[:,0]
-        assert projected_calls>0 and torch.allclose(fit[:,0],initial[:,0],atol=1e-12,rtol=0)
+            if i==0:
+                opt.state[fit]['exp_avg'][:,0]=-initial[:,0]
+                opt.state[fit]['exp_avg_sq'][:,0]=1.  # Historical moments need a nonzero historical variance.
+        assert projected_calls>0 and torch.allclose(fit[:,0],initial[:,0],atol=1e-12,rtol=0), (projected_calls,fit.detach().tolist(),initial.tolist())
         assert float((fit-target).square().sum().detach())<start*.65
         del fit,opt
         options={**protocol.OPTIONS,'total_steps':7,'warmup_fraction':1/7,'U_ramp_fraction':.25,'PAS_confidence':0.,'PAS_cosine':-1.}
@@ -145,7 +148,7 @@ def qualify(config):
         j=protocol.jobs()[0];t=construct(config,j,1,device,engine.admission(config,'smoke'),allow_u=False);smoke.wrap(t.optimizer);t.update();t.update();assert t.provider.u_reads==0;del t
         assert (cpu.count,cuda.count,smoke.count)==(32,12,2)
         advance=any(v['gua_raw_cosine']>=-1e-6 and v['gua_proposal_dot']<0 for v in natural)
-        protocol.write(root/'QUALIFICATION.json',dict(status='PASS',execution_commit=config['execution_commit'],plan_id=protocol.plan()['plan_id'],costs=dict(cpu_optimizer_updates=cpu.count,synthetic_cuda_updates=cuda.count,real_L_smoke_updates=smoke.count),formal_advancement=advance,
+        protocol.write(root/'QUALIFICATION.json',dict(status='PASS',execution_commit=config['execution_commit'],plan_id=protocol.plan()['plan_id'],costs=dict(cpu_optimizer_updates=cpu.count,synthetic_cuda_updates=cuda.count,real_L_smoke_updates=smoke.count),formal_advancement=advance,prior_qualification_costs=prior,
             checks=['32 actual Adam two-case generated CPU updates; direction corrected and moments unchanged','disabled complete native archived V13 state/old update and loss parity','actual native A/B/R reference and raw projection retained; main KL rejection; clean SWD parent detach','natural generated-native proposals recorded separately from injected historical-moment native Adam construction; effective BA changes measured','shared immutable entry and EMA frozen; linear R EMA; real checkpoint continuation telemetry and wrong actual flag rejection','deploy own-prefix next stage; after-optimizer failure counted and blocked pending restore; zeroU L smoke'],
             natural_native_diagnostics=natural,constructed_native_diagnostic=native_diagnostic,
             qualification_reference_vjps=7,qualification_extra_gradient_vjps=3,qualification_extra_generated_loss_calls=1,qualification_extra_anchor_full_forwards=2,

@@ -25,3 +25,7 @@ Qualified actual costs add to prior cumulative CPU864/generatedCUDA211/realL44. 
 ## Readout, gate and delivery
 
 Full paired V16-V13 and V15/V10 background, matchedF5, historicalB0/B2; reused control supported by disabled parity. Same original gates simultaneously versusF5/B2: each seed average-order Final gain>0, mean>=0.005, each order meanOld/Incoming>=-0.005, everyseed/order/domain/rim-cup>=-0.05. No threshold change or selectedcheckpoint/sealedtest tuning. Reused development patients are not independent confirmation/SOTA/clinical benefit. Publish all positive/negative cells, source/protocol/qualification/forward-VJP-optimization and cumulative costs, verify GitHub push and anonymous access via7897 before next queue candidate. Hourlyf5ACTIVE,RLPAUSED; stop on originaldualPASS plus verifieddelivery, or user stop.
+
+## Qualification attempt history
+
+Attempt1 root f5_gua_20261012T023006Z, execution882e7c7b3d35d39aa28a268868e9b78ce3ce07ef: FAIL after32CPU,0CUDA,0realL,0formal. CPU construction injected nonzero first moments with zero historical variance, causing an extreme proposal and failing the fixed-coordinate assertion. The fixture now supplies nonzero historical variance; the algorithm/coefficients and native advancement rule are unchanged. New create-only attempt subtracts prior costs from the same96/32/4 total qualification cap. Expected combined64/12/2 if successful; failure root and costs retained. No formal retry or numerical acceptance tolerance change.
