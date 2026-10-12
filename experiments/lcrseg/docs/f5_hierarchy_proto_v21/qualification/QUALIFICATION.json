@@ -1,0 +1,139 @@
+{
+  "status": "PASS",
+  "execution_commit": "1c18ff8d048befbfad124c8b353ac3c3f09d7c19",
+  "plan_id": "048bc132037f9d3d69626f87e7ccf4cf45286f339fe37671c2c6c6680c258d12",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "formal_advancement": true,
+  "checks": [
+    "label-generic current-L hierarchy, detached targets/live alignment, bounded 32CPU two-case fit",
+    "disabled archived V13 native full-state and frozen loss/update parity",
+    "one unchanged V13 raw halfspace; hierarchy gradients A/B/R and unforced coarse/sibling activation; main U and SWD routes retained",
+    "shared frozen entry/EMA, linear R EMA, original rejected main KL and active reference",
+    "checkpoint continuation and flag rejection; deployment own-prefix next stage; deliberate failed optimizer ledger; current L zeroU smoke"
+  ],
+  "math_result": {
+    "status": "PASS",
+    "cpu_optimizer_updates": 32,
+    "extra_cpu_gradient_vjps": 3,
+    "finite_difference_error": 3.147482274812319e-13,
+    "invalid_rejections": 10,
+    "fit_initial": 0.9632538663041218,
+    "fit_final": 0.23861925834817704,
+    "checks": [
+      "leaf renaming/4-leaf alternate hierarchy/2D-3D/positive feature scaling/whole-batch replication",
+      "absent/singleton/ignore/zero-norm decisions and zero ignored gradients",
+      "detached contrast anchors with fixed-target finite difference",
+      "live current-child alignment and bounded two-case joint hierarchy fit"
+    ]
+  },
+  "native_hierarchy_cases": [
+    {
+      "joint_kl": true,
+      "SWD_parent_detached": true,
+      "lambda_U": 0.25,
+      "A_U_norm": 0.000003800814326771347,
+      "B_U_norm": 0.0003041403716728902,
+      "R_U_norm": 0.006574915975741568,
+      "anchor_guard": true,
+      "candidate_pixels": 294912,
+      "rejected_pixels": 0,
+      "entry_reference_pixels": 294912,
+      "entry_gradient": true,
+      "entry_projected": false,
+      "entry_dot_before": 0.011026840682622831,
+      "entry_dot_after": 0.011026840682622831,
+      "entry_reference_norm": 0.0021093102688324035,
+      "class_reference": true,
+      "reference_class_pixels": [
+        0,
+        294912,
+        0
+      ],
+      "hierarchy": true,
+      "hierarchy_stats": {
+        "leaf_pixels": [
+          170252,
+          81100,
+          36416
+        ],
+        "parent_pixels": [
+          170252,
+          117516
+        ],
+        "coarse_classes": 2,
+        "fine_groups": 1,
+        "aligned_edges": 2,
+        "valid_pixels": 287768,
+        "zero_leaf_prototypes": 0,
+        "zero_parent_prototypes": 0,
+        "loss_coarse": 0.26703619956970215,
+        "loss_parts": 0.03786221146583557,
+        "loss_alignment": 0.31297367811203003,
+        "seam_excluded_pixels": 4080,
+        "labeled_feature_views": 2
+      }
+    },
+    {
+      "joint_kl": true,
+      "SWD_parent_detached": true,
+      "lambda_U": 0.25,
+      "A_U_norm": 0.0000067425349434187126,
+      "B_U_norm": 0.00030881930899591566,
+      "R_U_norm": 0.006710796846240006,
+      "anchor_guard": true,
+      "candidate_pixels": 294912,
+      "rejected_pixels": 0,
+      "entry_reference_pixels": 294912,
+      "entry_gradient": true,
+      "entry_projected": false,
+      "entry_dot_before": 0.010620903880905013,
+      "entry_dot_after": 0.010620903880905013,
+      "entry_reference_norm": 0.0021219239137598798,
+      "class_reference": true,
+      "reference_class_pixels": [
+        0,
+        294912,
+        0
+      ],
+      "hierarchy": true,
+      "hierarchy_stats": {
+        "leaf_pixels": [
+          170251,
+          81253,
+          36264
+        ],
+        "parent_pixels": [
+          170251,
+          117517
+        ],
+        "coarse_classes": 2,
+        "fine_groups": 1,
+        "aligned_edges": 2,
+        "valid_pixels": 287768,
+        "zero_leaf_prototypes": 0,
+        "zero_parent_prototypes": 0,
+        "loss_coarse": 0.27526724338531494,
+        "loss_parts": 0.0369473397731781,
+        "loss_alignment": 0.3152327537536621,
+        "seam_excluded_pixels": 4080,
+        "labeled_feature_views": 2
+      }
+    }
+  ],
+  "hierarchy_gradient_norms": {
+    "A": 0.048836827167707854,
+    "B": 3.3113131174843007,
+    "R": 0.2583580890966113
+  },
+  "qualification_reference_vjps": 5,
+  "qualification_extra_gradient_vjps": 6,
+  "qualification_extra_cpu_vjps": 3,
+  "qualification_extra_generated_loss_calls": 1,
+  "qualification_extra_anchor_full_forwards": 2,
+  "matched_V13_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged route/data parity; historical only"
+}
