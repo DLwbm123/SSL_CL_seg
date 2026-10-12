@@ -1,0 +1,17 @@
+# V18 REDistill literal-reference mechanism screen
+
+Authority: independent four-direction queue, after complete SARD delivery dbe08e658430db00b3ba6608ff4fdd5f070d61f1. V13 remains the common base. This preliminary screen runs no native model or optimizer and cannot itself authorize formal training. All actual formal costs remain403473 and qualification optimizer totals960CPU/237generatedCUDA/48currentL.
+
+## Source and reason for the screen
+
+[REDistill original v1](https://arxiv.org/html/2602.04677v1), Eq8–9 and Appendix Eq18–29, uses teacher p, student q and fixed lambda2/3. We implement D=.9*(sum p^(5/3)*q^(-2/3)-1), keeping the V13 present-class mean and current support semantics. The paper's full objective uses target/non-target distillation and supervised labels; this proposed reference-only transplant is distinct. No reversed divergence, negative lambda, temperature change or label-dependent decomposition is introduced.
+
+Our algebraic concern, before execution: for one-hot teacher class k, its student-logit gradient is .6*q_k^(-2/3)*(q-e_k). Relative to forwardKL, the multiplier can exceed1 when the student assigns low probability to that teacher class. A Newton-like probability-space influence calculation is not the actual fixed-Adam or raw-reference gradient used here. Amplifying a single reference alone leaves a halfspace invariant, so we also test mixed pixels where relative weighting changes the aggregate direction. This is a local adaptation diagnosis, not a claim that all original-paper results are invalid.
+
+## Frozen finite checks and advancement
+
+CPU float64 only, fixed lambda2/3, T1. Three analytical/autograd fixtures (teacher,student): wrong_soft([.005,.99,.005],[.99,.005,.005]); wrong_onehot([0,1,0],[.99,.005,.005]); aligned_soft([.05,.9,.05],[.1,.8,.1]). Each compares exact power loss/gradient with closed form and KL. Mixed two-pixel fixture combines wrong_soft and aligned_soft within the same teacher-argmax class, recording relative gradient norm and projected generated true-label descent. Then one identity case, empty-support zero, and five invalid/overflow cases. At most10successful kernel calls/10CPU VJPs plus5rejected calls, zero optimizer/model forward/patient/GPU access. No fixture/parameter sweep, retries, native U probe or patient-based selection.
+
+Native advancement requires all mathematical checks and wrong-teacher gradient-norm ratio<=1 versusKL in both predefined wrong fixtures. Otherwise retain a negative mechanism result, publish it, and move to the already authorized CaRE-KD after verified delivery. A screen failure does not justify swapping lambda/sign/direction under the same name. If the screen passes, a separate complete native protocol/qualification remains necessary before any formal call; no formal runner is added here.
+
+Zero teacher probability contributes exactly0. Finite student logits use log_softmax in double; mathematical divergence or gradient overflow is rejected, never silently clipped to make the method look robust. Empty support yields graph-connected zero; teacher/probabilities and support are detached. All source/plan/commit are frozen in a create-only NAS root before execution, through the existing wrapper and neutral environment launcher. Save MATH_CHECKS and EXIT, publish source/positive and negative cases/costs through the required proxy. Unused formal allowance is not transferred to retries.
