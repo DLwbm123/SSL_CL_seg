@@ -1,0 +1,83 @@
+{
+  "status": "RUNNING_STARTUP_CHECK_PASS",
+  "utc": "2026-10-12T13:22:50.583966+00:00",
+  "execution_commit": "f03c798e86c3eb3be28d8a73332cbddece0f1286",
+  "root_status": {
+    "status": "RUNNING",
+    "phase": "train",
+    "arm": "TANGENT_PROTO",
+    "plan_id": "f8dd8b4a19194034010419f4b3635d3f6440ed683d860d24106f5e53fe1927b8"
+  },
+  "physical_updates": 37,
+  "formal_cap": 21200,
+  "sealed_targets": 0,
+  "job_exit0": 0,
+  "stages": [
+    {
+      "job": "TANGENT_PROTO_S163_O1",
+      "stage": "stage1",
+      "physical": 37,
+      "status": "TRAINING",
+      "durable_successful": 32,
+      "cap": 3200,
+      "sealed": false,
+      "module": {
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.0,
+        "B_U_norm": 0.0,
+        "R_U_norm": 0.0,
+        "anchor_guard": true,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 0.0,
+        "entry_dot_after": 0.0,
+        "entry_reference_norm": 0.0,
+        "class_reference": true,
+        "reference_class_pixels": [
+          0,
+          0,
+          0
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            259108,
+            29018,
+            3722
+          ],
+          "parent_pixels": [
+            259108,
+            32740
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "tangent_valid_pixels": 32740,
+          "tangent_supported_children": 2,
+          "zero_residual_pixels": 0,
+          "aligned_edges": 2,
+          "valid_pixels": 291848,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.10392485558986664,
+          "loss_parts": 2.4359400272369385,
+          "loss_alignment": 0.24522671103477478,
+          "seam_excluded_pixels": 0,
+          "labeled_feature_views": 1
+        }
+      }
+    }
+  ],
+  "exits": {},
+  "neutral_process_check": true,
+  "neutral_gpu_check": true,
+  "processes": [
+    "    PID    PPID COMMAND",
+    "2177121       1 /home/jiangsuiyang/anaconda3/envs/py38/bin/python /home/jiangsuiyang/.ops/x20261012T131644Z/n.py",
+    "2177405 2177121 /home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy; runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\")"
+  ],
+  "gpu_processes": [
+    "2177405, /home/jiangsuiyang/anaconda3/envs/py38/bin/python, 1102 MiB"
+  ]
+}
