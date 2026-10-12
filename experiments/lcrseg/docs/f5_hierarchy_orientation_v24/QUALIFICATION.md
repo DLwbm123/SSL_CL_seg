@@ -1,0 +1,7 @@
+# V24 first qualification PASS
+
+Execution52f98956bf977cf907fd875fe050f1d927d0fece, qualificationEXIT0/formal_advancement=true. Actual32CPU/10generatedCUDA/2currentL includes deliberateafteroptimizerfailure; no failed attempt, retry, true-U read or extra fixture. Live-prototype FDerror1.1886078e-11;32update two-casefit .0302516006→.0001503164. Teacherstopgrad/identityzero/commonrotationinvariance and independentrotationdetection/positive-scale/leafrename/4leaf/2D3D/batchreplication/zero-allignore/singletonleafretained-parentduplicateexcluded/ignoredpixelzero-gradient/10invalidreject PASS.
+
+ArchiveddisabledV13 complete native state/loss/update parity, originalU A/B/R/reference/mainKLrejection/forcedaggregateprojection/SWD R-only/shared immutableentry+linearEMA, exactresume/7actualsettingsemanticrefusal/deploymentownprefix/capturecleanup/currentLzeroU/failureledger PASS. Two exactlyplanned unforcedgeneratedactive steps2/3 both3leaf/1eligibleparent and positive orientation; one fixed orientation-only A/B/R gradient check passes. Exact loss/gradient values in qualification/QUALIFICATION.json. No mechanism injection or extra generated/patient probe.
+
+Extra5referenceVJP/7generatedgradientVJP/6CPUgradientVJP outside32fitbackwards/1generatedloss/2originalanchorforwards;12neworientationteacher Lforwards generated and2realL. Qualifications are engineering evidence, not old-domain protection, clinical benefit or scientific success. Source/PREREG gives LUCIR Eq6 adaptation and current-L proxy limits.
