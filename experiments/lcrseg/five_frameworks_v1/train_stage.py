@@ -157,6 +157,9 @@ class StageTrainer:
     def transform_gradients(self, gradients):
         pass
 
+    def transform_update(self, before):
+        pass
+
     def losses(self):
         opt=self.options;m=self.model;t=self.ema
         x,y,patients=self.provider.labeled(self.cursor)
@@ -267,7 +270,7 @@ class StageTrainer:
             # Physical invocation may have partially updated state even if it raises.
             self.physical_optimizer_updates+=1
             if physical:physical(self.step+1)
-        inject('after_optimizer');self.model.parent.apply_constraints()
+        inject('after_optimizer');self.transform_update(before);self.model.parent.apply_constraints()
         self.scheduler.step()
         validate_commit(self,pending)
         inject('before_ema')
