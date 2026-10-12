@@ -1,0 +1,21 @@
+# Next candidate: separate whole direction from sibling discrimination
+
+V21 is completely delivered atdfab03c0b9e4516ddada7375f9506e8d41102109. Both current-L contrasts are active21200/21200 and alignment19530/21200, yet163/O2 oldcup and164/O1 oldrim/cup fail the B2 class threshold. This is evidence of remaining retention problems, not a demonstration that alignment caused them. Retain the V13 base and the generic task-configured ancestry. No V21 retry, coefficient scan, additional patient evaluation or new organ/data.
+
+## Fixed analytic check
+
+For equal-vote unit sibling features cos(a)u ± sin(a)v, with orthogonal unit u/v, their parent prototype is u. Parent-child distance is2sin(a/2). Full-feature sibling cosine gap is1−cos(2a), so at temperature0.1 the two-class CE on a prototype pixel is log(1+exp(−(1−cos(2a))/0.1)). At the alignment margin0.25, the symmetric zero-hinge case still has a minimum CE approximately0.2563. This is a geometric tradeoff, not an impossible objective: the optimizer may accept a positive hinge and trade terms.
+
+Subtracting each feature's projection onto the detached parent direction and normalizing the residual produces the two sibling directions ±v. Their cosine gap is2 even when their full-feature directions remain close to u. The three prerefined angles0.1/0.125/0.2rad in check_geometry.py confirm this finite counterexample. Costs:3analytic cases;0optimizer/model/autograd/patient/GPU calls. This is not a native qualification, patient mechanism audit or proof that residual contrast improves retention. Zero residuals and noisy residual directions remain real risks.
+
+## One proposed change
+
+Replace only V21's full-feature within-parent part contrast by a parent-tangent residual contrast. Given normalized current-L feature z and supported detached parent prototype a, compute r=z−(z·a)a, then normalize r using the existing1e−12 norm floor. Compute per-leaf residual prototypes with the existing equal-present-image estimate and detached contrast targets, and apply the same class-balanced sibling CE at temperature0.1. Only supported parents with at least two supported residual child prototypes contribute. Absent/zero residual nodes produce differentiable zero, never NaN. Coarse contrast and the original live-child-to-detached-parent alignment remain on full normalized features, with the same0.1weight/0.25margin and first-update activation.
+
+No new head/bank/teacher/inference parameter, no history replay, no organ heuristic, and no extra formal model forward/VJP. This tangent component is a project-derived design; it is not claimed as an original HiPoSeg equation. Its purpose is to avoid forcing sibling discrimination to consume the whole-direction angular budget. It does not itself preserve old prototypes or guarantee old-domain retention.
+
+## Before formal execution
+
+This document selects a candidate for implementation; no new run is registered or started. Freeze exact implementation/gradient rules/semantic checkpoint binding/source/config/data in a new create-only NAS protocol. Reuse the single engine and qualification patterns. Check detached-parent projection derivatives, orthogonality/equal-image voting, rotation/label-renaming/positive-scale/batch replication/2D3D contracts, all-ignore/zero-parent/zero-residual/invalid cases, a bounded two-case fit, disabled archived-V13 parity, full native gradient/teacher/checkpoint/deployment routes, and exactly the two planned unforced generated active updates. Do not search fixtures or read true U labels. Qualification ceiling96CPU/32generatedCUDA/4currentL, intended32/10/2, retaining failures; no native/formal retry.
+
+Only after all relevant checks and nonzero supported residual sibling decisions/gradients pass, register the standard163/164×O1/O2 four-trajectory/eight-stage21200/source0 confirmation, first163/O1 engineering seal then the other three,20uniform evaluations after all8seals/4EXIT0. Compare V21/V13 and prior contexts, matched F5 and historical B0/B2; preserve the original dual gates and complete negative outcomes. Previous method actual467073 plus B1 5300=472373. A new21200confirmation would be separately charged, not use released baseline/literature allowances. RL remains paused; half-hour monitoring continues.
