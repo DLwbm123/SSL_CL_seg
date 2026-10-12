@@ -1,0 +1,151 @@
+{
+  "study_id": "F5_CARE_V19",
+  "parent": "F5_C02",
+  "authority": "explicit independent four-paper queue and autonomous follow-up after complete SARD and REDistill delivery; common V13 base",
+  "jobs": [
+    {
+      "id": "CARE_S163_O1",
+      "arm": "CARE",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "CARE_S163_O2",
+      "arm": "CARE",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "CARE_S164_O1",
+      "arm": "CARE",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "CARE_S164_O2",
+      "arm": "CARE",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "CARE"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64,
+    "entry_reference_vjps": 16960
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "CARE_S163_O1"
+    ],
+    [
+      "CARE_S163_O2",
+      "CARE_S164_O1",
+      "CARE_S164_O2"
+    ]
+  ],
+  "equation": "reference-only hard CaRE: detached H(p)<=H(q) selects forward KL, else reverse KL; teacher reverse log floor log(dtype.tiny); unchanged V13 support/class means/raw halfspace and main losses",
+  "hypothesis": "relative teacher/student entropy selects reference geometry without changing main supervision or spatial/class constraints; confidence is not correctness",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled archived V13 full native state and old loss/update parity; V13 base plus V15/V17/V10 context, matched F5 and historical B0/B2",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "hard CaRE divergence component adapted to segmentation reference, not full LLM CaRE-KD",
+    "no Revival or BALD; confidence can be confidently wrong",
+    "one aggregate raw-gradient constraint does not protect every class, actual Adam displacement or finite-step functions",
+    "fixed numerical floor is an explicit adaptation choice, not an original-paper constant",
+    "no formal retry; repeated development patients"
+  ],
+  "qualification_advancement": "all engineering checks PASS including independent branch gradients, empty/invalid/extreme handling, generated-native reverse activation and nonzero gradient difference from V13; no patient efficacy selection",
+  "plan_id": "5664cfb276eb35bb2aa350c234278dfd0a1fb0d27916e13469aa3d1873930e00"
+}

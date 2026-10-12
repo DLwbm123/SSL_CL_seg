@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "execution_commit": "445af47e95019c56882954445a93810d0f2d69e0",
+  "plan_id": "5664cfb276eb35bb2aa350c234278dfd0a1fb0d27916e13469aa3d1873930e00",
+  "costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "formal_advancement": true,
+  "checks": [
+    "exact hard confidence branches and analytic reference gradient/detach; 32CPU two-case fit",
+    "disabled archived V13 native full-state and frozen loss/update parity",
+    "generated-native reverse branch changes aggregate reference; nonzero A/B/R reference and main U routes; clean SWD R-only",
+    "shared frozen entry/EMA, linear R EMA, original rejected main KL and active reference",
+    "checkpoint continuation and flag rejection; deployment own-prefix next stage; deliberate failed optimizer ledger; current L zeroU smoke"
+  ],
+  "math_result": {
+    "analytic_gradient_max_error": 2.949029909160572e-17,
+    "branch_stats": {
+      "class_pixels": [
+        3,
+        2,
+        2
+      ],
+      "forward_pixels": 4,
+      "reverse_pixels": 3,
+      "teacher_log_floor_values": 0
+    },
+    "two_case_initial": 0.45958042901793295,
+    "two_case_final": 0.0001842608402668356,
+    "cases": "forward/reverse analytic gradients; unequal class supports; detached teacher/gate; equality forward; empty; extreme/floor; four invalid inputs; two-case fit"
+  },
+  "gate_diagnostic": {
+    "uniform_gradient_difference_norm": 0.001809203531657547,
+    "reference_group_norms": {
+      "A": 3.841599670607592e-06,
+      "B": 0.00017857648024399955,
+      "R": 0.00025695479207127423
+    },
+    "class_pixels": [
+      0,
+      294912,
+      0
+    ],
+    "forward_pixels": 1876,
+    "reverse_pixels": 293036,
+    "teacher_log_floor_values": 0
+  },
+  "qualification_reference_vjps": 5,
+  "qualification_extra_gradient_vjps": 4,
+  "qualification_extra_cpu_vjps": 2,
+  "qualification_extra_generated_loss_calls": 1,
+  "qualification_extra_anchor_full_forwards": 2,
+  "matched_V13_reuse_qualified": true,
+  "historical_B2_reuse": "unchanged route/data parity; historical only"
+}
