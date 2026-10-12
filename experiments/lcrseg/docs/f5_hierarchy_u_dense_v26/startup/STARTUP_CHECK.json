@@ -1,0 +1,125 @@
+{
+  "utc": "2026-10-12T23:52:11.208773+00:00",
+  "status": "ACTUAL_OPTIMIZER_EXECUTION_CONFIRMED",
+  "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+  "plan_id": "1887d330a26bd98d6a523cfec39cf87c7ee3c88f8abd83c70b7307aaf9ce57eb",
+  "bindings": "PASS",
+  "formal_physical_calls": 72,
+  "target": 21200,
+  "sealed": 0,
+  "job_exits": 0,
+  "root_status": {
+    "status": "RUNNING",
+    "phase": "train",
+    "arm": "HIERARCHY_U_DENSE",
+    "plan_id": "1887d330a26bd98d6a523cfec39cf87c7ee3c88f8abd83c70b7307aaf9ce57eb"
+  },
+  "jobs": [
+    {
+      "job": "HIERARCHY_U_DENSE_S163_O1",
+      "stages": [
+        {
+          "stage": "stage1",
+          "physical_calls": 72,
+          "status": {
+            "status": "TRAINING",
+            "successful": 64,
+            "attempts": 64,
+            "cap": 3200,
+            "module": {
+              "joint_kl": true,
+              "SWD_parent_detached": true,
+              "lambda_U": 0.25,
+              "A_U_norm": 0.0,
+              "B_U_norm": 0.0,
+              "R_U_norm": 0.0,
+              "anchor_guard": true,
+              "entry_gradient": true,
+              "entry_projected": false,
+              "entry_dot_before": 0.0,
+              "entry_dot_after": 0.0,
+              "entry_reference_norm": 0.0,
+              "class_reference": true,
+              "reference_class_pixels": [
+                0,
+                0,
+                0
+              ],
+              "hierarchy": true,
+              "hierarchy_stats": {
+                "leaf_pixels": [
+                  267182,
+                  22207,
+                  2459
+                ],
+                "parent_pixels": [
+                  267182,
+                  24666
+                ],
+                "coarse_classes": 2,
+                "fine_groups": 1,
+                "aligned_edges": 2,
+                "valid_pixels": 291848,
+                "zero_leaf_prototypes": 0,
+                "zero_parent_prototypes": 0,
+                "loss_coarse": 0.2598034143447876,
+                "loss_parts": 0.47792935371398926,
+                "loss_alignment": 0.14317092299461365,
+                "seam_excluded_pixels": 0,
+                "labeled_feature_views": 1
+              },
+              "dense": true,
+              "dense_stats": {}
+            },
+            "loss": {
+              "labeled_loss": 0.6726864219193216,
+              "active_U": false,
+              "actual_update_norms": {
+                "parent.native.enc1.block.0.A": 0.0014379387721419334,
+                "parent.native.enc1.block.0.B": 0.000942846410907805,
+                "parent.native.enc1.block.3.A": 0.00694818701595068,
+                "parent.native.enc1.block.3.B": 0.0015517628053203225,
+                "parent.native.enc2.block.0.A": 0.008653009310364723,
+                "parent.native.enc2.block.0.B": 0.002692111534997821,
+                "parent.native.enc2.block.3.A": 0.013934439048171043,
+                "parent.native.enc2.block.3.B": 0.0033613003324717283,
+                "parent.native.enc3.block.0.A": 0.009604980237782001,
+                "parent.native.enc3.block.0.B": 0.0029792694840580225,
+                "parent.native.enc3.block.3.A": 0.010864969342947006,
+                "parent.native.enc3.block.3.B": 0.0034597553312778473,
+                "parent.native.bottleneck.block.0.A": 0.014345884323120117,
+                "parent.native.bottleneck.block.0.B": 0.0041929553262889385,
+                "parent.native.bottleneck.block.3.A": 0.015977514907717705,
+                "parent.native.bottleneck.block.3.B": 0.006421553902328014,
+                "parent.native.decoder.dec3.merge.block.0.A": 0.01817653886973858,
+                "parent.native.decoder.dec3.merge.block.0.B": 0.00556684285402298,
+                "parent.native.decoder.dec3.merge.block.3.A": 0.013981441035866737,
+                "parent.native.decoder.dec3.merge.block.3.B": 0.0030715628527104855,
+                "parent.native.decoder.dec2.merge.block.0.A": 0.011670795269310474,
+                "parent.native.decoder.dec2.merge.block.0.B": 0.002391599817201495,
+                "parent.native.decoder.dec2.merge.block.3.A": 0.008810246363282204,
+                "parent.native.decoder.dec2.merge.block.3.B": 0.0034054480493068695,
+                "parent.native.decoder.dec1.merge.block.0.A": 0.0068489424884319305,
+                "parent.native.decoder.dec1.merge.block.0.B": 0.001596822519786656,
+                "parent.native.decoder.dec1.merge.block.3.A": 0.0071447682566940784,
+                "parent.native.decoder.dec1.merge.block.3.B": 0.0022546800319105387,
+                "sidecar.r": 0.0015122732147574425
+              }
+            }
+          }
+        }
+      ],
+      "exit": null
+    }
+  ],
+  "neutral_parent_worker_argv": "PASS",
+  "process_rows": [
+    "2949547       1 /home/jiangsuiyang/anaconda3/envs/py38/bin/python /home/jiangsuiyang/.ops/x20261012T234824Z/n.py",
+    "2949696 2949547 /home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy; runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\")"
+  ],
+  "gpu_process_rows": [
+    "2949696, /home/jiangsuiyang/anaconda3/envs/py38/bin/python, 1084 MiB"
+  ],
+  "gpu_name_check": "PASS",
+  "controller_log_tail": ""
+}
