@@ -1,0 +1,83 @@
+{
+  "study_id": "SIMPLE_B1_CONF_KL_V1_USER_REDUCED",
+  "parent": "NATIVE_LR_SRC_A_3DOMAIN_V1",
+  "authority": "user 2026-10-12: 一个种子就行，一个顺序就行，我想尽快得到结果",
+  "seeds": [
+    163
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ]
+  ],
+  "arms": [
+    "B1_PARENT_CONF_KL"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 1.0,
+    "PAS_confidence": 0.6,
+    "PAS_cosine": 0.7
+  },
+  "caps": {
+    "formal_updates": 5300,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 0
+  },
+  "jobs": [
+    {
+      "id": "SIMPLE_B1_S163_O1",
+      "arm": "B1_PARENT_CONF_KL",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    }
+  ],
+  "execution_batches": [
+    [
+      "SIMPLE_B1_S163_O1"
+    ]
+  ],
+  "equation": "existing B1: current EMA soft KL, geometry & max(q)>0.6; no PAS prototype-similarity filter",
+  "comparison": "only matching seed163/order1 of historical B0/B2 and matched F5/V13/V17; no multi-seed gate",
+  "evaluation": "both selected target stages sealed and selected job EXIT0 before five seen-domain evaluations",
+  "train_access": "current L image/GT and current U image/geometry; same source checkpoints and frozen splits; no old images",
+  "retries": 0,
+  "hyperparameter_search": false,
+  "automatic_followup": false,
+  "qualification": "built-in archived B1 full-state/loss/update parity; confidence-only golden mask/gradient; native EMA/checkpoint/deploy/own-prefix/failure ledger; current-L zero-U smoke; two-case KL fit",
+  "success": "complete and report the whole fixed baseline regardless of whether its score is lower or higher",
+  "limitations": [
+    "simpler eligibility does not guarantee a weaker score",
+    "B1 still retains the common parent input projection and LCTX",
+    "shared engine retains prototype computation but discards its mask for B1; no speed claim",
+    "two seeds and repeatedly reused development patients; no independent generalization",
+    "B2 remains the strong historical reference; no replacement or revised original method gate",
+    "single seed and single order; descriptive result only"
+  ],
+  "amendment": "original training and PLAN retained; cancel only unstarted trajectories before any readout",
+  "plan_id": "779dabdd93e5549dc0842ccd8ee67edbe5a630f178aa31434af9af1f6ed86793"
+}
