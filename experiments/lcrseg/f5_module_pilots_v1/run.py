@@ -88,7 +88,7 @@ def train_job(config,j):
                     if trainer.step in {max(1,int(st['steps']*p)) for p in (.25,.5,.75,1.)}:
                         stat_rows.append(dict(step=trainer.step,**copy.deepcopy(trainer.module_stats)))
                     if trainer.step%400==0 or trainer.step==st['steps']:
-                        checkpoint.save(trainer,out/'latest.pt',dict(family='F5',seed=j['seed'],order=j['order'],stage=stage,arm=j['arm']))
+                        checkpoint.save(trainer,out/'latest.pt',dict(family=trainer.model.family,seed=j['seed'],order=j['order'],stage=stage,arm=j['arm']))
                 costs=copy.deepcopy(trainer.telemetry);diagnostics=trainer.gradient_rows
                 recovery=copy.deepcopy(getattr(trainer,'recovery_receipt',None))
                 model=trainer.model;del trainer
