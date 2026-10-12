@@ -1,0 +1,79 @@
+{
+  "status": "RUNNING_STARTUP_CHECK_PASS",
+  "utc": "2026-10-12T10:05:13.455468+00:00",
+  "execution_commit": "1c18ff8d048befbfad124c8b353ac3c3f09d7c19",
+  "root_status": {
+    "status": "RUNNING",
+    "phase": "train",
+    "arm": "HIERARCHY_PROTO",
+    "plan_id": "048bc132037f9d3d69626f87e7ccf4cf45286f339fe37671c2c6c6680c258d12"
+  },
+  "physical_updates": 230,
+  "formal_cap": 21200,
+  "sealed_targets": 0,
+  "job_exit0": 0,
+  "stages": [
+    {
+      "job": "HIERARCHY_PROTO_S163_O1",
+      "stage": 1,
+      "physical": 230,
+      "status": "TRAINING",
+      "durable_successful": 224,
+      "cap": 3200,
+      "sealed": false,
+      "module": {
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0,
+        "B_U_norm": 0,
+        "R_U_norm": 0,
+        "anchor_guard": true,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 0,
+        "entry_dot_after": 0,
+        "entry_reference_norm": 0,
+        "class_reference": true,
+        "reference_class_pixels": [
+          0,
+          0,
+          0
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            265544,
+            21142,
+            5162
+          ],
+          "parent_pixels": [
+            265544,
+            26304
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 291848,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.11228874325752258,
+          "loss_parts": 0.2728932499885559,
+          "loss_alignment": 0.16372114419937134,
+          "seam_excluded_pixels": 0,
+          "labeled_feature_views": 1
+        }
+      }
+    }
+  ],
+  "exits": {},
+  "neutral_process_check": true,
+  "neutral_gpu_check": true,
+  "processes": [
+    "1950450       1 /home/jiangsuiyang/anaconda3/envs/py38/bin/python /home/jiangsuiyang/.ops/x20261012T095100Z/n.py",
+    "1950591 1950450 /home/jiangsuiyang/anaconda3/envs/py38/bin/python -c import os,runpy; runpy.run_path(os.environ[\"EXEC_ENTRY\"],run_name=\"__main__\")"
+  ],
+  "gpu_processes": [
+    "1950591, /home/jiangsuiyang/anaconda3/envs/py38/bin/python, 1084 MiB"
+  ]
+}
