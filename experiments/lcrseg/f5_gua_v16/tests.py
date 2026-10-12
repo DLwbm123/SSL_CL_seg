@@ -18,24 +18,32 @@ def qualify(config):
     if (root/'QUALIFICATION.json').exists():raise FileExistsError('no qualification retry')
     try:
         torch.set_num_threads(2);device=torch.device('cuda:0');torch.cuda.set_device(device);permit=engine.admission(config,'qualification')
-        # New two-case actual-Adam check; reuse previously passed solver algebra checks.
-        fit=torch.nn.Parameter(torch.tensor([[.5,0.],[-.5,0.]],dtype=torch.double))
-        opt=torch.optim.Adam([fit],lr=.05);target=torch.tensor([[1.5,1.],[-1.5,1.]],dtype=torch.double)
-        initial=fit.detach().clone();start=float((fit-target).square().sum().detach());projected_calls=0
-        for i in range(32):
-            opt.zero_grad();g,=torch.autograd.grad(.5*(fit-target).square().sum(),fit)
-            h=torch.zeros_like(fit);h[:,0]=fit[:,0].detach()
-            fit.grad=halfspace([g],[h])[0][0];before=fit.detach().clone()
-            cpu.call(i+1);opt.step();state=copy.deepcopy(opt.state_dict())
-            corrected,st=align_displacement([before-fit.detach()],[ [h] ],adam_metric(opt,[fit]))
-            with torch.no_grad():fit.copy_(before-corrected[0])
-            equal(state,opt.state_dict());projected_calls+=st['projected']
-            if i==0:
-                opt.state[fit]['exp_avg'][:,0]=-initial[:,0]
-                opt.state[fit]['exp_avg_sq'][:,0]=1.  # Historical moments need a nonzero historical variance.
-        assert projected_calls>0 and torch.allclose(fit[:,0],initial[:,0],atol=1e-12,rtol=0), (projected_calls,fit.detach().tolist(),initial.tolist())
-        assert float((fit-target).square().sum().detach())<start*.65
-        del fit,opt
+        reuse=config.get('reuse_cpu_and_disabled_from')
+        if reuse:
+            receipt=protocol.read(Path(reuse)/'QUALIFICATION.json')
+            assert receipt['status']=='FAIL' and receipt['execution_commit']=='74e015bf42dc847a5498f3add34eb1e908eb9fb5'
+            assert receipt['costs']==dict(cpu_optimizer_updates=32,synthetic_cuda_updates=8,real_L_smoke_updates=0)
+            failure=protocol.read(Path(reuse)/'QUALIFICATION_FAILURE.private.json')['traceback']
+            assert "equal(captured['optimizer'],t.optimizer.state_dict())" in failure
+        if not reuse:
+            # New two-case actual-Adam check; reuse previously passed solver algebra checks.
+            fit=torch.nn.Parameter(torch.tensor([[.5,0.],[-.5,0.]],dtype=torch.double))
+            opt=torch.optim.Adam([fit],lr=.05);target=torch.tensor([[1.5,1.],[-1.5,1.]],dtype=torch.double)
+            initial=fit.detach().clone();start=float((fit-target).square().sum().detach());projected_calls=0
+            for i in range(32):
+                opt.zero_grad();g,=torch.autograd.grad(.5*(fit-target).square().sum(),fit)
+                h=torch.zeros_like(fit);h[:,0]=fit[:,0].detach()
+                fit.grad=halfspace([g],[h])[0][0];before=fit.detach().clone()
+                cpu.call(i+1);opt.step();state=copy.deepcopy(opt.state_dict())
+                corrected,st=align_displacement([before-fit.detach()],[ [h] ],adam_metric(opt,[fit]))
+                with torch.no_grad():fit.copy_(before-corrected[0])
+                equal(state,opt.state_dict());projected_calls+=st['projected']
+                if i==0:
+                    opt.state[fit]['exp_avg'][:,0]=-initial[:,0]
+                    opt.state[fit]['exp_avg_sq'][:,0]=1.  # Historical moments need a nonzero historical variance.
+            assert projected_calls>0 and torch.allclose(fit[:,0],initial[:,0],atol=1e-12,rtol=0), (projected_calls,fit.detach().tolist(),initial.tolist())
+            assert float((fit-target).square().sum().detach())<start*.65
+            del fit,opt
         options={**protocol.OPTIONS,'total_steps':7,'warmup_fraction':1/7,'U_ramp_fraction':.25,'PAS_confidence':0.,'PAS_cosine':-1.}
         def generated(enabled):
             p=GeneratedDomain(seed=163,size=384,device=device,stage_source=dict(kind='generated',seed=163,domain='REFUGE'));native=build(config['reference'],device,163)
@@ -43,20 +51,21 @@ def qualify(config):
             foreground_fixture(native)
             o=dict(options);m=make_model(NativeLRParent(native,163,p.stage_source),o,None,generator(163,1,1,0,'pilot_adapter_initialization'),enabled=enabled).to(device)
             return GUATrainer(m,p,o,execution=permit)
-        a=generated(False)
-        legacy_root=Path(config['v13_parity_code'])/'experiments/lcrseg'
-        legacy=legacy_root/'f5_class_reference_v13/model.py'
-        ns=dict(__name__='experiments.lcrseg.f5_class_reference_v13.v13_frozen_model',__package__='experiments.lcrseg.f5_class_reference_v13')
-        exec(compile(legacy.read_text(),str(legacy),'exec'),ns)
-        b=ns['ClassReferenceTrainer'](copy.deepcopy(a.model),copy.deepcopy(a.provider),a.options,execution=permit)
-        legacy=legacy_root/'five_frameworks_v1/train_stage.py'
-        old=dict(__name__='experiments.lcrseg.five_frameworks_v1.v10_frozen_stage',__package__='experiments.lcrseg.five_frameworks_v1')
-        exec(compile(legacy.read_text(),str(legacy),'exec'),old)
-        b.losses=__import__('types').MethodType(old['StageTrainer'].losses,b)
-        b._update=__import__('types').MethodType(old['StageTrainer']._update,b)
-        cuda.wrap(a.optimizer);cuda.wrap(b.optimizer)
-        for _ in range(2):a.update();b.update();equal(snapshot(a),snapshot(b))
-        del a,b
+        if not reuse:
+            a=generated(False)
+            legacy_root=Path(config['v13_parity_code'])/'experiments/lcrseg'
+            legacy=legacy_root/'f5_class_reference_v13/model.py'
+            ns=dict(__name__='experiments.lcrseg.f5_class_reference_v13.v13_frozen_model',__package__='experiments.lcrseg.f5_class_reference_v13')
+            exec(compile(legacy.read_text(),str(legacy),'exec'),ns)
+            b=ns['ClassReferenceTrainer'](copy.deepcopy(a.model),copy.deepcopy(a.provider),a.options,execution=permit)
+            legacy=legacy_root/'five_frameworks_v1/train_stage.py'
+            old=dict(__name__='experiments.lcrseg.five_frameworks_v1.v10_frozen_stage',__package__='experiments.lcrseg.five_frameworks_v1')
+            exec(compile(legacy.read_text(),str(legacy),'exec'),old)
+            b.losses=__import__('types').MethodType(old['StageTrainer'].losses,b)
+            b._update=__import__('types').MethodType(old['StageTrainer']._update,b)
+            cuda.wrap(a.optimizer);cuda.wrap(b.optimizer)
+            for _ in range(2):a.update();b.update();equal(snapshot(a),snapshot(b))
+            del a,b
         t=generated(True);cuda.wrap(t.optimizer);t.update();anchor_state={k:v.detach().clone() for k,v in t.model.entry_anchor.state_dict().items()};before=t.ema.sidecar.r.detach().clone();grads=t.update()
         assert all(t.telemetry[n+'_nonzero_U_calls']>0 for n in ('A','B','R'))
         assert all(torch.equal(v,t.model.entry_anchor.state_dict()[k]) for k,v in anchor_state.items())
@@ -118,7 +127,9 @@ def qualify(config):
                         st['exp_avg'].copy_((mnext-(1-beta1)*grad)/beta1)
             return original_step(*a,**kw)
         with patch.object(implementation,'align_displacement',observe),patch.object(t.optimizer,'step',injected_momentum_step):t.update()
-        equal(captured['optimizer'],t.optimizer.state_dict())
+        equal(captured['optimizer']['state'],t.optimizer.state_dict()['state'])
+        for old,new in zip(captured['optimizer']['param_groups'],t.optimizer.param_groups):
+            assert all(old[k]==new[k] for k in old if k not in ('lr','params'))
         assert t.module_stats['gua_proposal_dot']<0 and t.module_stats['gua_projected']
         assert t.module_stats['gua_actual_cosine']>=-1e-5
         native_diagnostic=dict(constructed=True,**t.module_stats,
@@ -146,9 +157,9 @@ def qualify(config):
         else:raise AssertionError('expected injected failure')
         assert t.requires_restore and t.step==5;del t
         j=protocol.jobs()[0];t=construct(config,j,1,device,engine.admission(config,'smoke'),allow_u=False);smoke.wrap(t.optimizer);t.update();t.update();assert t.provider.u_reads==0;del t
-        assert (cpu.count,cuda.count,smoke.count)==(32,12,2)
+        assert (cpu.count,cuda.count,smoke.count)==((0,8,2) if reuse else (32,12,2))
         advance=any(v['gua_raw_cosine']>=-1e-6 and v['gua_proposal_dot']<0 for v in natural)
-        protocol.write(root/'QUALIFICATION.json',dict(status='PASS',execution_commit=config['execution_commit'],plan_id=protocol.plan()['plan_id'],costs=dict(cpu_optimizer_updates=cpu.count,synthetic_cuda_updates=cuda.count,real_L_smoke_updates=smoke.count),formal_advancement=advance,prior_qualification_costs=prior,
+        protocol.write(root/'QUALIFICATION.json',dict(status='PASS',execution_commit=config['execution_commit'],plan_id=protocol.plan()['plan_id'],costs=dict(cpu_optimizer_updates=cpu.count,synthetic_cuda_updates=cuda.count,real_L_smoke_updates=smoke.count),formal_advancement=advance,prior_qualification_costs=prior,reused_successful_cpu_and_disabled_from=reuse,
             checks=['32 actual Adam two-case generated CPU updates; direction corrected and moments unchanged','disabled complete native archived V13 state/old update and loss parity','actual native A/B/R reference and raw projection retained; main KL rejection; clean SWD parent detach','natural generated-native proposals recorded separately from injected historical-moment native Adam construction; effective BA changes measured','shared immutable entry and EMA frozen; linear R EMA; real checkpoint continuation telemetry and wrong actual flag rejection','deploy own-prefix next stage; after-optimizer failure counted and blocked pending restore; zeroU L smoke'],
             natural_native_diagnostics=natural,constructed_native_diagnostic=native_diagnostic,
             qualification_reference_vjps=7,qualification_extra_gradient_vjps=3,qualification_extra_generated_loss_calls=1,qualification_extra_anchor_full_forwards=2,
