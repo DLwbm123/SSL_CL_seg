@@ -1,0 +1,12 @@
+from ..f5_module_pilots_v1.protocol import OPTIONS,STEPS,MANIFEST_SHA,SPLIT_SHA,read,write,metrics,compare as paired_compare
+from ..f5_anchor_guard_v10.protocol import jobs as previous_jobs,plan as previous_plan
+from ..five_frameworks_v1.gate import digest
+ARMS=('F5','SARD')
+CAPS=dict(formal_updates=21200,source_updates=0,cpu_optimizer_updates=96,synthetic_cuda_updates=32,real_smoke_updates=4,diagnostic_vjps=64,entry_reference_vjps=16960)
+def jobs():
+    return [{**j,'id':j['id'].replace('ANCHOR_GUARD','SARD'),'arm':'SARD'} for j in previous_jobs()]
+def plan():
+    j=jobs();v=previous_plan();v.pop('plan_id')
+    v.update(study_id='F5_SARD_V17',authority='explicit user authorization for independent GUA/SARD/REDistill/CaRE-KD queue after V15 and GUA public delivery; common V13 base, bounded methods, hourly original F5/B2 gates',jobs=j,arms=ARMS,options=OPTIONS,caps=CAPS,execution_batches=[[j[0]['id']],[x['id'] for x in j[1:]]],equation='V13 reference only: frozen own-entry post-prefix feature Sobel structure tensor; S=2(lambda1-lambda2)+sqrt(det J)+mean15x15 Euclidean feature deviation; replicate borders; mean of present-class S-normalized forward KL, class zero-mass uniform fallback; raw halfspace and all main losses unchanged',hypothesis='V15 class constraints improved164 but lost163 cup; test spatially nonuniform entry protection within V13 class-balanced aggregate without adding independent class constraints; observed Dice damage does not establish spatial causation',comparison='disabled full native archived V13 update/loss/state parity; V13 matched base, V15/V10 background, matched F5 and historical B0/B2',qualification_advancement='all engineering checks PASS, exact small-grid structure formula, spatial localization/constant fallback/detach checks, and nonuniform generated-native spatial weights with nonzero reference gradient difference from V13; no patient performance gate',limitations=['SARD spatial-weight component adapted to KL reference, not full representation/denoising distillation or tiny-object evidence','teacher structure may be incorrect; current U need not cover old domains','one aggregate raw-gradient constraint does not protect every class, actual Adam displacement or finite-step functions','fixed exact225-neighbor feature distances add runtime but no extra formal model forward/VJP','formal failure not retried; repeated development patients'])
+    v['plan_id']=digest(v);return v
+def compare(rows,reference):return paired_compare(rows,reference,arms=('SARD',))
