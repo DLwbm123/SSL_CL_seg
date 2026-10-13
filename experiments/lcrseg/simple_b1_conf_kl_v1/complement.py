@@ -3,6 +3,9 @@ import copy
 import json
 import os
 from pathlib import Path
+os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG', ':4096:8')
+if os.environ['CUBLAS_WORKSPACE_CONFIG'] != ':4096:8':
+    raise RuntimeError('original deterministic CuBLAS workspace configuration required')
 from . import protocol
 from .run import construct, engine
 
@@ -65,6 +68,7 @@ def merge_rows(rows, prior):
 
 def check():
     value = plan()
+    assert os.environ['CUBLAS_WORKSPACE_CONFIG'] == ':4096:8'
     assert len(jobs()) == 3 and sum(s['steps'] for j in jobs() for s in j['stages']) == 15900
     assert value['options'] == protocol.OPTIONS and protocol.CAPS['formal_updates'] == 21200
     scores = {d: dict(rim=.5, cup=.5, macro_Dice=.5) for d in protocol.ORDERS[0]}
