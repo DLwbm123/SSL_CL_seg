@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "kind": "REUSE_UNCHANGED_TRAINING_IMPLEMENTATION",
+  "execution_commit": "40b2e282cd7e028879fc88347563e26dcbe807eb",
+  "plan_id": "89255b5a941c9b1ac6eab0ead58b88e33acc1262c1107116f5bb3f845c83b089",
+  "original_execution_commit": "3ba19c9f6c982427d98aa242c7b09816ba3fe1b0",
+  "original_plan_id": "1e045cbba368012765000daf7214c699300dddd8c1ba76acd95a3e591877da2c",
+  "original_qualification_status": "PASS",
+  "original_costs": {
+    "cpu_optimizer_updates": 32,
+    "synthetic_cuda_updates": 10,
+    "real_L_smoke_updates": 2
+  },
+  "costs": {
+    "cpu_optimizer_updates": 0,
+    "synthetic_cuda_updates": 0,
+    "real_L_smoke_updates": 0
+  },
+  "formal_advancement": true,
+  "scope_checks": {
+    "status": "PASS",
+    "optimizer_updates": 0,
+    "model_forwards": 0,
+    "patient_access": 0,
+    "checks": [
+      "exact three missing jobs and15900 cap",
+      "original configuration unmodified",
+      "four-row/24-class merge without modifying prior result",
+      "original positive and incoming-failure gates",
+      "duplicate prior cell rejected"
+    ]
+  },
+  "training_source_check": "git diff from original qualified source: baseline run/protocol plus common engine/model/data/recipes/parent/dependencies unchanged; only reduced/complement orchestration added",
+  "checked_packages": [
+    "simple_b1_conf_kl_v1/run.py",
+    "simple_b1_conf_kl_v1/protocol.py",
+    "five_frameworks_v1",
+    "f5_module_pilots_v1",
+    "di_dmpa_jascl",
+    "ssl_head_control_v0_1",
+    "ssl_anchored_mix_v0_1",
+    "lctx_weight_memory_v0_1",
+    "ssl_foundation_v0_1",
+    "single_teacher_scd_v0_1"
+  ]
+}

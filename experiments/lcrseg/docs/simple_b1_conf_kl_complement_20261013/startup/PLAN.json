@@ -1,0 +1,130 @@
+{
+  "study_id": "SIMPLE_B1_CONF_KL_V1_COMPLEMENT",
+  "parent": "NATIVE_LR_SRC_A_3DOMAIN_V1",
+  "authority": "user 2026-10-13: \u6309\u539f\u914d\u7f6e\u8865\u9f50 B1 \u7684163/O2\u3001164/O1\u3001164/O2\uff1b\u5df2\u6709163/O1\u4e0d\u91cd\u8dd1\uff1b\u56fa\u5b9a15900\u66f4\u65b0\uff1b\u539fF5/B2\u53ccgate\u6c47\u603b\u63a8\u9001\uff1b\u4e0d\u505aV27\u51cf\u6743\u6216\u65b0\u589e\u5c42\u7ea7\u53d8\u4f53",
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "arms": [
+    "B1_PARENT_CONF_KL"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 1.0,
+    "PAS_confidence": 0.6,
+    "PAS_cosine": 0.7
+  },
+  "caps": {
+    "formal_updates": 15900,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 0,
+    "synthetic_cuda_updates": 0,
+    "real_smoke_updates": 0,
+    "diagnostic_vjps": 0
+  },
+  "jobs": [
+    {
+      "id": "SIMPLE_B1_S163_O2",
+      "arm": "B1_PARENT_CONF_KL",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "SIMPLE_B1_S164_O1",
+      "arm": "B1_PARENT_CONF_KL",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "SIMPLE_B1_S164_O2",
+      "arm": "B1_PARENT_CONF_KL",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "execution_batches": [
+    [
+      "SIMPLE_B1_S163_O2",
+      "SIMPLE_B1_S164_O1",
+      "SIMPLE_B1_S164_O2"
+    ]
+  ],
+  "equation": "existing B1: current EMA soft KL, geometry & max(q)>0.6; no PAS prototype-similarity filter",
+  "comparison": "B2_C06 options unchanged except confidence-only eligibility; frozen historical B0/B2 and matched F5/V13/V17 aggregates",
+  "evaluation": "all six NEW stages and three EXIT0 before fifteen seen-domain evaluations; reuse prior163/O1 scores without training or evaluation",
+  "train_access": "current L image/GT and current U image/geometry; same source checkpoints and frozen splits; no old images",
+  "retries": 0,
+  "hyperparameter_search": false,
+  "automatic_followup": false,
+  "qualification": "reuse original native qualification of unchanged training code; zero-optimizer scope/merge/gate checks",
+  "success": "report full four-trajectory original F5/B2 gates and all negative cells; no automatic next experiment",
+  "limitations": [
+    "simpler eligibility does not guarantee a weaker score",
+    "B1 still retains the common parent input projection and LCTX",
+    "shared engine retains prototype computation but discards its mask for B1; no speed claim",
+    "two seeds and repeatedly reused development patients; no independent generalization",
+    "B2 remains the strong historical reference; no replacement or revised original method gate",
+    "163/O1 was previously observed; only the other three trajectories are new"
+  ],
+  "inherited_job": "SIMPLE_B1_S163_O1",
+  "previously_completed_formal_updates": 5300,
+  "combined_baseline_formal_updates": 21200,
+  "training_qualification_source": "3ba19c9f6c982427d98aa242c7b09816ba3fe1b0",
+  "plan_id": "89255b5a941c9b1ac6eab0ead58b88e33acc1262c1107116f5bb3f845c83b089"
+}
