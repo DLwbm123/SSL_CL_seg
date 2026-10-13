@@ -1,0 +1,66 @@
+{
+  "audit_date_shanghai": "2026-10-13",
+  "scope": "Read-only comparison of the actual historical B2 comparator and frozen V27; no training, evaluation or protocol change",
+  "conclusion": "COMPARABLE_FOR_PAIRED_DEVELOPMENT_PERFORMANCE_NOT_EQUAL_COMPUTE_OR_MODULE_ATTRIBUTION",
+  "decision": {
+    "retain_B2_development_hard_gate_for_followup": true,
+    "reason": "No material data, source, training-budget or evaluation mismatch was found. Method-specific hyperparameters and extra operations do not invalidate end-to-end performance comparison. There is no evidence-based reason to remove B2 because recent candidates fail the gate.",
+    "V27": "Continue the original frozen protocol and F5/B2 dual gates",
+    "past_rounds": "Preserve all original PASS/FAIL conclusions",
+    "scientific_boundary": "This is an operational development criterion, not a journal requirement or independent confirmation. Use V13/V21 as module controls. A future protocol with material data/evaluation changes must re-establish comparator compatibility before reusing B2."
+  },
+  "identities": {
+    "B2": "B2_PARENT_PAS_KL_C06, confirmation P1, seeds 163 and 164, orders 1 and 2",
+    "B2_execution_commit": "667f178c3b80183fd80809760ff31ec5f9a14e25",
+    "B2_import": "The four 163/164 order-specific final rows from confirmation PUBLIC_RESULTS.json, through module-pilots RESULTS.json historical_refs. Seed 162 and early single-seed replication tables are not used in this gate.",
+    "V27_execution_commit": "0c35ab0c30632d77541209ec4290ab81a8e90d8f",
+    "source_execution_commit": "cc21871a43e3cd105cddaf831f5c3ea2fef59b9e"
+  },
+  "matched": {
+    "data": "Same canonical fundus manifest and primary_20pct_split, split seed 0; optimization seeds 163/164 do not create new patient splits",
+    "declared_manifest_digest": "0622f54f42f05d6ef87f9dc89ee9435cf8da03c6c30cd970db6ea167e00dd8a3",
+    "declared_split_digest": "f250d97aea1f36f21899f5dd40bb6c9a819e7755aee458c8ee27506496b46a88",
+    "L_U_counts_by_domain": {"REFUGE": [40, 160], "RIM_ONE_r3": [16, 63], "Drishti_GS": [10, 41]},
+    "source": "Both protocols use the same retained SOURCE_S163 and SOURCE_S164 receipts/checkpoints, each 8000 REFUGE CE updates and zero U batches; no fresh source training",
+    "orders": [["REFUGE", "RIM_ONE_r3", "Drishti_GS"], ["REFUGE", "Drishti_GS", "RIM_ONE_r3"]],
+    "training_budget": "3200 RIM and 2100 Drishti updates per trajectory; 4 trajectories, 8 target stages, 21200 target updates each",
+    "input": "RGB 384x384, batch 2, FP32, no autocast, TF32 off; classes background=0/rim=1/cup=2/ignore=255",
+    "sampler": "Identical NativeCurrentDomain and stateless generator/geometry/LCTX/UL recipes, keyed by seed/order/stage/step/stream without arm; current L image+GT and current U image+geometry only; no old-image replay or U GT",
+    "backbone": "NATIVE_LR_SRC_A_3DOMAIN_V1, same native JASCL build, linear deterministic readout, LR_SRC_A rank-8 adapters and hard input projection",
+    "optimizer": "Adam, default betas .9/.999 and eps 1e-8; base lr .001, A/B initial lr .0005, weight decay 4e-5, polynomial power .9; U warmup fraction .2 and ramp fraction .2",
+    "evaluation": "Same native_runner.evaluate, evaluation_data, CurrentData and segmentation_metrics implementation; sealed end-of-stage student on seen-domain val; argmax deterministic readout, case-mean rim/cup Dice then equal class/domain/order/seed aggregation; no test or future-domain evaluation",
+    "metrics": "Final=mean of three final domain macro Dice; Old=mean of first two final domains; Incoming=final third domain; Forget=mean source and first-target earlier-to-final decline, not maximum-history forgetting"
+  },
+  "method_differences": {
+    "B2": {"lambda_U": 1.0, "PAS_confidence": 0.6, "PAS_cosine": 0.7, "description": "Parent A/B LCTX supervised CE+Dice and EMA PAS KL; no R/Q/SWD, frozen-entry reference gradient guard or hierarchy term"},
+    "V27": {"lambda_U": 0.25, "PAS_confidence": 0.7, "PAS_cosine": 0.5, "lambda_SWD_inside_U": 0.2, "description": "V13 joint KL A/B/R, clean SWD R-only, class-balanced frozen-entry reference and raw-gradient guard; linear rank-4 R/Q sidecar; current-L hierarchy coarse+sibling contrast weight .1, temperature .1; child-parent attraction removed"},
+    "interpretation": "Different objectives, thresholds, gradient routes, representation capacity and compute are intentional method differences. B2 is a strong end-to-end comparator, not an isolated control for the V27 hierarchy module. Full-ramp U coefficients differ; no equal-strength causal claim is made."
+  },
+  "compute": {
+    "B2_actual_for_matched_4_trajectories": {"formal_optimizer_updates": 21200, "student_full_forwards": 72080, "teacher_full_forwards": 33928, "probe_vjps": 0},
+    "V27_frozen_expected_not_completed_actual": {"formal_optimizer_updates": 21200, "student_full_forwards": 89040, "teacher_full_forwards": 50888, "entry_reference_vjps": 16960, "R_diagnostic_vjps": 64},
+    "interpretation": "Matched update budget is not matched compute. Do not claim compute-normalized superiority or infer runtime efficiency from shared-GPU wall time."
+  },
+  "targeted_verification": {
+    "existing_digest_bindings_only": true,
+    "new_hash_computations": 0,
+    "identical_old_and_V27_snapshot_files": ["single_teacher_scd_v0_1/data.py", "single_teacher_scd_v0_1/engine.py", "five_frameworks_v1/native_data.py", "five_frameworks_v1/recipes.py", "five_frameworks_v1/evaluate.py", "five_frameworks_v1/native_runner.py", "lctx_weight_memory_v0_1/core.py", "ssl_anchored_mix_v0_1/core.py", "ssl_head_control_v0_1/core.py", "di_dmpa_jascl/modeling.py"],
+    "reviewed_changed_shared_files": {
+      "five_frameworks_v1/native_parent.py": "git cwd invocation instead of -C; EMA decay keyword retains exact .99/.01 default; adapters, input projection, supervised loss and readout methods unchanged",
+      "five_frameworks_v1/train_stage.py": "Explicit extension hooks, optimizer sidecar parameter API, detach routing and sidecar EMA extension; B2 base hooks are no-ops, B2 has no sidecar and retains parent U gradients; new method hooks remain intentional differences",
+      "five_frameworks_v1/model.py": "Sidecar parameter/EMA extension and explicit detach_u_parent; Deployment unchanged; B2 no-sidecar path remains parent-only"
+    },
+    "imported_B2_final_scores_match_original": true,
+    "recomputed_4_trajectory_Final_Old_Incoming_Forget_max_error": 0.0,
+    "V27_qualification": "Existing disabled archived-V13 full-state/loss/update parity and native data/teacher/resume/deployment checks reused; no qualification repeated"
+  },
+  "selection_and_limits": {
+    "B2_selection": "C06 selected on development seed 161 from eight B2 candidates, then fixed for the new 163/164 confirmation runs; not selected from their final outcomes",
+    "current_method_selection": "Many subsequent method rounds reuse the same development patients and 163/164 matrix; tuning budgets are unequal and independent superiority is not established",
+    "readout_timing": "Historical B2 evaluates each sealed stage before its next stage; V27 postpones uniform evaluation until all targets seal. Evaluation implementation matches and neither protocol uses validation feedback for optimization/checkpoint selection. Timing is documented rather than claimed identical.",
+    "not_checked_or_run": "No new model forward, optimizer, evaluation, patient-level metric read, artifact rehash or B2 rerun. Existing frozen metadata and source receipts establish provenance; this audit does not establish fresh byte-level equality of all private HDF5 or checkpoint payloads.",
+    "gate_limit": "The .5pp average gain and seed/order/class safeguards are frozen operational tolerances, not statistical significance or a clinically validated margin. Two optimization seeds and repeatedly reused validation patients do not establish generalization."
+  },
+  "public_sources": ["experiments/lcrseg/f5_confirmation_v1/protocol.py", "experiments/lcrseg/f5_confirmation_v1/execution.py", "experiments/lcrseg/docs/five_frameworks_v1/native_execution/FINAL_RESULTS_REDUCED.json", "experiments/lcrseg/f5_module_pilots_v1/protocol.py", "experiments/lcrseg/f5_module_pilots_v1/run.py", "experiments/lcrseg/docs/f5_hierarchy_contrast_v27/PREREG.md", "experiments/lcrseg/docs/f5_hierarchy_contrast_v27/QUALIFICATION.md"],
+  "privacy": "Only protocol identifiers, anonymous counts, options and aggregate checks are published; private configurations, patient rows, data, weights and raw logs remain on NAS"
+}
