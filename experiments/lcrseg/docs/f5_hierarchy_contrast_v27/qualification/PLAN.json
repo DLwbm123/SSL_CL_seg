@@ -1,0 +1,164 @@
+{
+  "study_id": "F5_HIERARCHY_CONTRAST_V27",
+  "parent": "F5_C02",
+  "authority": "user: generic whole-part hierarchy prototypes on V13; minimal existing-fundus experiment and qualification; retain original F5/B2 dual gates and task-configured label ancestry",
+  "jobs": [
+    {
+      "id": "HIERARCHY_CONTRAST_S163_O1",
+      "arm": "HIERARCHY_CONTRAST",
+      "seed": 163,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "HIERARCHY_CONTRAST_S163_O2",
+      "arm": "HIERARCHY_CONTRAST",
+      "seed": 163,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    },
+    {
+      "id": "HIERARCHY_CONTRAST_S164_O1",
+      "arm": "HIERARCHY_CONTRAST",
+      "seed": 164,
+      "order": 1,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        },
+        {
+          "stage": 2,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        }
+      ]
+    },
+    {
+      "id": "HIERARCHY_CONTRAST_S164_O2",
+      "arm": "HIERARCHY_CONTRAST",
+      "seed": 164,
+      "order": 2,
+      "stages": [
+        {
+          "stage": 1,
+          "domain": "Drishti_GS",
+          "steps": 2100
+        },
+        {
+          "stage": 2,
+          "domain": "RIM_ONE_r3",
+          "steps": 3200
+        }
+      ]
+    }
+  ],
+  "arms": [
+    "F5",
+    "HIERARCHY_CONTRAST"
+  ],
+  "options": {
+    "lr": 0.001,
+    "weight_decay": 4e-05,
+    "parent_lr_multiplier": 0.5,
+    "lr_B_over_A": 1.0,
+    "feature_lr_multiplier": 1.0,
+    "feature_weight_decay_multiplier": 1.0,
+    "rank_ratio": 0.25,
+    "warmup_fraction": 0.2,
+    "U_ramp_fraction": 0.2,
+    "lambda_U": 0.25,
+    "lambda_SWD": 0.2,
+    "PAS_confidence": 0.7,
+    "PAS_cosine": 0.5
+  },
+  "caps": {
+    "formal_updates": 21200,
+    "source_updates": 0,
+    "cpu_optimizer_updates": 96,
+    "synthetic_cuda_updates": 32,
+    "real_smoke_updates": 4,
+    "diagnostic_vjps": 64,
+    "entry_reference_vjps": 16960
+  },
+  "seeds": [
+    163,
+    164
+  ],
+  "orders": [
+    [
+      "REFUGE",
+      "RIM_ONE_r3",
+      "Drishti_GS"
+    ],
+    [
+      "REFUGE",
+      "Drishti_GS",
+      "RIM_ONE_r3"
+    ]
+  ],
+  "execution_batches": [
+    [
+      "HIERARCHY_CONTRAST_S163_O1"
+    ],
+    [
+      "HIERARCHY_CONTRAST_S163_O2",
+      "HIERARCHY_CONTRAST_S164_O1",
+      "HIERARCHY_CONTRAST_S164_O2"
+    ]
+  ],
+  "equation": "V21/V13 current-L first-update hierarchy weight.1 times coarse+full-feature sibling CE at temperature.1; live child-to-parent distance hinge completely removed. Same generic ancestry/equal-present-image unit prototypes/detached anchors/LCTXGTnearest3x3seamignore. Original V13 U/PAS/reference/oneaggregate rawguard/SWDR-only/EMA/AdamLR/source-own-prefix unchanged; no new forward/VJP/head/teacher/bank/history/deployment parameters",
+  "hypothesis": "V21 contrasts and live child-parent attraction have a fixed analytical angular tradeoff; removing only attraction may preserve discriminative part directions with less unnecessary regularization. Prior failed entry-feature additions do not prove patient causality",
+  "source_updates": 0,
+  "retries": 0,
+  "hyperparameter_search": false,
+  "comparison": "disabled archived V13 full native state/loss/update parity; paired V21/V22/V23/V24/V25/V26/V13 baselines, V15/V17/V19/V20/V10 context, matched F5 and historical B0/B2",
+  "evaluation": "seal all8 targets before20 seen-domain evaluations; no validation-based diagnostic pruning",
+  "diagnostic_first": "S163/O1 runs first; continue remaining3 only on engineering completion, not efficacy selection",
+  "success": "same paired practical gate against both matched F5 and historical B2; development only",
+  "limitations": [
+    "HiPoSeg-inspired bounded component adaptation, not full reproduction: no projection head/EMA hierarchy bank/extra staged schedules/six original losses",
+    "all contrast prototype targets detached; live child-parent alignment absent; legacy margin.25 retained for constructor/checkpoint compatibility only, not an optimized loss",
+    "same-batch means may not represent all morphology or pathology and spatial containment is not enforced",
+    "prototype contrast may still oppose useful variation; removing attraction can lose useful regularization; no clinical, spatial containment or retention guarantee",
+    "core kernel supports 2D/3D tensor grids; native backbone/data/engine still existing 2D task",
+    "label ancestry is supplied by protocol, not organ-name heuristics; singleton/absent/ignore/zero-norm decisions omitted",
+    "no old images or U labels; no new teachers/heads/inference parameters/forwards or extra formal model VJPs; reuse disclosed development patients"
+  ],
+  "hierarchy": {
+    "parent_map": [
+      0,
+      1,
+      1
+    ],
+    "weight": 0.1,
+    "temperature": 0.1,
+    "margin": 0.25
+  },
+  "alignment": false,
+  "qualification_advancement": "all engineering/math checks PASS; two predefined unforced generated native active updates record supported coarse and sibling decisions, exact alignment zero/removedflag, and nonzero contrast-only A/B/R gradient; one fixed native gradient check, no extra patient-U probe or generated fixture search",
+  "plan_id": "4934aab880468502e70ec17979716bb0a2611912478f21e86c21024e97176db9"
+}
