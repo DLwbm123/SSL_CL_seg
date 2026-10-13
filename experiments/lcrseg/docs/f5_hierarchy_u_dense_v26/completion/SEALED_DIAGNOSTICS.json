@@ -1,0 +1,2730 @@
+{
+  "jobs/HIERARCHY_U_DENSE_S163_O1/stage1": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 163,
+      "order": 1,
+      "stage": 1,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S163_O1"
+    },
+    "steps": 3200,
+    "attempts": 3200,
+    "cost": {
+      "student_full_forwards": 16000,
+      "teacher_full_forwards": 7681,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 3200,
+      "extra_clean_U_forwards": 2560,
+      "skipped_updates": 0,
+      "joint_U_calls": 2560,
+      "A_nonzero_U_calls": 2560,
+      "B_nonzero_U_calls": 2560,
+      "R_nonzero_U_calls": 2560,
+      "anchor_full_forwards": 2560,
+      "anchor_candidate_pixels": 736130206,
+      "anchor_rejected_pixels": 34328911,
+      "anchor_gate_calls": 2560,
+      "anchor_rejection_calls": 2560,
+      "entry_reference_vjps": 2560,
+      "entry_guard_calls": 2560,
+      "entry_projected_calls": 1445,
+      "entry_reference_pixels": 727157542,
+      "reference_background_pixels": 661077273,
+      "reference_rim_pixels": 45415466,
+      "reference_cup_pixels": 20664803,
+      "reference_balanced_calls": 2560,
+      "reference_present_class_calls": 7680,
+      "hierarchy_calls": 3200,
+      "hierarchy_coarse_calls": 3200,
+      "hierarchy_parts_calls": 3200,
+      "hierarchy_alignment_calls": 3107,
+      "hierarchy_aligned_edges": 6400,
+      "hierarchy_valid_pixels": 923533140,
+      "hierarchy_seam_excluded_pixels": 10380460,
+      "hierarchy_labeled_feature_views": 5760,
+      "dense_calls": 2560,
+      "dense_leaf_regions": 7680,
+      "dense_parent_regions": 2560,
+      "dense_valid_pixels": 719625087,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 2560,
+      "dense_student_full_forwards": 2560
+    },
+    "module_diagnostics": [
+      {
+        "step": 800,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.002120352898914407,
+        "B_U_norm": 0.01867667140672344,
+        "R_U_norm": 0.0027936290236853347,
+        "anchor_guard": true,
+        "candidate_pixels": 282421,
+        "rejected_pixels": 8383,
+        "entry_reference_pixels": 279487,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 15.750115003190794,
+        "entry_dot_after": 15.750115003190794,
+        "entry_reference_norm": 18.838638222003198,
+        "class_reference": true,
+        "reference_class_pixels": [
+          261274,
+          10993,
+          7220
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            259720,
+            24119,
+            3929
+          ],
+          "parent_pixels": [
+            259720,
+            28048
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.14462631940841675,
+          "loss_parts": 0.4762117862701416,
+          "loss_alignment": 0.14191776514053345,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 276578,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.20643484592437744,
+          "original_reference_support_pixels": 279487,
+          "dense_main_KL": 0.00962437316775322,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1600,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.10239774883678636,
+        "B_U_norm": 0.8309609725060358,
+        "R_U_norm": 0.08868460710846579,
+        "anchor_guard": true,
+        "candidate_pixels": 282177,
+        "rejected_pixels": 15308,
+        "entry_reference_pixels": 276601,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 4.463826186947207,
+        "entry_dot_after": 4.463826186947207,
+        "entry_reference_norm": 25.425049112098836,
+        "class_reference": true,
+        "reference_class_pixels": [
+          260949,
+          8415,
+          7237
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            265966,
+            17739,
+            4063
+          ],
+          "parent_pixels": [
+            265966,
+            21802
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.22909876704216003,
+          "loss_parts": 0.38946110010147095,
+          "loss_alignment": 0.028003528714179993,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 273662,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.35188907384872437,
+          "original_reference_support_pixels": 276601,
+          "dense_main_KL": 0.1417551189661026,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2400,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.11079981535099785,
+        "B_U_norm": 0.8147599039945898,
+        "R_U_norm": 0.0840595291678088,
+        "anchor_guard": true,
+        "candidate_pixels": 289621,
+        "rejected_pixels": 12702,
+        "entry_reference_pixels": 283354,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -23.44446785115515,
+        "entry_dot_after": -1.1762067486653649e-07,
+        "entry_reference_norm": 14.87627521099464,
+        "class_reference": true,
+        "reference_class_pixels": [
+          262481,
+          14585,
+          6288
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            258602,
+            26423,
+            2743
+          ],
+          "parent_pixels": [
+            258602,
+            29166
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.11306779831647873,
+          "loss_parts": 0.3652384877204895,
+          "loss_alignment": 0.12092171609401703,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 280412,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.3198913335800171,
+          "original_reference_support_pixels": 283354,
+          "dense_main_KL": 0.09261684119701385,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 3200,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.11218395360412589,
+        "B_U_norm": 1.0179876430286297,
+        "R_U_norm": 0.07968499925373294,
+        "anchor_guard": true,
+        "candidate_pixels": 289705,
+        "rejected_pixels": 15448,
+        "entry_reference_pixels": 286994,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -12.71239256140449,
+        "entry_dot_after": -5.675563857221455e-07,
+        "entry_reference_norm": 15.521152993219927,
+        "class_reference": true,
+        "reference_class_pixels": [
+          259433,
+          18552,
+          9009
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            258799,
+            26633,
+            2597
+          ],
+          "parent_pixels": [
+            258799,
+            29230
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 288029,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.3269246816635132,
+          "loss_parts": 0.59740149974823,
+          "loss_alignment": 0.005193665623664856,
+          "seam_excluded_pixels": 3819,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 284025,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.2637875974178314,
+          "original_reference_support_pixels": 286994,
+          "dense_main_KL": 0.07681065797805786,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 800,
+        "L_norm": 0.29806676506996155,
+        "U_norm": 0.002793628955259919,
+        "cosine": 0.8418592214584351
+      },
+      {
+        "step": 1600,
+        "L_norm": 0.06776368618011475,
+        "U_norm": 0.08868460357189178,
+        "cosine": -0.38332629203796387
+      },
+      {
+        "step": 2400,
+        "L_norm": 0.5292491316795349,
+        "U_norm": 0.08405952900648117,
+        "cosine": 0.250149667263031
+      },
+      {
+        "step": 3200,
+        "L_norm": 0.2675034999847412,
+        "U_norm": 0.07968500256538391,
+        "cosine": 0.5718759894371033
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 6402,
+      "sample_access_attempts": 11522,
+      "hdf5_mode_r": 17924,
+      "hdf5_open_attempts": 17924,
+      "hdf5_open": 17924,
+      "sample_access": 11522,
+      "sample_train_labeled": 6402,
+      "features_attempts": 23681,
+      "features": 23681,
+      "native_readout_attempts": 16000,
+      "native_readout": 16000,
+      "autograd_grad_attempts": 8328,
+      "autograd_grad": 8328,
+      "optimizer_steps_attempts": 3200,
+      "optimizer_steps": 3200,
+      "update_dense_ema_validation_attempts": 3200,
+      "update_dense_ema_validation": 3200,
+      "update_dense_ema_attempts": 3200,
+      "update_dense_ema": 3200,
+      "sample_train_unlabeled_attempts": 5120,
+      "sample_train_unlabeled": 5120
+    },
+    "evaluation": "NOT_READ_YET"
+  },
+  "jobs/HIERARCHY_U_DENSE_S163_O1/stage2": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 163,
+      "order": 1,
+      "stage": 2,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S163_O1"
+    },
+    "steps": 2100,
+    "attempts": 2100,
+    "cost": {
+      "student_full_forwards": 10500,
+      "teacher_full_forwards": 5041,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 2100,
+      "extra_clean_U_forwards": 1680,
+      "skipped_updates": 0,
+      "joint_U_calls": 1680,
+      "A_nonzero_U_calls": 1680,
+      "B_nonzero_U_calls": 1680,
+      "R_nonzero_U_calls": 1680,
+      "anchor_full_forwards": 1680,
+      "anchor_candidate_pixels": 480705132,
+      "anchor_rejected_pixels": 29206201,
+      "anchor_gate_calls": 1680,
+      "anchor_rejection_calls": 1680,
+      "entry_reference_vjps": 1680,
+      "entry_guard_calls": 1680,
+      "entry_projected_calls": 885,
+      "entry_reference_pixels": 467044043,
+      "reference_background_pixels": 429093328,
+      "reference_rim_pixels": 26868089,
+      "reference_cup_pixels": 11082626,
+      "reference_balanced_calls": 1680,
+      "reference_present_class_calls": 5040,
+      "hierarchy_calls": 2100,
+      "hierarchy_coarse_calls": 2100,
+      "hierarchy_parts_calls": 2100,
+      "hierarchy_alignment_calls": 2037,
+      "hierarchy_aligned_edges": 4200,
+      "hierarchy_valid_pixels": 606067482,
+      "hierarchy_seam_excluded_pixels": 6813318,
+      "hierarchy_labeled_feature_views": 3780,
+      "dense_calls": 1680,
+      "dense_leaf_regions": 5040,
+      "dense_parent_regions": 1680,
+      "dense_valid_pixels": 462241875,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 1680,
+      "dense_student_full_forwards": 1680
+    },
+    "module_diagnostics": [
+      {
+        "step": 525,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.018777551425824386,
+        "B_U_norm": 0.21301869234163692,
+        "R_U_norm": 0.01948322411608755,
+        "anchor_guard": true,
+        "candidate_pixels": 284936,
+        "rejected_pixels": 31336,
+        "entry_reference_pixels": 275222,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 4.410506406209047,
+        "entry_dot_after": 4.410506406209047,
+        "entry_reference_norm": 87.17536485468229,
+        "class_reference": true,
+        "reference_class_pixels": [
+          253427,
+          20406,
+          1389
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            231545,
+            29540,
+            26683
+          ],
+          "parent_pixels": [
+            231545,
+            56223
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.341384619474411,
+          "loss_parts": 0.5174239873886108,
+          "loss_alignment": 0.037305980920791626,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 272436,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.09549646079540253,
+          "original_reference_support_pixels": 275222,
+          "dense_main_KL": 0.3256165385246277,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1050,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.07059568649445754,
+        "B_U_norm": 0.8451020939190247,
+        "R_U_norm": 0.07803435133021311,
+        "anchor_guard": true,
+        "candidate_pixels": 282803,
+        "rejected_pixels": 16581,
+        "entry_reference_pixels": 275774,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -1.6892680171877803,
+        "entry_dot_after": -1.6015050743889425e-08,
+        "entry_reference_norm": 4.666939706946046,
+        "class_reference": true,
+        "reference_class_pixels": [
+          256230,
+          14132,
+          5412
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            249281,
+            32405,
+            6082
+          ],
+          "parent_pixels": [
+            249281,
+            38487
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.05569460615515709,
+          "loss_parts": 0.27993541955947876,
+          "loss_alignment": 0.11085373163223267,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 272906,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.08300639688968658,
+          "original_reference_support_pixels": 275774,
+          "dense_main_KL": 0.07032094895839691,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1575,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.019869808864830446,
+        "B_U_norm": 0.1411159354750907,
+        "R_U_norm": 0.006744067855656277,
+        "anchor_guard": true,
+        "candidate_pixels": 285050,
+        "rejected_pixels": 18377,
+        "entry_reference_pixels": 277361,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -4.705404228661501,
+        "entry_dot_after": 1.4331247549792536e-08,
+        "entry_reference_norm": 4.735328886916617,
+        "class_reference": true,
+        "reference_class_pixels": [
+          252832,
+          18436,
+          6093
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            236759,
+            29401,
+            21608
+          ],
+          "parent_pixels": [
+            236759,
+            51009
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.06132566183805466,
+          "loss_parts": 0.2865990996360779,
+          "loss_alignment": 0.04208962619304657,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 274527,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.0719728022813797,
+          "original_reference_support_pixels": 277361,
+          "dense_main_KL": 0.023309508338570595,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2100,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.05413514009459822,
+        "B_U_norm": 0.7022824289698705,
+        "R_U_norm": 0.01585496489393174,
+        "anchor_guard": true,
+        "candidate_pixels": 287020,
+        "rejected_pixels": 10860,
+        "entry_reference_pixels": 281334,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -14.53606636192978,
+        "entry_dot_after": 5.2239831349609744e-09,
+        "entry_reference_norm": 4.590759440587439,
+        "class_reference": true,
+        "reference_class_pixels": [
+          259379,
+          20107,
+          1848
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            231984,
+            22236,
+            33548
+          ],
+          "parent_pixels": [
+            231984,
+            55784
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.06459721177816391,
+          "loss_parts": 0.3418090343475342,
+          "loss_alignment": 0.022430703043937683,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 278489,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.06575185060501099,
+          "original_reference_support_pixels": 281334,
+          "dense_main_KL": 0.03562839329242706,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 525,
+        "L_norm": 0.3093434274196625,
+        "U_norm": 0.01948322355747223,
+        "cosine": 0.4455087184906006
+      },
+      {
+        "step": 1050,
+        "L_norm": 0.11919070035219193,
+        "U_norm": 0.07803434878587723,
+        "cosine": -0.38723689317703247
+      },
+      {
+        "step": 1575,
+        "L_norm": 0.19155992567539215,
+        "U_norm": 0.006744067650288343,
+        "cosine": 0.4833616316318512
+      },
+      {
+        "step": 2100,
+        "L_norm": 0.9065353870391846,
+        "U_norm": 0.015854964032769203,
+        "cosine": -0.5341407060623169
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 4202,
+      "sample_access_attempts": 7562,
+      "hdf5_mode_r": 11764,
+      "hdf5_open_attempts": 11764,
+      "hdf5_open": 11764,
+      "sample_access": 7562,
+      "sample_train_labeled": 4202,
+      "features_attempts": 15541,
+      "features": 15541,
+      "native_readout_attempts": 10500,
+      "native_readout": 10500,
+      "autograd_grad_attempts": 5468,
+      "autograd_grad": 5468,
+      "optimizer_steps_attempts": 2100,
+      "optimizer_steps": 2100,
+      "update_dense_ema_validation_attempts": 2100,
+      "update_dense_ema_validation": 2100,
+      "update_dense_ema_attempts": 2100,
+      "update_dense_ema": 2100,
+      "sample_train_unlabeled_attempts": 3360,
+      "sample_train_unlabeled": 3360
+    },
+    "evaluation": "NOT_READ_YET"
+  },
+  "jobs/HIERARCHY_U_DENSE_S163_O2/stage1": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 163,
+      "order": 2,
+      "stage": 1,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S163_O2"
+    },
+    "steps": 2100,
+    "attempts": 2100,
+    "cost": {
+      "student_full_forwards": 10500,
+      "teacher_full_forwards": 5041,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 2100,
+      "extra_clean_U_forwards": 1680,
+      "skipped_updates": 0,
+      "joint_U_calls": 1680,
+      "A_nonzero_U_calls": 1680,
+      "B_nonzero_U_calls": 1680,
+      "R_nonzero_U_calls": 1680,
+      "anchor_full_forwards": 1680,
+      "anchor_candidate_pixels": 476044015,
+      "anchor_rejected_pixels": 31399546,
+      "anchor_gate_calls": 1680,
+      "anchor_rejection_calls": 1680,
+      "entry_reference_vjps": 1680,
+      "entry_guard_calls": 1680,
+      "entry_projected_calls": 799,
+      "entry_reference_pixels": 470824918,
+      "reference_background_pixels": 423154826,
+      "reference_rim_pixels": 34688129,
+      "reference_cup_pixels": 12981963,
+      "reference_balanced_calls": 1680,
+      "reference_present_class_calls": 5040,
+      "hierarchy_calls": 2100,
+      "hierarchy_coarse_calls": 2100,
+      "hierarchy_parts_calls": 2100,
+      "hierarchy_alignment_calls": 1990,
+      "hierarchy_aligned_edges": 4200,
+      "hierarchy_valid_pixels": 606068292,
+      "hierarchy_seam_excluded_pixels": 6812508,
+      "hierarchy_labeled_feature_views": 3780,
+      "dense_calls": 1680,
+      "dense_leaf_regions": 5040,
+      "dense_parent_regions": 1680,
+      "dense_valid_pixels": 465942776,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 1680,
+      "dense_student_full_forwards": 1680
+    },
+    "module_diagnostics": [
+      {
+        "step": 525,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.013325382066053208,
+        "B_U_norm": 0.11708114641861687,
+        "R_U_norm": 0.026984923633676026,
+        "anchor_guard": true,
+        "candidate_pixels": 280090,
+        "rejected_pixels": 24596,
+        "entry_reference_pixels": 277363,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -29.93770159073662,
+        "entry_dot_after": 1.6911235889427445e-07,
+        "entry_reference_norm": 7.740556976960429,
+        "class_reference": true,
+        "reference_class_pixels": [
+          256597,
+          14696,
+          6070
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            228833,
+            21815,
+            37120
+          ],
+          "parent_pixels": [
+            228833,
+            58935
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.1312222182750702,
+          "loss_parts": 0.37125128507614136,
+          "loss_alignment": 0.02587375044822693,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 274493,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.23400156199932098,
+          "original_reference_support_pixels": 277363,
+          "dense_main_KL": 0.21891018748283386,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1050,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.01715947136772109,
+        "B_U_norm": 0.16623708887201277,
+        "R_U_norm": 0.011441273024235298,
+        "anchor_guard": true,
+        "candidate_pixels": 284674,
+        "rejected_pixels": 25891,
+        "entry_reference_pixels": 282377,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -13.271961830789888,
+        "entry_dot_after": 2.825001266248961e-08,
+        "entry_reference_norm": 12.781969959306306,
+        "class_reference": true,
+        "reference_class_pixels": [
+          257713,
+          18579,
+          6085
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            241212,
+            26397,
+            20159
+          ],
+          "parent_pixels": [
+            241212,
+            46556
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.05371352285146713,
+          "loss_parts": 0.2619420886039734,
+          "loss_alignment": 0.050876423716545105,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 279458,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.19287723302841187,
+          "original_reference_support_pixels": 282377,
+          "dense_main_KL": 0.029564296826720238,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1575,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.1506235487326234,
+        "B_U_norm": 2.0548088192102503,
+        "R_U_norm": 0.13193347995846327,
+        "anchor_guard": true,
+        "candidate_pixels": 279934,
+        "rejected_pixels": 15376,
+        "entry_reference_pixels": 276963,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 61.64605327642552,
+        "entry_dot_after": 61.64605327642552,
+        "entry_reference_norm": 21.43012902662163,
+        "class_reference": true,
+        "reference_class_pixels": [
+          250872,
+          21695,
+          4396
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            231410,
+            29931,
+            26427
+          ],
+          "parent_pixels": [
+            231410,
+            56358
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.05491967871785164,
+          "loss_parts": 0.4440806806087494,
+          "loss_alignment": 0.0,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 274128,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.19411009550094604,
+          "original_reference_support_pixels": 276963,
+          "dense_main_KL": 0.18707050383090973,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2100,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.011606762757799916,
+        "B_U_norm": 0.09444635084848071,
+        "R_U_norm": 0.012789594522869695,
+        "anchor_guard": true,
+        "candidate_pixels": 281781,
+        "rejected_pixels": 27362,
+        "entry_reference_pixels": 278276,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 3.0953219867081616,
+        "entry_dot_after": 3.0953219867081616,
+        "entry_reference_norm": 10.594773385251253,
+        "class_reference": true,
+        "reference_class_pixels": [
+          252472,
+          20975,
+          4829
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            242429,
+            34804,
+            10535
+          ],
+          "parent_pixels": [
+            242429,
+            45339
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.045336779206991196,
+          "loss_parts": 0.3218516409397125,
+          "loss_alignment": 0.08129569888114929,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 275429,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.21726757287979126,
+          "original_reference_support_pixels": 278276,
+          "dense_main_KL": 0.011685768142342567,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 525,
+        "L_norm": 1.7867155075073242,
+        "U_norm": 0.0269849244505167,
+        "cosine": -0.03612413629889488
+      },
+      {
+        "step": 1050,
+        "L_norm": 0.2782048285007477,
+        "U_norm": 0.011441272683441639,
+        "cosine": 0.7212311029434204
+      },
+      {
+        "step": 1575,
+        "L_norm": 1.414616346359253,
+        "U_norm": 0.13193348050117493,
+        "cosine": 0.005015487316995859
+      },
+      {
+        "step": 2100,
+        "L_norm": 0.23775681853294373,
+        "U_norm": 0.012789594940841198,
+        "cosine": 0.6084534525871277
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 4202,
+      "sample_access_attempts": 7562,
+      "hdf5_mode_r": 11764,
+      "hdf5_open_attempts": 11764,
+      "hdf5_open": 11764,
+      "sample_access": 7562,
+      "sample_train_labeled": 4202,
+      "features_attempts": 15541,
+      "features": 15541,
+      "native_readout_attempts": 10500,
+      "native_readout": 10500,
+      "autograd_grad_attempts": 5468,
+      "autograd_grad": 5468,
+      "optimizer_steps_attempts": 2100,
+      "optimizer_steps": 2100,
+      "update_dense_ema_validation_attempts": 2100,
+      "update_dense_ema_validation": 2100,
+      "update_dense_ema_attempts": 2100,
+      "update_dense_ema": 2100,
+      "sample_train_unlabeled_attempts": 3360,
+      "sample_train_unlabeled": 3360
+    },
+    "evaluation": "NOT_READ_YET"
+  },
+  "jobs/HIERARCHY_U_DENSE_S163_O2/stage2": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 163,
+      "order": 2,
+      "stage": 2,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S163_O2"
+    },
+    "steps": 3200,
+    "attempts": 3200,
+    "cost": {
+      "student_full_forwards": 16000,
+      "teacher_full_forwards": 7681,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 3200,
+      "extra_clean_U_forwards": 2560,
+      "skipped_updates": 0,
+      "joint_U_calls": 2560,
+      "A_nonzero_U_calls": 2560,
+      "B_nonzero_U_calls": 2560,
+      "R_nonzero_U_calls": 2560,
+      "anchor_full_forwards": 2560,
+      "anchor_candidate_pixels": 733840803,
+      "anchor_rejected_pixels": 40837099,
+      "anchor_gate_calls": 2560,
+      "anchor_rejection_calls": 2560,
+      "entry_reference_vjps": 2560,
+      "entry_guard_calls": 2560,
+      "entry_projected_calls": 1545,
+      "entry_reference_pixels": 702412516,
+      "reference_background_pixels": 626225151,
+      "reference_rim_pixels": 40412744,
+      "reference_cup_pixels": 35774621,
+      "reference_balanced_calls": 2560,
+      "reference_present_class_calls": 7680,
+      "hierarchy_calls": 3200,
+      "hierarchy_coarse_calls": 3200,
+      "hierarchy_parts_calls": 3200,
+      "hierarchy_alignment_calls": 3044,
+      "hierarchy_aligned_edges": 6400,
+      "hierarchy_valid_pixels": 923523846,
+      "hierarchy_seam_excluded_pixels": 10389754,
+      "hierarchy_labeled_feature_views": 5760,
+      "dense_calls": 2560,
+      "dense_leaf_regions": 7680,
+      "dense_parent_regions": 2560,
+      "dense_valid_pixels": 695107344,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 2560,
+      "dense_student_full_forwards": 2560
+    },
+    "module_diagnostics": [
+      {
+        "step": 800,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.016060907062363173,
+        "B_U_norm": 0.12883487292974033,
+        "R_U_norm": 0.01874719377717388,
+        "anchor_guard": true,
+        "candidate_pixels": 288898,
+        "rejected_pixels": 22309,
+        "entry_reference_pixels": 266465,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -0.8676987557903635,
+        "entry_dot_after": 3.40546834620703e-08,
+        "entry_reference_norm": 22.875284371234912,
+        "class_reference": true,
+        "reference_class_pixels": [
+          237640,
+          14321,
+          14504
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            256771,
+            25562,
+            5435
+          ],
+          "parent_pixels": [
+            256771,
+            30997
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.06589026749134064,
+          "loss_parts": 0.1857776790857315,
+          "loss_alignment": 0.16025611758232117,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 263752,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.2749800682067871,
+          "original_reference_support_pixels": 266465,
+          "dense_main_KL": 0.07502119988203049,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1600,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.05631692504490558,
+        "B_U_norm": 0.2833209144128093,
+        "R_U_norm": 0.055774307667123456,
+        "anchor_guard": true,
+        "candidate_pixels": 289894,
+        "rejected_pixels": 8994,
+        "entry_reference_pixels": 281004,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -0.6878721189253054,
+        "entry_dot_after": 5.9062099322382267e-08,
+        "entry_reference_norm": 7.5187557366193225,
+        "class_reference": true,
+        "reference_class_pixels": [
+          255529,
+          13294,
+          12181
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            261532,
+            16764,
+            9472
+          ],
+          "parent_pixels": [
+            261532,
+            26236
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.15699118375778198,
+          "loss_parts": 0.5769084095954895,
+          "loss_alignment": 0.011919349431991577,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 278049,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.17801088094711304,
+          "original_reference_support_pixels": 281004,
+          "dense_main_KL": 0.0819624662399292,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2400,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.01833509828263517,
+        "B_U_norm": 0.11777053278950052,
+        "R_U_norm": 0.016185711499386572,
+        "anchor_guard": true,
+        "candidate_pixels": 287381,
+        "rejected_pixels": 11417,
+        "entry_reference_pixels": 276713,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -27.83895735851794,
+        "entry_dot_after": -3.856045002748054e-08,
+        "entry_reference_norm": 9.987740538668683,
+        "class_reference": true,
+        "reference_class_pixels": [
+          249635,
+          12106,
+          14972
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            259471,
+            24079,
+            4218
+          ],
+          "parent_pixels": [
+            259471,
+            28297
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.10519392043352127,
+          "loss_parts": 0.2877863049507141,
+          "loss_alignment": 0.12964093685150146,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 273853,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.21226739883422852,
+          "original_reference_support_pixels": 276713,
+          "dense_main_KL": 0.027609895914793015,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 3200,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.05540870483847629,
+        "B_U_norm": 0.33705220037158906,
+        "R_U_norm": 0.026840825857238584,
+        "anchor_guard": true,
+        "candidate_pixels": 286180,
+        "rejected_pixels": 25044,
+        "entry_reference_pixels": 275717,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -82.13728297729811,
+        "entry_dot_after": 2.3325822395836582e-07,
+        "entry_reference_norm": 19.534098275141677,
+        "class_reference": true,
+        "reference_class_pixels": [
+          240265,
+          26296,
+          9156
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            257213,
+            28154,
+            2662
+          ],
+          "parent_pixels": [
+            257213,
+            30816
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 288029,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.11373268812894821,
+          "loss_parts": 0.29277506470680237,
+          "loss_alignment": 0.12103931605815887,
+          "seam_excluded_pixels": 3819,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 272835,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.3095420002937317,
+          "original_reference_support_pixels": 275717,
+          "dense_main_KL": 0.09552738070487976,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 800,
+        "L_norm": 0.19750605523586273,
+        "U_norm": 0.01874719373881817,
+        "cosine": -0.49556031823158264
+      },
+      {
+        "step": 1600,
+        "L_norm": 0.1623651534318924,
+        "U_norm": 0.05577430874109268,
+        "cosine": 0.8163643479347229
+      },
+      {
+        "step": 2400,
+        "L_norm": 0.3429945111274719,
+        "U_norm": 0.016185712069272995,
+        "cosine": -0.2449667602777481
+      },
+      {
+        "step": 3200,
+        "L_norm": 0.3720057010650635,
+        "U_norm": 0.026840826496481895,
+        "cosine": -0.37852364778518677
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 6402,
+      "sample_access_attempts": 11522,
+      "hdf5_mode_r": 17924,
+      "hdf5_open_attempts": 17924,
+      "hdf5_open": 17924,
+      "sample_access": 11522,
+      "sample_train_labeled": 6402,
+      "features_attempts": 23681,
+      "features": 23681,
+      "native_readout_attempts": 16000,
+      "native_readout": 16000,
+      "autograd_grad_attempts": 8328,
+      "autograd_grad": 8328,
+      "optimizer_steps_attempts": 3200,
+      "optimizer_steps": 3200,
+      "update_dense_ema_validation_attempts": 3200,
+      "update_dense_ema_validation": 3200,
+      "update_dense_ema_attempts": 3200,
+      "update_dense_ema": 3200,
+      "sample_train_unlabeled_attempts": 5120,
+      "sample_train_unlabeled": 5120
+    },
+    "evaluation": "NOT_READ_YET"
+  },
+  "jobs/HIERARCHY_U_DENSE_S164_O1/stage1": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 164,
+      "order": 1,
+      "stage": 1,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S164_O1"
+    },
+    "steps": 3200,
+    "attempts": 3200,
+    "cost": {
+      "student_full_forwards": 16000,
+      "teacher_full_forwards": 7681,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 3200,
+      "extra_clean_U_forwards": 2560,
+      "skipped_updates": 0,
+      "joint_U_calls": 2560,
+      "A_nonzero_U_calls": 2560,
+      "B_nonzero_U_calls": 2560,
+      "R_nonzero_U_calls": 2560,
+      "anchor_full_forwards": 2560,
+      "anchor_candidate_pixels": 739058559,
+      "anchor_rejected_pixels": 42963237,
+      "anchor_gate_calls": 2560,
+      "anchor_rejection_calls": 2560,
+      "entry_reference_vjps": 2560,
+      "entry_guard_calls": 2560,
+      "entry_projected_calls": 1321,
+      "entry_reference_pixels": 728753727,
+      "reference_background_pixels": 651287572,
+      "reference_rim_pixels": 53945006,
+      "reference_cup_pixels": 23521149,
+      "reference_balanced_calls": 2560,
+      "reference_present_class_calls": 7680,
+      "hierarchy_calls": 3200,
+      "hierarchy_coarse_calls": 3200,
+      "hierarchy_parts_calls": 3200,
+      "hierarchy_alignment_calls": 3100,
+      "hierarchy_aligned_edges": 6400,
+      "hierarchy_valid_pixels": 923531086,
+      "hierarchy_seam_excluded_pixels": 10382514,
+      "hierarchy_labeled_feature_views": 5760,
+      "dense_calls": 2560,
+      "dense_leaf_regions": 7680,
+      "dense_parent_regions": 2560,
+      "dense_valid_pixels": 721185421,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 2560,
+      "dense_student_full_forwards": 2560
+    },
+    "module_diagnostics": [
+      {
+        "step": 800,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.003998187202898482,
+        "B_U_norm": 0.046239714555067715,
+        "R_U_norm": 0.006305048090753943,
+        "anchor_guard": true,
+        "candidate_pixels": 290758,
+        "rejected_pixels": 15265,
+        "entry_reference_pixels": 284742,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 10.118939187128843,
+        "entry_dot_after": 10.118939187128843,
+        "entry_reference_norm": 9.787841042658812,
+        "class_reference": true,
+        "reference_class_pixels": [
+          257485,
+          19943,
+          7314
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            255878,
+            26508,
+            5382
+          ],
+          "parent_pixels": [
+            255878,
+            31890
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.05120093375444412,
+          "loss_parts": 0.2989543676376343,
+          "loss_alignment": 0.11061152815818787,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 281789,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.16027042269706726,
+          "original_reference_support_pixels": 284742,
+          "dense_main_KL": 0.03500108793377876,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1600,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.01759060107156126,
+        "B_U_norm": 0.24360510299724578,
+        "R_U_norm": 0.03846035521591655,
+        "anchor_guard": true,
+        "candidate_pixels": 288593,
+        "rejected_pixels": 9936,
+        "entry_reference_pixels": 284948,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -14.450148701859975,
+        "entry_dot_after": 4.407165948849823e-08,
+        "entry_reference_norm": 9.027176274009173,
+        "class_reference": true,
+        "reference_class_pixels": [
+          253878,
+          23072,
+          7998
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            258881,
+            26374,
+            2513
+          ],
+          "parent_pixels": [
+            258881,
+            28887
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.07192901521921158,
+          "loss_parts": 0.3680240511894226,
+          "loss_alignment": 0.08823047578334808,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 282004,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.2604129910469055,
+          "original_reference_support_pixels": 284948,
+          "dense_main_KL": 0.07172121852636337,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2400,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.06824145111617706,
+        "B_U_norm": 0.8203919752318795,
+        "R_U_norm": 0.0964989900137742,
+        "anchor_guard": true,
+        "candidate_pixels": 285929,
+        "rejected_pixels": 31215,
+        "entry_reference_pixels": 280024,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -25.42530831305367,
+        "entry_dot_after": -4.82616457464502e-07,
+        "entry_reference_norm": 17.053510568489887,
+        "class_reference": true,
+        "reference_class_pixels": [
+          240795,
+          31265,
+          7964
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            259924,
+            24706,
+            3138
+          ],
+          "parent_pixels": [
+            259924,
+            27844
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.1657445728778839,
+          "loss_parts": 0.46994471549987793,
+          "loss_alignment": 0.04180130362510681,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 277139,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.2529509365558624,
+          "original_reference_support_pixels": 280024,
+          "dense_main_KL": 0.12139462679624557,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 3200,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.06472184577178765,
+        "B_U_norm": 0.5431579146248566,
+        "R_U_norm": 0.25597841827683887,
+        "anchor_guard": true,
+        "candidate_pixels": 285607,
+        "rejected_pixels": 22674,
+        "entry_reference_pixels": 280144,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -2.7679672049827198,
+        "entry_dot_after": 4.519888352483292e-09,
+        "entry_reference_norm": 8.042719443056953,
+        "class_reference": true,
+        "reference_class_pixels": [
+          246861,
+          23786,
+          9497
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            261007,
+            22566,
+            4195
+          ],
+          "parent_pixels": [
+            261007,
+            26761
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.05563003942370415,
+          "loss_parts": 0.2592148184776306,
+          "loss_alignment": 0.10248346626758575,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 277224,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.24097095429897308,
+          "original_reference_support_pixels": 280144,
+          "dense_main_KL": 0.1832798719406128,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 800,
+        "L_norm": 0.26295527815818787,
+        "U_norm": 0.006305048242211342,
+        "cosine": 0.541409432888031
+      },
+      {
+        "step": 1600,
+        "L_norm": 0.30973270535469055,
+        "U_norm": 0.03846035525202751,
+        "cosine": -0.27756020426750183
+      },
+      {
+        "step": 2400,
+        "L_norm": 0.299101322889328,
+        "U_norm": 0.0964989885687828,
+        "cosine": -0.045106690376996994
+      },
+      {
+        "step": 3200,
+        "L_norm": 0.1900547593832016,
+        "U_norm": 0.25597840547561646,
+        "cosine": -0.4959779381752014
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 6402,
+      "sample_access_attempts": 11522,
+      "hdf5_mode_r": 17924,
+      "hdf5_open_attempts": 17924,
+      "hdf5_open": 17924,
+      "sample_access": 11522,
+      "sample_train_labeled": 6402,
+      "features_attempts": 23681,
+      "features": 23681,
+      "native_readout_attempts": 16000,
+      "native_readout": 16000,
+      "autograd_grad_attempts": 8328,
+      "autograd_grad": 8328,
+      "optimizer_steps_attempts": 3200,
+      "optimizer_steps": 3200,
+      "update_dense_ema_validation_attempts": 3200,
+      "update_dense_ema_validation": 3200,
+      "update_dense_ema_attempts": 3200,
+      "update_dense_ema": 3200,
+      "sample_train_unlabeled_attempts": 5120,
+      "sample_train_unlabeled": 5120
+    },
+    "evaluation": "NOT_READ_YET"
+  },
+  "jobs/HIERARCHY_U_DENSE_S164_O1/stage2": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 164,
+      "order": 1,
+      "stage": 2,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S164_O1"
+    },
+    "steps": 2100,
+    "attempts": 2100,
+    "cost": {
+      "student_full_forwards": 10500,
+      "teacher_full_forwards": 5041,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 2100,
+      "extra_clean_U_forwards": 1680,
+      "skipped_updates": 0,
+      "joint_U_calls": 1680,
+      "A_nonzero_U_calls": 1680,
+      "B_nonzero_U_calls": 1680,
+      "R_nonzero_U_calls": 1680,
+      "anchor_full_forwards": 1680,
+      "anchor_candidate_pixels": 479412353,
+      "anchor_rejected_pixels": 29595225,
+      "anchor_gate_calls": 1680,
+      "anchor_rejection_calls": 1680,
+      "entry_reference_vjps": 1680,
+      "entry_guard_calls": 1680,
+      "entry_projected_calls": 947,
+      "entry_reference_pixels": 468726373,
+      "reference_background_pixels": 429072655,
+      "reference_rim_pixels": 28775930,
+      "reference_cup_pixels": 10877788,
+      "reference_balanced_calls": 1680,
+      "reference_present_class_calls": 5040,
+      "hierarchy_calls": 2100,
+      "hierarchy_coarse_calls": 2100,
+      "hierarchy_parts_calls": 2100,
+      "hierarchy_alignment_calls": 1996,
+      "hierarchy_aligned_edges": 4200,
+      "hierarchy_valid_pixels": 606069026,
+      "hierarchy_seam_excluded_pixels": 6811774,
+      "hierarchy_labeled_feature_views": 3780,
+      "dense_calls": 1680,
+      "dense_leaf_regions": 5040,
+      "dense_parent_regions": 1680,
+      "dense_valid_pixels": 463893909,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 1680,
+      "dense_student_full_forwards": 1680
+    },
+    "module_diagnostics": [
+      {
+        "step": 525,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.005857550606419963,
+        "B_U_norm": 0.07312288264346323,
+        "R_U_norm": 0.007570287387749536,
+        "anchor_guard": true,
+        "candidate_pixels": 288610,
+        "rejected_pixels": 21477,
+        "entry_reference_pixels": 280901,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -18.844756074382815,
+        "entry_dot_after": -2.2616561616561892e-08,
+        "entry_reference_norm": 11.09442863441627,
+        "class_reference": true,
+        "reference_class_pixels": [
+          257388,
+          16133,
+          7380
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            236881,
+            28272,
+            22615
+          ],
+          "parent_pixels": [
+            236881,
+            50887
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.0654871016740799,
+          "loss_parts": 0.338316410779953,
+          "loss_alignment": 0.006311401724815369,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 277990,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.07740768790245056,
+          "original_reference_support_pixels": 280901,
+          "dense_main_KL": 0.06969017535448074,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1050,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.15890621339533728,
+        "B_U_norm": 1.2464665697739516,
+        "R_U_norm": 0.0789771072287023,
+        "anchor_guard": true,
+        "candidate_pixels": 287954,
+        "rejected_pixels": 18459,
+        "entry_reference_pixels": 281462,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 189.8349167171632,
+        "entry_dot_after": 189.8349167171632,
+        "entry_reference_norm": 91.27965752033502,
+        "class_reference": true,
+        "reference_class_pixels": [
+          251853,
+          28289,
+          1320
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            242864,
+            34731,
+            10173
+          ],
+          "parent_pixels": [
+            242864,
+            44904
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.07826608419418335,
+          "loss_parts": 0.3683047294616699,
+          "loss_alignment": 0.08830335736274719,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 278553,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.07202448695898056,
+          "original_reference_support_pixels": 281462,
+          "dense_main_KL": 0.2659945487976074,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1575,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.0147722621160833,
+        "B_U_norm": 0.09725745815166092,
+        "R_U_norm": 0.01037088647979222,
+        "anchor_guard": true,
+        "candidate_pixels": 288726,
+        "rejected_pixels": 9403,
+        "entry_reference_pixels": 284311,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -40.56211729847805,
+        "entry_dot_after": 1.521866334341926e-08,
+        "entry_reference_norm": 12.525388993734094,
+        "class_reference": true,
+        "reference_class_pixels": [
+          261425,
+          20764,
+          2122
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            249551,
+            32245,
+            5972
+          ],
+          "parent_pixels": [
+            249551,
+            38217
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.06811989843845367,
+          "loss_parts": 0.26914161443710327,
+          "loss_alignment": 0.11716297268867493,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 281385,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.052301835268735886,
+          "original_reference_support_pixels": 284311,
+          "dense_main_KL": 0.02764539048075676,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2100,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.020349358753284943,
+        "B_U_norm": 0.14643568344089247,
+        "R_U_norm": 0.02141985905727547,
+        "anchor_guard": true,
+        "candidate_pixels": 281435,
+        "rejected_pixels": 19608,
+        "entry_reference_pixels": 276703,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 3.4998390114517615,
+        "entry_dot_after": 3.4998390114517615,
+        "entry_reference_norm": 8.438525704879973,
+        "class_reference": true,
+        "reference_class_pixels": [
+          255410,
+          12471,
+          8822
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            249394,
+            32657,
+            5717
+          ],
+          "parent_pixels": [
+            249394,
+            38374
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.07205718010663986,
+          "loss_parts": 0.3444380760192871,
+          "loss_alignment": 0.07669655978679657,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 273835,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.10153030604124069,
+          "original_reference_support_pixels": 276703,
+          "dense_main_KL": 0.02448309399187565,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 525,
+        "L_norm": 0.31268933415412903,
+        "U_norm": 0.007570287212729454,
+        "cosine": -0.5084893703460693
+      },
+      {
+        "step": 1050,
+        "L_norm": 0.16399717330932617,
+        "U_norm": 0.07897710800170898,
+        "cosine": 0.4680260419845581
+      },
+      {
+        "step": 1575,
+        "L_norm": 0.4640907049179077,
+        "U_norm": 0.010370886884629726,
+        "cosine": 0.24642109870910645
+      },
+      {
+        "step": 2100,
+        "L_norm": 0.2219514697790146,
+        "U_norm": 0.021419858559966087,
+        "cosine": -0.8238173127174377
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 4202,
+      "sample_access_attempts": 7562,
+      "hdf5_mode_r": 11764,
+      "hdf5_open_attempts": 11764,
+      "hdf5_open": 11764,
+      "sample_access": 7562,
+      "sample_train_labeled": 4202,
+      "features_attempts": 15541,
+      "features": 15541,
+      "native_readout_attempts": 10500,
+      "native_readout": 10500,
+      "autograd_grad_attempts": 5468,
+      "autograd_grad": 5468,
+      "optimizer_steps_attempts": 2100,
+      "optimizer_steps": 2100,
+      "update_dense_ema_validation_attempts": 2100,
+      "update_dense_ema_validation": 2100,
+      "update_dense_ema_attempts": 2100,
+      "update_dense_ema": 2100,
+      "sample_train_unlabeled_attempts": 3360,
+      "sample_train_unlabeled": 3360
+    },
+    "evaluation": "NOT_READ_YET"
+  },
+  "jobs/HIERARCHY_U_DENSE_S164_O2/stage1": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 164,
+      "order": 2,
+      "stage": 1,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S164_O2"
+    },
+    "steps": 2100,
+    "attempts": 2100,
+    "cost": {
+      "student_full_forwards": 10500,
+      "teacher_full_forwards": 5041,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 2100,
+      "extra_clean_U_forwards": 1680,
+      "skipped_updates": 0,
+      "joint_U_calls": 1680,
+      "A_nonzero_U_calls": 1680,
+      "B_nonzero_U_calls": 1680,
+      "R_nonzero_U_calls": 1680,
+      "anchor_full_forwards": 1680,
+      "anchor_candidate_pixels": 477684443,
+      "anchor_rejected_pixels": 41289904,
+      "anchor_gate_calls": 1680,
+      "anchor_rejection_calls": 1680,
+      "entry_reference_vjps": 1680,
+      "entry_guard_calls": 1680,
+      "entry_projected_calls": 911,
+      "entry_reference_pixels": 471867225,
+      "reference_background_pixels": 429733820,
+      "reference_rim_pixels": 31282823,
+      "reference_cup_pixels": 10850582,
+      "reference_balanced_calls": 1680,
+      "reference_present_class_calls": 5040,
+      "hierarchy_calls": 2100,
+      "hierarchy_coarse_calls": 2100,
+      "hierarchy_parts_calls": 2100,
+      "hierarchy_alignment_calls": 1869,
+      "hierarchy_aligned_edges": 4200,
+      "hierarchy_valid_pixels": 606070031,
+      "hierarchy_seam_excluded_pixels": 6810769,
+      "hierarchy_labeled_feature_views": 3780,
+      "dense_calls": 1680,
+      "dense_leaf_regions": 5040,
+      "dense_parent_regions": 1680,
+      "dense_valid_pixels": 466973764,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 1680,
+      "dense_student_full_forwards": 1680
+    },
+    "module_diagnostics": [
+      {
+        "step": 525,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.004277300727897038,
+        "B_U_norm": 0.030363960545010654,
+        "R_U_norm": 0.00621327739016224,
+        "anchor_guard": true,
+        "candidate_pixels": 289042,
+        "rejected_pixels": 19480,
+        "entry_reference_pixels": 284602,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -3.5966178811412934,
+        "entry_dot_after": -3.141236507020473e-09,
+        "entry_reference_norm": 4.916047615965758,
+        "class_reference": true,
+        "reference_class_pixels": [
+          256639,
+          26692,
+          1271
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            249558,
+            24843,
+            13367
+          ],
+          "parent_pixels": [
+            249558,
+            38210
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.04990684986114502,
+          "loss_parts": 0.4753367304801941,
+          "loss_alignment": 0.0019508898258209229,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 281697,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.1808207482099533,
+          "original_reference_support_pixels": 284602,
+          "dense_main_KL": 0.014705155976116657,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1050,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.012053534396712126,
+        "B_U_norm": 0.11214752141888888,
+        "R_U_norm": 0.016693812605048857,
+        "anchor_guard": true,
+        "candidate_pixels": 285907,
+        "rejected_pixels": 12429,
+        "entry_reference_pixels": 282804,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 14.225159251819326,
+        "entry_dot_after": 14.225159251819326,
+        "entry_reference_norm": 5.206386465127798,
+        "class_reference": true,
+        "reference_class_pixels": [
+          262158,
+          14180,
+          6466
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            245359,
+            27592,
+            14817
+          ],
+          "parent_pixels": [
+            245359,
+            42409
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.05968593806028366,
+          "loss_parts": 0.42384767532348633,
+          "loss_alignment": 0.01633957028388977,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 279901,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.15982794761657715,
+          "original_reference_support_pixels": 282804,
+          "dense_main_KL": 0.012407440692186356,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1575,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.013309648825815442,
+        "B_U_norm": 0.0995973303126619,
+        "R_U_norm": 0.01783824720133849,
+        "anchor_guard": true,
+        "candidate_pixels": 288456,
+        "rejected_pixels": 12027,
+        "entry_reference_pixels": 285233,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -4.928371734214969,
+        "entry_dot_after": -7.438829385808532e-09,
+        "entry_reference_norm": 3.391379956417473,
+        "class_reference": true,
+        "reference_class_pixels": [
+          257909,
+          21168,
+          6156
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            245903,
+            27535,
+            14330
+          ],
+          "parent_pixels": [
+            245903,
+            41865
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.11775068938732147,
+          "loss_parts": 0.3936673402786255,
+          "loss_alignment": 0.03779198229312897,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 282318,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.1370779424905777,
+          "original_reference_support_pixels": 285233,
+          "dense_main_KL": 0.01580723188817501,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2100,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.1550904306451213,
+        "B_U_norm": 1.4992970511043369,
+        "R_U_norm": 0.05119372394631777,
+        "anchor_guard": true,
+        "candidate_pixels": 286141,
+        "rejected_pixels": 33101,
+        "entry_reference_pixels": 283480,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 25.270360539895698,
+        "entry_dot_after": 25.270360539895698,
+        "entry_reference_norm": 11.954825870597155,
+        "class_reference": true,
+        "reference_class_pixels": [
+          263859,
+          12126,
+          7495
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            240884,
+            33756,
+            13128
+          ],
+          "parent_pixels": [
+            240884,
+            46884
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.051964618265628815,
+          "loss_parts": 0.36148959398269653,
+          "loss_alignment": 0.05712369084358215,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 280543,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.21911799907684326,
+          "original_reference_support_pixels": 283480,
+          "dense_main_KL": 0.14436295628547668,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 525,
+        "L_norm": 0.46137717366218567,
+        "U_norm": 0.006213277578353882,
+        "cosine": -0.44296810030937195
+      },
+      {
+        "step": 1050,
+        "L_norm": 0.704694926738739,
+        "U_norm": 0.016693811863660812,
+        "cosine": 0.9191121459007263
+      },
+      {
+        "step": 1575,
+        "L_norm": 0.7925735712051392,
+        "U_norm": 0.0178382471203804,
+        "cosine": 0.9796394109725952
+      },
+      {
+        "step": 2100,
+        "L_norm": 0.31012097001075745,
+        "U_norm": 0.0511937253177166,
+        "cosine": -0.39355236291885376
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 4202,
+      "sample_access_attempts": 7562,
+      "hdf5_mode_r": 11764,
+      "hdf5_open_attempts": 11764,
+      "hdf5_open": 11764,
+      "sample_access": 7562,
+      "sample_train_labeled": 4202,
+      "features_attempts": 15541,
+      "features": 15541,
+      "native_readout_attempts": 10500,
+      "native_readout": 10500,
+      "autograd_grad_attempts": 5468,
+      "autograd_grad": 5468,
+      "optimizer_steps_attempts": 2100,
+      "optimizer_steps": 2100,
+      "update_dense_ema_validation_attempts": 2100,
+      "update_dense_ema_validation": 2100,
+      "update_dense_ema_attempts": 2100,
+      "update_dense_ema": 2100,
+      "sample_train_unlabeled_attempts": 3360,
+      "sample_train_unlabeled": 3360
+    },
+    "evaluation": "NOT_READ_YET"
+  },
+  "jobs/HIERARCHY_U_DENSE_S164_O2/stage2": {
+    "identity": {
+      "arm": "HIERARCHY_U_DENSE",
+      "seed": 164,
+      "order": 2,
+      "stage": 2,
+      "execution_commit": "1d59a7d2efdc20c35cb47e97162f9ef9100f393e",
+      "job_id": "HIERARCHY_U_DENSE_S164_O2"
+    },
+    "steps": 3200,
+    "attempts": 3200,
+    "cost": {
+      "student_full_forwards": 16000,
+      "teacher_full_forwards": 7681,
+      "probe_full_forwards": 0,
+      "probe_vjps": 8,
+      "readout_only_forwards": 0,
+      "coordinate_vjps": 0,
+      "synthetic_optimizer_updates": 0,
+      "formal_optimizer_updates": 3200,
+      "extra_clean_U_forwards": 2560,
+      "skipped_updates": 0,
+      "joint_U_calls": 2560,
+      "A_nonzero_U_calls": 2560,
+      "B_nonzero_U_calls": 2560,
+      "R_nonzero_U_calls": 2560,
+      "anchor_full_forwards": 2560,
+      "anchor_candidate_pixels": 737844031,
+      "anchor_rejected_pixels": 32189009,
+      "anchor_gate_calls": 2560,
+      "anchor_rejection_calls": 2560,
+      "entry_reference_vjps": 2560,
+      "entry_guard_calls": 2560,
+      "entry_projected_calls": 1389,
+      "entry_reference_pixels": 710676391,
+      "reference_background_pixels": 632247789,
+      "reference_rim_pixels": 51864635,
+      "reference_cup_pixels": 26563967,
+      "reference_balanced_calls": 2560,
+      "reference_present_class_calls": 7680,
+      "hierarchy_calls": 3200,
+      "hierarchy_coarse_calls": 3200,
+      "hierarchy_parts_calls": 3200,
+      "hierarchy_alignment_calls": 2829,
+      "hierarchy_aligned_edges": 6400,
+      "hierarchy_valid_pixels": 923530238,
+      "hierarchy_seam_excluded_pixels": 10383362,
+      "hierarchy_labeled_feature_views": 5760,
+      "dense_calls": 2560,
+      "dense_leaf_regions": 7680,
+      "dense_parent_regions": 2560,
+      "dense_valid_pixels": 703245222,
+      "dense_zero_pixels": 0,
+      "dense_positive_calls": 2560,
+      "dense_student_full_forwards": 2560
+    },
+    "module_diagnostics": [
+      {
+        "step": 800,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.005255933157653362,
+        "B_U_norm": 0.04989189639468466,
+        "R_U_norm": 0.009785646537672821,
+        "anchor_guard": true,
+        "candidate_pixels": 289646,
+        "rejected_pixels": 16742,
+        "entry_reference_pixels": 279293,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 53.26780934812917,
+        "entry_dot_after": 53.26780934812917,
+        "entry_reference_norm": 14.304165943078113,
+        "class_reference": true,
+        "reference_class_pixels": [
+          243798,
+          23098,
+          12397
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            259923,
+            23916,
+            3929
+          ],
+          "parent_pixels": [
+            259923,
+            27845
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.30469512939453125,
+          "loss_parts": 0.4828002452850342,
+          "loss_alignment": 0.04460899531841278,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 276381,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.12187834829092026,
+          "original_reference_support_pixels": 279293,
+          "dense_main_KL": 0.05294261872768402,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 1600,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.024090246882394944,
+        "B_U_norm": 0.21869331847820106,
+        "R_U_norm": 0.05793312503379966,
+        "anchor_guard": true,
+        "candidate_pixels": 289291,
+        "rejected_pixels": 5555,
+        "entry_reference_pixels": 283638,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -14.028004154818396,
+        "entry_dot_after": -7.034656857030086e-09,
+        "entry_reference_norm": 7.315216068624648,
+        "class_reference": true,
+        "reference_class_pixels": [
+          251616,
+          25092,
+          6930
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            262833,
+            21853,
+            3082
+          ],
+          "parent_pixels": [
+            262833,
+            24935
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.09452533721923828,
+          "loss_parts": 0.3297846019268036,
+          "loss_alignment": 0.08171550929546356,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 280689,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.057101570069789886,
+          "original_reference_support_pixels": 283638,
+          "dense_main_KL": 0.050656143575906754,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 2400,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.026761923970998625,
+        "B_U_norm": 0.22801023884295193,
+        "R_U_norm": 0.015894681294382935,
+        "anchor_guard": true,
+        "candidate_pixels": 285959,
+        "rejected_pixels": 14493,
+        "entry_reference_pixels": 272302,
+        "entry_gradient": true,
+        "entry_projected": false,
+        "entry_dot_before": 2.5048508930072524,
+        "entry_dot_after": 2.5048508930072524,
+        "entry_reference_norm": 14.584628381587867,
+        "class_reference": true,
+        "reference_class_pixels": [
+          237422,
+          25359,
+          9521
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            259421,
+            24128,
+            4219
+          ],
+          "parent_pixels": [
+            259421,
+            28347
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.09734847396612167,
+          "loss_parts": 0.36892521381378174,
+          "loss_alignment": 0.07011201977729797,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 269450,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.10914041846990585,
+          "original_reference_support_pixels": 272302,
+          "dense_main_KL": 0.04675518721342087,
+          "dense_original_U_aligned": true
+        }
+      },
+      {
+        "step": 3200,
+        "joint_kl": true,
+        "SWD_parent_detached": true,
+        "lambda_U": 0.25,
+        "A_U_norm": 0.021373535893487432,
+        "B_U_norm": 0.20425462745209047,
+        "R_U_norm": 0.04191430348871852,
+        "anchor_guard": true,
+        "candidate_pixels": 290068,
+        "rejected_pixels": 13830,
+        "entry_reference_pixels": 280531,
+        "entry_gradient": true,
+        "entry_projected": true,
+        "entry_dot_before": -6.712803910063718,
+        "entry_dot_after": -2.2918683340034107e-08,
+        "entry_reference_norm": 11.625015610740014,
+        "class_reference": true,
+        "reference_class_pixels": [
+          250092,
+          18986,
+          11453
+        ],
+        "hierarchy": true,
+        "hierarchy_stats": {
+          "leaf_pixels": [
+            255308,
+            28738,
+            3722
+          ],
+          "parent_pixels": [
+            255308,
+            32460
+          ],
+          "coarse_classes": 2,
+          "fine_groups": 1,
+          "aligned_edges": 2,
+          "valid_pixels": 287768,
+          "zero_leaf_prototypes": 0,
+          "zero_parent_prototypes": 0,
+          "loss_coarse": 0.10598160326480865,
+          "loss_parts": 0.5945855379104614,
+          "loss_alignment": 0.0,
+          "seam_excluded_pixels": 4080,
+          "labeled_feature_views": 2
+        },
+        "dense": true,
+        "dense_stats": {
+          "dense_leaf_regions": 3,
+          "dense_parent_regions": 1,
+          "dense_valid_pixels": 277611,
+          "dense_zero_pixels": 0,
+          "dense_loss": 0.15410010516643524,
+          "original_reference_support_pixels": 280531,
+          "dense_main_KL": 0.04815959185361862,
+          "dense_original_U_aligned": true
+        }
+      }
+    ],
+    "gradient_diagnostics": [
+      {
+        "step": 800,
+        "L_norm": 0.48826584219932556,
+        "U_norm": 0.009785646572709084,
+        "cosine": 0.8849034309387207
+      },
+      {
+        "step": 1600,
+        "L_norm": 0.36903297901153564,
+        "U_norm": 0.057933125644922256,
+        "cosine": 0.1481741964817047
+      },
+      {
+        "step": 2400,
+        "L_norm": 0.3425152003765106,
+        "U_norm": 0.015894681215286255,
+        "cosine": 0.21839475631713867
+      },
+      {
+        "step": 3200,
+        "L_norm": 0.24757659435272217,
+        "U_norm": 0.04191430285573006,
+        "cosine": 0.8761166930198669
+      }
+    ],
+    "operation_counts": {
+      "sample_train_labeled_attempts": 6402,
+      "sample_access_attempts": 11522,
+      "hdf5_mode_r": 17924,
+      "hdf5_open_attempts": 17924,
+      "hdf5_open": 17924,
+      "sample_access": 11522,
+      "sample_train_labeled": 6402,
+      "features_attempts": 23681,
+      "features": 23681,
+      "native_readout_attempts": 16000,
+      "native_readout": 16000,
+      "autograd_grad_attempts": 8328,
+      "autograd_grad": 8328,
+      "optimizer_steps_attempts": 3200,
+      "optimizer_steps": 3200,
+      "update_dense_ema_validation_attempts": 3200,
+      "update_dense_ema_validation": 3200,
+      "update_dense_ema_attempts": 3200,
+      "update_dense_ema": 3200,
+      "sample_train_unlabeled_attempts": 5120,
+      "sample_train_unlabeled": 5120
+    },
+    "evaluation": "NOT_READ_YET"
+  }
+}
