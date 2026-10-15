@@ -1,0 +1,872 @@
+[
+  {
+    "id": "prostate_s163_source",
+    "dataset": "prostate",
+    "seed": 163,
+    "order": 1,
+    "stage": 0,
+    "domain": "RUNMC",
+    "predecessor": null,
+    "steps": 13600,
+    "terminal_status": "REUSED_SOURCE",
+    "raw_worker_receipt": {
+      "status": "REUSED_SOURCE",
+      "exit_code": 0,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 13600,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 13600,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [
+      {
+        "file": "sealed.pt",
+        "bytes": 7794712,
+        "step": 13600,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "inherited_updates": 13600,
+        "new_optimizer_updates": 0
+      }
+    ],
+    "validation_available": true,
+    "cost_summary": {
+      "physical_optimizer_updates": 0,
+      "inherited_updates": 13600,
+      "L_batch_reads": 33,
+      "L_image_exposure": 66,
+      "U_batch_reads": 0
+    }
+  },
+  {
+    "id": "prostate_s163_o1_t1",
+    "dataset": "prostate",
+    "seed": 163,
+    "order": 1,
+    "stage": 1,
+    "domain": "BMC",
+    "predecessor": "prostate_s163_source",
+    "steps": 22000,
+    "terminal_status": "COMPLETE",
+    "raw_worker_receipt": {
+      "status": "COMPLETE",
+      "exit_code": 0,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 22000,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 22000,
+    "latest_recoverable_checkpoint_step": 22000,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [
+      {
+        "file": "latest.pt",
+        "bytes": 18616482,
+        "step": 22000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "student_spectrum": {
+          "G": {
+            "min": 0.7281127698740153,
+            "max": 1.4320973923357632,
+            "condition": 1.9668620735542899
+          },
+          "F": {
+            "min": 0.7281127698740153,
+            "max": 1.4320973923357632,
+            "condition": 1.9668620735542899
+          }
+        },
+        "ema_spectrum": {
+          "G": {
+            "min": 0.7281117827411474,
+            "max": 1.4320861241178995,
+            "condition": 1.9668492641699544
+          },
+          "F": {
+            "min": 0.7281117827411474,
+            "max": 1.4320861241178995,
+            "condition": 1.9668492641699544
+          }
+        },
+        "guard_totals": {
+          "calls": 22000,
+          "damped": 3269,
+          "cone_zero": 9,
+          "zero_displacement": 13
+        },
+        "history_support": [
+          {
+            "domain": "RUNMC",
+            "support": [
+              64,
+              48
+            ],
+            "observations": [
+              32,
+              31
+            ]
+          }
+        ],
+        "provider_reads": [
+          22001,
+          17600
+        ]
+      },
+      {
+        "file": "final.pt",
+        "bytes": 18616482,
+        "step": 22000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "student_spectrum": {
+          "G": {
+            "min": 0.7281127698740153,
+            "max": 1.4320973923357632,
+            "condition": 1.9668620735542899
+          },
+          "F": {
+            "min": 0.7281127698740153,
+            "max": 1.4320973923357632,
+            "condition": 1.9668620735542899
+          }
+        },
+        "ema_spectrum": {
+          "G": {
+            "min": 0.7281117827411474,
+            "max": 1.4320861241178995,
+            "condition": 1.9668492641699544
+          },
+          "F": {
+            "min": 0.7281117827411474,
+            "max": 1.4320861241178995,
+            "condition": 1.9668492641699544
+          }
+        },
+        "guard_totals": {
+          "calls": 22000,
+          "damped": 3269,
+          "cone_zero": 9,
+          "zero_displacement": 13
+        },
+        "history_support": [
+          {
+            "domain": "RUNMC",
+            "support": [
+              64,
+              48
+            ],
+            "observations": [
+              32,
+              31
+            ]
+          }
+        ],
+        "provider_reads": [
+          22001,
+          17600
+        ]
+      },
+      {
+        "file": "sealed.pt",
+        "bytes": 13257462,
+        "step": 22000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true
+      }
+    ],
+    "validation_available": true,
+    "cost_summary": {
+      "physical_optimizer_updates": 22000,
+      "committed_scientific_updates": 22000,
+      "physical_retry_or_uncommitted_updates": 0,
+      "elapsed_seconds": 18847.125566482544,
+      "peak_memory_bytes": 1141967360,
+      "telemetry": {
+        "student_full_forwards": 92400,
+        "teacher_full_forwards": 53021,
+        "probe_full_forwards": 0,
+        "probe_vjps": 0,
+        "readout_only_forwards": 0,
+        "coordinate_vjps": 0,
+        "synthetic_optimizer_updates": 0,
+        "formal_optimizer_updates": 22000,
+        "extra_clean_U_forwards": 17600,
+        "skipped_updates": 0,
+        "hierarchy_calls": 22000,
+        "hierarchy_coarse_calls": 14431,
+        "hierarchy_parts_calls": 0,
+        "hierarchy_alignment_calls": 0,
+        "hierarchy_aligned_edges": 0,
+        "hierarchy_valid_pixels": 2791262054,
+        "hierarchy_seam_excluded_pixels": 47441946,
+        "hierarchy_labeled_feature_views": 39600,
+        "entry_reference_vjps": 17600,
+        "entry_projected_calls": 0,
+        "memory_class_vjps": 361,
+        "v2_guard_calls": 22000,
+        "v2_guard_damped": 3269,
+        "v2_guard_cone_zero": 9,
+        "v2_guard_zero_displacement": 13,
+        "no_foreground_reference_batches": 4778,
+        "reference_conflict_pixels": 40213061
+      },
+      "L_batch_reads": 22001,
+      "U_batch_reads": 17600,
+      "L_image_exposure": 44002,
+      "U_image_exposure": 35200,
+      "checkpoint_bytes": 18616482,
+      "deployment_bytes": 13257462
+    }
+  },
+  {
+    "id": "prostate_s163_o1_t2",
+    "dataset": "prostate",
+    "seed": 163,
+    "order": 1,
+    "stage": 2,
+    "domain": "I2CVB",
+    "predecessor": "prostate_s163_o1_t1",
+    "steps": 28800,
+    "terminal_status": "USER_TERMINATED",
+    "raw_worker_receipt": {
+      "status": "FAILED",
+      "exit_code": 1,
+      "interruption": "KeyboardInterrupt"
+    },
+    "physical_optimizer_calls": 19053,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 19053,
+    "latest_recoverable_checkpoint_step": 18000,
+    "executed_after_last_checkpoint": 1053,
+    "successful_but_not_checkpointed": 1053,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [
+      {
+        "file": "latest.pt",
+        "bytes": 24079488,
+        "step": 18000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "student_spectrum": {
+          "G": {
+            "min": 0.540319505972967,
+            "max": 1.152817411763144,
+            "condition": 2.133584664294576
+          },
+          "F": {
+            "min": 0.4999999841521748,
+            "max": 1.2000570263140968,
+            "condition": 2.400114128701372
+          }
+        },
+        "ema_spectrum": {
+          "G": {
+            "min": 0.5403286097918908,
+            "max": 1.1527868749566998,
+            "condition": 2.1334922009787696
+          },
+          "F": {
+            "min": 0.5000002203381313,
+            "max": 1.200082054188352,
+            "condition": 2.400163050681821
+          }
+        },
+        "guard_totals": {
+          "calls": 18000,
+          "damped": 8783,
+          "cone_zero": 11,
+          "zero_displacement": 6566
+        },
+        "history_support": [
+          {
+            "domain": "RUNMC",
+            "support": [
+              64,
+              48
+            ],
+            "observations": [
+              32,
+              31
+            ]
+          },
+          {
+            "domain": "BMC",
+            "support": [
+              440,
+              177
+            ],
+            "observations": [
+              220,
+              141
+            ]
+          }
+        ],
+        "provider_reads": [
+          18001,
+          12240
+        ]
+      }
+    ],
+    "validation_available": false,
+    "cost_summary": {
+      "physical_optimizer_updates": 19053,
+      "committed_scientific_updates": 19053,
+      "physical_retry_or_uncommitted_updates": 0,
+      "elapsed_seconds": 19564.536954164505,
+      "telemetry": {
+        "student_full_forwards": 72230,
+        "teacher_full_forwards": 40074,
+        "probe_full_forwards": 0,
+        "probe_vjps": 0,
+        "readout_only_forwards": 0,
+        "coordinate_vjps": 0,
+        "synthetic_optimizer_updates": 0,
+        "formal_optimizer_updates": 19053,
+        "extra_clean_U_forwards": 13294,
+        "skipped_updates": 0,
+        "hierarchy_calls": 19054,
+        "hierarchy_coarse_calls": 12078,
+        "hierarchy_parts_calls": 0,
+        "hierarchy_alignment_calls": 0,
+        "hierarchy_aligned_edges": 0,
+        "hierarchy_valid_pixels": 2422730780,
+        "hierarchy_seam_excluded_pixels": 35844948,
+        "hierarchy_labeled_feature_views": 32348,
+        "entry_reference_vjps": 13293,
+        "entry_projected_calls": 0,
+        "memory_class_vjps": 304,
+        "v2_guard_calls": 19053,
+        "v2_guard_damped": 9825,
+        "v2_guard_cone_zero": 11,
+        "v2_guard_zero_displacement": 7332,
+        "no_foreground_reference_batches": 125,
+        "reference_conflict_pixels": 37905835
+      },
+      "status": "FAILED"
+    }
+  },
+  {
+    "id": "prostate_s163_o1_t3",
+    "dataset": "prostate",
+    "seed": 163,
+    "order": 1,
+    "stage": 3,
+    "domain": "HK",
+    "predecessor": "prostate_s163_o1_t2",
+    "steps": 6000,
+    "terminal_status": "CANCELLED_BY_USER",
+    "raw_worker_receipt": {
+      "status": null,
+      "exit_code": null,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 0,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [],
+    "validation_available": false,
+    "cost_summary": null
+  },
+  {
+    "id": "prostate_s163_o1_t4",
+    "dataset": "prostate",
+    "seed": 163,
+    "order": 1,
+    "stage": 4,
+    "domain": "UCL",
+    "predecessor": "prostate_s163_o1_t3",
+    "steps": 7200,
+    "terminal_status": "CANCELLED_BY_USER",
+    "raw_worker_receipt": {
+      "status": null,
+      "exit_code": null,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 0,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [],
+    "validation_available": false,
+    "cost_summary": null
+  },
+  {
+    "id": "prostate_s163_o1_t5",
+    "dataset": "prostate",
+    "seed": 163,
+    "order": 1,
+    "stage": 5,
+    "domain": "BIDMC",
+    "predecessor": "prostate_s163_o1_t4",
+    "steps": 11100,
+    "terminal_status": "CANCELLED_BY_USER",
+    "raw_worker_receipt": {
+      "status": null,
+      "exit_code": null,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 0,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [],
+    "validation_available": false,
+    "cost_summary": null
+  },
+  {
+    "id": "prostate_s164_source",
+    "dataset": "prostate",
+    "seed": 164,
+    "order": 1,
+    "stage": 0,
+    "domain": "RUNMC",
+    "predecessor": null,
+    "steps": 13600,
+    "terminal_status": "REUSED_SOURCE",
+    "raw_worker_receipt": {
+      "status": "REUSED_SOURCE",
+      "exit_code": 0,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 13600,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 13600,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [
+      {
+        "file": "sealed.pt",
+        "bytes": 7794712,
+        "step": 13600,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "inherited_updates": 13600,
+        "new_optimizer_updates": 0
+      }
+    ],
+    "validation_available": true,
+    "cost_summary": {
+      "physical_optimizer_updates": 0,
+      "inherited_updates": 13600,
+      "L_batch_reads": 33,
+      "L_image_exposure": 66,
+      "U_batch_reads": 0
+    }
+  },
+  {
+    "id": "prostate_s164_o1_t1",
+    "dataset": "prostate",
+    "seed": 164,
+    "order": 1,
+    "stage": 1,
+    "domain": "BMC",
+    "predecessor": "prostate_s164_source",
+    "steps": 22000,
+    "terminal_status": "COMPLETE",
+    "raw_worker_receipt": {
+      "status": "COMPLETE",
+      "exit_code": 0,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 22000,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 22000,
+    "latest_recoverable_checkpoint_step": 22000,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [
+      {
+        "file": "latest.pt",
+        "bytes": 18616930,
+        "step": 22000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "student_spectrum": {
+          "G": {
+            "min": 0.49999995799149166,
+            "max": 1.2046002306384795,
+            "condition": 2.4092006636908114
+          },
+          "F": {
+            "min": 0.49999995799149166,
+            "max": 1.2046002306384795,
+            "condition": 2.4092006636908114
+          }
+        },
+        "ema_spectrum": {
+          "G": {
+            "min": 0.5000001633892707,
+            "max": 1.2045909412422968,
+            "condition": 2.4091810952159096
+          },
+          "F": {
+            "min": 0.5000001633892707,
+            "max": 1.2045909412422968,
+            "condition": 2.4091810952159096
+          }
+        },
+        "guard_totals": {
+          "calls": 22000,
+          "damped": 11234,
+          "cone_zero": 15,
+          "zero_displacement": 2953
+        },
+        "history_support": [
+          {
+            "domain": "RUNMC",
+            "support": [
+              64,
+              46
+            ],
+            "observations": [
+              32,
+              28
+            ]
+          }
+        ],
+        "provider_reads": [
+          22001,
+          17600
+        ]
+      },
+      {
+        "file": "final.pt",
+        "bytes": 18616930,
+        "step": 22000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "student_spectrum": {
+          "G": {
+            "min": 0.49999995799149166,
+            "max": 1.2046002306384795,
+            "condition": 2.4092006636908114
+          },
+          "F": {
+            "min": 0.49999995799149166,
+            "max": 1.2046002306384795,
+            "condition": 2.4092006636908114
+          }
+        },
+        "ema_spectrum": {
+          "G": {
+            "min": 0.5000001633892707,
+            "max": 1.2045909412422968,
+            "condition": 2.4091810952159096
+          },
+          "F": {
+            "min": 0.5000001633892707,
+            "max": 1.2045909412422968,
+            "condition": 2.4091810952159096
+          }
+        },
+        "guard_totals": {
+          "calls": 22000,
+          "damped": 11234,
+          "cone_zero": 15,
+          "zero_displacement": 2953
+        },
+        "history_support": [
+          {
+            "domain": "RUNMC",
+            "support": [
+              64,
+              46
+            ],
+            "observations": [
+              32,
+              28
+            ]
+          }
+        ],
+        "provider_reads": [
+          22001,
+          17600
+        ]
+      },
+      {
+        "file": "sealed.pt",
+        "bytes": 13257846,
+        "step": 22000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true
+      }
+    ],
+    "validation_available": true,
+    "cost_summary": {
+      "physical_optimizer_updates": 22000,
+      "committed_scientific_updates": 22000,
+      "physical_retry_or_uncommitted_updates": 0,
+      "elapsed_seconds": 23341.846981048584,
+      "peak_memory_bytes": 1147796480,
+      "telemetry": {
+        "student_full_forwards": 92400,
+        "teacher_full_forwards": 53021,
+        "probe_full_forwards": 0,
+        "probe_vjps": 0,
+        "readout_only_forwards": 0,
+        "coordinate_vjps": 0,
+        "synthetic_optimizer_updates": 0,
+        "formal_optimizer_updates": 22000,
+        "extra_clean_U_forwards": 17600,
+        "skipped_updates": 0,
+        "hierarchy_calls": 22000,
+        "hierarchy_coarse_calls": 14463,
+        "hierarchy_parts_calls": 0,
+        "hierarchy_alignment_calls": 0,
+        "hierarchy_aligned_edges": 0,
+        "hierarchy_valid_pixels": 2791263632,
+        "hierarchy_seam_excluded_pixels": 47440368,
+        "hierarchy_labeled_feature_views": 39600,
+        "entry_reference_vjps": 17600,
+        "entry_projected_calls": 0,
+        "memory_class_vjps": 352,
+        "v2_guard_calls": 22000,
+        "v2_guard_damped": 11234,
+        "v2_guard_cone_zero": 15,
+        "v2_guard_zero_displacement": 2953,
+        "no_foreground_reference_batches": 3931,
+        "reference_conflict_pixels": 44092078
+      },
+      "L_batch_reads": 22001,
+      "U_batch_reads": 17600,
+      "L_image_exposure": 44002,
+      "U_image_exposure": 35200,
+      "checkpoint_bytes": 18616930,
+      "deployment_bytes": 13257846
+    }
+  },
+  {
+    "id": "prostate_s164_o1_t2",
+    "dataset": "prostate",
+    "seed": 164,
+    "order": 1,
+    "stage": 2,
+    "domain": "I2CVB",
+    "predecessor": "prostate_s164_o1_t1",
+    "steps": 28800,
+    "terminal_status": "USER_TERMINATED",
+    "raw_worker_receipt": {
+      "status": "FAILED",
+      "exit_code": 1,
+      "interruption": "KeyboardInterrupt"
+    },
+    "physical_optimizer_calls": 12409,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 12408,
+    "latest_recoverable_checkpoint_step": 12000,
+    "executed_after_last_checkpoint": 409,
+    "successful_but_not_checkpointed": 408,
+    "executed_but_uncommitted": 1,
+    "checkpoints": [
+      {
+        "file": "latest.pt",
+        "bytes": 24080192,
+        "step": 12000,
+        "committed_receipt": true,
+        "size_matches": true,
+        "tensor_payload_readable_and_finite": true,
+        "student_spectrum": {
+          "G": {
+            "min": 0.9692758582298836,
+            "max": 1.0515481854094073,
+            "condition": 1.0848801984295489
+          },
+          "F": {
+            "min": 0.4999999861102952,
+            "max": 1.229554151710295,
+            "condition": 2.4591083717331688
+          }
+        },
+        "ema_spectrum": {
+          "G": {
+            "min": 0.9707952990568856,
+            "max": 1.0491734265964683,
+            "condition": 1.0807359982230302
+          },
+          "F": {
+            "min": 0.5000003812600423,
+            "max": 1.228238349229956,
+            "condition": 2.4564748253485202
+          }
+        },
+        "guard_totals": {
+          "calls": 12000,
+          "damped": 11952,
+          "cone_zero": 12,
+          "zero_displacement": 11605
+        },
+        "history_support": [
+          {
+            "domain": "RUNMC",
+            "support": [
+              64,
+              46
+            ],
+            "observations": [
+              32,
+              28
+            ]
+          },
+          {
+            "domain": "BMC",
+            "support": [
+              440,
+              168
+            ],
+            "observations": [
+              220,
+              132
+            ]
+          }
+        ],
+        "provider_reads": [
+          12001,
+          6240
+        ]
+      }
+    ],
+    "validation_available": false,
+    "cost_summary": {
+      "physical_optimizer_updates": 12409,
+      "committed_scientific_updates": 12408,
+      "physical_retry_or_uncommitted_updates": 1,
+      "elapsed_seconds": 15071.357166290283,
+      "telemetry": {
+        "student_full_forwards": 39005,
+        "teacher_full_forwards": 20073,
+        "probe_full_forwards": 0,
+        "probe_vjps": 0,
+        "readout_only_forwards": 0,
+        "coordinate_vjps": 0,
+        "synthetic_optimizer_updates": 0,
+        "formal_optimizer_updates": 12408,
+        "extra_clean_U_forwards": 6649,
+        "skipped_updates": 0,
+        "hierarchy_calls": 12409,
+        "hierarchy_coarse_calls": 7900,
+        "hierarchy_parts_calls": 0,
+        "hierarchy_alignment_calls": 0,
+        "hierarchy_aligned_edges": 0,
+        "hierarchy_valid_pixels": 1583233940,
+        "hierarchy_seam_excluded_pixels": 17924148,
+        "hierarchy_labeled_feature_views": 19058,
+        "entry_reference_vjps": 6649,
+        "entry_projected_calls": 0,
+        "memory_class_vjps": 209,
+        "v2_guard_calls": 12408,
+        "v2_guard_damped": 12359,
+        "v2_guard_cone_zero": 12,
+        "v2_guard_zero_displacement": 11993,
+        "no_foreground_reference_batches": 23,
+        "reference_conflict_pixels": 2889318
+      },
+      "status": "FAILED"
+    }
+  },
+  {
+    "id": "prostate_s164_o1_t3",
+    "dataset": "prostate",
+    "seed": 164,
+    "order": 1,
+    "stage": 3,
+    "domain": "HK",
+    "predecessor": "prostate_s164_o1_t2",
+    "steps": 6000,
+    "terminal_status": "CANCELLED_BY_USER",
+    "raw_worker_receipt": {
+      "status": null,
+      "exit_code": null,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 0,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [],
+    "validation_available": false,
+    "cost_summary": null
+  },
+  {
+    "id": "prostate_s164_o1_t4",
+    "dataset": "prostate",
+    "seed": 164,
+    "order": 1,
+    "stage": 4,
+    "domain": "UCL",
+    "predecessor": "prostate_s164_o1_t3",
+    "steps": 7200,
+    "terminal_status": "CANCELLED_BY_USER",
+    "raw_worker_receipt": {
+      "status": null,
+      "exit_code": null,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 0,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [],
+    "validation_available": false,
+    "cost_summary": null
+  },
+  {
+    "id": "prostate_s164_o1_t5",
+    "dataset": "prostate",
+    "seed": 164,
+    "order": 1,
+    "stage": 5,
+    "domain": "BIDMC",
+    "predecessor": "prostate_s164_o1_t4",
+    "steps": 11100,
+    "terminal_status": "CANCELLED_BY_USER",
+    "raw_worker_receipt": {
+      "status": null,
+      "exit_code": null,
+      "interruption": null
+    },
+    "physical_optimizer_calls": 0,
+    "inherited_source_updates": 0,
+    "successfully_committed_updates": 0,
+    "latest_recoverable_checkpoint_step": 0,
+    "executed_after_last_checkpoint": 0,
+    "successful_but_not_checkpointed": 0,
+    "executed_but_uncommitted": 0,
+    "checkpoints": [],
+    "validation_available": false,
+    "cost_summary": null
+  }
+]

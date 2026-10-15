@@ -1,0 +1,66 @@
+{
+  "run_id": "main_style_ssl_v2_prostate_20261015T013515Z",
+  "status": "RUNNING_STARTUP_AUDIT_PASS",
+  "frozen_method_commit": "3ef3264",
+  "scope": "Prostate V2 only",
+  "seeds": [
+    163,
+    164
+  ],
+  "gpus": {
+    "163": 2,
+    "164": 3
+  },
+  "new_formal_optimizer_budget": 150200,
+  "reused_source_updates": 27200,
+  "source_retraining": false,
+  "independent_test_access": false,
+  "ablation": false,
+  "qualification_optimizer_calls": 104,
+  "GPU_next_update_resume_exact_seeds": [
+    163,
+    164
+  ],
+  "two_case_L_fit": {
+    "steps": 96,
+    "initial_loss": 1.2396686267202646,
+    "final_loss": 0.1083151887248057
+  },
+  "negative_records": [
+    "NFS directory metadata copy failure, no optimizer calls",
+    "missing CuBLAS workspace configuration in initial GPU qualification, no optimizer calls",
+    "qualification helper used module interface on Adapter record, no optimizer calls"
+  ],
+  "limitations": [
+    "GPU qualification full-U loss phase selected synthetically; execution counters remain actual engineering calls",
+    "successful source-memory bootstrap adds 132 training-L image exposures; failed bootstrap and other engineering reads retained privately",
+    "no metric improvement established at launch"
+  ],
+  "publication_boundary": "source and anonymous receipt only; patient records/checkpoints/raw logs remain private",
+  "startup_utc": "2026-10-15T01:44:55.786161+00:00",
+  "M_and_Ms_unchanged_and_growing": true,
+  "startup_tasks": {
+    "prostate_s163_o1_t1": {
+      "gpu": 2,
+      "actual_updates": 144,
+      "updates_per_second": 1.820267553992109,
+      "active_U": false,
+      "finite_labeled_loss": true
+    },
+    "prostate_s164_o1_t1": {
+      "gpu": 3,
+      "actual_updates": 132,
+      "updates_per_second": 1.6619834188623603,
+      "active_U": false,
+      "finite_labeled_loss": true
+    }
+  },
+  "monitoring": "existing heartbeat prostate-m-ms updated to include Prostate V2; every 30 minutes; quiet while healthy",
+  "install_host_names": {
+    "controller.py": "c.py",
+    "worker.py": "w.py",
+    "gpu_qualification.py": "q.py",
+    "neutral_entry.py": "n.py"
+  },
+  "performance_gain": "NOT_YET_EVALUATED"
+}

@@ -1,0 +1,95 @@
+[
+  {
+    "attempt": "attempt_01_s163",
+    "status": "FAIL",
+    "optimizer_calls": 0,
+    "formal_updates": 0,
+    "test_access": 0,
+    "checks": {},
+    "source_memory_reused": false,
+    "error_category": "missing_CUBLAS_workspace",
+    "two_case_L_fit": null,
+    "elapsed_seconds": 7.112166404724121
+  },
+  {
+    "attempt": "attempt_01_s164",
+    "status": "FAIL",
+    "optimizer_calls": 0,
+    "formal_updates": 0,
+    "test_access": 0,
+    "checks": {},
+    "source_memory_reused": false,
+    "error_category": "missing_CUBLAS_workspace",
+    "two_case_L_fit": null,
+    "elapsed_seconds": 7.11188817024231
+  },
+  {
+    "attempt": "attempt_02_s163",
+    "status": "FAIL",
+    "optimizer_calls": 0,
+    "formal_updates": 0,
+    "test_access": 0,
+    "checks": {
+      "source_import_training_L_only": true
+    },
+    "source_memory_reused": false,
+    "error_category": "qualification_helper_Adapter_interface",
+    "two_case_L_fit": null,
+    "elapsed_seconds": 13.536921501159668
+  },
+  {
+    "attempt": "attempt_02_s164",
+    "status": "FAIL",
+    "optimizer_calls": 0,
+    "formal_updates": 0,
+    "test_access": 0,
+    "checks": {
+      "source_import_training_L_only": true
+    },
+    "source_memory_reused": false,
+    "error_category": "qualification_helper_Adapter_interface",
+    "two_case_L_fit": null,
+    "elapsed_seconds": 13.590176582336426
+  },
+  {
+    "attempt": "attempt_03_s163",
+    "status": "PASS",
+    "optimizer_calls": 100,
+    "formal_updates": 0,
+    "test_access": 0,
+    "checks": {
+      "source_import_training_L_only": true,
+      "GPU_real_L_U_backward_Adam_guard_EMA": true,
+      "MRI_stem_and_entry_immutable": true,
+      "exact_GPU_next_update_resume": true,
+      "two_case_training_L_fit": true
+    },
+    "source_memory_reused": true,
+    "error_category": null,
+    "two_case_L_fit": {
+      "steps": 96,
+      "initial_loss": 1.2396686267202646,
+      "final_loss": 0.1083151887248057,
+      "threshold": "final < 0.8 initial; inherited V1 engineering rule",
+      "U_reads_during_fit": 0
+    },
+    "elapsed_seconds": 80.39570903778076
+  },
+  {
+    "attempt": "attempt_03_s164",
+    "status": "PASS",
+    "optimizer_calls": 4,
+    "formal_updates": 0,
+    "test_access": 0,
+    "checks": {
+      "source_import_training_L_only": true,
+      "GPU_real_L_U_backward_Adam_guard_EMA": true,
+      "MRI_stem_and_entry_immutable": true,
+      "exact_GPU_next_update_resume": true
+    },
+    "source_memory_reused": true,
+    "error_category": null,
+    "two_case_L_fit": null,
+    "elapsed_seconds": 16.648478746414185
+  }
+]

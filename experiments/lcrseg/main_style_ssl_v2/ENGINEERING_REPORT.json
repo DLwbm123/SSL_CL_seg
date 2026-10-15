@@ -1,0 +1,119 @@
+{
+  "version": "MAIN_STYLE_SSL_V2",
+  "status": "PASS_WITH_DECLARED_NOT_RUN",
+  "launch_state": "FROZEN_NOT_LAUNCHED",
+  "qualification": "CPU generated tensors on actual locked native architecture; separate six real source checkpoints, generated-input zero-increment inference only",
+  "unit_checks_passed": 16,
+  "unit_checks_failed": 0,
+  "actual_source_checks_passed": 6,
+  "actual_source_logit_difference": 0.0,
+  "engineering_optimizer_calls": 0,
+  "new_formal_optimizer_calls": 0,
+  "independent_test_access": false,
+  "real_image_reads": 0,
+  "configuration_mutations_to_running_main": 0,
+  "environment": {
+    "torch": "2.6.0+cu124",
+    "device": "CPU",
+    "threads_per_process": 1,
+    "nice": 10,
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "freeze": {
+    "version": "MAIN_STYLE_SSL_V2",
+    "status": "FROZEN_NOT_LAUNCHED",
+    "created_utc": "2026-10-14T16:08:23.819884+00:00",
+    "created_Asia_Shanghai": "2026-10-15T00:08:23.819884+08:00",
+    "protocol_digest": "862b0c48d8f4ab477ef4bef369ec83a6f011f667d4c37fd84b8fc567d7c40ba1",
+    "implementation_digest": "7d5c560dfb7df4813896872f4bc2751cf5e4cf793008bdeed99733b42edd5d59",
+    "dependency_digest": "4a8da9b5dd496ff7f7888808e86cf9d652afeed600955bae4e1b852f5d2aa3b8",
+    "qualified_attempt": "attempt_07",
+    "execution_authorized": false,
+    "engineering_optimizer_calls": 0,
+    "formal_optimizer_calls": 0,
+    "independent_test_access": false,
+    "base_revision": "37c000fc589a7bd68da2ed54015a5137ed6143c8",
+    "certified_rank_repair": "c234bcd23e0fc26737eb7833624434686c0846e6"
+  },
+  "attempts": [
+    {
+      "id": "attempt_01",
+      "status": "FAIL",
+      "passed": 8,
+      "failed": 3,
+      "reason": "test asserted nonzero A at zero B; fixed fabricated M&Ms step was below warmup"
+    },
+    {
+      "id": "attempt_02",
+      "status": "PASS",
+      "passed": 11
+    },
+    {
+      "id": "attempt_03",
+      "status": "PASS",
+      "passed": 14
+    },
+    {
+      "id": "attempt_04",
+      "status": "PASS",
+      "passed": 15
+    },
+    {
+      "id": "attempt_05",
+      "status": "FAIL",
+      "passed": 15,
+      "failed": 1,
+      "reason": "negative path fixture unintentionally inside the V2 engineering ancestor"
+    },
+    {
+      "id": "attempt_06",
+      "status": "PASS_UNIT_FAIL_SOURCE_DEPENDENCY",
+      "passed": 16,
+      "source_passed": 3,
+      "reason": "old full-rank dependency snapshot blocks real prostate164 source; zero optimizer calls"
+    },
+    {
+      "id": "attempt_07",
+      "status": "PASS",
+      "passed": 16,
+      "actual_source_passed": 6
+    }
+  ],
+  "setup_negatives": [
+    {
+      "operation": "local Python environment probe",
+      "error": "torch unavailable",
+      "optimizer_calls": 0
+    },
+    {
+      "operation": "remote system Python environment probe",
+      "error": "torch namespace lacks __version__; use configured interpreter",
+      "optimizer_calls": 0
+    },
+    {
+      "operation": "copytree default metadata preservation",
+      "error": "NFS Errno5; byte-copy-only snapshot fallback succeeded; no whole-archive integrity claim",
+      "optimizer_calls": 0
+    },
+    {
+      "operation": "attempt02 shell invocation before setup completed",
+      "error": "log destination missing; Python was not started",
+      "optimizer_calls": 0
+    }
+  ],
+  "not_run": [
+    "real training-L source memory bootstrap",
+    "GPU actual optimizer-step qualification",
+    "two-case iterative overfit explicitly excluded by no-training instruction",
+    "validation/test efficacy or ablation",
+    "formal training launch"
+  ],
+  "limitations": [
+    "first-order displacement and bounded spectra do not guarantee old-domain Dice",
+    "summary approximation, strong protection and MRI stem freezing may hurt Incoming or throughput",
+    "synthetic proposal/cursor fixtures are not executed scientific steps",
+    "optimizer state equality uses existing restore engine; no new actual Adam moment trajectory was executed"
+  ],
+  "private_evidence": "${ENGINEERING_ROOT}/attempt_01..07/{source_snapshot,checks.log,results.xml,RECEIPT.json}; source checks and setup records; no private weights/logs in Git",
+  "public_delivery": "local source commit only; project prohibits automatic push for this engineering-only delivery"
+}
