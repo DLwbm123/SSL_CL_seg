@@ -30,12 +30,12 @@ V0.2 downstream formal run is currently authorized.
   DataLoader (`num_workers=0/4`) acceptance gates passed.
 - `checksums/checksums.sha256`, `manifests/transfer_manifest.json`, and
   `h5/v1/FROZEN` were generated and verified locally.
-- The formal training DataLoader passed on `jiangsuiyang` with both
+- The formal training DataLoader passed on `source-gpu` with both
   `num_workers=0` and `num_workers=4`; its unlabeled batches contain no
   visible or hidden label field, M&Ms ED/ES remain patient-split consistent,
   and `auxiliary25` remains train-unlabeled only.
 - Formal Fundus 2-case overfit passed at
-  `/home/jiangsuiyang/SSL_CL/runs/m0/two_case_overfit_fundus_REFUGE_seed0_20260819T103301Z`:
+  `/home/account/SSL_CL/runs/m0/two_case_overfit_fundus_REFUGE_seed0_20260819T103301Z`:
   loss `2.576756 -> 0.106565`, mean foreground Dice `0.974170`, minimum Dice
   `0.965229`, and checkpoint reload max error `0`.
 - The shared 2D U-Net, HDF5 labeled/unlabeled datasets, deterministic sampler,
@@ -128,10 +128,10 @@ V0.2 downstream formal run is currently authorized.
 ## Remote deployment status
 
 - Remote transfer: `complete` on 2026-08-19 at
-  `/home/jiangsuiyang/SSL_CL`.
-- The direct source-bound endpoint was `jiangsuiyang@10.12.208.180:22` through
+  `/home/account/SSL_CL`.
+- The direct source-bound endpoint was `source-gpu@SOURCE_HOST:22` through
   local address `10.75.81.150`; the formal server interpreter is
-  `/home/jiangsuiyang/anaconda3/envs/py38/bin/python` (Python 3.10.6,
+  `/home/account/anaconda3/envs/py38/bin/python` (Python 3.10.6,
   PyTorch 2.2.1+cu121, CUDA 12.1, cuDNN 8902).
 - The canonical remote layout contains `h5/`, `manifests/`, `splits/`,
   `checksums/`, and `reports/preprocessing/`; raw source data was not copied.
@@ -148,7 +148,16 @@ V0.2 downstream formal run is currently authorized.
 - Derived HDF5 is versioned and immutable after acceptance.
 - Training manifests omit labels for unlabeled samples.
 - Run artifacts, checkpoints, diagnostics, and logs are written only beneath
-  `/home/jiangsuiyang/SSL_CL/runs`, never beneath frozen inputs.
+  `/home/account/SSL_CL/runs`, never beneath frozen inputs.
 - This workspace is tracked in the public Git repository
   `https://github.com/DLwbm123/SSL_CL_seg`. Gate 0 semantic repairs are reviewed
   on `codex/gate0-pas-probability-mse`, not merged into `main` automatically.
+
+
+## 2026-10-14 MAIN_STYLE_SSL_V1
+
+Implementation and engineering admission in progress under explicit new user authority; historical scientific stops remain unchanged. The new single main version and 30-node/511600-update budget are specified in `main_style_ssl_v1/PREREG.md`. No new scientific result is asserted.
+
+2026-10-14 launch update: MAIN_STYLE_SSL_V1 engineering admission PASS for fundus/prostate/M&Ms, execution commit27901f3. Run `main_style_ssl_v1_20261014T013808Z` is RUNNING as a detached30-node main DAG, six source workers on GPU2–7; total formal budget511600. See `main_style_ssl_v1/LAUNCH_REPORT.md` for startup/engineering evidence and all preserved negative attempts. This is not a completed scientific result or a lift of historical stops. Independent test access and ablation remain disabled; no automatic monitoring is enabled.
+
+2026-10-14 resource update: onlyGPU4–7, up to2 workers/card. GPU2/3 source workers migrated at6000-step checkpoints with zero repeated optimizer invocations; old workers released. CoordinatorPID2008159, original algorithm snapshot27901f3 and formal budget511600 unchanged. Current report: `main_style_ssl_v1_ops/REPORT.md`. All30 main DAG nodes remain authorized; no ablation/retune or continuing status monitor was added.

@@ -16,12 +16,16 @@ def hash_state(state):
     for k,v in state.items():h.update(k.encode());h.update(v.detach().cpu().contiguous().numpy().tobytes())
     return h.hexdigest()
 
-def basis(weight,seed,source_domain,name):
+def basis(weight,seed,source_domain,name,*,minimum_input_width=27,require_full_rank=True):
     w=weight.detach().cpu().double().flatten(1);m,d=w.shape;r=8;k=min(m//2,d-r)
-    if m<16 or d<27 or not torch.isfinite(w).all() or w.norm()==0:raise ValueError('source geometry/numerical anomaly')
+    if minimum_input_width not in (9,27):raise ValueError('only registered mono/RGB geometry is supported')
+    if m<16 or d<minimum_input_width or not torch.isfinite(w).all() or w.norm()==0:raise ValueError('source geometry/numerical anomaly')
     u,s,vh=torch.linalg.svd(w,full_matrices=False)
     rank=int((s>s[0]*max(m,d)*torch.finfo(torch.float64).eps).sum())
-    if rank<m:raise ValueError('numerical source rank anomaly')
+    # Only the retained singular directions must be nonzero for a top-k projector.
+    required=min(m,d) if require_full_rank else k
+    if k<1 or rank<required:
+        raise ValueError(f'numerical source rank anomaly: layer={name}, rank={rank}, required={required}, protected={k}')
     g=torch.Generator(device='cpu').manual_seed(stable_seed('LCTX_WEIGHT_MEMORY_V0_1',seed,source_domain,name,'adapter_G'))
     G=torch.randn(r,d,dtype=torch.float64,generator=g)/math.sqrt(d)
     qg=torch.Generator(device='cpu').manual_seed(stable_seed('LCTX_WEIGHT_MEMORY_V0_1',seed,source_domain,name,'random_protection'))

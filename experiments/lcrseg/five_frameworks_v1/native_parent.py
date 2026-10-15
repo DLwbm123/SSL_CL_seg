@@ -16,13 +16,13 @@ from .numerics import finite
 IDENTITY='NATIVE_LR_SRC_A_3DOMAIN_V1'
 
 
-def build(reference,device,seed):
+def build(reference,device,seed,*,input_channels=3,num_classes=3,domain='REFUGE'):
     if subprocess.check_output(['git','rev-parse','HEAD'],cwd=reference,text=True).strip()!=UPSTREAM:
         raise ValueError('wrong native upstream commit')
     subprocess.run(['git','diff','--quiet','HEAD'],cwd=reference,check=True)
     with rng(device,'native_upstream_import'):_official_probabilistic_classifier(reference,upstream_path=UPSTREAM_PATH)
-    with rng(device,IDENTITY,seed,'REFUGE','initialization'):
-        model=build_lcrseg_unet_jascl_model(reference,upstream_path=UPSTREAM_PATH,input_channels=3,num_classes=3)
+    with rng(device,IDENTITY,seed,domain,'initialization'):
+        model=build_lcrseg_unet_jascl_model(reference,upstream_path=UPSTREAM_PATH,input_channels=input_channels,num_classes=num_classes)
     precision();return set_head(model,LINEAR).to(device)
 
 
@@ -52,13 +52,13 @@ class Adapter:
 class NativeLRParent(nn.Module):
     synthetic=False
     identity=IDENTITY
-    def __init__(self,native,seed,stage_source,adapt=True):
+    def __init__(self,native,seed,stage_source,adapt=True,*,minimum_input_width=27,require_full_rank=True):
         super().__init__();self.native=native;self.d=16
         self.seed=seed;self.stage_source=copy.deepcopy(stage_source)
         if adapt:
             tensors={}
             for i,name in enumerate(lr.LAYERS):
-                t,_=lr.basis(native.get_parameter(name),seed,stage_source.get('domain',stage_source),name)
+                t,_=lr.basis(native.get_parameter(name),seed,stage_source.get('domain',stage_source),name,minimum_input_width=minimum_input_width,require_full_rank=require_full_rank)
                 tensors[name]=t;self.register_buffer('V64_'+str(i),t['V'].to(native.get_parameter(name).device))
             lr.configure(native,'LR_SRC_A',lambda name:tensors[name])
         self.configure_stage_training() if adapt else self.eval().requires_grad_(False)

@@ -13,7 +13,7 @@ class CurrentPrototypes:
         with torch.no_grad():
             _,before,h=teacher.parts(images,mode="teacher")
             mapped=teacher.parent.output_to_feature(labels,h.shape[-2:],True)
-            p,s=current_prototypes(h,mapped,3)
+            p,s=current_prototypes(h,mapped,len(self.values))
         return p,s,before,h,mapped
 
     def commit(self,p,s):

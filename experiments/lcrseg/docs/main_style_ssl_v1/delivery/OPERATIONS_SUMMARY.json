@@ -1,0 +1,42 @@
+{
+  "host_handoffs": [
+    {
+      "from": "host_A",
+      "to": "host_B",
+      "status": "COMPLETE",
+      "formal_replay": 0,
+      "engineering_optimizer_calls": 0,
+      "handoff_steps": {
+        "mnms_s163_source": 34000,
+        "prostate_s163_o1_t1": 18000,
+        "prostate_s164_o1_t1": 10000,
+        "mnms_s164_source": 34000
+      },
+      "coordinator_pause_seconds": 715.8386163711548,
+      "origin_gpu_hold_seconds": 1937.3910582065582,
+      "backend": "Torch2.2.1/cu121 RTX3090 to Torch2.7.1/cu128 Blackwell"
+    },
+    {
+      "from": "host_B",
+      "to": "host_C",
+      "status": "COMPLETE",
+      "formal_replay": 0,
+      "engineering_optimizer_calls": 0,
+      "handoff_steps": {
+        "mnms_s164_o1_t1": 32000,
+        "mnms_s163_o1_t1": 36000,
+        "prostate_s164_o1_t4": 6000,
+        "prostate_s163_o1_t5": 8000
+      },
+      "origin_gpu_hold_seconds": 988.295964717865,
+      "backend": "Torch2.7.1/cu128 Blackwell to Torch2.6/cu124 A100"
+    }
+  ],
+  "cross_backend_bitwise_trajectory_claim": false,
+  "fp32": true,
+  "AMP": false,
+  "TF32": false,
+  "pause_record_preserved": true,
+  "my_gpu_metadata_copy_failure_preserved": true,
+  "source_rerun_updates": 0
+}

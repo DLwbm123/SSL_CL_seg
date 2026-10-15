@@ -1,0 +1,96 @@
+{
+  "unit": {
+    "style": true,
+    "confidence_conflict_denominator": true,
+    "background_veto": true,
+    "foreground_no_PAS": true,
+    "RGB_basis_unchanged": true,
+    "mono_full_rank_projection": true,
+    "classes_2_3_4": true,
+    "budget": true
+  },
+  "datasets": {
+    "fundus": {
+      "source_backward": true,
+      "target_backward": true,
+      "EMA_update": true,
+      "entry_frozen": true,
+      "exact_source_resume": true,
+      "exact_target_resume": true,
+      "deploy_merge": true,
+      "stage_transition": true,
+      "validation_volume_metrics": true,
+      "gradient_norms": {
+        "A": 0.018903650971461534,
+        "B": 1.0983326073520567,
+        "R": 0.5112166058423784
+      },
+      "peak_memory_bytes": 2286531072,
+      "two_case_overfit": {
+        "steps": 96,
+        "initial_loss": 1.8135738736119689,
+        "final_loss": 0.07571210341938167
+      },
+      "validation_smoke_domains": [
+        "REFUGE",
+        "RIM_ONE_r3"
+      ]
+    },
+    "prostate": {
+      "source_backward": true,
+      "target_backward": true,
+      "EMA_update": true,
+      "entry_frozen": true,
+      "exact_source_resume": true,
+      "exact_target_resume": true,
+      "deploy_merge": true,
+      "stage_transition": true,
+      "validation_volume_metrics": true,
+      "gradient_norms": {
+        "A": 0.00676517753976622,
+        "B": 0.3760014286448597,
+        "R": 0.19012677076504414
+      },
+      "peak_memory_bytes": 2286531072,
+      "two_case_overfit": {
+        "steps": 96,
+        "initial_loss": 1.384503632773192,
+        "final_loss": 0.032296761003553984
+      },
+      "validation_smoke_domains": [
+        "RUNMC",
+        "BMC"
+      ]
+    },
+    "mnms": {
+      "source_backward": true,
+      "target_backward": true,
+      "EMA_update": true,
+      "entry_frozen": true,
+      "exact_source_resume": true,
+      "exact_target_resume": true,
+      "deploy_merge": true,
+      "stage_transition": true,
+      "validation_volume_metrics": true,
+      "gradient_norms": {
+        "A": 0.006043253104387105,
+        "B": 0.5105796589487651,
+        "R": 0.48549643676346727
+      },
+      "peak_memory_bytes": 2327832064,
+      "two_case_overfit": {
+        "steps": 96,
+        "initial_loss": 1.8226239973923604,
+        "final_loss": 0.18951020046702127
+      },
+      "validation_smoke_domains": [
+        "Siemens",
+        "Philips"
+      ]
+    }
+  },
+  "status": "PASS",
+  "code_commit": "27901f3753ead8c8fbcc32b3917332e0b056cf8d",
+  "physical_optimizer_updates": 312,
+  "elapsed_seconds": 272.08219838142395
+}

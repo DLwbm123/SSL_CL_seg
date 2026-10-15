@@ -1184,3 +1184,8 @@ V0.1 的贡献应围绕一个主线组织，而不是逐项枚举来源组件。
 - hidden label leakage 测试通过；
 - 第一站点、增量站点及空类别情况均无 NaN/Inf；
 - 代码实现与本文件公式逐项对应。
+
+
+## 2026-10-14 separate main-method version amendment
+
+User authorized MAIN_STYLE_SSL_V1 for fundus/prostate/M&Ms after engineering admission. The historical V0.1 equations, results and stops above stay frozen; this is a separately versioned protocol. [Frozen method, tensor/detach/lifecycle and budget definitions](main_style_ssl_v1/PREREG.md) and executable `main_style_ssl_v1/{model,data,checks,runtime,controller}.py` define the change. Reuse StageTrainer with identity-default student-image/admission hooks, class-count inference and optional foreground SWD classes. Source dense L+U has no R/entry/SWD; targets retain projected A/B/R with agreement-only entry reference. MRI patient/phase/slice access strips U GT and has no test accessor. Detach all pseudo-label weights; never update entry. Qualification includes fixed golden math, one-batch backward, source/target exact resume, deploy merge, stage transition, volume metrics, two-case overfit; fail blocks launch. All 511600 updates and failed branches are retained; no ablations or validation/test selection.

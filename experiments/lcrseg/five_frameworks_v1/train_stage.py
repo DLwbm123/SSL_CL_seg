@@ -54,7 +54,7 @@ class StageTrainer:
             self.model.parent.stage_entry()
             self.prepare_stage()
         self.ema=model.teacher()
-        self.prototypes=CurrentPrototypes(3,model.parent.d)
+        self.prototypes=CurrentPrototypes(model.parent.effective_readout_kernel_at_entry().shape[0],model.parent.d)
         if initialize and model.family not in NO_U:
             x,y,_=provider.labeled(0,'prototype_initialization')
             p,s,*_=self.prototypes.estimate(self.ema,x,y)
@@ -160,18 +160,25 @@ class StageTrainer:
     def transform_update(self, before):
         pass
 
+    def student_images(self, images, donor):
+        return images
+
+    def pseudo_admission(self, target, geometry, pas_valid):
+        return pas_valid
+
     def losses(self):
         opt=self.options;m=self.model;t=self.ema
         x,y,patients=self.provider.labeled(self.cursor)
         if len(set(patients))!=2 or len(patients)!=2:raise ValueError('LCTX requires two distinct patients')
         total=opt.get('total_steps',5);warmup=math.ceil(opt["warmup_fraction"]*total)
         active=self.step>=warmup
+        student_x=self.student_images(x,x.flip(0))
         def forward(v,s=None,detach=False):
             self.telemetry['student_full_forwards']+=1
             return m(v,detach_parent=detach,scale=s)
         if active:
-            logp,mix_mask=collected_forward(lambda v,s:forward(v,s),x,x.flip(0),self.rng('LCTX'))
-        else:logp=forward(x).log_softmax(1);mix_mask=None
+            logp,mix_mask=collected_forward(lambda v,s:forward(v,s),student_x,student_x.flip(0),self.rng('LCTX'))
+        else:logp=forward(student_x).log_softmax(1);mix_mask=None
         supervised=m.parent.supervised(logp,y);constraint=m.parent.constraint_loss()
         finite((supervised,constraint),'active supervised/constraint losses')
         labeled=supervised+constraint
@@ -196,6 +203,7 @@ class StageTrainer:
         self.telemetry['teacher_full_forwards']+=1
         valid,_=self.prototypes.admission(t,q,h_u,geometry,opt.get('PAS_confidence',.7),opt.get('PAS_cosine',.5))
         if m.family.startswith('B1'):valid=geometry&(q.max(1).values>opt.get('PAS_confidence',.7))
+        valid=self.pseudo_admission(q,geometry,valid)
         scales=None
         if m.family=='F3':
             valid=geometry
@@ -206,7 +214,7 @@ class StageTrainer:
             def scales(mask):
                 return mixed_feature_scales(m.parent,mask,uu,ul,h_u.shape[-2:],m.spectrum,opt.get('kappa',.5))
         detach=m.detach_u_parent()
-        logu,_=collected_forward(lambda v,s:forward(v,s,detach),u,donor,self.rng('UL'),scales)
+        logu,_=collected_forward(lambda v,s:forward(v,s,detach),self.student_images(u,donor),self.student_images(donor,u),self.rng('UL'),scales)
         target=q
         if m.family=='F4':
             target,stats=repair_target(t,u,geometry,opt.get('lambda_shape',.1),self.probe['scale'],
@@ -225,7 +233,7 @@ class StageTrainer:
             zl=torch.einsum('dk,bdhw->bkhw',qu,before_l)
             uc=m.parent.output_to_feature(q.argmax(1),zu.shape[-2:],True)
             uv=m.parent.output_to_feature(valid,zu.shape[-2:],True)
-            swd,counts=class_swd(zu,zl,uc,lclasses,uv,self.rng('swd_sampling'))
+            swd,counts=class_swd(zu,zl,uc,lclasses,uv,self.rng('swd_sampling'),foreground_classes=range(1,q.shape[1]))
             unlabeled=unlabeled+opt.get('lambda_SWD',.05)*swd
             self.last['swd_counts']=counts
             extra=self.f5_addition(zu,zl,uc,lclasses,uv)

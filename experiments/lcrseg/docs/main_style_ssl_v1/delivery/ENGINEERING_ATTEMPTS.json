@@ -1,0 +1,217 @@
+[
+  {
+    "attempt": "engineering",
+    "status": "FAIL",
+    "optimizer_calls_from_ledger": 0,
+    "error": "'str' object has no attribute 'type'",
+    "elapsed_seconds": 0.870582103729248,
+    "unit": {
+      "style": true,
+      "confidence_conflict_denominator": true,
+      "background_veto": true,
+      "classes_2_3_4": true,
+      "budget": true
+    },
+    "dataset_checks": {},
+    "source_optimizer_updates": null,
+    "two_case_overfit": null,
+    "exact_student_ema_optimizer_resume": null,
+    "golden_batch_loss_replay": null
+  },
+  {
+    "attempt": "engineering_02",
+    "status": "FAIL",
+    "optimizer_calls_from_ledger": 8,
+    "error": "target resume",
+    "elapsed_seconds": 7.120818614959717,
+    "unit": {
+      "style": true,
+      "confidence_conflict_denominator": true,
+      "background_veto": true,
+      "classes_2_3_4": true,
+      "budget": true
+    },
+    "dataset_checks": {},
+    "source_optimizer_updates": null,
+    "two_case_overfit": null,
+    "exact_student_ema_optimizer_resume": null,
+    "golden_batch_loss_replay": null
+  },
+  {
+    "attempt": "engineering_03",
+    "status": "FAIL",
+    "optimizer_calls_from_ledger": 108,
+    "error": "source geometry/numerical anomaly",
+    "elapsed_seconds": 27.97315001487732,
+    "unit": {
+      "style": true,
+      "confidence_conflict_denominator": true,
+      "background_veto": true,
+      "classes_2_3_4": true,
+      "budget": true
+    },
+    "dataset_checks": {
+      "fundus": {
+        "source_backward": true,
+        "target_backward": true,
+        "EMA_update": true,
+        "entry_frozen": true,
+        "exact_source_resume": true,
+        "exact_target_resume": true,
+        "deploy_merge": true,
+        "stage_transition": true,
+        "validation_volume_metrics": true,
+        "gradient_norms": {
+          "A": 0.018903650971461534,
+          "B": 1.0983326073520567,
+          "R": 0.5112166058423784
+        },
+        "peak_memory_bytes": 2286531072,
+        "two_case_overfit": {
+          "steps": 96,
+          "initial_loss": 1.8135738736119689,
+          "final_loss": 0.07571210341938167
+        },
+        "validation_smoke_domains": [
+          "REFUGE",
+          "RIM_ONE_r3"
+        ]
+      }
+    },
+    "source_optimizer_updates": null,
+    "two_case_overfit": null,
+    "exact_student_ema_optimizer_resume": null,
+    "golden_batch_loss_replay": null
+  },
+  {
+    "attempt": "engineering_04",
+    "status": "PASS",
+    "optimizer_calls_from_ledger": 312,
+    "error": null,
+    "elapsed_seconds": 272.08219838142395,
+    "unit": {
+      "style": true,
+      "confidence_conflict_denominator": true,
+      "background_veto": true,
+      "foreground_no_PAS": true,
+      "RGB_basis_unchanged": true,
+      "mono_full_rank_projection": true,
+      "classes_2_3_4": true,
+      "budget": true
+    },
+    "dataset_checks": {
+      "fundus": {
+        "source_backward": true,
+        "target_backward": true,
+        "EMA_update": true,
+        "entry_frozen": true,
+        "exact_source_resume": true,
+        "exact_target_resume": true,
+        "deploy_merge": true,
+        "stage_transition": true,
+        "validation_volume_metrics": true,
+        "gradient_norms": {
+          "A": 0.018903650971461534,
+          "B": 1.0983326073520567,
+          "R": 0.5112166058423784
+        },
+        "peak_memory_bytes": 2286531072,
+        "two_case_overfit": {
+          "steps": 96,
+          "initial_loss": 1.8135738736119689,
+          "final_loss": 0.07571210341938167
+        },
+        "validation_smoke_domains": [
+          "REFUGE",
+          "RIM_ONE_r3"
+        ]
+      },
+      "prostate": {
+        "source_backward": true,
+        "target_backward": true,
+        "EMA_update": true,
+        "entry_frozen": true,
+        "exact_source_resume": true,
+        "exact_target_resume": true,
+        "deploy_merge": true,
+        "stage_transition": true,
+        "validation_volume_metrics": true,
+        "gradient_norms": {
+          "A": 0.00676517753976622,
+          "B": 0.3760014286448597,
+          "R": 0.19012677076504414
+        },
+        "peak_memory_bytes": 2286531072,
+        "two_case_overfit": {
+          "steps": 96,
+          "initial_loss": 1.384503632773192,
+          "final_loss": 0.032296761003553984
+        },
+        "validation_smoke_domains": [
+          "RUNMC",
+          "BMC"
+        ]
+      },
+      "mnms": {
+        "source_backward": true,
+        "target_backward": true,
+        "EMA_update": true,
+        "entry_frozen": true,
+        "exact_source_resume": true,
+        "exact_target_resume": true,
+        "deploy_merge": true,
+        "stage_transition": true,
+        "validation_volume_metrics": true,
+        "gradient_norms": {
+          "A": 0.006043253104387105,
+          "B": 0.5105796589487651,
+          "R": 0.48549643676346727
+        },
+        "peak_memory_bytes": 2327832064,
+        "two_case_overfit": {
+          "steps": 96,
+          "initial_loss": 1.8226239973923604,
+          "final_loss": 0.18951020046702127
+        },
+        "validation_smoke_domains": [
+          "Siemens",
+          "Philips"
+        ]
+      }
+    },
+    "source_optimizer_updates": null,
+    "two_case_overfit": null,
+    "exact_student_ema_optimizer_resume": null,
+    "golden_batch_loss_replay": null
+  },
+  {
+    "attempt": "rank_repair_20261014T024957Z/engineering",
+    "status": "PASS",
+    "optimizer_calls_from_ledger": 100,
+    "error": null,
+    "elapsed_seconds": null,
+    "unit": {
+      "style": true,
+      "confidence_conflict_denominator": true,
+      "background_veto": true,
+      "foreground_no_PAS": true,
+      "RGB_basis_unchanged": true,
+      "mono_full_rank_projection": true,
+      "classes_2_3_4": true,
+      "budget": true,
+      "healthy_basis_bitwise_equal": true,
+      "legacy_guard_retained": true,
+      "rank61_protected32": true,
+      "invalid_and_rank31_rejected": true
+    },
+    "dataset_checks": {},
+    "source_optimizer_updates": 0,
+    "two_case_overfit": {
+      "steps": 96,
+      "initial_loss": 1.1288258363750934,
+      "final_loss": 0.09605898063139534
+    },
+    "exact_student_ema_optimizer_resume": true,
+    "golden_batch_loss_replay": true
+  }
+]

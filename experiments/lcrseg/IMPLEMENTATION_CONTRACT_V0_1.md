@@ -927,3 +927,8 @@ M5 checkpoint + golden regression
 - fixed golden batch 回归通过；
 -可生成完整 site matrix 与 \(L_i,C_i\) 分析输出；
 - 尚未运行的正式实验不得被描述为已完成。
+
+
+## 2026-10-14 separate main-method version amendment
+
+User authorized MAIN_STYLE_SSL_V1 for fundus/prostate/M&Ms after engineering admission. The historical V0.1 equations, results and stops above stay frozen; this is a separately versioned protocol. [Frozen method, tensor/detach/lifecycle and budget definitions](main_style_ssl_v1/PREREG.md) and executable `main_style_ssl_v1/{model,data,checks,runtime,controller}.py` define the change. Reuse StageTrainer with identity-default student-image/admission hooks, class-count inference and optional foreground SWD classes. Source dense L+U has no R/entry/SWD; targets retain projected A/B/R with agreement-only entry reference. MRI patient/phase/slice access strips U GT and has no test accessor. Detach all pseudo-label weights; never update entry. Qualification includes fixed golden math, one-batch backward, source/target exact resume, deploy merge, stage transition, volume metrics, two-case overfit; fail blocks launch. All 511600 updates and failed branches are retained; no ablations or validation/test selection.

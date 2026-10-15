@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "gpus": [
+    4,
+    5,
+    6,
+    7
+  ],
+  "capacity_per_gpu": 2,
+  "workers": [
+    {
+      "id": "prostate_s163_source",
+      "pid": 1990051,
+      "gpu": 4,
+      "step": 10200,
+      "physical_updates": 10200
+    },
+    {
+      "id": "prostate_s164_source",
+      "pid": 1990054,
+      "gpu": 5,
+      "step": 10200,
+      "physical_updates": 10200
+    },
+    {
+      "id": "mnms_s163_source",
+      "pid": 1990058,
+      "gpu": 6,
+      "step": 11300,
+      "physical_updates": 11300
+    },
+    {
+      "id": "mnms_s164_source",
+      "pid": 1990062,
+      "gpu": 7,
+      "step": 11600,
+      "physical_updates": 11600
+    },
+    {
+      "id": "fundus_s164_source",
+      "pid": 2012246,
+      "gpu": 4,
+      "step": 6700,
+      "physical_updates": 6700
+    },
+    {
+      "id": "fundus_s163_source",
+      "pid": 2012375,
+      "gpu": 5,
+      "step": 6700,
+      "physical_updates": 6700
+    }
+  ],
+  "gpu_samples": [
+    {
+      "time": 1791944535.2170951,
+      "gpu_csv": "0, 4 MiB, 0 %\n1, 4 MiB, 0 %\n2, 1 MiB, 0 %\n3, 1 MiB, 0 %\n4, 3889 MiB, 77 %\n5, 3889 MiB, 79 %\n6, 3349 MiB, 71 %\n7, 2266 MiB, 34 %\n"
+    },
+    {
+      "time": 1791944543.3823965,
+      "gpu_csv": "0, 4 MiB, 0 %\n1, 4 MiB, 0 %\n2, 1 MiB, 0 %\n3, 1 MiB, 0 %\n4, 3889 MiB, 82 %\n5, 3889 MiB, 97 %\n6, 3349 MiB, 84 %\n7, 2266 MiB, 50 %\n"
+    }
+  ],
+  "migrations": [
+    {
+      "old": {
+        "pid": 1990050,
+        "gpu": 3,
+        "birth": 32963688
+      },
+      "new": {
+        "pid": 2012246,
+        "gpu": 4,
+        "birth": 33088216,
+        "resumed_from": 6000
+      },
+      "resumed_step": 6100,
+      "physical_updates": 6100,
+      "repeated_optimizer_calls": 0
+    },
+    {
+      "old": {
+        "pid": 1990048,
+        "gpu": 2,
+        "birth": 32963687
+      },
+      "new": {
+        "pid": 2012375,
+        "gpu": 5,
+        "birth": 33088417,
+        "resumed_from": 6000
+      },
+      "resumed_step": 6100,
+      "physical_updates": 6100,
+      "repeated_optimizer_calls": 0
+    }
+  ],
+  "repeated_optimizer_calls": 0,
+  "frozen_formal_budget": 511600,
+  "training_commit": "27901f3753ead8c8fbcc32b3917332e0b056cf8d",
+  "controller_pid": 2008159,
+  "old_gpus_released": true
+}

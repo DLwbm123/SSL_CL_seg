@@ -159,13 +159,13 @@ def repair_target(teacher,x,geometry,shape_weight,scale=1.,steps=3,trust=.1,cach
     return result.detach(),stats
 
 
-def class_swd(student,teacher,u_classes,l_classes,u_valid,rng):
+def class_swd(student,teacher,u_classes,l_classes,u_valid,rng,foreground_classes=(1,2)):
     """Both arguments are Q^T G h before F_prev, in registered feature grids."""
     s=F.normalize(student,dim=1,eps=1e-6).permute(0,2,3,1)
     t=F.normalize(teacher.detach(),dim=1,eps=1e-6).permute(0,2,3,1)
     terms=[];counts={}
     directions=torch.randn(s.shape[-1],32,generator=rng).to(s)
-    for c in (1,2):
+    for c in foreground_classes:
         a=s[(u_classes==c)&u_valid];b=t[l_classes==c]
         n=min(64,len(a),len(b));counts[c]=n
         if n<8:continue
