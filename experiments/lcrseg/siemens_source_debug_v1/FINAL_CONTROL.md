@@ -30,3 +30,11 @@ rows for comparisons; no independent test or U ground truth. Compare against bot
 Improvement over the old SSL alone does not establish a positive U contribution.
 Publish the complete negative or positive result. No additional training after the
 budget is spent without new user authorization.
+
+Startup verified: nine CPU checks passed, including unchanged labeled gradients,
+confidence masking, sparse full-grid normalization and zero empty-mask gradients.
+The native initial loss matched 2.063466310157642, and backward/initial-checkpoint
+restore used zero optimizer calls. The process passed 100 training calls without
+failure; its full interpreter/entry command and GPU process display are neutral.
+GPU memory and data-volume mount/space/write-read checks passed before launch.
+This confirms healthy startup, not effectiveness.
