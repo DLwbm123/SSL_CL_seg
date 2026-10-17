@@ -1,0 +1,9 @@
+# Siemens FixMatch / CPS adaptations
+
+See [PREREG.md](PREREG.md) for frozen algorithms, differences from author benchmarks, evaluation and budgets, and [STARTUP.md](STARTUP.md) for engineering failures and the authorized scheduling amendment.
+
+CPS has completed: [Chinese report](results/cps/REPORT_ZH.md), [aggregate results](results/cps/RESULTS.json), [paired historical comparison](results/cps/PAIRED_LONLY.json), [costs](results/cps/COSTS.json), and [completion audit](results/cps/COMPLETION.json). FixMatch is still running at this delivery; no final metric is available yet.
+
+Training source was frozen before these results (implementation commit b51d65c; later documentation amendment b874a38). Source is copied from the development checkout without unrelated history. No training code changed for this delivery. The original sequential controller is retained for provenance; the live run was amended to parallel independent workers and must not be launched again.
+
+Private data and machine settings are not included. The runner consumes JSON through TASK_SETTINGS, with method, output, reference, data and the shared evaluator configuration. Reuse the repository role-restricted data access and storage launcher; do not substitute unlabeled ground truth or select checkpoints on validation scores. Dependency packages are already included in this repository. CPU checks are in test_methods.py; native finite-backward preflight uses zero optimizer updates. This package is an algorithm adaptation, not a turnkey redistribution of private Siemens inputs.
