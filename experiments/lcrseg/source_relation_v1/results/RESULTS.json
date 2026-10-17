@@ -1,0 +1,310 @@
+{
+  "arms": {
+    "dense_fixmatch": {
+      "RESULTS": {
+        "status": "COMPLETE",
+        "method": "dense_fixmatch",
+        "seed": 163,
+        "train": {
+          "primary_dice": 0.795651597924094,
+          "classes": {
+            "LV": 0.8636464963595827,
+            "MYO": 0.769618107994049,
+            "RV": 0.7536901894186503
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.8271778513691086,
+              "classes": {
+                "LV": 0.892367747339288,
+                "MYO": 0.7785414801058295,
+                "RV": 0.810624326662208
+              }
+            },
+            "ES": {
+              "primary_dice": 0.7641253444790795,
+              "classes": {
+                "LV": 0.8349252453798772,
+                "MYO": 0.7606947358822687,
+                "RV": 0.6967560521750925
+              }
+            }
+          },
+          "patients": 10,
+          "volumes": 20,
+          "forward_slices": 230
+        },
+        "val": {
+          "primary_dice": 0.6904600334609059,
+          "classes": {
+            "LV": 0.7902236433140394,
+            "MYO": 0.7002378274057526,
+            "RV": 0.5809186296629256
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.7520203832636823,
+              "classes": {
+                "LV": 0.8477418324720603,
+                "MYO": 0.7348602187944158,
+                "RV": 0.673459098524571
+              }
+            },
+            "ES": {
+              "primary_dice": 0.6288996836581294,
+              "classes": {
+                "LV": 0.7327054541560184,
+                "MYO": 0.6656154360170897,
+                "RV": 0.48837816080128016
+              }
+            }
+          },
+          "patients": 23,
+          "volumes": 46,
+          "forward_slices": 544
+        },
+        "physical_updates": 10000,
+        "iterations": 10000,
+        "primary": "EMA",
+        "independent_test_access": false,
+        "interpretation": "Source-only 10000-step pilot with matched initialization/L/U/optimizer; no CL efficacy claim or independent test.",
+        "arm": "dense_fixmatch"
+      },
+      "COSTS": {
+        "physical_optimizer_updates": 10000,
+        "iterations": 10000,
+        "physical_cap": 10000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 10000,
+        "U_batch_reads": 70000,
+        "L_slice_exposure": 20000,
+        "U_slice_exposure": 140000,
+        "elapsed_seconds": 3437.101366996765,
+        "extra_accepted_class_nodes": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "relation_query_nodes": 0,
+        "supervised_relation_groups": 0,
+        "extra_teacher_image_forwards": 0
+      },
+      "RELATION_DIAGNOSTIC": {
+        "queries": 139264,
+        "accepted": 470,
+        "corrected": 34,
+        "broken": 44,
+        "accepted_correct": 348,
+        "accepted_by_class": [
+          95,
+          54,
+          13,
+          308
+        ],
+        "correct_by_class": [
+          89,
+          41,
+          11,
+          207
+        ],
+        "coverage": 0.003374885110294118,
+        "precision": 0.7404255319148936,
+        "diagnostic_L_batch_reads": 46,
+        "student_forward_slices": 544,
+        "interpretation": "Final validation-node diagnostic, not training-U accuracy; training-L supports only."
+      },
+      "sampled_telemetry": {
+        "records": 101,
+        "mean_update_norm": 0.043186351571476,
+        "mean_relation_labeled": 0.0,
+        "mean_relation_transfer": 0.0,
+        "base_accepted_by_class": [
+          187954026,
+          373369,
+          47651,
+          12878
+        ],
+        "U_pixels": 208502784
+      }
+    },
+    "label_relation": {
+      "RESULTS": {
+        "status": "COMPLETE",
+        "method": "source_label_anchored_relation_v1",
+        "seed": 163,
+        "train": {
+          "primary_dice": 0.6774055275159517,
+          "classes": {
+            "LV": 0.8226892051567771,
+            "MYO": 0.7305904053939495,
+            "RV": 0.47893697199712915
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.7054774059953018,
+              "classes": {
+                "LV": 0.864386427126627,
+                "MYO": 0.73995001328987,
+                "RV": 0.5120957775694087
+              }
+            },
+            "ES": {
+              "primary_dice": 0.6493336490366022,
+              "classes": {
+                "LV": 0.7809919831869271,
+                "MYO": 0.721230797498029,
+                "RV": 0.4457781664248498
+              }
+            }
+          },
+          "patients": 10,
+          "volumes": 20,
+          "forward_slices": 230
+        },
+        "val": {
+          "primary_dice": 0.5786036938836735,
+          "classes": {
+            "LV": 0.7438408212482611,
+            "MYO": 0.6639753658284085,
+            "RV": 0.32799489457435066
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.6146940800211834,
+              "classes": {
+                "LV": 0.8231720460913159,
+                "MYO": 0.6894059386476074,
+                "RV": 0.3315042553246272
+              }
+            },
+            "ES": {
+              "primary_dice": 0.5425133077461636,
+              "classes": {
+                "LV": 0.6645095964052067,
+                "MYO": 0.6385447930092101,
+                "RV": 0.32448553382407413
+              }
+            }
+          },
+          "patients": 23,
+          "volumes": 46,
+          "forward_slices": 544
+        },
+        "physical_updates": 10000,
+        "iterations": 10000,
+        "primary": "EMA",
+        "independent_test_access": false,
+        "interpretation": "Source-only 10000-step pilot with matched initialization/L/U/optimizer; no CL efficacy claim or independent test.",
+        "arm": "label_relation"
+      },
+      "COSTS": {
+        "physical_optimizer_updates": 10000,
+        "iterations": 10000,
+        "physical_cap": 10000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 10000,
+        "U_batch_reads": 70000,
+        "L_slice_exposure": 20000,
+        "U_slice_exposure": 140000,
+        "elapsed_seconds": 4500.199851512909,
+        "extra_accepted_class_nodes": [
+          22373,
+          8709,
+          4341,
+          2410
+        ],
+        "relation_query_nodes": 35840000,
+        "supervised_relation_groups": 40642,
+        "extra_teacher_image_forwards": 160000
+      },
+      "RELATION_DIAGNOSTIC": {
+        "queries": 139264,
+        "accepted": 747,
+        "corrected": 37,
+        "broken": 31,
+        "accepted_correct": 641,
+        "accepted_by_class": [
+          368,
+          130,
+          97,
+          152
+        ],
+        "correct_by_class": [
+          367,
+          100,
+          71,
+          103
+        ],
+        "coverage": 0.0053639131433823525,
+        "precision": 0.85809906291834,
+        "diagnostic_L_batch_reads": 46,
+        "student_forward_slices": 544,
+        "interpretation": "Final validation-node diagnostic, not training-U accuracy; training-L supports only."
+      },
+      "sampled_telemetry": {
+        "records": 101,
+        "mean_update_norm": 0.04615360223222364,
+        "mean_relation_labeled": 0.43098489610054114,
+        "mean_relation_transfer": 0.0031326755278773774,
+        "base_accepted_by_class": [
+          182695751,
+          188029,
+          1711,
+          0
+        ],
+        "U_pixels": 208502784
+      }
+    }
+  },
+  "audit": {
+    "dense_fixmatch": {
+      "ledger_contiguous": true,
+      "calls": 10000,
+      "exit_code": 0,
+      "checkpoint_bytes": {
+        "initial": 3920815,
+        "latest": 5867405,
+        "final": 5867405
+      }
+    },
+    "label_relation": {
+      "ledger_contiguous": true,
+      "calls": 10000,
+      "exit_code": 0,
+      "checkpoint_bytes": {
+        "initial": 3920815,
+        "latest": 5867405,
+        "final": 5867405
+      }
+    },
+    "total_calls": 20000,
+    "checkpoint_check": "File existence and size only; no deserialization or byte-identity claim."
+  },
+  "paired": {
+    "train": {
+      "patients": 10,
+      "delta_pp": -11.824607040814206,
+      "median_delta_pp": -10.870988576647033,
+      "improved": 0,
+      "worsened": 10,
+      "class_delta_pp": [
+        -4.095729120280546,
+        -3.90277026000996,
+        -27.47532174215211
+      ]
+    },
+    "val": {
+      "patients": 23,
+      "delta_pp": -11.185633957723233,
+      "median_delta_pp": -11.025119711126514,
+      "improved": 0,
+      "worsened": 23,
+      "class_delta_pp": [
+        -4.638282206577816,
+        -3.626246157734388,
+        -25.292373508857498
+      ]
+    }
+  }
+}
