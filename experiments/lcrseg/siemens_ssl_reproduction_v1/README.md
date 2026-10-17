@@ -2,7 +2,7 @@
 
 See [PREREG.md](PREREG.md) for frozen algorithms, differences from author benchmarks, evaluation and budgets, and [STARTUP.md](STARTUP.md) for engineering failures and the authorized scheduling amendment.
 
-CPS has completed: [Chinese report](results/cps/REPORT_ZH.md), [aggregate results](results/cps/RESULTS.json), [paired historical comparison](results/cps/PAIRED_LONLY.json), [costs](results/cps/COSTS.json), and [completion audit](results/cps/COMPLETION.json). FixMatch is still running at this delivery; no final metric is available yet.
+CPS has completed: [Chinese report](results/cps/REPORT_ZH.md), [aggregate results](results/cps/RESULTS.json), [paired historical comparison](results/cps/PAIRED_LONLY.json), [costs](results/cps/COSTS.json), and [completion audit](results/cps/COMPLETION.json). FixMatch has now also completed: [aggregate results](results/fixmatch/RESULTS.json), [paired comparisons](results/fixmatch/PAIRED_COMPARISONS.json), [completion audit](results/fixmatch/COMPLETION.json), and [final Chinese comparison report](results/REPORT_ZH.md). Final EMA validation Dice is 80.3674%; both arms used exactly their allocated physical-update budgets. The earlier CPS report is a dated delivery snapshot; this final comparison supersedes its running-status statement.
 
 Training source was frozen before these results (implementation commit b51d65c; later documentation amendment b874a38). Source is copied from the development checkout without unrelated history. No training code changed for this delivery. The original sequential controller is retained for provenance; the live run was amended to parallel independent workers and must not be launched again.
 
