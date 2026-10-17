@@ -1,0 +1,1992 @@
+{
+  "arms": {
+    "dense_fixmatch": {
+      "results": {
+        "status": "COMPLETE",
+        "arm": "dense_fixmatch",
+        "step": 10000,
+        "physical_updates": 10000,
+        "primary": "fixed final EMA",
+        "train": {
+          "primary_dice": 0.8949757210357678,
+          "classes": {
+            "LV": 0.9207381687383507,
+            "MYO": 0.8602233707894447,
+            "RV": 0.903965623579508
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.9058817625894767,
+              "classes": {
+                "LV": 0.9475480156805235,
+                "MYO": 0.8336461377152589,
+                "RV": 0.9364511343726478
+              }
+            },
+            "ES": {
+              "primary_dice": 0.884069679482059,
+              "classes": {
+                "LV": 0.8939283217961776,
+                "MYO": 0.8868006038636305,
+                "RV": 0.8714801127863684
+              }
+            }
+          },
+          "patients": 10,
+          "volumes": 20,
+          "forward_slices": 198
+        },
+        "Philips": {
+          "primary_dice": 0.8323967945021827,
+          "classes": {
+            "LV": 0.8711953984001201,
+            "MYO": 0.805217748280191,
+            "RV": 0.820777236826237
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.8574781742521776,
+              "classes": {
+                "LV": 0.913821353476052,
+                "MYO": 0.7927195072858425,
+                "RV": 0.8658936619946386
+              }
+            },
+            "ES": {
+              "primary_dice": 0.8073154147521877,
+              "classes": {
+                "LV": 0.8285694433241885,
+                "MYO": 0.8177159892745393,
+                "RV": 0.7756608116578354
+              }
+            }
+          },
+          "patients": 31,
+          "volumes": 62,
+          "forward_slices": 660
+        },
+        "Siemens": {
+          "primary_dice": 0.7650813483965828,
+          "classes": {
+            "LV": 0.8389291184034918,
+            "MYO": 0.7383062503547807,
+            "RV": 0.7180086764314769
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.8012100821754714,
+              "classes": {
+                "LV": 0.8749249805810468,
+                "MYO": 0.7368957855814371,
+                "RV": 0.7918094803639303
+              }
+            },
+            "ES": {
+              "primary_dice": 0.7289526146176947,
+              "classes": {
+                "LV": 0.8029332562259366,
+                "MYO": 0.7397167151281238,
+                "RV": 0.6442078724990234
+              }
+            }
+          },
+          "patients": 23,
+          "volumes": 46,
+          "forward_slices": 544
+        },
+        "old_domain_delta_pp": -3.859271798044339,
+        "paired_old": {
+          "delta_B_minus_A_pp": -3.859271798044302,
+          "classes_pp": {
+            "LV": -3.250501746632629,
+            "MYO": -2.7794761736193085,
+            "RV": -5.547837473880968
+          },
+          "patients": 23,
+          "increased": 4,
+          "decreased": 19,
+          "unchanged": 0,
+          "median_patient_delta_pp": -3.6966553730719762
+        },
+        "two_domain_mean": 0.7987390714493827,
+        "target_train_val_gap_pp": 6.25789265335851,
+        "independent_test_access": false,
+        "diagnostic_holdout_excluded": true
+      },
+      "costs": {
+        "physical_optimizer_updates": 10000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 10000,
+        "U_batch_reads": 70000,
+        "L_slice_exposure": 20000,
+        "U_slice_exposure": 140000,
+        "accepted_class_pixels": [
+          19737745807,
+          139441390,
+          70787256,
+          106706070
+        ],
+        "U_pixels": 20643840000,
+        "training_seconds": 3897.4611489772797,
+        "preflight_and_training_seconds": 3902.9673171043396
+      },
+      "completion": {
+        "status": "VERIFIED",
+        "physical_updates": 10000,
+        "ledger_contiguous": true,
+        "checkpoint_committed": true,
+        "aggregates_verified": true,
+        "extra_model_forwards": 0
+      },
+      "update_norm_summary": {
+        "observations": 101,
+        "first": 0.04020154601523504,
+        "last": 0.04899113755739801,
+        "median": 0.032840842246033015,
+        "maximum": 0.07217795823663559
+      }
+    },
+    "cl_lonly": {
+      "results": {
+        "status": "COMPLETE",
+        "arm": "cl_lonly",
+        "step": 10000,
+        "physical_updates": 10000,
+        "primary": "fixed final EMA",
+        "train": {
+          "primary_dice": 0.8799099811217064,
+          "classes": {
+            "LV": 0.9176663522275641,
+            "MYO": 0.842680647049621,
+            "RV": 0.8793829440879335
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.8884452821189035,
+              "classes": {
+                "LV": 0.9416858951498946,
+                "MYO": 0.8142960688433789,
+                "RV": 0.9093538823634375
+              }
+            },
+            "ES": {
+              "primary_dice": 0.8713746801245088,
+              "classes": {
+                "LV": 0.8936468093052335,
+                "MYO": 0.8710652252558633,
+                "RV": 0.8494120058124297
+              }
+            }
+          },
+          "patients": 10,
+          "volumes": 20,
+          "forward_slices": 198
+        },
+        "Philips": {
+          "primary_dice": 0.7943716073156648,
+          "classes": {
+            "LV": 0.8408619339720402,
+            "MYO": 0.7690021605009828,
+            "RV": 0.7732507274739714
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.822006372683935,
+              "classes": {
+                "LV": 0.8928073525369387,
+                "MYO": 0.7610832597193554,
+                "RV": 0.8121285057955108
+              }
+            },
+            "ES": {
+              "primary_dice": 0.7667368419473949,
+              "classes": {
+                "LV": 0.788916515407142,
+                "MYO": 0.7769210612826104,
+                "RV": 0.7343729491524316
+              }
+            }
+          },
+          "patients": 31,
+          "volumes": 62,
+          "forward_slices": 660
+        },
+        "Siemens": {
+          "primary_dice": 0.6319852228993611,
+          "classes": {
+            "LV": 0.7793426513698555,
+            "MYO": 0.6027453587874099,
+            "RV": 0.5138676585408178
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.660443455563942,
+              "classes": {
+                "LV": 0.8036906353778658,
+                "MYO": 0.601664649119643,
+                "RV": 0.5759750821943173
+              }
+            },
+            "ES": {
+              "primary_dice": 0.6035269902347801,
+              "classes": {
+                "LV": 0.7549946673618453,
+                "MYO": 0.6038260684551764,
+                "RV": 0.4517602348873187
+              }
+            }
+          },
+          "patients": 23,
+          "volumes": 46,
+          "forward_slices": 544
+        },
+        "old_domain_delta_pp": -17.16888434776651,
+        "paired_old": {
+          "delta_B_minus_A_pp": -17.1688843477665,
+          "classes_pp": {
+            "LV": -9.209148449996256,
+            "MYO": -16.335565330356392,
+            "RV": -25.96193926294685
+          },
+          "patients": 23,
+          "increased": 2,
+          "decreased": 21,
+          "unchanged": 0,
+          "median_patient_delta_pp": -18.362021269110095
+        },
+        "two_domain_mean": 0.7131784151075129,
+        "target_train_val_gap_pp": 8.553837380604158,
+        "independent_test_access": false,
+        "diagnostic_holdout_excluded": true
+      },
+      "costs": {
+        "physical_optimizer_updates": 10000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 10000,
+        "U_batch_reads": 0,
+        "L_slice_exposure": 20000,
+        "U_slice_exposure": 0,
+        "accepted_class_pixels": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "U_pixels": 0,
+        "training_seconds": 1474.3905465602875,
+        "preflight_and_training_seconds": 1480.049512386322
+      },
+      "completion": {
+        "status": "VERIFIED",
+        "physical_updates": 10000,
+        "ledger_contiguous": true,
+        "checkpoint_committed": true,
+        "aggregates_verified": true,
+        "extra_model_forwards": 0
+      },
+      "update_norm_summary": {
+        "observations": 101,
+        "first": 0.004299175771731683,
+        "last": 0.011305045983950327,
+        "median": 0.0069928999018435516,
+        "maximum": 0.023193374732518632
+      }
+    },
+    "cl_fixmatch": {
+      "results": {
+        "status": "COMPLETE",
+        "arm": "cl_fixmatch",
+        "step": 10000,
+        "physical_updates": 10000,
+        "primary": "fixed final EMA",
+        "train": {
+          "primary_dice": 0.8768480452485147,
+          "classes": {
+            "LV": 0.9142224158198349,
+            "MYO": 0.8360543958017752,
+            "RV": 0.8802673241239335
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.8868928728665456,
+              "classes": {
+                "LV": 0.9424768714688352,
+                "MYO": 0.8112309362004225,
+                "RV": 0.9069708109303791
+              }
+            },
+            "ES": {
+              "primary_dice": 0.8668032176304835,
+              "classes": {
+                "LV": 0.8859679601708349,
+                "MYO": 0.8608778554031279,
+                "RV": 0.8535638373174879
+              }
+            }
+          },
+          "patients": 10,
+          "volumes": 20,
+          "forward_slices": 198
+        },
+        "Philips": {
+          "primary_dice": 0.814634036920529,
+          "classes": {
+            "LV": 0.8594326676010442,
+            "MYO": 0.7821591708272881,
+            "RV": 0.8023102723332549
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.8405987225304268,
+              "classes": {
+                "LV": 0.9095337180299817,
+                "MYO": 0.774590462390207,
+                "RV": 0.837671987171092
+              }
+            },
+            "ES": {
+              "primary_dice": 0.7886693513106313,
+              "classes": {
+                "LV": 0.809331617172107,
+                "MYO": 0.7897278792643692,
+                "RV": 0.7669485574954183
+              }
+            }
+          },
+          "patients": 31,
+          "volumes": 62,
+          "forward_slices": 660
+        },
+        "Siemens": {
+          "primary_dice": 0.7664335082147485,
+          "classes": {
+            "LV": 0.8584032837360815,
+            "MYO": 0.7376657832942213,
+            "RV": 0.7032314576139427
+          },
+          "phases": {
+            "ED": {
+              "primary_dice": 0.7936627232625193,
+              "classes": {
+                "LV": 0.8799579267940847,
+                "MYO": 0.7357099077451817,
+                "RV": 0.7653203352482914
+              }
+            },
+            "ES": {
+              "primary_dice": 0.7392042931669778,
+              "classes": {
+                "LV": 0.8368486406780783,
+                "MYO": 0.7396216588432608,
+                "RV": 0.6411425799795942
+              }
+            }
+          },
+          "patients": 23,
+          "volumes": 46,
+          "forward_slices": 544
+        },
+        "old_domain_delta_pp": -3.724055816227767,
+        "paired_old": {
+          "delta_B_minus_A_pp": -3.72405581622775,
+          "classes_pp": {
+            "LV": -1.3030852133736517,
+            "MYO": -2.843522879675233,
+            "RV": -7.0255593556343685
+          },
+          "patients": 23,
+          "increased": 5,
+          "decreased": 18,
+          "unchanged": 0,
+          "median_patient_delta_pp": -3.2343161088331525
+        },
+        "two_domain_mean": 0.7905337725676388,
+        "target_train_val_gap_pp": 6.221400832798563,
+        "independent_test_access": false,
+        "diagnostic_holdout_excluded": true
+      },
+      "costs": {
+        "physical_optimizer_updates": 10000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 10000,
+        "U_batch_reads": 70000,
+        "L_slice_exposure": 20000,
+        "U_slice_exposure": 140000,
+        "accepted_class_pixels": [
+          19803433788,
+          159182470,
+          82333106,
+          137758329
+        ],
+        "U_pixels": 20643840000,
+        "training_seconds": 3897.0496242046356,
+        "preflight_and_training_seconds": 3903.0692777633667
+      },
+      "completion": {
+        "status": "VERIFIED",
+        "physical_updates": 10000,
+        "ledger_contiguous": true,
+        "checkpoint_committed": true,
+        "aggregates_verified": true,
+        "extra_model_forwards": 0
+      },
+      "update_norm_summary": {
+        "observations": 101,
+        "first": 0.00564035389577479,
+        "last": 0.01049887694248801,
+        "median": 0.009711161030368745,
+        "maximum": 0.018820910012079306
+      }
+    }
+  },
+  "paired": {
+    "cl_fixmatch_minus_cl_lonly": {
+      "Philips": {
+        "mean_pp": 2.0262429604864307,
+        "median_pp": 0.327183110353176,
+        "patients": 31,
+        "increased": 20,
+        "decreased": 11,
+        "classes_pp": {
+          "LV": 1.8570733629003848,
+          "MYO": 1.3157010326305023,
+          "RV": 2.9059544859284046
+        }
+      },
+      "Siemens": {
+        "mean_pp": 13.444828531538748,
+        "median_pp": 14.064855834258049,
+        "patients": 23,
+        "increased": 23,
+        "decreased": 0,
+        "classes_pp": {
+          "LV": 7.906063236622604,
+          "MYO": 13.492042450681156,
+          "RV": 18.936379907312485
+        }
+      }
+    },
+    "cl_fixmatch_minus_dense_fixmatch": {
+      "Philips": {
+        "mean_pp": -1.7762757581653628,
+        "median_pp": -1.0726242850519447,
+        "patients": 31,
+        "increased": 9,
+        "decreased": 22,
+        "classes_pp": {
+          "LV": -1.176273079907603,
+          "MYO": -2.305857745290309,
+          "RV": -1.846696449298176
+        }
+      },
+      "Siemens": {
+        "mean_pp": 0.13521598181655162,
+        "median_pp": 0.5527149082298272,
+        "patients": 23,
+        "increased": 13,
+        "decreased": 10,
+        "classes_pp": {
+          "LV": 1.947416533258979,
+          "MYO": -0.06404670605592462,
+          "RV": -1.4777218817533995
+        }
+      }
+    }
+  },
+  "diagnostic": {
+    "status": "COMPLETE",
+    "optimizer_updates": 0,
+    "patients": 3,
+    "volumes": 6,
+    "grid": [
+      24,
+      24
+    ],
+    "knn": 8,
+    "temperature": 0.1,
+    "iterations": 20,
+    "alpha": 0.8,
+    "confidence": 0.95,
+    "source": "C final student weak predictions and actual post-F5 pre-head features; old source EMA features",
+    "D0": "current weak",
+    "D1": "current graph",
+    "D2": "old graph",
+    "D3": "simultaneous row/column permutation of old graph",
+    "labels": "reserved TRAIN patients, scoring only; no GT seeds or ROI selection",
+    "results": [
+      {
+        "variant": "D0",
+        "region": "all",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 31468,
+        "correct": 31400,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 31213,
+        "patient_mean_accuracy": 0.997835426679652,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.9919693661526052
+      },
+      {
+        "variant": "D0",
+        "region": "all",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 263,
+        "correct": 244,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 204,
+        "patient_mean_accuracy": 0.926858697227836,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.7734719415381205
+      },
+      {
+        "variant": "D0",
+        "region": "all",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 285,
+        "correct": 241,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 138,
+        "patient_mean_accuracy": 0.8474586198115609,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.46016127663186485
+      },
+      {
+        "variant": "D0",
+        "region": "all",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 240,
+        "correct": 212,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 172,
+        "patient_mean_accuracy": 0.8797252696335266,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.7185353891775911
+      },
+      {
+        "variant": "D0",
+        "region": "nonseed",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 255,
+        "correct": 198,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.7767726475933162,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "nonseed",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 59,
+        "correct": 43,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.725327812284334,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "nonseed",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 147,
+        "correct": 109,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.7358185142484482,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "nonseed",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 68,
+        "correct": 44,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.6260451505016722,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "common_accepted",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 53,
+        "correct": 53,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 1.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "common_accepted",
+        "truth_class": 1,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D0",
+        "region": "common_accepted",
+        "truth_class": 2,
+        "patients_with_support": 2,
+        "n": 3,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "common_accepted",
+        "truth_class": 3,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D0",
+        "region": "boundary",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 34,
+        "correct": 21,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.6312636165577342,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "boundary",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 22,
+        "correct": 11,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.5,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "boundary",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 49,
+        "correct": 28,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.5897435897435898,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "boundary",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 14,
+        "correct": 5,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.3666666666666667,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "interior",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 221,
+        "correct": 177,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.7986840078343347,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "interior",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 37,
+        "correct": 32,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.8634920634920635,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "interior",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 98,
+        "correct": 81,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.8124522536287242,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D0",
+        "region": "interior",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 54,
+        "correct": 39,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.691358024691358,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D1",
+        "region": "all",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 31468,
+        "correct": 31425,
+        "corrected": 30,
+        "broken": 5,
+        "accepted": 31277,
+        "patient_mean_accuracy": 0.998636184405791,
+        "patient_mean_net_correction": 0.0008007577261390274,
+        "patient_mean_coverage": 0.9939713234922826
+      },
+      {
+        "variant": "D1",
+        "region": "all",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 263,
+        "correct": 252,
+        "corrected": 10,
+        "broken": 2,
+        "accepted": 211,
+        "patient_mean_accuracy": 0.9592446684232517,
+        "patient_mean_net_correction": 0.03238597119541583,
+        "patient_mean_coverage": 0.798772948590042
+      },
+      {
+        "variant": "D1",
+        "region": "all",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 285,
+        "correct": 205,
+        "corrected": 1,
+        "broken": 37,
+        "accepted": 141,
+        "patient_mean_accuracy": 0.7096842373312962,
+        "patient_mean_net_correction": -0.13777438248026483,
+        "patient_mean_coverage": 0.4696290637467108
+      },
+      {
+        "variant": "D1",
+        "region": "all",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 240,
+        "correct": 207,
+        "corrected": 6,
+        "broken": 11,
+        "accepted": 179,
+        "patient_mean_accuracy": 0.8602945474505107,
+        "patient_mean_net_correction": -0.019430722183015763,
+        "patient_mean_coverage": 0.744004619233977
+      },
+      {
+        "variant": "D1",
+        "region": "nonseed",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 255,
+        "correct": 223,
+        "corrected": 30,
+        "broken": 5,
+        "accepted": 64,
+        "patient_mean_accuracy": 0.8779369903989965,
+        "patient_mean_net_correction": 0.1011643428056802,
+        "patient_mean_coverage": 0.24805004744214473
+      },
+      {
+        "variant": "D1",
+        "region": "nonseed",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 59,
+        "correct": 51,
+        "corrected": 10,
+        "broken": 2,
+        "accepted": 7,
+        "patient_mean_accuracy": 0.8658385093167702,
+        "patient_mean_net_correction": 0.14051069703243615,
+        "patient_mean_coverage": 0.11331953071083505
+      },
+      {
+        "variant": "D1",
+        "region": "nonseed",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 147,
+        "correct": 73,
+        "corrected": 1,
+        "broken": 37,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.4956095913542722,
+        "patient_mean_net_correction": -0.24020892289417603,
+        "patient_mean_coverage": 0.021620142309797485
+      },
+      {
+        "variant": "D1",
+        "region": "nonseed",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 68,
+        "correct": 39,
+        "corrected": 6,
+        "broken": 11,
+        "accepted": 7,
+        "patient_mean_accuracy": 0.5658096432552954,
+        "patient_mean_net_correction": -0.06023550724637681,
+        "patient_mean_coverage": 0.09221711259754739
+      },
+      {
+        "variant": "D1",
+        "region": "common_accepted",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 53,
+        "correct": 53,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 53,
+        "patient_mean_accuracy": 1.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 1.0
+      },
+      {
+        "variant": "D1",
+        "region": "common_accepted",
+        "truth_class": 1,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D1",
+        "region": "common_accepted",
+        "truth_class": 2,
+        "patients_with_support": 2,
+        "n": 3,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 1.0
+      },
+      {
+        "variant": "D1",
+        "region": "common_accepted",
+        "truth_class": 3,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D1",
+        "region": "boundary",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 34,
+        "correct": 24,
+        "corrected": 4,
+        "broken": 1,
+        "accepted": 4,
+        "patient_mean_accuracy": 0.6900871459694988,
+        "patient_mean_net_correction": 0.05882352941176471,
+        "patient_mean_coverage": 0.13071895424836602
+      },
+      {
+        "variant": "D1",
+        "region": "boundary",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 22,
+        "correct": 18,
+        "corrected": 7,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.8055555555555555,
+        "patient_mean_net_correction": 0.3055555555555555,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D1",
+        "region": "boundary",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 49,
+        "correct": 22,
+        "corrected": 1,
+        "broken": 7,
+        "accepted": 2,
+        "patient_mean_accuracy": 0.4676282051282052,
+        "patient_mean_net_correction": -0.12211538461538463,
+        "patient_mean_coverage": 0.0375
+      },
+      {
+        "variant": "D1",
+        "region": "boundary",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 14,
+        "correct": 3,
+        "corrected": 0,
+        "broken": 2,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.2333333333333333,
+        "patient_mean_net_correction": -0.13333333333333333,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D1",
+        "region": "interior",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 221,
+        "correct": 199,
+        "corrected": 26,
+        "broken": 4,
+        "accepted": 60,
+        "patient_mean_accuracy": 0.9034264210734798,
+        "patient_mean_net_correction": 0.10474241323914525,
+        "patient_mean_coverage": 0.26950111133117666
+      },
+      {
+        "variant": "D1",
+        "region": "interior",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 37,
+        "correct": 33,
+        "corrected": 3,
+        "broken": 2,
+        "accepted": 7,
+        "patient_mean_accuracy": 0.8857142857142857,
+        "patient_mean_net_correction": 0.022222222222222223,
+        "patient_mean_coverage": 0.18095238095238098
+      },
+      {
+        "variant": "D1",
+        "region": "interior",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 98,
+        "correct": 51,
+        "corrected": 0,
+        "broken": 30,
+        "accepted": 1,
+        "patient_mean_accuracy": 0.5284356166709108,
+        "patient_mean_net_correction": -0.28401663695781343,
+        "patient_mean_coverage": 0.015151515151515152
+      },
+      {
+        "variant": "D1",
+        "region": "interior",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 54,
+        "correct": 36,
+        "corrected": 6,
+        "broken": 9,
+        "accepted": 7,
+        "patient_mean_accuracy": 0.6419753086419754,
+        "patient_mean_net_correction": -0.04938271604938271,
+        "patient_mean_coverage": 0.11728395061728396
+      },
+      {
+        "variant": "D2",
+        "region": "all",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 31468,
+        "correct": 31424,
+        "corrected": 35,
+        "broken": 11,
+        "accepted": 31308,
+        "patient_mean_accuracy": 0.9985988765340141,
+        "patient_mean_net_correction": 0.00076344985436211,
+        "patient_mean_coverage": 0.9949272063125276
+      },
+      {
+        "variant": "D2",
+        "region": "all",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 263,
+        "correct": 248,
+        "corrected": 9,
+        "broken": 5,
+        "accepted": 215,
+        "patient_mean_accuracy": 0.9459615597793184,
+        "patient_mean_net_correction": 0.019102862551482438,
+        "patient_mean_coverage": 0.8168610848191825
+      },
+      {
+        "variant": "D2",
+        "region": "all",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 285,
+        "correct": 198,
+        "corrected": 4,
+        "broken": 47,
+        "accepted": 145,
+        "patient_mean_accuracy": 0.6923257787963669,
+        "patient_mean_net_correction": -0.15513284101519398,
+        "patient_mean_coverage": 0.48414735591206176
+      },
+      {
+        "variant": "D2",
+        "region": "all",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 240,
+        "correct": 207,
+        "corrected": 10,
+        "broken": 15,
+        "accepted": 176,
+        "patient_mean_accuracy": 0.8601391472951105,
+        "patient_mean_net_correction": -0.019586122338415918,
+        "patient_mean_coverage": 0.7327602061547016
+      },
+      {
+        "variant": "D2",
+        "region": "nonseed",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 255,
+        "correct": 222,
+        "corrected": 35,
+        "broken": 11,
+        "accepted": 95,
+        "patient_mean_accuracy": 0.8729354626011161,
+        "patient_mean_net_correction": 0.09616281500779982,
+        "patient_mean_coverage": 0.3656904842315177
+      },
+      {
+        "variant": "D2",
+        "region": "nonseed",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 59,
+        "correct": 47,
+        "corrected": 9,
+        "broken": 5,
+        "accepted": 11,
+        "patient_mean_accuracy": 0.8051069703243616,
+        "patient_mean_net_correction": 0.07977915804002761,
+        "patient_mean_coverage": 0.1922705314009662
+      },
+      {
+        "variant": "D2",
+        "region": "nonseed",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 147,
+        "correct": 66,
+        "corrected": 4,
+        "broken": 47,
+        "accepted": 7,
+        "patient_mean_accuracy": 0.4567247784415796,
+        "patient_mean_net_correction": -0.2790937358068686,
+        "patient_mean_coverage": 0.05033248320115525
+      },
+      {
+        "variant": "D2",
+        "region": "nonseed",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 68,
+        "correct": 39,
+        "corrected": 10,
+        "broken": 15,
+        "accepted": 4,
+        "patient_mean_accuracy": 0.58810618729097,
+        "patient_mean_net_correction": -0.03793896321070234,
+        "patient_mean_coverage": 0.05689102564102564
+      },
+      {
+        "variant": "D2",
+        "region": "common_accepted",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 53,
+        "correct": 53,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 53,
+        "patient_mean_accuracy": 1.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 1.0
+      },
+      {
+        "variant": "D2",
+        "region": "common_accepted",
+        "truth_class": 1,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D2",
+        "region": "common_accepted",
+        "truth_class": 2,
+        "patients_with_support": 2,
+        "n": 3,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 1.0
+      },
+      {
+        "variant": "D2",
+        "region": "common_accepted",
+        "truth_class": 3,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D2",
+        "region": "boundary",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 34,
+        "correct": 25,
+        "corrected": 5,
+        "broken": 1,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.7317538126361655,
+        "patient_mean_net_correction": 0.10049019607843139,
+        "patient_mean_coverage": 0.09368191721132897
+      },
+      {
+        "variant": "D2",
+        "region": "boundary",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 22,
+        "correct": 16,
+        "corrected": 6,
+        "broken": 1,
+        "accepted": 2,
+        "patient_mean_accuracy": 0.7083333333333334,
+        "patient_mean_net_correction": 0.20833333333333334,
+        "patient_mean_coverage": 0.09722222222222221
+      },
+      {
+        "variant": "D2",
+        "region": "boundary",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 49,
+        "correct": 22,
+        "corrected": 3,
+        "broken": 9,
+        "accepted": 4,
+        "patient_mean_accuracy": 0.4592948717948718,
+        "patient_mean_net_correction": -0.13044871794871796,
+        "patient_mean_coverage": 0.07980769230769232
+      },
+      {
+        "variant": "D2",
+        "region": "boundary",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 14,
+        "correct": 3,
+        "corrected": 1,
+        "broken": 3,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.2333333333333333,
+        "patient_mean_net_correction": -0.13333333333333333,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D2",
+        "region": "interior",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 221,
+        "correct": 197,
+        "corrected": 30,
+        "broken": 10,
+        "accepted": 92,
+        "patient_mean_accuracy": 0.8909178935322726,
+        "patient_mean_net_correction": 0.09223388569793799,
+        "patient_mean_coverage": 0.4070420985453665
+      },
+      {
+        "variant": "D2",
+        "region": "interior",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 37,
+        "correct": 31,
+        "corrected": 3,
+        "broken": 4,
+        "accepted": 9,
+        "patient_mean_accuracy": 0.8412698412698413,
+        "patient_mean_net_correction": -0.022222222222222223,
+        "patient_mean_coverage": 0.2507936507936508
+      },
+      {
+        "variant": "D2",
+        "region": "interior",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 98,
+        "correct": 44,
+        "corrected": 1,
+        "broken": 38,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.4603174603174603,
+        "patient_mean_net_correction": -0.3521347933112639,
+        "patient_mean_coverage": 0.03823953823953824
+      },
+      {
+        "variant": "D2",
+        "region": "interior",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 54,
+        "correct": 36,
+        "corrected": 9,
+        "broken": 12,
+        "accepted": 4,
+        "patient_mean_accuracy": 0.6790123456790124,
+        "patient_mean_net_correction": -0.012345679012345678,
+        "patient_mean_coverage": 0.07407407407407407
+      },
+      {
+        "variant": "D3",
+        "region": "all",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 31468,
+        "correct": 31457,
+        "corrected": 57,
+        "broken": 0,
+        "accepted": 31345,
+        "patient_mean_accuracy": 0.9996301055851697,
+        "patient_mean_net_correction": 0.0017946789055177997,
+        "patient_mean_coverage": 0.9961292958767687
+      },
+      {
+        "variant": "D3",
+        "region": "all",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 263,
+        "correct": 201,
+        "corrected": 0,
+        "broken": 43,
+        "accepted": 204,
+        "patient_mean_accuracy": 0.7631626631876051,
+        "patient_mean_net_correction": -0.16369603404023092,
+        "patient_mean_coverage": 0.7734719415381205
+      },
+      {
+        "variant": "D3",
+        "region": "all",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 285,
+        "correct": 132,
+        "corrected": 0,
+        "broken": 109,
+        "accepted": 147,
+        "patient_mean_accuracy": 0.44057295645530936,
+        "patient_mean_net_correction": -0.40688566335625165,
+        "patient_mean_coverage": 0.48856463797640265
+      },
+      {
+        "variant": "D3",
+        "region": "all",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 240,
+        "correct": 168,
+        "corrected": 0,
+        "broken": 44,
+        "accepted": 175,
+        "patient_mean_accuracy": 0.7001703698951406,
+        "patient_mean_net_correction": -0.179554899738386,
+        "patient_mean_coverage": 0.7338423044845065
+      },
+      {
+        "variant": "D3",
+        "region": "nonseed",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 255,
+        "correct": 255,
+        "corrected": 57,
+        "broken": 0,
+        "accepted": 132,
+        "patient_mean_accuracy": 1.0,
+        "patient_mean_net_correction": 0.2232273524066837,
+        "patient_mean_coverage": 0.5182853283157235
+      },
+      {
+        "variant": "D3",
+        "region": "nonseed",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 59,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 43,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.725327812284334,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D3",
+        "region": "nonseed",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 147,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 109,
+        "accepted": 9,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.7358185142484482,
+        "patient_mean_coverage": 0.06486042692939244
+      },
+      {
+        "variant": "D3",
+        "region": "nonseed",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 68,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 44,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.6260451505016722,
+        "patient_mean_coverage": 0.054626532887402456
+      },
+      {
+        "variant": "D3",
+        "region": "common_accepted",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 53,
+        "correct": 53,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 53,
+        "patient_mean_accuracy": 1.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 1.0
+      },
+      {
+        "variant": "D3",
+        "region": "common_accepted",
+        "truth_class": 1,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D3",
+        "region": "common_accepted",
+        "truth_class": 2,
+        "patients_with_support": 2,
+        "n": 3,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": 0.0,
+        "patient_mean_coverage": 1.0
+      },
+      {
+        "variant": "D3",
+        "region": "common_accepted",
+        "truth_class": 3,
+        "patients_with_support": 0,
+        "n": 0,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 0,
+        "accepted": 0,
+        "patient_mean_accuracy": null,
+        "patient_mean_net_correction": null,
+        "patient_mean_coverage": null
+      },
+      {
+        "variant": "D3",
+        "region": "boundary",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 34,
+        "correct": 34,
+        "corrected": 13,
+        "broken": 0,
+        "accepted": 12,
+        "patient_mean_accuracy": 1.0,
+        "patient_mean_net_correction": 0.36873638344226584,
+        "patient_mean_coverage": 0.39324618736383443
+      },
+      {
+        "variant": "D3",
+        "region": "boundary",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 22,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 11,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.5,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D3",
+        "region": "boundary",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 49,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 28,
+        "accepted": 6,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.5897435897435898,
+        "patient_mean_coverage": 0.10833333333333334
+      },
+      {
+        "variant": "D3",
+        "region": "boundary",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 14,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 5,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.3666666666666667,
+        "patient_mean_coverage": 0.21666666666666667
+      },
+      {
+        "variant": "D3",
+        "region": "interior",
+        "truth_class": 0,
+        "patients_with_support": 3,
+        "n": 221,
+        "correct": 221,
+        "corrected": 44,
+        "broken": 0,
+        "accepted": 120,
+        "patient_mean_accuracy": 1.0,
+        "patient_mean_net_correction": 0.20131599216566534,
+        "patient_mean_coverage": 0.5417222332255012
+      },
+      {
+        "variant": "D3",
+        "region": "interior",
+        "truth_class": 1,
+        "patients_with_support": 3,
+        "n": 37,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 32,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.8634920634920635,
+        "patient_mean_coverage": 0.0
+      },
+      {
+        "variant": "D3",
+        "region": "interior",
+        "truth_class": 2,
+        "patients_with_support": 3,
+        "n": 98,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 81,
+        "accepted": 3,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.8124522536287242,
+        "patient_mean_coverage": 0.03823953823953824
+      },
+      {
+        "variant": "D3",
+        "region": "interior",
+        "truth_class": 3,
+        "patients_with_support": 3,
+        "n": 54,
+        "correct": 0,
+        "corrected": 0,
+        "broken": 39,
+        "accepted": 0,
+        "patient_mean_accuracy": 0.0,
+        "patient_mean_net_correction": -0.691358024691358,
+        "patient_mean_coverage": 0.0
+      }
+    ],
+    "predicted_class_counts": {
+      "D0/all": [
+        31446,
+        264,
+        292,
+        254
+      ],
+      "D0/nonseed": [
+        237,
+        62,
+        155,
+        75
+      ],
+      "D0/common_accepted": [
+        56,
+        0,
+        0,
+        0
+      ],
+      "D0/boundary": [
+        39,
+        20,
+        47,
+        13
+      ],
+      "D0/interior": [
+        198,
+        42,
+        108,
+        62
+      ],
+      "D1/all": [
+        31500,
+        286,
+        236,
+        234
+      ],
+      "D1/nonseed": [
+        291,
+        84,
+        99,
+        55
+      ],
+      "D1/common_accepted": [
+        56,
+        0,
+        0,
+        0
+      ],
+      "D1/boundary": [
+        47,
+        29,
+        33,
+        10
+      ],
+      "D1/interior": [
+        244,
+        55,
+        66,
+        45
+      ],
+      "D2/all": [
+        31504,
+        281,
+        230,
+        241
+      ],
+      "D2/nonseed": [
+        295,
+        79,
+        93,
+        62
+      ],
+      "D2/common_accepted": [
+        56,
+        0,
+        0,
+        0
+      ],
+      "D2/boundary": [
+        49,
+        27,
+        34,
+        9
+      ],
+      "D2/interior": [
+        246,
+        52,
+        59,
+        53
+      ],
+      "D3/all": [
+        31738,
+        202,
+        137,
+        179
+      ],
+      "D3/nonseed": [
+        529,
+        0,
+        0,
+        0
+      ],
+      "D3/common_accepted": [
+        56,
+        0,
+        0,
+        0
+      ],
+      "D3/boundary": [
+        119,
+        0,
+        0,
+        0
+      ],
+      "D3/interior": [
+        410,
+        0,
+        0,
+        0
+      ]
+    },
+    "interpretation": "Node diagnosis, not dense Dice; three held-out patients do not establish statistical or continual-learning efficacy."
+  },
+  "diagnostic_summary": [
+    {
+      "region": "all",
+      "variant": "D0",
+      "n": 32256,
+      "correct": 32097,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 31727,
+      "patient_mean_accuracy": 0.9950810185185185,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "all",
+      "variant": "D1",
+      "n": 32256,
+      "correct": 32089,
+      "corrected": 47,
+      "broken": 55,
+      "accepted": 31808,
+      "patient_mean_accuracy": 0.9948061342592592,
+      "patient_mean_net_correction": -0.0002748842592592592
+    },
+    {
+      "region": "all",
+      "variant": "D2",
+      "n": 32256,
+      "correct": 32077,
+      "corrected": 58,
+      "broken": 78,
+      "accepted": 31844,
+      "patient_mean_accuracy": 0.9944444444444445,
+      "patient_mean_net_correction": -0.0006365740740740741
+    },
+    {
+      "region": "all",
+      "variant": "D3",
+      "n": 32256,
+      "correct": 31958,
+      "corrected": 57,
+      "broken": 196,
+      "accepted": 31871,
+      "patient_mean_accuracy": 0.990697337962963,
+      "patient_mean_net_correction": -0.004383680555555556
+    },
+    {
+      "region": "nonseed",
+      "variant": "D0",
+      "n": 529,
+      "correct": 394,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 0,
+      "patient_mean_accuracy": 0.7460480413505225,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "nonseed",
+      "variant": "D1",
+      "n": 529,
+      "correct": 386,
+      "corrected": 47,
+      "broken": 55,
+      "accepted": 81,
+      "patient_mean_accuracy": 0.7301369811406053,
+      "patient_mean_net_correction": -0.015911060209917196
+    },
+    {
+      "region": "nonseed",
+      "variant": "D2",
+      "n": 529,
+      "correct": 374,
+      "corrected": 58,
+      "broken": 78,
+      "accepted": 117,
+      "patient_mean_accuracy": 0.7105966992919878,
+      "patient_mean_net_correction": -0.0354513420585347
+    },
+    {
+      "region": "nonseed",
+      "variant": "D3",
+      "n": 529,
+      "correct": 255,
+      "corrected": 57,
+      "broken": 196,
+      "accepted": 144,
+      "patient_mean_accuracy": 0.48102394281652716,
+      "patient_mean_net_correction": -0.2650240985339954
+    },
+    {
+      "region": "common_accepted",
+      "variant": "D0",
+      "n": 56,
+      "correct": 53,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 0,
+      "patient_mean_accuracy": 0.9557894736842105,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "common_accepted",
+      "variant": "D1",
+      "n": 56,
+      "correct": 53,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 56,
+      "patient_mean_accuracy": 0.9557894736842105,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "common_accepted",
+      "variant": "D2",
+      "n": 56,
+      "correct": 53,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 56,
+      "patient_mean_accuracy": 0.9557894736842105,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "common_accepted",
+      "variant": "D3",
+      "n": 56,
+      "correct": 53,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 56,
+      "patient_mean_accuracy": 0.9557894736842105,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "boundary",
+      "variant": "D0",
+      "n": 119,
+      "correct": 65,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 0,
+      "patient_mean_accuracy": 0.5507355673596083,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "boundary",
+      "variant": "D1",
+      "n": 119,
+      "correct": 67,
+      "corrected": 12,
+      "broken": 10,
+      "accepted": 6,
+      "patient_mean_accuracy": 0.5651846022690012,
+      "patient_mean_net_correction": 0.014449034909392965
+    },
+    {
+      "region": "boundary",
+      "variant": "D2",
+      "n": 119,
+      "correct": 66,
+      "corrected": 15,
+      "broken": 14,
+      "accepted": 9,
+      "patient_mean_accuracy": 0.5617964019498547,
+      "patient_mean_net_correction": 0.011060834590246356
+    },
+    {
+      "region": "boundary",
+      "variant": "D3",
+      "n": 119,
+      "correct": 34,
+      "corrected": 13,
+      "broken": 44,
+      "accepted": 21,
+      "patient_mean_accuracy": 0.278542855269198,
+      "patient_mean_net_correction": -0.2721927120904103
+    },
+    {
+      "region": "interior",
+      "variant": "D0",
+      "n": 410,
+      "correct": 329,
+      "corrected": 0,
+      "broken": 0,
+      "accepted": 0,
+      "patient_mean_accuracy": 0.802848087138967,
+      "patient_mean_net_correction": 0.0
+    },
+    {
+      "region": "interior",
+      "variant": "D1",
+      "n": 410,
+      "correct": 319,
+      "corrected": 35,
+      "broken": 45,
+      "accepted": 75,
+      "patient_mean_accuracy": 0.778416953788589,
+      "patient_mean_net_correction": -0.024431133350378026
+    },
+    {
+      "region": "interior",
+      "variant": "D2",
+      "n": 410,
+      "correct": 308,
+      "corrected": 43,
+      "broken": 64,
+      "accepted": 108,
+      "patient_mean_accuracy": 0.7540077350442959,
+      "patient_mean_net_correction": -0.048840352094671094
+    },
+    {
+      "region": "interior",
+      "variant": "D3",
+      "n": 410,
+      "correct": 221,
+      "corrected": 44,
+      "broken": 152,
+      "accepted": 123,
+      "patient_mean_accuracy": 0.5407400643640097,
+      "patient_mean_net_correction": -0.26210802277495726
+    }
+  ],
+  "audit": {
+    "status": "VERIFIED",
+    "physical_updates": 30000,
+    "engineering_updates": 0,
+    "diagnostic_updates": 0,
+    "raw_aggregate_recomputation": true,
+    "extra_model_forwards": 0
+  }
+}
