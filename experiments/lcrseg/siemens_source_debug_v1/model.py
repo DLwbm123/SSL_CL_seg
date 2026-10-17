@@ -45,3 +45,27 @@ class HardPseudoTrainer(MainTrainer):
     def loss_contract(self):
         return {**super().loss_contract(), 'source_u_objective':'class-balanced hard CE + present-foreground Dice',
                 'source_u_implementation':digest(Path(__file__).read_text())}
+
+
+def conservative_objective(logits, target, valid):
+    if logits.shape != target.shape or valid.shape != logits.shape[:1]+logits.shape[2:] or valid.dtype != torch.bool:
+        raise ValueError('pseudo target and mask grids must match')
+    if not torch.isfinite(logits).all() or not torch.isfinite(target).all():
+        raise ValueError('nonfinite pseudo objective input')
+    confidence, labels = target.detach().max(1)
+    kept = valid.detach() & (confidence > .95)
+    ce = -logits.log_softmax(1).gather(1, labels[:, None])[:, 0]
+    # Full-grid normalization prevents a few admitted pixels from receiving full-batch weight.
+    loss = (ce*kept).mean()
+    return loss, dict(valid_pixels=int(kept.sum()), grid_pixels=kept.numel(),
+                      class_pixels=[int((kept & (labels == c)).sum()) for c in range(logits.shape[1])])
+
+
+class ConservativePseudoTrainer(HardPseudoTrainer):
+    def kl_objective(self, images, logits, target, valid):
+        loss, stats = conservative_objective(logits, target, valid)
+        self.last['pseudo'] = stats
+        return loss
+
+    def loss_contract(self):
+        return {**super().loss_contract(), 'source_u_objective': 'confidence>0.95 hard CE, full-grid mean, no class balancing or Dice'}

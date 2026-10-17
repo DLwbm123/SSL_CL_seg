@@ -1,7 +1,7 @@
 import unittest
 import copy
 import torch
-from .model import hard_objective, HardPseudoTrainer
+from .model import hard_objective, HardPseudoTrainer, conservative_objective, ConservativePseudoTrainer
 from ..main_style_ssl_v1.model import MainTrainer, MainModel
 from ..five_frameworks_v1.parent_bridge import SyntheticParentBridge
 from ..five_frameworks_v1.recipes import SyntheticCurrentDomain
@@ -14,7 +14,7 @@ class ObjectiveTest(unittest.TestCase):
         model=MainModel(parent,(0,1,1))
         for step in (0,2):
             terms=[]
-            for cls in (MainTrainer,HardPseudoTrainer):
+            for cls in (MainTrainer,HardPseudoTrainer,ConservativePseudoTrainer):
                 provider=SyntheticCurrentDomain(seed=163,stage=0);provider.dataset='mnms'
                 trainer=cls(copy.deepcopy(model),provider,dict(total_steps=10,lambda_U=.25))
                 trainer.step=trainer.cursor=step
@@ -23,10 +23,24 @@ class ObjectiveTest(unittest.TestCase):
                 terms.append((loss,torch.autograd.grad(loss,params,allow_unused=True)))
                 self.assertEqual(provider.u_reads,0 if step==0 else 1)
                 if step:self.assertTrue(torch.isfinite(u))
-            torch.testing.assert_close(terms[0][0],terms[1][0],rtol=0,atol=0)
-            for a,b in zip(terms[0][1],terms[1][1]):
-                if a is None or b is None:self.assertIs(a,b)
-                else:torch.testing.assert_close(a,b,rtol=0,atol=0)
+            for term in terms[1:]:
+                torch.testing.assert_close(terms[0][0],term[0],rtol=0,atol=0)
+                for a,b in zip(terms[0][1],term[1]):
+                    if a is None or b is None:self.assertIs(a,b)
+                    else:torch.testing.assert_close(a,b,rtol=0,atol=0)
+
+    def test_conservative_sparse_confidence(self):
+        q=torch.tensor([[[[.96,.94]],[[.04,.06]],[[0.,0.]],[[0.,0.]]]],requires_grad=True)
+        x=torch.zeros_like(q,requires_grad=True)
+        valid=torch.ones((1,1,2),dtype=torch.bool)
+        loss,stats=conservative_objective(x,q,valid)
+        self.assertAlmostEqual(float(loss),float(torch.log(torch.tensor(4.)))/2,places=6)
+        loss.backward();self.assertIsNone(q.grad)
+        self.assertEqual(float(x.grad[:,:,:,1].abs().sum()),0)
+        self.assertEqual(stats['valid_pixels'],1)
+        x=torch.zeros_like(q,requires_grad=True)
+        loss,_=conservative_objective(x,q,~valid);loss.backward()
+        self.assertEqual(float(loss),0);self.assertEqual(float(x.grad.abs().sum()),0)
 
     def test_gradient_and_detached_target(self):
         target=torch.tensor([[[[.99,.01]],[[.01,.99]],[[0.,0.]],[[0.,0.]]]],requires_grad=True)
