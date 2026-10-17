@@ -19,6 +19,9 @@ def resolve_method_config(name: str, config: Mapping[str, Any] | None = None) ->
 
     normalized = name.strip().lower().replace("-", "_")
     provided = dict(config or {})
+    if normalized == "care_seg_v1":
+        from .care_seg_v1 import resolve_config
+        return merged_method_config(resolve_config(provided))
     if normalized in {"lcrseg_v0_1", "lcrseg", "lcr"}:
         from .lcrseg_v0_1 import LCR_DEFAULTS
 
@@ -62,6 +65,9 @@ def resolve_method_config(name: str, config: Mapping[str, Any] | None = None) ->
 
 def build_method(name: str, model: UNet2D, *, config: Mapping[str, Any] | None = None):
     normalized = name.strip().lower().replace("-", "_")
+    if normalized == "care_seg_v1":
+        from .care_seg_v1 import CARESegMethod
+        return CARESegMethod(model, config=config)
     if normalized in {"static_sup", "static_supervised"}:
         return SupervisedMethod(model, config=config, continual=False)
     if normalized in {"finetune_sup", "fine_tune_sup"}:

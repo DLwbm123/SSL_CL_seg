@@ -876,6 +876,8 @@ class ContinualRunner:
             method.set_site_index(site_index)
             scope = self._site_data_scope(site_index, site_id)
             labeled_dataset, unlabeled_dataset = self._datasets(scope)
+            if hasattr(method, "prepare_datasets"):
+                labeled_dataset, unlabeled_dataset = method.prepare_datasets(labeled_dataset, unlabeled_dataset, site_id)
             labeled_batcher = DeterministicBatcher(
                 labeled_dataset,
                 batch_size=int(self.config["training"]["labeled_batch_size"]),
@@ -945,6 +947,8 @@ class ContinualRunner:
                 unlabeled_batch = unlabeled_batcher.batch_at(site_step) if unlabeled_batcher is not None else None
                 result: Any = None
                 try:
+                    if hasattr(method, "before_training_step"):
+                        method.before_training_step(site_step)
                     if hasattr(method, "set_training_context"):
                         method.set_training_context(epoch=state.epoch, steps_per_epoch=steps_per_epoch)  # type: ignore[attr-defined]
                     interval = int(self.config["training"].get("gradient_cosine_interval") or 0)

@@ -1,0 +1,267 @@
+{
+  "RESULTS.json": {
+    "status": "COMPLETE",
+    "table": {
+      "supervised": {
+        "Philips_dice": 0.770633456499429,
+        "Siemens_dice": 0.40386062478731705,
+        "old_domain_change_pp": -25.431514032893006,
+        "two_domain_mean": 0.5872470406433731
+      },
+      "ema": {
+        "Philips_dice": 0.7771302012114365,
+        "Siemens_dice": 0.4632291501051322,
+        "old_domain_change_pp": -19.494661501111487,
+        "two_domain_mean": 0.6201796756582844
+      },
+      "care_no_repair": {
+        "Philips_dice": 0.7566334823513922,
+        "Siemens_dice": 0.3305166754157219,
+        "old_domain_change_pp": -32.76590897005252,
+        "two_domain_mean": 0.543575078883557
+      },
+      "care": {
+        "Philips_dice": 0.7554479467228917,
+        "Siemens_dice": 0.33364287609796067,
+        "old_domain_change_pp": -32.45328890182864,
+        "two_domain_mean": 0.5445454114104262
+      }
+    },
+    "pilot_gate": false,
+    "scope": "single seed, two-domain validation pilot; not independent test evidence"
+  },
+  "SOURCE_BASELINE.json": {
+    "Siemens": {
+      "site": "Siemens",
+      "patients": 23,
+      "class_dice": [
+        0.7486148537173586,
+        0.6431185528824751,
+        0.5827938887489077
+      ],
+      "macro_dice": 0.6581757651162471
+    },
+    "Philips": {
+      "site": "Philips",
+      "patients": 31,
+      "class_dice": [
+        0.6149921452841746,
+        0.5202475612981423,
+        0.47221618623575035
+      ],
+      "macro_dice": 0.5358186309393558
+    }
+  },
+  "COMPLETION_VERIFIED.json": {
+    "supervised": {
+      "final_step": 4000,
+      "latest_step": 4000,
+      "arm_matches": true,
+      "physical_updates": 4000,
+      "engineering_updates": 2,
+      "recovery_records": false
+    },
+    "ema": {
+      "final_step": 4000,
+      "latest_step": 4000,
+      "arm_matches": true,
+      "physical_updates": 4000,
+      "engineering_updates": 2,
+      "recovery_records": false
+    },
+    "care_no_repair": {
+      "final_step": 4000,
+      "latest_step": 4000,
+      "arm_matches": true,
+      "physical_updates": 4000,
+      "engineering_updates": 2,
+      "recovery_records": false,
+      "last_block": 15,
+      "ema_updates": 4000,
+      "nodes": [
+        {
+          "name": "foreground",
+          "positive_weight_fraction": 0.9859653494371482,
+          "mean_weight": 0.9859653494371482
+        },
+        {
+          "name": "ventricle_side",
+          "positive_weight_fraction": 0.03350452186913696,
+          "mean_weight": 0.021888275327444508
+        },
+        {
+          "name": "lv_cavity_wall",
+          "positive_weight_fraction": 0.01394578887195122,
+          "mean_weight": 0.010017104835637858
+        }
+      ]
+    },
+    "care": {
+      "final_step": 4000,
+      "latest_step": 4000,
+      "arm_matches": true,
+      "physical_updates": 4000,
+      "engineering_updates": 2,
+      "recovery_records": false,
+      "last_block": 15,
+      "ema_updates": 4000,
+      "nodes": [
+        {
+          "name": "foreground",
+          "positive_weight_fraction": 0.9871086421200751,
+          "mean_weight": 0.9871086421200751
+        },
+        {
+          "name": "ventricle_side",
+          "positive_weight_fraction": 0.03601738391181989,
+          "mean_weight": 0.022176609985172128
+        },
+        {
+          "name": "lv_cavity_wall",
+          "positive_weight_fraction": 0.014574233407598499,
+          "mean_weight": 0.010126686759047097
+        }
+      ]
+    }
+  },
+  "arms": {
+    "supervised": {
+      "arm": "supervised",
+      "status": "COMPLETE",
+      "steps": 4000,
+      "physical_updates": 4000,
+      "engineering_optimizer_updates": 2,
+      "metrics": {
+        "Siemens": {
+          "site": "Siemens",
+          "patients": 23,
+          "class_dice": [
+            0.5138717811734632,
+            0.43049127954727323,
+            0.2672188136412147
+          ],
+          "macro_dice": 0.40386062478731705
+        },
+        "Philips": {
+          "site": "Philips",
+          "patients": 31,
+          "class_dice": [
+            0.8244335987194146,
+            0.7476650344411141,
+            0.7398017363377586
+          ],
+          "macro_dice": 0.770633456499429
+        }
+      },
+      "controller": {}
+    },
+    "ema": {
+      "arm": "ema",
+      "status": "COMPLETE",
+      "steps": 4000,
+      "physical_updates": 4000,
+      "engineering_optimizer_updates": 2,
+      "metrics": {
+        "Siemens": {
+          "site": "Siemens",
+          "patients": 23,
+          "class_dice": [
+            0.5605451691656337,
+            0.5041938039574354,
+            0.3249484771923277
+          ],
+          "macro_dice": 0.4632291501051322
+        },
+        "Philips": {
+          "site": "Philips",
+          "patients": 31,
+          "class_dice": [
+            0.834812107141601,
+            0.7539468091824548,
+            0.7426316873102536
+          ],
+          "macro_dice": 0.7771302012114365
+        }
+      },
+      "controller": {}
+    },
+    "care_no_repair": {
+      "arm": "care_no_repair",
+      "status": "COMPLETE",
+      "steps": 4000,
+      "physical_updates": 4000,
+      "engineering_optimizer_updates": 2,
+      "metrics": {
+        "Siemens": {
+          "site": "Siemens",
+          "patients": 23,
+          "class_dice": [
+            0.4329904299652057,
+            0.3682996667941458,
+            0.19025992948781412
+          ],
+          "macro_dice": 0.3305166754157219
+        },
+        "Philips": {
+          "site": "Philips",
+          "patients": 31,
+          "class_dice": [
+            0.8287917815986496,
+            0.7383059036939954,
+            0.7028027617615314
+          ],
+          "macro_dice": 0.7566334823513922
+        }
+      },
+      "controller": {
+        "repair_updates": 0,
+        "em_iterations": 150,
+        "accepted": 1147888,
+        "decisions": 3274752,
+        "action_P": 56100,
+        "action_R": 0,
+        "action_H": 1091788,
+        "supported_branches": 6
+      }
+    },
+    "care": {
+      "arm": "care",
+      "status": "COMPLETE",
+      "steps": 4000,
+      "physical_updates": 4000,
+      "engineering_optimizer_updates": 2,
+      "metrics": {
+        "Siemens": {
+          "site": "Siemens",
+          "patients": 23,
+          "class_dice": [
+            0.4375191104791059,
+            0.36969222743493707,
+            0.19371729037983915
+          ],
+          "macro_dice": 0.33364287609796067
+        },
+        "Philips": {
+          "site": "Philips",
+          "patients": 31,
+          "class_dice": [
+            0.8276240624506787,
+            0.7367928738160922,
+            0.7019269039019043
+          ],
+          "macro_dice": 0.7554479467228917
+        }
+      },
+      "controller": {
+        "repair_updates": 150,
+        "em_iterations": 150,
+        "accepted": 1151493,
+        "decisions": 3274752,
+        "action_P": 52571,
+        "action_R": 6673,
+        "action_H": 1092249,
+        "supported_branches": 6
+      }
+    }
+  }
+}
