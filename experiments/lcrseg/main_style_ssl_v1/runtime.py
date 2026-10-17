@@ -35,7 +35,7 @@ def permit(node,scope):
     return ExecutionPermit(dict(authorized_manifest_digests=[digest(identity)],execution_scope=scope),('main',),dict(native_updates=node['steps']),_PERMIT_SEAL)
 
 
-def setup(node,data,reference,device,predecessor=None,initialize=True):
+def setup(node,data,reference,device,predecessor=None,initialize=True,source_labeled_only=False,trainer_type=MainTrainer):
     device=torch.device(device)
     ds=node['dataset'];source=node['stage']==0
     native=build(reference,device,node['seed'],input_channels=SHAPES[ds][0],num_classes=len(MAPS[ds]),domain=ORDERS[ds][0][0])
@@ -57,7 +57,11 @@ def setup(node,data,reference,device,predecessor=None,initialize=True):
     model=MainModel(parent,MAPS[ds],previous,initialize_basis=initialize)
     execution=permit(node,node.get('scope','formal'))
     provider=CurrentDomain(data,ds,node['domain'],node['seed'],node['order'],node['stage'],lineage,device,execution)
-    trainer=MainTrainer(model,provider,options(node['steps'],source),initialize=initialize,execution=execution)
+    opt=options(node['steps'],source)
+    if source_labeled_only:
+        if not source:raise ValueError('L-only control is restricted to source training')
+        opt['lambda_U']=0.
+    trainer=trainer_type(model,provider,opt,initialize=initialize,execution=execution)
     return trainer
 
 

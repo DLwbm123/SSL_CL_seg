@@ -1,0 +1,157 @@
+{
+  "status": "COMPLETE",
+  "seed": 163,
+  "A": {
+    "train": {
+      "primary_dice": 0.901843641412156,
+      "classes": {
+        "LV": 0.9416194265681135,
+        "MYO": 0.85842646656729,
+        "RV": 0.9054850311010638
+      },
+      "phases": {
+        "ED": {
+          "primary_dice": 0.9111723666394,
+          "classes": {
+            "LV": 0.9557848933488552,
+            "MYO": 0.8584869598480637,
+            "RV": 0.9192452467212806
+          }
+        },
+        "ES": {
+          "primary_dice": 0.8925149161849114,
+          "classes": {
+            "LV": 0.9274539597873714,
+            "MYO": 0.8583659732865166,
+            "RV": 0.8917248154808469
+          }
+        }
+      },
+      "patients": 10,
+      "volumes": 20,
+      "reused_completed_inference": true
+    },
+    "val": {
+      "primary_dice": 0.7229172979899579,
+      "classes": {
+        "LV": 0.8004862302864342,
+        "MYO": 0.7064154962529806,
+        "RV": 0.6618501674304587
+      },
+      "phases": {
+        "ED": {
+          "primary_dice": 0.7777041244383449,
+          "classes": {
+            "LV": 0.8450651623796526,
+            "MYO": 0.7474087171279578,
+            "RV": 0.7406384938074246
+          }
+        },
+        "ES": {
+          "primary_dice": 0.6681304715415706,
+          "classes": {
+            "LV": 0.7559072981932154,
+            "MYO": 0.6654222753780035,
+            "RV": 0.5830618410534928
+          }
+        }
+      },
+      "patients": 23,
+      "volumes": 46,
+      "reused_completed_inference": true
+    }
+  },
+  "B": {
+    "train": {
+      "primary_dice": 0.9034678995922524,
+      "classes": {
+        "LV": 0.9466069872079338,
+        "MYO": 0.8625505275974652,
+        "RV": 0.9012461839713579
+      },
+      "phases": {
+        "ED": {
+          "primary_dice": 0.9162698867450156,
+          "classes": {
+            "LV": 0.9596666811127884,
+            "MYO": 0.8677728968366637,
+            "RV": 0.9213700822855946
+          }
+        },
+        "ES": {
+          "primary_dice": 0.8906659124394891,
+          "classes": {
+            "LV": 0.9335472933030792,
+            "MYO": 0.8573281583582668,
+            "RV": 0.8811222856571211
+          }
+        }
+      },
+      "patients": 10,
+      "volumes": 20,
+      "forward_slices": 230
+    },
+    "val": {
+      "primary_dice": 0.658175765116247,
+      "classes": {
+        "LV": 0.7486148537173586,
+        "MYO": 0.6431185528824751,
+        "RV": 0.5827938887489077
+      },
+      "phases": {
+        "ED": {
+          "primary_dice": 0.7328035738101916,
+          "classes": {
+            "LV": 0.8174964240446638,
+            "MYO": 0.709097706794094,
+            "RV": 0.6718165905918168
+          }
+        },
+        "ES": {
+          "primary_dice": 0.5835479564223026,
+          "classes": {
+            "LV": 0.6797332833900532,
+            "MYO": 0.577139398970856,
+            "RV": 0.4937711869059985
+          }
+        }
+      },
+      "patients": 23,
+      "volumes": 46,
+      "forward_slices": 0,
+      "reused": true
+    }
+  },
+  "paired_train": {
+    "delta_B_minus_A_pp": 0.16242581800965697,
+    "classes_pp": {
+      "LV": 0.4987560639820515,
+      "MYO": 0.4124061030175074,
+      "RV": -0.423884712970588
+    },
+    "patients": 10,
+    "increased": 6,
+    "decreased": 4,
+    "unchanged": 0,
+    "median_patient_delta_pp": 0.2197040687676714
+  },
+  "paired_val": {
+    "delta_B_minus_A_pp": -6.474153287371068,
+    "classes_pp": {
+      "LV": -5.1871376569075505,
+      "MYO": -6.329694337050558,
+      "RV": -7.905627868155098
+    },
+    "patients": 23,
+    "increased": 3,
+    "decreased": 20,
+    "unchanged": 0,
+    "median_patient_delta_pp": -5.55841731504663
+  },
+  "new_optimizer_updates": 43601,
+  "scientific_step": 43600,
+  "recovery_optimizer_updates": 0,
+  "independent_test_access": false,
+  "checkpoint_selection": "fixed final",
+  "interpretation": "Selected development seed; historical B used different GPU/backend. A inference and B validation reused; only unfinished B train inference executed."
+}

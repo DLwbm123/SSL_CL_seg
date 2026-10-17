@@ -189,7 +189,8 @@ class StageTrainer:
             labeled=labeled+opt.get('lambda_structure',.1)*self.probe['scale']*structure
         finite(labeled,'combined labeled loss')
         self.last={'labeled_loss':float(labeled.detach()),'active_U':False}
-        if m.family in NO_U or not active:return labeled,None,None
+        # A zero U coefficient keeps the labeled schedule without reading U.
+        if m.family in NO_U or not active or opt['lambda_U']==0:return labeled,None,None
         p,s,before_l,h_l,lclasses=self.prototypes.estimate(t,x,y)
         pending=(p,s);self.telemetry['teacher_full_forwards']+=1
         u,geometry,ids=self.provider.unlabeled(self.cursor)

@@ -6,13 +6,12 @@ if (( $# == 0 )); then
     exit 64
 fi
 
-export SSLCL_STORAGE_ROOT=/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg
-if ! mountpoint -q /data_nas; then
-    printf 'NAS is not mounted; refusing to write experiment artifacts to home.\n' >&2
-    exit 78
-fi
+export SSLCL_STORAGE_ROOT="${SSLCL_STORAGE_ROOT:-/data_nas/jiangsuiyang/LCR-Seg/SSL_CL_seg}"
+# pro5000 uses the explicitly authorized /data volume; other hosts require NFS.
+[[ "$SSLCL_STORAGE_ROOT" = /* ]] || exit 78
 case "$(findmnt -rn -T "$SSLCL_STORAGE_ROOT" -o FSTYPE)" in
     nfs|nfs4) ;;
+    ext4) [[ "$SSLCL_STORAGE_ROOT" == /data/* && "$(findmnt -rn -T "$SSLCL_STORAGE_ROOT" -o TARGET)" == /data ]] || exit 78 ;;
     *) printf 'The experiment storage root is not on NFS; stopping.\n' >&2; exit 78 ;;
 esac
 
