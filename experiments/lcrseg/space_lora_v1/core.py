@@ -44,7 +44,7 @@ class Parent(NativeLRParent):
             w = native.get_parameter(name); d = w.flatten(1).shape[1]
             generator = torch.Generator().manual_seed(163+i)
             tensors[name] = dict(W0=w, V=torch.empty(d,0),
-                                 G=torch.randn(RANK,d,generator=generator)/math.sqrt(d))
+                                 G=torch.empty(RANK,d).uniform_(-1/math.sqrt(d),1/math.sqrt(d),generator=generator))
             basis = bases[name] if protected else torch.empty(d,0)
             self.register_buffer('space_basis_'+str(i), basis.to(w))
         lr.configure(native, 'LR_FREE', lambda name:tensors[name])
