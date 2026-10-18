@@ -1,0 +1,1144 @@
+{
+  "source": {
+    "primary_dice": 0.8036740663770262,
+    "classes": {
+      "LV": 0.871434135869818,
+      "MYO": 0.7661010120909735,
+      "RV": 0.7734870511702864
+    },
+    "phases": {
+      "ED": {
+        "primary_dice": 0.8484671242199135,
+        "classes": {
+          "LV": 0.9053697482898044,
+          "MYO": 0.7930287690892044,
+          "RV": 0.8470028552807318
+        }
+      },
+      "ES": {
+        "primary_dice": 0.7588810085341386,
+        "classes": {
+          "LV": 0.8374985234498316,
+          "MYO": 0.7391732550927427,
+          "RV": 0.6999712470598409
+        }
+      }
+    },
+    "patients": 23,
+    "volumes": 46
+  },
+  "arms": {
+    "dense_fixmatch": {
+      "status": "COMPLETE",
+      "arm": "dense_fixmatch",
+      "step": 4000,
+      "physical_updates": 4000,
+      "primary": "fixed final EMA",
+      "train": {
+        "primary_dice": 0.8744266104685704,
+        "classes": {
+          "LV": 0.9150656196856424,
+          "MYO": 0.8434882414862016,
+          "RV": 0.8647259702338672
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8873249943390317,
+            "classes": {
+              "LV": 0.9419953299577666,
+              "MYO": 0.819662826680847,
+              "RV": 0.9003168263784811
+            }
+          },
+          "ES": {
+            "primary_dice": 0.8615282265981093,
+            "classes": {
+              "LV": 0.888135909413518,
+              "MYO": 0.8673136562915558,
+              "RV": 0.8291351140892537
+            }
+          }
+        },
+        "patients": 13,
+        "volumes": 26,
+        "forward_slices": 254
+      },
+      "Philips": {
+        "primary_dice": 0.8252302554386204,
+        "classes": {
+          "LV": 0.8627066121164061,
+          "MYO": 0.799037825613335,
+          "RV": 0.8139463285861198
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8519670623889913,
+            "classes": {
+              "LV": 0.9068847422647806,
+              "MYO": 0.7875465994661904,
+              "RV": 0.8614698454360034
+            }
+          },
+          "ES": {
+            "primary_dice": 0.7984934484882492,
+            "classes": {
+              "LV": 0.8185284819680313,
+              "MYO": 0.8105290517604791,
+              "RV": 0.7664228117362368
+            }
+          }
+        },
+        "patients": 31,
+        "volumes": 62,
+        "forward_slices": 660
+      },
+      "Siemens": {
+        "primary_dice": 0.7687180632448973,
+        "classes": {
+          "LV": 0.8444131381694401,
+          "MYO": 0.7442305909352515,
+          "RV": 0.7175104606300009
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.7975233249436366,
+            "classes": {
+              "LV": 0.8692701117274678,
+              "MYO": 0.7419027451748212,
+              "RV": 0.7813971179286214
+            }
+          },
+          "ES": {
+            "primary_dice": 0.7399128015461582,
+            "classes": {
+              "LV": 0.8195561646114129,
+              "MYO": 0.7465584366956814,
+              "RV": 0.6536238033313806
+            }
+          }
+        },
+        "patients": 23,
+        "volumes": 46,
+        "forward_slices": 544
+      },
+      "old_domain_delta_pp": -3.4956003132128877,
+      "paired_old": {
+        "delta_B_minus_A_pp": -3.4956003132128504,
+        "classes_pp": {
+          "LV": -2.7020997700377807,
+          "MYO": -2.1870421155722246,
+          "RV": -5.597659054028546
+        },
+        "patients": 23,
+        "increased": 3,
+        "decreased": 20,
+        "unchanged": 0,
+        "median_patient_delta_pp": -3.1241345288414064
+      },
+      "two_domain_mean": 0.7969741593417589,
+      "target_train_val_gap_pp": 4.919635502995002,
+      "independent_test_access": false,
+      "diagnostic_holdout_excluded": false,
+      "source_train": {
+        "primary_dice": 0.7619431444909383,
+        "classes": {
+          "LV": 0.8452608174310339,
+          "MYO": 0.7284078693877937,
+          "RV": 0.7121607466539871
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.7642396622618155,
+            "classes": {
+              "LV": 0.852136207043787,
+              "MYO": 0.706735767223361,
+              "RV": 0.7338470125182986
+            }
+          },
+          "ES": {
+            "primary_dice": 0.7596466267200609,
+            "classes": {
+              "LV": 0.8383854278182807,
+              "MYO": 0.7500799715522264,
+              "RV": 0.6904744807896754
+            }
+          }
+        },
+        "patients": 10,
+        "volumes": 20,
+        "forward_slices": 230
+      }
+    },
+    "free_lora": {
+      "status": "COMPLETE",
+      "arm": "free_lora",
+      "step": 4000,
+      "physical_updates": 4000,
+      "primary": "fixed final EMA",
+      "train": {
+        "primary_dice": 0.8603008038377629,
+        "classes": {
+          "LV": 0.9043298547115182,
+          "MYO": 0.8268897149013728,
+          "RV": 0.8496828419003974
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8786205618150938,
+            "classes": {
+              "LV": 0.9368466353888121,
+              "MYO": 0.8058375919437195,
+              "RV": 0.8931774581127505
+            }
+          },
+          "ES": {
+            "primary_dice": 0.8419810458604317,
+            "classes": {
+              "LV": 0.8718130740342243,
+              "MYO": 0.8479418378590261,
+              "RV": 0.8061882256880447
+            }
+          }
+        },
+        "patients": 13,
+        "volumes": 26,
+        "forward_slices": 254
+      },
+      "Philips": {
+        "primary_dice": 0.8263302903926756,
+        "classes": {
+          "LV": 0.8698597992030612,
+          "MYO": 0.7916507408608046,
+          "RV": 0.8174803311141609
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8526719784978679,
+            "classes": {
+              "LV": 0.9174923729749664,
+              "MYO": 0.7872350006409268,
+              "RV": 0.8532885618777108
+            }
+          },
+          "ES": {
+            "primary_dice": 0.799988602287483,
+            "classes": {
+              "LV": 0.8222272254311562,
+              "MYO": 0.7960664810806818,
+              "RV": 0.781672100350611
+            }
+          }
+        },
+        "patients": 31,
+        "volumes": 62,
+        "forward_slices": 660
+      },
+      "Siemens": {
+        "primary_dice": 0.7856382483344717,
+        "classes": {
+          "LV": 0.8635673234115234,
+          "MYO": 0.7439949144433998,
+          "RV": 0.7493525071484918
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8197920599773466,
+            "classes": {
+              "LV": 0.8891405767565886,
+              "MYO": 0.7498472772967817,
+              "RV": 0.820388325878669
+            }
+          },
+          "ES": {
+            "primary_dice": 0.7514844366915968,
+            "classes": {
+              "LV": 0.8379940700664583,
+              "MYO": 0.7381425515900181,
+              "RV": 0.6783166884183147
+            }
+          }
+        },
+        "patients": 23,
+        "volumes": 46,
+        "forward_slices": 544
+      },
+      "old_domain_delta_pp": -1.8035818042554497,
+      "paired_old": {
+        "delta_B_minus_A_pp": -1.8035818042554306,
+        "classes_pp": {
+          "LV": -0.7866812458294532,
+          "MYO": -2.2106097647573724,
+          "RV": -2.413454402179466
+        },
+        "patients": 23,
+        "increased": 7,
+        "decreased": 16,
+        "unchanged": 0,
+        "median_patient_delta_pp": -1.540615167902612
+      },
+      "two_domain_mean": 0.8059842693635737,
+      "target_train_val_gap_pp": 3.397051344508728,
+      "independent_test_access": false,
+      "diagnostic_holdout_excluded": false,
+      "source_train": {
+        "primary_dice": 0.8699213683404048,
+        "classes": {
+          "LV": 0.9261343904403198,
+          "MYO": 0.8081966684211768,
+          "RV": 0.875433046159718
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8743694824974636,
+            "classes": {
+              "LV": 0.9366611139452358,
+              "MYO": 0.7941983771153719,
+              "RV": 0.8922489564317833
+            }
+          },
+          "ES": {
+            "primary_dice": 0.8654732541833461,
+            "classes": {
+              "LV": 0.915607666935404,
+              "MYO": 0.8221949597269818,
+              "RV": 0.8586171358876525
+            }
+          }
+        },
+        "patients": 10,
+        "volumes": 20,
+        "forward_slices": 230
+      }
+    },
+    "space_lora": {
+      "status": "COMPLETE",
+      "arm": "space_lora",
+      "step": 4000,
+      "physical_updates": 4000,
+      "primary": "fixed final EMA",
+      "train": {
+        "primary_dice": 0.8430054380263564,
+        "classes": {
+          "LV": 0.8925162691152873,
+          "MYO": 0.8108104021734412,
+          "RV": 0.8256896427903408
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8625246276140722,
+            "classes": {
+              "LV": 0.9287482156498006,
+              "MYO": 0.7946808060006331,
+              "RV": 0.8641448611917829
+            }
+          },
+          "ES": {
+            "primary_dice": 0.8234862484386408,
+            "classes": {
+              "LV": 0.856284322580774,
+              "MYO": 0.8269399983462496,
+              "RV": 0.7872344243888987
+            }
+          }
+        },
+        "patients": 13,
+        "volumes": 26,
+        "forward_slices": 254
+      },
+      "Philips": {
+        "primary_dice": 0.8201301547662154,
+        "classes": {
+          "LV": 0.8646025088015453,
+          "MYO": 0.7842257782573522,
+          "RV": 0.8115621772397489
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8535039903229853,
+            "classes": {
+              "LV": 0.9194849861347199,
+              "MYO": 0.7852814527582963,
+              "RV": 0.8557455320759396
+            }
+          },
+          "ES": {
+            "primary_dice": 0.7867563192094459,
+            "classes": {
+              "LV": 0.8097200314683708,
+              "MYO": 0.783170103756408,
+              "RV": 0.7673788224035584
+            }
+          }
+        },
+        "patients": 31,
+        "volumes": 62,
+        "forward_slices": 660
+      },
+      "Siemens": {
+        "primary_dice": 0.7986681907470817,
+        "classes": {
+          "LV": 0.8709136617035732,
+          "MYO": 0.7558830725707518,
+          "RV": 0.7692078379669205
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.8400938240032821,
+            "classes": {
+              "LV": 0.9010257038391704,
+              "MYO": 0.7749148008346317,
+              "RV": 0.8443409673360437
+            }
+          },
+          "ES": {
+            "primary_dice": 0.757242557490882,
+            "classes": {
+              "LV": 0.8408016195679759,
+              "MYO": 0.7368513443068722,
+              "RV": 0.6940747085977972
+            }
+          }
+        },
+        "patients": 23,
+        "volumes": 46,
+        "forward_slices": 544
+      },
+      "old_domain_delta_pp": -0.5005875629944478,
+      "paired_old": {
+        "delta_B_minus_A_pp": -0.5005875629944146,
+        "classes_pp": {
+          "LV": -0.05204741662448007,
+          "MYO": -1.0217939520221586,
+          "RV": -0.42792132033660485
+        },
+        "patients": 23,
+        "increased": 8,
+        "decreased": 15,
+        "unchanged": 0,
+        "median_patient_delta_pp": -0.4163764063540058
+      },
+      "two_domain_mean": 0.8093991727566485,
+      "target_train_val_gap_pp": 2.287528326014099,
+      "independent_test_access": false,
+      "diagnostic_holdout_excluded": false,
+      "source_train": {
+        "primary_dice": 0.9104950770128158,
+        "classes": {
+          "LV": 0.9479440401989525,
+          "MYO": 0.8588488111444963,
+          "RV": 0.9246923796949991
+        },
+        "phases": {
+          "ED": {
+            "primary_dice": 0.9214091901627646,
+            "classes": {
+              "LV": 0.9612518607702155,
+              "MYO": 0.8598429165702616,
+              "RV": 0.9431327931478162
+            }
+          },
+          "ES": {
+            "primary_dice": 0.8995809638628673,
+            "classes": {
+              "LV": 0.9346362196276891,
+              "MYO": 0.8578547057187309,
+              "RV": 0.9062519662421819
+            }
+          }
+        },
+        "patients": 10,
+        "volumes": 20,
+        "forward_slices": 230
+      }
+    }
+  },
+  "paired": {
+    "space_minus_dense_fixmatch": {
+      "Philips": {
+        "overall": {
+          "delta_B_minus_A_pp": -0.5100100672404717,
+          "classes_pp": {
+            "LV": 0.1895896685139308,
+            "MYO": -1.4812047355982425,
+            "RV": -0.23841513463710348
+          },
+          "patients": 31,
+          "increased": 9,
+          "decreased": 22,
+          "unchanged": 0,
+          "median_patient_delta_pp": -1.0867838428804197
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": 0.15369279339938616,
+            "classes_pp": {
+              "LV": 1.2600243869939052,
+              "MYO": -0.22651467078937232,
+              "RV": -0.5724313360063743
+            },
+            "patients": 31,
+            "increased": 10,
+            "decreased": 21,
+            "unchanged": 0,
+            "median_patient_delta_pp": -0.7511448735043464
+          },
+          "ES": {
+            "delta_B_minus_A_pp": -1.1737129278803293,
+            "classes_pp": {
+              "LV": -0.8808450499660438,
+              "MYO": -2.7358948004071126,
+              "RV": 0.09560106673216745
+            },
+            "patients": 31,
+            "increased": 13,
+            "decreased": 18,
+            "unchanged": 0,
+            "median_patient_delta_pp": -0.481535444860907
+          }
+        }
+      },
+      "Siemens": {
+        "overall": {
+          "delta_B_minus_A_pp": 2.995012750218436,
+          "classes_pp": {
+            "LV": 2.650052353413301,
+            "MYO": 1.165248163550065,
+            "RV": 5.169737733691939
+          },
+          "patients": 23,
+          "increased": 19,
+          "decreased": 4,
+          "unchanged": 0,
+          "median_patient_delta_pp": 2.2962880152061644
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": 4.2570499059645215,
+            "classes_pp": {
+              "LV": 3.1755592111702797,
+              "MYO": 3.301205565981062,
+              "RV": 6.294384940742226
+            },
+            "patients": 23,
+            "increased": 21,
+            "decreased": 2,
+            "unchanged": 0,
+            "median_patient_delta_pp": 3.7144257027692307
+          },
+          "ES": {
+            "delta_B_minus_A_pp": 1.7329755944723482,
+            "classes_pp": {
+              "LV": 2.124545495656322,
+              "MYO": -0.9707092388809313,
+              "RV": 4.045090526641655
+            },
+            "patients": 23,
+            "increased": 16,
+            "decreased": 7,
+            "unchanged": 0,
+            "median_patient_delta_pp": 3.5663700311437876
+          }
+        }
+      },
+      "train": {
+        "overall": {
+          "delta_B_minus_A_pp": -3.1421172442213874,
+          "classes_pp": {
+            "LV": -2.254935057035498,
+            "MYO": -3.2677839312760164,
+            "RV": -3.90363274435265
+          },
+          "patients": 13,
+          "increased": 2,
+          "decreased": 11,
+          "unchanged": 0,
+          "median_patient_delta_pp": -2.5913020700731466
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": -2.4800366724959355,
+            "classes_pp": {
+              "LV": -1.3247114307965964,
+              "MYO": -2.4982020680213988,
+              "RV": -3.6171965186698123
+            },
+            "patients": 13,
+            "increased": 1,
+            "decreased": 12,
+            "unchanged": 0,
+            "median_patient_delta_pp": -1.7815342467281077
+          },
+          "ES": {
+            "delta_B_minus_A_pp": -3.8041978159468393,
+            "classes_pp": {
+              "LV": -3.185158683274399,
+              "MYO": -4.0373657945306345,
+              "RV": -4.190068970035486
+            },
+            "patients": 13,
+            "increased": 3,
+            "decreased": 10,
+            "unchanged": 0,
+            "median_patient_delta_pp": -2.0957998875006822
+          }
+        }
+      },
+      "source_train": {
+        "overall": {
+          "delta_B_minus_A_pp": 14.855193252187767,
+          "classes_pp": {
+            "LV": 10.268322276791839,
+            "MYO": 13.044094175670265,
+            "RV": 21.253163304101193
+          },
+          "patients": 10,
+          "increased": 10,
+          "decreased": 0,
+          "unchanged": 0,
+          "median_patient_delta_pp": 12.375331657214353
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": 15.71695279009489,
+            "classes_pp": {
+              "LV": 10.911565372642853,
+              "MYO": 15.310714934690067,
+              "RV": 20.92857806295175
+            },
+            "patients": 10,
+            "increased": 10,
+            "decreased": 0,
+            "unchanged": 0,
+            "median_patient_delta_pp": 14.87930965142893
+          },
+          "ES": {
+            "delta_B_minus_A_pp": 13.99343371428064,
+            "classes_pp": {
+              "LV": 9.625079180940828,
+              "MYO": 10.77747341665046,
+              "RV": 21.57774854525063
+            },
+            "patients": 10,
+            "increased": 10,
+            "decreased": 0,
+            "unchanged": 0,
+            "median_patient_delta_pp": 10.695730903894964
+          }
+        }
+      }
+    },
+    "space_minus_free_lora": {
+      "Philips": {
+        "overall": {
+          "delta_B_minus_A_pp": -0.6200135626459966,
+          "classes_pp": {
+            "LV": -0.5257290401515867,
+            "MYO": -0.7424962603452068,
+            "RV": -0.5918153874411964
+          },
+          "patients": 31,
+          "increased": 6,
+          "decreased": 25,
+          "unchanged": 0,
+          "median_patient_delta_pp": -0.7757726924906931
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": 0.08320118251172659,
+            "classes_pp": {
+              "LV": 0.19926131597534807,
+              "MYO": -0.19535478826304115,
+              "RV": 0.24569701982287284
+            },
+            "patients": 31,
+            "increased": 10,
+            "decreased": 21,
+            "unchanged": 0,
+            "median_patient_delta_pp": -0.24356340937639795
+          },
+          "ES": {
+            "delta_B_minus_A_pp": -1.32322830780372,
+            "classes_pp": {
+              "LV": -1.2507193962785215,
+              "MYO": -1.2896377324273722,
+              "RV": -1.4293277947052656
+            },
+            "patients": 31,
+            "increased": 6,
+            "decreased": 25,
+            "unchanged": 0,
+            "median_patient_delta_pp": -0.9767647206202453
+          }
+        }
+      },
+      "Siemens": {
+        "overall": {
+          "delta_B_minus_A_pp": 1.3029942412610158,
+          "classes_pp": {
+            "LV": 0.7346338292049731,
+            "MYO": 1.1888158127352135,
+            "RV": 1.9855330818428611
+          },
+          "patients": 23,
+          "increased": 18,
+          "decreased": 5,
+          "unchanged": 0,
+          "median_patient_delta_pp": 0.9430121675452328
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": 2.030176402593538,
+            "classes_pp": {
+              "LV": 1.188512708258144,
+              "MYO": 2.506752353784997,
+              "RV": 2.3952641457374755
+            },
+            "patients": 23,
+            "increased": 17,
+            "decreased": 6,
+            "unchanged": 0,
+            "median_patient_delta_pp": 1.3802613178531153
+          },
+          "ES": {
+            "delta_B_minus_A_pp": 0.5758120799284928,
+            "classes_pp": {
+              "LV": 0.28075495015180213,
+              "MYO": -0.12912072831457022,
+              "RV": 1.5758020179482464
+            },
+            "patients": 23,
+            "increased": 15,
+            "decreased": 8,
+            "unchanged": 0,
+            "median_patient_delta_pp": 1.29722260140952
+          }
+        }
+      },
+      "train": {
+        "overall": {
+          "delta_B_minus_A_pp": -1.7295365811406374,
+          "classes_pp": {
+            "LV": -1.1813585596230791,
+            "MYO": -1.6079312727931598,
+            "RV": -2.399319911005671
+          },
+          "patients": 13,
+          "increased": 0,
+          "decreased": 13,
+          "unchanged": 0,
+          "median_patient_delta_pp": -1.4128544960093339
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": -1.6095934201021838,
+            "classes_pp": {
+              "LV": -0.8098419739011282,
+              "MYO": -1.1156785943086693,
+              "RV": -2.9032596920967544
+            },
+            "patients": 13,
+            "increased": 0,
+            "decreased": 13,
+            "unchanged": 0,
+            "median_patient_delta_pp": -1.072791837540099
+          },
+          "ES": {
+            "delta_B_minus_A_pp": -1.8494797421790894,
+            "classes_pp": {
+              "LV": -1.5528751453450296,
+              "MYO": -2.100183951277651,
+              "RV": -1.895380129914588
+            },
+            "patients": 13,
+            "increased": 0,
+            "decreased": 13,
+            "unchanged": 0,
+            "median_patient_delta_pp": -1.2050278709664761
+          }
+        }
+      },
+      "source_train": {
+        "overall": {
+          "delta_B_minus_A_pp": 4.057370867241103,
+          "classes_pp": {
+            "LV": 2.180964975863245,
+            "MYO": 5.065214272331948,
+            "RV": 4.925933353528113
+          },
+          "patients": 10,
+          "increased": 10,
+          "decreased": 0,
+          "unchanged": 0,
+          "median_patient_delta_pp": 2.9051566234400554
+        },
+        "phases": {
+          "ED": {
+            "delta_B_minus_A_pp": 4.7039707665300865,
+            "classes_pp": {
+              "LV": 2.459074682497985,
+              "MYO": 6.564453945488981,
+              "RV": 5.088383671603293
+            },
+            "patients": 10,
+            "increased": 10,
+            "decreased": 0,
+            "unchanged": 0,
+            "median_patient_delta_pp": 3.399135811952869
+          },
+          "ES": {
+            "delta_B_minus_A_pp": 3.4107709679521183,
+            "classes_pp": {
+              "LV": 1.902855269228505,
+              "MYO": 3.565974599174916,
+              "RV": 4.763483035452933
+            },
+            "patients": 10,
+            "increased": 10,
+            "decreased": 0,
+            "unchanged": 0,
+            "median_patient_delta_pp": 2.403635355000385
+          }
+        }
+      }
+    }
+  },
+  "allocation": {
+    "status": "COMPLETE",
+    "source_slices": 230,
+    "source_patients": 10,
+    "optimizer_updates": 0,
+    "allocation": {
+      "enc1.block.0.weight": {
+        "input_width": 9,
+        "protected": 1,
+        "requested": 1,
+        "cap": 1,
+        "fisher_coverage": 0.9475193033657842,
+        "target_met": true
+      },
+      "enc1.block.3.weight": {
+        "input_width": 144,
+        "protected": 6,
+        "requested": 6,
+        "cap": 136,
+        "fisher_coverage": 0.9287238325695546,
+        "target_met": true
+      },
+      "enc2.block.0.weight": {
+        "input_width": 144,
+        "protected": 13,
+        "requested": 13,
+        "cap": 136,
+        "fisher_coverage": 0.9047681677981751,
+        "target_met": true
+      },
+      "enc2.block.3.weight": {
+        "input_width": 288,
+        "protected": 18,
+        "requested": 18,
+        "cap": 280,
+        "fisher_coverage": 0.9032415752416029,
+        "target_met": true
+      },
+      "enc3.block.0.weight": {
+        "input_width": 288,
+        "protected": 37,
+        "requested": 37,
+        "cap": 280,
+        "fisher_coverage": 0.9022164004282658,
+        "target_met": true
+      },
+      "enc3.block.3.weight": {
+        "input_width": 576,
+        "protected": 90,
+        "requested": 90,
+        "cap": 568,
+        "fisher_coverage": 0.9002247547028612,
+        "target_met": true
+      },
+      "bottleneck.block.0.weight": {
+        "input_width": 576,
+        "protected": 170,
+        "requested": 170,
+        "cap": 568,
+        "fisher_coverage": 0.9002672264338575,
+        "target_met": true
+      },
+      "bottleneck.block.3.weight": {
+        "input_width": 1152,
+        "protected": 276,
+        "requested": 276,
+        "cap": 1144,
+        "fisher_coverage": 0.9002564020079494,
+        "target_met": true
+      },
+      "decoder.dec3.merge.block.0.weight": {
+        "input_width": 1152,
+        "protected": 115,
+        "requested": 115,
+        "cap": 1144,
+        "fisher_coverage": 0.9003020779480663,
+        "target_met": true
+      },
+      "decoder.dec3.merge.block.3.weight": {
+        "input_width": 576,
+        "protected": 36,
+        "requested": 36,
+        "cap": 568,
+        "fisher_coverage": 0.9007847543500344,
+        "target_met": true
+      },
+      "decoder.dec2.merge.block.0.weight": {
+        "input_width": 576,
+        "protected": 33,
+        "requested": 33,
+        "cap": 568,
+        "fisher_coverage": 0.9021458597614338,
+        "target_met": true
+      },
+      "decoder.dec2.merge.block.3.weight": {
+        "input_width": 288,
+        "protected": 28,
+        "requested": 28,
+        "cap": 280,
+        "fisher_coverage": 0.9105907378662763,
+        "target_met": true
+      },
+      "decoder.dec1.merge.block.0.weight": {
+        "input_width": 288,
+        "protected": 7,
+        "requested": 7,
+        "cap": 280,
+        "fisher_coverage": 0.9075380596293695,
+        "target_met": true
+      },
+      "decoder.dec1.merge.block.3.weight": {
+        "input_width": 144,
+        "protected": 7,
+        "requested": 7,
+        "cap": 136,
+        "fisher_coverage": 0.9282601073097461,
+        "target_met": true
+      }
+    }
+  },
+  "audit": {
+    "dense_fixmatch": {
+      "exit_code": 0,
+      "formal_optimizer_calls": 4000,
+      "engineering": {
+        "status": "PASS",
+        "physical_optimizer_updates": 32,
+        "two_case_initial_ce": 0.018961196765303612,
+        "two_case_final_ce": 0.0019618170335888863,
+        "resume_nonempty_momentum_exact": true,
+        "discarded": true
+      },
+      "final_checkpoint_readable_finite": true,
+      "base_frozen": null,
+      "projection_relative_residual": null,
+      "preflight": {
+        "status": "PASS",
+        "optimizer_updates": 0,
+        "source_entry_max_abs_error": 0.0,
+        "source_frozen": true,
+        "base_frozen": false,
+        "gradient_norms": {
+          "L": {
+            "parent": 0.8216516658086911,
+            "F5": 0.0
+          },
+          "U": {
+            "parent": 0.5670848550246228,
+            "F5": 0.0
+          }
+        },
+        "effective_weight_ema": true,
+        "F5_effective_ema": null,
+        "nonzero_merge_identity": true,
+        "checkpoint_restore_loss_and_gradient_exact": true,
+        "next_SGD_inputs_identical": true,
+        "trainable_parameters": 483008,
+        "first_loss": 0.04616972804069519,
+        "supervised": 0.018961196765303612,
+        "unsupervised": 0.02720853127539158,
+        "accepted_class_pixels": [
+          2003067,
+          13360,
+          4665,
+          12685
+        ],
+        "U_pixels": 2064384
+      },
+      "costs": {
+        "physical_optimizer_updates": 4000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 4000,
+        "U_batch_reads": 28000,
+        "L_slice_exposure": 8000,
+        "U_slice_exposure": 56000,
+        "accepted_class_pixels": [
+          7882944124,
+          52523644,
+          22914451,
+          34720378
+        ],
+        "U_pixels": 8257536000,
+        "training_seconds": 2385.238805770874,
+        "preflight_and_training_seconds": 2390.942718267441
+      },
+      "validation_and_training_patient_phase_sets_exact": true
+    },
+    "free_lora": {
+      "exit_code": 0,
+      "formal_optimizer_calls": 4000,
+      "engineering": {
+        "status": "PASS",
+        "physical_optimizer_updates": 32,
+        "two_case_initial_ce": 0.018961196765303612,
+        "two_case_final_ce": 0.007659387309104204,
+        "resume_nonempty_momentum_exact": true,
+        "discarded": true
+      },
+      "final_checkpoint_readable_finite": true,
+      "base_frozen": true,
+      "projection_relative_residual": 0.0,
+      "preflight": {
+        "status": "PASS",
+        "optimizer_updates": 0,
+        "source_entry_max_abs_error": 0.0,
+        "source_frozen": true,
+        "base_frozen": true,
+        "gradient_norms": {
+          "L": {
+            "parent": 0.09075661339865486,
+            "F5": 0.0
+          },
+          "U": {
+            "parent": 0.052221612606313,
+            "F5": 0.0
+          }
+        },
+        "effective_weight_ema": true,
+        "F5_effective_ema": null,
+        "nonzero_merge_identity": true,
+        "checkpoint_restore_loss_and_gradient_exact": true,
+        "next_SGD_inputs_identical": true,
+        "trainable_parameters": 55240,
+        "first_loss": 0.04616972804069519,
+        "supervised": 0.018961196765303612,
+        "unsupervised": 0.02720853127539158,
+        "accepted_class_pixels": [
+          2003067,
+          13360,
+          4665,
+          12685
+        ],
+        "U_pixels": 2064384
+      },
+      "costs": {
+        "physical_optimizer_updates": 4000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 4000,
+        "U_batch_reads": 28000,
+        "L_slice_exposure": 8000,
+        "U_slice_exposure": 56000,
+        "accepted_class_pixels": [
+          7916273990,
+          62879633,
+          30960909,
+          53908263
+        ],
+        "U_pixels": 8257536000,
+        "training_seconds": 2385.4374113082886,
+        "preflight_and_training_seconds": 2392.365649461746
+      },
+      "validation_and_training_patient_phase_sets_exact": true
+    },
+    "space_lora": {
+      "exit_code": 0,
+      "formal_optimizer_calls": 4000,
+      "engineering": {
+        "status": "PASS",
+        "physical_optimizer_updates": 32,
+        "two_case_initial_ce": 0.018961196765303612,
+        "two_case_final_ce": 0.016088588163256645,
+        "resume_nonempty_momentum_exact": true,
+        "discarded": true
+      },
+      "final_checkpoint_readable_finite": true,
+      "base_frozen": true,
+      "projection_relative_residual": 9.802461858422366e-08,
+      "preflight": {
+        "status": "PASS",
+        "optimizer_updates": 0,
+        "source_entry_max_abs_error": 0.0,
+        "source_frozen": true,
+        "base_frozen": true,
+        "gradient_norms": {
+          "L": {
+            "parent": 0.021699797090073195,
+            "F5": 0.0
+          },
+          "U": {
+            "parent": 0.021753309240605742,
+            "F5": 0.0
+          }
+        },
+        "effective_weight_ema": true,
+        "F5_effective_ema": null,
+        "nonzero_merge_identity": true,
+        "checkpoint_restore_loss_and_gradient_exact": true,
+        "next_SGD_inputs_identical": true,
+        "trainable_parameters": 55240,
+        "first_loss": 0.04616972804069519,
+        "supervised": 0.018961196765303612,
+        "unsupervised": 0.02720853127539158,
+        "accepted_class_pixels": [
+          2003067,
+          13360,
+          4665,
+          12685
+        ],
+        "U_pixels": 2064384
+      },
+      "costs": {
+        "physical_optimizer_updates": 4000,
+        "engineering_optimizer_updates": 0,
+        "L_batch_reads": 4000,
+        "U_batch_reads": 28000,
+        "L_slice_exposure": 8000,
+        "U_slice_exposure": 56000,
+        "accepted_class_pixels": [
+          7918732427,
+          66595993,
+          33762647,
+          55102301
+        ],
+        "U_pixels": 8257536000,
+        "training_seconds": 2385.435829639435,
+        "preflight_and_training_seconds": 2392.2714302539825
+      },
+      "validation_and_training_patient_phase_sets_exact": true
+    }
+  },
+  "formal_optimizer_updates": 12000,
+  "engineering_optimizer_updates": 96,
+  "total_new_optimizer_calls": 12096,
+  "independent_test_access": false,
+  "source_zero_shot_Philips_not_evaluated": true,
+  "source_artifact_updates": 43600,
+  "source_and_target_training_groups_distinct": true,
+  "provenance": {
+    "implementation_commit": "98e8693",
+    "branch": "codex/space-lora-minimal-20261018",
+    "study_date": "2026-10-18",
+    "dataset": "M&Ms",
+    "seed": 163,
+    "transition": "Siemens_to_Philips",
+    "ema_decay": 0.999,
+    "confidence_threshold": 0.95,
+    "rank": 8,
+    "rho": 0.9
+  }
+}
