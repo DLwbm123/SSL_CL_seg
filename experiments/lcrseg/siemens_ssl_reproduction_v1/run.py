@@ -15,12 +15,21 @@ from ..five_frameworks_v1.checkpoint import atomic_save
 
 def setup(cfg, method):
     torch.manual_seed(163);torch.cuda.manual_seed_all(163)
-    models = [Segmenter(cfg['reference'],branch=i).cuda() for i in range(1 if method=='fixmatch' else 2)]
+    models = [Segmenter(cfg['reference'],branch=i).cuda() for i in range(2 if method=='cps' else 1)]
     if len(models)==2 and all(torch.equal(a,b) for a,b in zip(models[0].parameters(),models[1].parameters())):
         raise ValueError('CPS branches must have independent initialization')
     provider = CurrentDomain(cfg['data'],'mnms','Siemens',163,1,0,{'kind':'source'},'cuda',permit(NODE,'formal'))
-    opts = [optimizer(model,method) for model in models]
-    ema = copy.deepcopy(models[0]).eval().requires_grad_(False) if method=='fixmatch' else None
+    if method=='fullsupervised':
+        from .fullsupervised import bind_training_labels
+        bind_training_labels(provider,cfg)
+        reference=torch.load(Path(cfg['fixmatch_result'])/'initial.pt',map_location='cpu',weights_only=False)
+        if reference['step']!=0 or reference['physical_updates']!=0:
+            raise ValueError('reference initialization is not step zero')
+        for name,value in models[0].state_dict().items():
+            if not torch.equal(value.cpu(),reference['models'][0][name]):
+                raise ValueError('initialization differs from FixMatch')
+    opts = [optimizer(model,'cps' if method=='cps' else 'fixmatch') for model in models]
+    ema = copy.deepcopy(models[0]).eval().requires_grad_(False) if method!='cps' else None
     return models,provider,opts,ema
 
 
@@ -33,10 +42,10 @@ def snapshot(models,opts,ema,step,physical,method,provider):
 
 def main(cfg):
     method = cfg['method']
-    if method not in ('fixmatch','cps') or os.environ.get('CUDA_VISIBLE_DEVICES')!='2':
+    if method not in ('fixmatch','cps','fullsupervised') or os.environ.get('CUDA_VISIBLE_DEVICES')!='2':
         raise PermissionError('only registered methods on GPU2')
     out = Path(cfg['output']);out.mkdir(parents=True,exist_ok=False)
-    cap = STEPS*(1 if method=='fixmatch' else 2)
+    cap = STEPS*(2 if method=='cps' else 1)
     physical = 0;committed = 0;started = time.time()
     torch.set_num_threads(4);torch.use_deterministic_algorithms(True)
     torch.backends.cudnn.benchmark=False;torch.backends.cudnn.deterministic=True
@@ -55,7 +64,7 @@ def main(cfg):
         torch.set_rng_state(saved['torch_rng']);torch.cuda.set_rng_state_all(saved['cuda_rng'])
         provider.l_reads=provider.u_reads=0
         write(out/'PREFLIGHT.json',dict(status='PASS',optimizer_updates=0,loss=float(loss.detach()),**stats,
-                                       weak_strong_U_pairs=14 if method=='fixmatch' else 2,checkpoint_restore=True))
+                                       weak_strong_U_pairs=2 if method=='cps' else 14,checkpoint_restore=True))
         del loss,initial,saved
         if cfg.get('preflight_only',False):
             write(out/'STATUS.json',dict(status='PREFLIGHT_PASS',optimizer_updates=0))
@@ -75,7 +84,7 @@ def main(cfg):
             for m in models:m.train()
             for opt in opts:
                 opt.zero_grad(set_to_none=True)
-                for group in opt.param_groups:group['lr']=learning_rate(method,step)
+                for group in opt.param_groups:group['lr']=learning_rate('cps' if method=='cps' else 'fixmatch',step)
             loss,stats=losses(method,models,provider,step)
             if not torch.isfinite(loss):raise FloatingPointError('nonfinite training loss')
             loss.backward()
@@ -95,10 +104,13 @@ def main(cfg):
         write(out/'COSTS.json',costs);write(out/'STATUS.json',dict(status='EVALUATING',step=committed,physical_updates=physical))
         primary=ema if ema is not None else models[0]
         train,_=evaluate(primary,cfg,'train_labeled',out/'private_train.jsonl')
-        val,_=evaluate(primary,cfg,'val',out/'private_val.jsonl')
+        val,val_rows=evaluate(primary,cfg,'val',out/'private_val.jsonl')
         result=dict(status='COMPLETE',method=method,seed=163,train=train,val=val,physical_updates=physical,
                     iterations=committed,primary='EMA' if ema is not None else 'branch1',independent_test_access=False,
                     interpretation='Siemens U-Net adaptation of author algorithms, not reproduction of original benchmark scores; prior L-only differs in objective/optimizer.')
+        if method=='fullsupervised':
+            from .fullsupervised import finish
+            finish(primary,provider,cfg,out,result,val_rows)
         if method=='cps':
             secondary,_=evaluate(models[1],cfg,'val',out/'private_branch2_val.jsonl')
             result['branch2_val_secondary']=secondary

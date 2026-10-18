@@ -95,6 +95,12 @@ def update_ema(ema, model):
 
 def losses(method, models, provider, step):
     x,y,_ = provider.labeled(step)
+    if method == 'fullsupervised':
+        batches=[provider.unlabeled(step*7+i) for i in range(7)]
+        u=torch.cat([b[0] for b in batches]); truth=torch.cat([b[1] for b in batches])
+        supervised=pixel_ce(models[0](x),y).mean()
+        additional=pixel_ce(models[0](strong_view(u,step)),truth).mean()
+        return supervised+additional, dict(supervised=float(supervised.detach()),additional_gt=float(additional.detach()),supervision_fraction=1.)
     if method == 'fixmatch':
         u = torch.cat([provider.unlabeled(step*7+i)[0] for i in range(7)])
         with torch.no_grad(): weak = models[0](u)
