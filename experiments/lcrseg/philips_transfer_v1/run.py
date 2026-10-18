@@ -13,6 +13,8 @@ from ..main_style_ssl_v1.runtime import write, append
 from ..five_frameworks_v1.checkpoint import atomic_save
 from ..siemens_lonly_v1.run import aggregate, dice, compare
 
+GPU = '2'
+
 
 def snapshot(model, ema, opt, data, step):
     return dict(arm=data.arm, step=step, physical_updates=step,
@@ -109,7 +111,7 @@ def evaluate(model, cfg, domain, role, output):
 
 
 def main(cfg):
-    if cfg['arm'] not in ARMS or os.environ.get('CUDA_VISIBLE_DEVICES')!='2':
+    if cfg['arm'] not in ARMS or os.environ.get('CUDA_VISIBLE_DEVICES')!=GPU:
         raise PermissionError('frozen arm/GPU mismatch')
     out=Path(cfg['output']); out.mkdir(parents=True,exist_ok=False)
     physical=0; committed=0; started=time.time()
@@ -172,7 +174,7 @@ def main(cfg):
             old_domain_delta_pp=100*(old['primary_dice']-base['primary_dice']),
             paired_old=compare(old_rows,rows),two_domain_mean=(old['primary_dice']+target['primary_dice'])/2,
             target_train_val_gap_pp=100*(train['primary_dice']-target['primary_dice']),
-            independent_test_access=False,diagnostic_holdout_excluded=True)
+            independent_test_access=False,diagnostic_holdout_excluded=cfg.get('diagnostic_holdout_excluded', True))
         write(out/'RESULTS.json',result)
         if cfg['arm']=='cl_fixmatch':
             write(out/'STATUS.json',dict(status='DIAGNOSING',physical_updates=physical))
