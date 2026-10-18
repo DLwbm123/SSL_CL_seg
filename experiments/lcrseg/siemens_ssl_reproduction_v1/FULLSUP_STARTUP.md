@@ -22,3 +22,7 @@ Outputs, extra training labels, checkpoints and raw logs remain private on the
 approved data volume. Final EMA evaluation and paired comparison are built into
 the job. Public results/report delivery remains pending actual completion and
 receipt verification; no completed result or test-set performance is claimed.
+
+## Completion verified, 2026-10-18
+
+The job completed with exit 0 and exactly 43,600 updates. Final EMA validation Dice is 83.3187%; paired improvement over DenseFixMatch is +2.9513 pp. See [final report](results/fullsupervised/REPORT_ZH.md) and the aggregate verification receipt. The RUNNING status above records launch-time state only. No additional training or inference was performed for delivery.

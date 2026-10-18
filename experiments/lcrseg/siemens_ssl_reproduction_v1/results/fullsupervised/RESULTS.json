@@ -1,0 +1,138 @@
+{
+  "status": "COMPLETE",
+  "method": "fullsupervised",
+  "seed": 163,
+  "train": {
+    "primary_dice": 0.9314132040925434,
+    "classes": {
+      "LV": 0.9584994397880626,
+      "MYO": 0.892780032731951,
+      "RV": 0.9429601397576157
+    },
+    "phases": {
+      "ED": {
+        "primary_dice": 0.939670642581197,
+        "classes": {
+          "LV": 0.9709020655102776,
+          "MYO": 0.8940711635294688,
+          "RV": 0.9540386987038441
+        }
+      },
+      "ES": {
+        "primary_dice": 0.9231557656038896,
+        "classes": {
+          "LV": 0.946096814065848,
+          "MYO": 0.8914889019344334,
+          "RV": 0.9318815808113875
+        }
+      }
+    },
+    "patients": 10,
+    "volumes": 20,
+    "forward_slices": 230
+  },
+  "val": {
+    "primary_dice": 0.8331866378579855,
+    "classes": {
+      "LV": 0.8902490584586882,
+      "MYO": 0.8033808558581125,
+      "RV": 0.8059299992571567
+    },
+    "phases": {
+      "ED": {
+        "primary_dice": 0.8671415260204229,
+        "classes": {
+          "LV": 0.9162273684563382,
+          "MYO": 0.8177058274580924,
+          "RV": 0.8674913821468383
+        }
+      },
+      "ES": {
+        "primary_dice": 0.7992317496955486,
+        "classes": {
+          "LV": 0.8642707484610382,
+          "MYO": 0.7890558842581323,
+          "RV": 0.744368616367475
+        }
+      }
+    },
+    "patients": 23,
+    "volumes": 46,
+    "forward_slices": 544
+  },
+  "physical_updates": 43600,
+  "iterations": 43600,
+  "primary": "EMA",
+  "independent_test_access": false,
+  "interpretation": "Matched full supervision: original L2 plus former-U14, equal branch weights; true labels replace masked pseudo labels. Same steps and sampling, not equal FLOPs. One seed, validation only, no absolute upper-bound claim.",
+  "train_former_u": {
+    "primary_dice": 0.8854035709002877,
+    "classes": {
+      "LV": 0.9271792002565692,
+      "MYO": 0.8394134784309809,
+      "RV": 0.8896180340133127
+    },
+    "phases": {
+      "ED": {
+        "primary_dice": 0.8982596223740387,
+        "classes": {
+          "LV": 0.9449795034421333,
+          "MYO": 0.843079733960586,
+          "RV": 0.9067196297193971
+        }
+      },
+      "ES": {
+        "primary_dice": 0.8725475194265365,
+        "classes": {
+          "LV": 0.9093788970710052,
+          "MYO": 0.8357472229013759,
+          "RV": 0.872516438307228
+        }
+      }
+    },
+    "patients": 38,
+    "volumes": 76,
+    "forward_slices": 872
+  },
+  "fixmatch_val_reused": {
+    "primary_dice": 0.8036740663770262,
+    "classes": {
+      "LV": 0.871434135869818,
+      "MYO": 0.7661010120909735,
+      "RV": 0.7734870511702864
+    },
+    "phases": {
+      "ED": {
+        "primary_dice": 0.8484671242199135,
+        "classes": {
+          "LV": 0.9053697482898044,
+          "MYO": 0.7930287690892044,
+          "RV": 0.8470028552807318
+        }
+      },
+      "ES": {
+        "primary_dice": 0.7588810085341386,
+        "classes": {
+          "LV": 0.8374985234498316,
+          "MYO": 0.7391732550927427,
+          "RV": 0.6999712470598409
+        }
+      }
+    },
+    "patients": 23,
+    "volumes": 46
+  },
+  "paired_val": {
+    "delta_B_minus_A_pp": 2.951257148095967,
+    "classes_pp": {
+      "LV": 1.8814922588870175,
+      "MYO": 3.7279843767138785,
+      "RV": 3.2442948086870036
+    },
+    "patients": 23,
+    "increased": 18,
+    "decreased": 5,
+    "unchanged": 0,
+    "median_patient_delta_pp": 1.6465241630222764
+  }
+}
