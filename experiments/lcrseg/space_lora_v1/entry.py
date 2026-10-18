@@ -21,7 +21,7 @@ elif mode=='qualify':
  from experiments.lcrseg.space_lora_v1.qualification import qualify as main
 elif mode=='train':
  from experiments.lcrseg.space_lora_v1.run import main
-elif mode=='continue':
+elif mode in ('continue','resume_qualify'):
  from experiments.lcrseg.space_lora_v1.continuation import main
 else: raise PermissionError('unknown mode')
 main(cfg)

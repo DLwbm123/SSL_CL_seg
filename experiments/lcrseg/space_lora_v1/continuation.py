@@ -44,7 +44,7 @@ def preflight(cfg,out,source,model,ema,opt,data):
 def main(cfg):
     if cfg.get('protocol')!='space_lora_continuation_v1' or cfg.get('resume_step')!=4000:
         raise PermissionError('unregistered continuation')
-    if cfg.get('preflight_only') or not Path(cfg['resume_checkpoint']).is_file():
+    if not Path(cfg['resume_checkpoint']).is_file():
         raise PermissionError('invalid continuation entry')
     replacements=dict(ARMS=core.ARMS,STEPS=STEPS,GPU='3',setup=core.setup,
                       rate=rate,update_ema=core.update_ema,provider=provider,preflight=preflight)
