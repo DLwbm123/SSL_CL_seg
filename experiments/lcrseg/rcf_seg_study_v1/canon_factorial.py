@@ -119,7 +119,7 @@ def restore(payload, method, trainer):
 
 def equal(first, second):
     if torch.is_tensor(first):
-        return torch.equal(first, second)
+        return torch.equal(first, second) if first.device == second.device else torch.equal(first.cpu(), second.cpu())
     if isinstance(first, np.ndarray):
         return np.array_equal(first, second)
     if isinstance(first, dict):
@@ -285,11 +285,7 @@ def run(settings):
         metrics = {}
         for arm, foreground, decoder in ARMS:
             method, trainer = build(foreground)
-            shared = torch.load(root / 'shared_300.pt', map_location='cuda', weights_only=False)
-            # RNG tensors must be on CPU even when model and Adam states are loaded to CUDA.
-            for k in ('rng_torch_cpu',):
-                shared['rng'][k] = shared['rng'][k].cpu()
-            shared['rng']['rng_torch_cuda'] = [x.cpu() for x in shared['rng']['rng_torch_cuda']]
+            shared = torch.load(root / 'shared_300.pt', map_location='cpu', weights_only=False)
             restore(shared, method, trainer)
             assert equal(shared, snapshot(method, trainer, 300)), 'shared warmup fork mismatch'
             if decoder:
