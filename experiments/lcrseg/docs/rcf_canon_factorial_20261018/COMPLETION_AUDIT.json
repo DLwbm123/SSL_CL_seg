@@ -1,0 +1,252 @@
+{
+  "physical_updates.jsonl": {
+    "actual_count": 5100,
+    "global_and_local_continuous": true,
+    "stage_counts": {
+      "warmup": 300,
+      "A": 1200,
+      "B": 1200,
+      "C": 1200,
+      "D": 1200
+    }
+  },
+  "engineering_updates.jsonl": {
+    "actual_count": 12,
+    "global_and_local_continuous": true,
+    "stage_counts": {
+      "warmup": 4,
+      "A": 2,
+      "B": 2,
+      "C": 2,
+      "D": 2
+    }
+  },
+  "stages": {
+    "warmup": {
+      "QUALIFICATION.json": {
+        "status": "PASS",
+        "engineering_updates": 4,
+        "exact_resume_full_state": true,
+        "finite_backward": true,
+        "two_case": {
+          "before": 0.009787317365407944,
+          "after": 0.009620719589293003,
+          "updates": 2
+        }
+      },
+      "TRAINING_COMPLETE.json": {
+        "status": "COMPLETE",
+        "formal_updates": 300,
+        "frozen_parameters_and_buffers_unchanged": true,
+        "trainable_parameters": 147456,
+        "diagnostic_derivative_calls": 0
+      }
+    },
+    "A": {
+      "QUALIFICATION.json": {
+        "status": "PASS",
+        "engineering_updates": 2,
+        "exact_resume_full_state": true,
+        "finite_backward": true,
+        "two_case": null
+      },
+      "FORK.json": {
+        "shared_step": 300,
+        "shared_full_state_equal": true,
+        "foreground_half": false,
+        "decoder_convolutions_trainable": false,
+        "inherited_lora_optimizer": true,
+        "new_decoder_optimizer_empty": false
+      },
+      "TRAINING_COMPLETE.json": {
+        "status": "COMPLETE",
+        "formal_updates": 1200,
+        "frozen_parameters_and_buffers_unchanged": true,
+        "trainable_parameters": 147456,
+        "diagnostic_derivative_calls": 10
+      },
+      "RESULTS.json": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.8936341985924705,
+          0.7609795908972585,
+          0.7867671615291957
+        ],
+        "macro_dice": 0.8137936503396416
+      }
+    },
+    "B": {
+      "QUALIFICATION.json": {
+        "status": "PASS",
+        "engineering_updates": 2,
+        "exact_resume_full_state": true,
+        "finite_backward": true,
+        "two_case": null
+      },
+      "FORK.json": {
+        "shared_step": 300,
+        "shared_full_state_equal": true,
+        "foreground_half": true,
+        "decoder_convolutions_trainable": false,
+        "inherited_lora_optimizer": true,
+        "new_decoder_optimizer_empty": false
+      },
+      "TRAINING_COMPLETE.json": {
+        "status": "COMPLETE",
+        "formal_updates": 1200,
+        "frozen_parameters_and_buffers_unchanged": true,
+        "trainable_parameters": 147456,
+        "diagnostic_derivative_calls": 10
+      },
+      "RESULTS.json": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.8928525627624966,
+          0.7633725631914642,
+          0.786494366016841
+        ],
+        "macro_dice": 0.814239830656934
+      }
+    },
+    "C": {
+      "QUALIFICATION.json": {
+        "status": "PASS",
+        "engineering_updates": 2,
+        "exact_resume_full_state": true,
+        "finite_backward": true,
+        "two_case": null
+      },
+      "FORK.json": {
+        "shared_step": 300,
+        "shared_full_state_equal": true,
+        "foreground_half": false,
+        "decoder_convolutions_trainable": true,
+        "inherited_lora_optimizer": true,
+        "new_decoder_optimizer_empty": true
+      },
+      "TRAINING_COMPLETE.json": {
+        "status": "COMPLETE",
+        "formal_updates": 1200,
+        "frozen_parameters_and_buffers_unchanged": true,
+        "trainable_parameters": 7532356,
+        "diagnostic_derivative_calls": 10
+      },
+      "RESULTS.json": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "macro_dice": 0.0
+      }
+    },
+    "D": {
+      "QUALIFICATION.json": {
+        "status": "PASS",
+        "engineering_updates": 2,
+        "exact_resume_full_state": true,
+        "finite_backward": true,
+        "two_case": null
+      },
+      "FORK.json": {
+        "shared_step": 300,
+        "shared_full_state_equal": true,
+        "foreground_half": true,
+        "decoder_convolutions_trainable": true,
+        "inherited_lora_optimizer": true,
+        "new_decoder_optimizer_empty": true
+      },
+      "TRAINING_COMPLETE.json": {
+        "status": "COMPLETE",
+        "formal_updates": 1200,
+        "frozen_parameters_and_buffers_unchanged": true,
+        "trainable_parameters": 7532356,
+        "diagnostic_derivative_calls": 10
+      },
+      "RESULTS.json": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.0,
+          0.11002277583666274,
+          0.31919252792836655
+        ],
+        "macro_dice": 0.14307176792167645
+      }
+    }
+  },
+  "exit": {
+    "exit_code": 0,
+    "time": 1792336576.6907382
+  },
+  "results": {
+    "status": "COMPLETE",
+    "metrics": {
+      "A": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.8936341985924705,
+          0.7609795908972585,
+          0.7867671615291957
+        ],
+        "macro_dice": 0.8137936503396416
+      },
+      "B": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.8928525627624966,
+          0.7633725631914642,
+          0.786494366016841
+        ],
+        "macro_dice": 0.814239830656934
+      },
+      "C": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "macro_dice": 0.0
+      },
+      "D": {
+        "site": "Canon",
+        "patients": 12,
+        "class_dice": [
+          0.0,
+          0.11002277583666274,
+          0.31919252792836655
+        ],
+        "macro_dice": 0.14307176792167645
+      }
+    },
+    "costs": {
+      "formal_updates": 5100,
+      "engineering_updates": 12,
+      "diagnostic_derivative_calls": 40,
+      "segmentation_image_forwards": 54940,
+      "encoder_image_forwards": 90252,
+      "evaluation_slice_forwards": 1176
+    },
+    "started": 1792333279.9761534,
+    "finished": 1792336576.6688423,
+    "effects_percentage_points": {
+      "foreground_frozen": 0.044618031729228846,
+      "foreground_open": 14.307176792167645,
+      "decoder_original": -81.37936503396416,
+      "decoder_foreground": -67.11680627352575,
+      "interaction": 14.262558760438417,
+      "foreground_main": 7.175897411948437,
+      "decoder_main": -74.24808565374497
+    },
+    "code_commit": "c65ce3185f6d1dbbbe122254e521e81f4c6b97b2",
+    "scope": "single-seed Canon validation factorial; fixed domain expert"
+  }
+}
