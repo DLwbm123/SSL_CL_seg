@@ -101,6 +101,15 @@ def inference_net(incoming, outgoing, width=16, blocks=4):
                          nn.Conv2d(width, outgoing, 3, padding=1))
 
 
+class BlockMean(nn.Module):
+    """Exact nonoverlapping 4×4 average, with deterministic CUDA backward."""
+    def forward(self, value):
+        b, c, h, w = value.shape
+        if h % 4 or w % 4:
+            raise ValueError('code inference requires spatial dimensions divisible by four')
+        return value.reshape(b, c, 4, h // 4, 4, w // 4).mean((3, 5))
+
+
 class Model(nn.Module):
     num_classes = 4
 
@@ -111,7 +120,7 @@ class Model(nn.Module):
         self.shape_encoder = inference_net(1, 2)
         self.appearance_encoder = inference_net(1, 2, blocks=2)
         self.logit_encoder = inference_net(1, 6)
-        self.code_encoder = nn.Sequential(nn.AdaptiveAvgPool2d(4), nn.Flatten(),
+        self.code_encoder = nn.Sequential(BlockMean(), nn.Flatten(),
                                           nn.Linear(48, 32), nn.ReLU(), nn.Linear(32, 32))
         self.anatomy = nn.ModuleList([BayesianLayer(16, 16 * 4 * 4),
                                      BayesianLayer(16, 16, 3), BayesianLayer(16, 3, 3)])

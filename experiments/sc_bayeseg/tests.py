@@ -5,7 +5,7 @@ import unittest
 
 import torch
 from torch.nn import functional as F
-from sc_bayeseg.model import (Model, BayesianLayer, student_log_prob,
+from sc_bayeseg.model import (Model, BayesianLayer, BlockMean, student_log_prob,
                              sar, sar_logdet, normal_log_prob)
 
 
@@ -113,6 +113,15 @@ class ProbabilityTests(unittest.TestCase):
         actual.backward()
         self.assertTrue(all(p.grad is not None and torch.isfinite(p.grad).all()
                             for p in model.parameters()))
+
+    def test_block_average_equivalent(self):
+        value=torch.randn(2,3,16,16,requires_grad=True)
+        actual=BlockMean()(value)
+        expected=F.adaptive_avg_pool2d(value,4)
+        torch.testing.assert_close(actual,expected)
+        ga=torch.autograd.grad(actual.square().sum(),value,retain_graph=True)[0]
+        ge=torch.autograd.grad(expected.square().sum(),value)[0]
+        torch.testing.assert_close(ga,ge)
 
 
 if __name__ == '__main__':

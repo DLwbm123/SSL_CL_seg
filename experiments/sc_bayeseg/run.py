@@ -238,6 +238,7 @@ def run(settings):
     except BaseException:
         failure=dict(status='FAILED', costs=costs, traceback=traceback.format_exc(), time=time.time())
         if active:
+            failure['calls'] = active['method'].model.calls.copy()
             try:
                 save(active['out'] / 'failure_partial.pt', snapshot(active['method'],
                      active['trainer'], active['cursor']))
