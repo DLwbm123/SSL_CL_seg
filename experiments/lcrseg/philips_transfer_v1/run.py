@@ -125,6 +125,14 @@ def main(cfg):
         del source
         if cfg.get('preflight_only'):
             write(out/'STATUS.json',dict(status='PREFLIGHT_PASS',physical_updates=0)); return
+        start_step=0
+        if cfg.get('resume_checkpoint'):
+            state=torch.load(cfg['resume_checkpoint'],map_location='cpu',weights_only=False)
+            if not (state['step']==state['physical_updates']==cfg['resume_step'] and 0<state['step']<STEPS):
+                raise PermissionError('resume endpoint mismatch')
+            restore(state,model,ema,opt,data)
+            physical=committed=start_step=state['step']
+            atomic_save(snapshot(model,ema,opt,data,start_step),out/'entry.pt')
         def guard(opt,args,kwargs):
             if physical >= STEPS: raise PermissionError('physical cap exhausted')
             if any(p.grad is not None and not torch.isfinite(p.grad).all() for p in model.parameters()):
@@ -136,14 +144,14 @@ def main(cfg):
         opt.register_step_pre_hook(guard); opt.register_step_post_hook(record)
         accepted=np.zeros(4,dtype=np.int64); total_pixels=0
         train_start=time.time()
-        for step in range(STEPS):
+        for step in range(start_step,STEPS):
             opt.zero_grad(set_to_none=True)
             for group in opt.param_groups: group['lr']=rate(step)
             l,u,stats=losses(cfg['arm'],model,data,step)
             loss=l+u
             if not torch.isfinite(loss): raise FloatingPointError('nonfinite loss')
             loss.backward()
-            log = step==0 or (step+1)%100==0
+            log = step==start_step or (step+1)%100==0
             before=[p.detach().clone() for p in model.parameters() if p.requires_grad] if log else []
             opt.step(); update_ema(ema,model); committed=step+1
             accepted+=stats['accepted_class_pixels']; total_pixels+=stats['U_pixels']
@@ -159,6 +167,7 @@ def main(cfg):
         assert committed==physical==STEPS
         atomic_save(snapshot(model,ema,opt,data,committed),out/'final.pt')
         write(out/'COSTS.json',dict(physical_optimizer_updates=physical,engineering_optimizer_updates=0,
+            prior_optimizer_updates=start_step,new_optimizer_updates=physical-start_step,
             L_batch_reads=data.l_reads,U_batch_reads=data.u_reads,L_slice_exposure=2*data.l_reads,
             U_slice_exposure=2*data.u_reads,accepted_class_pixels=accepted.tolist(),U_pixels=total_pixels,
             training_seconds=time.time()-train_start,preflight_and_training_seconds=time.time()-started))
