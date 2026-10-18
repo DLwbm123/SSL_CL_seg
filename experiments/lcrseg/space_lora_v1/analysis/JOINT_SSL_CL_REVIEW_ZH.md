@@ -4,6 +4,8 @@
 
 ## 结论与排序
 
+后续核查结论：解析残差读出＋一致性方案已淘汰，不作为主方法；ACIL/ILR-ELM/STSD全文与静态代码的区别见[新颖性核查](ANALYTIC_NOVELTY_AUDIT_ZH.md)。用户追加的半监督解析持续学习方向，现仅保留[可修订历史U状态设计](REVISABLE_UNLABELED_ANALYTIC_DESIGN_ZH.md)作为待查重候选，未实现或启动。
+
 最新方案更新：按用户要求继续推导后，Vectorizer已退出统一SSL/CL主方案；下述排序保留为当时的论文复现排序。当前可审查原型见[固定语义坐标的残差读出与历史能量](UNIFIED_SEMANTIC_ENERGY_PROPOSAL_ZH.md)，它解决状态/接入契约，但尚不能认定TMI方法新颖性；没有新实验。
 
 后续实现审查发现论文每类64向量、作者代码默认512不一致；最后线性系数与向量矩阵有坐标不唯一性，不能将其直接解释为可保持的解剖记忆。详见[接入与历史状态审查](VECTORIZER_STATE_CONTRACT_ZH.md)。下述首选限于原始SSL机制复现，CL扩展仍须先解决该缺口。
