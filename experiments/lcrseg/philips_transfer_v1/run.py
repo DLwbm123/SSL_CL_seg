@@ -98,7 +98,7 @@ def preflight(cfg, out, source, model, ema, opt, data):
 @torch.inference_mode()
 def evaluate(model, cfg, domain, role, output):
     access = Accessor(cfg['data'], 'mnms', domain, role)
-    if role == 'train_labeled':
+    if role == 'train_labeled' and domain == 'Philips':
         subset(access, set(json.loads(Path(cfg['split']).read_text())['train']))
     model.eval().requires_grad_(False)
     rows=[]; count=0
@@ -175,6 +175,8 @@ def main(cfg):
             paired_old=compare(old_rows,rows),two_domain_mean=(old['primary_dice']+target['primary_dice'])/2,
             target_train_val_gap_pp=100*(train['primary_dice']-target['primary_dice']),
             independent_test_access=False,diagnostic_holdout_excluded=cfg.get('diagnostic_holdout_excluded', True))
+        if cfg.get('audit_source_training', False):
+            result['source_train'],_=evaluate(ema,cfg,'Siemens','train_labeled',out/'private_Siemens_train.jsonl')
         write(out/'RESULTS.json',result)
         if cfg['arm']=='cl_fixmatch':
             write(out/'STATUS.json',dict(status='DIAGNOSING',physical_updates=physical))
