@@ -26,7 +26,7 @@ def run(s):
         assert json.loads((Path(s['finite'])/'RESULTS.json').read_text())['training_qualified']
         torch.set_num_threads(4);torch.use_deterministic_algorithms(True)
         torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
-        assert json.loads((Path(s['gate'])/'RESULTS.json').read_text())['passing']['adam_nonsemantic']
+        probe=json.loads((Path(s['block'])/'RESULTS.json').read_text());assert probe['passing']['robust_semantic_beta1.0'] and probe['passing']['single_semantic_beta0.25']
         initial=torch.load(s['checkpoint'],weights_only=False,map_location='cpu');assert initial['cursor']==3125
         startcursor=initial['cursor'];nsteps=50;noise_reference={}
         ds=H5LabeledDataset(s['data'],seed=0,dataset='mnms',sites=['Siemens'],transform=None)
