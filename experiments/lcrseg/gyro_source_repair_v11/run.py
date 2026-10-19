@@ -25,7 +25,7 @@ def finalize(cfg,out,model,ema,committed,physical):
             primary='fixed final student',Siemens=val,source_train=train,EMA_diagnostic=ev,
             delta_from_original_pp=diff,source_gate_passed=diff>=-1,paired_original=compare(base,rows))
         if cfg['arm']=='GYRO_low':
-            ref=Path(cfg['root'])/'jobs/CE_low'
+            ref=Path(cfg.get('CE_low_reference',str(Path(cfg['root'])/'jobs/CE_low')))
             low=json.loads((ref/'RESULTS.json').read_text())
             d=100*(val['primary_dice']-low['Siemens']['primary_dice'])
             result.update(delta_from_CE_low_pp=d,relative_gate_passed=d>=-.5,

@@ -181,6 +181,13 @@ def main(cfg):
             log = step==start_step or (step+1)%100==0
             before=[p.detach().clone() for p in model.parameters() if p.requires_grad] if log else []
             opt.step(); update_ema(ema,model); committed=step+1
+            if cfg.get('checkpoint_each_step',False):
+                state=snapshot(model,ema,opt,data,committed)
+                if any(not torch.isfinite(v).all() for values in [state['model'],state['ema']] for v in values.values() if torch.is_tensor(v)):
+                    raise FloatingPointError('nonfinite post-update model/EMA')
+                if any(not torch.isfinite(v).all() for values in state['optimizer']['state'].values() for v in values.values() if torch.is_tensor(v)):
+                    raise FloatingPointError('nonfinite optimizer state')
+                atomic_save(state,out/'latest.pt')
             accepted+=stats['accepted_class_pixels']; total_pixels+=stats['U_pixels']
             if log:
                 norm=sum(float((p.detach()-b).double().square().sum()) for p,b in zip(
@@ -203,6 +210,13 @@ def main(cfg):
         write(out/'STATUS.json',dict(status='COMPLETE',step=committed,physical_updates=physical))
         write(out/'EXIT.json',dict(exit_code=0))
     except BaseException as exc:
+        if cfg.get('save_exception_state',False) and 'data' in locals():
+            try:
+                state=snapshot(model,ema,opt,data,committed)
+                state.update(resumable=False,reason='exception forward/BN/RNG may differ from last committed checkpoint')
+                atomic_save(state,out/'exception_state.pt')
+            except BaseException as save_error:
+                write(out/'EXCEPTION_SAVE_FAILURE.json',dict(error=str(save_error)))
         failure=dict(status='FAILED',step=committed,physical_updates=physical,error=str(exc),traceback=traceback.format_exc())
         write(out/'FAILURE.json',failure); write(out/'STATUS.json',failure); write(out/'EXIT.json',dict(exit_code=1)); raise
 

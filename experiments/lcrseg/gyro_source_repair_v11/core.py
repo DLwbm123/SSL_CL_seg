@@ -120,7 +120,8 @@ def losses(arm,model,data,step):
     ratio=g['encoder_all']['weighted_G_norm']/max(g['encoder_all']['CE_norm'],1e-12)
     stats.update(gradient_groups=g,encoder_weighted_ratio=ratio)
     append(Path(model.cfg['output'])/'private_loss_diagnostics.jsonl',dict(step=step,arm=arm,**stats))
-    if arm=='GYRO_low' and ratio>.25:raise RuntimeError('preset encoder gradient ratio gate: '+str(ratio))
+    limit=model.cfg.get('gradient_ratio_hard_stop',.25)
+    if arm=='GYRO_low' and limit is not None and ratio>limit:raise RuntimeError('preset encoder gradient ratio gate: '+str(ratio))
     return l,u,dict(supervised=float(l.detach()),unsupervised=float(u.detach()),accepted_class_pixels=[0]*4,U_pixels=0,**stats)
 
 
