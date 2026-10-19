@@ -74,10 +74,10 @@ def stats(value):
                 positive_draw_sample_fraction=float((value>0).float().mean()))
 
 
-def posterior_swap(root,payload,trained,lb4,ran_joint):
+def posterior_swap(root,payload,trained,lb4,ran_joint,model_factory=Model):
     image=F.interpolate(lb4.image,(128,128),mode='bilinear',align_corners=False)
     y=F.interpolate(lb4.label[:,None].float(),(128,128),mode='nearest')[:,0].long()
-    model=Model().cuda();model.load_state_dict(payload['model']);fixed=copy.deepcopy(model.state_dict())
+    model=model_factory().cuda();model.load_state_dict(payload['model']);fixed=copy.deepcopy(model.state_dict())
     with torch.no_grad():anchor,_=model.proposal(image,sample=False)
     anchor={k:v.detach() for k,v in anchor.items()}
     p=F.one_hot(y,4).permute(0,3,1,2).float()*.99+.01/4
