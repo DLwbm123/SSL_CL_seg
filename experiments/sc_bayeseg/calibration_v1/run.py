@@ -9,10 +9,11 @@ import torch
 from torch.nn import functional as F
 from lcrseg.data import H5LabeledDataset, collate_labeled
 from lcrseg.engine.trainer import Trainer, TrainerState, seed_everything
+from lcrseg.engine.checkpoint import capture_rng_state, restore_rng_state
 from care_seg_study_v1.run import write, append, save
 from sc_bayeseg.model import Model
 from sc_bayeseg.run import snapshot, restore, same
-from sc_bayeseg.paired_lr_v1.run import evaluate
+from sc_bayeseg.paired_lr_v1.run import evaluate as _evaluate
 from sc_bayeseg.jointwrite_v1.run import Adapter, posterior_swap
 
 
@@ -20,8 +21,14 @@ def generator(name):
     return name.startswith(('anatomy.','structure.'))
 
 
+def evaluate(model,image,y):
+    rng=capture_rng_state()
+    try:return _evaluate(model,image,y)
+    finally:restore_rng_state(rng)
+
+
 def density(model,image,y,nl=2):
-    rng=torch.get_rng_state();cuda=torch.cuda.get_rng_state_all();rows=[]
+    rng=capture_rng_state();rows=[]
     try:
         with torch.no_grad():
             for draw in range(8):
@@ -31,12 +38,12 @@ def density(model,image,y,nl=2):
                     row={k:float(-v.mean()/128**2) for k,v in terms.items()}
                     row.update(logq=float((sum(terms.values())-bound).mean()/128**2),
                                negative_bound=float(-bound.mean()/128**2),kl=kl,
-                               total=float((-bound.mean()+kl/(nl*128**2)*128**2)/128**2))
+                               total=float(-bound.mean()/128**2+kl/(nl*128**2)))
                     assert all(torch.isfinite(torch.tensor(v)) for v in row.values());rows.append(row)
                 finally:model.clear_draw()
         return {k:sum(r[k] for r in rows)/len(rows) for k in rows[0]}
     finally:
-        torch.set_rng_state(rng);torch.cuda.set_rng_state_all(cuda)
+        restore_rng_state(rng)
 
 
 def run(settings):
@@ -103,7 +110,10 @@ def run(settings):
                 def step(index):
                     return trainer.train_step(lb,None,state=TrainerState(global_step=index,site_step=index))
                 a=step(cursor);expected=snapshot(method,trainer,cursor+1);restore(initial,method,trainer)
-                b=step(cursor);assert torch.equal(a.total_loss,b.total_loss) and same(expected,snapshot(method,trainer,cursor+1))
+                b=step(cursor);observed=snapshot(method,trainer,cursor+1)
+                comparison=dict(loss_equal=torch.equal(a.total_loss,b.total_loss),model_equal=same(expected['model'],observed['model']),trainer_equal=same(expected['trainer'],observed['trainer']),rng_equal={k:same(v,observed['rng'][k]) for k,v in expected['rng'].items()})
+                write(out/'GOLDEN_COMPARISON.json',comparison)
+                assert comparison['loss_equal'] and same(expected,observed)
                 restore(initial,method,trainer)
                 write(out/'QUALIFICATION.json',dict(status='PASS',engineering_updates=2,full_state_golden_equal=True,phi_frozen=stage=='K'))
                 phase[0]='diagnostic';start_norm=len(norms)
