@@ -1,0 +1,210 @@
+{
+  "status": "AUDIT_PASS_SCIENTIFIC_STOP_SOURCE_GATE",
+  "source_final": {
+    "status": "COMPLETE",
+    "step": 138,
+    "physical_updates": 138,
+    "Siemens": {
+      "primary_dice": 0.6076337750517553,
+      "classes": {
+        "LV": 0.7238994715464742,
+        "MYO": 0.5486701033361616,
+        "RV": 0.5503317502726296
+      },
+      "phases": {
+        "ED": {
+          "primary_dice": 0.672330610495073,
+          "classes": {
+            "LV": 0.793915391616331,
+            "MYO": 0.5979460340958406,
+            "RV": 0.6251304057730472
+          }
+        },
+        "ES": {
+          "primary_dice": 0.5429369396084376,
+          "classes": {
+            "LV": 0.6538835514766177,
+            "MYO": 0.49939417257648283,
+            "RV": 0.475533094772212
+          }
+        }
+      },
+      "patients": 23,
+      "volumes": 46,
+      "forward_slices": 544
+    },
+    "source_train": {
+      "primary_dice": 0.720751230275783,
+      "classes": {
+        "LV": 0.7994370460251983,
+        "MYO": 0.6130908639248877,
+        "RV": 0.7497257808772624
+      },
+      "phases": {
+        "ED": {
+          "primary_dice": 0.7324073688520758,
+          "classes": {
+            "LV": 0.8220213808462418,
+            "MYO": 0.6062360439543337,
+            "RV": 0.7689646817556521
+          }
+        },
+        "ES": {
+          "primary_dice": 0.7090950916994897,
+          "classes": {
+            "LV": 0.7768527112041549,
+            "MYO": 0.6199456838954415,
+            "RV": 0.7304868799988726
+          }
+        }
+      },
+      "patients": 10,
+      "volumes": 20,
+      "forward_slices": 230
+    },
+    "source_gate_passed": false,
+    "delta_from_original_pp": -19.60402913252709,
+    "primary": "fixed final source student",
+    "independent_test_access": false
+  },
+  "original_source": {
+    "primary_dice": 0.8036740663770262,
+    "classes": {
+      "LV": 0.871434135869818,
+      "MYO": 0.7661010120909735,
+      "RV": 0.7734870511702864
+    },
+    "phases": {
+      "ED": {
+        "primary_dice": 0.8484671242199135,
+        "classes": {
+          "LV": 0.9053697482898044,
+          "MYO": 0.7930287690892044,
+          "RV": 0.8470028552807318
+        }
+      },
+      "ES": {
+        "primary_dice": 0.7588810085341386,
+        "classes": {
+          "LV": 0.8374985234498316,
+          "MYO": 0.7391732550927427,
+          "RV": 0.6999712470598409
+        }
+      }
+    },
+    "patients": 23,
+    "volumes": 46
+  },
+  "paired_source": {
+    "overall": {
+      "delta_B_minus_A_pp": -19.604029132527085,
+      "classes_pp": {
+        "LV": -14.753466432334381,
+        "MYO": -21.74309087548119,
+        "RV": -22.315530089765677
+      },
+      "patients": 23,
+      "increased": 0,
+      "decreased": 23,
+      "unchanged": 0,
+      "median_patient_delta_pp": -15.71665276141562
+    },
+    "phases": {
+      "ED": {
+        "delta_B_minus_A_pp": -17.61365137248406,
+        "classes_pp": {
+          "LV": -11.14543566734735,
+          "MYO": -19.508273499336397,
+          "RV": -22.18724495076845
+        },
+        "patients": 23,
+        "increased": 0,
+        "decreased": 23,
+        "unchanged": 0,
+        "median_patient_delta_pp": -15.458010089902738
+      },
+      "ES": {
+        "delta_B_minus_A_pp": -21.594406892570106,
+        "classes_pp": {
+          "LV": -18.361497197321413,
+          "MYO": -23.977908251625983,
+          "RV": -22.443815228762908
+        },
+        "patients": 23,
+        "increased": 0,
+        "decreased": 23,
+        "unchanged": 0,
+        "median_patient_delta_pp": -15.575861596751924
+      }
+    }
+  },
+  "engineering": {
+    "status": "PASS",
+    "physical_optimizer_updates": 32,
+    "discarded": true,
+    "first_ce": 0.011785910464823246,
+    "final_ce": 0.0028739480767399073,
+    "nonempty_momentum_resume_exact": true,
+    "frames_exact": true,
+    "cuda_peak_allocated_bytes": 3736936448
+  },
+  "source_preflight": {
+    "status": "PASS",
+    "optimizer_updates": 0,
+    "source_entry_max_abs_error": 0,
+    "source_reference_frozen": true,
+    "backbone_fully_trainable": true,
+    "frames_not_parameters": true,
+    "gradient_norms": {
+      "L": {
+        "encoder": 0.15695769202645599,
+        "decoder": 0.1911027846910254,
+        "projector": 0.0
+      },
+      "U": {
+        "encoder": 1.6756564875382693,
+        "decoder": 0.0,
+        "projector": 0.650304445214804
+      }
+    },
+    "golden_loss_gradient_exact": true,
+    "supervised": 0.011785910464823246,
+    "unsupervised": -0.6303442716598511,
+    "accepted_class_pixels": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "U_pixels": 0
+  },
+  "actual_optimizer_calls": 170,
+  "formal_optimizer_calls": 138,
+  "engineering_optimizer_calls": 32,
+  "cap_actual_optimizer_calls": 10330,
+  "unused_authorized_calls": 10160,
+  "pending_reservations": 0,
+  "budget_ledger_counts": {
+    "engineering:source_prepare": 32,
+    "formal:source_prepare": 138
+  },
+  "source_historical_updates_separate": 43600,
+  "original_source_immutable_entry_verified": true,
+  "final_student_equals_source_ema": true,
+  "final_checkpoint_finite": true,
+  "source_frames_exact": true,
+  "patient_phase_sets_exact": true,
+  "all_workers_retired": true,
+  "formal_target_arms_started": 0,
+  "source_reservoir_generated": false,
+  "author_code_executed": false,
+  "readout_binding": false,
+  "pseudo_class_references": false,
+  "CARE_independent": true,
+  "validation_only": true,
+  "test_access": false,
+  "U_hidden_GT_access": false,
+  "additional_patient_forwards": 0,
+  "additional_optimizer_calls": 0,
+  "engineering_initial_contract_failure_updates": 0
+}

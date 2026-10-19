@@ -60,7 +60,7 @@ def budget_hooks(opt, cfg):
                             counter['total']+=1
                             counter['keys'][r['key']]=counter['keys'].get(r['key'],0)+1
             if kind == 'reserved':
-                if counter['total']>=20000 or counter['keys'].get(key,0)>=cfg['phase_cap']:
+                if counter['total']>=cfg.get('budget_cap',20000) or counter['keys'].get(key,0)>=cfg['phase_cap']:
                     raise PermissionError('shared actual-call budget exhausted')
                 token = counter['total']+1
                 counter['total']+=1; counter['keys'][key]=counter['keys'].get(key,0)+1

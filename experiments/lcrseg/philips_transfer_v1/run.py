@@ -110,6 +110,29 @@ def evaluate(model, cfg, domain, role, output):
     return {**aggregate(rows),'forward_slices':count}, rows
 
 
+def finalize(cfg,out,model,ema,committed,physical):
+    train,_=evaluate(ema,cfg,'Philips','train_labeled',out/'private_train.jsonl')
+    target,_=evaluate(ema,cfg,'Philips','val',out/'private_Philips_val.jsonl')
+    old,rows= evaluate(ema,cfg,'Siemens','val',out/'private_Siemens_val.jsonl')
+    old_rows=[json.loads(line) for line in Path(cfg.get('baseline_val_rows',cfg['source_val_rows'])).read_text().splitlines()]
+    base=aggregate(old_rows)
+    if not cfg.get('baseline_val_rows'):
+        assert abs(base['primary_dice']-.8036740663770262)<1e-12
+    result=dict(status='COMPLETE',arm=cfg['arm'],step=committed,physical_updates=physical,
+        primary='fixed final EMA',train=train,Philips=target,Siemens=old,
+        old_domain_delta_pp=100*(old['primary_dice']-base['primary_dice']),
+        paired_old=compare(old_rows,rows),two_domain_mean=(old['primary_dice']+target['primary_dice'])/2,
+        target_train_val_gap_pp=100*(train['primary_dice']-target['primary_dice']),
+        independent_test_access=False,diagnostic_holdout_excluded=cfg.get('diagnostic_holdout_excluded', True))
+    if cfg.get('audit_source_training', False):
+        result['source_train'],_=evaluate(ema,cfg,'Siemens','train_labeled',out/'private_Siemens_train.jsonl')
+    write(out/'RESULTS.json',result)
+    if cfg['arm']=='cl_fixmatch':
+        write(out/'STATUS.json',dict(status='DIAGNOSING',physical_updates=physical))
+        from .diagnostic import run
+        run(cfg,model,out)
+
+
 def main(cfg):
     if cfg['arm'] not in ARMS or os.environ.get('CUDA_VISIBLE_DEVICES')!=GPU:
         raise PermissionError('frozen arm/GPU mismatch')
@@ -172,25 +195,7 @@ def main(cfg):
             U_slice_exposure=2*data.u_reads,accepted_class_pixels=accepted.tolist(),U_pixels=total_pixels,
             training_seconds=time.time()-train_start,preflight_and_training_seconds=time.time()-started))
         write(out/'STATUS.json',dict(status='EVALUATING',step=committed,physical_updates=physical))
-        train,_=evaluate(ema,cfg,'Philips','train_labeled',out/'private_train.jsonl')
-        target,_=evaluate(ema,cfg,'Philips','val',out/'private_Philips_val.jsonl')
-        old,rows= evaluate(ema,cfg,'Siemens','val',out/'private_Siemens_val.jsonl')
-        old_rows=[json.loads(line) for line in Path(cfg['source_val_rows']).read_text().splitlines()]
-        base=aggregate(old_rows)
-        assert abs(base['primary_dice']-.8036740663770262)<1e-12
-        result=dict(status='COMPLETE',arm=cfg['arm'],step=committed,physical_updates=physical,
-            primary='fixed final EMA',train=train,Philips=target,Siemens=old,
-            old_domain_delta_pp=100*(old['primary_dice']-base['primary_dice']),
-            paired_old=compare(old_rows,rows),two_domain_mean=(old['primary_dice']+target['primary_dice'])/2,
-            target_train_val_gap_pp=100*(train['primary_dice']-target['primary_dice']),
-            independent_test_access=False,diagnostic_holdout_excluded=cfg.get('diagnostic_holdout_excluded', True))
-        if cfg.get('audit_source_training', False):
-            result['source_train'],_=evaluate(ema,cfg,'Siemens','train_labeled',out/'private_Siemens_train.jsonl')
-        write(out/'RESULTS.json',result)
-        if cfg['arm']=='cl_fixmatch':
-            write(out/'STATUS.json',dict(status='DIAGNOSING',physical_updates=physical))
-            from .diagnostic import run
-            run(cfg,model,out)
+        finalize(cfg,out,model,ema,committed,physical)
         write(out/'STATUS.json',dict(status='COMPLETE',step=committed,physical_updates=physical))
         write(out/'EXIT.json',dict(exit_code=0))
     except BaseException as exc:
