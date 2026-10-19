@@ -14,7 +14,10 @@ def main(cfg):
         write(root/('ACTIVE_'+name+'.json'),dict(pid=p.pid,birth=Path('/proc/'+str(p.pid)+'/stat').read_text().split()[21],mode=mode,gpu=3,time=time.time()))
         if p.wait()!=0:raise RuntimeError('worker failed: '+name)
     try:
-        launch('checks',root/'CONTROLLER.json','checks')
+        if (root/'SYNTHETIC_CHECKS.json').exists():
+            receipt=json.loads((root/'SYNTHETIC_CHECKS.json').read_text())
+            assert receipt['status']=='PASS' and receipt['optimizer_calls']==0
+        else:launch('checks',root/'CONTROLLER.json','checks')
         write(root/'STATUS.json',dict(status='PREPARING',time=time.time()))
         launch('prepare',root/'CONTROLLER.json','prepare')
         for arm in ARMS:

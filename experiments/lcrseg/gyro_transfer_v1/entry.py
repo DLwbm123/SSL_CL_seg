@@ -3,7 +3,7 @@ from pathlib import Path
 os.environ['CUDA_VISIBLE_DEVICES']='3';os.environ.setdefault('CUBLAS_WORKSPACE_CONFIG',':4096:8')
 cfg=json.loads(Path(os.environ['TASK_SETTINGS']).read_text());sys.path.insert(0,cfg['base'])
 import experiments.lcrseg
-experiments.lcrseg.__path__=[str(Path(cfg['code'])/'experiments/lcrseg'),str(Path(cfg['previous_code'])/'experiments/lcrseg'),str(Path(cfg['overlay'])/'experiments/lcrseg'),*experiments.lcrseg.__path__]
+experiments.lcrseg.__path__=[str(Path(cfg['code'])/'experiments/lcrseg'),str(Path(cfg['previous_code'])/'experiments/lcrseg'),str(Path(cfg['dependency_code'])/'experiments/lcrseg'),str(Path(cfg['overlay'])/'experiments/lcrseg'),*experiments.lcrseg.__path__]
 mode=os.environ['TASK_MODE']
 if mode=='controller':
     from experiments.lcrseg.gyro_transfer_v1.controller import main
