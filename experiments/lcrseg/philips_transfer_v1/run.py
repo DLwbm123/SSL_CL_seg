@@ -133,6 +133,10 @@ def finalize(cfg,out,model,ema,committed,physical):
         run(cfg,model,out)
 
 
+def set_learning_rate(opt,step):
+    for group in opt.param_groups: group["lr"]=rate(step)
+
+
 def main(cfg):
     if cfg['arm'] not in ARMS or os.environ.get('CUDA_VISIBLE_DEVICES')!=GPU:
         raise PermissionError('frozen arm/GPU mismatch')
@@ -169,7 +173,7 @@ def main(cfg):
         train_start=time.time()
         for step in range(start_step,STEPS):
             opt.zero_grad(set_to_none=True)
-            for group in opt.param_groups: group['lr']=rate(step)
+            set_learning_rate(opt,step)
             l,u,stats=losses(cfg['arm'],model,data,step)
             loss=l+u
             if not torch.isfinite(loss): raise FloatingPointError('nonfinite loss')
