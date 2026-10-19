@@ -37,14 +37,14 @@ def run(s):
         for k in range(4):
             assert all(torch.equal(flip(flip(v,k),k),v) for v in [basebatch.image,basebatch.label,basebatch.valid_mask])
         ancestor=json.loads((Path(s['augment'])/'ANCESTOR_AUDIT.json').read_text());assert ancestor['status']=='PASS'
-        qualification=json.loads((Path(s['direction'])/'RESULTS.json').read_text());assert qualification['qualified'] and qualification['model_and_rng_unchanged']
+        qualification=json.loads((Path(s['direction'])/'RESULTS.json').read_text());assert qualification['qualified'] and qualification['model_and_rng_unchanged'] and json.loads((Path(s['direction'])/'EXIT.json').read_text())['exit_code']==0
         payload=torch.load(s['checkpoint'],map_location='cpu',weights_only=False);assert payload['cursor']==4375 and payload['population']==dict(labeled=2,unlabeled=0)
         for arm in ['fullview']:
             out=root/arm;out.mkdir(exist_ok=False);seed_everything(163)
             model=Model().cuda();method=DiagnosticMethod(model,2,'mean_ce');method.begin_site('Siemens',None,6775)
             optimizer=torch.optim.Adam(model.parameters(),lr=3e-4,weight_decay=0);scheduler=torch.optim.lr_scheduler.LambdaLR(optimizer,lambda _:1.)
             trainer=Trainer(method,optimizer=optimizer,scheduler=scheduler,device='cuda',amp=False,grad_clip_norm=1.)
-            restore(payload,method,trainer);assert same(payload['model'],model.state_dict()) and same(payload['trainer'],trainer.state_dict())
+            restore(payload,method,trainer);assert same(payload['model'],model.state_dict()) and same(payload['trainer'],trainer.state_dict()) and same(payload['rng'],capture_rng_state())
             named=list(model.named_parameters());assert len(named)==100 and optimizer.state_dict()['param_groups'][0]['params']==list(range(100))
             for n,p in named:p.requires_grad_(semantic(n))
             frozen={k:v.detach().clone() for k,v in model.state_dict().items() if not semantic(k)}
