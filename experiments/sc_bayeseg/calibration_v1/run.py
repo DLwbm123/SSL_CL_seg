@@ -50,8 +50,16 @@ def run(settings):
     root=Path(settings['output'])
     with (root/'RUN_STARTED.json').open('x') as f:json.dump(dict(time=time.time()),f)
     write(root/'CONTEXT.json',settings)
-    costs=dict(diagnostic=0,engineering=0);active={};started=time.time()
+    costs=dict(diagnostic=0,engineering=0);active={};started=time.time();prior_cost=0
     try:
+        prior_attempt=Path(settings['prior_attempt'])
+        history=[json.loads(v) for v in (prior_attempt/'physical_updates.jsonl').read_text().splitlines()]
+        assert [v['physical'] for v in history]==[1,2]
+        assert all(v['kind']=='engineering' for v in history)
+        assert json.loads((prior_attempt/'FAILURE.json').read_text())['costs']==dict(diagnostic=0,engineering=2)
+        assert json.loads((prior_attempt/'EXIT.json').read_text())['exit_code']==1
+        prior_cost=len(history);assert prior_cost==settings['prior_actual_updates']==2
+        write(root/'CUMULATIVE_BUDGET.json',dict(prior_actual_updates=prior_cost,new_run_cap=1204,cumulative_cap=1206,prior_ledger_continuous=True))
         torch.set_num_threads(4);torch.use_deterministic_algorithms(True)
         torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
         origin=Path(settings['origin']);previous=Path(settings['previous'])
@@ -81,6 +89,7 @@ def run(settings):
         results={};swaps={};norms=[];phase=['engineering'];name=['K'];local={}
         def guard(opt,args,kwargs):
             kind=phase[0]
+            assert prior_cost+sum(costs.values())<1206
             assert sum(costs.values())<1204 and costs[kind]<(4 if kind=='engineering' else 1200)
             assert local[kind]<(2 if kind=='engineering' else 600)
             assert all(g['lr']==3e-4 for g in opt.param_groups)
@@ -88,7 +97,7 @@ def run(settings):
             if name[0]=='K':assert all(p.grad is None for n,p in model.named_parameters() if not generator(n))
         def receipt(opt,args,kwargs):
             kind=phase[0];costs[kind]+=1;local[kind]+=1
-            append(root/'physical_updates.jsonl',dict(physical=sum(costs.values()),kind=kind,kind_physical=costs[kind],stage=name[0],local=local[kind],time=time.time()))
+            append(root/'physical_updates.jsonl',dict(physical=sum(costs.values()),cumulative_physical=prior_cost+sum(costs.values()),kind=kind,kind_physical=costs[kind],stage=name[0],local=local[kind],time=time.time()))
         pre=optimizer.register_step_pre_hook(guard);post=optimizer.register_step_post_hook(receipt)
         original_clip=torch.nn.utils.clip_grad_norm_
         def clip(parameters,max_norm,*args,**kwargs):
@@ -146,10 +155,10 @@ def run(settings):
         finally:
             torch.nn.utils.clip_grad_norm_=original_clip;pre.remove();post.remove()
         assert costs==dict(diagnostic=1200,engineering=4)
-        complete=dict(status='COMPLETE',started=started,finished=time.time(),costs=costs,results=results,swaps=swaps,calls=model.calls.copy())
+        complete=dict(status='COMPLETE',started=started,finished=time.time(),costs=costs,prior_actual_updates=prior_cost,cumulative_actual_updates=prior_cost+sum(costs.values()),results=results,swaps=swaps,calls=model.calls.copy())
         write(root/'RESULTS.json',complete);write(root/'STATUS.json',complete)
     except BaseException:
-        failure=dict(status='FAILED',costs=costs.copy(),traceback=traceback.format_exc())
+        failure=dict(status='FAILED',costs=costs.copy(),prior_actual_updates=prior_cost,cumulative_actual_updates=prior_cost+sum(costs.values()),traceback=traceback.format_exc())
         if active:
             save(active['out']/'failure_partial.pt',snapshot(active['method'],active['trainer'],active['cursor']));failure['partial_saved']=True
         write(root/'FAILURE.json',failure);write(root/'STATUS.json',failure);raise
