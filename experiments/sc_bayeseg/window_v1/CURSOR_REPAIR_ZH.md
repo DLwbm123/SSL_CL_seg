@@ -1,0 +1,7 @@
+# 全视图延续checkpoint游标修复协议
+
+独立审计发现：完整延续的周期checkpoint仍用旧源常数3176+i记录cursor，实际TrainerState与scheduler沿4375+i继续。末态cursor误记5575，预期6775。原训练2404实际更新和指标不因此重跑。
+
+先核对源S0000完整状态、2400主步/4golden物理账本、每个周期checkpoint的scheduler时钟、全部40语义Adam各增加2400、60非语义模型与Adam严格不变。通过才以create-only修复目录追加终态副本，仅cursor改为源4375+2400=6775；逐项检查model/trainer/RNG/population完全不变。原24周期checkpoint、原源码和全部回执保留。0optimizer、0训练反向、0候选评价。后继只能使用修复后的完整终态，不把Adam各参数局部step误当全局cursor。
+
+按窗口四根空间检查/容量探针后写入，全部权重留在数据盘；公开仅协议源码与匿名修复回执。
