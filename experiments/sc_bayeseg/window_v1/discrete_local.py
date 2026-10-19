@@ -45,10 +45,13 @@ def run(s):
             finally:restore_rng_state(rng)
         def decoder(z,shifts):
             model.clear_draw()
-            with torch.no_grad():
-                h,_=model.labeled_proposal(image,z,sample=False,shifts=shifts);a=model.anatomy_mean(h['c']);p=torch.cat([torch.zeros_like(a[:,:1]),a],1).argmax(1)
-                costs['decoder_diagnostics']+=1
-                return dict(foreground_fraction=float((p>0).float().mean()),GT_dice_given_candidate_labels=dice(p,gt))
+            for layer in model.bayes_layers():layer.sampled=(layer.mean_w,layer.mean_b)
+            try:
+                with torch.no_grad():
+                    h,_=model.labeled_proposal(image,z,sample=False,shifts=shifts);a=model.anatomy_mean(h['c']);p=torch.cat([torch.zeros_like(a[:,:1]),a],1).argmax(1)
+                    costs['decoder_diagnostics']+=1
+                    return dict(foreground_fraction=float((p>0).float().mean()),GT_dice_given_candidate_labels=dice(p,gt))
+            finally:model.clear_draw()
         for theta in ('0','600'):
             sd=source['600'].copy()
             for k in sd:
