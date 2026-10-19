@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "costs": {
+    "optimizer": 54,
+    "main": 50,
+    "golden": 4,
+    "candidates": 143,
+    "extra_reverse": 10
+  },
+  "candidate_categories": {
+    "guard_trial": 81,
+    "posterior_state": 3,
+    "joint_readout": 24,
+    "parameter_adam_cross": 8,
+    "schedule_endpoint": 27
+  },
+  "four_ledgers_contiguous": true,
+  "attempts_equal_optimizer_receipts": true,
+  "zero_update_cross_precedes_training": true,
+  "diagonal_checks": {
+    "status": "PASS",
+    "costs": {
+      "optimizer": 0,
+      "main": 0,
+      "golden": 0,
+      "candidates": 8,
+      "extra_reverse": 10
+    },
+    "reused_diagonal_derivatives_equal": true,
+    "actual_diagonal_displacement_error": 0
+  },
+  "complete_restore": {
+    "status": "PASS",
+    "full_state_equal": true,
+    "parameter_tensors": 100,
+    "semantic_tensors": 40
+  },
+  "all_four_golden_comparisons_exact": true,
+  "paired_alpha_schedule_equal": true,
+  "all_G_steps_satisfy_fixed_baseline_constraint": true,
+  "zero_alpha_semantic_displacement_exactly_zero": true,
+  "GT2_transitions_match_metrics": true,
+  "per_image_transitions_sum_to_aggregate": true,
+  "original_ledgers_unchanged": true,
+  "final_checkpoint_audit": {
+    "G_D_final_complete_state_exact": true,
+    "semantic_parameters_equal_initial": true,
+    "prior_buffers_unchanged": true,
+    "final_adam_steps": [
+      625,
+      1225,
+      1825
+    ],
+    "final_cursor": 3025
+  },
+  "no_failure": true,
+  "exit_code": 0
+}
