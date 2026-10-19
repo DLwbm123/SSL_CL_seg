@@ -1,0 +1,2535 @@
+{
+  "status": "AUDITED_COMPLETE",
+  "training_code": "fcefda4",
+  "exit_code": 0,
+  "costs": {
+    "diagnostic": 2400,
+    "engineering": 4
+  },
+  "actual_optimizer_updates": 2404,
+  "physical_and_local_ledgers_continuous": true,
+  "source_cursor": 600,
+  "source_shared_not_recounted": true,
+  "duration_seconds": 38.10391283035278,
+  "overlay_review": {
+    "status": "PASS_VISUAL_SCREEN",
+    "samples": 2,
+    "views": [
+      "native",
+      "foreground zoom",
+      "128 grid"
+    ],
+    "observations": "Contours correspond to visible cardiac structures in both images; no obvious global translation, rotation or image-label mismatch. Expected grid staircasing at 128 resolution.",
+    "limitation": "Visual screening of two selected samples, not an independent annotation or complete dataset audit.",
+    "private_images_not_public": true,
+    "optimizer_updates": 0
+  },
+  "stages": {
+    "L1": {
+      "results": {
+        "added_step": 1200,
+        "cumulative_step": 1800,
+        "stochastic_ce": 0.024641074240207672,
+        "stochastic_background_fraction": 0.944915771484375,
+        "direct_ce": 0.02465650998055935,
+        "direct_background_fraction": 0.944976806640625,
+        "status": "COMPLETE",
+        "lr": 0.0001,
+        "updates": {
+          "diagnostic": 1200,
+          "engineering": 2
+        },
+        "prior_unchanged": true,
+        "calls": {
+          "proposal_images": 2474,
+          "density_images": 0,
+          "generator_draws": 1202,
+          "refinement_derivatives": 0,
+          "predictive_images": 0
+        },
+        "main_pass": false,
+        "direct_pass": false,
+        "clipping_fraction": 1.0,
+        "gradient_norm_min": 1.0832841396331787,
+        "gradient_norm_max": 86.83281707763672,
+        "stochastic_dice_class_mean": [
+          0.9107443392276764,
+          0.6751274466514587,
+          0.8832063972949982
+        ],
+        "stochastic_dice_class_min": [
+          0.8950672745704651,
+          0.6654064059257507,
+          0.8271604776382446
+        ],
+        "stochastic_dice_macro_mean": 0.8230260610580444,
+        "direct_dice_class_mean": [
+          0.9143110513687134,
+          0.6754282116889954,
+          0.885775238275528
+        ],
+        "direct_dice_class_min": [
+          0.8950672745704651,
+          0.6616256833076477,
+          0.8322981595993042
+        ],
+        "direct_dice_macro_mean": 0.8251715004444122,
+        "stochastic_recall_class_mean": [
+          0.9726258814334869,
+          0.5969443619251251,
+          0.9184976518154144
+        ],
+        "stochastic_recall_class_min": [
+          0.9551724195480347,
+          0.5695793032646179,
+          0.8933333158493042
+        ],
+        "stochastic_recall_macro_mean": 0.8293559650580088,
+        "direct_recall_class_mean": [
+          0.9795224368572235,
+          0.592563807964325,
+          0.9184976518154144
+        ],
+        "direct_recall_class_min": [
+          0.9689655303955078,
+          0.5663430690765381,
+          0.8933333158493042
+        ],
+        "direct_recall_macro_mean": 0.8301946322123209
+      },
+      "restore": {
+        "status": "PASS",
+        "source_cursor": 600,
+        "source_adam_steps": [
+          600
+        ],
+        "model_equal": true,
+        "adam_moments_equal": true,
+        "optimizer_and_scheduler_equal_before_lr_change": true,
+        "baseline_predictions_equal": true,
+        "lr": 0.0001,
+        "scheduler_base_lrs": [
+          0.0001
+        ]
+      },
+      "qualification": {
+        "status": "PASS",
+        "engineering_updates": 2,
+        "full_state_golden_equal": true
+      },
+      "final_cursor": 1800,
+      "adam_steps": [
+        1800
+      ],
+      "final_lr": 0.0001,
+      "scheduler_last_epoch": 1800,
+      "latest_equals_final_model": true,
+      "generators_and_priors_equal_to_source": true,
+      "metrics": [
+        {
+          "added_step": 0,
+          "cumulative_step": 600,
+          "stochastic_ce": 0.09347924590110779,
+          "stochastic_background_fraction": 0.9793701171875,
+          "direct_ce": 0.09343531727790833,
+          "direct_background_fraction": 0.978973388671875,
+          "stochastic_dice_class_mean": [
+            0.6563362181186676,
+            0.0,
+            0.42105264216661453
+          ],
+          "stochastic_dice_class_min": [
+            0.5295630097389221,
+            0.0,
+            0.20000000298023224
+          ],
+          "stochastic_dice_macro_mean": 0.359129620095094,
+          "direct_dice_class_mean": [
+            0.6610123515129089,
+            0.0,
+            0.4227513149380684
+          ],
+          "direct_dice_class_min": [
+            0.5387547612190247,
+            0.0,
+            0.20000000298023224
+          ],
+          "direct_dice_macro_mean": 0.3612545554836591,
+          "stochastic_recall_class_mean": [
+            0.5560892224311829,
+            0.0,
+            0.4630046933889389
+          ],
+          "stochastic_recall_class_min": [
+            0.408730149269104,
+            0.0,
+            0.11267605423927307
+          ],
+          "stochastic_recall_macro_mean": 0.3396979719400406,
+          "direct_recall_class_mean": [
+            0.5654898881912231,
+            0.0,
+            0.4630046933889389
+          ],
+          "direct_recall_class_min": [
+            0.420634925365448,
+            0.0,
+            0.11267605423927307
+          ],
+          "direct_recall_macro_mean": 0.34283152719338733
+        },
+        {
+          "added_step": 25,
+          "cumulative_step": 625,
+          "stochastic_ce": 0.08890791237354279,
+          "stochastic_background_fraction": 0.966705322265625,
+          "direct_ce": 0.08890538662672043,
+          "direct_background_fraction": 0.96661376953125,
+          "stochastic_dice_class_mean": [
+            0.8235005438327789,
+            0.0,
+            0.46874645352363586
+          ],
+          "stochastic_dice_class_min": [
+            0.8022598624229431,
+            0.0,
+            0.31984585523605347
+          ],
+          "stochastic_dice_macro_mean": 0.43074899911880493,
+          "direct_dice_class_mean": [
+            0.8235445916652679,
+            0.0,
+            0.47026774287223816
+          ],
+          "direct_dice_class_min": [
+            0.8037558794021606,
+            0.0,
+            0.31984585523605347
+          ],
+          "direct_dice_macro_mean": 0.4312707781791687,
+          "stochastic_recall_class_mean": [
+            0.8588259518146515,
+            0.0,
+            0.5174178257584572
+          ],
+          "stochastic_recall_class_min": [
+            0.8452380895614624,
+            0.0,
+            0.19483567774295807
+          ],
+          "stochastic_recall_macro_mean": 0.4587479258577029,
+          "direct_recall_class_mean": [
+            0.8608100712299347,
+            0.0,
+            0.5174178257584572
+          ],
+          "direct_recall_class_min": [
+            0.8492063283920288,
+            0.0,
+            0.19483567774295807
+          ],
+          "direct_recall_macro_mean": 0.45940929899613064
+        },
+        {
+          "added_step": 100,
+          "cumulative_step": 700,
+          "stochastic_ce": 0.08722905069589615,
+          "stochastic_background_fraction": 0.973876953125,
+          "direct_ce": 0.08717574179172516,
+          "direct_background_fraction": 0.9736328125,
+          "stochastic_dice_class_mean": [
+            0.7411690950393677,
+            0.0,
+            0.4686702787876129
+          ],
+          "stochastic_dice_class_min": [
+            0.6202090382575989,
+            0.0,
+            0.3046875
+          ],
+          "stochastic_dice_macro_mean": 0.4032797912756602,
+          "direct_dice_class_mean": [
+            0.7460171580314636,
+            0.0,
+            0.47029247879981995
+          ],
+          "direct_dice_class_min": [
+            0.6274510025978088,
+            0.0,
+            0.3046875
+          ],
+          "direct_dice_macro_mean": 0.40543654561042786,
+          "stochastic_recall_class_mean": [
+            0.6907430291175842,
+            0.0,
+            0.5048826187849045
+          ],
+          "stochastic_recall_class_min": [
+            0.5297619104385376,
+            0.0,
+            0.18309858441352844
+          ],
+          "stochastic_recall_macro_mean": 0.3985418826341629,
+          "direct_recall_class_mean": [
+            0.6991516351699829,
+            0.0,
+            0.5048826187849045
+          ],
+          "direct_recall_class_min": [
+            0.5396825671195984,
+            0.0,
+            0.18309858441352844
+          ],
+          "direct_recall_macro_mean": 0.4013447513182958
+        },
+        {
+          "added_step": 300,
+          "cumulative_step": 900,
+          "stochastic_ce": 0.06737086176872253,
+          "stochastic_background_fraction": 0.955413818359375,
+          "direct_ce": 0.06730804592370987,
+          "direct_background_fraction": 0.95538330078125,
+          "stochastic_dice_class_mean": [
+            0.83670574426651,
+            0.23678556829690933,
+            0.7061041593551636
+          ],
+          "stochastic_dice_class_min": [
+            0.7831094264984131,
+            0.17553190886974335,
+            0.6222222447395325
+          ],
+          "stochastic_dice_macro_mean": 0.5931984906395277,
+          "direct_dice_class_mean": [
+            0.835990309715271,
+            0.2355087399482727,
+            0.7025204598903656
+          ],
+          "direct_dice_class_min": [
+            0.7834455966949463,
+            0.1741424798965454,
+            0.6167401075363159
+          ],
+          "direct_dice_macro_mean": 0.5913398365179697,
+          "stochastic_recall_class_mean": [
+            0.8875205218791962,
+            0.15837043523788452,
+            0.800000011920929
+          ],
+          "stochastic_recall_class_min": [
+            0.8095238208770752,
+            0.10679611563682556,
+            0.6666666865348816
+          ],
+          "stochastic_recall_macro_mean": 0.6152969896793365,
+          "direct_recall_class_mean": [
+            0.8848043382167816,
+            0.15837043523788452,
+            0.7988263070583344
+          ],
+          "direct_recall_class_min": [
+            0.807539701461792,
+            0.10679611563682556,
+            0.6643192768096924
+          ],
+          "direct_recall_macro_mean": 0.6140003601710001
+        },
+        {
+          "added_step": 600,
+          "cumulative_step": 1200,
+          "stochastic_ce": 0.044312119483947754,
+          "stochastic_background_fraction": 0.952392578125,
+          "direct_ce": 0.04430664703249931,
+          "direct_background_fraction": 0.9525146484375,
+          "stochastic_dice_class_mean": [
+            0.8915316164493561,
+            0.38132455945014954,
+            0.8602552711963654
+          ],
+          "stochastic_dice_class_min": [
+            0.8581884503364563,
+            0.29411765933036804,
+            0.8271604776382446
+          ],
+          "stochastic_dice_macro_mean": 0.711037149031957,
+          "direct_dice_class_mean": [
+            0.8938634991645813,
+            0.38496486842632294,
+            0.8574642241001129
+          ],
+          "direct_dice_class_min": [
+            0.8610603213310242,
+            0.2997542917728424,
+            0.8271604776382446
+          ],
+          "direct_dice_macro_mean": 0.7120975305636724,
+          "stochastic_recall_class_mean": [
+            0.9428640007972717,
+            0.28217024356126785,
+            0.8645070195198059
+          ],
+          "stochastic_recall_class_min": [
+            0.9305555820465088,
+            0.19417475163936615,
+            0.8356807231903076
+          ],
+          "stochastic_recall_macro_mean": 0.6965137546261152,
+          "direct_recall_class_mean": [
+            0.9465722441673279,
+            0.28378836810588837,
+            0.8598122000694275
+          ],
+          "direct_recall_class_min": [
+            0.9345238208770752,
+            0.19741100072860718,
+            0.8262910842895508
+          ],
+          "direct_recall_macro_mean": 0.6967242707808813
+        },
+        {
+          "added_step": 900,
+          "cumulative_step": 1500,
+          "stochastic_ce": 0.03154245391488075,
+          "stochastic_background_fraction": 0.944793701171875,
+          "direct_ce": 0.031564369797706604,
+          "direct_background_fraction": 0.944793701171875,
+          "stochastic_dice_class_mean": [
+            0.8982022702693939,
+            0.6088552176952362,
+            0.8696874976158142
+          ],
+          "stochastic_dice_class_min": [
+            0.867012083530426,
+            0.6052104234695435,
+            0.802395224571228
+          ],
+          "stochastic_dice_macro_mean": 0.7922483285268148,
+          "direct_dice_class_mean": [
+            0.8965602219104767,
+            0.6057302057743073,
+            0.8696874976158142
+          ],
+          "direct_dice_class_min": [
+            0.867012083530426,
+            0.6052104234695435,
+            0.802395224571228
+          ],
+          "direct_dice_macro_mean": 0.7906593084335327,
+          "stochastic_recall_class_mean": [
+            0.985946923494339,
+            0.5150548219680786,
+            0.9091079831123352
+          ],
+          "stochastic_recall_class_min": [
+            0.9758620858192444,
+            0.4886731505393982,
+            0.8933333158493042
+          ],
+          "stochastic_recall_macro_mean": 0.8033699095249176,
+          "direct_recall_class_mean": [
+            0.9842227697372437,
+            0.5122923851013184,
+            0.9091079831123352
+          ],
+          "direct_recall_class_min": [
+            0.9724137783050537,
+            0.4886731505393982,
+            0.8933333158493042
+          ],
+          "direct_recall_macro_mean": 0.8018743793169657
+        },
+        {
+          "added_step": 1200,
+          "cumulative_step": 1800,
+          "stochastic_ce": 0.024641074240207672,
+          "stochastic_background_fraction": 0.944915771484375,
+          "direct_ce": 0.02465650998055935,
+          "direct_background_fraction": 0.944976806640625,
+          "stochastic_dice_class_mean": [
+            0.9107443392276764,
+            0.6751274466514587,
+            0.8832063972949982
+          ],
+          "stochastic_dice_class_min": [
+            0.8950672745704651,
+            0.6654064059257507,
+            0.8271604776382446
+          ],
+          "stochastic_dice_macro_mean": 0.8230260610580444,
+          "direct_dice_class_mean": [
+            0.9143110513687134,
+            0.6754282116889954,
+            0.885775238275528
+          ],
+          "direct_dice_class_min": [
+            0.8950672745704651,
+            0.6616256833076477,
+            0.8322981595993042
+          ],
+          "direct_dice_macro_mean": 0.8251715004444122,
+          "stochastic_recall_class_mean": [
+            0.9726258814334869,
+            0.5969443619251251,
+            0.9184976518154144
+          ],
+          "stochastic_recall_class_min": [
+            0.9551724195480347,
+            0.5695793032646179,
+            0.8933333158493042
+          ],
+          "stochastic_recall_macro_mean": 0.8293559650580088,
+          "direct_recall_class_mean": [
+            0.9795224368572235,
+            0.592563807964325,
+            0.9184976518154144
+          ],
+          "direct_recall_class_min": [
+            0.9689655303955078,
+            0.5663430690765381,
+            0.8933333158493042
+          ],
+          "direct_recall_macro_mean": 0.8301946322123209
+        }
+      ],
+      "telemetry": [
+        {
+          "arm": "L1",
+          "added_step": 1,
+          "cumulative_step": 601,
+          "loss": 0.09343531727790833,
+          "gradient_norm_before_clip": 12.409178733825684,
+          "predicted_fraction_0": 0.978973388671875,
+          "predicted_fraction_1": 0.015838623046875,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.005126953125,
+          "label_ce_per_pixel": 0.09343531727790833,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014056272921152413,
+          "peak_memory_bytes": 95452160.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 25,
+          "cumulative_step": 625,
+          "loss": 0.09285031259059906,
+          "gradient_norm_before_clip": 14.83046817779541,
+          "predicted_fraction_0": 0.978851318359375,
+          "predicted_fraction_1": 0.016082763671875,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.0050048828125,
+          "label_ce_per_pixel": 0.09285031259059906,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01306418003514409,
+          "peak_memory_bytes": 95452672.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 50,
+          "cumulative_step": 650,
+          "loss": 0.08652126789093018,
+          "gradient_norm_before_clip": 5.08405876159668,
+          "predicted_fraction_0": 0.96551513671875,
+          "predicted_fraction_1": 0.027374267578125,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.007049560546875,
+          "label_ce_per_pixel": 0.08652126789093018,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014813155983574688,
+          "peak_memory_bytes": 95452672.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 75,
+          "cumulative_step": 675,
+          "loss": 0.08636349439620972,
+          "gradient_norm_before_clip": 11.745438575744629,
+          "predicted_fraction_0": 0.961181640625,
+          "predicted_fraction_1": 0.030914306640625,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.007843017578125,
+          "label_ce_per_pixel": 0.08636349439620972,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014969091978855431,
+          "peak_memory_bytes": 95452672.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 100,
+          "cumulative_step": 700,
+          "loss": 0.08195619285106659,
+          "gradient_norm_before_clip": 5.7145915031433105,
+          "predicted_fraction_0": 0.9622802734375,
+          "predicted_fraction_1": 0.02972412109375,
+          "predicted_fraction_2": 9.1552734375e-05,
+          "predicted_fraction_3": 0.007904052734375,
+          "label_ce_per_pixel": 0.08195619285106659,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014794528018683195,
+          "peak_memory_bytes": 95452672.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 125,
+          "cumulative_step": 725,
+          "loss": 0.08635702729225159,
+          "gradient_norm_before_clip": 19.837453842163086,
+          "predicted_fraction_0": 0.97271728515625,
+          "predicted_fraction_1": 0.0201416015625,
+          "predicted_fraction_2": 0.000518798828125,
+          "predicted_fraction_3": 0.006622314453125,
+          "label_ce_per_pixel": 0.08635702729225159,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014229351072572172,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 150,
+          "cumulative_step": 750,
+          "loss": 0.09246908128261566,
+          "gradient_norm_before_clip": 32.86812973022461,
+          "predicted_fraction_0": 0.9759521484375,
+          "predicted_fraction_1": 0.017059326171875,
+          "predicted_fraction_2": 0.000762939453125,
+          "predicted_fraction_3": 0.0062255859375,
+          "label_ce_per_pixel": 0.09246908128261566,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014824375975877047,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 175,
+          "cumulative_step": 775,
+          "loss": 0.08150717616081238,
+          "gradient_norm_before_clip": 21.716644287109375,
+          "predicted_fraction_0": 0.967742919921875,
+          "predicted_fraction_1": 0.02227783203125,
+          "predicted_fraction_2": 0.001495361328125,
+          "predicted_fraction_3": 0.00848388671875,
+          "label_ce_per_pixel": 0.08150717616081238,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014272761065512896,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 200,
+          "cumulative_step": 800,
+          "loss": 0.07345020025968552,
+          "gradient_norm_before_clip": 8.417338371276855,
+          "predicted_fraction_0": 0.953094482421875,
+          "predicted_fraction_1": 0.033233642578125,
+          "predicted_fraction_2": 0.003173828125,
+          "predicted_fraction_3": 0.010498046875,
+          "label_ce_per_pixel": 0.07345020025968552,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014170508948154747,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 225,
+          "cumulative_step": 825,
+          "loss": 0.0745629221200943,
+          "gradient_norm_before_clip": 14.50289249420166,
+          "predicted_fraction_0": 0.94891357421875,
+          "predicted_fraction_1": 0.034942626953125,
+          "predicted_fraction_2": 0.0047607421875,
+          "predicted_fraction_3": 0.011383056640625,
+          "label_ce_per_pixel": 0.0745629221200943,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014290353981778026,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 250,
+          "cumulative_step": 850,
+          "loss": 0.06923125684261322,
+          "gradient_norm_before_clip": 6.050764083862305,
+          "predicted_fraction_0": 0.9508056640625,
+          "predicted_fraction_1": 0.03289794921875,
+          "predicted_fraction_2": 0.004486083984375,
+          "predicted_fraction_3": 0.011810302734375,
+          "label_ce_per_pixel": 0.06923125684261322,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014161064056679606,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 275,
+          "cumulative_step": 875,
+          "loss": 0.07237650454044342,
+          "gradient_norm_before_clip": 20.827051162719727,
+          "predicted_fraction_0": 0.96185302734375,
+          "predicted_fraction_1": 0.02508544921875,
+          "predicted_fraction_2": 0.003570556640625,
+          "predicted_fraction_3": 0.009490966796875,
+          "label_ce_per_pixel": 0.07237650454044342,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014188920962624252,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 300,
+          "cumulative_step": 900,
+          "loss": 0.07485637068748474,
+          "gradient_norm_before_clip": 29.616992950439453,
+          "predicted_fraction_0": 0.962860107421875,
+          "predicted_fraction_1": 0.022705078125,
+          "predicted_fraction_2": 0.003814697265625,
+          "predicted_fraction_3": 0.0106201171875,
+          "label_ce_per_pixel": 0.07485637068748474,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014238307951018214,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 325,
+          "cumulative_step": 925,
+          "loss": 0.06554342806339264,
+          "gradient_norm_before_clip": 13.7496919631958,
+          "predicted_fraction_0": 0.954376220703125,
+          "predicted_fraction_1": 0.027008056640625,
+          "predicted_fraction_2": 0.004180908203125,
+          "predicted_fraction_3": 0.014434814453125,
+          "label_ce_per_pixel": 0.06554342806339264,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014889509999193251,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 350,
+          "cumulative_step": 950,
+          "loss": 0.06416098773479462,
+          "gradient_norm_before_clip": 12.867950439453125,
+          "predicted_fraction_0": 0.94482421875,
+          "predicted_fraction_1": 0.03387451171875,
+          "predicted_fraction_2": 0.005340576171875,
+          "predicted_fraction_3": 0.015960693359375,
+          "label_ce_per_pixel": 0.06416098773479462,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014883684925734997,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 375,
+          "cumulative_step": 975,
+          "loss": 0.06407639384269714,
+          "gradient_norm_before_clip": 16.91313934326172,
+          "predicted_fraction_0": 0.944305419921875,
+          "predicted_fraction_1": 0.034759521484375,
+          "predicted_fraction_2": 0.00592041015625,
+          "predicted_fraction_3": 0.0150146484375,
+          "label_ce_per_pixel": 0.06407639384269714,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014164356980472803,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 400,
+          "cumulative_step": 1000,
+          "loss": 0.057760946452617645,
+          "gradient_norm_before_clip": 7.312283515930176,
+          "predicted_fraction_0": 0.94744873046875,
+          "predicted_fraction_1": 0.032928466796875,
+          "predicted_fraction_2": 0.005615234375,
+          "predicted_fraction_3": 0.014007568359375,
+          "label_ce_per_pixel": 0.057760946452617645,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014267028076574206,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 425,
+          "cumulative_step": 1025,
+          "loss": 0.06124662980437279,
+          "gradient_norm_before_clip": 24.13901138305664,
+          "predicted_fraction_0": 0.956878662109375,
+          "predicted_fraction_1": 0.025634765625,
+          "predicted_fraction_2": 0.004669189453125,
+          "predicted_fraction_3": 0.0128173828125,
+          "label_ce_per_pixel": 0.06124662980437279,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014197934069670737,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 450,
+          "cumulative_step": 1050,
+          "loss": 0.06734722852706909,
+          "gradient_norm_before_clip": 39.75973892211914,
+          "predicted_fraction_0": 0.96014404296875,
+          "predicted_fraction_1": 0.0224609375,
+          "predicted_fraction_2": 0.004669189453125,
+          "predicted_fraction_3": 0.012725830078125,
+          "label_ce_per_pixel": 0.06734722852706909,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014995493926107883,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 475,
+          "cumulative_step": 1075,
+          "loss": 0.05639442056417465,
+          "gradient_norm_before_clip": 24.961671829223633,
+          "predicted_fraction_0": 0.95574951171875,
+          "predicted_fraction_1": 0.025665283203125,
+          "predicted_fraction_2": 0.005126953125,
+          "predicted_fraction_3": 0.013458251953125,
+          "label_ce_per_pixel": 0.05639442056417465,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01480300899129361,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 500,
+          "cumulative_step": 1100,
+          "loss": 0.055279552936553955,
+          "gradient_norm_before_clip": 22.06696891784668,
+          "predicted_fraction_0": 0.94287109375,
+          "predicted_fraction_1": 0.034027099609375,
+          "predicted_fraction_2": 0.008087158203125,
+          "predicted_fraction_3": 0.0150146484375,
+          "label_ce_per_pixel": 0.055279552936553955,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.0142913400195539,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 525,
+          "cumulative_step": 1125,
+          "loss": 0.05251772701740265,
+          "gradient_norm_before_clip": 19.140615463256836,
+          "predicted_fraction_0": 0.9439697265625,
+          "predicted_fraction_1": 0.033111572265625,
+          "predicted_fraction_2": 0.00787353515625,
+          "predicted_fraction_3": 0.015045166015625,
+          "label_ce_per_pixel": 0.05251772701740265,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014367038034833968,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 550,
+          "cumulative_step": 1150,
+          "loss": 0.04482923820614815,
+          "gradient_norm_before_clip": 5.174488544464111,
+          "predicted_fraction_0": 0.94683837890625,
+          "predicted_fraction_1": 0.03045654296875,
+          "predicted_fraction_2": 0.007415771484375,
+          "predicted_fraction_3": 0.015289306640625,
+          "label_ce_per_pixel": 0.04482923820614815,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014848439022898674,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 575,
+          "cumulative_step": 1175,
+          "loss": 0.0531993992626667,
+          "gradient_norm_before_clip": 35.32931137084961,
+          "predicted_fraction_0": 0.956573486328125,
+          "predicted_fraction_1": 0.024078369140625,
+          "predicted_fraction_2": 0.0062255859375,
+          "predicted_fraction_3": 0.01312255859375,
+          "label_ce_per_pixel": 0.0531993992626667,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.015428395010530949,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 600,
+          "cumulative_step": 1200,
+          "loss": 0.053715236485004425,
+          "gradient_norm_before_clip": 41.15324401855469,
+          "predicted_fraction_0": 0.957427978515625,
+          "predicted_fraction_1": 0.02349853515625,
+          "predicted_fraction_2": 0.00604248046875,
+          "predicted_fraction_3": 0.013031005859375,
+          "label_ce_per_pixel": 0.053715236485004425,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014727156958542764,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 625,
+          "cumulative_step": 1225,
+          "loss": 0.04366600885987282,
+          "gradient_norm_before_clip": 18.9433536529541,
+          "predicted_fraction_0": 0.95245361328125,
+          "predicted_fraction_1": 0.027313232421875,
+          "predicted_fraction_2": 0.006378173828125,
+          "predicted_fraction_3": 0.01385498046875,
+          "label_ce_per_pixel": 0.04366600885987282,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014806417049840093,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 650,
+          "cumulative_step": 1250,
+          "loss": 0.03935418277978897,
+          "gradient_norm_before_clip": 7.4159932136535645,
+          "predicted_fraction_0": 0.94573974609375,
+          "predicted_fraction_1": 0.03033447265625,
+          "predicted_fraction_2": 0.00836181640625,
+          "predicted_fraction_3": 0.01556396484375,
+          "label_ce_per_pixel": 0.03935418277978897,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.015255609061568975,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 675,
+          "cumulative_step": 1275,
+          "loss": 0.06473737955093384,
+          "gradient_norm_before_clip": 4.92996883392334,
+          "predicted_fraction_0": 0.95123291015625,
+          "predicted_fraction_1": 0.03045654296875,
+          "predicted_fraction_2": 0.009979248046875,
+          "predicted_fraction_3": 0.008331298828125,
+          "label_ce_per_pixel": 0.06473737955093384,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014832430053502321,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 700,
+          "cumulative_step": 1300,
+          "loss": 0.05313033610582352,
+          "gradient_norm_before_clip": 32.583335876464844,
+          "predicted_fraction_0": 0.94183349609375,
+          "predicted_fraction_1": 0.034576416015625,
+          "predicted_fraction_2": 0.0069580078125,
+          "predicted_fraction_3": 0.016632080078125,
+          "label_ce_per_pixel": 0.05313033610582352,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01480762695427984,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 725,
+          "cumulative_step": 1325,
+          "loss": 0.03756273537874222,
+          "gradient_norm_before_clip": 7.523763656616211,
+          "predicted_fraction_0": 0.948272705078125,
+          "predicted_fraction_1": 0.02825927734375,
+          "predicted_fraction_2": 0.0096435546875,
+          "predicted_fraction_3": 0.013824462890625,
+          "label_ce_per_pixel": 0.03756273537874222,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012558486079797149,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 750,
+          "cumulative_step": 1350,
+          "loss": 0.05040932446718216,
+          "gradient_norm_before_clip": 36.590213775634766,
+          "predicted_fraction_0": 0.93756103515625,
+          "predicted_fraction_1": 0.03363037109375,
+          "predicted_fraction_2": 0.0125732421875,
+          "predicted_fraction_3": 0.0162353515625,
+          "label_ce_per_pixel": 0.05040932446718216,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013326350948773324,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 775,
+          "cumulative_step": 1375,
+          "loss": 0.03584381565451622,
+          "gradient_norm_before_clip": 11.570576667785645,
+          "predicted_fraction_0": 0.94464111328125,
+          "predicted_fraction_1": 0.0303955078125,
+          "predicted_fraction_2": 0.009857177734375,
+          "predicted_fraction_3": 0.015106201171875,
+          "label_ce_per_pixel": 0.03584381565451622,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012956046033650637,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 800,
+          "cumulative_step": 1400,
+          "loss": 0.034048788249492645,
+          "gradient_norm_before_clip": 11.188251495361328,
+          "predicted_fraction_0": 0.95050048828125,
+          "predicted_fraction_1": 0.027313232421875,
+          "predicted_fraction_2": 0.0078125,
+          "predicted_fraction_3": 0.014373779296875,
+          "label_ce_per_pixel": 0.034048788249492645,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013072101050056517,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 825,
+          "cumulative_step": 1425,
+          "loss": 0.042324379086494446,
+          "gradient_norm_before_clip": 38.928306579589844,
+          "predicted_fraction_0": 0.95440673828125,
+          "predicted_fraction_1": 0.0240478515625,
+          "predicted_fraction_2": 0.0078125,
+          "predicted_fraction_3": 0.01373291015625,
+          "label_ce_per_pixel": 0.042324379086494446,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012447057059034705,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 850,
+          "cumulative_step": 1450,
+          "loss": 0.0357624776661396,
+          "gradient_norm_before_clip": 19.478748321533203,
+          "predicted_fraction_0": 0.951690673828125,
+          "predicted_fraction_1": 0.02642822265625,
+          "predicted_fraction_2": 0.007781982421875,
+          "predicted_fraction_3": 0.01409912109375,
+          "label_ce_per_pixel": 0.0357624776661396,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012456806958653033,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 875,
+          "cumulative_step": 1475,
+          "loss": 0.03200683742761612,
+          "gradient_norm_before_clip": 5.82357931137085,
+          "predicted_fraction_0": 0.9456787109375,
+          "predicted_fraction_1": 0.02923583984375,
+          "predicted_fraction_2": 0.010162353515625,
+          "predicted_fraction_3": 0.014923095703125,
+          "label_ce_per_pixel": 0.03200683742761612,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012406687019392848,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 900,
+          "cumulative_step": 1500,
+          "loss": 0.036450691521167755,
+          "gradient_norm_before_clip": 20.934091567993164,
+          "predicted_fraction_0": 0.94232177734375,
+          "predicted_fraction_1": 0.03131103515625,
+          "predicted_fraction_2": 0.0106201171875,
+          "predicted_fraction_3": 0.0157470703125,
+          "label_ce_per_pixel": 0.036450691521167755,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.0124029970029369,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 925,
+          "cumulative_step": 1525,
+          "loss": 0.030969442799687386,
+          "gradient_norm_before_clip": 7.523913383483887,
+          "predicted_fraction_0": 0.944732666015625,
+          "predicted_fraction_1": 0.029541015625,
+          "predicted_fraction_2": 0.010040283203125,
+          "predicted_fraction_3": 0.01568603515625,
+          "label_ce_per_pixel": 0.030969442799687386,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012504404061473906,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 950,
+          "cumulative_step": 1550,
+          "loss": 0.03377971425652504,
+          "gradient_norm_before_clip": 18.641687393188477,
+          "predicted_fraction_0": 0.95147705078125,
+          "predicted_fraction_1": 0.026214599609375,
+          "predicted_fraction_2": 0.0079345703125,
+          "predicted_fraction_3": 0.014373779296875,
+          "label_ce_per_pixel": 0.03377971425652504,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012608929071575403,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 975,
+          "cumulative_step": 1575,
+          "loss": 0.04037928581237793,
+          "gradient_norm_before_clip": 38.99203872680664,
+          "predicted_fraction_0": 0.953948974609375,
+          "predicted_fraction_1": 0.0234375,
+          "predicted_fraction_2": 0.0086669921875,
+          "predicted_fraction_3": 0.013946533203125,
+          "label_ce_per_pixel": 0.04037928581237793,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013777192099951208,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1000,
+          "cumulative_step": 1600,
+          "loss": 0.032477058470249176,
+          "gradient_norm_before_clip": 15.859910011291504,
+          "predicted_fraction_0": 0.950927734375,
+          "predicted_fraction_1": 0.026336669921875,
+          "predicted_fraction_2": 0.008209228515625,
+          "predicted_fraction_3": 0.0145263671875,
+          "label_ce_per_pixel": 0.032477058470249176,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014199221972376108,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1025,
+          "cumulative_step": 1625,
+          "loss": 0.028433583676815033,
+          "gradient_norm_before_clip": 7.316805362701416,
+          "predicted_fraction_0": 0.94476318359375,
+          "predicted_fraction_1": 0.028961181640625,
+          "predicted_fraction_2": 0.010498046875,
+          "predicted_fraction_3": 0.015777587890625,
+          "label_ce_per_pixel": 0.028433583676815033,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01300395606085658,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1050,
+          "cumulative_step": 1650,
+          "loss": 0.030829474329948425,
+          "gradient_norm_before_clip": 16.366117477416992,
+          "predicted_fraction_0": 0.943267822265625,
+          "predicted_fraction_1": 0.029815673828125,
+          "predicted_fraction_2": 0.010833740234375,
+          "predicted_fraction_3": 0.016082763671875,
+          "label_ce_per_pixel": 0.030829474329948425,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013007106957957149,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1075,
+          "cumulative_step": 1675,
+          "loss": 0.027003619819879532,
+          "gradient_norm_before_clip": 5.44959020614624,
+          "predicted_fraction_0": 0.9449462890625,
+          "predicted_fraction_1": 0.028656005859375,
+          "predicted_fraction_2": 0.0106201171875,
+          "predicted_fraction_3": 0.015777587890625,
+          "label_ce_per_pixel": 0.027003619819879532,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013006743974983692,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1100,
+          "cumulative_step": 1700,
+          "loss": 0.03152438998222351,
+          "gradient_norm_before_clip": 17.88768768310547,
+          "predicted_fraction_0": 0.950897216796875,
+          "predicted_fraction_1": 0.025970458984375,
+          "predicted_fraction_2": 0.008636474609375,
+          "predicted_fraction_3": 0.014495849609375,
+          "label_ce_per_pixel": 0.03152438998222351,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012910938006825745,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1125,
+          "cumulative_step": 1725,
+          "loss": 0.03614228963851929,
+          "gradient_norm_before_clip": 31.980913162231445,
+          "predicted_fraction_0": 0.9525146484375,
+          "predicted_fraction_1": 0.0240478515625,
+          "predicted_fraction_2": 0.009246826171875,
+          "predicted_fraction_3": 0.014190673828125,
+          "label_ce_per_pixel": 0.03614228963851929,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013318544952198863,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1150,
+          "cumulative_step": 1750,
+          "loss": 0.028794225305318832,
+          "gradient_norm_before_clip": 13.483478546142578,
+          "predicted_fraction_0": 0.94989013671875,
+          "predicted_fraction_1": 0.026275634765625,
+          "predicted_fraction_2": 0.009185791015625,
+          "predicted_fraction_3": 0.0146484375,
+          "label_ce_per_pixel": 0.028794225305318832,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012936444021761417,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1175,
+          "cumulative_step": 1775,
+          "loss": 0.025954458862543106,
+          "gradient_norm_before_clip": 8.422764778137207,
+          "predicted_fraction_0": 0.944305419921875,
+          "predicted_fraction_1": 0.0286865234375,
+          "predicted_fraction_2": 0.011138916015625,
+          "predicted_fraction_3": 0.015869140625,
+          "label_ce_per_pixel": 0.025954458862543106,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01246987795457244,
+          "peak_memory_bytes": 96265728.0
+        },
+        {
+          "arm": "L1",
+          "added_step": 1200,
+          "cumulative_step": 1800,
+          "loss": 0.02792169153690338,
+          "gradient_norm_before_clip": 15.598273277282715,
+          "predicted_fraction_0": 0.943267822265625,
+          "predicted_fraction_1": 0.029205322265625,
+          "predicted_fraction_2": 0.011474609375,
+          "predicted_fraction_3": 0.01605224609375,
+          "label_ce_per_pixel": 0.02792169153690338,
+          "lr": 0.0001,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012412205920554698,
+          "peak_memory_bytes": 96265728.0
+        }
+      ]
+    },
+    "L3": {
+      "results": {
+        "added_step": 1200,
+        "cumulative_step": 1800,
+        "stochastic_ce": 0.006517431698739529,
+        "stochastic_background_fraction": 0.94671630859375,
+        "direct_ce": 0.0065149832516908646,
+        "direct_background_fraction": 0.946746826171875,
+        "status": "COMPLETE",
+        "lr": 0.0003,
+        "updates": {
+          "diagnostic": 1200,
+          "engineering": 2
+        },
+        "prior_unchanged": true,
+        "calls": {
+          "proposal_images": 2474,
+          "density_images": 0,
+          "generator_draws": 1202,
+          "refinement_derivatives": 0,
+          "predictive_images": 0
+        },
+        "main_pass": true,
+        "direct_pass": true,
+        "clipping_fraction": 0.9983361064891847,
+        "gradient_norm_min": 0.729379415512085,
+        "gradient_norm_max": 122.85076141357422,
+        "stochastic_dice_class_mean": [
+          0.9828749001026154,
+          0.931950569152832,
+          0.9736025333404541
+        ],
+        "stochastic_dice_class_min": [
+          0.9826989769935608,
+          0.9286898970603943,
+          0.9733333587646484
+        ],
+        "stochastic_dice_macro_mean": 0.9628093341986338,
+        "direct_dice_class_mean": [
+          0.9823674559593201,
+          0.931950569152832,
+          0.9736025333404541
+        ],
+        "direct_dice_class_min": [
+          0.9820359349250793,
+          0.9286898970603943,
+          0.9733333587646484
+        ],
+        "direct_dice_macro_mean": 0.9626401861508688,
+        "stochastic_recall_class_mean": [
+          0.9787424802780151,
+          0.9116379618644714,
+          0.9678873419761658
+        ],
+        "stochastic_recall_class_min": [
+          0.97817462682724,
+          0.9061488509178162,
+          0.9624413251876831
+        ],
+        "stochastic_recall_macro_mean": 0.9527559280395508,
+        "direct_recall_class_mean": [
+          0.9777503907680511,
+          0.9116379618644714,
+          0.9678873419761658
+        ],
+        "direct_recall_class_min": [
+          0.976190447807312,
+          0.9061488509178162,
+          0.9624413251876831
+        ],
+        "direct_recall_macro_mean": 0.9524252315362295
+      },
+      "restore": {
+        "status": "PASS",
+        "source_cursor": 600,
+        "source_adam_steps": [
+          600
+        ],
+        "model_equal": true,
+        "adam_moments_equal": true,
+        "optimizer_and_scheduler_equal_before_lr_change": true,
+        "baseline_predictions_equal": true,
+        "lr": 0.0003,
+        "scheduler_base_lrs": [
+          0.0003
+        ]
+      },
+      "qualification": {
+        "status": "PASS",
+        "engineering_updates": 2,
+        "full_state_golden_equal": true
+      },
+      "final_cursor": 1800,
+      "adam_steps": [
+        1800
+      ],
+      "final_lr": 0.0003,
+      "scheduler_last_epoch": 1800,
+      "latest_equals_final_model": true,
+      "generators_and_priors_equal_to_source": true,
+      "metrics": [
+        {
+          "added_step": 0,
+          "cumulative_step": 600,
+          "stochastic_ce": 0.09347924590110779,
+          "stochastic_background_fraction": 0.9793701171875,
+          "direct_ce": 0.09343531727790833,
+          "direct_background_fraction": 0.978973388671875,
+          "stochastic_dice_class_mean": [
+            0.6563362181186676,
+            0.0,
+            0.42105264216661453
+          ],
+          "stochastic_dice_class_min": [
+            0.5295630097389221,
+            0.0,
+            0.20000000298023224
+          ],
+          "stochastic_dice_macro_mean": 0.359129620095094,
+          "direct_dice_class_mean": [
+            0.6610123515129089,
+            0.0,
+            0.4227513149380684
+          ],
+          "direct_dice_class_min": [
+            0.5387547612190247,
+            0.0,
+            0.20000000298023224
+          ],
+          "direct_dice_macro_mean": 0.3612545554836591,
+          "stochastic_recall_class_mean": [
+            0.5560892224311829,
+            0.0,
+            0.4630046933889389
+          ],
+          "stochastic_recall_class_min": [
+            0.408730149269104,
+            0.0,
+            0.11267605423927307
+          ],
+          "stochastic_recall_macro_mean": 0.3396979719400406,
+          "direct_recall_class_mean": [
+            0.5654898881912231,
+            0.0,
+            0.4630046933889389
+          ],
+          "direct_recall_class_min": [
+            0.420634925365448,
+            0.0,
+            0.11267605423927307
+          ],
+          "direct_recall_macro_mean": 0.34283152719338733
+        },
+        {
+          "added_step": 25,
+          "cumulative_step": 625,
+          "stochastic_ce": 0.09895620495080948,
+          "stochastic_background_fraction": 0.961578369140625,
+          "direct_ce": 0.09898833185434341,
+          "direct_background_fraction": 0.96148681640625,
+          "stochastic_dice_class_mean": [
+            0.7966702878475189,
+            0.0,
+            0.45220865309238434
+          ],
+          "stochastic_dice_class_min": [
+            0.775300145149231,
+            0.0,
+            0.34220531582832336
+          ],
+          "stochastic_dice_macro_mean": 0.4162929803133011,
+          "direct_dice_class_mean": [
+            0.7958311438560486,
+            0.0,
+            0.45392748713493347
+          ],
+          "direct_dice_class_min": [
+            0.7767322659492493,
+            0.0,
+            0.3390476107597351
+          ],
+          "direct_dice_macro_mean": 0.41658621033032733,
+          "stochastic_recall_class_mean": [
+            0.9018609523773193,
+            0.0,
+            0.512300468981266
+          ],
+          "stochastic_recall_class_min": [
+            0.89682537317276,
+            0.0,
+            0.2112676054239273
+          ],
+          "stochastic_recall_macro_mean": 0.4713871404528618,
+          "direct_recall_class_mean": [
+            0.902120977640152,
+            0.0,
+            0.5177934169769287
+          ],
+          "direct_recall_class_min": [
+            0.9007936716079712,
+            0.0,
+            0.2089201807975769
+          ],
+          "direct_recall_macro_mean": 0.47330479820569354
+        },
+        {
+          "added_step": 100,
+          "cumulative_step": 700,
+          "stochastic_ce": 0.10484342277050018,
+          "stochastic_background_fraction": 0.982818603515625,
+          "direct_ce": 0.1047852486371994,
+          "direct_background_fraction": 0.982452392578125,
+          "stochastic_dice_class_mean": [
+            0.615782156586647,
+            0.0,
+            0.40316448360681534
+          ],
+          "stochastic_dice_class_min": [
+            0.4383954107761383,
+            0.0,
+            0.14750541746616364
+          ],
+          "stochastic_dice_macro_mean": 0.33964888006448746,
+          "direct_dice_class_mean": [
+            0.6237344145774841,
+            0.0,
+            0.40909092128276825
+          ],
+          "direct_dice_class_min": [
+            0.4422253966331482,
+            0.0,
+            0.1515151560306549
+          ],
+          "direct_dice_macro_mean": 0.3442751119534175,
+          "stochastic_recall_class_mean": [
+            0.512130543589592,
+            0.0,
+            0.4132394380867481
+          ],
+          "stochastic_recall_class_min": [
+            0.3035714328289032,
+            0.0,
+            0.07981220632791519
+          ],
+          "stochastic_recall_macro_mean": 0.30845666055878,
+          "direct_recall_class_mean": [
+            0.52445949614048,
+            0.0,
+            0.4210798069834709
+          ],
+          "direct_recall_class_min": [
+            0.3075396716594696,
+            0.0,
+            0.082159623503685
+          ],
+          "direct_recall_macro_mean": 0.31517976770798367
+        },
+        {
+          "added_step": 300,
+          "cumulative_step": 900,
+          "stochastic_ce": 0.061335742473602295,
+          "stochastic_background_fraction": 0.96014404296875,
+          "direct_ce": 0.06131207197904587,
+          "direct_background_fraction": 0.960357666015625,
+          "stochastic_dice_class_mean": [
+            0.8551276922225952,
+            0.3044000566005707,
+            0.7143866121768951
+          ],
+          "stochastic_dice_class_min": [
+            0.8164948225021362,
+            0.1930294930934906,
+            0.6547619104385376
+          ],
+          "stochastic_dice_macro_mean": 0.6246381203333536,
+          "direct_dice_class_mean": [
+            0.8530978858470917,
+            0.3058091551065445,
+            0.7143866121768951
+          ],
+          "direct_dice_class_min": [
+            0.8124352097511292,
+            0.18867924809455872,
+            0.6547619104385376
+          ],
+          "direct_dice_macro_mean": 0.6244312177101771,
+          "stochastic_recall_class_mean": [
+            0.8497536778450012,
+            0.2184734232723713,
+            0.6882629096508026
+          ],
+          "stochastic_recall_class_min": [
+            0.7857142686843872,
+            0.11650485545396805,
+            0.6431924700737
+          ],
+          "stochastic_recall_macro_mean": 0.5854966702560583,
+          "direct_recall_class_mean": [
+            0.8457854390144348,
+            0.21961773559451103,
+            0.6882629096508026
+          ],
+          "direct_recall_class_min": [
+            0.7777777910232544,
+            0.11326860636472702,
+            0.6431924700737
+          ],
+          "direct_recall_macro_mean": 0.5845553614199162
+        },
+        {
+          "added_step": 600,
+          "cumulative_step": 1200,
+          "stochastic_ce": 0.023234371095895767,
+          "stochastic_background_fraction": 0.950927734375,
+          "direct_ce": 0.02328016608953476,
+          "direct_background_fraction": 0.950927734375,
+          "stochastic_dice_class_mean": [
+            0.9532608687877655,
+            0.7383425831794739,
+            0.9022559523582458
+          ],
+          "stochastic_dice_class_min": [
+            0.949999988079071,
+            0.6500955820083618,
+            0.8965517282485962
+          ],
+          "stochastic_dice_macro_mean": 0.8646198014418284,
+          "direct_dice_class_mean": [
+            0.9527863562107086,
+            0.7353489995002747,
+            0.8991855680942535
+          ],
+          "direct_dice_class_min": [
+            0.9490509629249573,
+            0.6475095748901367,
+            0.8904109597206116
+          ],
+          "direct_dice_macro_mean": 0.862440307935079,
+          "stochastic_recall_class_mean": [
+            0.945368081331253,
+            0.6701085567474365,
+            0.8617371022701263
+          ],
+          "stochastic_recall_class_min": [
+            0.942460298538208,
+            0.5501618385314941,
+            0.8568075299263
+          ],
+          "stochastic_recall_macro_mean": 0.8257379134496053,
+          "direct_recall_class_mean": [
+            0.945368081331253,
+            0.665727972984314,
+            0.8617371022701263
+          ],
+          "direct_recall_class_min": [
+            0.942460298538208,
+            0.5469255447387695,
+            0.8568075299263
+          ],
+          "direct_recall_macro_mean": 0.8242777188618978
+        },
+        {
+          "added_step": 900,
+          "cumulative_step": 1500,
+          "stochastic_ce": 0.013091294094920158,
+          "stochastic_background_fraction": 0.947479248046875,
+          "direct_ce": 0.0131828673183918,
+          "direct_background_fraction": 0.947509765625,
+          "stochastic_dice_class_mean": [
+            0.9705444574356079,
+            0.8808974027633667,
+            0.9341726899147034
+          ],
+          "stochastic_dice_class_min": [
+            0.9681159257888794,
+            0.8612099885940552,
+            0.9324324131011963
+          ],
+          "stochastic_dice_macro_mean": 0.928538183371226,
+          "direct_dice_class_mean": [
+            0.9688386917114258,
+            0.8759267628192902,
+            0.9341726899147034
+          ],
+          "direct_dice_class_min": [
+            0.9662488102912903,
+            0.8550983667373657,
+            0.9324324131011963
+          ],
+          "direct_dice_macro_mean": 0.9263127148151398,
+          "stochastic_recall_class_mean": [
+            0.9935755431652069,
+            0.8170001208782196,
+            0.9142253696918488
+          ],
+          "stochastic_recall_class_min": [
+            0.9931034445762634,
+            0.783171534538269,
+            0.908450722694397
+          ],
+          "stochastic_recall_macro_mean": 0.9082670112450918,
+          "direct_recall_class_mean": [
+            0.9952996969223022,
+            0.8066208958625793,
+            0.9142253696918488
+          ],
+          "direct_recall_class_min": [
+            0.9940476417541504,
+            0.7734627723693848,
+            0.908450722694397
+          ],
+          "direct_recall_macro_mean": 0.9053819874922434
+        },
+        {
+          "added_step": 1200,
+          "cumulative_step": 1800,
+          "stochastic_ce": 0.006517431698739529,
+          "stochastic_background_fraction": 0.94671630859375,
+          "direct_ce": 0.0065149832516908646,
+          "direct_background_fraction": 0.946746826171875,
+          "stochastic_dice_class_mean": [
+            0.9828749001026154,
+            0.931950569152832,
+            0.9736025333404541
+          ],
+          "stochastic_dice_class_min": [
+            0.9826989769935608,
+            0.9286898970603943,
+            0.9733333587646484
+          ],
+          "stochastic_dice_macro_mean": 0.9628093341986338,
+          "direct_dice_class_mean": [
+            0.9823674559593201,
+            0.931950569152832,
+            0.9736025333404541
+          ],
+          "direct_dice_class_min": [
+            0.9820359349250793,
+            0.9286898970603943,
+            0.9733333587646484
+          ],
+          "direct_dice_macro_mean": 0.9626401861508688,
+          "stochastic_recall_class_mean": [
+            0.9787424802780151,
+            0.9116379618644714,
+            0.9678873419761658
+          ],
+          "stochastic_recall_class_min": [
+            0.97817462682724,
+            0.9061488509178162,
+            0.9624413251876831
+          ],
+          "stochastic_recall_macro_mean": 0.9527559280395508,
+          "direct_recall_class_mean": [
+            0.9777503907680511,
+            0.9116379618644714,
+            0.9678873419761658
+          ],
+          "direct_recall_class_min": [
+            0.976190447807312,
+            0.9061488509178162,
+            0.9624413251876831
+          ],
+          "direct_recall_macro_mean": 0.9524252315362295
+        }
+      ],
+      "telemetry": [
+        {
+          "arm": "L3",
+          "added_step": 1,
+          "cumulative_step": 601,
+          "loss": 0.09343531727790833,
+          "gradient_norm_before_clip": 12.409178733825684,
+          "predicted_fraction_0": 0.978973388671875,
+          "predicted_fraction_1": 0.015838623046875,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.005126953125,
+          "label_ce_per_pixel": 0.09343531727790833,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014245401951484382,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 25,
+          "cumulative_step": 625,
+          "loss": 0.11316514760255814,
+          "gradient_norm_before_clip": 28.029090881347656,
+          "predicted_fraction_0": 0.986328125,
+          "predicted_fraction_1": 0.0093994140625,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.00421142578125,
+          "label_ce_per_pixel": 0.11316514760255814,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014175332966260612,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 50,
+          "cumulative_step": 650,
+          "loss": 0.09733325242996216,
+          "gradient_norm_before_clip": 12.489349365234375,
+          "predicted_fraction_0": 0.961334228515625,
+          "predicted_fraction_1": 0.031219482421875,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.00738525390625,
+          "label_ce_per_pixel": 0.09733325242996216,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014237230992875993,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 75,
+          "cumulative_step": 675,
+          "loss": 0.10700183361768723,
+          "gradient_norm_before_clip": 19.188507080078125,
+          "predicted_fraction_0": 0.954193115234375,
+          "predicted_fraction_1": 0.036956787109375,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.0087890625,
+          "label_ce_per_pixel": 0.10700183361768723,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012572334962897003,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 100,
+          "cumulative_step": 700,
+          "loss": 0.08888116478919983,
+          "gradient_norm_before_clip": 8.156393051147461,
+          "predicted_fraction_0": 0.962493896484375,
+          "predicted_fraction_1": 0.02978515625,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.007659912109375,
+          "label_ce_per_pixel": 0.08888116478919983,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012628074968233705,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 125,
+          "cumulative_step": 725,
+          "loss": 0.09954676777124405,
+          "gradient_norm_before_clip": 21.260345458984375,
+          "predicted_fraction_0": 0.98065185546875,
+          "predicted_fraction_1": 0.01513671875,
+          "predicted_fraction_2": 6.103515625e-05,
+          "predicted_fraction_3": 0.004150390625,
+          "label_ce_per_pixel": 0.09954676777124405,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014864630997180939,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 150,
+          "cumulative_step": 750,
+          "loss": 0.11187361925840378,
+          "gradient_norm_before_clip": 30.875648498535156,
+          "predicted_fraction_0": 0.9835205078125,
+          "predicted_fraction_1": 0.01214599609375,
+          "predicted_fraction_2": 0.0001220703125,
+          "predicted_fraction_3": 0.00421142578125,
+          "label_ce_per_pixel": 0.11187361925840378,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012724883039481938,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 175,
+          "cumulative_step": 775,
+          "loss": 0.08377429842948914,
+          "gradient_norm_before_clip": 14.097914695739746,
+          "predicted_fraction_0": 0.9732666015625,
+          "predicted_fraction_1": 0.01983642578125,
+          "predicted_fraction_2": 0.000396728515625,
+          "predicted_fraction_3": 0.006500244140625,
+          "label_ce_per_pixel": 0.08377429842948914,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01282825693488121,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 200,
+          "cumulative_step": 800,
+          "loss": 0.07676645368337631,
+          "gradient_norm_before_clip": 11.19448184967041,
+          "predicted_fraction_0": 0.953216552734375,
+          "predicted_fraction_1": 0.034637451171875,
+          "predicted_fraction_2": 0.00250244140625,
+          "predicted_fraction_3": 0.0096435546875,
+          "label_ce_per_pixel": 0.07676645368337631,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012736112927086651,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 225,
+          "cumulative_step": 825,
+          "loss": 0.08355497568845749,
+          "gradient_norm_before_clip": 18.457401275634766,
+          "predicted_fraction_0": 0.945404052734375,
+          "predicted_fraction_1": 0.039215087890625,
+          "predicted_fraction_2": 0.003753662109375,
+          "predicted_fraction_3": 0.011627197265625,
+          "label_ce_per_pixel": 0.08355497568845749,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012917549931444228,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 250,
+          "cumulative_step": 850,
+          "loss": 0.06633459776639938,
+          "gradient_norm_before_clip": 9.441807746887207,
+          "predicted_fraction_0": 0.95159912109375,
+          "predicted_fraction_1": 0.032562255859375,
+          "predicted_fraction_2": 0.0047607421875,
+          "predicted_fraction_3": 0.011077880859375,
+          "label_ce_per_pixel": 0.06633459776639938,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012714641983620822,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 275,
+          "cumulative_step": 875,
+          "loss": 0.06782003492116928,
+          "gradient_norm_before_clip": 15.979997634887695,
+          "predicted_fraction_0": 0.961700439453125,
+          "predicted_fraction_1": 0.022613525390625,
+          "predicted_fraction_2": 0.00396728515625,
+          "predicted_fraction_3": 0.01171875,
+          "label_ce_per_pixel": 0.06782003492116928,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012658962979912758,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 300,
+          "cumulative_step": 900,
+          "loss": 0.08445107936859131,
+          "gradient_norm_before_clip": 32.50896072387695,
+          "predicted_fraction_0": 0.968536376953125,
+          "predicted_fraction_1": 0.017913818359375,
+          "predicted_fraction_2": 0.003448486328125,
+          "predicted_fraction_3": 0.010101318359375,
+          "label_ce_per_pixel": 0.08445107936859131,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012665647896938026,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 325,
+          "cumulative_step": 925,
+          "loss": 0.07723250985145569,
+          "gradient_norm_before_clip": 10.431329727172852,
+          "predicted_fraction_0": 0.953948974609375,
+          "predicted_fraction_1": 0.031890869140625,
+          "predicted_fraction_2": 0.01202392578125,
+          "predicted_fraction_3": 0.00213623046875,
+          "label_ce_per_pixel": 0.07723250985145569,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012703173910267651,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 350,
+          "cumulative_step": 950,
+          "loss": 0.061042167246341705,
+          "gradient_norm_before_clip": 8.204258918762207,
+          "predicted_fraction_0": 0.9453125,
+          "predicted_fraction_1": 0.03033447265625,
+          "predicted_fraction_2": 0.010498046875,
+          "predicted_fraction_3": 0.01385498046875,
+          "label_ce_per_pixel": 0.061042167246341705,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01267105108126998,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 375,
+          "cumulative_step": 975,
+          "loss": 0.06897176057100296,
+          "gradient_norm_before_clip": 22.83077621459961,
+          "predicted_fraction_0": 0.93927001953125,
+          "predicted_fraction_1": 0.03533935546875,
+          "predicted_fraction_2": 0.01251220703125,
+          "predicted_fraction_3": 0.01287841796875,
+          "label_ce_per_pixel": 0.06897176057100296,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01426474202889949,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 400,
+          "cumulative_step": 1000,
+          "loss": 0.04489949345588684,
+          "gradient_norm_before_clip": 6.52257776260376,
+          "predicted_fraction_0": 0.947418212890625,
+          "predicted_fraction_1": 0.02972412109375,
+          "predicted_fraction_2": 0.00933837890625,
+          "predicted_fraction_3": 0.013519287109375,
+          "label_ce_per_pixel": 0.04489949345588684,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013187858974561095,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 425,
+          "cumulative_step": 1025,
+          "loss": 0.057566747069358826,
+          "gradient_norm_before_clip": 24.295806884765625,
+          "predicted_fraction_0": 0.961395263671875,
+          "predicted_fraction_1": 0.02197265625,
+          "predicted_fraction_2": 0.005462646484375,
+          "predicted_fraction_3": 0.01116943359375,
+          "label_ce_per_pixel": 0.057566747069358826,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012806155951693654,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 450,
+          "cumulative_step": 1050,
+          "loss": 0.05939323455095291,
+          "gradient_norm_before_clip": 29.343000411987305,
+          "predicted_fraction_0": 0.96160888671875,
+          "predicted_fraction_1": 0.021148681640625,
+          "predicted_fraction_2": 0.005126953125,
+          "predicted_fraction_3": 0.012115478515625,
+          "label_ce_per_pixel": 0.05939323455095291,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012618436943739653,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 475,
+          "cumulative_step": 1075,
+          "loss": 0.037797652184963226,
+          "gradient_norm_before_clip": 10.359879493713379,
+          "predicted_fraction_0": 0.95501708984375,
+          "predicted_fraction_1": 0.02386474609375,
+          "predicted_fraction_2": 0.009857177734375,
+          "predicted_fraction_3": 0.011260986328125,
+          "label_ce_per_pixel": 0.037797652184963226,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013032994931563735,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 500,
+          "cumulative_step": 1100,
+          "loss": 0.03609408065676689,
+          "gradient_norm_before_clip": 10.885367393493652,
+          "predicted_fraction_0": 0.943023681640625,
+          "predicted_fraction_1": 0.024871826171875,
+          "predicted_fraction_2": 0.018524169921875,
+          "predicted_fraction_3": 0.013580322265625,
+          "label_ce_per_pixel": 0.03609408065676689,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013222638983279467,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 525,
+          "cumulative_step": 1125,
+          "loss": 0.03870774060487747,
+          "gradient_norm_before_clip": 10.28969955444336,
+          "predicted_fraction_0": 0.946441650390625,
+          "predicted_fraction_1": 0.0234375,
+          "predicted_fraction_2": 0.019866943359375,
+          "predicted_fraction_3": 0.01025390625,
+          "label_ce_per_pixel": 0.03870774060487747,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013086464954540133,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 550,
+          "cumulative_step": 1150,
+          "loss": 0.04199822619557381,
+          "gradient_norm_before_clip": 14.622004508972168,
+          "predicted_fraction_0": 0.93890380859375,
+          "predicted_fraction_1": 0.024383544921875,
+          "predicted_fraction_2": 0.019989013671875,
+          "predicted_fraction_3": 0.0167236328125,
+          "label_ce_per_pixel": 0.04199822619557381,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013029775000177324,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 575,
+          "cumulative_step": 1175,
+          "loss": 0.02351219952106476,
+          "gradient_norm_before_clip": 5.526005268096924,
+          "predicted_fraction_0": 0.944580078125,
+          "predicted_fraction_1": 0.0238037109375,
+          "predicted_fraction_2": 0.017303466796875,
+          "predicted_fraction_3": 0.014312744140625,
+          "label_ce_per_pixel": 0.02351219952106476,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013422850053757429,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 600,
+          "cumulative_step": 1200,
+          "loss": 0.02438780479133129,
+          "gradient_norm_before_clip": 12.32801628112793,
+          "predicted_fraction_0": 0.95135498046875,
+          "predicted_fraction_1": 0.024017333984375,
+          "predicted_fraction_2": 0.01080322265625,
+          "predicted_fraction_3": 0.013824462890625,
+          "label_ce_per_pixel": 0.02438780479133129,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013111273990944028,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 625,
+          "cumulative_step": 1225,
+          "loss": 0.019440969452261925,
+          "gradient_norm_before_clip": 9.289511680603027,
+          "predicted_fraction_0": 0.9498291015625,
+          "predicted_fraction_1": 0.02423095703125,
+          "predicted_fraction_2": 0.01177978515625,
+          "predicted_fraction_3": 0.01416015625,
+          "label_ce_per_pixel": 0.019440969452261925,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013125490047968924,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 650,
+          "cumulative_step": 1250,
+          "loss": 0.016454115509986877,
+          "gradient_norm_before_clip": 8.45256519317627,
+          "predicted_fraction_0": 0.943572998046875,
+          "predicted_fraction_1": 0.02386474609375,
+          "predicted_fraction_2": 0.017364501953125,
+          "predicted_fraction_3": 0.01519775390625,
+          "label_ce_per_pixel": 0.016454115509986877,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013023008941672742,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 675,
+          "cumulative_step": 1275,
+          "loss": 0.01413306687027216,
+          "gradient_norm_before_clip": 6.056639194488525,
+          "predicted_fraction_0": 0.943939208984375,
+          "predicted_fraction_1": 0.023773193359375,
+          "predicted_fraction_2": 0.016845703125,
+          "predicted_fraction_3": 0.01544189453125,
+          "label_ce_per_pixel": 0.01413306687027216,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013731020968407393,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 700,
+          "cumulative_step": 1300,
+          "loss": 0.01622362621128559,
+          "gradient_norm_before_clip": 11.112496376037598,
+          "predicted_fraction_0": 0.949371337890625,
+          "predicted_fraction_1": 0.024322509765625,
+          "predicted_fraction_2": 0.0118408203125,
+          "predicted_fraction_3": 0.01446533203125,
+          "label_ce_per_pixel": 0.01622362621128559,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013093622052110732,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 725,
+          "cumulative_step": 1325,
+          "loss": 0.013705521821975708,
+          "gradient_norm_before_clip": 8.13714599609375,
+          "predicted_fraction_0": 0.948455810546875,
+          "predicted_fraction_1": 0.024444580078125,
+          "predicted_fraction_2": 0.01251220703125,
+          "predicted_fraction_3": 0.01458740234375,
+          "label_ce_per_pixel": 0.013705521821975708,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013094051973894238,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 750,
+          "cumulative_step": 1350,
+          "loss": 0.012197625823318958,
+          "gradient_norm_before_clip": 7.70423698425293,
+          "predicted_fraction_0": 0.943572998046875,
+          "predicted_fraction_1": 0.02374267578125,
+          "predicted_fraction_2": 0.017333984375,
+          "predicted_fraction_3": 0.015350341796875,
+          "label_ce_per_pixel": 0.012197625823318958,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01306685502640903,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 775,
+          "cumulative_step": 1375,
+          "loss": 0.012100288644433022,
+          "gradient_norm_before_clip": 8.246025085449219,
+          "predicted_fraction_0": 0.943389892578125,
+          "predicted_fraction_1": 0.023681640625,
+          "predicted_fraction_2": 0.017547607421875,
+          "predicted_fraction_3": 0.015380859375,
+          "label_ce_per_pixel": 0.012100288644433022,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013022964936681092,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 800,
+          "cumulative_step": 1400,
+          "loss": 0.008896637707948685,
+          "gradient_norm_before_clip": 3.834711790084839,
+          "predicted_fraction_0": 0.946502685546875,
+          "predicted_fraction_1": 0.024566650390625,
+          "predicted_fraction_2": 0.013885498046875,
+          "predicted_fraction_3": 0.015045166015625,
+          "label_ce_per_pixel": 0.008896637707948685,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012666444992646575,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 825,
+          "cumulative_step": 1425,
+          "loss": 0.008389441296458244,
+          "gradient_norm_before_clip": 3.925283432006836,
+          "predicted_fraction_0": 0.94647216796875,
+          "predicted_fraction_1": 0.02471923828125,
+          "predicted_fraction_2": 0.013580322265625,
+          "predicted_fraction_3": 0.015228271484375,
+          "label_ce_per_pixel": 0.008389441296458244,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013160221977159381,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 850,
+          "cumulative_step": 1450,
+          "loss": 0.009531838819384575,
+          "gradient_norm_before_clip": 5.620139122009277,
+          "predicted_fraction_0": 0.94390869140625,
+          "predicted_fraction_1": 0.024078369140625,
+          "predicted_fraction_2": 0.016357421875,
+          "predicted_fraction_3": 0.015655517578125,
+          "label_ce_per_pixel": 0.009531838819384575,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013530615950003266,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 875,
+          "cumulative_step": 1475,
+          "loss": 0.028554707765579224,
+          "gradient_norm_before_clip": 13.705024719238281,
+          "predicted_fraction_0": 0.948455810546875,
+          "predicted_fraction_1": 0.0247802734375,
+          "predicted_fraction_2": 0.010345458984375,
+          "predicted_fraction_3": 0.01641845703125,
+          "label_ce_per_pixel": 0.028554707765579224,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.015227822004817426,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 900,
+          "cumulative_step": 1500,
+          "loss": 0.01444212719798088,
+          "gradient_norm_before_clip": 7.468053340911865,
+          "predicted_fraction_0": 0.942596435546875,
+          "predicted_fraction_1": 0.02593994140625,
+          "predicted_fraction_2": 0.01605224609375,
+          "predicted_fraction_3": 0.015411376953125,
+          "label_ce_per_pixel": 0.01444212719798088,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01265815703663975,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 925,
+          "cumulative_step": 1525,
+          "loss": 0.11275970935821533,
+          "gradient_norm_before_clip": 109.68466186523438,
+          "predicted_fraction_0": 0.91015625,
+          "predicted_fraction_1": 0.028594970703125,
+          "predicted_fraction_2": 0.04168701171875,
+          "predicted_fraction_3": 0.019561767578125,
+          "label_ce_per_pixel": 0.11275970935821533,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013098606024868786,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 950,
+          "cumulative_step": 1550,
+          "loss": 0.04962056875228882,
+          "gradient_norm_before_clip": 46.04914855957031,
+          "predicted_fraction_0": 0.955596923828125,
+          "predicted_fraction_1": 0.0206298828125,
+          "predicted_fraction_2": 0.0120849609375,
+          "predicted_fraction_3": 0.011688232421875,
+          "label_ce_per_pixel": 0.04962056875228882,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013183830073103309,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 975,
+          "cumulative_step": 1575,
+          "loss": 0.024175692349672318,
+          "gradient_norm_before_clip": 6.3261613845825195,
+          "predicted_fraction_0": 0.9488525390625,
+          "predicted_fraction_1": 0.02142333984375,
+          "predicted_fraction_2": 0.0157470703125,
+          "predicted_fraction_3": 0.01397705078125,
+          "label_ce_per_pixel": 0.024175692349672318,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013740397989749908,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1000,
+          "cumulative_step": 1600,
+          "loss": 0.022330813109874725,
+          "gradient_norm_before_clip": 14.67949390411377,
+          "predicted_fraction_0": 0.941802978515625,
+          "predicted_fraction_1": 0.025360107421875,
+          "predicted_fraction_2": 0.01702880859375,
+          "predicted_fraction_3": 0.01580810546875,
+          "label_ce_per_pixel": 0.022330813109874725,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01325925497803837,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1025,
+          "cumulative_step": 1625,
+          "loss": 0.01711062528192997,
+          "gradient_norm_before_clip": 5.291615009307861,
+          "predicted_fraction_0": 0.943817138671875,
+          "predicted_fraction_1": 0.026580810546875,
+          "predicted_fraction_2": 0.012786865234375,
+          "predicted_fraction_3": 0.016815185546875,
+          "label_ce_per_pixel": 0.01711062528192997,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013070230023004115,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1050,
+          "cumulative_step": 1650,
+          "loss": 0.019379347562789917,
+          "gradient_norm_before_clip": 16.573163986206055,
+          "predicted_fraction_0": 0.9512939453125,
+          "predicted_fraction_1": 0.023101806640625,
+          "predicted_fraction_2": 0.011199951171875,
+          "predicted_fraction_3": 0.014404296875,
+          "label_ce_per_pixel": 0.019379347562789917,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014213204034604132,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1075,
+          "cumulative_step": 1675,
+          "loss": 0.021848175674676895,
+          "gradient_norm_before_clip": 24.391008377075195,
+          "predicted_fraction_0": 0.952178955078125,
+          "predicted_fraction_1": 0.0230712890625,
+          "predicted_fraction_2": 0.01055908203125,
+          "predicted_fraction_3": 0.014190673828125,
+          "label_ce_per_pixel": 0.021848175674676895,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.013062533922493458,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1100,
+          "cumulative_step": 1700,
+          "loss": 0.007457450032234192,
+          "gradient_norm_before_clip": 2.7021842002868652,
+          "predicted_fraction_0": 0.9466552734375,
+          "predicted_fraction_1": 0.02471923828125,
+          "predicted_fraction_2": 0.013641357421875,
+          "predicted_fraction_3": 0.014984130859375,
+          "label_ce_per_pixel": 0.007457450032234192,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01307345600798726,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1125,
+          "cumulative_step": 1725,
+          "loss": 0.009796766564249992,
+          "gradient_norm_before_clip": 5.214644908905029,
+          "predicted_fraction_0": 0.94384765625,
+          "predicted_fraction_1": 0.02423095703125,
+          "predicted_fraction_2": 0.016693115234375,
+          "predicted_fraction_3": 0.015228271484375,
+          "label_ce_per_pixel": 0.009796766564249992,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014029490062966943,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1150,
+          "cumulative_step": 1750,
+          "loss": 0.013796943239867687,
+          "gradient_norm_before_clip": 11.533425331115723,
+          "predicted_fraction_0": 0.942230224609375,
+          "predicted_fraction_1": 0.023956298828125,
+          "predicted_fraction_2": 0.018218994140625,
+          "predicted_fraction_3": 0.015594482421875,
+          "label_ce_per_pixel": 0.013796943239867687,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.012545794015750289,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1175,
+          "cumulative_step": 1775,
+          "loss": 0.008004777133464813,
+          "gradient_norm_before_clip": 3.179774522781372,
+          "predicted_fraction_0": 0.94427490234375,
+          "predicted_fraction_1": 0.024200439453125,
+          "predicted_fraction_2": 0.01629638671875,
+          "predicted_fraction_3": 0.015228271484375,
+          "label_ce_per_pixel": 0.008004777133464813,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.014885708107613027,
+          "peak_memory_bytes": 96595456.0
+        },
+        {
+          "arm": "L3",
+          "added_step": 1200,
+          "cumulative_step": 1800,
+          "loss": 0.00564887560904026,
+          "gradient_norm_before_clip": 1.0749231576919556,
+          "predicted_fraction_0": 0.94500732421875,
+          "predicted_fraction_1": 0.023895263671875,
+          "predicted_fraction_2": 0.015869140625,
+          "predicted_fraction_3": 0.015228271484375,
+          "label_ce_per_pixel": 0.00564887560904026,
+          "lr": 0.0003,
+          "optimizer_step_skipped": 0.0,
+          "training_step_seconds": 0.01442521600984037,
+          "peak_memory_bytes": 96595456.0
+        }
+      ]
+    }
+  }
+}
