@@ -42,7 +42,7 @@ class DiagnosticMethod(Method):
         try:
             h,_=self.model.proposal(image,sample=self.mode!='mean_ce')
             z=logits(h)
-            loss=F.cross_entropy(z,y)
+            loss=F.cross_entropy(z,y,reduction='none').mean()
             scalars={f'predicted_fraction_{k}':float((z.detach().argmax(1)==k).float().mean()) for k in range(4)}
             scalars['label_ce_per_pixel']=float(loss.detach())
             return MethodStepOutput(loss,{'label_ce':loss},scalars)
@@ -63,8 +63,8 @@ def evaluate(model, image, y):
             h,_=model.proposal(image,sample=False)
             direct=logits(h).softmax(1)
             return dict(stochastic_dice=dice(p.argmax(1),y),direct_dice=dice(direct.argmax(1),y),
-                        stochastic_ce=float(F.nll_loss(p.clamp_min(1e-30).log(),y)),
-                        direct_ce=float(F.nll_loss(direct.clamp_min(1e-30).log(),y)),
+                        stochastic_ce=float(F.nll_loss(p.clamp_min(1e-30).log(),y,reduction='none').mean()),
+                        direct_ce=float(F.nll_loss(direct.clamp_min(1e-30).log(),y,reduction='none').mean()),
                         stochastic_background_fraction=float((p.argmax(1)==0).float().mean()),
                         direct_background_fraction=float((direct.argmax(1)==0).float().mean()))
     finally:
@@ -73,6 +73,26 @@ def evaluate(model, image, y):
 
 def zero_audit(settings, root):
     dataset=H5LabeledDataset(settings['data'],seed=0,dataset='mnms',sites=['Siemens'],transform=None)
+    if settings.get('reuse_zero_audit'):
+        previous=Path(settings['reuse_zero_audit'])
+        receipt=json.loads((previous/'ZERO_AUDIT.json').read_text())
+        failure=json.loads((previous/'FAILURE.json').read_text())
+        assert receipt['status']=='PASS' and receipt['reverse_calls']==64
+        assert failure['costs']==dict(diagnostic=0,engineering=0)
+        payload=torch.load(previous/'A'/'failure_partial.pt',map_location='cpu',weights_only=False)
+        assert payload['cursor']==0 and not payload['trainer']['optimizer_state']['state']
+        seed_everything(163);fresh=Model()
+        assert same(payload['model'],fresh.state_dict())
+        selection=json.loads((previous/'PRIVATE_SELECTION.json').read_text())
+        lb=collate_labeled([dataset[i] for i in selection['indices']]).to('cuda')
+        image=F.interpolate(lb.image,(128,128),mode='bilinear',align_corners=False)
+        y=F.interpolate(lb.label[:,None].float(),(128,128),mode='nearest')[:,0].long()
+        assert [torch.bincount(a.flatten(),minlength=4).tolist() for a in y.cpu()]==receipt['selected_class_pixels_128']
+        receipt['reused_without_repeating_derivatives']=True
+        receipt['prior_failed_qualification']=dict(optimizer_updates=0,backward_calls=0,proposal_images=2,generator_draws=1,
+                                                   count_provenance='inferred from failed first-forward path',state_matches_initial=True,optimizer_state_empty=True)
+        write(root/'ZERO_AUDIT.json',receipt);write(root/'PRIVATE_SELECTION.json',selection)
+        return lb,image,y
     assert len(dataset)==230
     assert all(r['cohort']=='canonical320' and r['evaluation_eligible']=='true' for r in dataset.records)
     totals=torch.zeros(4,dtype=torch.long); small=torch.zeros_like(totals)
