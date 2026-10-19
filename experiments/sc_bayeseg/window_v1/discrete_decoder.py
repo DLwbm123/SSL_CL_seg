@@ -41,7 +41,8 @@ def run(s):
                         for layer in model.bayes_layers():layer.sampled=(layer.mean_w,layer.mean_b)
                     else:
                         # Matching each GT/BG draw includes the code Gaussian stream.
-                        seed_everything(50163+draw-1);model.draw()
+                        if draw==1:seed_everything(50163)
+                        model.draw()
                     try:
                         with torch.no_grad():
                             h,_=model.labeled_proposal(image,z,sample=draw>0);c=h['c'];a=model.anatomy_mean(c);logits=torch.cat([torch.zeros_like(a[:,:1]),a],1)
