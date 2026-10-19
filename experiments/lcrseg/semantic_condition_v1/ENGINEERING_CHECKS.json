@@ -1,0 +1,98 @@
+{
+  "status": "RUNNING_FORMAL_FIVE_ARMS",
+  "method_revision": "unit_slope_bounded_v2",
+  "source_entry_max_abs_error_all_arms": 0.0,
+  "formal_steps_per_arm": 3500,
+  "formal_cap": 17500,
+  "round_cap": 20000,
+  "engineering_actual_updates": 192,
+  "discarded_engineering_updates": 192,
+  "source_statistic_optimizer_updates": 0,
+  "source_statistic_slices": 230,
+  "source_statistics_passes": 1,
+  "source_classes": 4,
+  "prototypes_per_class": 3,
+  "synthetic_contracts_passed": 5,
+  "engineering_v1": {
+    "dense_fixmatch": {
+      "updates": 32,
+      "status": "PASS",
+      "first_ce": 0.018961196765303612,
+      "final_ce": 0.0019618170335888863
+    },
+    "aligned_lonly": {
+      "updates": 32,
+      "status": "FAILED_PRESET_ABSOLUTE_CE_DROP",
+      "first_ce": 0.018961196765303612,
+      "final_ce": 0.018923306837677956
+    },
+    "initial_cuda_environment_failure_updates": 0
+  },
+  "engineering_v2": {
+    "aligned_lonly": {
+      "status": "PASS",
+      "actual_updates": 32,
+      "first_ce": 0.018961196765303612,
+      "final_ce": 0.01754448562860489,
+      "trainable_parameters": 3328,
+      "immutable_native_head_and_P_exact": true,
+      "nonempty_momentum_restore_exact": true
+    },
+    "aligned_ssl": {
+      "status": "PASS",
+      "actual_updates": 32,
+      "first_ce": 0.018961196765303612,
+      "final_ce": 0.01754448562860489,
+      "trainable_parameters": 3328,
+      "immutable_native_head_and_P_exact": true,
+      "nonempty_momentum_restore_exact": true
+    },
+    "shuffled_lonly": {
+      "status": "PASS",
+      "actual_updates": 32,
+      "first_ce": 0.018961196765303612,
+      "final_ce": 0.01756158098578453,
+      "trainable_parameters": 3328,
+      "immutable_native_head_and_P_exact": true,
+      "nonempty_momentum_restore_exact": true
+    },
+    "shuffled_ssl": {
+      "status": "PASS",
+      "actual_updates": 32,
+      "first_ce": 0.018961196765303612,
+      "final_ce": 0.01756158098578453,
+      "trainable_parameters": 3328,
+      "immutable_native_head_and_P_exact": true,
+      "nonempty_momentum_restore_exact": true
+    }
+  },
+  "scientific_benefit_established": false,
+  "sampled_utc": "2026-10-19T04:07:23Z",
+  "confirmed_formal_updates_at_sample": {
+    "dense_fixmatch": 101,
+    "aligned_lonly": 690,
+    "aligned_ssl": 138,
+    "shuffled_lonly": 717,
+    "shuffled_ssl": 138
+  },
+  "confirmed_round_updates_at_sample": 1976,
+  "charged_reservations_at_sample": 1977,
+  "unconfirmed_reservations_at_sample": 1,
+  "cost_note": "All failures/replays charged; snapshot is not live. Formal final EMA only. Each engineering arm executes 32 calls on a 31-step trajectory including one discarded replay.",
+  "real_gradient_norms": {
+    "aligned_ssl": {
+      "L": 0.023496045145292372,
+      "U": 0.04346630975649881
+    },
+    "shuffled_ssl": {
+      "L": 0.02392875321482181,
+      "U": 0.0438906506202692
+    }
+  },
+  "control_diagnostic_first_two_cases": {
+    "aligned_vs_shifted_argmax_agreement": 0.9489406943321228,
+    "probability_mean_abs_difference": 0.03598574176430702,
+    "background_condition_mass": 0.9599744081497192,
+    "note": "High background agreement limits interpretation; fixed manipulation was not retuned."
+  }
+}
