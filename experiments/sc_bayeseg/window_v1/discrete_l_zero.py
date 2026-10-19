@@ -57,7 +57,7 @@ def run(s):
                             assert all(v is None or torch.isfinite(v).all() for v in g)
                             assert all(v is None for (n,p),v in zip(named,g) if semantic(n))
                             gs[key]={scope:sum(float(v.double().square().sum()) for (n,p),v in zip(named,g) if v is not None and (scope=='all' or n.startswith(('anatomy.','structure.'))))**.5 for scope in ['all','generator']}
-                        recognition=F.cross_entropy(model.recognition_logits(image),y)
+                        recognition=F.cross_entropy(model.recognition_logits(image),y,reduction='none').mean()
                         rg=grad('recognition_CE_separate',recognition,params,allow_unused=True)
                         assert any(v is not None and float(v.abs().sum())>0 for (n,p),v in zip(named,rg) if semantic(n))
                         assert all(v is None for (n,p),v in zip(named,rg) if not semantic(n))
