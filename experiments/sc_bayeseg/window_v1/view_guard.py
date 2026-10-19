@@ -77,20 +77,48 @@ def run(s):
                 append(root/'candidates.jsonl',row);trials.append(row)
                 if semok and jok:chosen=dict(alpha=alpha,beta=beta,vector=vv,joint=jj);break
             if chosen is None:model.load_state_dict(old['model']);chosen=dict(alpha=0.,beta=0.,vector=v0,joint=j0)
-            semnorm=sum(float((v.detach().cpu()-old['model'][n]).double().square().sum()) for n,v in named if semantic(n))**.5
+            semnorm=sum(float((v.detach().cpu()-old['model'][n].cpu()).double().square().sum()) for n,v in named if semantic(n))**.5
             return dict(**chosen,rollback=not any(v['semantic_pass'] and v['joint_pass'] for v in trials),semantic_delta_norm=semnorm,radius=radius,trials=len(trials))
-        # Gate uses the already certified private direction, with one fresh raw gradient.
-        reference=np.load(Path(s['view_geometry'])/'PRIVATE_GEOMETRY.npz')
-        v0=values();assert np.allclose(v0,geo['states']['0']['baseline'],rtol=0,atol=1e-7)
-        j0=scores(p['rng']);restore_rng_state(p['rng']);r=method.training_step(batch,None,base,base)
-        full=reverse(r.total_loss,params,allow_unused=True);nn=torch.linalg.vector_norm(torch.stack(torch._foreach_norm(full,2)),2)
-        clipped=torch._foreach_mul(full,(1/(nn+1e-6)).clamp(max=1.));op=p['trainer']['optimizer_state'];group=op['param_groups'][0]
-        with torch.no_grad():delta,*_=candidate(params,clipped,[op['state'][i] for i in group['params']],group)
-        costs['pure_adam']=1;decision=search(p,delta,reference['S0_strict'],True,v0,j0)
-        gate=decision['semantic_delta_norm']>0 and not decision['rollback'];restore(p,method,trainer)
-        assert same(p,snapshot(method,trainer,base));write(root/'ZERO_GATE.json',dict(pass_gate=gate,decision=decision,costs=costs.copy(),complete_state_restored=True))
-        if not gate:
-            write(root/'RESULTS.json',dict(status='COMPLETE',training_started=False,costs=costs,gate=decision,space=storage(s)));write(root/'EXIT.json',dict(exit_code=0));return
+        resumed=bool(s.get('resume'))
+        if resumed:
+            failed=Path(s['resume']);failure=json.loads((failed/'FAILURE.json').read_text())
+            assert failure['costs']==dict(optimizer=1,main=0,golden=1,extra_reverse=67,pure_adam=1,candidates=6)
+            assert 'Expected all tensors to be on the same device' in failure['traceback']
+            costs.update(failure['costs'])
+            for filename,key in [('physical_updates.jsonl','physical'),('reverse_calls.jsonl','index'),('candidates.jsonl','index')]:
+                rows=[json.loads(v) for v in (failed/filename).read_text().splitlines()]
+                assert [v[key] for v in rows]==list(range(1,len(rows)+1))
+                with (root/filename).open('x') as f:f.write((failed/filename).read_text())
+            old_gate=json.loads((failed/'ZERO_GATE.json').read_text());assert old_gate['pass_gate']
+            expected_partial=torch.load(failed/'failure_partial.pt',map_location='cpu',weights_only=False)
+            assert expected_partial['cursor']==base+1 and expected_partial['population']==p['population']
+            assert expected_partial['trainer']['scheduler_state']['last_epoch']==base+1
+            for i in range(100):
+                assert float(expected_partial['trainer']['optimizer_state']['state'][i]['step']-p['trainer']['optimizer_state']['state'][i]['step'])==1
+            for n,v in prior.items():assert torch.equal(v,expected_partial['model'][n])
+            # Reconstruct only the random stream, never repeat the consumed optimizer update.
+            with torch.no_grad():method.training_step(batch,None,base,base)
+            assert same(capture_rng_state(),expected_partial['rng'])
+            restore(p,method,trainer);assert same(p,snapshot(method,trainer,base))
+            failed_trial=json.loads((failed/'candidates.jsonl').read_text().splitlines()[-1])
+            assert failed_trial['phase']=='golden' and failed_trial['step']==1 and failed_trial['semantic_pass'] and failed_trial['joint_pass']
+            write(root/'ZERO_GATE.json',dict(**old_gate,reused_without_repeating=True))
+            write(root/'RECOVERY.json',dict(status='PASS',inherited_optimizer=1,inherited_reverse=67,inherited_candidates=6,
+                  ledger_prefix_copied_not_new_cost=True,complete_failed_first_golden_reused=True,source_global_cursor=base,partial_global_cursor=base+1))
+            gate=True
+        else:
+            # Gate uses the already certified private direction, with one fresh raw gradient.
+            reference=np.load(Path(s['view_geometry'])/'PRIVATE_GEOMETRY.npz')
+            v0=values();assert np.allclose(v0,geo['states']['0']['baseline'],rtol=0,atol=1e-7)
+            j0=scores(p['rng']);restore_rng_state(p['rng']);r=method.training_step(batch,None,base,base)
+            full=reverse(r.total_loss,params,allow_unused=True);nn=torch.linalg.vector_norm(torch.stack(torch._foreach_norm(full,2)),2)
+            clipped=torch._foreach_mul(full,(1/(nn+1e-6)).clamp(max=1.));op=p['trainer']['optimizer_state'];group=op['param_groups'][0]
+            with torch.no_grad():delta,*_=candidate(params,clipped,[op['state'][i] for i in group['params']],group)
+            costs['pure_adam']=1;decision=search(p,delta,reference['S0_strict'],True,v0,j0)
+            gate=decision['semantic_delta_norm']>0 and not decision['rollback'];restore(p,method,trainer)
+            assert same(p,snapshot(method,trainer,base));write(root/'ZERO_GATE.json',dict(pass_gate=gate,decision=decision,costs=costs.copy(),complete_state_restored=True))
+            if not gate:
+                write(root/'RESULTS.json',dict(status='COMPLETE',training_started=False,costs=costs,gate=decision,space=storage(s)));write(root/'EXIT.json',dict(exit_code=0));return
         out=root/'G';out.mkdir(exist_ok=False);storage(s);save(out/'S0000.pt',p)
         def before(opt,a,kw):
             assert costs['optimizer']<104 and all(v.grad is not None and torch.isfinite(v.grad).all() for v in params)
@@ -129,8 +157,15 @@ def run(s):
             phase[0]='golden' if k in (1,100) else 'main'
             if k in (1,100):
                 before_state=snapshot(method,trainer,base+k-1)
-                a=advance(k);expected=snapshot(method,trainer,base+k);restore(before_state,method,trainer)
-                b=advance(k);assert same(a,b) and same(expected,snapshot(method,trainer,base+k))
+                if resumed and k==1:
+                    expected=expected_partial
+                    b=advance(k)
+                    assert same(expected,snapshot(method,trainer,base+k))
+                    assert all(b[key]==failed_trial[key] for key in ('alpha','beta','vector','joint'))
+                    write(root/'RECOVERY_GOLDEN.json',dict(status='PASS',failed_first_physical_reused=True,second_physical_matches_complete_partial=True))
+                else:
+                    a=advance(k);expected=snapshot(method,trainer,base+k);restore(before_state,method,trainer)
+                    b=advance(k);assert same(a,b) and same(expected,snapshot(method,trainer,base+k))
                 restore(before_state,method,trainer);goldens.append(dict(step=k,full_state_and_decision_equal=True));write(out/'GOLDEN.json',goldens)
             phase[0]='main';row=advance(k);rows.append(row);append(out/'steps.jsonl',row)
             storage(s);save(out/f'S{k:04}.pt',snapshot(method,trainer,base+k))
