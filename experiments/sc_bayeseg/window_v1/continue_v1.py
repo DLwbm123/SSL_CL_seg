@@ -56,7 +56,7 @@ def run(s):
             if k not in noise_reference:noise_reference[k]=copy.deepcopy(old['rng'])
             else:assert same(old['rng'],noise_reference[k])
             f0=frame(model,image,y);j0=objective(model,image,y,s['replay']);C=None
-            if arm[0]=='C':
+            if arm[0] in ['coarse','fine']:
                 vals=losses(model,image,y);grads=[]
                 for i,v in enumerate(vals):
                     assert costs['extra_reverse']<3264;costs['extra_reverse']+=1;append(root/'reverse_calls.jsonl',dict(index=costs['extra_reverse'],arm=arm[0],phase=phase[0],step=k,constraint=i))
