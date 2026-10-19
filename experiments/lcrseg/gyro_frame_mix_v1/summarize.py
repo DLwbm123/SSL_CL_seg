@@ -78,6 +78,7 @@ def main(root):
         assert [x['actual_call'] for x in updates]==list(range(1,2001))
         assert all(lr==(.03 if k.startswith('projector') else .001) for x in updates for k,lr in x['lrs'].items())
         bystep={x['step']:x for x in rows(out/'private_loss_diagnostics.jsonl')};assert set(bystep)==set(range(2000))
+        assert all(x['anchor_beta']==2/3 and x['spectral_weight']==.9 for x in bystep.values())
         def quant(field):
             values=[field(bystep[i]) for i in range(2000)]
             return dict(min=float(min(values)),median=float(np.median(values)),max=float(max(values)))
