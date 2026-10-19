@@ -16,6 +16,9 @@ elif mode=='prepare':
     from experiments.lcrseg.gyro_memory_v1.prepare import main
 elif mode=='qualify':
     from experiments.lcrseg.gyro_memory_v1.run import qualify as main
+elif mode=='audit':
+    from experiments.lcrseg.gyro_memory_v1.summarize import main as audit
+    main=lambda cfg:audit(cfg['root'])
 elif mode=='train':
     from experiments.lcrseg.gyro_memory_v1.run import main
 else:raise PermissionError('mode')
