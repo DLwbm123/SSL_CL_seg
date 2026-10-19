@@ -14,6 +14,9 @@ elif mode=='checks':
     from experiments.lcrseg.gyro_weight_v2.contracts import main
 elif mode=='qualify':
     from experiments.lcrseg.gyro_weight_v2.run import qualify as main
+elif mode=='audit':
+    from experiments.lcrseg.gyro_weight_v2.summarize import main as audit
+    main=lambda cfg:audit(cfg['root'])
 elif mode=='train':
     from experiments.lcrseg.gyro_weight_v2.run import main
 else:raise PermissionError('mode')
