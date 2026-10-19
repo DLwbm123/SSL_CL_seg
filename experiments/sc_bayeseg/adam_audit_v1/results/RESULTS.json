@@ -1,0 +1,796 @@
+{
+  "status": "COMPLETE",
+  "optimizer_updates": 0,
+  "optimizer_constructed": false,
+  "parameter_application": false,
+  "code_adaptation": false,
+  "model_and_loaded_checkpoint_state_unchanged": true,
+  "original_first_loss_reproduced": true,
+  "original_first_norm_reproduced": true,
+  "loss": 29.741439819335938,
+  "training_ce": 0.006560515612363815,
+  "mean_ce": 0.00651498232036829,
+  "full_parameter_count": 100,
+  "original_global_norm": 730.6293334960938,
+  "clip_coefficient": 0.0013686830643564463,
+  "clipped_norm": 1.000000085288509,
+  "adam": {
+    "dispatch": "CUDA foreach, noncapturable, nonfused",
+    "torch_version": "2.7.1+cu128",
+    "old_steps": [
+      600,
+      1200,
+      1800
+    ],
+    "next_steps": [
+      601,
+      1201,
+      1801
+    ],
+    "lr": 0.0003,
+    "betas": [
+      0.9,
+      0.999
+    ],
+    "eps": 1e-08,
+    "scalar_vs_foreach_max_candidate_difference": 7.450580596923828e-09,
+    "rounding_delta_norm": 1.0798968297142075e-05,
+    "formula_decomposition_residual": 2.712323688220367e-09,
+    "verification_scope": "pure scalar vs foreach formula; no optimizer.step comparison or model application"
+  },
+  "direction_stats": {
+    "adam_candidate": {
+      "all": {
+        "displacement_norm": 0.025430927157290863,
+        "cosine_with_negative_gradient": 0.26426835475790195,
+        "label_derivative": -0.0021264429939320496,
+        "mean_label_derivative": -0.0021836807235764218,
+        "label_derivative_unit_direction": -0.08361641637286565
+      },
+      "semantic": {
+        "displacement_norm": 0.02390102979139761,
+        "cosine_with_negative_gradient": 0.28297178420544866,
+        "label_derivative": -0.0021264429939320496,
+        "mean_label_derivative": -0.0021836807235764218,
+        "label_derivative_unit_direction": -0.08896867676795218
+      }
+    },
+    "clipped_gradient_reference": {
+      "all": {
+        "displacement_norm": 0.00030000003947583994,
+        "cosine_with_negative_gradient": 0.9999999999999993,
+        "label_derivative": -0.0010078573999062134,
+        "mean_label_derivative": -0.0010108551633827769,
+        "label_derivative_unit_direction": -3.359524224287243
+      },
+      "semantic": {
+        "displacement_norm": 0.0002998153906102315,
+        "cosine_with_negative_gradient": 0.9999999999999994,
+        "label_derivative": -0.0010078573999062134,
+        "mean_label_derivative": -0.0010108551633827769,
+        "label_derivative_unit_direction": -3.361593271962668
+      }
+    }
+  },
+  "moment_decomposition": {
+    "history_moment": {
+      "training_label_derivative": 0.003962613975031268,
+      "mean_label_derivative": 0.003968502895118139,
+      "norm": 0.013449996981123896
+    },
+    "current_gradient": {
+      "training_label_derivative": -0.006089054968873709,
+      "mean_label_derivative": -0.006152181659239133,
+      "norm": 0.023684892928609234
+    },
+    "unrounded_total": {
+      "training_label_derivative": -0.0021264411936524727,
+      "mean_label_derivative": -0.002183678969082189,
+      "norm": 0.025430911006576826
+    }
+  },
+  "margins": {
+    "adam_candidate": {
+      "all_class2": {
+        "background": {
+          "initial": {
+            "count": 490,
+            "mean": 4.744736194610596,
+            "quantiles": [
+              -0.0637601688504219,
+              2.4692296981811523,
+              4.325941562652588,
+              6.751026153564453,
+              10.638731002807617
+            ],
+            "negative_fraction": 0.059183672070503235
+          },
+          "directional_change": {
+            "count": 490,
+            "mean": 0.8841037750244141,
+            "quantiles": [
+              -0.42086973786354065,
+              0.2150219976902008,
+              0.7151433229446411,
+              1.345363736152649,
+              2.829254150390625
+            ],
+            "negative_fraction": 0.12040815502405167
+          },
+          "unit_displacement_mean_change": 34.764905327918726,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 490,
+            "mean": 13.349068641662598,
+            "quantiles": [
+              0.7284201979637146,
+              5.0314555168151855,
+              10.06601619720459,
+              17.4388370513916,
+              37.87154006958008
+            ],
+            "negative_fraction": 0.034693874418735504
+          },
+          "directional_change": {
+            "count": 490,
+            "mean": -4.322376251220703,
+            "quantiles": [
+              -13.519561767578125,
+              -6.698172569274902,
+              -3.2462191581726074,
+              -0.5250478982925415,
+              0.6336266398429871
+            ],
+            "negative_fraction": 0.8693877458572388
+          },
+          "unit_displacement_mean_change": -169.9653427689328,
+          "linear_positive_to_nonpositive_count": 25
+        },
+        "overall": {
+          "initial": {
+            "count": 490,
+            "mean": 3.8002679347991943,
+            "quantiles": [
+              -0.5025818943977356,
+              1.8380988836288452,
+              3.7031497955322266,
+              5.662959098815918,
+              8.864720344543457
+            ],
+            "negative_fraction": 0.08979591727256775
+          },
+          "directional_change": {
+            "count": 490,
+            "mean": 0.4485267996788025,
+            "quantiles": [
+              -3.0477328300476074,
+              -0.11393070220947266,
+              0.5549253821372986,
+              1.2826334238052368,
+              2.8315353393554688
+            ],
+            "negative_fraction": 0.279591828584671
+          },
+          "unit_displacement_mean_change": 17.637060454172747,
+          "linear_positive_to_nonpositive_count": 23
+        }
+      },
+      "near_decision": {
+        "background": {
+          "initial": {
+            "count": 74,
+            "mean": 1.5679820775985718,
+            "quantiles": [
+              -0.6215596795082092,
+              0.1250145584344864,
+              0.7455224990844727,
+              2.488966703414917,
+              6.189252853393555
+            ],
+            "negative_fraction": 0.22972974181175232
+          },
+          "directional_change": {
+            "count": 74,
+            "mean": 1.095759391784668,
+            "quantiles": [
+              0.07650025188922882,
+              0.47380971908569336,
+              0.9033471345901489,
+              1.4824434518814087,
+              3.1336662769317627
+            ],
+            "negative_fraction": 0.027027027681469917
+          },
+          "unit_displacement_mean_change": 43.087669789126096,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 74,
+            "mean": 15.175676345825195,
+            "quantiles": [
+              -0.5501548051834106,
+              0.5495846271514893,
+              12.624482154846191,
+              23.104368209838867,
+              49.64936828613281
+            ],
+            "negative_fraction": 0.1756756752729416
+          },
+          "directional_change": {
+            "count": 74,
+            "mean": -5.344642639160156,
+            "quantiles": [
+              -15.057241439819336,
+              -8.998489379882812,
+              -3.0781102180480957,
+              -0.9688485860824585,
+              0.8825539946556091
+            ],
+            "negative_fraction": 0.8918918967247009
+          },
+          "unit_displacement_mean_change": -210.1631059734244,
+          "linear_positive_to_nonpositive_count": 10
+        },
+        "overall": {
+          "initial": {
+            "count": 74,
+            "mean": 0.18513979017734528,
+            "quantiles": [
+              -0.6922763586044312,
+              -0.168771892786026,
+              0.19312620162963867,
+              0.6674992442131042,
+              0.9214540123939514
+            ],
+            "negative_fraction": 0.4054054021835327
+          },
+          "directional_change": {
+            "count": 74,
+            "mean": 0.5681764483451843,
+            "quantiles": [
+              -2.8286924362182617,
+              -0.12966740131378174,
+              0.8108986020088196,
+              1.465070366859436,
+              3.1336662769317627
+            ],
+            "negative_fraction": 0.27027028799057007
+          },
+          "unit_displacement_mean_change": 22.341947850780276,
+          "linear_positive_to_nonpositive_count": 9
+        }
+      },
+      "near_background": {
+        "background": {
+          "initial": {
+            "count": 51,
+            "mean": 0.25236377120018005,
+            "quantiles": [
+              -0.6497472524642944,
+              -0.09249500185251236,
+              0.2602503299713135,
+              0.7455224990844727,
+              0.9402033090591431
+            ],
+            "negative_fraction": 0.3529411852359772
+          },
+          "directional_change": {
+            "count": 51,
+            "mean": 1.3522692918777466,
+            "quantiles": [
+              0.15003490447998047,
+              0.753435492515564,
+              1.1311736106872559,
+              1.7083247900009155,
+              3.5105319023132324
+            ],
+            "negative_fraction": 0.019607843831181526
+          },
+          "unit_displacement_mean_change": 53.17420334358752,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 51,
+            "mean": 21.916528701782227,
+            "quantiles": [
+              0.9246522188186646,
+              12.269529342651367,
+              20.527135848999023,
+              28.328346252441406,
+              51.69694519042969
+            ],
+            "negative_fraction": 0.03921568766236305
+          },
+          "directional_change": {
+            "count": 51,
+            "mean": -7.210213661193848,
+            "quantiles": [
+              -15.51574420928955,
+              -11.487892150878906,
+              -7.759256839752197,
+              -2.067512035369873,
+              1.0753180980682373
+            ],
+            "negative_fraction": 0.9215686321258545
+          },
+          "unit_displacement_mean_change": -283.5214625325499,
+          "linear_positive_to_nonpositive_count": 1
+        },
+        "overall": {
+          "initial": {
+            "count": 51,
+            "mean": 0.16555720567703247,
+            "quantiles": [
+              -0.78650963306427,
+              -0.12820732593536377,
+              0.2602503299713135,
+              0.7455224990844727,
+              0.9402033090591431
+            ],
+            "negative_fraction": 0.37254902720451355
+          },
+          "directional_change": {
+            "count": 51,
+            "mean": 1.369171142578125,
+            "quantiles": [
+              0.15003490447998047,
+              0.7310460805892944,
+              1.1311736106872559,
+              1.7083247900009155,
+              3.5105319023132324
+            ],
+            "negative_fraction": 0.019607843831181526
+          },
+          "unit_displacement_mean_change": 53.83882129462958,
+          "linear_positive_to_nonpositive_count": 0
+        }
+      },
+      "spatial_inner_boundary": {
+        "background": {
+          "initial": {
+            "count": 293,
+            "mean": 3.872775077819824,
+            "quantiles": [
+              -0.6218829154968262,
+              1.368884801864624,
+              3.6445798873901367,
+              5.809621334075928,
+              9.569755554199219
+            ],
+            "negative_fraction": 0.09897610545158386
+          },
+          "directional_change": {
+            "count": 293,
+            "mean": 0.8538427352905273,
+            "quantiles": [
+              -0.7173418998718262,
+              0.1801360845565796,
+              0.7266008257865906,
+              1.3266619443893433,
+              2.7717487812042236
+            ],
+            "negative_fraction": 0.1331057995557785
+          },
+          "unit_displacement_mean_change": 33.57497467589328,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 293,
+            "mean": 12.97260570526123,
+            "quantiles": [
+              -0.07707519084215164,
+              3.3243322372436523,
+              7.625787734985352,
+              19.18953514099121,
+              41.04544448852539
+            ],
+            "negative_fraction": 0.05802047625184059
+          },
+          "directional_change": {
+            "count": 293,
+            "mean": -4.376783847808838,
+            "quantiles": [
+              -14.522092819213867,
+              -6.659979820251465,
+              -2.7128963470458984,
+              -0.44168761372566223,
+              0.7024090886116028
+            ],
+            "negative_fraction": 0.8566552400588989
+          },
+          "unit_displacement_mean_change": -172.1047691552231,
+          "linear_positive_to_nonpositive_count": 25
+        },
+        "overall": {
+          "initial": {
+            "count": 293,
+            "mean": 2.5593786239624023,
+            "quantiles": [
+              -0.9700318574905396,
+              0.7659436464309692,
+              2.333815097808838,
+              4.08131742477417,
+              7.1161417961120605
+            ],
+            "negative_fraction": 0.15017063915729523
+          },
+          "directional_change": {
+            "count": 293,
+            "mean": 0.21110133826732635,
+            "quantiles": [
+              -3.832648515701294,
+              -0.3624737560749054,
+              0.48659229278564453,
+              1.2423526048660278,
+              2.824124813079834
+            ],
+            "negative_fraction": 0.341296911239624
+          },
+          "unit_displacement_mean_change": 8.300969011537006,
+          "linear_positive_to_nonpositive_count": 23
+        }
+      }
+    },
+    "clipped_gradient_reference": {
+      "all_class2": {
+        "background": {
+          "initial": {
+            "count": 490,
+            "mean": 4.744736194610596,
+            "quantiles": [
+              -0.0637601688504219,
+              2.4692296981811523,
+              4.325941562652588,
+              6.751026153564453,
+              10.638731002807617
+            ],
+            "negative_fraction": 0.059183672070503235
+          },
+          "directional_change": {
+            "count": 490,
+            "mean": 0.4251212477684021,
+            "quantiles": [
+              0.004561764188110828,
+              0.18073561787605286,
+              0.37104031443595886,
+              0.6190364360809326,
+              1.0284584760665894
+            ],
+            "negative_fraction": 0.04693877324461937
+          },
+          "unit_displacement_mean_change": 1417.070639427828,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 490,
+            "mean": 13.349068641662598,
+            "quantiles": [
+              0.7284201979637146,
+              5.0314555168151855,
+              10.06601619720459,
+              17.4388370513916,
+              37.87154006958008
+            ],
+            "negative_fraction": 0.034693874418735504
+          },
+          "directional_change": {
+            "count": 490,
+            "mean": -0.7023312449455261,
+            "quantiles": [
+              -2.1707897186279297,
+              -1.1682099103927612,
+              -0.5724676847457886,
+              -0.1083633303642273,
+              0.2845644950866699
+            ],
+            "negative_fraction": 0.8040816187858582
+          },
+          "unit_displacement_mean_change": -2341.1038417616187,
+          "linear_positive_to_nonpositive_count": 2
+        },
+        "overall": {
+          "initial": {
+            "count": 490,
+            "mean": 3.8002679347991943,
+            "quantiles": [
+              -0.5025818943977356,
+              1.8380988836288452,
+              3.7031497955322266,
+              5.662959098815918,
+              8.864720344543457
+            ],
+            "negative_fraction": 0.08979591727256775
+          },
+          "directional_change": {
+            "count": 490,
+            "mean": 0.3079741895198822,
+            "quantiles": [
+              -0.44797876477241516,
+              0.10492633283138275,
+              0.2973167300224304,
+              0.5724363923072815,
+              0.9422204494476318
+            ],
+            "negative_fraction": 0.16122448444366455
+          },
+          "unit_displacement_mean_change": 1026.5804966491828,
+          "linear_positive_to_nonpositive_count": 2
+        }
+      },
+      "near_decision": {
+        "background": {
+          "initial": {
+            "count": 74,
+            "mean": 1.5679820775985718,
+            "quantiles": [
+              -0.6215596795082092,
+              0.1250145584344864,
+              0.7455224990844727,
+              2.488966703414917,
+              6.189252853393555
+            ],
+            "negative_fraction": 0.22972974181175232
+          },
+          "directional_change": {
+            "count": 74,
+            "mean": 0.4328615963459015,
+            "quantiles": [
+              0.0957123413681984,
+              0.270599901676178,
+              0.3784227967262268,
+              0.5076041221618652,
+              0.9737444519996643
+            ],
+            "negative_fraction": 0.013513513840734959
+          },
+          "unit_displacement_mean_change": 1442.8717979577511,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 74,
+            "mean": 15.175676345825195,
+            "quantiles": [
+              -0.5501548051834106,
+              0.5495846271514893,
+              12.624482154846191,
+              23.104368209838867,
+              49.64936828613281
+            ],
+            "negative_fraction": 0.1756756752729416
+          },
+          "directional_change": {
+            "count": 74,
+            "mean": -0.7715322971343994,
+            "quantiles": [
+              -2.4112155437469482,
+              -1.3720088005065918,
+              -0.5884751677513123,
+              -0.14557132124900818,
+              0.3911736309528351
+            ],
+            "negative_fraction": 0.824324369430542
+          },
+          "unit_displacement_mean_change": -2571.7739853715375,
+          "linear_positive_to_nonpositive_count": 2
+        },
+        "overall": {
+          "initial": {
+            "count": 74,
+            "mean": 0.18513979017734528,
+            "quantiles": [
+              -0.6922763586044312,
+              -0.168771892786026,
+              0.19312620162963867,
+              0.6674992442131042,
+              0.9214540123939514
+            ],
+            "negative_fraction": 0.4054054021835327
+          },
+          "directional_change": {
+            "count": 74,
+            "mean": 0.30043384432792664,
+            "quantiles": [
+              -0.34715989232063293,
+              0.13681864738464355,
+              0.3150864839553833,
+              0.49767670035362244,
+              0.8784409165382385
+            ],
+            "negative_fraction": 0.18918919563293457
+          },
+          "unit_displacement_mean_change": 1001.4460159833467,
+          "linear_positive_to_nonpositive_count": 2
+        }
+      },
+      "near_background": {
+        "background": {
+          "initial": {
+            "count": 51,
+            "mean": 0.25236377120018005,
+            "quantiles": [
+              -0.6497472524642944,
+              -0.09249500185251236,
+              0.2602503299713135,
+              0.7455224990844727,
+              0.9402033090591431
+            ],
+            "negative_fraction": 0.3529411852359772
+          },
+          "directional_change": {
+            "count": 51,
+            "mean": 0.4553194046020508,
+            "quantiles": [
+              0.13592441380023956,
+              0.2814919948577881,
+              0.4041300117969513,
+              0.5376197695732117,
+              0.9936808347702026
+            ],
+            "negative_fraction": 0.019607843831181526
+          },
+          "unit_displacement_mean_change": 1517.7311489611295,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 51,
+            "mean": 21.916528701782227,
+            "quantiles": [
+              0.9246522188186646,
+              12.269529342651367,
+              20.527135848999023,
+              28.328346252441406,
+              51.69694519042969
+            ],
+            "negative_fraction": 0.03921568766236305
+          },
+          "directional_change": {
+            "count": 51,
+            "mean": -1.1092963218688965,
+            "quantiles": [
+              -2.6041970252990723,
+              -1.7157540321350098,
+              -0.9443562030792236,
+              -0.4771006107330322,
+              -0.03959515690803528
+            ],
+            "negative_fraction": 0.9411765336990356
+          },
+          "unit_displacement_mean_change": -3697.653919669674,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "overall": {
+          "initial": {
+            "count": 51,
+            "mean": 0.16555720567703247,
+            "quantiles": [
+              -0.78650963306427,
+              -0.12820732593536377,
+              0.2602503299713135,
+              0.7455224990844727,
+              0.9402033090591431
+            ],
+            "negative_fraction": 0.37254902720451355
+          },
+          "directional_change": {
+            "count": 51,
+            "mean": 0.4461055099964142,
+            "quantiles": [
+              0.13592441380023956,
+              0.2814919948577881,
+              0.4041300117969513,
+              0.5376197695732117,
+              0.9193390607833862
+            ],
+            "negative_fraction": 0.019607843831181526
+          },
+          "unit_displacement_mean_change": 1487.018170983743,
+          "linear_positive_to_nonpositive_count": 0
+        }
+      },
+      "spatial_inner_boundary": {
+        "background": {
+          "initial": {
+            "count": 293,
+            "mean": 3.872775077819824,
+            "quantiles": [
+              -0.6218829154968262,
+              1.368884801864624,
+              3.6445798873901367,
+              5.809621334075928,
+              9.569755554199219
+            ],
+            "negative_fraction": 0.09897610545158386
+          },
+          "directional_change": {
+            "count": 293,
+            "mean": 0.4006684720516205,
+            "quantiles": [
+              -0.007839811034500599,
+              0.17376942932605743,
+              0.3539050221443176,
+              0.5905027985572815,
+              0.9310376048088074
+            ],
+            "negative_fraction": 0.05802047625184059
+          },
+          "unit_displacement_mean_change": 1335.5613977640417,
+          "linear_positive_to_nonpositive_count": 0
+        },
+        "foreground": {
+          "initial": {
+            "count": 293,
+            "mean": 12.97260570526123,
+            "quantiles": [
+              -0.07707519084215164,
+              3.3243322372436523,
+              7.625787734985352,
+              19.18953514099121,
+              41.04544448852539
+            ],
+            "negative_fraction": 0.05802047625184059
+          },
+          "directional_change": {
+            "count": 293,
+            "mean": -0.6784858107566833,
+            "quantiles": [
+              -2.3841841220855713,
+              -1.0586546659469604,
+              -0.4928237795829773,
+              -0.07550570368766785,
+              0.3409916162490845
+            ],
+            "negative_fraction": 0.7952218055725098
+          },
+          "unit_displacement_mean_change": -2261.619071591236,
+          "linear_positive_to_nonpositive_count": 2
+        },
+        "overall": {
+          "initial": {
+            "count": 293,
+            "mean": 2.5593786239624023,
+            "quantiles": [
+              -0.9700318574905396,
+              0.7659436464309692,
+              2.333815097808838,
+              4.08131742477417,
+              7.1161417961120605
+            ],
+            "negative_fraction": 0.15017063915729523
+          },
+          "directional_change": {
+            "count": 293,
+            "mean": 0.2298143357038498,
+            "quantiles": [
+              -0.6121116876602173,
+              0.00677433842793107,
+              0.25393807888031006,
+              0.5108855366706848,
+              0.8779208064079285
+            ],
+            "negative_fraction": 0.24232080578804016
+          },
+          "unit_displacement_mean_change": 766.0476848782466,
+          "linear_positive_to_nonpositive_count": 2
+        }
+      }
+    }
+  },
+  "reverse_calls": 6,
+  "model_calls": {
+    "proposal_images": 2,
+    "density_images": 2,
+    "generator_draws": 1,
+    "refinement_derivatives": 0,
+    "predictive_images": 0
+  },
+  "started": 1792413267.2163343,
+  "finished": 1792413270.0435433
+}
