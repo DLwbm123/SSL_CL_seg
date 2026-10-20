@@ -68,6 +68,7 @@ def run(s):
                 ensemble_tv=float((ensemble.double()-identity.double()).abs().sum())/(2*pixels);assert ensemble_tv<=sum(v['mean_pixel_TV'] for v in views)/4+2e-6
                 equivariance[arm].append(dict(phase=i,views=views,identity_soft_class_fraction=identity_fraction.tolist(),ensemble_soft_class_fraction=mean_fraction.tolist(),class_mass_identity_error=residual,ensemble_mean_pixel_TV=ensemble_tv))
                 save(folder/f'CASE{i:03}.pt',dict(native_probability=ensemble,spacing=spacing));storage(s,reserve=50_000_000)
+                append(root/'forward_phase_ledger.jsonl',dict(arm=arm,phase=i,slices=len(volume),costs=dict(costs)))
                 write(root/'STATUS.json',dict(status='PREDICTING',arm=arm,phase=i,costs=costs))
             assert same(model.state_dict(),d['model']);del model;torch.cuda.empty_cache()
         assert costs['encoder_images']==3264 and costs['G_forward']==costs['direct_logit_forwards']==834 and costs['G_image_forward']==1632 and costs['new_transformed_phase_views']==276 and costs['label_phase_reads']==0

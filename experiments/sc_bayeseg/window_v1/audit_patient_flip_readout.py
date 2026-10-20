@@ -32,6 +32,16 @@ def audit(s):
     assert read(root/'TEMPERATURES_SEALED.json')['fits']==10 and sum(f['function_evaluations'] for a in temps.values() for f in a.values())==c['temperature_function_evaluations']
     controls={'U_D_TTA':read(Path(s['factor_source'])/'RESULTS.json')['aggregates']['val']['U_D'],'G_MEAN_TTA':read(Path(s['mean_source'])/'RESULTS.json')['aggregates']['val']}
     caches={'U_D_TTA':Path(s['factor_source'])/'U_D/val','G_MEAN_TTA':Path(s['mean_source'])/'val'};err=[0.];mass_error=[0.]
+    ledger=[json.loads(x) for x in (root/'forward_phase_ledger.jsonl').read_text().splitlines()];assert len(ledger)==92
+    cum=dict(encoder_images=0,direct_logit_forwards=0,G_forward=0,G_image_forward=0,baseline_probability_reads=0,new_transformed_phase_views=0)
+    for j,e in enumerate(ledger):
+        arm=ARMS[j//46];i=j%46;assert (e['arm'],e['phase'])==(arm,i)
+        n=len(load(root/arm/f'CASE{i:03}.pt')['native_probability']);assert e['slices']==n
+        cum['encoder_images']+=3*n;cum['baseline_probability_reads']+=1;cum['new_transformed_phase_views']+=3
+        if arm=='U_D_TTA':cum['direct_logit_forwards']+=3*((n+1)//2)
+        else:cum['G_forward']+=3*((n+1)//2);cum['G_image_forward']+=3*n
+        assert all(e['costs'][k]==v for k,v in cum.items()) and e['costs']['label_phase_reads']==0 and e['costs']['temperature_fits']==0
+
     def eq(a,b):
         if isinstance(a,dict):
             assert a.keys()==b.keys()
@@ -69,7 +79,7 @@ def audit(s):
             assert abs(np.mean(values)-fit['objective'])<1e-10
         print('recomputed',arm,flush=True)
     assert r['source_frozen'] and r['RNG_restored'] and r['all_predictions_before_labels'] and not r['test_access'] and r['original_elapsed_seconds']<86400
-    result=dict(status='PASS',ensemble_sets_recomputed=92,maximum_metric_error=err[0],maximum_class_mass_error=mass_error[0],fixed_views_and_equivariance_scalar_invariants_checked=True,per_view_network_probabilities_replayed=False,per_view_full_probabilities_saved=False,source_metadata_records_checked=94,fit_objectives_checked=10,fold_isolation=True,argmax_changes=0,audit_ensemble_restores=92,audit_identity_native_reads=92,audit_label_phase_reads=92,audit_temperature_transforms=92,no_temperature_refits=True,new_network_forward=0,new_reverse=0,new_optimizer=0);write(root/'AUDIT.json',result)
+    result=dict(status='PASS',ensemble_sets_recomputed=92,forward_phase_ledger_records_checked=92,maximum_metric_error=err[0],maximum_class_mass_error=mass_error[0],fixed_views_and_equivariance_scalar_invariants_checked=True,per_view_network_probabilities_replayed=False,per_view_full_probabilities_saved=False,source_metadata_records_checked=94,fit_objectives_checked=10,fold_isolation=True,argmax_changes=0,audit_ensemble_restores=92,audit_identity_native_reads=92,audit_label_phase_reads=92,audit_temperature_transforms=92,no_temperature_refits=True,new_network_forward=0,new_reverse=0,new_optimizer=0);write(root/'AUDIT.json',result)
     # Derive paired statistics only after all saved outputs have passed the independent checks.
     prior=read(Path(s['smoothing_source'])/'PUBLIC_RESULTS.json')['models'];alias={p:f'VAL{i:03}' for i,p in enumerate(sorted(folds))};models={};probability_contrasts={};equiv_patients={}
     for arm,base in (('U_D_TTA','U_D'),('G_MEAN_TTA','MEAN_READ')):

@@ -22,7 +22,7 @@
 
 92ensemble native概率理论285212672字节，预计全部新产物<.30GB，启动预留.32GB；旧四根实际+预留必须<18GB。只保存ensemble FP32和三个视图的标量统计，不保存各视图完整概率以满足既有更严存储边界，源identity不复制。独立审计不重跑网络，不能声称逐视图网络回放或逐像素平均独立复演；核源元数据和参数冻结断言/调用账本，保存ensemble/identity归一化、类概率体积分数四份平均恒等、TV Jensen上界（2e-6容差）、全部ensemble指标/fit目标/患者交互。worker固定顺序直接求四份均值，过程概率有限/shape/simplex检查；缺少逐视图缓存的审计限制须如实报告。
 
-正式0optimizer/反向、3264编码图像（2模型×3新视图×544），834 U直接logit前向、834批量G/1632图像G，0Theta/local。92原identity缓存读取、276新增相位视图、92ensemble缓存。评分92raw+92cal=184恢复/184标签，10温度fits实际nfev单列，非完全0优化。无新train/test/U/目标/训练seed。独立审计92ensemble恢复/92identity原生读取/92标签/92温度变换、10fit目标复核，0新网络/refit。
+正式0optimizer/反向、3264编码图像（2模型×3新视图×544），834 U直接logit前向、834批量G/1632图像G，0Theta/local。92原identity缓存读取、276新增相位视图、92ensemble缓存；92条相位前向账本封存前逐项记录实际slice和累计调用/label0，独立审计核对。评分92raw+92cal=184恢复/184标签，10温度fits实际nfev单列，非完全0优化。无新train/test/U/目标/训练seed。独立审计92ensemble恢复/92identity原生读取/92标签/92温度变换、10fit目标复核，0新网络/refit。
 
 准入只合成：双翻转逆变换精确、统一权重/概率归一化、1 U直接前向+1 G均值前向（2编码图像/0反向更新/0真实数据）、源参数不变。所有成本单列。完成联合EXIT0/无FAILURE/worker与guard退休、独立AUDIT/匿名统计通过后报告push核SHA+匿名200。
 
