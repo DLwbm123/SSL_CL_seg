@@ -1,10 +1,10 @@
 # SC-BayeSeg实验阶段总结
 
-**更新日期：2026年10月20日。范围截至同源M/S/V空间潜变量对照完成。**
+**更新日期：2026年10月20日。范围截至正规空间模型坐标更新及GT／BG对称评分完成。**
 
 ## 1. 总体结论
 
-当前路线仍处于概率模型和优化机制验证阶段，尚未证明半监督分割、持续学习或跨域泛化有效。
+当前路线仍处于概率模型和优化机制验证阶段，尚未证明半监督分割、持续学习或跨域泛化有效。**最新最重要的判断是：正规模型的标签条件重构已升至78.46%，但对称近似评分仍支持全背景，核心语义建模问题没有解决。**
 
 实验已支持三个判断：
 
@@ -133,6 +133,35 @@ M点拟合更好，但M/S还同时改变权重/code/R采样和方差自由度，
 
 新增1000局部反向、1000候选/接受、8192bound、1012均值前向，0模型optimizer；五连续账本、1000门限、42局部状态、M方差固定、S/V21RNG、源模型及历史账本、EXIT0通过。空间约1.332GB。完整结果见SPATIAL_CONTROLS_REPORT_ZH.md与匿名JSON。
 
+## 8.2 正规生成后验与局部后验的坐标适配
+
+没有采用去KL目标。先固定正规V500的qR，使用完整ELBO更新anatomy的12个Bayesian mean/logsd参数600主步，其他88参数及Adam冻结；再固定这个新后验，从qR500继续一次500局部VI。原先验不重设，没有真实U或新域。
+
+|阶段|标签条件均值CE|平均24Dice|最小Dice|
+|---|---:|---:|---:|
+|首次正规qR500|.07256|26.25%|0|
+|生成后验600主步后|.05564|55.69%|.12069|
+|qR再续500后|.04150|78.46%|.42105|
+
+末端第一/二/三类平均Dice为89.81%/66.75%/78.83%，仍未通过所有24项.8门限。两个固定流的正规目标在两次坐标步都改善。这支持模型有非零、正规化的协同优化路径；不代表全部概率因素已经对齐。识别网络完全未更新，图像预测仍精确不变。
+
+生成阶段604实际optimizer（600主+4工程）、48评价bound、2完整golden、7完整状态、12活跃Adam+600/88冻结/qR/prior/cursor核验通过；后续qR阶段500反向/500候选接受/8096bound，21状态和counter500→1000核验通过，模型cursor保持8675。不是丢弃旧成本重跑。
+
+## 8.3 最后对称GT/BG评分：关键负结果
+
+为了区别“给标签后能重构”与“模型支持正确标签”，固定同一个新生成后验，原两canonical训练图的GT/BG各从相同qR先验开始500局部VI，所有配置和随机数配对。完整正规下界包括R先验代价，不看重构Dice选择。
+
+|每像素ELBO|GT初|BG初|GT终|BG终|终GT−BG|
+|---|---:|---:|---:|---:|---:|
+|50163流|−1.45696|−1.27628|−1.28467|−1.22968|−.05498|
+|80163流|−1.47526|−1.23289|−1.25532|−1.19979|−.05553|
+
+**背景优势缩小，但两流、两张图终态仍全部偏好BG。** 50163差值主要是类别因素−.03984、结构因素−.00784，以及GT多付出的RKL/N=.00730；80163亦同。不是只有KL造成。image/appearance精确相消来自相同固定qx(I)/qm(I)提议，不能据此说精确图像似然不提供信息。
+
+重要限制：这是有限步、有限MC、受限变分族的下界，不是精确p(Y|I)或Bayes factor；不同假设可能有不同变分间隙，不能证明全局不可识别。但就当前实现和推断而言，没有证据支持把它用于无标签纠错，更不宜立即扩到SSL/CL。
+
+本阶段1000反向、1035候选、995接受（5次未接受）、16472bound、0optimizer；四连续账本、1000门限、42状态、21完整RNG对、源模型/历史账本、EXIT0通过。窗口新增空间约1.356GB，低于20GB硬限。
+
 ## 9. 现阶段应保留和放弃的解释
 
 **有证据支持：** 极少标注下严重过拟合；原联合目标有语义方向冲突；Adam/有限步会额外改变表现；原低维和粗空间映射存在局部限制；空间残差有较强条件表达能力。
@@ -141,12 +170,12 @@ M点拟合更好，但M/S还同时改变权重/code/R采样和方差自由度，
 
 ## 10. 下一步最有判别力的方向
 
-同源M/S/V控制已完成首轮，去KL影响较小，确定性拟合也未充分成功。下一步应先区分同源确定性拟合的有限步/表示限制，以及随机性与方差族的影响；不要把问题直接归于KL，更不要盲调权重、增加U/目标域或重复延长失败配置。
+当前最关键的是区分**受限推断间隙**与**生成因素错配**：在同源、对称条件下扩充假设相关的nuisance推断，检验图像—结构耦合是否支持正确标签，并完整计入先验代价。不要只追训练重构Dice，不把问题简单归于KL，也不先扩大U、目标域或调参。
 
-只有正规模型能稳定保留各类语义后，再验证不输入Y的摊销推断或合法离散q(Z|I)。只有图像单独预测和更充分源域评价成立，才值得恢复半监督与跨域持续后验递推实验。本次总结不启动额外实验，现有监测仍按原窗口执行。
+只有正规模型能稳定保留各类语义，并对GT/错误结构给出可靠区分后，再验证不输入Y的摊销推断或合法离散q(Z|I)。只有图像单独预测和更充分源域评价成立，才值得恢复半监督与跨域持续后验递推实验。本次总结不启动额外实验，现有监测仍按原窗口执行。
 
 ## 11. 报告索引与交付范围
 
-关键报告均在同目录：VIEW_JOINT_REPORT、VIEW_GEOMETRY_REPORT、VIEW_GUARD_REPORT、VIEW_POSTERIOR_REPORT、DISCRETE_L_TRAIN_REPORT、DISCRETE_L_READOUT_REPORT、DISCRETE_RECON_REPORT、DISCRETE_CODE_LOCAL_REPORT、DISCRETE_FEATURE_REPORT、DISCRETE_FEATURE_LOCAL_REPORT、DISCRETE_RESOLUTION_REPORT、SPATIAL_RESIDUAL_LOCAL_REPORT、SPATIAL_CONTROLS_REPORT（均为_ZH.md）。对应匿名JSON包含完整正负读出。
+关键报告均在同目录：VIEW_JOINT_REPORT、VIEW_GEOMETRY_REPORT、VIEW_GUARD_REPORT、VIEW_POSTERIOR_REPORT、DISCRETE_L_TRAIN_REPORT、DISCRETE_L_READOUT_REPORT、DISCRETE_RECON_REPORT、DISCRETE_CODE_LOCAL_REPORT、DISCRETE_FEATURE_REPORT、DISCRETE_FEATURE_LOCAL_REPORT、DISCRETE_RESOLUTION_REPORT、SPATIAL_RESIDUAL_LOCAL_REPORT、SPATIAL_CONTROLS_REPORT、SAMPLING_FACTOR_REPORT、SPATIAL_GENERATOR_REPORT、SPATIAL_RECOUPLE_REPORT、SPATIAL_HYPOTHESIS_REPORT（均为_ZH.md）。对应匿名JSON包含完整正负读出。
 
 公开仅源码、协议、中文报告及匿名聚合结果；患者数据、图像/像素、权重、局部场、原始日志、机器定位和凭据不公开。阶段成本分开列账，不将恢复目录的继承账本重复计入，也不将不同模型ELBO绝对值混加或比较。
