@@ -1,3 +1,5 @@
+> 最新只读分解见[均值/方差与类2响应](STRUCTURE_COMPONENTS_REPORT_ZH.md)：类别损伤主要在均值交换一侧；variance KL未下降，不直接开始mean-only训练。
+
 > 最新审阅入口：[Structure-only与四格/固定数值init1完整报告](STRUCTURE_ONLY_FOR_PRO_ZH.md)。已完成而非计划，包含配对MC、全部正负结果、成本与独立核验。以下为原阶段材料。
 
 # SC-BayeSeg最新实验：给Pro的审阅材料

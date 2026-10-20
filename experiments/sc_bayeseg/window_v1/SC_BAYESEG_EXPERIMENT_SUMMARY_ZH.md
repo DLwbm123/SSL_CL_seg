@@ -1,3 +1,5 @@
+> 最新只读分解见[均值/方差与类2响应](STRUCTURE_COMPONENTS_REPORT_ZH.md)：类别损伤主要在均值交换一侧；variance KL未下降，不直接开始mean-only训练。
+
 > 最新完成：structure-only、完整四格及固定旧数值init1。见[给Pro的新报告](STRUCTURE_ONLY_FOR_PRO_ZH.md)：坐标收益主要来自KL，类别/背景偏好未修复，数值初态修补未翻转负结果。以下保留历次证据。
 
 # SC-BayeSeg实验阶段总结
