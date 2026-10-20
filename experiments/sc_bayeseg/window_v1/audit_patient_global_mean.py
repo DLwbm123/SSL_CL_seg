@@ -6,7 +6,10 @@ from sc_bayeseg.window_v1.patient_validation import phase_metrics,aggregate
 from sc_bayeseg.window_v1.patient_train_readout import aggregate_training
 from sc_bayeseg.window_v1.patient_loss_factor import restore_probability,paired_summary
 from sc_bayeseg.window_v1.r_start import write
-from sc_bayeseg.window_v1.summarize_patient_point_estimate import paired
+def paired(a,b,metric):
+    assert [p['patient'] for p in a]==[p['patient'] for p in b]
+    d=np.array([x[metric]-y[metric] for x,y in zip(a,b)]);g=np.random.default_rng(163)
+    return dict(mean_difference=float(d.mean()),patient_bootstrap95=np.quantile(d[g.integers(0,len(d),(10000,len(d)))].mean(1),[.025,.975]).tolist())
 
 def audit(s):
     root=Path(s['output']);read=lambda p:json.loads(Path(p).read_text());load=lambda p:torch.load(p,map_location='cpu',weights_only=False)
