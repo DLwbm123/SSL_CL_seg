@@ -1,3 +1,5 @@
+> 最新R32已审计：训练Dice88.2608%、开发70.8689%，U-Net+Dice90.2017%/70.7044%；开发差+.1645pp CI[−1.5530,+2.0145]不证明非劣/优势，RV空预测2且NLL较差。主训练MYO比R16+2.8883pp，支持部分接口限制。见 [R32报告](PATIENT_R32_REPORT_ZH.md)，后继冻结 [R32局部KL恢复/维数权重匹配诊断](PATIENT_R32_KL_PREREG_ZH.md)，仍非完整/官方BayeSeg资格。
+
 > 最新损失/KL四臂已审计：开发Dice G去KL67.2461%、G+Dice保留KL67.1546%、G+Dice去KL69.0235%、匹配U-Net+Dice70.7044%。G最佳点估计仍低1.6809pp，区间[−4.2835,+1.2044]不证明非劣；其NLL/Brier更差。见 [完整因子报告](PATIENT_LOSS_FACTOR_REPORT_ZH.md)。下一冻结单条 [R32空间接口诊断](PATIENT_R32_PREREG_ZH.md)，保留CE+Dice/beta0隔离KL维数混杂，非原Bayesian资格。
 
 > 最新P0分解已AUDIT PASS：G训练MYO召回47.23%、体积比.605，val召回34.76%、体积比.512；val NLL改善主要来自背景项，R尺度大量接近上界但不证明KL根因。见 [只读补充报告](PATIENT_P0_SUPPLEMENT_REPORT_ZH.md)。已冻结并启动 [损失/KL匹配因子](PATIENT_LOSS_FACTOR_PREREG_ZH.md)：3条G＋U-Net+Dice各5000，结果尚未产生，原对照复用。
