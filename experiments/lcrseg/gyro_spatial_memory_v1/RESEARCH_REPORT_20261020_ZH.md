@@ -1,5 +1,11 @@
 # 空间凝缩持续分割：实验链报告（2026-10-20阶段快照）
 
+> 已完成后继诊断：去EMA显式入口项后仍优于各自学生；M学生高度拟合生成mask却未获得真实净收益。完整结果见[TRAJECTORY_CORRESPONDENCE_REPORT_ZH.md](TRAJECTORY_CORRESPONDENCE_REPORT_ZH.md)，各组主终点不变。
+
+
+> 新终点更新：N已完成2000步与一次审计，旧域79.153248%、新域83.227541%，M−N为−1.421217/−0.369906pp；本设置未支持合成历史分支净收益。完整M/N比较见[M_N_REPORT_ZH.md](M_N_REPORT_ZH.md)，以下为历史阶段快照。
+
+
 > 后续更新：M已完成2000步及一次审计，结果旧域77.732031%、新域82.857635%，未通过实用修复门槛。完整终点与配对结果见[M_TARGET_REPORT_ZH.md](M_TARGET_REPORT_ZH.md)。以下保留18:36阶段快照，不能作为当前运行状态；已授权无合成历史分支N及必要诊断见[后继冻结方案](NO_REPLAY_AND_CORRESPONDENCE_PLAN_ZH.md)。
 
 
