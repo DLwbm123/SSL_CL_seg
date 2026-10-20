@@ -45,7 +45,7 @@ def run(s):
                     assert abs(value-minimum[b0])<1e-12 and count==int(passed[b0])
                     best=int(minimum.argmax());rows.append(dict(candidate=name,mode=mode,candidate_intervals=len(low),finite_pixel_events=int(np.isfinite(m).sum()),distinct_events=len(low)-1,
                       feasible_intervals=encode(feasible),any_bias_qualified=bool(feasible),best_minimum_foreground_Dice=float(minimum[best]),best_interval=encode([(low[best],high[best])])[0],
-                      original_bias0_minimum_Dice=value,original_bias0_passed24=count,direct_curve_checks=checks))
+                      original_bias0_minimum_Dice=value,original_bias0_passed24=int(count),direct_curve_checks=checks))
                     common=intersect(common,feasible)
                 records[name]=dict(robust_common_bias_exists=bool(common),common_feasible_intervals=encode(common))
         assert len(rows)==20 and maxerr<1e-12
@@ -55,7 +55,7 @@ def run(s):
           source_unchanged=True,original_failure_preserved=True,repair_reason='JSON numpy int64 scalar after all 20 curves completed',
           phase_elapsed_seconds=time.time()-started,original_elapsed_seconds=time.time()-s['original_started_unix'],space=storage(s),
           interpretation='Finite saved scores and one common class3 bias only; not mathematical G-family unreachability'))
-        write(root/'AUDIT.json',dict(status='PASS',curve_sets=20,direct_witness_checks=160,original_bias0_checks=20,maximum_direct_Dice_error=maxerr,
+        write(root/'AUDIT.json',dict(status='PASS',curve_sets=20,direct_witness_checks=160,original_bias0_checks=20,maximum_direct_Dice_error=float(maxerr),
           feasible_intervals_and_common_intersections_recomputed=True,all_original_curves_reused_without_scans=True,source_metadata_unchanged=True))
         write(root/'STATUS.json',dict(status='COMPLETE',recovered_curves=20));write(root/'EXIT.json',dict(exit_code=0))
     except BaseException:
