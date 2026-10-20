@@ -22,7 +22,9 @@ def self_check():
     l=torch.stack([q[2].exp().flatten()[0],torch.tensor(0.,dtype=torch.float64),q[4].flatten()[0],q[3].exp().flatten()[0]]).reshape(2,2)
     expected=torch.distributions.MultivariateNormal(torch.zeros(2,dtype=torch.float64),scale_tril=l).entropy()
     assert abs(float(expected-entropy(q)))<1e-12
-    return dict(joint_entropy_error=abs(float(expected-entropy(q))),cholesky_positive=True)
+    independent=sum(torch.distributions.Normal(torch.tensor(0.),q[i].exp()).entropy() for i in (2,3))
+    assert abs(float(independent-entropy(q)))<1e-12
+    return dict(joint_entropy_error=abs(float(expected-entropy(q))),zero_correlation_entropy_parity=True,cholesky_positive=True)
 
 
 def run(s):
@@ -107,6 +109,9 @@ def run(s):
                         active.update(q=q,step=step)
                         if step%25==0:checkpoint(step);write(root/'STATUS.json',dict(status='RUNNING',branch=key,step=step,costs=costs))
                     last=evaluate(q);results[key]=dict(initial=first,final=last,accepted=sum(t['accepted'] for t in steps),last25_mean_same_step_gain=sum(sum(a-b for a,b in zip(t['after'],t['before']))/2 for t in steps[-25:])/25,field_RMS_displacement=[float((a-b).square().mean().sqrt()) for a,b in zip(q,q0)])
+                    if block=='B':
+                        rho=q[4]/(q[4].square()+(2*q[3]).exp()).sqrt()
+                        results[key]['image_stats']=dict(correlation_quantiles=torch.quantile(rho.flatten(),torch.tensor([.05,.5,.95],device='cuda')).cpu().tolist(),initial_m_mean_RMS=float(q0[1].square().mean().sqrt()),final_m_mean_RMS=float(q[1].square().mean().sqrt()),x_plus_m_mean_displacement_RMS=float((q[0]+q[1]-q0[0]-q0[1]).square().mean().sqrt()))
         assert costs['reverse']==1600 and same(p['model'],model.state_dict()) and all(v.grad is None for v in model.parameters())
         assert (src/'physical_updates.jsonl').read_text()==ledger and (hist/'reverse_calls.jsonl').read_text()==previous
         assert len((root/'RNG_PAIRS.jsonl').read_text().splitlines())==36
