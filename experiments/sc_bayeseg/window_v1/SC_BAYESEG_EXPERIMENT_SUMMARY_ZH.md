@@ -1,6 +1,6 @@
 # SC-BayeSeg实验阶段总结
 
-**更新日期：2026年10月20日。范围截至空间残差潜变量首轮局部VI完成。**
+**更新日期：2026年10月20日。范围截至同源M/S/V空间潜变量对照完成。**
 
 ## 1. 总体结论
 
@@ -115,6 +115,24 @@ c~N(0,I)，Z|c,Theta为categorical，x|Z沿原SAR Student-t结构密度，m为Ga
 
 最新阶段实际成本：2零更新诊断反向、500局部VI反向、500候选、8107批量bound、6标签条件读出，0模型optimizer/应用；连续账本、500逐图门限、21份局部状态、模型/源604账本、EXIT0核验通过。窗口新增空间保守累计约1.320GB，未达到20GB上限。
 
+## 8.1 最新同源M/S/V控制：KL不是已证实的主因
+
+为排除不同权重和初始化混杂，从同一个原离散L600模型与相同qR初态新增M/S各500局部步，复用正规V500，不重跑旧阶段。全部模型冻结，仍只用原两L四视图。
+
+|500步终态|M确定性均值拟合|S随机族去KL诊断|V正规VI|
+|---|---:|---:|---:|
+|标签条件均值CE|.05930|.06849|.07256|
+|标签条件平均Dice|43.45%|28.29%|26.25%|
+|50163完整ELBO|−1.35261|−1.31096|−1.31199|
+|80163完整ELBO|−1.33144|−1.28309|−1.28451|
+|KL_R/N|.00834|.01460|.01055|
+
+S/V在21个完整状态检查点RNG精确配对，只有训练目标是否包含KL_R的变化；去KL只提高约2.03个百分点条件Dice，不支持把原先95.52%与26.25%的差距主要归KL。这个结论限于本来源、变分族、初始化和500步，不能推广为先验无关紧要。
+
+M点拟合更好，但M/S还同时改变权重/code/R采样和方差自由度，不能当成纯采样效应。M完整随机ELBO反而较差，说明条件均值重构和概率目标仍不等价。三臂24项资格全部失败，且识别网络没有改善。
+
+新增1000局部反向、1000候选/接受、8192bound、1012均值前向，0模型optimizer；五连续账本、1000门限、42局部状态、M方差固定、S/V21RNG、源模型及历史账本、EXIT0通过。空间约1.332GB。完整结果见SPATIAL_CONTROLS_REPORT_ZH.md与匿名JSON。
+
 ## 9. 现阶段应保留和放弃的解释
 
 **有证据支持：** 极少标注下严重过拟合；原联合目标有语义方向冲突；Adam/有限步会额外改变表现；原低维和粗空间映射存在局部限制；空间残差有较强条件表达能力。
@@ -123,12 +141,12 @@ c~N(0,I)，Z|c,Theta为categorical，x|Z沿原SAR Student-t结构密度，m为Ga
 
 ## 10. 下一步最有判别力的方向
 
-先建立**同一权重、同一起点**下的确定性条件重构、随机qR重构、加正规KL三者的贡献分解，分清采样/后验方差、先验代价与初始化来源；不要直接增加U、目标域或重复延长失败配置。
+同源M/S/V控制已完成首轮，去KL影响较小，确定性拟合也未充分成功。下一步应先区分同源确定性拟合的有限步/表示限制，以及随机性与方差族的影响；不要把问题直接归于KL，更不要盲调权重、增加U/目标域或重复延长失败配置。
 
 只有正规模型能稳定保留各类语义后，再验证不输入Y的摊销推断或合法离散q(Z|I)。只有图像单独预测和更充分源域评价成立，才值得恢复半监督与跨域持续后验递推实验。本次总结不启动额外实验，现有监测仍按原窗口执行。
 
 ## 11. 报告索引与交付范围
 
-关键报告均在同目录：VIEW_JOINT_REPORT、VIEW_GEOMETRY_REPORT、VIEW_GUARD_REPORT、VIEW_POSTERIOR_REPORT、DISCRETE_L_TRAIN_REPORT、DISCRETE_L_READOUT_REPORT、DISCRETE_RECON_REPORT、DISCRETE_CODE_LOCAL_REPORT、DISCRETE_FEATURE_REPORT、DISCRETE_FEATURE_LOCAL_REPORT、DISCRETE_RESOLUTION_REPORT、SPATIAL_RESIDUAL_LOCAL_REPORT（均为_ZH.md）。对应匿名JSON包含完整正负读出。
+关键报告均在同目录：VIEW_JOINT_REPORT、VIEW_GEOMETRY_REPORT、VIEW_GUARD_REPORT、VIEW_POSTERIOR_REPORT、DISCRETE_L_TRAIN_REPORT、DISCRETE_L_READOUT_REPORT、DISCRETE_RECON_REPORT、DISCRETE_CODE_LOCAL_REPORT、DISCRETE_FEATURE_REPORT、DISCRETE_FEATURE_LOCAL_REPORT、DISCRETE_RESOLUTION_REPORT、SPATIAL_RESIDUAL_LOCAL_REPORT、SPATIAL_CONTROLS_REPORT（均为_ZH.md）。对应匿名JSON包含完整正负读出。
 
 公开仅源码、协议、中文报告及匿名聚合结果；患者数据、图像/像素、权重、局部场、原始日志、机器定位和凭据不公开。阶段成本分开列账，不将恢复目录的继承账本重复计入，也不将不同模型ELBO绝对值混加或比较。
