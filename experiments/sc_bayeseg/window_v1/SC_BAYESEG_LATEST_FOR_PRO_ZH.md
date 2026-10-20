@@ -1,3 +1,5 @@
+> 最新审阅入口：[Structure-only与四格/固定数值init1完整报告](STRUCTURE_ONLY_FOR_PRO_ZH.md)。已完成而非计划，包含配对MC、全部正负结果、成本与独立核验。以下为原阶段材料。
+
 # SC-BayeSeg最新实验：给Pro的审阅材料
 
 **后续更新：P0/P1及资格门控的P2已完成。请优先阅读[P2匹配检验完整结果](FACTORIZED_P2_FOR_PRO_ZH.md)，[P1结果](FACTORIZED_P1_FOR_PRO_ZH.md)保留为前序证据；下文是P0/P1之前的历史审阅基线。**

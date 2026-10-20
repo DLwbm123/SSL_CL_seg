@@ -1,3 +1,5 @@
+> 最新完成：structure-only、完整四格及固定旧数值init1。见[给Pro的新报告](STRUCTURE_ONLY_FOR_PRO_ZH.md)：坐标收益主要来自KL，类别/背景偏好未修复，数值初态修补未翻转负结果。以下保留历次证据。
+
 # SC-BayeSeg实验阶段总结
 
 **更新日期：2026年10月20日。范围截至正规空间模型、P0/P1及P2资格／匹配检验完成。最新Pro审阅入口见[P2结果](FACTORIZED_P2_FOR_PRO_ZH.md)。**
