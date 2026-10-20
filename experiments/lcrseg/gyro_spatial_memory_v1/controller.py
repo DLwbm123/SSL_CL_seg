@@ -32,8 +32,17 @@ def main(cfg):
         if code:raise RuntimeError('stage failed: '+name)
         return current
     try:
-        launch('source','codec','engineering');launch('source','codec')
-        for stage in ('C0','C1'):
+        resume=cfg.get('resume_after_C0',False)
+        if resume:
+            assert json.loads((root/'codec/QUALITY.json').read_text())['status']=='PASS'
+            assert json.loads((root/'C0/EXIT.json').read_text())['exit_code']==0
+            c=json.loads((root/'budget_counter.json').read_text())
+            assert c['by_phase']['C0:formal']==512 and c['pending']==0
+            stages=('C1',)
+        else:
+            launch('source','codec','engineering');launch('source','codec')
+            stages=('C0','C1')
+        for stage in stages:
             launch('source',stage,'engineering');launch('source',stage)
         for arm in ('A','B','C'):
             launch('qualify',arm,'engineering')

@@ -17,7 +17,9 @@ elif mode=='controller':
 else:
     import torch
     torch.set_num_threads(4);torch.use_deterministic_algorithms(True);torch.backends.cudnn.benchmark=False;torch.backends.cudnn.deterministic=True;torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
-    if mode=='source':
+    if mode=='poolcheck':
+        from experiments.lcrseg.gyro_spatial_memory_v1.pool_check import main
+    elif mode=='source':
         from experiments.lcrseg.gyro_spatial_memory_v1.source import run as main
     elif mode in ('train','qualify','evaluate'):
         from experiments.lcrseg.gyro_spatial_memory_v1 import target

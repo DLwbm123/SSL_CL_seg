@@ -10,13 +10,28 @@ def unit(x):
     return F.normalize(x, dim=1, eps=1e-6)
 
 
+class DeterministicPool(torch.autograd.Function):
+    """Exact adaptive-average forward; disjoint-bin deterministic linear adjoint."""
+    @staticmethod
+    def forward(ctx, x):
+        h,w=x.shape[-2:]
+        if h%8 or w%8:raise ValueError('spatial pilot requires disjoint 8x8 pooling bins')
+        ctx.bin_shape=(h//8,w//8)
+        return F.adaptive_avg_pool2d(x,(8,8))
+
+    @staticmethod
+    def backward(ctx, gradient):
+        h,w=ctx.bin_shape
+        return gradient.repeat_interleave(h,-2).repeat_interleave(w,-1)/(h*w)
+
+
 class SpatialProjection(nn.Module):
     def __init__(self, channels):
         super().__init__()
         self.linear = nn.Conv2d(channels, 32, 1)
 
     def forward(self, bottleneck):
-        return unit(self.linear(F.adaptive_avg_pool2d(bottleneck, (8, 8))))
+        return unit(self.linear(DeterministicPool.apply(bottleneck)))
 
 
 class JointGenerator(nn.Module):
