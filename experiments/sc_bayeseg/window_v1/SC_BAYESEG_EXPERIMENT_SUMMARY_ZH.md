@@ -172,9 +172,11 @@ M点拟合更好，但M/S还同时改变权重/code/R采样和方差自由度，
 
 当前最关键的是区分**受限推断间隙**与**生成因素错配**：在同源、对称条件下扩充假设相关的nuisance推断，检验图像—结构耦合是否支持正确标签，并完整计入先验代价。不要只追训练重构Dice，不把问题简单归于KL，也不先扩大U、目标域或调参。
 
-只有正规模型能稳定保留各类语义，并对GT/错误结构给出可靠区分后，再验证不输入Y的摊销推断或合法离散q(Z|I)。只有图像单独预测和更充分源域评价成立，才值得恢复半监督与跨域持续后验递推实验。本次总结不启动额外实验，现有监测仍按原窗口执行。
+只有正规模型能稳定保留各类语义，并对GT/错误结构给出可靠区分后，再验证不输入Y的摊销推断或合法离散q(Z|I)。只有图像单独预测和更充分源域评价成立，才值得恢复半监督与跨域持续后验递推实验。窗口已于北京时间2026-10-20 11:30结束，监测已暂停；本次总结不启动额外实验。
 
 ## 11. 报告索引与交付范围
+
+给Pro的独立审阅材料见[最新实验与待判断问题](SC_BAYESEG_LATEST_FOR_PRO_ZH.md)，包含旧建议回应、当前概率模型、关键正负结果与尚缺对照。
 
 关键报告均在同目录：VIEW_JOINT_REPORT、VIEW_GEOMETRY_REPORT、VIEW_GUARD_REPORT、VIEW_POSTERIOR_REPORT、DISCRETE_L_TRAIN_REPORT、DISCRETE_L_READOUT_REPORT、DISCRETE_RECON_REPORT、DISCRETE_CODE_LOCAL_REPORT、DISCRETE_FEATURE_REPORT、DISCRETE_FEATURE_LOCAL_REPORT、DISCRETE_RESOLUTION_REPORT、SPATIAL_RESIDUAL_LOCAL_REPORT、SPATIAL_CONTROLS_REPORT、SAMPLING_FACTOR_REPORT、SPATIAL_GENERATOR_REPORT、SPATIAL_RECOUPLE_REPORT、SPATIAL_HYPOTHESIS_REPORT（均为_ZH.md）。对应匿名JSON包含完整正负读出。
 
