@@ -33,7 +33,14 @@ def main(cfg):
         return current
     try:
         resume=cfg.get('resume_after_C0',False)
-        if resume:
+        if cfg.get('resume_after_C1',False):
+            c=json.loads((root/'budget_counter.json').read_text())
+            for completed in ('C0','C1'):
+                assert json.loads((root/completed/'EXIT.json').read_text())['exit_code']==0
+                assert c['by_phase'][completed+':formal']==512
+            assert c['pending']==0
+            stages=()
+        elif resume:
             assert json.loads((root/'codec/QUALITY.json').read_text())['status']=='PASS'
             assert json.loads((root/'C0/EXIT.json').read_text())['exit_code']==0
             c=json.loads((root/'budget_counter.json').read_text())

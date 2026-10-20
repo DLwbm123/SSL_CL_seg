@@ -17,3 +17,7 @@
 C0已完成256outer+256functional，C1工程首次几何反向在CUDA adaptive_avg_pool2d的确定性限制处失败，仅消耗1次functional临时更新、0次optimizer更新。保留失败checkpoint/异常日志/原账本。原生384×384输入的bottleneck为48×48，8×8 AAP是互不重叠的6×6平均。自定义autograd保持原F.adaptive_avg_pool2d前向逐值不变，反向使用分块广播/36（无原子累加）；完整数学Jacobian不变，二阶反向可微。CUDA确定性开关保持开启，不降为warn_only。零训练测试检查前向、解析伴随、CPU gradcheck/gradgradcheck及CUDA二阶有限。
 
 C1从共同干净入口重做有限工程，原失败1成本不清零；新资格30成本，累计31≤32工程上限。原codec/C0终点、预算、门槛、起始时钟不变，不重跑。控制器仅从C1继续，重新挂接独立watchdog沿用原始截止。该修复也应用所有后续target组的相同空间投影，不改变AAP前向或优化目标。
+
+## 2026-10-20 目标访问白名单路径解析修复
+
+C0/C1已各完成256outer+256functional，且均EXIT0。A工程首次读取合法Philips训练文件时，因白名单按data_root/relative计算、真实Accessor按统一safe_asset(data_root,relative)=data_root/h5/v1/relative解析而误拒；该尝试0optimizer/0functional目标更新，拦截现场保留。白名单现使用与Accessor相同的safe_asset和resolve，不增加任何角色/域权限；目标训练仍仅Philips L/U。零更新测试检查真实L/U读取，并确认所有源Siemens train-L及Philips val图像路径在打开前被拒，禁止内容未读取。修复后只从A工程继续，不重复codec/C0/C1，不改协议、预算或原始时钟。

@@ -2,6 +2,7 @@
 from pathlib import Path
 import torch,h5py
 from ..main_style_ssl_v1.data import Accessor
+from ..di_dmpa_gate1.binding import safe_asset
 from ..five_frameworks_v1.recipes import generator
 
 class Domain:
@@ -14,7 +15,7 @@ class Domain:
         assert len(self._l.rows)==(20 if domain=='Siemens' else 26)
         if domain=='Philips':
             # HDF5 opens in this worker are restricted to target L/U assets only.
-            allowed={str((Path(cfg['data'])/r[k]).resolve()) for a in (self._l,self._u) for r in a.rows for k in ('image_h5_relpath','label_h5_relpath') if k in r}
+            allowed={str(safe_asset(Path(cfg['data']),r[k]).resolve()) for a in (self._l,self._u) for r in a.rows for k in ('image_h5_relpath','label_h5_relpath') if k in r}
             real=h5py.File
             def target_only(name,*args,**kwargs):
                 if str(Path(name).resolve()) not in allowed:raise PermissionError('target worker attempted non-Philips training HDF5 access')
