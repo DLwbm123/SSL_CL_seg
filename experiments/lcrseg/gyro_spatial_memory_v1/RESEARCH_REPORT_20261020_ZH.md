@@ -96,3 +96,8 @@ C EMA旧域23/23患者改善；新域均值虽提高0.480pp，却只有15/31改�
 ## 后续完整结果：N五组贡献分解与源有限步功能诊断
 
 前文保留形成时的阶段快照。后续M/N及对应诊断已完成，详见[M/N完整报告](M_N_REPORT_ZH.md)和[EMA/对应诊断报告](TRAJECTORY_CORRESPONDENCE_REPORT_ZH.md)。最新授权五组与源支线也已完成并审计；完整结果及阴性/NA解释见[N五组完整报告](N_CONTRIBUTION_REPORT_ZH.md)、[源功能报告](SOURCE_FUNCTION_REPORT_ZH.md)与[最新批次状态](NEW_BATCH_STATUS_ZH.md)。G11相对纯CE整体门槛通过，U/frame单独门槛均未过；不展开条件后续，不改旧终点。
+
+
+## 最新追加：两目标流谱几何与一致性对照已完成
+
+六组固定终点、一次审计及完整分析见 [SPECTRUM_ALIGNMENT_REPORT_ZH.md](SPECTRUM_ALIGNMENT_REPORT_ZH.md)。两项预设student门槛通过，保留患者异质性、绝对旧域损失、共享源初始化与开发验证限制；不覆盖本文任何旧终点。条件后续未启动。
