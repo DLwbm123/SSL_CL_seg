@@ -83,8 +83,8 @@ def run(s):
                         append(root/'forward_calls.jsonl',dict(index=costs['structure_forward'],draw=draw,candidate=name))
                     values={name:[] for name in labels};parts={name:[] for name in labels}
                     for _ in range(4):
-                        x,lqx=model.gaussian(model.physical_encoder(image),True)
-                        m,lqm=model.gaussian(model.appearance_encoder(image),True)
+                        x,lqx,_,_=model.gaussian(model.physical_encoder(image),True)
+                        m,lqm,_,_=model.gaussian(model.appearance_encoder(image),True)
                         common=dict(image=student_log_prob(image-x-m,.1),appearance=normal_log_prob(m,torch.zeros_like(m),torch.full_like(m,math.log(.5))),negative_logq=-lqx-lqm)
                         for name in labels:
                             shape=student_log_prob(sar(x-means[name]),.2)+model.logdet
