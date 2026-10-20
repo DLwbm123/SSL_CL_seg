@@ -55,7 +55,7 @@ def direct(m,base,y,b):
         for c in (1,2,3):
             target=y[v]==c;chosen=pred[v]==c
             dice.append(2*np.count_nonzero(target&chosen)/(target.sum()+chosen.sum()))
-    return float(min(dice)),sum(v>=.8 for v in dice)
+    return float(min(dice)),int(sum(v>=.8 for v in dice))
 
 
 def scan(p,y):
