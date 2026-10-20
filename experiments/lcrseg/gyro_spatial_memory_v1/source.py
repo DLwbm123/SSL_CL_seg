@@ -42,11 +42,18 @@ def code_loss(cfg,model,data,step,stage,phase,paths=False):
     with torch.no_grad():target=model(x).softmax(1)
     consistency=(target*(target.clamp_min(1e-8).log()-mask.clamp_min(1e-8).log())).sum(1).mean()
     total=utility+.1*consistency
-    if stage=='C1':total=total+.1*core.geometry(model,x,step,z,len(x))
+    if stage=='C1':
+        geo=core.geometry(model,x,step,z,len(x));total=total+.1*geo
+        if paths:
+            geometry_gradient=torch.autograd.grad(geo,model.code,retain_graph=True)[0]
+            assert torch.isfinite(geometry_gradient).all() and geometry_gradient.norm()>0
     stats=dict(utility=float(utility.detach()),mask_kl=float(consistency.detach()))
     if paths:
         gx,gm=torch.autograd.grad(utility,(x,mask),retain_graph=True)
-        stats.update(image_hypergradient=float(gx.norm()),mask_hypergradient=float(gm.norm()))
+        image_code=torch.autograd.grad(x,model.code,grad_outputs=gx,retain_graph=True)[0]
+        mask_code=torch.autograd.grad(mask,model.code,grad_outputs=gm,retain_graph=True)[0]
+        assert image_code.norm()>0 and mask_code.norm()>0
+        stats.update(image_hypergradient=float(gx.norm()),mask_hypergradient=float(gm.norm()),image_to_code_hypergradient=float(image_code.norm()),mask_to_code_hypergradient=float(mask_code.norm()))
         assert gx.norm()>0 and gm.norm()>0 and torch.isfinite(gx).all() and torch.isfinite(gm).all()
     return total,stats
 

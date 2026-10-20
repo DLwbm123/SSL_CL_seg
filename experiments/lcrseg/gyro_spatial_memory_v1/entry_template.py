@@ -10,6 +10,8 @@ experiments.lcrseg.__path__=[str(Path(p)/'experiments/lcrseg') for p in cfg['cod
 mode=os.environ['TASK_MODE']
 if mode=='watchdog':
     from experiments.lcrseg.gyro_spatial_memory_v1.watchdog import main
+elif mode=='audit':
+    from experiments.lcrseg.gyro_spatial_memory_v1.audit import main
 elif mode=='controller':
     from experiments.lcrseg.gyro_spatial_memory_v1.controller import main
 else:
