@@ -31,7 +31,11 @@ def preflight(cfg,out,source,model,ema,opt,data):
 
 
 def main(cfg):
-    def saver(state,path):save(cfg,state,path)
+    def saver(state,path):
+        if Path(path).name=='exception_state.pt':
+            from ..five_frameworks_v1.checkpoint import atomic_save
+            guard(cfg,200_000_000);atomic_save(state,path)
+        else:save(cfg,state,path)
     def finalize(cfg,out,*args):write(out/'TRAINED.json',dict(status='TRAINED',fixed_final_student=True,evaluation_separate_process=True))
     with patch.multiple(engine,ARMS=('A','B','C','D','E'),STEPS=2000,GPU='3',setup=core.target_setup,provider=lambda cfg:Domain(cfg,'Philips'),preflight=preflight,losses=core.losses,rate=lambda step:.001,set_learning_rate=lambda opt,step:None,update_ema=core.update_ema,atomic_save=saver,finalize=finalize):engine.main(cfg)
 

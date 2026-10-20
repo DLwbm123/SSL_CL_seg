@@ -23,6 +23,12 @@ else:
     else:raise ValueError('unknown operation')
 try:main(cfg)
 except BaseException as e:
+    if mode=='source':
+        try:
+            from experiments.lcrseg.gyro_spatial_memory_v1.source import preserve_dirty
+            preserve_dirty(cfg)
+        except BaseException:
+            pass
     out=Path(cfg.get('output',cfg['root']));out.mkdir(exist_ok=True,parents=True)
     (out/'FAILURE.json').write_text(json.dumps(dict(error=str(e),traceback=traceback.format_exc(),time=time.time())))
     raise

@@ -7,6 +7,8 @@ from . import core
 from .data import Domain
 from .module import unit,retained_bytes
 from .runtime import attach,event,snapshot,restore,exact,save,guard
+
+LIVE = None
 from ..main_style_ssl_v1.runtime import write,append
 from ..siemens_ssl_reproduction_v1.methods import pixel_ce
 
@@ -64,7 +66,9 @@ def setup(cfg,stage,phase):
 
 def run(cfg):
     stage,phase=cfg['stage'],cfg['phase'];out=Path(cfg['output']);out.mkdir(exist_ok=False,parents=True)
-    model,opt,data=setup(cfg,stage,phase);initial=copy.deepcopy(snapshot(model,opt,data,0));save(cfg,initial,out/'initial.pt')
+    global LIVE
+    model,opt,data=setup(cfg,stage,phase);LIVE=(model,opt,data,out)
+    initial=copy.deepcopy(snapshot(model,opt,data,0));save(cfg,initial,out/'initial.pt')
     calls=0
     def objective(step,fixed=False,paths=False):
         if stage=='codec':return codec_loss(model,data,step,fixed)
@@ -133,3 +137,13 @@ def quality(cfg,model,data,out):
     write(out/'QUALITY.json',dict(status='PASS' if passed else 'SCIENTIFIC_STOP',mae=mae,constant_mean_mae=baseline,foreground_dice=dice,mean_foreground_dice=sum(dice)/3,training_only=True,all_source_slices_streamed=count))
     if not passed:raise RuntimeError('fixed500 codec quality gate not met; target prohibited')
     save(cfg,dict(code=code.detach(),individual_features_retained=False),Path(cfg['root'])/'initial_codes.pt')
+
+
+def preserve_dirty(cfg):
+    if LIVE is None:return
+    model,opt,data,out=LIVE
+    from ..five_frameworks_v1.checkpoint import atomic_save
+    guard(cfg,200_000_000)
+    state=snapshot(model,opt,data,-1);state['resumable']=False
+    state['reason']='exception state; not a clean committed recovery point'
+    atomic_save(state,out/'exception_state.pt')
