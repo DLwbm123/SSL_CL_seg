@@ -1,4 +1,5 @@
 """Matched continuation: pixel CE versus four-class mean CE."""
+import copy
 import json
 import os
 import time
@@ -78,7 +79,14 @@ def run(s):
         history = {p: p.read_text() for p in (prior / 'physical_updates.jsonl', prior / 'RESULTS.json', prior / 'AUDIT.json')}
         initial_prediction = None
         results = {}
-        for arm in ARMS:
+        arms = tuple(s.get('arms', ARMS))
+        if s.get('reuse_CE'):
+            ce_root = Path(s['reuse_CE']) / 'CE'
+            assert json.loads((ce_root / 'EXIT.json').read_text())['exit_code'] == 0
+            ce_initial = torch.load(ce_root / 'S0000.pt', map_location='cpu', weights_only=False)
+            assert same(ce_initial['model'], payload['model']) and same(ce_initial['optimizer'], payload['optimizer'])
+            results['CE'] = json.loads((ce_root / 'RESULTS.json').read_text())
+        for arm in arms:
             out = root / arm
             out.mkdir(exist_ok=False)
             interface = Interface().cuda()
@@ -87,11 +95,13 @@ def run(s):
                 p.requires_grad_(name.startswith(('e.', 'd.')))
             opt = torch.optim.Adam([p for p in interface.parameters() if p.requires_grad], lr=3e-4,
                                    weight_decay=0, foreach=False)
-            opt.load_state_dict(payload['optimizer'])
+            # Adam keeps CPU step tensors: copying prevents one arm mutating the next arm's source.
+            opt.load_state_dict(copy.deepcopy(payload['optimizer']))
             restore_rng_state(payload['rng'])
             assert same(interface.state_dict(), payload['model'])
             assert same(opt.state_dict(), payload['optimizer'])
             assert same(capture_rng_state(), payload['rng'])
+            assert all(int(v['step']) == 600 for v in payload['optimizer']['state'].values())
             source_h = {k: v for k, v in payload['model'].items() if k.startswith(('hc.', 'hr.'))}
             count = [0]
             def post(opt, args, kwargs):
@@ -157,6 +167,7 @@ def run(s):
             hook.remove()
             assert all(int(v['step']) == 1600 for v in opt.state_dict()['state'].values())
             assert same(capture_rng_state(), payload['rng'])
+            assert all(int(v['step']) == 600 for v in payload['optimizer']['state'].values())
             results[arm] = dict(initial=first, final=last, optimizer=1000, image_only=True,
                                 unused_H_frozen=True, final_Adam_step=1600, rng_unchanged=True)
             write(out / 'RESULTS.json', results[arm])
@@ -164,8 +175,8 @@ def run(s):
             active = {}
             del opt, interface
             torch.cuda.empty_cache()
-        assert costs == dict(optimizer=2000, reverse=2000, train_image_forward=16000,
-                             prediction_image_forward=64, generator_forward=0,
+        assert costs == dict(optimizer=1000*len(arms), reverse=1000*len(arms), train_image_forward=8000*len(arms),
+                             prediction_image_forward=32*len(arms), generator_forward=0,
                              qualification_optimizer=0, qualification_reverse=0)
         for p, text in history.items():
             assert p.read_text() == text
@@ -175,6 +186,14 @@ def run(s):
                       original_elapsed_seconds=time.time()-s['original_started_unix'],
                       source_steps_and_optimizer_preserved=True, old_history_unchanged=True,
                       no_heldout_U_target_generator=True, space=storage(s))
+        if s.get('reuse_CE'):
+            rows = [json.loads(x) for x in (Path(s['reuse_CE'])/'metrics.jsonl').read_text().splitlines()]
+            valid = [r for r in rows if r['arm']=='CE']
+            valid += [json.loads(x) for x in (root/'metrics.jsonl').read_text().splitlines()]
+            write(root/'VALID_METRICS.json', valid)
+            result['costs_including_invalid_attempt'] = dict(optimizer=3000, reverse=3000,
+                 train_image_forward=24000, prediction_image_forward=96, generator_forward=0,
+                 valid_optimizer=2000, invalid_optimizer=1000, invalid_Adam_steps=[1600,2600])
         write(root / 'RESULTS.json', result)
         write(root / 'STATUS.json', dict(status='COMPLETE', costs=costs))
         write(root / 'EXIT.json', dict(exit_code=0))
