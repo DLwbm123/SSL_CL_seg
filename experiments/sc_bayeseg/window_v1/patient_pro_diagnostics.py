@@ -1,5 +1,5 @@
 """Frozen RV sample/mean readouts, risk decomposition and patient-crossfit temperature."""
-import json,os,time,traceback
+import json,os,time,traceback,zlib
 from pathlib import Path
 from collections import defaultdict
 import torch,numpy as np,h5py
@@ -13,6 +13,12 @@ from sc_bayeseg.window_v1.patient_r32_mc import class_nll
 from sc_bayeseg.window_v1.r_start import draw_g,local_sample,write,save,append
 from sc_bayeseg.window_v1.common import storage
 
+
+def compress_masks(a):
+    return dict(shape=list(a.shape),packed=zlib.compress(a.tobytes(),1))
+
+def expand_masks(blob):
+    return np.frombuffer(zlib.decompress(blob['packed']),dtype=np.uint8).reshape(blob['shape'])
 
 def risk(p,y):
     target=torch.from_numpy(np.asarray(y,dtype=np.int64));q=p.double();pred=q.argmax(1);n=target.numel()
@@ -80,7 +86,7 @@ def run(s):
                                     soft[slot].append(np.stack((native[:,3].sum((1,2)).numpy(),restored[:,3].sum((1,2)).numpy()),1));maxp[slot].append(np.stack((native[:,3].amax((1,2)).numpy(),restored[:,3].amax((1,2)).numpy()),1))
                             parity=max(parity,float((mix.cpu()-original[offset:offset+len(x)]).abs().max()));means.append(mean.cpu());model.generator.clear_draw()
                     assert parity<=1e-6
-                    artifact=dict(native_masks=np.stack([np.concatenate(x) for x in masks128]),evaluation_masks=np.stack([np.concatenate(x) for x in masks384]),soft_volume=np.stack([np.concatenate(x) for x in soft]),max_RV_probability=np.stack([np.concatenate(x) for x in maxp]),mean_native_probability=torch.cat(means),mixture_replay_error=parity)
+                    artifact=dict(native_masks=compress_masks(np.stack([np.concatenate(x) for x in masks128])),evaluation_masks=compress_masks(np.stack([np.concatenate(x) for x in masks384])),soft_volume=np.stack([np.concatenate(x) for x in soft]),max_RV_probability=np.stack([np.concatenate(x) for x in maxp]),mean_native_probability=torch.cat(means),mixture_replay_error=parity)
                     save(folder/f'CASE{i:03}.pt',artifact);append(root/'prediction_ledger.jsonl',dict(arm=arm,cohort=cohort,phase=i,label_reads=costs['label_phase_reads'],parity=parity))
                     write(root/'STATUS.json',dict(status='RV_PREDICTING',arm=arm,cohort=cohort,phase=i,costs=costs));storage(s,reserve=100_000_000)
             assert same(model.state_dict(),state);del model;torch.cuda.empty_cache()
@@ -99,9 +105,9 @@ def run(s):
                     native_y=np.asarray(y)[:,::3,::3];native_rv=rv_summary(d['native_probability'].argmax(1).numpy()==3,native_y)
                     entry=dict(native_RV=native_rv,patient=row['patient_id'],case=row['case_id'],risk=rp,RV_mixture=rv,native_RV_present=bool((d['native_probability'].argmax(1)==3).any()))
                     if arm!='U_D':
-                        extra=load(root/arm/cohort/f'CASE{i:03}.pt');draws=[];native_draws=[]
+                        extra=load(root/arm/cohort/f'CASE{i:03}.pt');draws=[];native_draws=[];native_masks=expand_masks(extra['native_masks']);evaluation_masks=expand_masks(extra['evaluation_masks'])
                         for j in range(20):
-                            mask=np.unpackbits(extra['evaluation_masks'][j],axis=-1).astype(bool);draws.append(rv_summary(mask,y));native_draws.append(rv_summary(np.unpackbits(extra['native_masks'][j],axis=-1).astype(bool),native_y))
+                            mask=np.unpackbits(evaluation_masks[j],axis=-1).astype(bool);draws.append(rv_summary(mask,y));native_draws.append(rv_summary(np.unpackbits(native_masks[j],axis=-1).astype(bool),native_y))
                         mean=restore_probability(extra['mean_native_probability']);costs['cache_reconstruction_phases']+=1
                         entry.update(RV_native_draws=native_draws,RV_draws=draws,RV_mean=rv_summary(mean.argmax(1).numpy()==3,y),RV_soft_volume=extra['soft_volume'].sum(1).tolist(),RV_max_probability=extra['max_RV_probability'].max(1).tolist(),mixture_replay_error=extra['mixture_replay_error'])
                     rows.append(entry)
