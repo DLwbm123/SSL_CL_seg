@@ -1,3 +1,5 @@
+> 最新损失/KL四臂已审计：开发Dice G去KL67.2461%、G+Dice保留KL67.1546%、G+Dice去KL69.0235%、匹配U-Net+Dice70.7044%。G最佳点估计仍低1.6809pp，区间[−4.2835,+1.2044]不证明非劣；其NLL/Brier更差。见 [完整因子报告](PATIENT_LOSS_FACTOR_REPORT_ZH.md)。下一冻结单条 [R32空间接口诊断](PATIENT_R32_PREREG_ZH.md)，保留CE+Dice/beta0隔离KL维数混杂，非原Bayesian资格。
+
 > 最新P0分解已AUDIT PASS：G训练MYO召回47.23%、体积比.605，val召回34.76%、体积比.512；val NLL改善主要来自背景项，R尺度大量接近上界但不证明KL根因。见 [只读补充报告](PATIENT_P0_SUPPLEMENT_REPORT_ZH.md)。已冻结并启动 [损失/KL匹配因子](PATIENT_LOSS_FACTOR_PREREG_ZH.md)：3条G＋U-Net+Dice各5000，结果尚未产生，原对照复用。
 
 > 最新全10训练患者纯图像读出：端到端U-Net训练Dice87.7502%，G0训练76.4267%，MYO81.3690%对58.5948%；G训练端已有11.32个百分点缺口。训练−val落差分别18.93/16.29个百分点，不能将G的相对劣势主要归为额外过拟合。详见 [训练患者读出及Pro分析吸收](PATIENT_TRAIN_READOUT_REPORT_ZH.md)，下一优先损失/正则隔离前补齐错误与风险分解。

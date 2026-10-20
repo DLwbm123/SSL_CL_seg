@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "physical_updates": 20000,
+  "full_states_checked": 24,
+  "schedule_pairs_with_original_control": 20000,
+  "initial_models_RNG_and_fresh_Adam_checked": true,
+  "G_frozen_all_snapshots": true,
+  "actual_lambda_beta_and_objective_checked": true,
+  "maximum_logged_loss_rounding_error": 1.8905848264694214e-07,
+  "native_prediction_sets_reconstructed_and_recomputed": 264,
+  "maximum_metric_error": 0.0,
+  "all_paired_and_factor_interactions_recomputed": true,
+  "audit_reconstruction_phases": 264,
+  "new_network_forwards": 0,
+  "new_parameter_updates": 0,
+  "metric_formula": "same frozen evaluator, independent sealed-native-array recomputation",
+  "prior_auditor_repair": {
+    "first_audit_status": "FAILED_FLOAT_TOLERANCE",
+    "cause": "Auditor initially omitted original deterministic interpolation setting",
+    "first_phase_NLL_error": 2.5450716187314093e-10,
+    "hard_metrics_unchanged": true,
+    "repair": "Match torch deterministic algorithms and TF32 settings to worker",
+    "partial_audit_reconstruction_phases": 20,
+    "diagnostic_reconstruction_phases": 2,
+    "optimizer": 0,
+    "new_network_forwards": 0
+  },
+  "total_audit_and_repair_interpolation_phases": 286
+}
