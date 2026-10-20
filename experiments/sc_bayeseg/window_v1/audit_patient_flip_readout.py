@@ -36,7 +36,7 @@ def audit(s):
     cum=dict(encoder_images=0,direct_logit_forwards=0,G_forward=0,G_image_forward=0,baseline_probability_reads=0,new_transformed_phase_views=0)
     for j,e in enumerate(ledger):
         arm=ARMS[j//46];i=j%46;assert (e['arm'],e['phase'])==(arm,i)
-        n=len(load(root/arm/f'CASE{i:03}.pt')['native_probability']);assert e['slices']==n
+        n=e['slices'];assert isinstance(n,int) and n>0
         cum['encoder_images']+=3*n;cum['baseline_probability_reads']+=1;cum['new_transformed_phase_views']+=3
         if arm=='U_D_TTA':cum['direct_logit_forwards']+=3*((n+1)//2)
         else:cum['G_forward']+=3*((n+1)//2);cum['G_image_forward']+=3*n
@@ -55,7 +55,7 @@ def audit(s):
     for j,arm in enumerate(ARMS):
         rows=[];quad=[];slices=0
         for i,row in enumerate(records):
-            d=load(root/arm/f'CASE{i:03}.pt');native=d['native_probability'];identity=load(caches[arm]/f'CASE{i:03}.pt')['native_probability'];assert native.shape==identity.shape and native.dtype==torch.float32 and torch.isfinite(native).all() and (native.sum(1)-1).abs().max()<2e-6;slices+=len(native)
+            d=load(root/arm/f'CASE{i:03}.pt');native=d['native_probability'];assert len(native)==ledger[j*46+i]['slices'];identity=load(caches[arm]/f'CASE{i:03}.pt')['native_probability'];assert native.shape==identity.shape and native.dtype==torch.float32 and torch.isfinite(native).all() and (native.sum(1)-1).abs().max()<2e-6;slices+=len(native)
             e=equiv[arm][i];assert e['phase']==i and [v['flip'] for v in e['views']]==[1,2,3]
             for v in e['views']:assert 0<=v['mean_pixel_TV']<=1+2e-6 and 0<=v['hard_disagreement']<=1 and abs(sum(v['soft_class_fraction'])-1)<2e-6
             oldfrac=identity.double().mean((0,2,3));newfrac=native.double().mean((0,2,3));expected=(oldfrac+sum(torch.tensor(v['soft_class_fraction'],dtype=torch.float64) for v in e['views']))/4
