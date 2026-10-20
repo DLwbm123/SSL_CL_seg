@@ -91,3 +91,8 @@ C EMA旧域23/23患者改善；新域均值虽提高0.480pp，却只有15/31改�
 验证为Siemens23患者/46EDES、Philips31/62；源10L/20、目标13L/26训练口径分开。测试/U隐藏GT封存。单seed、多次开发验证属于探索，患者bootstrap不能代表训练随机性或独立泛化。无C1/R0、noNewU以及原D/E未运行的归因限制保留；STE几何近似如实披露。
 
 只公开源码、冻结协议、匿名聚合报告与必要审计；患者记录、真实或合成医学图像/mask、空间码/frame、权重、原始日志/服务器配置及第三方全文不发布。既有数据和历史结果保护。当前报告是阶段快照，目标终点及单组完成审计另行发布。
+
+
+## 后续完整结果：N五组贡献分解与源有限步功能诊断
+
+前文保留形成时的阶段快照。后续M/N及对应诊断已完成，详见[M/N完整报告](M_N_REPORT_ZH.md)和[EMA/对应诊断报告](TRAJECTORY_CORRESPONDENCE_REPORT_ZH.md)。最新授权五组与源支线也已完成并审计；完整结果及阴性/NA解释见[N五组完整报告](N_CONTRIBUTION_REPORT_ZH.md)、[源功能报告](SOURCE_FUNCTION_REPORT_ZH.md)与[最新批次状态](NEW_BATCH_STATUS_ZH.md)。G11相对纯CE整体门槛通过，U/frame单独门槛均未过；不展开条件后续，不改旧终点。
