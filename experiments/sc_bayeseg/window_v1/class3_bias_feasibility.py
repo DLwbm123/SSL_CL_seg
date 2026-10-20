@@ -98,7 +98,7 @@ def scan(p,y):
 
 def synthetic():
     y=(np.arange(32)%4).reshape(2,4,4);rng=np.random.default_rng(163)
-    for p in (rng.uniform(.01,1,(2,4,4,4)),np.eye(4)[y].transpose(0,3,1,2)*.9+.025):
+    for p in (rng.uniform(.01,1,(2,4,4,4)),np.eye(4)[y].transpose(0,3,1,2)*.9+.025,np.eye(4)[y].transpose(0,3,1,2),np.full((2,4,4,4),.25)):
         p=p/p.sum(1,keepdims=True);s,_,curve=scan(p,y);m,b=scores(p)
         for i,(lo,hi) in enumerate(zip(curve['low'],curve['high'])):
             d,n=direct(m,b,y,witness(lo,hi))
