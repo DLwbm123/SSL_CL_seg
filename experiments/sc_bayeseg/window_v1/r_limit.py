@@ -40,7 +40,7 @@ def run(s):
     def receipt(status, **kw):
         Path(s['receipt']).write_text(json.dumps(dict(status=status, pid=pid, **kw), indent=2))
     while identity():
-        elapsed = float(Path('/proc/uptime').read_text().split()[0]) - int(s['start_token']) / hz
+        elapsed = float(Path('/proc/uptime').read_text().split()[0]) - int(s.get('clock_start_token', s['start_token'])) / hz
         new = allocated(s['new_paths'])
         cumulative = allocated(s['space_roots'])
         e0root = Path(s['output']) / 'E0'

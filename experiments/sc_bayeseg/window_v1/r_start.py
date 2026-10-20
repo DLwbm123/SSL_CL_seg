@@ -157,7 +157,7 @@ def metrics(probabilities, labels):
                          class2_precision=tp / int(a.sum()) if a.any() else None,
                          class2_recall=tp / int(b.sum()) if b.any() else None,
                          predicted_area_fraction=areas,
-                         pixel_mixture_NLL=float(F.nll_loss(probabilities[i:i+1].clamp_min(1e-30).log(), labels[i:i+1])),
+                         pixel_mixture_NLL=float(F.nll_loss(probabilities[i:i+1].clamp_min(1e-30).log(), labels[i:i+1], reduction='none').mean()),
                          Brier=float((probabilities[i] - onehot).square().sum(0).mean())))
     return dict(per_view_image=rows, foreground_macro_dice=sum(r['foreground_macro_dice'] for r in rows) / 8,
                 qualified_24=all(d is not None and d >= .8 for r in rows for d in r['dice'][1:]))
@@ -173,16 +173,16 @@ def qualification(model, initial, image, labels, counters):
     lg = torch.Generator(device='cuda').manual_seed(930163)
     draw_g(model, tg)
     c, r = local_sample(q, lg)
-    v = F.cross_entropy(model.spatial_logits(c, r), labels)
     counters['qualification_g_forward'] += 1
+    v = F.cross_entropy(model.spatial_logits(c, r), labels, reduction='none').mean()
     grads = torch.autograd.grad(v, (c, r) + tuple(interface.e.parameters()))
     counters['qualification_reverse'] += 1
     assert all(torch.isfinite(g).all() for g in grads)
     assert all(float(g.norm()) > 0 for g in grads[:2]) and sum(float(g.norm()) for g in grads[2:]) > 0
     detached = interface.posterior(interface.e(image).detach())
     c, r = local_sample(detached, lg)
-    v = F.cross_entropy(model.spatial_logits(c, r), labels)
     counters['qualification_g_forward'] += 1
+    v = F.cross_entropy(model.spatial_logits(c, r), labels, reduction='none').mean()
     gs = torch.autograd.grad(v, tuple(interface.e.parameters()) + tuple(interface.hr.parameters()), allow_unused=True)
     counters['qualification_reverse'] += 1
     ne = len(tuple(interface.e.parameters()))
@@ -240,6 +240,11 @@ def run(s):
         assert all(int((label[i] == k).sum()) > 0 for i in range(8) for k in range(4))
         torch.manual_seed(20261020)
         initial = cpu(Interface().state_dict())
+        if s.get('initial_interface'):
+            previous_initial = torch.load(s['initial_interface'], map_location='cpu', weights_only=False)
+            assert same(initial, previous_initial['model'])
+            initial = previous_initial['model']
+        write(root / 'PREVIOUS_ATTEMPT.json', s.get('previous_attempt', {}))
         save(root / 'INITIAL_INTERFACE.pt', dict(model=initial, seed=20261020, rng=capture_rng_state()))
         write(root / 'QUALIFICATION.json', qualification(model, initial, image, label, counters))
         results = {}
@@ -310,7 +315,7 @@ def run(s):
                 loss = None
                 row = dict(arm=arm, step=step)
                 if arm != 'R1':
-                    c_loss = F.cross_entropy(interface.d(feature), label)
+                    c_loss = F.cross_entropy(interface.d(feature), label, reduction='none').mean()
                     counters['train_direct_image_forward'] += 8
                     row['direct_CE'] = float(c_loss.detach())
                     loss = c_loss
