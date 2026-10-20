@@ -1,0 +1,87 @@
+{
+  "status": "PASS",
+  "cost": {
+    "total": 7716,
+    "optimizer": 7166,
+    "functional": 550,
+    "pending": 0,
+    "by_phase": {
+      "codec:engineering": 32,
+      "codec:formal": 500,
+      "C0:engineering": 30,
+      "C0:formal": 512,
+      "C1:engineering": 31,
+      "C1:formal": 512,
+      "A:engineering": 32,
+      "B:engineering": 32,
+      "C:engineering": 32,
+      "A:formal": 2000,
+      "B:formal": 2000,
+      "C:formal": 2000
+    }
+  },
+  "stages": {
+    "codec": {
+      "steps": 500,
+      "native_and_frame_exact": true,
+      "final_latest_exact": true,
+      "finite": true
+    },
+    "C0": {
+      "steps": 256,
+      "native_and_frame_exact": true,
+      "final_latest_exact": true,
+      "finite": true
+    },
+    "C1": {
+      "steps": 256,
+      "native_and_frame_exact": true,
+      "final_latest_exact": true,
+      "finite": true
+    },
+    "A": {
+      "formal_calls": 2000,
+      "common_native_entry": true,
+      "empty_optimizer": true,
+      "frozen_memory": true,
+      "final_latest_exact": true,
+      "finite": true,
+      "patients_EDES_exact": true
+    },
+    "B": {
+      "formal_calls": 2000,
+      "common_native_entry": true,
+      "empty_optimizer": true,
+      "frozen_memory": true,
+      "final_latest_exact": true,
+      "finite": true,
+      "patients_EDES_exact": true
+    },
+    "C": {
+      "formal_calls": 2000,
+      "common_native_entry": true,
+      "empty_optimizer": true,
+      "frozen_memory": true,
+      "final_latest_exact": true,
+      "finite": true,
+      "patients_EDES_exact": true
+    }
+  },
+  "workers_retired": true,
+  "raw_replay": false,
+  "storage": {
+    "allocated_bytes_including_metadata": 350961920,
+    "elapsed_seconds": 16327.574361562729,
+    "hard_limit_bytes": 49000000000
+  },
+  "completed_arms": [
+    "A",
+    "B",
+    "C"
+  ],
+  "DE_gate": {
+    "C_minus_A_Siemens_pp": -0.581050768767799,
+    "C_minus_A_Philips_pp": -0.05231001057544038,
+    "run_DE": false
+  }
+}
