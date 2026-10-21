@@ -89,7 +89,7 @@ def evaluate(model, s, out):
                     volume = f['image'][...]; spacing = json.loads(f.attrs['processed_spacing'])
                 predictions = []
                 for j in range(0, len(volume), 2):
-                    torch.manual_seed(620163 + 1000 * i + j)
+                    torch.manual_seed(s.get('evaluation_seed', 620163) + 1000 * i + j)
                     x = torch.from_numpy(np.ascontiguousarray(volume[j:j+2, None])).float().cuda()
                     small = F.interpolate(x, (128, 128), mode='bilinear', align_corners=False)
                     p = model.probability(small)
