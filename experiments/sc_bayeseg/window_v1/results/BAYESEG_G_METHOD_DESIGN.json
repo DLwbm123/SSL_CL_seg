@@ -1,5 +1,5 @@
 {
-  "status": "DESIGN_ONLY_NO_TRAINING",
+  "status": "DESIGN_ONLY_ANALYTIC_OPTIMIZATION_GATE_FAILED_NO_TRAINING",
   "date": "2026-10-21",
   "method": "BayeSeg-G generator-conditioned anatomy joint posterior",
   "novelty_status": "hypothesis_not_validated_no_first_claim",
@@ -20,9 +20,8 @@
   "planned_updates": 50000,
   "full_states": 60,
   "primary_probability_phase_sets": 660,
-  "secondary_mean_phase_sets": 528,
   "native_float32_theoretical_bytes": 3652190208,
-  "reserve_bytes": 7000000000,
+  "reserve_bytes": 7100000000,
   "temperature_fits": 50,
   "temperature_max_function_requests": 3200,
   "ce": "mean per draw pixel CE",
@@ -37,14 +36,17 @@
     "target_access": false
   },
   "original_clock_reset": false,
-  "execution_authorization": "User explicitly requests design and push only; do not train pending subsequent instruction and admission",
+  "execution_authorization": "CPU analytic validation and report push only; no neural admission, training, real images/GT or fits",
   "this_turn_actual_cost": {
     "neural_forward": 0,
     "backward": 0,
     "optimizer": 0,
     "real_image_reads": 0,
     "ground_truth_reads": 0,
-    "temperature_fits": 0
+    "temperature_fits": 0,
+    "analytic_minimizations_complete_runs": 102,
+    "analytic_minimizations_earlier_aborted": 2,
+    "early_solver_call_counts": "not instrumented; unknown, not zero"
   },
   "fulltext_scope": {
     "BayeSeg": 1,
@@ -54,12 +56,57 @@
       "ACE",
       "function-space VI",
       "TreeCopula"
-    ]
+    ],
+    "new_v2_2021_main_and_supplement": 2,
+    "total_direct_papers": 16
   },
   "cpu_algebra_check": {
     "scope": "linear_Gaussian_and_fixed_upsampling_only",
     "LT_error": 3.3306690738754696e-16,
     "KL_chain_dense_error": 1.7763568394002505e-15,
     "neural_admission": "PENDING_NOT_RUN"
-  }
+  },
+  "revision": "v2_pro_analytic_review",
+  "secondary_reference_point_phase_sets": 528,
+  "local_scale": {
+    "formula": "1e-6+softplus(raw)",
+    "initial_sigma": 0.01831563888873418,
+    "initial_raw": -3.990883304152031,
+    "upper_clamp": false,
+    "reset_variance_output_rows": true,
+    "old_initial_q_equality_claim": false,
+    "scope": "all random c/R and S/M; not G/F weight scales"
+  },
+  "stages": {
+    "stage0": "expressibility passed; scalar optimization residual gate failed; neural admission not run",
+    "stage1": [
+      "U",
+      "U_F",
+      "FG_I",
+      "BG_I",
+      "BG_S"
+    ],
+    "stage2_conditional": [
+      "DG_I",
+      "DG_S",
+      "BG_S_shift",
+      "NP_S",
+      "BG_P"
+    ],
+    "updates_each_stage": 25000,
+    "states_each_stage": 30,
+    "fits_each_stage": 25,
+    "evaluation_GT_reads_total_if_both_stages": 224,
+    "require_all_A_B_C_gates": true
+  },
+  "diagnostics_planned": {
+    "encoded_images": 270,
+    "train_GT_reads": 270,
+    "single_image_G": 1380,
+    "single_image_F": 3240,
+    "extra_gradient_requests": 540,
+    "updates": 0,
+    "note": "future only; full protocol and stage split in revision report"
+  },
+  "analytic_results": "BAYESEG_G_ANALYTIC_POSTERIOR.json"
 }

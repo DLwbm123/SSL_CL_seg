@@ -4,10 +4,12 @@
 
 ## 1. 阅读范围、版本和来源
 
-直接方法文献集为：BayeSeg 原论文1篇；Pro所列关键全文8篇；与本问题直接相关的UAI/AISTATS5篇，共14篇。Pro的8篇此前已完成正文和附录阅读，本次复用阅读记录并重新核对机制/假设；新增5篇阅读正文、证明和实验附录，QAVI/BSVI另下载了独立补充PDF，没有只停在摘要。
+直接方法文献集为：BayeSeg 原论文1篇；Pro所列关键全文8篇；与本问题直接相关的UAI/AISTATS5篇，原共14篇；v2补读下述两篇2021直接近邻，当前共16篇。Pro的8篇此前已完成正文和附录阅读，本次复用阅读记录并重新核对机制/假设；新增5篇阅读正文、证明和实验附录，QAVI/BSVI另下载了独立补充PDF，没有只停在摘要。
 
 |论文|本地版本与全文范围|正式来源|
 |---|---|---|
+|Automatic Structured Variational Inference|AISTATS2021，正文9页＋补充6页，全文/图表/附录|[PMLR](https://proceedings.mlr.press/v130/ambrogioni21a.html)|
+|Automatic Variational Inference with Cascading Flows|ICML2021，正文10页＋补充3页，全文；补充网络代码图片另渲染阅读|[PMLR](https://proceedings.mlr.press/v139/ambrogioni21a.html)|
 |BayeSeg|arXiv2303.01710v1，15页，正文/实验/统计模型/讨论|[原论文](https://arxiv.org/abs/2303.01710)|
 |Amortized Variational Inference: When and Why?|UAI2024，16页，含附录证明与附加实验|[PMLR](https://proceedings.mlr.press/v244/margossian24a.html)|
 |Amortized Structural Variational Inference|AISTATS2026，30页，含理论与实验附录|[PMLR](https://proceedings.mlr.press/v300/fan26b.html)|
@@ -93,3 +95,24 @@
 本次提出的具体候选是：在G的既有加性全局/局部特征注入处，构造参数只增17的图像门控、Theta条件化三角后验；把该后验放入BayeSeg形状/外观联合模型，与G共同学习，给出可计算logq与KL。这不是“ASVI＋VEN＋AFIN＋HiSC＋PoPNet”的拼接。
 
 已有结构化VI、条件Gaussian后验和生成模型联合学习不能据为原创。新颖性只可能来自该特定生成几何与解剖推断的结合及其可验证作用，仍需更广检索和匹配实验支持；本报告不宣称首创、理论泛化保证或已提高Dice。设计给出10个有明确作用的对照、完整PGM/密度/监督目标、训练与推断预算、门槛和负结果处理，训练尚未启动。
+
+
+## 7. v2新增全文：两篇更直接的2021近邻
+
+### 7.1 Automatic Structured Variational Inference（AISTATS2021）
+
+正文§3的convex-update把prior父节点产生的分布参数与自由参数混合；§5逐随机变量站点重写生成程序，保留前向结构/复杂度，prior与mean-field是边界情形。§3与§8明确：该族不能添加collider带来的依赖；对独立权重先验的BNN会退化为mean-field。单变量线性Gaussian链的涵盖性不能外推到c/R共同解释一个观测。
+
+§7不仅看ELBO，也比较MCMC参考的均值/标准差误差；BRG等任务并非所有表项都最好。补充A完整给出六类任务、IAF/MVN/AR基线和每方法学习率调节/100000步预算；不能声称严格相同优化难度或统一调参预算。补充B为已知动力系统及预训练DCGAN发射，不是本任务从图像监督学习解剖G；补充C有softplus尺度的摊销生成网络。原文Table3标题称RMSE但条目为负值、正文解释为test ELBO，不能把这些数当RMSE复制。
+
+与本方案的直接关系：现有c/R独立先验经G共同形成P，单纯继承先验前向结构不能自动得到我们要表达的负依赖；本方案增加特定条件边，但不拥有结构VI总概念的新颖性。引用时明确ASVI2021 Automatic与ASVI2026 Amortized是不同论文。阅读完成正文9页、补充6页，未运行作者实现。[来源](https://proceedings.mlr.press/v130/ambrogioni21a.html)
+
+### 7.2 Automatic Variational Inference with Cascading Flows（ICML2021）
+
+正文§4.1–4.2在各条件分布上施加可近恒等初始化的highway flows，三角层与单调激活给出可计算Jacobian；这并非仅把输入图像网络加宽。§4.3加入局部辅助变量，提高条件分布能力，但使用augmented ELBO，不能无条件等同边缘mixture ELBO。§4.4通过反向辅助Gaussian图耦合collider父节点，§4.5把观测输入辅助图实现摊销；单独局部flows而不耦合仍缺少collider依赖。
+
+§6包括时间序列、二/四层线性及tanh collider树和摊销任务；深层collider中GF/MVN可更好，作者讨论保留此限制。latent/predictive评价包含5000样本KDE，树使用样本均值协方差匹配Gaussian的密度代理，不能当精确非Gaussian后验KL。补充A–D给模型、独立重复与推断器；补充第3页网络代码为图像，已渲染读取（两层识别器、softplus+epsilon尺度）。未复现作者程序，也不把其数值移植成本方案证据。
+
+因此“用生成结构处理explaining-away”已有直接先例。我们的差别只在特定G加性注入投影、显式三角条件密度及小参数成本；它不具备该通用flow的完整表达能力，不能声称超越该论文。后续若要做算法性能优越性主张，还需另冻结直接实现对比；当前十臂只支持内部机制归因。[来源](https://proceedings.mlr.press/v139/ambrogioni21a.html)
+
+第三份Pro分析已逐段对照上述设计。采纳其尺度/锚点/机制诊断/分阶段/近邻边界建议；具体解析失败、诊断预算及阶段门槛以[修订报告](BAYESEG_G_PRO_REVISION_AND_ANALYTIC_REPORT_ZH.md)为准，Pro建议本身不构成实验结果或训练授权。
