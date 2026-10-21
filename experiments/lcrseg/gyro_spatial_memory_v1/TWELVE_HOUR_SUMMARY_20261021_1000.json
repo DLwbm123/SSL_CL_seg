@@ -1,0 +1,115 @@
+{
+  "window": {
+    "start_utc": "2026-10-20T14:00:32+00:00",
+    "end_utc": "2026-10-21T02:00:32+00:00",
+    "start_beijing": "2026-10-20 22:00:32",
+    "end_beijing": "2026-10-21 10:00:32",
+    "timezone": "Asia/Shanghai",
+    "selection_rule": "execution overlaps the 12h window or final report delivered within it; execution and delivery counts separated"
+  },
+  "new_execution_updates_in_window": 12256,
+  "new_execution_functional_in_window": 0,
+  "summarization_model_forwards": 0,
+  "summarization_optimizer_updates": 0,
+  "included_batches": [
+    {
+      "batch": "N_five_group",
+      "role": "execution completed before window; final report delivered inside window",
+      "optimizer_updates_total": 10160,
+      "audit": "PASS",
+      "execution_start_utc": "2026-10-20T12:51:15.832798+00:00",
+      "execution_end_utc_approx": "2026-10-20T13:46:58.052799+00:00",
+      "delivered_utc": "2026-10-20T14:07:42.546606+00:00",
+      "commit": "700e110206f87bf7172adb96a16b1906756ce296"
+    },
+    {
+      "batch": "spectrum_alignment_two_target_streams",
+      "role": "execution and final delivery inside window",
+      "optimizer_updates_total": 12256,
+      "audit": "PASS",
+      "execution_start_utc": "2026-10-20T14:44:46.683913+00:00",
+      "execution_end_utc": "2026-10-20T15:52:53.564611+00:00",
+      "delivered_utc": "2026-10-20T16:08:25.325035+00:00",
+      "commit": "4d1261f95591e99fe41cb78840e71aaabf546dad"
+    }
+  ],
+  "prior_context": [
+    {
+      "batch": "source_function",
+      "role": "completed and first delivered before window; contextual evidence only",
+      "optimizer_updates_total": 336,
+      "memory_gate": null,
+      "commit": "96f5ebc64e78979050d2e93ce366c6bcac4a1214"
+    }
+  ],
+  "total_updates_of_two_reported_batches_not_window_execution": 22416,
+  "total_updates_with_prior_source_context_not_window_execution": 22752,
+  "current_status": "all authorized batches delivered; no followup started",
+  "old_endpoints_unchanged": true,
+  "evidence_files": [
+    "N_CONTRIBUTION_REPORT_ZH.md",
+    "N_CONTRIBUTION_PUBLIC_SUMMARY.json",
+    "N_CONTRIBUTION_AUDIT.json",
+    "N_CONTRIBUTION_SUPPLEMENTARY_CONTRASTS.json",
+    "SOURCE_FUNCTION_REPORT_ZH.md",
+    "SOURCE_FUNCTION_AUDIT.json",
+    "SPECTRUM_ALIGNMENT_REPORT_ZH.md",
+    "SPECTRUM_ALIGNMENT_PUBLIC_SUMMARY.json",
+    "SPECTRUM_ALIGNMENT_AUDIT.json",
+    "SPECTRUM_ALIGNMENT_ANALYSIS.json"
+  ],
+  "spectrum_gates": {
+    "student": {
+      "G00_minus_S": {
+        "pass_gate": true,
+        "old_effects_pp": [
+          0.7450720990288168,
+          0.6444222309565993
+        ],
+        "new_effects_pp": [
+          0.18016848503668492,
+          0.2342793418871108
+        ],
+        "old_mean_pp": 0.694747164992708
+      },
+      "G00_minus_Aalign": {
+        "pass_gate": true,
+        "old_effects_pp": [
+          1.7830158201626276,
+          1.124401865820269
+        ],
+        "new_effects_pp": [
+          0.9826321064365966,
+          0.9238238311338094
+        ],
+        "old_mean_pp": 1.4537088429914484
+      }
+    },
+    "EMA": {
+      "G00_minus_S": {
+        "pass_gate": true,
+        "old_effects_pp": [
+          0.5771823407064416,
+          0.6256271279493658
+        ],
+        "new_effects_pp": [
+          0.31123199329351925,
+          0.3408967657955553
+        ],
+        "old_mean_pp": 0.6014047343279036
+      },
+      "G00_minus_Aalign": {
+        "pass_gate": true,
+        "old_effects_pp": [
+          0.8956090488348082,
+          0.8451434419821136
+        ],
+        "new_effects_pp": [
+          0.6046978147370091,
+          0.629286198953334
+        ],
+        "old_mean_pp": 0.8703762454084609
+      }
+    }
+  }
+}
