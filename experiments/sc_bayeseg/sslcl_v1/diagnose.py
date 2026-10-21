@@ -13,7 +13,7 @@ from sc_bayeseg.window_v1.r_start import write
 
 def worker(s):
     setup();out=Path(s['output']);out.mkdir(exist_ok=False)
-    model=initialize(s,'B')
+    model=initialize(s,s.get('family','B'))
     ck=torch.load(s['checkpoint'],map_location='cpu',weights_only=False)
     assert ck['step']==s['step'];model.load_state_dict(ck['model'])
     def probability(x):
