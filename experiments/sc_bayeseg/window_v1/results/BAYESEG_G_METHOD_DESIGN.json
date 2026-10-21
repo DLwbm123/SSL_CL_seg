@@ -1,0 +1,65 @@
+{
+  "status": "DESIGN_ONLY_NO_TRAINING",
+  "date": "2026-10-21",
+  "method": "BayeSeg-G generator-conditioned anatomy joint posterior",
+  "novelty_status": "hypothesis_not_validated_no_first_claim",
+  "arms": [
+    "U",
+    "U_F",
+    "FG_I",
+    "BG_I",
+    "BG_S",
+    "DG_I",
+    "DG_S",
+    "BG_S_shift",
+    "NP_S",
+    "BG_P"
+  ],
+  "primary": "development patient macroDice BG_S minus BG_I",
+  "updates_per_arm": 5000,
+  "planned_updates": 50000,
+  "full_states": 60,
+  "primary_probability_phase_sets": 660,
+  "secondary_mean_phase_sets": 528,
+  "native_float32_theoretical_bytes": 3652190208,
+  "reserve_bytes": 7000000000,
+  "temperature_fits": 50,
+  "temperature_max_function_requests": 3200,
+  "ce": "mean per draw pixel CE",
+  "dice": "GT-present foreground classes, equal per image; epsilon1e-6; on mean probability; all-background0",
+  "data": {
+    "train_patients": 10,
+    "train_slices": 230,
+    "development_patients": 23,
+    "development_slices": 544,
+    "test_access": false,
+    "unlabeled_access": false,
+    "target_access": false
+  },
+  "original_clock_reset": false,
+  "execution_authorization": "User explicitly requests design and push only; do not train pending subsequent instruction and admission",
+  "this_turn_actual_cost": {
+    "neural_forward": 0,
+    "backward": 0,
+    "optimizer": 0,
+    "real_image_reads": 0,
+    "ground_truth_reads": 0,
+    "temperature_fits": 0
+  },
+  "fulltext_scope": {
+    "BayeSeg": 1,
+    "Pro_prior_fulltext_review_reused": 8,
+    "new_direct_UAI_AISTATS_main_and_appendix": 5,
+    "background_not_claimed_fully_read": [
+      "ACE",
+      "function-space VI",
+      "TreeCopula"
+    ]
+  },
+  "cpu_algebra_check": {
+    "scope": "linear_Gaussian_and_fixed_upsampling_only",
+    "LT_error": 3.3306690738754696e-16,
+    "KL_chain_dense_error": 1.7763568394002505e-15,
+    "neural_admission": "PENDING_NOT_RUN"
+  }
+}
