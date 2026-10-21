@@ -1,5 +1,5 @@
 {
-  "status": "DESIGN_ONLY_ANALYTIC_OPTIMIZATION_GATE_FAILED_NO_TRAINING",
+  "status": "DESIGN_ONLY_ANALYTIC_SOLVER_REPAIRED_NEURAL_PARAMETERIZATION_UNQUALIFIED_NO_TRAINING",
   "date": "2026-10-21",
   "method": "BayeSeg-G generator-conditioned anatomy joint posterior",
   "novelty_status": "hypothesis_not_validated_no_first_claim",
@@ -66,7 +66,7 @@
     "KL_chain_dense_error": 1.7763568394002505e-15,
     "neural_admission": "PENDING_NOT_RUN"
   },
-  "revision": "v2_pro_analytic_review",
+  "revision": "v3_kappa_coordinate_solver_diagnosis",
   "secondary_reference_point_phase_sets": 528,
   "local_scale": {
     "formula": "1e-6+softplus(raw)",
@@ -78,7 +78,7 @@
     "scope": "all random c/R and S/M; not G/F weight scales"
   },
   "stages": {
-    "stage0": "expressibility passed; scalar optimization residual gate failed; neural admission not run",
+    "stage0": "scalar expressibility PASS; direct bounded kappa analytic optimization PASS for two solvers; original sigmoid failures retained; image-conditioned neural kappa and G/F admission NOT RUN",
     "stage1": [
       "U",
       "U_F",
@@ -108,5 +108,18 @@
     "updates": 0,
     "note": "future only; full protocol and stage split in revision report"
   },
-  "analytic_results": "BAYESEG_G_ANALYTIC_POSTERIOR.json"
+  "analytic_results": "BAYESEG_G_ANALYTIC_POSTERIOR.json",
+  "kappa_optimization_results": "results/BAYESEG_G_KAPPA_OPTIMIZATION.json",
+  "kappa_neural_head_status": "Original sigmoid head not qualified; direct bounded analytic variable is not an amortized network replacement",
+  "v3_actual_cost": {
+    "minimizations": 48,
+    "iterations": 873,
+    "optimizer_objective_calls": 1298,
+    "optimizer_gradient_calls": 1181,
+    "diagnostic_evaluate_calls": 1593,
+    "neural_forward": 0,
+    "neural_backward": 0,
+    "network_updates": 0,
+    "real_data_reads": 0
+  }
 }
