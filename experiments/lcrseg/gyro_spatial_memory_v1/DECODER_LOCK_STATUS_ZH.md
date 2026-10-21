@@ -1,3 +1,3 @@
-# 启动状态
+# 已完成
 
-2026-10-22已在指定GPU启动，8小时原钟与<4GB存储预算已设置。CPU/CUDA10小SVD自检PASS，64步detach model/opt/EMA/RNG exact PASS且discarded；控制器依次执行8组资格与8组训练/评估。初次现场已确认前三组资格PASS，无失败。最终student2000结果尚未产生，不声称效果。固定协议见DECODER_LOCK_PROTOCOL_V1_ZH.md。
+八组完成，最终审计PASS；16320更新、65546总SVD、8192固定decoder检查，7610.375秒，约280MB。科学复合门槛FAIL，新域退化约1pp；交互点门槛通过不改变主结论。详见DECODER_LOCK_REPORT_ZH.md。
