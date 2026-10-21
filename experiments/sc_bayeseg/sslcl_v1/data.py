@@ -3,6 +3,7 @@ from collections import defaultdict
 from pathlib import Path
 import json
 import csv
+import math
 import torch
 from torch.nn import functional as F
 from lcrseg.data import H5LabeledDataset, H5UnlabeledDataset
@@ -56,13 +57,24 @@ def style(schedule):
     return torch.stack(patients).mean(0).tolist()
 
 
-def view(x, current, history, step, seed=163):
+def view(x, current, history, step, seed=163, mode="history"):
     g = torch.Generator(device=x.device).manual_seed(seed * 1000 + step)
     params = torch.rand((len(x), 5, 1, 1), device=x.device, generator=g)
-    old = (params[:, 0:1] < .5) if history is not None else torch.zeros_like(params[:, 0:1], dtype=torch.bool)
+    assert mode in ('history', 'wide', 'reverse')
+    if mode == 'wide': history = None
+    if mode == 'reverse':
+        assert history is not None
+        history = [2 * current[0] - history[0], current[1] ** 2 / history[1]]
+    old = (params[:, 0:1] < .5) if history is not None or mode == 'wide' else torch.zeros_like(params[:, 0:1], dtype=torch.bool)
     hist = current if history is None else history
     mean = torch.where(old, float(hist[0]), float(current[0]))
     sd = torch.where(old, float(hist[1]), float(current[1])).clamp_min(1e-4)
+    if mode == 'wide':
+        # Only current-domain statistics; same five random numbers and 50% branch.
+        generic_mean = current[0] + .75 * current[1] * (2 * params[:, 4:5] - 1)
+        generic_sd = current[1] * torch.exp(math.log(1.5) * (4 * params[:, 0:1] - 1))
+        mean = torch.where(old, generic_mean, float(current[0]))
+        sd = torch.where(old, generic_sd, float(current[1])).clamp_min(1e-4)
     centered = (x - x.mean((2, 3), keepdim=True)) / x.std((2, 3), unbiased=False, keepdim=True).clamp_min(1e-4)
     axis = torch.linspace(0, 2 * torch.pi, x.shape[-1], device=x.device)
     bias = (torch.cos(axis)[None, None, :, None] + torch.cos(axis)[None, None, None, :]) / 2
