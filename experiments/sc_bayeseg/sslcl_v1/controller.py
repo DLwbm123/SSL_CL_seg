@@ -41,10 +41,11 @@ def run(s):
             available = [g for g in s['gpus'] if g not in [v[1] for v in active.values()]]
             for name, family, stage, use_u, history in tasks:
                 if name in attempted or not available: continue
-                if stage == 'target' and family not in external and finished.get('source_' + family, {}).get('exit_code') != 0: continue
+                source_task = s.get('source_tasks', {}).get(name, 'source_' + family)
+                if stage == 'target' and family not in external and finished.get(source_task, {}).get('exit_code') != 0: continue
                 gpu = available.pop(0); config = dict(s, output=str(root/name), family=family, stage=stage, domain=s.get('source_domain', 'Siemens') if stage == 'source' else s.get('target_domain', 'Philips'), use_u=use_u, history=history)
                 config.update(s.get('task_options', {}).get(name, {}))
-                if stage == 'target': config['source'] = external.get(family, str(root/('source_'+family)/'S5000.pt'))
+                if stage == 'target': config['source'] = external.get(family, str(root/source_task/'S5000.pt'))
                 if name in s.get('training_seeds', {}): config['training_seed'] = s['training_seeds'][name]
                 settings = Path(s['ops']) / (name + '.json'); write(settings, config)
                 env = dict(os.environ, TASK_SETTINGS=str(settings), CUDA_VISIBLE_DEVICES=gpu)

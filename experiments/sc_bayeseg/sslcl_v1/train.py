@@ -129,7 +129,7 @@ def run(s):
         assert source['step'] == 5000
         model.load_state_dict(source['model']); teacher.load_state_dict(source['teacher']); restore_rng_state(source['rng'])
         write(out / 'ARRIVAL.json', json.loads((Path(s['source']).parent / 'METRICS.json').read_text()))
-    seed = s.get('training_seed', 163)
+    seed = s.get('training_seed', s.get('schedule_seed', 163))
     if 'training_seed' in s:
         torch.manual_seed(seed); np.random.seed(seed)
     schedule = Schedule(s['data'], s['domain'], seed=seed, dataset=s.get('dataset', 'mnms'))

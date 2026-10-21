@@ -73,7 +73,7 @@ def supervised(logits, target):
 
 
 def initialize(s, family):
-    torch.manual_seed(163)
+    torch.manual_seed(s.get("initialization_seed", 163))
     model = Model(family, s.get('num_classes', 4))
     if s.get('initialization') == 'scratch':
         return model.cuda()
