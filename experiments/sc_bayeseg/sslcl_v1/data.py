@@ -57,10 +57,15 @@ def style(schedule):
     return torch.stack(patients).mean(0).tolist()
 
 
-def view(x, current, history, step, seed=163, mode="history"):
+def view(x, current, history, step, seed=163, mode="history", history_strength=1.0):
     g = torch.Generator(device=x.device).manual_seed(seed * 1000 + step)
     params = torch.rand((len(x), 5, 1, 1), device=x.device, generator=g)
     assert mode in ('history', 'wide', 'reverse')
+    assert 0 <= history_strength <= 1
+    if history is not None and history_strength != 1:
+        assert mode == 'history'
+        history = [current[0] + history_strength * (history[0] - current[0]),
+                   current[1] * math.exp(history_strength * math.log(history[1] / current[1]))]
     if mode == 'wide': history = None
     if mode == 'reverse':
         assert history is not None
