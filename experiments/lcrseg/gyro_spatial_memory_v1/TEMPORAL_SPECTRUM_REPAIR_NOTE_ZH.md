@@ -1,0 +1,9 @@
+# 结果摘要路径修复（2026-10-21）
+
+首组20261025_S已完成固定2000训练更新及全部2892次独立终点评价切片。评价末尾聚合共同入口差值时，新root缺少preparation/private_Philips_val.jsonl只读引用，导致controller合规退出。不是模型NaN或数据越权；原计账2320optimizer=320工程+2000正式，evaluation_native2892、pending空，所有患者EDES记录已保存。
+
+有限工程修复：补齐既有共同入口preparation目录的只读用途symlink；仅CPU检查六份完整患者记录的集合/数量/finite Dice后，用原finalize聚合公式重建RESULTS与EVALUATION_EXIT。模型前向和更新均0，call账本完全不变。原错误、非零退出码、log和修复前源码保留在私有failures/attempt0，未公开原日志。
+
+controller新增明确resume_completed_stages分支，仅在calibration/detach/八资格PASS及已完成组RESULTS=2000、EVALUATION_EXIT0、physical_updates精确2000时跳过旧阶段。异常或不完整结果拒绝跳过；不恢复dirty、不重复评价。其余组按原固定次序运行。原始时钟1792550097.1408808、16320更新cap和全部调用/资源上限不变，独立timeout仅使用原钟剩余时间。
+
+未改变方法公式、数据权限、教师时序、权重、随机流、训练步数或主终点。首次S结果仅是单组，不作四组贡献判断；完整比较仍待八组结束后一次审计与报告。

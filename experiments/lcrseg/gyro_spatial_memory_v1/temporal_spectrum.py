@@ -77,18 +77,37 @@ def self_check():
 
 def controller(cfg,guard):
     root=Path(cfg['root'])
+    preparation=root/'preparation'
+    if not preparation.exists():preparation.symlink_to(Path(cfg['comparison_root'])/'preparation',target_is_directory=True)
+    assert (preparation/'private_Philips_val.jsonl').is_file()
     def stage(mode,c):
         guard(cfg,new_stage=True);path=root/('SETTINGS_'+c['group']+'_'+mode+'.private.json');write(path,c)
         free=int(subprocess.check_output(['nvidia-smi','--id=3','--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True));assert free>=16000
         with (root/(c['group']+'_'+mode+'.log')).open('x') as log:p=subprocess.Popen([cfg['runtime'],cfg['entry']],env=dict(os.environ,TASK_SETTINGS=str(path),TASK_MODE=mode),stdout=log,stderr=subprocess.STDOUT)
         active=dict(pid=p.pid,birth=Path('/proc/'+str(p.pid)+'/stat').read_text().split()[21],group=c['group'],mode=mode);write(root/'ACTIVE.private.json',active);write(root/('ACTIVE_'+c['group']+'_'+mode+'.private.json'),active);write(root/'STATUS.json',dict(status='RUNNING',**active))
         code=p.wait();write(root/('EXIT_'+c['group']+'_'+mode+'.json'),dict(exit_code=code));assert code==0,c['group']+' '+mode+' failed'
-    out=root/'calibration';out.mkdir();stage('calibrate',dict(cfg,group='CAL',method='GT',target_seed=20261027,phase='engineering',output=str(out)))
-    base=dict(cfg,lambda_T=json.loads((root/'CALIBRATION.json').read_text())['lambda_T']);out=root/'detach';out.mkdir();stage('detach',dict(base,group='DETACH',method='S',target_seed=20261025,phase='engineering',output=str(out)))
+    resumed=cfg.get('resume_completed_stages',False)
+    if not resumed:
+        out=root/'calibration';out.mkdir();stage('calibrate',dict(cfg,group='CAL',method='GT',target_seed=20261027,phase='engineering',output=str(out)))
+    else:
+        assert json.loads((root/'CALIBRATION.json').read_text())['status']=='PASS'
+        assert json.loads((root/'DETACH_CHECK.json').read_text())['status']=='PASS'
+    base=dict(cfg,lambda_T=json.loads((root/'CALIBRATION.json').read_text())['lambda_T'])
+    if not resumed:
+        out=root/'detach';out.mkdir();stage('detach',dict(base,group='DETACH',method='S',target_seed=20261025,phase='engineering',output=str(out)))
     configs=[dict(base,group=str(seed)+'_'+method,method=method,target_seed=seed,arm='A',stage=str(seed)+'_'+method,preflight_only=False,checkpoint_each_step=True,save_exception_state=True,audit_source_training=True,diagnostic_holdout_excluded=False) for seed in SEEDS for method in METHODS]
-    for c in configs:stage('qualify',dict(c,phase='engineering',output=str(root/'qualification'/c['group'])))
     for c in configs:
-        c=dict(c,phase='formal',output=str(root/'jobs'/c['group']));stage('train',c);stage('evaluate',c)
+        if resumed:
+            record=json.loads((root/'qualification'/c['group']/'ENGINEERING.json').read_text());assert record['status']=='PASS' and record['actual_calls']==32
+        else:stage('qualify',dict(c,phase='engineering',output=str(root/'qualification'/c['group'])))
+    for c in configs:
+        c=dict(c,phase='formal',output=str(root/'jobs'/c['group']));out=Path(c['output'])
+        if resumed and out.exists():
+            assert json.loads((out/'RESULTS.json').read_text())['physical_updates']==2000
+            assert json.loads((out/'EVALUATION_EXIT.json').read_text())['exit_code']==0
+            assert len((out/'physical_updates.jsonl').read_text().splitlines())==2000
+            continue
+        stage('train',c);stage('evaluate',c)
     write(root/'STATUS.json',dict(status='COMPLETE',audit_pending=True,resources=guard(cfg)));write(root/'EXIT.json',dict(exit_code=0))
 
 
