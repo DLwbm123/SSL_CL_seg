@@ -64,20 +64,19 @@ def checks(w,im):
     return dict(FP32_error=err[0],mixed_error=err[1],FP32_pass=err[0]<2e-6,mixed_pass=err[1]<2e-6,directional_error=fd,directional_pass=fd<2e-6,partition_gradient_error=averaging,batch_relative_deviation=[float((g-full).norm()/(1+full.norm())) for g in batch])
 
 def polish(start,im,dtype,batches=None):
+    from bounded_lbfgs import make_optimizer,accepted_step
     w=start.clone().requires_grad_(True);calls=0;iterations=0;failure=None
     for indices in ([torch.arange(12)] if batches is None else batches):
-        opt=torch.optim.LBFGS([w],lr=1,max_iter=200 if batches is None else 10,max_eval=400 if batches is None else 20,history_size=50,line_search_fn='strong_wolfe',tolerance_grad=1e-10,tolerance_change=1e-12)
-        local_calls=0
-        def closure():
-            nonlocal calls,local_calls
-            if local_calls >= (400 if batches is None else 20):raise RuntimeError('call budget reached')
-            opt.zero_grad();loss=terms(w,im[indices],dtype)[0].mean();loss.backward();calls+=1;local_calls+=1
-            if not torch.isfinite(loss) or not torch.isfinite(w.grad).all():raise RuntimeError('nonfinite')
-            return loss
-        try:opt.step(closure)
-        except RuntimeError as e:failure=str(e);break
-        iterations+=opt.state[w].get('n_iter',0)
-    return w.detach(),dict(calls=calls,iterations=iterations,failure=failure,closure_batch_fixed=True)
+        opt=make_optimizer(w);counter={'calls':0}
+        try:
+            for _ in range(200 if batches is None else 10):
+                move=accepted_step(opt,w,lambda q:terms(q,im[indices],dtype)[0].mean(),counter,400 if batches is None else 20)
+                if move==0:break
+                iterations+=1
+        except RuntimeError as e:failure=str(e)
+        calls+=counter['calls']
+        if failure:break
+    return w.detach(),dict(calls=calls,iterations=iterations,failure=failure,closure_batch_fixed=True,budget_restores_last_accepted=True)
 
 def main():
     signal.signal(signal.SIGALRM,lambda *_: (_ for _ in ()).throw(TimeoutError('600 second hard limit')));signal.alarm(600)
