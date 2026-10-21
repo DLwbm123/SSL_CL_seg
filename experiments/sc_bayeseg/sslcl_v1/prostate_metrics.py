@@ -28,4 +28,3 @@ def binary_phase_metrics(p,y,spacing):
         nll+=float(-q.clamp_min(1e-30).log().gather(0,target[None]).mean())
         one=F.one_hot(target,2).permute(2,0,1);brier+=float((q-one).square().sum(0).mean())
     return dict(classes=rows,NLL=nll/len(y),Brier=brier/len(y))
-
