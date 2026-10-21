@@ -10,17 +10,18 @@ from lcrseg.data.h5_dataset import load_training_records
 
 
 class Schedule:
-    def __init__(self, data, site, unlabeled=False):
+    def __init__(self, data, site, unlabeled=False, seed=163):
         cls = H5UnlabeledDataset if unlabeled else H5LabeledDataset
         self.ds = cls(data, seed=0, dataset='mnms', sites=[site], transform=None)
         self.unlabeled = unlabeled
+        self.seed = seed
         self.groups = defaultdict(lambda: defaultdict(list))
         for i, sample in enumerate(self.ds.samples):
             self.groups[sample.row['patient_id']][sample.row['case_id']].append(i)
         self.patients = sorted(self.groups)
 
     def batch(self, step):
-        g = torch.Generator().manual_seed(163 + 100003 * step + 1000000007 * self.unlabeled)
+        g = torch.Generator().manual_seed(self.seed + 100003 * step + 1000000007 * self.unlabeled)
         images = []; labels = []; indices = []
         for j in torch.randperm(len(self.patients), generator=g)[:2].tolist():
             phases = self.groups[self.patients[j]]; names = sorted(phases)
@@ -55,8 +56,8 @@ def style(schedule):
     return torch.stack(patients).mean(0).tolist()
 
 
-def view(x, current, history, step):
-    g = torch.Generator(device=x.device).manual_seed(163000 + step)
+def view(x, current, history, step, seed=163):
+    g = torch.Generator(device=x.device).manual_seed(seed * 1000 + step)
     params = torch.rand((len(x), 5, 1, 1), device=x.device, generator=g)
     old = (params[:, 0:1] < .5) if history is not None else torch.zeros_like(params[:, 0:1], dtype=torch.bool)
     hist = current if history is None else history

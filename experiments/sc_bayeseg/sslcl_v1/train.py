@@ -39,14 +39,14 @@ def ema(teacher, model):
         else: a.copy_(b)
 
 
-def step_loss(model, teacher, x, y, u, current, history, step):
-    strong = view(x, current, history, step)
+def step_loss(model, teacher, x, y, u, current, history, step, seed=163):
+    strong = view(x, current, history, step, seed)
     l1, i1 = model(x); l2, i2 = model(strong)
     sup = (supervised(l1, y) + supervised(l2, y)) / 2
     img = (i1 + i2) / 2; consistency = sup * 0
     if u is not None:
         with torch.no_grad(): target = teacher.probability(u)
-        lu, iu = model(view(u, current, history, 500000 + step))
+        lu, iu = model(view(u, current, history, 500000 + step, seed))
         p = torch.stack([v.softmax(1) for v in lu]).mean(0).clamp_min(1e-8)
         consistency = (target * (target.clamp_min(1e-8).log() - p.log())).sum(1).mean()
         img = (img + iu) / 2
@@ -124,8 +124,11 @@ def run(s):
         assert source['step'] == 5000
         model.load_state_dict(source['model']); teacher.load_state_dict(source['teacher']); restore_rng_state(source['rng'])
         write(out / 'ARRIVAL.json', json.loads((Path(s['source']).parent / 'METRICS.json').read_text()))
-    schedule = Schedule(s['data'], s['domain'])
-    unlabeled = Schedule(s['data'], s['domain'], True) if s['use_u'] else None
+    seed = s.get('training_seed', 163)
+    if 'training_seed' in s:
+        torch.manual_seed(seed); np.random.seed(seed)
+    schedule = Schedule(s['data'], s['domain'], seed=seed)
+    unlabeled = Schedule(s['data'], s['domain'], True, seed=seed) if s['use_u'] else None
     current = s['styles'][s['domain']]
     history = s['styles']['Siemens'] if s['history'] else None
     def snapshot():
@@ -139,7 +142,7 @@ def run(s):
             x, y, indices = schedule.batch(absolute)
             u = unlabeled.batch(absolute)[0] if unlabeled else None
             opt.zero_grad(set_to_none=True)
-            loss, parts = step_loss(model, teacher, x, y, u, current, history, step)
+            loss, parts = step_loss(model, teacher, x, y, u, current, history, step, seed)
             assert torch.isfinite(loss), parts
             loss.backward()
             params = [p for p in model.parameters() if p.requires_grad]

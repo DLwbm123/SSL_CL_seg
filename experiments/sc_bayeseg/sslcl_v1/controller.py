@@ -18,7 +18,8 @@ def run(s):
     assert json.loads((root / 'INTEGRATION.json').read_text())['status'] == 'PASS'
     sources = [('source_B', 'B', 'source', True, False), ('source_U', 'U', 'source', True, False)]
     targets = [(name, name[0], 'target', name[1] == '1', name[2] == '1') for name in ('B00', 'B10', 'B01', 'B11', 'U10', 'U11')]
-    tasks = sources + targets
+    tasks = s.get('tasks', sources + targets)
+    external = s.get('source_paths', {})
     def stop(reason):
         write(root / 'STOP.json', dict(reason=reason, time=time.time()))
         for p, _ in active.values():
@@ -40,9 +41,10 @@ def run(s):
             available = [g for g in s['gpus'] if g not in [v[1] for v in active.values()]]
             for name, family, stage, use_u, history in tasks:
                 if name in attempted or not available: continue
-                if stage == 'target' and finished.get('source_' + family, {}).get('exit_code') != 0: continue
+                if stage == 'target' and family not in external and finished.get('source_' + family, {}).get('exit_code') != 0: continue
                 gpu = available.pop(0); config = dict(s, output=str(root/name), family=family, stage=stage, domain='Siemens' if stage == 'source' else 'Philips', use_u=use_u, history=history)
-                if stage == 'target': config['source'] = str(root/('source_'+family)/'S5000.pt')
+                if stage == 'target': config['source'] = external.get(family, str(root/('source_'+family)/'S5000.pt'))
+                if name in s.get('training_seeds', {}): config['training_seed'] = s['training_seeds'][name]
                 settings = Path(s['ops']) / (name + '.json'); write(settings, config)
                 env = dict(os.environ, TASK_SETTINGS=str(settings), CUDA_VISIBLE_DEVICES=gpu)
                 log = open(root/(name+'.log'), 'ab', buffering=0)
