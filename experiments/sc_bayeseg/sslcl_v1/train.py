@@ -17,6 +17,7 @@ from sc_bayeseg.window_v1.r_start import write, append, save
 from sc_bayeseg.window_v1.patient_validation import phase_metrics
 from .data import Schedule, view
 from .model import initialize, supervised
+from .prostate_metrics import binary_phase_metrics
 
 
 def setup():
@@ -58,14 +59,14 @@ def step_loss(model, teacher, x, y, u, current, history, step, seed=163, history
     return loss, dict(labeled_image_objective=float(labeled_img.detach()), unlabeled_image_objective=float(unlabeled_img.detach()), supervised=float(sup.detach()), image_objective=float(img.detach()), soft_KL=float(consistency.detach()))
 
 
-def aggregate(rows):
+def aggregate(rows, num_classes=4, expected_phases=2):
     groups = defaultdict(list)
     for r in rows: groups[r['patient']].append(r['metrics'])
     patients = []
     for patient, phases in sorted(groups.items()):
-        assert len(phases) == 2
+        assert len(phases) == expected_phases
         class_values = []
-        for k in range(3):
+        for k in range(num_classes - 1):
             valid = [p['classes'][k] for p in phases if not p['classes'][k]['GT_absent']]
             class_values.append(float(np.mean([c['Dice'] for c in valid])) if valid else None)
         phase_dice = [np.mean([c['Dice'] for c in p['classes'] if not c['GT_absent']]) for p in phases]
@@ -73,10 +74,10 @@ def aggregate(rows):
                              NLL=float(np.mean([p['NLL'] for p in phases])), Brier=float(np.mean([p['Brier'] for p in phases]))))
     cells = [c for r in rows for c in r['metrics']['classes']]
     return dict(mean_Dice=float(np.mean([p['Dice'] for p in patients])), patients=patients,
-                class_Dice=[float(np.mean([p['class_Dice'][k] for p in patients if p['class_Dice'][k] is not None])) for k in range(3)],
+                class_Dice=[float(np.mean([p['class_Dice'][k] for p in patients if p['class_Dice'][k] is not None])) for k in range(num_classes - 1)],
                 NLL=float(np.mean([p['NLL'] for p in patients])), Brier=float(np.mean([p['Brier'] for p in patients])),
                 HD95_penalized_mm=float(np.mean([c['HD95_penalized_mm'] for c in cells if not c['GT_absent']])),
-                empty_prediction_failures=[sum(c['empty_prediction_failure'] for c in cells if c['class_index'] == k) for k in (1, 2, 3)])
+                empty_prediction_failures=[sum(c['empty_prediction_failure'] for c in cells if c['class_index'] == k) for k in range(1, num_classes)])
 
 
 @torch.no_grad()
@@ -84,8 +85,8 @@ def evaluate(model, s, out):
     previous = model.training; model.eval(); results = {}; private = {}
     rng = capture_rng_state()
     try:
-        for domain in ('Siemens', 'Philips'):
-            records = load_training_records(Path(s['data']), seed=0, dataset='mnms', sites=[domain], roles=['val'])
+        for domain in s.get('domains', ('Siemens', 'Philips')):
+            records = load_training_records(Path(s['data']), seed=0, dataset=s.get('dataset', 'mnms'), sites=[domain], roles=['val'])
             rows = []
             for i, row in enumerate(sorted(records, key=lambda r: (r['patient_id'], r['case_id']))):
                 assert time.time() - s['original_started_unix'] < 85200
@@ -102,9 +103,9 @@ def evaluate(model, s, out):
                     predictions.append(p.cpu())
                 # Complete this phase's image-only prediction before opening its GT.
                 with h5py.File(Path(s['data']) / 'h5/v1' / row['label_h5_relpath'], 'r') as f: y = f['label'][...]
-                rows.append(dict(patient=row['patient_id'], case=row['case_id'], metrics=phase_metrics(torch.cat(predictions), y, spacing)))
+                rows.append(dict(patient=row['patient_id'], case=row['case_id'], metrics=(phase_metrics if s.get('num_classes', 4) == 4 else binary_phase_metrics)(torch.cat(predictions), y, spacing)))
                 if i % 10 == 0: write(out / 'STATUS.json', dict(status='EVALUATING', domain=domain, phase=i))
-            private[domain] = rows; results[domain] = aggregate(rows)
+            private[domain] = rows; results[domain] = aggregate(rows, s.get('num_classes', 4), 1 if s.get('dataset') == 'prostate' else 2)
         save(out / 'PRIVATE_METRICS.pt', private)
         public = {d: {k: v for k, v in r.items() if k != 'patients'} for d, r in results.items()}
         write(out / 'METRICS.json', public)
@@ -131,10 +132,10 @@ def run(s):
     seed = s.get('training_seed', 163)
     if 'training_seed' in s:
         torch.manual_seed(seed); np.random.seed(seed)
-    schedule = Schedule(s['data'], s['domain'], seed=seed)
-    unlabeled = Schedule(s['data'], s['domain'], True, seed=seed) if s['use_u'] else None
+    schedule = Schedule(s['data'], s['domain'], seed=seed, dataset=s.get('dataset', 'mnms'))
+    unlabeled = Schedule(s['data'], s['domain'], True, seed=seed, dataset=s.get('dataset', 'mnms')) if s['use_u'] else None
     current = s['styles'][s['domain']]
-    history = s['styles']['Siemens'] if s['history'] else None
+    history = s['styles'][s.get('source_domain', 'Siemens')] if s['history'] else None
     def snapshot():
         return dict(step=completed, model=model.state_dict(), teacher=teacher.state_dict(), optimizer=opt.state_dict(), rng=capture_rng_state(), family=s['family'], original_started_unix=s['original_started_unix'])
     try:

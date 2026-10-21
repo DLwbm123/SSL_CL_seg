@@ -11,9 +11,9 @@ from lcrseg.data.h5_dataset import load_training_records
 
 
 class Schedule:
-    def __init__(self, data, site, unlabeled=False, seed=163):
+    def __init__(self, data, site, unlabeled=False, seed=163, dataset="mnms"):
         cls = H5UnlabeledDataset if unlabeled else H5LabeledDataset
-        self.ds = cls(data, seed=0, dataset='mnms', sites=[site], transform=None)
+        self.ds = cls(data, seed=0, dataset=dataset, sites=[site], transform=None)
         self.unlabeled = unlabeled
         self.seed = seed
         self.groups = defaultdict(lambda: defaultdict(list))

@@ -42,7 +42,7 @@ def run(s):
             for name, family, stage, use_u, history in tasks:
                 if name in attempted or not available: continue
                 if stage == 'target' and family not in external and finished.get('source_' + family, {}).get('exit_code') != 0: continue
-                gpu = available.pop(0); config = dict(s, output=str(root/name), family=family, stage=stage, domain='Siemens' if stage == 'source' else 'Philips', use_u=use_u, history=history)
+                gpu = available.pop(0); config = dict(s, output=str(root/name), family=family, stage=stage, domain=s.get('source_domain', 'Siemens') if stage == 'source' else s.get('target_domain', 'Philips'), use_u=use_u, history=history)
                 config.update(s.get('task_options', {}).get(name, {}))
                 if stage == 'target': config['source'] = external.get(family, str(root/('source_'+family)/'S5000.pt'))
                 if name in s.get('training_seeds', {}): config['training_seed'] = s['training_seeds'][name]

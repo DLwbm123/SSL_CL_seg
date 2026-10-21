@@ -6,21 +6,23 @@ from torch.nn import functional as F
 from sc_bayeseg.model import normal_log_prob, student_log_prob, sar, sar_logdet
 from sc_bayeseg.window_v1.unet_qualification import build_model
 from sc_bayeseg.window_v1.patient_loss_factor import foreground_dice_loss
+from lcrseg.models.unet import UNet2D
 
 
 class Model(nn.Module):
-    def __init__(self, family):
+    def __init__(self, family, num_classes=4):
         super().__init__()
         self.family = family
-        self.backbone = build_model()
+        self.backbone = build_model() if num_classes == 4 else UNet2D(1, num_classes, base_channels=16)
+        self.backbone.projection_head = nn.Identity()
         if family == 'B':
             self.backbone.segmentation_head.requires_grad_(False)
             self.hc = nn.Sequential(nn.Linear(16, 32), nn.ReLU(), nn.Linear(32, 32))
             self.hr = nn.Conv2d(16, 32, 1)
             self.hs = nn.Conv2d(16, 2, 1)
             self.hm = nn.Conv2d(16, 2, 1)
-            self.g = nn.ModuleList([nn.Linear(16, 256), nn.Conv2d(16, 16, 3, padding=1), nn.Conv2d(16, 3, 3, padding=1)])
-            self.f = nn.Sequential(nn.Conv2d(4, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, 1, 3, padding=1))
+            self.g = nn.ModuleList([nn.Linear(16, 256), nn.Conv2d(16, 16, 3, padding=1), nn.Conv2d(16, num_classes - 1, 3, padding=1)])
+            self.f = nn.Sequential(nn.Conv2d(num_classes, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, 1, 3, padding=1))
             self.register_buffer('logdet', torch.tensor(sar_logdet(128)))
 
     @staticmethod
@@ -61,12 +63,20 @@ class Model(nn.Module):
 
 def supervised(logits, target):
     ce = torch.stack([F.cross_entropy(l, target, reduction='none').mean() for l in logits]).mean()
-    return ce + foreground_dice_loss(torch.stack([l.softmax(1) for l in logits]).mean(0), target)
+    p = torch.stack([l.softmax(1) for l in logits]).mean(0)
+    if p.shape[1] == 4:
+        return ce + foreground_dice_loss(p, target)
+    truth = F.one_hot(target, p.shape[1]).permute(0, 3, 1, 2)[:, 1:].to(p.dtype)
+    foreground = p[:, 1:]; count = truth.sum((2, 3)); present = count > 0
+    dice = (2 * (foreground * truth).sum((2, 3)) + 1e-6) / (foreground.sum((2, 3)) + count + 1e-6)
+    return ce + (((1 - dice) * present).sum(1) / present.sum(1).clamp_min(1)).mean()
 
 
 def initialize(s, family):
     torch.manual_seed(163)
-    model = Model(family)
+    model = Model(family, s.get('num_classes', 4))
+    if s.get('initialization') == 'scratch':
+        return model.cuda()
     ck = torch.load(s['pretrain'], map_location='cpu', weights_only=False)
     assert ck['step'] == 5000
     model.backbone.load_state_dict(ck['model'])
