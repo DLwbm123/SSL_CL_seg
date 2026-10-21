@@ -1,5 +1,5 @@
 {
-  "status": "DESIGN_ONLY_ANALYTIC_SOLVER_REPAIRED_NEURAL_PARAMETERIZATION_UNQUALIFIED_NO_TRAINING",
+  "status": "SYNTHETIC_SHARED_LINEAR_KAPPA_PASS_FULL_FP32_AND_ADAM_FAIL_NO_FORMAL_TRAINING",
   "date": "2026-10-21",
   "method": "BayeSeg-G generator-conditioned anatomy joint posterior",
   "novelty_status": "hypothesis_not_validated_no_first_claim",
@@ -66,7 +66,7 @@
     "KL_chain_dense_error": 1.7763568394002505e-15,
     "neural_admission": "PENDING_NOT_RUN"
   },
-  "revision": "v3_kappa_coordinate_solver_diagnosis",
+  "revision": "v4_neural_kappa_synthetic",
   "secondary_reference_point_phase_sets": 528,
   "local_scale": {
     "formula": "1e-6+softplus(raw)",
@@ -78,7 +78,7 @@
     "scope": "all random c/R and S/M; not G/F weight scales"
   },
   "stages": {
-    "stage0": "scalar expressibility PASS; direct bounded kappa analytic optimization PASS for two solvers; original sigmoid failures retained; image-conditioned neural kappa and G/F admission NOT RUN",
+    "stage0": "Shared linear kappa synthetic expressibility/density/chain-gradient and FP64 optimization PASS; full FP32 KL gradient and fixed Adam FAIL; medical G/F NOT RUN",
     "stage1": [
       "U",
       "U_F",
@@ -110,7 +110,7 @@
   },
   "analytic_results": "BAYESEG_G_ANALYTIC_POSTERIOR.json",
   "kappa_optimization_results": "results/BAYESEG_G_KAPPA_OPTIMIZATION.json",
-  "kappa_neural_head_status": "Original sigmoid head not qualified; direct bounded analytic variable is not an amortized network replacement",
+  "kappa_neural_head_status": "Candidate shared affine 17-parameter kappa, unbounded family extension; no independent per-image kappa; not admitted to formal training",
   "v3_actual_cost": {
     "minimizations": 48,
     "iterations": 873,
@@ -120,6 +120,16 @@
     "neural_forward": 0,
     "neural_backward": 0,
     "network_updates": 0,
+    "real_data_reads": 0
+  },
+  "neural_kappa_results": "results/BAYESEG_G_NEURAL_KAPPA_SYNTHETIC.json",
+  "neural_kappa_report": "BAYESEG_G_NEURAL_KAPPA_REPORT_ZH.md",
+  "v4_total_cost": {
+    "head_batch_forwards": 17378,
+    "autograd_requests": 13853,
+    "synthetic_Adam_updates": 10000,
+    "LBFGS_accepted_iterations": 3509,
+    "formal_training_updates": 0,
     "real_data_reads": 0
   }
 }
