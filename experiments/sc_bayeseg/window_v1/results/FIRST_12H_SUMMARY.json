@@ -1,0 +1,1001 @@
+{
+  "scope": "First 12 hours from original R-START chain start; formal endpoints selected by original elapsed<=43200; retrospective audit/delivery may occur later",
+  "start_Asia_Shanghai": "2026-10-20T16:34:39.257801+08:00",
+  "cutoff_Asia_Shanghai": "2026-10-21T04:34:39.257801+08:00",
+  "stage_count": 32,
+  "formal_optimizer_applications_including_invalid": 98400,
+  "known_invalid_optimizer_applications": 1000,
+  "other_optimizer_applications": 97400,
+  "scalar_temperature_fits": 55,
+  "temperature_objective_evaluations": 680,
+  "newton_acceptances": 12,
+  "extra_class_and_MC_gradient_requests": 162,
+  "qualification_gradient_requests_additional": 2,
+  "stages": [
+    {
+      "stage": "R_START",
+      "original_elapsed_seconds": 170.920236825943,
+      "costs": {
+        "optimizer": 2400,
+        "training_reverse": 2400,
+        "train_theta": 3600,
+        "train_g_forward": 7200,
+        "train_g_image_forward": 57600,
+        "train_encoder_image_forward": 19200,
+        "train_direct_image_forward": 14400,
+        "evaluation_theta": 288,
+        "evaluation_g_forward": 2304,
+        "evaluation_encoder_image_forward": 96,
+        "evaluation_direct_image_forward": 96,
+        "qualification_g_forward": 4,
+        "qualification_reverse": 2
+      },
+      "optimizer_applications": 2400,
+      "audit_status": "PASS",
+      "result_file": "R_START.json",
+      "audit_file": "R_START_AUDIT.json"
+    },
+    {
+      "stage": "SUPERVISED_QUALIFICATION",
+      "original_elapsed_seconds": 1038.8267407417297,
+      "costs": {
+        "optimizer": 3000,
+        "reverse": 3000,
+        "train_image_forward": 24000,
+        "prediction_image_forward": 96,
+        "generator_forward": 0,
+        "valid_optimizer": 2000,
+        "invalid_optimizer": 1000,
+        "invalid_Adam_steps": [
+          1600,
+          2600
+        ]
+      },
+      "optimizer_applications": 3000,
+      "audit_status": "PASS",
+      "result_file": "SUPERVISED_QUALIFICATION.json",
+      "audit_file": "SUPERVISED_QUALIFICATION_AUDIT.json"
+    },
+    {
+      "stage": "UNET_QUALIFICATION",
+      "original_elapsed_seconds": 2781.183978319168,
+      "costs": {
+        "optimizer": 3000,
+        "reverse": 3000,
+        "train_image_forward": 24000,
+        "prediction_image_forward": 48,
+        "generator_forward": 0,
+        "diagnostic_encoder_image_forward": 72,
+        "diagnostic_posterior_batch_forward": 9
+      },
+      "optimizer_applications": 3000,
+      "audit_status": "PASS",
+      "result_file": "UNET_QUALIFICATION.json",
+      "audit_file": "UNET_QUALIFICATION_AUDIT.json"
+    },
+    {
+      "stage": "SAME_FAMILY_ORACLE",
+      "original_elapsed_seconds": 3567.9721245765686,
+      "costs": {
+        "local_optimizer": 2000,
+        "local_reverse": 2000,
+        "global_optimizer": 0,
+        "train_theta": 4000,
+        "train_g_forward": 8000,
+        "train_g_image_forward": 64000,
+        "evaluation_theta": 224,
+        "evaluation_g_forward": 1792,
+        "evaluation_g_image_forward": 14336,
+        "initialization_encoder_image_forward": 8,
+        "initialization_posterior_batch_forward": 1,
+        "reused_prediction_records": 1
+      },
+      "optimizer_applications": 2000,
+      "audit_status": "PASS",
+      "result_file": "SAME_FAMILY_ORACLE.json",
+      "audit_file": "SAME_FAMILY_ORACLE_AUDIT.json"
+    },
+    {
+      "stage": "ORACLE_READOUT",
+      "original_elapsed_seconds": 3823.7652962207794,
+      "costs": {
+        "optimizer": 0,
+        "reverse": 0,
+        "generator_forward": 578,
+        "generator_image_forward": 4624,
+        "theta": 64,
+        "reused_predictions": 2
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "ORACLE_READOUT.json",
+      "audit_file": "ORACLE_READOUT_AUDIT.json"
+    },
+    {
+      "stage": "CLASS_KL_GRADIENT",
+      "original_elapsed_seconds": 4208.439613819122,
+      "costs": {
+        "reverse": 34,
+        "optimizer": 0,
+        "parameter_applications": 0,
+        "generator_forward": 64,
+        "generator_image_forward": 512,
+        "theta": 32
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "CLASS_KL_GRADIENT.json",
+      "audit_file": "CLASS_KL_GRADIENT_AUDIT.json"
+    },
+    {
+      "stage": "ORACLE_GRADIENT_MC",
+      "original_elapsed_seconds": 4379.806041955948,
+      "costs": {
+        "reverse": 128,
+        "optimizer": 0,
+        "parameter_applications": 0,
+        "generator_forward": 128,
+        "generator_image_forward": 1024,
+        "theta": 16
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "ORACLE_GRADIENT_MC.json",
+      "audit_file": "ORACLE_GRADIENT_MC_AUDIT.json"
+    },
+    {
+      "stage": "ORACLE_ALLOCATION",
+      "original_elapsed_seconds": 4610.865146636963,
+      "costs": {
+        "local_optimizer": 2000,
+        "local_reverse": 2000,
+        "global_optimizer": 0,
+        "train_theta": 6000,
+        "train_g_forward": 8000,
+        "train_g_image_forward": 64000,
+        "evaluation_theta": 128,
+        "evaluation_g_forward": 1024,
+        "evaluation_g_image_forward": 8192,
+        "reused_baseline_records": 4
+      },
+      "optimizer_applications": 2000,
+      "audit_status": "PASS",
+      "result_file": "ORACLE_ALLOCATION.json",
+      "audit_file": "ORACLE_ALLOCATION_AUDIT.json"
+    },
+    {
+      "stage": "ORACLE_CLASS_RISK",
+      "original_elapsed_seconds": 5214.014897346497,
+      "costs": {
+        "local_optimizer": 1000,
+        "local_reverse": 1000,
+        "global_optimizer": 0,
+        "train_theta": 2000,
+        "train_g_forward": 4000,
+        "train_g_image_forward": 32000,
+        "evaluation_theta": 64,
+        "evaluation_g_forward": 512,
+        "evaluation_g_image_forward": 4096,
+        "reused_baseline_records": 2
+      },
+      "optimizer_applications": 1000,
+      "audit_status": "PASS",
+      "result_file": "ORACLE_CLASS_RISK.json",
+      "audit_file": "ORACLE_CLASS_RISK_AUDIT.json"
+    },
+    {
+      "stage": "CLASS3_BIAS_FEASIBILITY",
+      "original_elapsed_seconds": 7190.274135112762,
+      "costs": {
+        "scans": 20,
+        "repeated_event_scans": 0,
+        "recovered_curves": 20,
+        "repair_direct_curve_checks": 160,
+        "optimizer": 0,
+        "reverse": 0,
+        "generator_forward": 0,
+        "parameter_applications": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "CLASS3_BIAS_FEASIBILITY.json",
+      "audit_file": "CLASS3_BIAS_FEASIBILITY_AUDIT.json"
+    },
+    {
+      "stage": "FIXED_BIAS_MC",
+      "original_elapsed_seconds": 7362.534623622894,
+      "costs": {
+        "generator_forward": 4096,
+        "generator_image_forward": 32768,
+        "theta": 512,
+        "reverse": 0,
+        "optimizer": 0,
+        "parameter_applications": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "FIXED_BIAS_MC.json",
+      "audit_file": "FIXED_BIAS_MC_AUDIT.json"
+    },
+    {
+      "stage": "G_BIAS_CLOSURE",
+      "original_elapsed_seconds": 10378.368623495102,
+      "costs": {
+        "cache_G_forward": 512,
+        "cache_Theta": 64,
+        "evaluation_G_forward": 4096,
+        "evaluation_Theta": 512,
+        "engineering_G_forward": 8,
+        "engineering_Theta": 8,
+        "newton_acceptances": 12,
+        "backtracking_candidates": 12,
+        "derivative_passes": 16,
+        "objective_only_passes": 12,
+        "Adam_optimizer": 0,
+        "network_reverse": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "G_BIAS_CLOSURE.json",
+      "audit_file": "G_BIAS_CLOSURE_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_VALIDATION",
+      "original_elapsed_seconds": 10563.490017652512,
+      "costs": {
+        "optimizer": 15000,
+        "reverse": 15000,
+        "training_encoder_images": 30000,
+        "train_theta": 10000,
+        "train_g_forward": 20000,
+        "train_g_image_forward": 40000,
+        "validation_encoder_images": 1088,
+        "validation_g_forward": 4448,
+        "validation_g_image_forward": 8704,
+        "validation_theta": 1112,
+        "validation_label_phase_reads": 92
+      },
+      "optimizer_applications": 15000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_VALIDATION.json",
+      "audit_file": "PATIENT_VALIDATION_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_G3",
+      "original_elapsed_seconds": 11255.86830830574,
+      "costs": {
+        "optimizer": 5000,
+        "reverse": 5000,
+        "training_encoder_images": 10000,
+        "train_theta": 10000,
+        "train_g_forward": 20000,
+        "train_g_image_forward": 40000,
+        "validation_encoder_images": 544,
+        "validation_g_forward": 4448,
+        "validation_g_image_forward": 8704,
+        "validation_theta": 1112,
+        "validation_label_phase_reads": 46
+      },
+      "optimizer_applications": 5000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_G3.json",
+      "audit_file": "PATIENT_G3_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_E2E",
+      "original_elapsed_seconds": 13713.834421873093,
+      "costs": {
+        "optimizer": 10000,
+        "reverse": 10000,
+        "training_encoder_images": 20000,
+        "train_theta": 10000,
+        "train_g_forward": 20000,
+        "train_g_image_forward": 40000,
+        "validation_encoder_images": 1088,
+        "validation_g_forward": 4448,
+        "validation_g_image_forward": 8704,
+        "validation_theta": 1112,
+        "validation_label_phase_reads": 92
+      },
+      "optimizer_applications": 10000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_E2E.json",
+      "audit_file": "PATIENT_E2E_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_TRAIN_READOUT",
+      "original_elapsed_seconds": 14988.513948440552,
+      "costs": {
+        "optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 920,
+        "G_forward": 3840,
+        "G_image_forward": 7360,
+        "Theta": 960,
+        "training_label_phase_reads": 80,
+        "new_validation_forwards": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_TRAIN_READOUT.json",
+      "audit_file": "PATIENT_TRAIN_READOUT_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_P0_SUPPLEMENT",
+      "original_elapsed_seconds": 15809.593728780746,
+      "costs": {
+        "optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 460,
+        "G_forward": 3840,
+        "Theta": 960,
+        "G_image_forward": 7360,
+        "sealed_phase_reads": 264,
+        "native_label_phase_reads": 40,
+        "new_validation_forwards": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_P0_SUPPLEMENT.json",
+      "audit_file": "PATIENT_P0_SUPPLEMENT_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_LOSS_FACTOR",
+      "original_elapsed_seconds": 17343.530838251114,
+      "costs": {
+        "optimizer": 20000,
+        "reverse": 20000,
+        "training_encoder_images": 40000,
+        "train_theta": 30000,
+        "train_g_forward": 60000,
+        "train_g_image_forward": 120000,
+        "evaluation_encoder_images": 3096,
+        "evaluation_g_forward": 19104,
+        "evaluation_g_image_forward": 37152,
+        "evaluation_theta": 4776,
+        "label_phase_reads": 264,
+        "reconstruction_phases": 264
+      },
+      "optimizer_applications": 20000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_LOSS_FACTOR.json",
+      "audit_file": "PATIENT_LOSS_FACTOR_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_R32",
+      "original_elapsed_seconds": 19418.769758224487,
+      "costs": {
+        "optimizer": 5000,
+        "reverse": 5000,
+        "training_encoder_images": 10000,
+        "train_theta": 10000,
+        "train_g_forward": 20000,
+        "train_g_image_forward": 40000,
+        "evaluation_encoder_images": 774,
+        "evaluation_g_forward": 6368,
+        "evaluation_g_image_forward": 12384,
+        "evaluation_theta": 1592,
+        "label_phase_reads": 66,
+        "reconstruction_phases": 66
+      },
+      "optimizer_applications": 5000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_R32.json",
+      "audit_file": "PATIENT_R32_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_R32_KL",
+      "original_elapsed_seconds": 21358.052464962006,
+      "costs": {
+        "optimizer": 10000,
+        "reverse": 10000,
+        "training_encoder_images": 20000,
+        "train_theta": 20000,
+        "train_g_forward": 40000,
+        "train_g_image_forward": 80000,
+        "evaluation_encoder_images": 1548,
+        "evaluation_g_forward": 12736,
+        "evaluation_g_image_forward": 24768,
+        "evaluation_theta": 3184,
+        "label_phase_reads": 132,
+        "reconstruction_phases": 132
+      },
+      "optimizer_applications": 10000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_R32_KL.json",
+      "audit_file": "PATIENT_R32_KL_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_R32_MC",
+      "original_elapsed_seconds": 22807.74373602867,
+      "costs": {
+        "optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 4352,
+        "theta": 8896,
+        "g_forward": 35584,
+        "g_image_forward": 69632,
+        "label_phases": 368,
+        "reconstruction_phases": 368
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_R32_MC.json",
+      "audit_file": "PATIENT_R32_MC_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_PRO_DIAGNOSTICS",
+      "original_elapsed_seconds": 24809.987202644348,
+      "costs": {
+        "network_optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 2322,
+        "theta": 4776,
+        "g_forward": 23880,
+        "g_image_forward": 46440,
+        "rv_reconstruction_batches": 23880,
+        "label_phase_reads": 448,
+        "cache_reconstruction_phases": 462,
+        "temperature_fits": 20,
+        "temperature_function_evaluations": 245,
+        "temperature_reconstruction_phases": 184,
+        "temperature_argmax_changes": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_PRO_DIAGNOSTICS.json",
+      "audit_file": "PATIENT_PRO_DIAGNOSTICS_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_POINT_ESTIMATE",
+      "original_elapsed_seconds": 26729.70347595215,
+      "costs": {
+        "optimizer": 10000,
+        "reverse": 10000,
+        "training_encoder_images": 20000,
+        "train_theta": 20000,
+        "train_g_forward": 20000,
+        "train_g_image_forward": 40000,
+        "evaluation_encoder_images": 1548,
+        "evaluation_g_forward": 3184,
+        "evaluation_g_image_forward": 6192,
+        "evaluation_theta": 3184,
+        "label_phase_reads": 132,
+        "reconstruction_phases": 132
+      },
+      "optimizer_applications": 10000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_POINT_ESTIMATE.json",
+      "audit_file": "PATIENT_POINT_ESTIMATE_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_POINT_CALIBRATION",
+      "original_elapsed_seconds": 27779.379380702972,
+      "costs": {
+        "network_optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 0,
+        "G_forward": 0,
+        "Theta": 0,
+        "raw_reconstruction_phases": 92,
+        "temperature_reconstruction_phases": 92,
+        "label_phase_reads": 184,
+        "temperature_fits": 10,
+        "temperature_function_evaluations": 125,
+        "argmax_changes": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_POINT_CALIBRATION.json",
+      "audit_file": "PATIENT_POINT_CALIBRATION_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_RELIABILITY",
+      "original_elapsed_seconds": 30329.290488243103,
+      "costs": {
+        "network_optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 1632,
+        "Theta": 3336,
+        "G_forward": 6672,
+        "G_image_forward": 13056,
+        "prediction_phase_sets": 184,
+        "score_map_interpolations": 230,
+        "cached_probability_restorations": 368,
+        "label_phase_reads": 184,
+        "temperature_fits": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_RELIABILITY.json",
+      "audit_file": "PATIENT_RELIABILITY_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_CASE_AGGREGATION",
+      "original_elapsed_seconds": 31981.77445912361,
+      "costs": {
+        "network_optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 0,
+        "G_forward": 0,
+        "Theta": 0,
+        "new_GT_label_reads": 0,
+        "temperature_fits": 0,
+        "cached_probability_restorations": 184,
+        "score_map_interpolations": 230,
+        "model_phase_sets": 184,
+        "prior_patient_label_table_reads": 1
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_CASE_AGGREGATION.json",
+      "audit_file": "PATIENT_CASE_AGGREGATION_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_GLOBAL_MEAN",
+      "original_elapsed_seconds": 33386.229622364044,
+      "costs": {
+        "optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 774,
+        "G_forward": 398,
+        "G_image_forward": 774,
+        "Theta_draws": 0,
+        "local_draws": 0,
+        "label_phase_reads": 66,
+        "reconstruction_phases": 66
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_GLOBAL_MEAN.json",
+      "audit_file": "PATIENT_GLOBAL_MEAN_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_GLOBAL_MEAN_TRAINING",
+      "original_elapsed_seconds": 35089.4296746254,
+      "costs": {
+        "optimizer": 5000,
+        "reverse": 5000,
+        "training_encoder_images": 10000,
+        "train_theta": 0,
+        "train_g_forward": 5000,
+        "train_g_image_forward": 10000,
+        "evaluation_encoder_images": 774,
+        "evaluation_g_forward": 398,
+        "evaluation_g_image_forward": 774,
+        "evaluation_theta": 0,
+        "label_phase_reads": 66,
+        "reconstruction_phases": 66
+      },
+      "optimizer_applications": 5000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_GLOBAL_MEAN_TRAINING.json",
+      "audit_file": "PATIENT_GLOBAL_MEAN_TRAINING_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_GLOBAL_MEAN_CALIBRATION",
+      "original_elapsed_seconds": 36727.74412345886,
+      "costs": {
+        "network_optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 0,
+        "G_forward": 0,
+        "Theta": 0,
+        "raw_reconstruction_phases": 92,
+        "temperature_reconstruction_phases": 92,
+        "label_phase_reads": 184,
+        "temperature_fits": 10,
+        "temperature_function_evaluations": 119,
+        "argmax_changes": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_GLOBAL_MEAN_CALIBRATION.json",
+      "audit_file": "PATIENT_GLOBAL_MEAN_CALIBRATION_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_UNET_SMOOTHING",
+      "original_elapsed_seconds": 39062.29752135277,
+      "costs": {
+        "optimizer": 5000,
+        "reverse": 5000,
+        "training_encoder_images": 10000,
+        "training_logit_forwards": 5000,
+        "evaluation_encoder_images": 774,
+        "evaluation_logit_forwards": 398,
+        "G_forward": 0,
+        "Theta": 0,
+        "local_draws": 0,
+        "reconstruction_phases": 66,
+        "temperature_reconstruction_phases": 46,
+        "label_phase_reads": 112,
+        "temperature_fits": 5,
+        "temperature_function_evaluations": 65,
+        "argmax_changes": 0
+      },
+      "optimizer_applications": 5000,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_UNET_SMOOTHING.json",
+      "audit_file": "PATIENT_UNET_SMOOTHING_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_FLIP_READOUT",
+      "original_elapsed_seconds": 41096.53985476494,
+      "costs": {
+        "optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 3264,
+        "direct_logit_forwards": 834,
+        "G_forward": 834,
+        "G_image_forward": 1632,
+        "Theta": 0,
+        "local_draws": 0,
+        "baseline_probability_reads": 92,
+        "new_transformed_phase_views": 276,
+        "raw_reconstruction_phases": 92,
+        "temperature_reconstruction_phases": 92,
+        "label_phase_reads": 184,
+        "temperature_fits": 10,
+        "temperature_function_evaluations": 126,
+        "argmax_changes": 0
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_FLIP_READOUT.json",
+      "audit_file": "PATIENT_FLIP_READOUT_AUDIT.json"
+    },
+    {
+      "stage": "PATIENT_TTA_TRANSITIONS",
+      "original_elapsed_seconds": 42464.04737210274,
+      "costs": {
+        "network_optimizer": 0,
+        "reverse": 0,
+        "encoder_images": 0,
+        "G_forward": 0,
+        "Theta": 0,
+        "temperature_fits": 0,
+        "cached_probability_restorations": 184,
+        "label_phase_reads": 46,
+        "model_phase_pairs": 92
+      },
+      "optimizer_applications": 0,
+      "audit_status": "PASS",
+      "result_file": "PATIENT_TTA_TRANSITIONS.json",
+      "audit_file": "PATIENT_TTA_TRANSITIONS_AUDIT.json"
+    }
+  ],
+  "patient_models": [
+    {
+      "model": "G_K0",
+      "source": "PATIENT_LOSS_FACTOR",
+      "train_Dice": 0.8586160560843146,
+      "val_Dice": 0.6724607826317871,
+      "class_Dice": [
+        0.7890520652824246,
+        0.6356942979902871,
+        0.5926359846226493
+      ],
+      "empty_class_phases": 5,
+      "NLL": 0.06223852750134356,
+      "Brier": 0.020541469667492818,
+      "calibrated_NLL": null,
+      "calibrated_Brier": null
+    },
+    {
+      "model": "G_D",
+      "source": "PATIENT_LOSS_FACTOR",
+      "train_Dice": 0.8571200910702018,
+      "val_Dice": 0.6715464130542955,
+      "class_Dice": [
+        0.7907210350705165,
+        0.6334590474226751,
+        0.5904591566696953
+      ],
+      "empty_class_phases": 4,
+      "NLL": 0.06522445296068523,
+      "Brier": 0.021798033040001306,
+      "calibrated_NLL": null,
+      "calibrated_Brier": null
+    },
+    {
+      "model": "G_DK0",
+      "source": "PATIENT_LOSS_FACTOR",
+      "train_Dice": 0.8547408089909251,
+      "val_Dice": 0.6902348237453612,
+      "class_Dice": [
+        0.8022690197754386,
+        0.6410262870818619,
+        0.627409164378783
+      ],
+      "empty_class_phases": 0,
+      "NLL": 0.10573754826684584,
+      "Brier": 0.023327550957144876,
+      "calibrated_NLL": null,
+      "calibrated_Brier": null
+    },
+    {
+      "model": "U_D",
+      "source": "PATIENT_LOSS_FACTOR",
+      "train_Dice": 0.9020173910623939,
+      "val_Dice": 0.707044016248137,
+      "class_Dice": [
+        0.8150978506801683,
+        0.6941238759420687,
+        0.6119103221221742
+      ],
+      "empty_class_phases": 1,
+      "NLL": 0.08414484946238417,
+      "Brier": 0.021631829211315075,
+      "calibrated_NLL": 0.052061026492537354,
+      "calibrated_Brier": 0.02039799887125764
+    },
+    {
+      "model": "R32_K0",
+      "source": "PATIENT_R32",
+      "train_Dice": 0.8826082186706383,
+      "val_Dice": 0.7086894956263834,
+      "class_Dice": [
+        0.82215800378609,
+        0.685477727265483,
+        0.6184327558275775
+      ],
+      "empty_class_phases": 2,
+      "NLL": 0.10530048797672605,
+      "Brier": 0.021506617280067877,
+      "calibrated_NLL": 0.05789120329015832,
+      "calibrated_Brier": 0.0208510355968407
+    },
+    {
+      "model": "R32_K1",
+      "source": "PATIENT_R32_KL",
+      "train_Dice": 0.879762176374648,
+      "val_Dice": 0.7048812507981704,
+      "class_Dice": [
+        0.8237823095079806,
+        0.6694661526003142,
+        0.621395290286216
+      ],
+      "empty_class_phases": 2,
+      "NLL": 0.05352319367991473,
+      "Brier": 0.020502700220072556,
+      "calibrated_NLL": 0.048849730722752276,
+      "calibrated_Brier": 0.020629335158110967
+    },
+    {
+      "model": "R32_KQ",
+      "source": "PATIENT_R32_KL",
+      "train_Dice": 0.8783838285283739,
+      "val_Dice": 0.7040851736064095,
+      "class_Dice": [
+        0.8029248485717119,
+        0.6796002062240977,
+        0.6297304660234194
+      ],
+      "empty_class_phases": 1,
+      "NLL": 0.06174824223322103,
+      "Brier": 0.021207331757709575,
+      "calibrated_NLL": 0.04939400027816002,
+      "calibrated_Brier": 0.020853248167531438
+    },
+    {
+      "model": "D0",
+      "source": "PATIENT_POINT_ESTIMATE",
+      "train_Dice": 0.8765120489949526,
+      "val_Dice": 0.721912274180677,
+      "class_Dice": [
+        0.8343133765451894,
+        0.7027063134402426,
+        0.6287171325565991
+      ],
+      "empty_class_phases": 1,
+      "NLL": 0.10314175666014676,
+      "Brier": 0.02080056048353178,
+      "calibrated_NLL": 0.05755411295593702,
+      "calibrated_Brier": 0.02020458129945714
+    },
+    {
+      "model": "Dmu",
+      "source": "PATIENT_POINT_ESTIMATE",
+      "train_Dice": 0.876558233241975,
+      "val_Dice": 0.7138687572279568,
+      "class_Dice": [
+        0.8303339799042616,
+        0.6887175517164463,
+        0.6225547400631626
+      ],
+      "empty_class_phases": 1,
+      "NLL": 0.05111819381294478,
+      "Brier": 0.02049324928978776,
+      "calibrated_NLL": 0.046591819864392085,
+      "calibrated_Brier": 0.020559964446661562
+    },
+    {
+      "model": "MEAN_READ",
+      "source": "PATIENT_GLOBAL_MEAN",
+      "train_Dice": 0.8803285026320291,
+      "val_Dice": 0.7202113567414459,
+      "class_Dice": [
+        0.8330019595636339,
+        0.6978622801855612,
+        0.6297698304751428
+      ],
+      "empty_class_phases": 1,
+      "NLL": 0.05262992045191389,
+      "Brier": 0.02034960161265094,
+      "calibrated_NLL": 0.04580863607630375,
+      "calibrated_Brier": 0.0202252469341175
+    },
+    {
+      "model": "Mmu",
+      "source": "PATIENT_GLOBAL_MEAN_TRAINING",
+      "train_Dice": 0.8842840392074731,
+      "val_Dice": 0.7028416354903004,
+      "class_Dice": [
+        0.8218233602211716,
+        0.673897942045955,
+        0.6128036042037742
+      ],
+      "empty_class_phases": 0,
+      "NLL": 0.05568620328614274,
+      "Brier": 0.02067535578368108,
+      "calibrated_NLL": 0.046528665664804666,
+      "calibrated_Brier": 0.020432487135601987
+    },
+    {
+      "model": "U_D_LS",
+      "source": "PATIENT_UNET_SMOOTHING",
+      "train_Dice": 0.893615399642911,
+      "val_Dice": 0.7101547921435108,
+      "class_Dice": [
+        0.8109131818439078,
+        0.6918056017529226,
+        0.6277455928337019
+      ],
+      "empty_class_phases": 0,
+      "NLL": 0.0842519582926898,
+      "Brier": 0.02371932384967071,
+      "calibrated_NLL": 0.07945063494902369,
+      "calibrated_Brier": 0.02277133623251346
+    },
+    {
+      "model": "U_D_TTA",
+      "source": "PATIENT_FLIP_READOUT",
+      "train_Dice": null,
+      "val_Dice": 0.7219488679828999,
+      "class_Dice": [
+        0.8259592903622043,
+        0.7086977222286884,
+        0.6311895913578067
+      ],
+      "empty_class_phases": 3,
+      "NLL": 0.05722393861541612,
+      "Brier": 0.0183833503489456,
+      "calibrated_NLL": 0.04185334551339976,
+      "calibrated_Brier": 0.018011148818550905
+    },
+    {
+      "model": "G_MEAN_TTA",
+      "source": "PATIENT_FLIP_READOUT",
+      "train_Dice": null,
+      "val_Dice": 0.7275631644038628,
+      "class_Dice": [
+        0.8410961610331661,
+        0.7123581950777357,
+        0.6292351371006868
+      ],
+      "empty_class_phases": 2,
+      "NLL": 0.041552667601895056,
+      "Brier": 0.018176033413398084,
+      "calibrated_NLL": 0.03956906598831096,
+      "calibrated_Brier": 0.018263058359017578
+    }
+  ],
+  "primary_flip_interaction": {
+    "mean_difference": -0.007553044072345768,
+    "patient_bootstrap95": [
+      -0.020884303518235885,
+      0.006236639937292669
+    ]
+  },
+  "primary_reliability": {
+    "valid_pairs": 23,
+    "mean_difference": 0.017295392469958423,
+    "patient_bootstrap95": [
+      0.013731100630464184,
+      0.022680358827577095
+    ]
+  },
+  "transition_summary": {
+    "U_D": {
+      "classes": [
+        {
+          "class_index": 1,
+          "identity_empty_phases": 0,
+          "TTA_empty_phases": 0,
+          "new_empty_lost_GT_TP": 0,
+          "new_empty_removed_only_FP": 0,
+          "lost_TP": 14297,
+          "gained_TP": 22259,
+          "removed_FP": 27984,
+          "added_FP": 19261
+        },
+        {
+          "class_index": 2,
+          "identity_empty_phases": 0,
+          "TTA_empty_phases": 0,
+          "new_empty_lost_GT_TP": 0,
+          "new_empty_removed_only_FP": 0,
+          "lost_TP": 24506,
+          "gained_TP": 26860,
+          "removed_FP": 62703,
+          "added_FP": 30155
+        },
+        {
+          "class_index": 3,
+          "identity_empty_phases": 1,
+          "TTA_empty_phases": 3,
+          "new_empty_lost_GT_TP": 0,
+          "new_empty_removed_only_FP": 2,
+          "lost_TP": 30187,
+          "gained_TP": 45188,
+          "removed_FP": 38695,
+          "added_FP": 17194
+        }
+      ]
+    },
+    "G_MEAN": {
+      "classes": [
+        {
+          "class_index": 1,
+          "identity_empty_phases": 0,
+          "TTA_empty_phases": 0,
+          "new_empty_lost_GT_TP": 0,
+          "new_empty_removed_only_FP": 0,
+          "lost_TP": 14227,
+          "gained_TP": 12210,
+          "removed_FP": 34749,
+          "added_FP": 15877
+        },
+        {
+          "class_index": 2,
+          "identity_empty_phases": 0,
+          "TTA_empty_phases": 0,
+          "new_empty_lost_GT_TP": 0,
+          "new_empty_removed_only_FP": 0,
+          "lost_TP": 22234,
+          "gained_TP": 28736,
+          "removed_FP": 69495,
+          "added_FP": 46909
+        },
+        {
+          "class_index": 3,
+          "identity_empty_phases": 1,
+          "TTA_empty_phases": 2,
+          "new_empty_lost_GT_TP": 1,
+          "new_empty_removed_only_FP": 0,
+          "lost_TP": 48766,
+          "gained_TP": 29811,
+          "removed_FP": 46463,
+          "added_FP": 8255
+        }
+      ]
+    }
+  },
+  "data": {
+    "train_patients": 10,
+    "train_slices": 230,
+    "development_patients": 23,
+    "development_phases": 46,
+    "development_slices": 544,
+    "test_patients_accessed": 0,
+    "unlabeled_or_target_accessed": false,
+    "repeated_development": true
+  },
+  "limitations": [
+    "Conditioned G path omits F and is not official/full BayeSeg",
+    "No confirmatory superiority/equivalence/noninferiority design",
+    "Patient bootstrap does not cover training-seed or MC uncertainty",
+    "TTA individual-view arrays were not saved or independently network-replayed",
+    "Later cleanup and current resource status are not counted as first-12-hour experiments"
+  ]
+}
