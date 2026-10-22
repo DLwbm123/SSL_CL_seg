@@ -1,0 +1,3 @@
+# 当前状态
+
+P0完成：NOT_IDENTIFIABLE；工程与一次调用审计PASS。正式阶段未启动。详见 DECODER_FUNCTION_P0_REPORT_ZH.md。
