@@ -1,0 +1,254 @@
+{
+  "groups": {
+    "global-generative": [
+      {
+        "name": "mean",
+        "shape": [
+          238
+        ],
+        "count": 238,
+        "bytes": 1904,
+        "trainable": true
+      },
+      {
+        "name": "raw_scale",
+        "shape": [
+          238
+        ],
+        "count": 238,
+        "bytes": 1904,
+        "trainable": true
+      }
+    ],
+    "amortizer": [
+      {
+        "name": "enc.weight",
+        "shape": [
+          4,
+          1,
+          3,
+          3
+        ],
+        "count": 36,
+        "bytes": 288,
+        "trainable": true
+      },
+      {
+        "name": "enc.bias",
+        "shape": [
+          4
+        ],
+        "count": 4,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "down.weight",
+        "shape": [
+          4,
+          4,
+          3,
+          3
+        ],
+        "count": 144,
+        "bytes": 1152,
+        "trainable": true
+      },
+      {
+        "name": "down.bias",
+        "shape": [
+          4
+        ],
+        "count": 4,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "up.weight",
+        "shape": [
+          4,
+          8,
+          3,
+          3
+        ],
+        "count": 288,
+        "bytes": 2304,
+        "trainable": true
+      },
+      {
+        "name": "up.bias",
+        "shape": [
+          4
+        ],
+        "count": 4,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "c_head.weight",
+        "shape": [
+          4,
+          11
+        ],
+        "count": 44,
+        "bytes": 352,
+        "trainable": true
+      },
+      {
+        "name": "c_head.bias",
+        "shape": [
+          4
+        ],
+        "count": 4,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "r_head.weight",
+        "shape": [
+          4,
+          13,
+          1,
+          1
+        ],
+        "count": 52,
+        "bytes": 416,
+        "trainable": true
+      },
+      {
+        "name": "r_head.bias",
+        "shape": [
+          4
+        ],
+        "count": 4,
+        "bytes": 32,
+        "trainable": true
+      },
+      {
+        "name": "s_head.weight",
+        "shape": [
+          2,
+          15,
+          1,
+          1
+        ],
+        "count": 30,
+        "bytes": 240,
+        "trainable": true
+      },
+      {
+        "name": "s_head.bias",
+        "shape": [
+          2
+        ],
+        "count": 2,
+        "bytes": 16,
+        "trainable": true
+      },
+      {
+        "name": "b_head.weight",
+        "shape": [
+          30,
+          15
+        ],
+        "count": 450,
+        "bytes": 3600,
+        "trainable": true
+      },
+      {
+        "name": "b_head.bias",
+        "shape": [
+          30
+        ],
+        "count": 30,
+        "bytes": 240,
+        "trainable": true
+      }
+    ]
+  },
+  "global_random_dimensions": 238,
+  "global_layout": [
+    [
+      "g.c.weight",
+      [
+        4,
+        2
+      ]
+    ],
+    [
+      "g.c.bias",
+      [
+        4
+      ]
+    ],
+    [
+      "g.r.weight",
+      [
+        4,
+        2,
+        3,
+        3
+      ]
+    ],
+    [
+      "g.r.bias",
+      [
+        4
+      ]
+    ],
+    [
+      "g.out.weight",
+      [
+        1,
+        4,
+        3,
+        3
+      ]
+    ],
+    [
+      "g.out.bias",
+      [
+        1
+      ]
+    ],
+    [
+      "f.in.weight",
+      [
+        4,
+        2,
+        3,
+        3
+      ]
+    ],
+    [
+      "f.in.bias",
+      [
+        4
+      ]
+    ],
+    [
+      "f.out.weight",
+      [
+        1,
+        4,
+        3,
+        3
+      ]
+    ],
+    [
+      "f.out.bias",
+      [
+        1
+      ]
+    ]
+  ],
+  "projection_hash": "b9ef4b4301095c6de7a5049300a130a221051fbcbb14007917a5bbbe083f6ffd",
+  "fixed_basis_hash": "31c88a7909f4ae03a589a0bff788643b95e160dd3a369087a9be1bea54e012d4",
+  "fixed_basis_order": "u-major,v-minor,exclude-DC,orthonormal-DCT-II",
+  "global_scale_floor_fraction": 0.0,
+  "domain_memory_bytes": {
+    "synthetic1": 3952,
+    "synthetic2": 3952
+  },
+  "no_generative_bypass": true
+}

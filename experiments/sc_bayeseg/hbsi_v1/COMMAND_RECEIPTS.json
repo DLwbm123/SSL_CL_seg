@@ -1,0 +1,65 @@
+{
+  "neutral_execution_argv": [
+    "bash",
+    "/tmp/.q20261022a/a.sh",
+    "/tmp/.q20261022a/python",
+    "/tmp/.q20261022a/run.py"
+  ],
+  "effective_cli": "worker COMMAND --output PRIVATE_NAS_OUTPUT --run-id RUN_ID",
+  "private_output_path_redacted": true,
+  "commands": [
+    {
+      "command": "unit-tests",
+      "run_id": "attempt01",
+      "exit_code": 1,
+      "status": "17 PASS, T15 FAIL"
+    },
+    {
+      "command": "unit-tests",
+      "run_id": "attempt02",
+      "exit_code": 0,
+      "status": "18 PASS"
+    },
+    {
+      "command": "unit-tests",
+      "run_id": "attempt03",
+      "exit_code": 0,
+      "status": "18 PASS with RGB/HDF5/noise-stream checks"
+    },
+    {
+      "command": "synthetic-qualification",
+      "run_id": "demo01",
+      "exit_code": 2,
+      "status": "OPTIMIZATION_FAIL / INFERENCE_UNQUALIFIED"
+    },
+    {
+      "command": "validate-spec",
+      "exit_code": 0
+    },
+    {
+      "command": "real-smoke",
+      "exit_code": 0,
+      "status": "NOT_RUN; no protocol"
+    },
+    {
+      "command": "train-source",
+      "exit_code": 2,
+      "status": "missing authorization/protocol/budget rejected"
+    },
+    {
+      "command": "train-stream",
+      "exit_code": 2,
+      "status": "missing authorization/protocol/budget rejected"
+    },
+    {
+      "command": "evaluate",
+      "exit_code": 1,
+      "status": "missing protocol rejected"
+    },
+    {
+      "command": "unit-tests --test-id T01 --test-id T02 --test-id T04 --test-id T16",
+      "run_id": "mapping04",
+      "exit_code": 0
+    }
+  ]
+}
