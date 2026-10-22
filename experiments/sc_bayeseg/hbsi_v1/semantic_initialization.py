@@ -8,9 +8,10 @@ from .objective import SequentialObjective
 
 
 class SemanticCurriculum(SequentialObjective):
-    def __init__(self, state, refiner, warm_steps=800, boundary=800):
+    def __init__(self, state, refiner, warm_steps=800, boundary=800, balanced_ce=False):
         super().__init__(state, refiner)
         self.warm_steps, self.boundary = warm_steps, boundary
+        self.balanced_ce = balanced_ce
 
     def estimate(self, batchL, batchU, counts, generator, sampling_weights=None):
         s = self.state
@@ -34,6 +35,14 @@ class SemanticCurriculum(SequentialObjective):
         prob = s.model.class_probabilities(z, theta)
         truth = obs['y_obs'].to(prob.dtype)
         ce = -(truth * prob.clamp_min(1e-12).log()).sum(1).mean()
+        if self.balanced_ce:
+            # Equal weight for each observed class, without inventing foreground
+            # in an empty slice. Per-image class means avoid pixel-count dominance.
+            counts = truth.flatten(2).sum(2)
+            terms = -(truth * prob.clamp_min(1e-12).log()).flatten(2).sum(2)
+            present = counts > 0
+            ce = ((terms / counts.clamp_min(1)) * present).sum(1) / present.sum(1)
+            ce = ce.mean()
         fg, y = prob[:, 1], truth[:, 1]
         dice_loss = (1 - (2*(fg*y).flatten(1).sum(1)+1e-6) /
                      (fg.flatten(1).sum(1)+y.flatten(1).sum(1)+1e-6)).mean()
