@@ -51,6 +51,18 @@ class StreamState:
         self.steps = 0
         self.runtime = None
 
+    def to_device(self, device):
+        for module in (self.q, self.projection, self.model, self.phi, self.prior,
+                       self.current, *self.memories.values()):
+            if module is not None:
+                module.to(device)
+        if self.optimizer is not None:
+            for values in self.optimizer.state.values():
+                for key, value in values.items():
+                    if isinstance(value, torch.Tensor) and key != 'step':
+                        values[key] = value.to(device)
+        return self
+
     def begin_task(self, stage_id, manifest_hash, evidence=None):
         if self.active is not None or stage_id in self.receipts or not stage_id:
             raise ValueError('active or duplicate stage')

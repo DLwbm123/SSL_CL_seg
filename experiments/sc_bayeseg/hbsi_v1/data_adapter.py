@@ -57,7 +57,9 @@ def confined(root, relative):
 class CurrentTrainingData:
     """Uniform slice sampling; no augmentation, previous-domain records, or U label capability."""
     @staticmethod
-    def inspect_manifest(root, dataset, domain, data_version, seed=0):
+    def inspect_manifest(root, dataset, domain, data_version, seed=0, roles=('L', 'U')):
+        if tuple(roles) not in (('L',), ('L', 'U')):
+            raise ValueError('supported training roles are L-only or L+U')
         manifest = Path(root) / 'manifests' / 'training' / f'lcrseg_v1_seed{seed}.csv'
         raw = manifest.read_bytes()
         selected, observations = [], []
@@ -65,7 +67,7 @@ class CurrentTrainingData:
             if row['dataset'] != dataset or row.get('site_or_vendor', row.get('site')) != domain:
                 continue
             role = {'train_labeled': 'L', 'train_unlabeled': 'U'}.get(row['primary_20pct_split'])
-            if role is None:
+            if role is None or role not in roles:
                 continue
             if role == 'U' and any(row.get(k) for k in ('label_h5_relpath', 'hidden_label', 'diagnostic_path')):
                 raise PermissionError('unlabeled manifest contains hidden label capability')

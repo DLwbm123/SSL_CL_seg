@@ -34,7 +34,10 @@ def require_resume(state, ledger, name, steps, seconds, protocol_fingerprint, ch
 
 
 def run_stage(state, data, ledger, counter, name, steps, seconds, protocol_fingerprint,
-              resume_checkpoint=None, after_checkpoint=None, real_data=True, batch_size=1):
+              resume_checkpoint=None, after_checkpoint=None, real_data=True, batch_size=1,
+              data_seed=None, checkpoint_stride=None):
+    if checkpoint_stride is not None and (type(checkpoint_stride) is not int or checkpoint_stride < 1):
+        raise ValueError('checkpoint stride')
     if state.active is None or state.active.get('evidence') != data.evidence:
         raise PermissionError('active evidence differs from training data')
     if resume_checkpoint is not None:
@@ -58,9 +61,18 @@ def run_stage(state, data, ledger, counter, name, steps, seconds, protocol_finge
         def checkpoint(current, filename):
             path = out / filename
             current.save(path)
+            previous_path = session.get('checkpoint')
             session.update(completed_steps=current.steps, checkpoint=str(path.resolve()),
                            checkpoint_fingerprint=file_fingerprint(path))
             ledger.flush()
+            # Delete only this attempt's superseded temporary recovery snapshot,
+            # after the new snapshot and ledger have been durably published.
+            if checkpoint_stride is not None and previous_path is not None:
+                previous = Path(previous_path)
+                if previous.parent == out.resolve() and previous.name.startswith('ACTIVE_STEP_'):
+                    step = int(previous.stem.removeprefix('ACTIVE_STEP_'))
+                    if step % checkpoint_stride and previous != path.resolve():
+                        previous.unlink()
             return path
         latest = checkpoint(state, 'ACTIVE_INITIAL.pt')
         objective = SequentialObjective(state, Refiner(state.model, state.phi, counter))
@@ -70,8 +82,17 @@ def run_stage(state, data, ledger, counter, name, steps, seconds, protocol_finge
                     ledger.check()
                     if time.time() >= state.runtime['deadline']:
                         raise BudgetExceeded('original training deadline expired')
-                    L = data.batch('L', batch_size, state.generator)
-                    U = data.batch('U', batch_size, state.generator)
+                    # Independent, step-indexed data streams keep L exposure paired across arms
+                    # and reproduce the schedule after resume despite different model RNG use.
+                    lg = state.generator if data_seed is None else torch.Generator().manual_seed(data_seed + 2 * state.steps)
+                    ug = state.generator if data_seed is None else torch.Generator().manual_seed(data_seed + 2 * state.steps + 1)
+                    L = data.batch('L', batch_size, lg)
+                    U = data.batch('U', batch_size, ug)
+                    for batch in (L, U):
+                        if batch is not None:
+                            batch['x'] = batch['x'].to(state.q.mean.device)
+                            if 'observations' in batch:
+                                batch['observations'] = {k:v.to(state.q.mean.device) for k,v in batch['observations'].items()}
                     loss, parts = objective.estimate(L, U, data.counts, state.generator)
                     state.optimizer.zero_grad()
                     loss.backward()

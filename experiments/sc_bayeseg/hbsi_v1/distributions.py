@@ -55,4 +55,5 @@ def finite(x, name):
 def randn(shape, like, generator):
     if generator is None:
         raise ValueError('explicit generator required')
-    return torch.randn(shape, dtype=like.dtype, device=like.device, generator=generator)
+    # A CPU RNG keeps training/checkpoint streams portable across CPU and CUDA.
+    return torch.randn(shape, dtype=like.dtype, device=generator.device, generator=generator).to(like.device)

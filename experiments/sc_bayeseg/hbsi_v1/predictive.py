@@ -143,7 +143,7 @@ class Predictor:
                     streams={'fit': seed, 'importance': seed + 1000003, 'outer': seed + 2000003})
         return p, diag
 
-    def predict_image_only(self, x, state, budget=None, slice_chunk=None):
+    def predict_image_only(self, x, state, budget=None, slice_chunk=None, return_repeats=False):
         budget = budget or InferenceBudget()
         if x.ndim != 4 or len(x) == 0:
             raise ValueError('expected nonempty volume [slices,C,H,W]')
@@ -168,7 +168,10 @@ class Predictor:
                               (m <= budget.max_global_weight))
                         for _, d in results for v, m in zip(d['global_ess'], d['global_max_weight']))
         passed = budget.repeats >= 3 and local_ok and global_ok and spread <= budget.max_probability_range and zspread <= budget.max_log_evidence_range
-        return dict(probability=ps[0], repeats=[d for _, d in results], probability_range=spread,
+        result = dict(probability=ps[0], repeats=[d for _, d in results], probability_range=spread,
                     log_evidence_range=zspread, status='SYNTHETIC_INFERENCE_PASS' if passed else 'INFERENCE_UNQUALIFIED',
                     formal_qualification='NOT_QUALIFIED', state_unchanged=True, budget=vars(budget),
                     gates={'local':local_ok,'global':global_ok,'all_domains_retained':True})
+        if return_repeats:
+            result['repeat_probabilities'] = ps
+        return result
