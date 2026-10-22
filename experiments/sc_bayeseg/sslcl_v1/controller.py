@@ -41,7 +41,7 @@ def run(s):
             available = [g for g in s['gpus'] if g not in [v[1] for v in active.values()]]
             for name, family, stage, use_u, history in tasks:
                 if name in attempted or not available: continue
-                if stage == 'target' and s.get('source_gate_tasks'):
+                if stage == 'target' and s.get('source_gate_tasks') and name in s.get('source_gate_targets', [v[0] for v in tasks]):
                     required = s['source_gate_tasks']
                     if not all(finished.get(n, {}).get('exit_code') == 0 for n in required): continue
                     from .fundus import source_gate

@@ -12,18 +12,19 @@ from lcrseg.models.unet import UNet2D
 class Model(nn.Module):
     def __init__(self, family, num_classes=4, input_channels=1):
         super().__init__()
-        assert input_channels == 1 or family == "U"
+        assert family in ("B", "U") and input_channels >= 1
+        self.input_channels = input_channels
         self.family = family
-        self.backbone = build_model() if num_classes == 4 else UNet2D(input_channels, num_classes, base_channels=16)
+        self.backbone = build_model() if num_classes == 4 and input_channels == 1 else UNet2D(input_channels, num_classes, base_channels=16)
         self.backbone.projection_head = nn.Identity()
         if family == 'B':
             self.backbone.segmentation_head.requires_grad_(False)
             self.hc = nn.Sequential(nn.Linear(16, 32), nn.ReLU(), nn.Linear(32, 32))
             self.hr = nn.Conv2d(16, 32, 1)
-            self.hs = nn.Conv2d(16, 2, 1)
-            self.hm = nn.Conv2d(16, 2, 1)
+            self.hs = nn.Conv2d(16, 2 * input_channels, 1)
+            self.hm = nn.Conv2d(16, 2 * input_channels, 1)
             self.g = nn.ModuleList([nn.Linear(16, 256), nn.Conv2d(16, 16, 3, padding=1), nn.Conv2d(16, num_classes - 1, 3, padding=1)])
-            self.f = nn.Sequential(nn.Conv2d(num_classes, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, 1, 3, padding=1))
+            self.f = nn.Sequential(nn.Conv2d(num_classes, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, 16, 3, padding=1), nn.ReLU(), nn.Conv2d(16, input_channels, 3, padding=1))
             self.register_buffer('logdet', torch.tensor(sar_logdet(128)))
 
     @staticmethod
@@ -51,15 +52,23 @@ class Model(nn.Module):
                 structure = self.f(l.softmax(1)); structure = structure - structure.mean((2, 3), keepdim=True)
                 logq = sum(normal_log_prob(z[k], *q[k]) for k in ('s', 'm'))
                 joint = student_log_prob(x - z['s'] - z['m'], .1)
-                joint = joint + student_log_prob(sar(z['s'] - structure), .2) + self.logdet
+                joint = joint + student_log_prob(sar(z['s'] - structure), .2) + self.input_channels * self.logdet
                 joint = joint + normal_log_prob(z['m'], torch.zeros_like(z['m']), torch.full_like(z['m'], math.log(.5)))
                 kl = sum(.5 * (m.square() + (2 * sd).exp() - 1 - 2 * sd).flatten(1).sum(1) for m, sd in (q['c'], q['r']))
                 losses.append(((logq - joint + kl) / (128 * 128)).mean())
         return logits, torch.stack(losses).mean() if losses else a.sum() * 0
 
     def probability(self, x):
+        native_size = x.shape[-2:]
+        resize = self.family == "B" and native_size != (128, 128)
+        if resize:
+            x = F.interpolate(x, (128, 128), mode="bilinear", align_corners=False)
         logits, _ = self(x, image_loss=False)
-        return torch.stack([l.softmax(1) for l in logits]).mean(0)
+        p = torch.stack([l.softmax(1) for l in logits]).mean(0)
+        if resize:
+            p = F.interpolate(p, native_size, mode="bilinear", align_corners=False)
+            p = p / p.sum(1, keepdim=True)
+        return p
 
 
 def supervised(logits, target, dice_weight=1.):
