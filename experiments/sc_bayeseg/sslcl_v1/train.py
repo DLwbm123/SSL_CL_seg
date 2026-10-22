@@ -49,7 +49,8 @@ def step_loss(model, teacher, x, y, u, current, history, step, seed=163, history
         with torch.no_grad():
             teacher_input = view(u, current, history if history_u else None, 500000 + step, seed, style_mode if history_u else "history", history_strength) if teacher_on_strong else u
             target = teacher.probability(teacher_input)
-        lu, iu = model(view(u, current, history if history_u else None, 500000 + step, seed, style_mode if history_u else "history", history_strength))
+        strong_u = view(u, current, history if history_u else None, 500000 + step, seed, style_mode if history_u else "history", history_strength)
+        lu, iu = model(strong_u)
         p = torch.stack([v.softmax(1) for v in lu]).mean(0).clamp_min(1e-8)
         consistency = (target * (target.clamp_min(1e-8).log() - p.log())).sum(1).mean()
         unlabeled_img = iu
@@ -58,7 +59,14 @@ def step_loss(model, teacher, x, y, u, current, history, step, seed=163, history
     if fixed_jl is not None:
         assert u is not None and fixed_jl >= 0 and ju_weight >= 0 and consistency_weight >= 0
         loss = sup + fixed_jl * labeled_img + ju_weight * unlabeled_img + consistency_weight * min(step / 1000, 1) * consistency
-    return loss, dict(labeled_image_objective=float(labeled_img.detach()), unlabeled_image_objective=float(unlabeled_img.detach()), supervised=float(sup.detach()), image_objective=float(img.detach()), soft_KL=float(consistency.detach()))
+    perturbation = {}
+    if x.shape[1] == 3:
+        from .fundus import fov
+        for name, original, changed in [("L", x, strong)] + ([("U", u, strong_u)] if u is not None else []):
+            mask = fov(original).expand_as(original)
+            delta = (changed-original)[mask]
+            perturbation[name] = dict(L1=float(delta.abs().mean()), RMS=float(delta.square().mean().sqrt()), saturation_fraction=float(((changed[mask] == 0) | (changed[mask] == 1)).float().mean()))
+    return loss, dict(perturbation=perturbation, labeled_image_objective=float(labeled_img.detach()), unlabeled_image_objective=float(unlabeled_img.detach()), supervised=float(sup.detach()), image_objective=float(img.detach()), soft_KL=float(consistency.detach()))
 
 
 def aggregate(rows, num_classes=4, expected_phases=2):
@@ -84,6 +92,9 @@ def aggregate(rows, num_classes=4, expected_phases=2):
 
 @torch.no_grad()
 def evaluate(model, s, out):
+    if s.get("dataset") == "fundus":
+        from .fundus import evaluate_fundus
+        return evaluate_fundus(model, s, out)
     previous = model.training; model.eval(); results = {}; private = {}
     rng = capture_rng_state()
     try:
@@ -132,10 +143,10 @@ def run(s):
         model.load_state_dict(source['model']); teacher.load_state_dict(source['teacher']); restore_rng_state(source['rng'])
         write(out / 'ARRIVAL.json', json.loads((Path(s['source']).parent / 'METRICS.json').read_text()))
     seed = s.get('training_seed', s.get('schedule_seed', 163))
-    if 'training_seed' in s:
+    if 'training_seed' in s and not (s.get('dataset') == 'fundus' and s['stage'] == 'target'):
         torch.manual_seed(seed); np.random.seed(seed)
-    schedule = Schedule(s['data'], s['domain'], seed=seed, dataset=s.get('dataset', 'mnms'))
-    unlabeled = Schedule(s['data'], s['domain'], True, seed=seed, dataset=s.get('dataset', 'mnms')) if s['use_u'] else None
+    schedule = Schedule(s['data'], s['domain'], seed=seed, dataset=s.get('dataset', 'mnms'), image_size=s.get('image_size', 128))
+    unlabeled = Schedule(s['data'], s['domain'], True, seed=seed, dataset=s.get('dataset', 'mnms'), image_size=s.get('image_size', 128)) if s['use_u'] else None
     current = s['styles'][s['domain']]
     history = s['styles'][s.get('source_domain', 'Siemens')] if s['history'] else None
     def snapshot():

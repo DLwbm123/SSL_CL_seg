@@ -11,9 +11,10 @@ from lcrseg.data.h5_dataset import load_training_records
 
 
 class Schedule:
-    def __init__(self, data, site, unlabeled=False, seed=163, dataset="mnms"):
+    def __init__(self, data, site, unlabeled=False, seed=163, dataset="mnms", image_size=128):
         cls = H5UnlabeledDataset if unlabeled else H5LabeledDataset
         self.ds = cls(data, seed=0, dataset=dataset, sites=[site], transform=None)
+        self.image_size = image_size
         self.unlabeled = unlabeled
         self.seed = seed
         self.groups = defaultdict(lambda: defaultdict(list))
@@ -30,8 +31,8 @@ class Schedule:
             ids = phases[phase]; index = ids[int(torch.randint(len(ids), (), generator=g))]
             item = self.ds[index]; indices.append(index)
             key = 'weak_image' if self.unlabeled else 'image'
-            x = F.interpolate(item[key][None], (128, 128), mode='bilinear', align_corners=False)[0]
-            y = None if self.unlabeled else F.interpolate(item['label'][None, None].float(), (128, 128), mode='nearest')[0, 0].long()
+            x = F.interpolate(item[key][None], (self.image_size, self.image_size), mode='bilinear', align_corners=False)[0]
+            y = None if self.unlabeled else F.interpolate(item['label'][None, None].float(), (self.image_size, self.image_size), mode='nearest')[0, 0].long()
             for dim in (-1, -2):
                 if int(torch.randint(2, (), generator=g)):
                     x = x.flip(dim); y = y.flip(dim) if y is not None else y
@@ -42,6 +43,9 @@ class Schedule:
 
 @torch.no_grad()
 def style(schedule):
+    if schedule.ds.records[0]["dataset"] == "fundus":
+        from .fundus import rgb_style
+        return rgb_style(schedule)
     # Equal patients, equal phases, equal slices. Only labelled training images.
     patients = []
     for patient in schedule.patients:
@@ -58,6 +62,9 @@ def style(schedule):
 
 
 def view(x, current, history, step, seed=163, mode="history", history_strength=1.0):
+    if len(current) == 6:
+        from .fundus import rgb_view
+        return rgb_view(x, current, history, step, seed, mode, history_strength)
     g = torch.Generator(device=x.device).manual_seed(seed * 1000 + step)
     params = torch.rand((len(x), 5, 1, 1), device=x.device, generator=g)
     assert mode in ('history', 'wide', 'reverse')

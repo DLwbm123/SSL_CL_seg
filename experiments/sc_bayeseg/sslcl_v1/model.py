@@ -10,10 +10,11 @@ from lcrseg.models.unet import UNet2D
 
 
 class Model(nn.Module):
-    def __init__(self, family, num_classes=4):
+    def __init__(self, family, num_classes=4, input_channels=1):
         super().__init__()
+        assert input_channels == 1 or family == "U"
         self.family = family
-        self.backbone = build_model() if num_classes == 4 else UNet2D(1, num_classes, base_channels=16)
+        self.backbone = build_model() if num_classes == 4 else UNet2D(input_channels, num_classes, base_channels=16)
         self.backbone.projection_head = nn.Identity()
         if family == 'B':
             self.backbone.segmentation_head.requires_grad_(False)
@@ -74,7 +75,7 @@ def supervised(logits, target):
 
 def initialize(s, family):
     torch.manual_seed(s.get("initialization_seed", 163))
-    model = Model(family, s.get('num_classes', 4))
+    model = Model(family, s.get('num_classes', 4), s.get('input_channels', 1))
     if s.get('initialization') == 'scratch':
         return model.cuda()
     ck = torch.load(s['pretrain'], map_location='cpu', weights_only=False)

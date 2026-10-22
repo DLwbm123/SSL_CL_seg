@@ -30,7 +30,7 @@ def run(s):
     try:
         while True:
             elapsed = time.time() - s['original_started_unix']
-            total = sum(int(subprocess.check_output(['du', '-s', '-B1', p]).decode().split()[0]) for p in (s['root'], s['ops']))
+            total = sum(int(subprocess.check_output(['du', '-s', '-B1', p]).decode().split()[0]) for p in (s['root'], s['ops'], *s.get('budget_extra_paths', [])))
             if elapsed >= 85500 or total >= 49_000_000_000:
                 stop('wall_clock_limit' if elapsed >= 85500 else 'storage_limit'); return
             for name, (p, gpu) in list(active.items()):
@@ -41,6 +41,13 @@ def run(s):
             available = [g for g in s['gpus'] if g not in [v[1] for v in active.values()]]
             for name, family, stage, use_u, history in tasks:
                 if name in attempted or not available: continue
+                if stage == 'target' and s.get('source_gate_tasks'):
+                    required = s['source_gate_tasks']
+                    if not all(finished.get(n, {}).get('exit_code') == 0 for n in required): continue
+                    from .fundus import source_gate
+                    gate = source_gate(root, required, s['source_domain'])
+                    write(root / 'SOURCE_GATE.json', gate)
+                    if gate['status'] != 'PASS': continue
                 source_task = s.get('source_tasks', {}).get(name, 'source_' + family)
                 source_checkpoint = external.get(name, external.get(family))
                 if stage == 'target' and not source_checkpoint and finished.get(source_task, {}).get('exit_code') != 0: continue
