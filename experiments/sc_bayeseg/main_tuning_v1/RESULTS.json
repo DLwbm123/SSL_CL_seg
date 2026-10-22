@@ -1,0 +1,624 @@
+{
+  "controller": {
+    "status": "COMPLETE",
+    "active": {},
+    "finished": {
+      "P0": {
+        "exit_code": 0,
+        "gpu": "GPU-9ea1d4ae-e403-cb3b-29b3-c63b083bf8ff"
+      },
+      "F0": {
+        "exit_code": 0,
+        "gpu": "GPU-fb8f2a01-3910-41f5-39f3-9ce03b7cb7dd"
+      },
+      "C1": {
+        "exit_code": 0,
+        "gpu": "GPU-4924bbd8-4082-3f4c-b4fb-78ca930122ca"
+      },
+      "C0": {
+        "exit_code": 0,
+        "gpu": "GPU-4b56ab28-a018-652c-b8f6-2d9dc3dc45d2"
+      },
+      "P1": {
+        "exit_code": 0,
+        "gpu": "GPU-9ea1d4ae-e403-cb3b-29b3-c63b083bf8ff"
+      },
+      "F1": {
+        "exit_code": 0,
+        "gpu": "GPU-fb8f2a01-3910-41f5-39f3-9ce03b7cb7dd"
+      },
+      "C2": {
+        "exit_code": 0,
+        "gpu": "GPU-4924bbd8-4082-3f4c-b4fb-78ca930122ca"
+      },
+      "P2": {
+        "exit_code": 0,
+        "gpu": "GPU-4b56ab28-a018-652c-b8f6-2d9dc3dc45d2"
+      },
+      "F2": {
+        "exit_code": 0,
+        "gpu": "GPU-9ea1d4ae-e403-cb3b-29b3-c63b083bf8ff"
+      }
+    },
+    "attempted": [
+      "C0",
+      "C1",
+      "C2",
+      "F0",
+      "F1",
+      "F2",
+      "P0",
+      "P1",
+      "P2"
+    ],
+    "elapsed": 19183.571548223495,
+    "allocated_bytes": 2041819136
+  },
+  "exit": {
+    "exit_code": 0,
+    "blocked": [],
+    "finished": {
+      "P0": {
+        "exit_code": 0,
+        "gpu": "GPU-9ea1d4ae-e403-cb3b-29b3-c63b083bf8ff"
+      },
+      "F0": {
+        "exit_code": 0,
+        "gpu": "GPU-fb8f2a01-3910-41f5-39f3-9ce03b7cb7dd"
+      },
+      "C1": {
+        "exit_code": 0,
+        "gpu": "GPU-4924bbd8-4082-3f4c-b4fb-78ca930122ca"
+      },
+      "C0": {
+        "exit_code": 0,
+        "gpu": "GPU-4b56ab28-a018-652c-b8f6-2d9dc3dc45d2"
+      },
+      "P1": {
+        "exit_code": 0,
+        "gpu": "GPU-9ea1d4ae-e403-cb3b-29b3-c63b083bf8ff"
+      },
+      "F1": {
+        "exit_code": 0,
+        "gpu": "GPU-fb8f2a01-3910-41f5-39f3-9ce03b7cb7dd"
+      },
+      "C2": {
+        "exit_code": 0,
+        "gpu": "GPU-4924bbd8-4082-3f4c-b4fb-78ca930122ca"
+      },
+      "P2": {
+        "exit_code": 0,
+        "gpu": "GPU-4b56ab28-a018-652c-b8f6-2d9dc3dc45d2"
+      },
+      "F2": {
+        "exit_code": 0,
+        "gpu": "GPU-9ea1d4ae-e403-cb3b-29b3-c63b083bf8ff"
+      }
+    }
+  },
+  "integration": {
+    "status": "PASS",
+    "default_scalar_and_all_gradients_exact": true,
+    "three_channel_class_shapes": true,
+    "normalized_predictions": true,
+    "posterior_transfer_exact": true,
+    "optimizer_updates": 0,
+    "synthetic_only": true
+  },
+  "configurations": {
+    "C0": {
+      "dataset": "mnms",
+      "source_domain": "Siemens",
+      "domains": [
+        "Siemens"
+      ],
+      "num_classes": 4,
+      "input_channels": 1,
+      "data": "/data/bmw/SSL_CL_seg/data",
+      "learning_rate": 3e-05
+    },
+    "P0": {
+      "dataset": "prostate",
+      "source_domain": "RUNMC",
+      "domains": [
+        "RUNMC"
+      ],
+      "num_classes": 2,
+      "input_channels": 1,
+      "data": "/data/bmw/SSL_CL_seg/data",
+      "learning_rate": 3e-05
+    },
+    "F0": {
+      "dataset": "fundus",
+      "source_domain": "REFUGE",
+      "domains": [
+        "REFUGE"
+      ],
+      "num_classes": 3,
+      "input_channels": 3,
+      "data": "/data/bmw/SSL_CL_seg/data_fundus_20261022",
+      "learning_rate": 3e-05
+    },
+    "C1": {
+      "dataset": "mnms",
+      "source_domain": "Siemens",
+      "domains": [
+        "Siemens"
+      ],
+      "num_classes": 4,
+      "input_channels": 1,
+      "data": "/data/bmw/SSL_CL_seg/data",
+      "learning_rate": 0.0001
+    },
+    "P1": {
+      "dataset": "prostate",
+      "source_domain": "RUNMC",
+      "domains": [
+        "RUNMC"
+      ],
+      "num_classes": 2,
+      "input_channels": 1,
+      "data": "/data/bmw/SSL_CL_seg/data",
+      "learning_rate": 0.0001
+    },
+    "F1": {
+      "dataset": "fundus",
+      "source_domain": "REFUGE",
+      "domains": [
+        "REFUGE"
+      ],
+      "num_classes": 3,
+      "input_channels": 3,
+      "data": "/data/bmw/SSL_CL_seg/data_fundus_20261022",
+      "learning_rate": 0.0001
+    },
+    "C2": {
+      "dataset": "mnms",
+      "source_domain": "Siemens",
+      "domains": [
+        "Siemens"
+      ],
+      "num_classes": 4,
+      "input_channels": 1,
+      "data": "/data/bmw/SSL_CL_seg/data",
+      "learning_rate": 0.0003
+    },
+    "P2": {
+      "dataset": "prostate",
+      "source_domain": "RUNMC",
+      "domains": [
+        "RUNMC"
+      ],
+      "num_classes": 2,
+      "input_channels": 1,
+      "data": "/data/bmw/SSL_CL_seg/data",
+      "learning_rate": 0.0003
+    },
+    "F2": {
+      "dataset": "fundus",
+      "source_domain": "REFUGE",
+      "domains": [
+        "REFUGE"
+      ],
+      "num_classes": 3,
+      "input_channels": 3,
+      "data": "/data/bmw/SSL_CL_seg/data_fundus_20261022",
+      "learning_rate": 0.0003
+    }
+  },
+  "results": {
+    "C0": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "Siemens": {
+          "mean_Dice": 0.0,
+          "class_Dice": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "NLL": 0.23054369227286833,
+          "Brier": 0.08147021050077535,
+          "HD95_penalized_mm": 181.03618456933938,
+          "empty_prediction_failures": [
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 9992,
+        "density_images": 9992,
+        "generator_draws": 2392,
+        "refinement_derivatives": 834,
+        "predictive_images": 544
+      },
+      "elapsed": 151.04105019569397,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "P0": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "RUNMC": {
+          "mean_Dice": 0.0,
+          "class_Dice": [
+            0.0
+          ],
+          "NLL": 0.15824690854031068,
+          "Brier": 0.07149883439287712,
+          "HD95_penalized_mm": 119.07029973245821,
+          "empty_prediction_failures": [
+            0
+          ]
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 4800,
+        "density_images": 4800,
+        "generator_draws": 1187,
+        "refinement_derivatives": 111,
+        "predictive_images": 72
+      },
+      "elapsed": 83.43809628486633,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "F0": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "REFUGE": {
+          "mean_Dice": 0.0,
+          "lower_decile_Dice": 0.0,
+          "images": 100,
+          "patient_keys": 100,
+          "identity_caveat": "Manifest keys; cross-eye patient linkage unverified.",
+          "cup": {
+            "Dice": 0.0,
+            "HD95_penalized_pixels": 223.38049042256583,
+            "empty_prediction_failures": 0,
+            "GT_absent": 0
+          },
+          "disc": {
+            "Dice": 0.0,
+            "HD95_penalized_pixels": 246.37534460046635,
+            "empty_prediction_failures": 0,
+            "GT_absent": 0
+          },
+          "rim": {
+            "Dice": 0.0,
+            "HD95_penalized_pixels": 397.5185540441954,
+            "empty_prediction_failures": 37,
+            "GT_absent": 0
+          },
+          "NLL": 0.39076045310559493,
+          "Brier": 0.2055471653808136
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 5108,
+        "density_images": 5108,
+        "generator_draws": 1502,
+        "refinement_derivatives": 300,
+        "predictive_images": 100
+      },
+      "elapsed": 93.39065527915955,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "C1": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "Siemens": {
+          "mean_Dice": 0.0,
+          "class_Dice": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "NLL": 0.18902910641070547,
+          "Brier": 0.06706109205271427,
+          "HD95_penalized_mm": 281.9194281812911,
+          "empty_prediction_failures": [
+            1,
+            26,
+            0
+          ]
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 9992,
+        "density_images": 9992,
+        "generator_draws": 2392,
+        "refinement_derivatives": 834,
+        "predictive_images": 544
+      },
+      "elapsed": 140.21953201293945,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "P1": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "RUNMC": {
+          "mean_Dice": 0.0,
+          "class_Dice": [
+            0.0
+          ],
+          "NLL": 0.15382496437602466,
+          "Brier": 0.06970091904560514,
+          "HD95_penalized_mm": 220.6786808131058,
+          "empty_prediction_failures": [
+            2
+          ]
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 4800,
+        "density_images": 4800,
+        "generator_draws": 1187,
+        "refinement_derivatives": 111,
+        "predictive_images": 72
+      },
+      "elapsed": 80.04588031768799,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "F1": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "REFUGE": {
+          "mean_Dice": 0.0015776284127931297,
+          "lower_decile_Dice": 0.0,
+          "images": 100,
+          "patient_keys": 100,
+          "identity_caveat": "Manifest keys; cross-eye patient linkage unverified.",
+          "cup": {
+            "Dice": 0.0,
+            "HD95_penalized_pixels": 223.99709037397355,
+            "empty_prediction_failures": 0,
+            "GT_absent": 0
+          },
+          "disc": {
+            "Dice": 0.0031552568255862595,
+            "HD95_penalized_pixels": 200.4029992596083,
+            "empty_prediction_failures": 0,
+            "GT_absent": 0
+          },
+          "rim": {
+            "Dice": 0.0018355395057309564,
+            "HD95_penalized_pixels": 187.35006602621502,
+            "empty_prediction_failures": 23,
+            "GT_absent": 0
+          },
+          "NLL": 0.3151744116837419,
+          "Brier": 0.17310902416504445
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 5108,
+        "density_images": 5108,
+        "generator_draws": 1502,
+        "refinement_derivatives": 300,
+        "predictive_images": 100
+      },
+      "elapsed": 90.88803291320801,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "C2": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "Siemens": {
+          "mean_Dice": 0.0,
+          "class_Dice": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "NLL": 0.17827748574763658,
+          "Brier": 0.06309648740984272,
+          "HD95_penalized_mm": 407.63003040553735,
+          "empty_prediction_failures": [
+            19,
+            42,
+            40
+          ]
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 9992,
+        "density_images": 9992,
+        "generator_draws": 2392,
+        "refinement_derivatives": 834,
+        "predictive_images": 544
+      },
+      "elapsed": 117.12805104255676,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "P2": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "RUNMC": {
+          "mean_Dice": 0.0,
+          "class_Dice": [
+            0.0
+          ],
+          "NLL": 0.15199366564958416,
+          "Brier": 0.06932228576304451,
+          "HD95_penalized_mm": 253.20690265386372,
+          "empty_prediction_failures": [
+            3
+          ]
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 4800,
+        "density_images": 4800,
+        "generator_draws": 1187,
+        "refinement_derivatives": 111,
+        "predictive_images": 72
+      },
+      "elapsed": 59.92764234542847,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    },
+    "F2": {
+      "status": "COMPLETE",
+      "updates": 1000,
+      "engineering_updates": 2,
+      "physical_updates": 1002,
+      "metrics": {
+        "REFUGE": {
+          "mean_Dice": 0.26017725978735906,
+          "lower_decile_Dice": 0.12073668059897136,
+          "images": 100,
+          "patient_keys": 100,
+          "identity_caveat": "Manifest keys; cross-eye patient linkage unverified.",
+          "cup": {
+            "Dice": 0.041516982021741936,
+            "HD95_penalized_pixels": 80.19750829966614,
+            "empty_prediction_failures": 8,
+            "GT_absent": 0
+          },
+          "disc": {
+            "Dice": 0.47883753755297626,
+            "HD95_penalized_pixels": 60.26537258143074,
+            "empty_prediction_failures": 0,
+            "GT_absent": 0
+          },
+          "rim": {
+            "Dice": 0.2887407336657663,
+            "HD95_penalized_pixels": 37.60283311150128,
+            "empty_prediction_failures": 0,
+            "GT_absent": 0
+          },
+          "NLL": 0.23974711462509993,
+          "Brier": 0.13157175373349386
+        }
+      },
+      "source_learnability_gate": false,
+      "model_calls": {
+        "proposal_images": 5108,
+        "density_images": 5108,
+        "generator_draws": 1502,
+        "refinement_derivatives": 300,
+        "predictive_images": 100
+      },
+      "elapsed": 111.44684338569641,
+      "method": "SC_BayeSeg_global_Bayesian_original_objective",
+      "test_access": false
+    }
+  },
+  "qualification": {
+    "C0": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "P0": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "F0": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "C1": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "P1": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "F1": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "C2": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "P2": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    },
+    "F2": {
+      "status": "PASS",
+      "global_bayesian_layers": 6,
+      "global_mean_and_variance_gradients": true,
+      "posterior_as_prior_exact": true,
+      "full_state_golden": true,
+      "engineering_updates": 2
+    }
+  },
+  "decision": "NO_SOURCE_QUALIFIED",
+  "formal_updates": 9000,
+  "engineering_updates": 18
+}
