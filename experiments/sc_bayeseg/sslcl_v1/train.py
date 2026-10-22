@@ -131,6 +131,8 @@ def evaluate(model, s, out):
 
 
 def run(s):
+    steps = s.get('steps', 5000)
+    assert type(steps) is int and 1 <= steps <= 5000
     device = os.environ['CUDA_VISIBLE_DEVICES']
     devices = subprocess.check_output(['nvidia-smi', '--query-gpu=uuid,memory.free', '--format=csv,noheader,nounits'], text=True)
     free = {uuid.strip(): int(memory) for uuid, memory in (line.split(',') for line in devices.splitlines())}
@@ -157,7 +159,7 @@ def run(s):
     try:
         save(out / 'S0000.pt', snapshot())
         started = time.time()
-        for step in range(1, 5001):
+        for step in range(1, steps + 1):
             assert time.time() - s['original_started_unix'] < 85200
             absolute = step + (5000 if s['stage'] == 'target' else 0)
             x, y, indices = schedule.batch(absolute)
@@ -173,7 +175,7 @@ def run(s):
             if step % 50 == 0:
                 write(out / 'STATUS.json', dict(status='TRAINING', step=step, elapsed=time.time()-started))
             if step % 1000 == 0: save(out / f'S{step:04}.pt', snapshot())
-        assert all(int(v['step']) == 5000 for v in opt.state.values())
+        assert all(int(v['step']) == steps for v in opt.state.values())
         metrics = evaluate(model, s, out)
         write(out / 'RESULTS.json', dict(status='COMPLETE', updates=completed, metrics=metrics, use_u=s['use_u'], history=s['history'], test_access=False, elapsed_seconds=time.time()-started))
         write(out / 'STATUS.json', dict(status='COMPLETE', step=completed)); write(out / 'EXIT.json', dict(exit_code=0))
