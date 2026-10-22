@@ -35,7 +35,7 @@ def require_resume(state, ledger, name, steps, seconds, protocol_fingerprint, ch
 
 def run_stage(state, data, ledger, counter, name, steps, seconds, protocol_fingerprint,
               resume_checkpoint=None, after_checkpoint=None, real_data=True, batch_size=1,
-              data_seed=None, checkpoint_stride=None):
+              data_seed=None, checkpoint_stride=None, objective_factory=None):
     if checkpoint_stride is not None and (type(checkpoint_stride) is not int or checkpoint_stride < 1):
         raise ValueError('checkpoint stride')
     if state.active is None or state.active.get('evidence') != data.evidence:
@@ -75,7 +75,7 @@ def run_stage(state, data, ledger, counter, name, steps, seconds, protocol_finge
                         previous.unlink()
             return path
         latest = checkpoint(state, 'ACTIVE_INITIAL.pt')
-        objective = SequentialObjective(state, Refiner(state.model, state.phi, counter))
+        objective = (objective_factory or SequentialObjective)(state, Refiner(state.model, state.phi, counter))
         try:
             with (out / 'PRIVATE_TRAIN_LOG.jsonl').open('x') as log:
                 while state.steps < steps:
@@ -101,8 +101,11 @@ def run_stage(state, data, ledger, counter, name, steps, seconds, protocol_finge
                         raise FloatingPointError('outer gradients')
                     state.optimizer.step()
                     state.steps += 1
-                    for k in ('global_updates', 'domain_updates', 'phi_updates', 'outer_backward_calls'):
-                        counter.add(k)
+                    for group, k in zip(state.optimizer.param_groups,
+                                        ('global_updates', 'domain_updates', 'phi_updates')):
+                        if any(p.grad is not None for p in group['params']):
+                            counter.add(k)
+                    counter.add('outer_backward_calls')
                     n = sum(len(b['x']) for b in (L, U) if b is not None)
                     counter.add('real_train_images' if real_data else 'fixture_train_images', n)
                     counter.add('current_train_images', n)
