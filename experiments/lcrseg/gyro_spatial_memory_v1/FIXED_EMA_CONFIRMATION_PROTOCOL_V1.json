@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "status": "FROZEN_WAITING_FOR_VIEW_STACK_DELIVERY",
+  "target_seeds": [
+    20270501,
+    20270502,
+    20270503
+  ],
+  "source_seed": 163,
+  "source_old_dice_percent": 80.36740663770262,
+  "primary": "fixed final EMA at update 2000",
+  "comparator": "paired final student from same trajectory",
+  "ema_decay": 0.999,
+  "updates_per_stream": 2000,
+  "optimizer_cap": 6096,
+  "old_gate": {
+    "each_stream_mean_delta_pp_min": 0,
+    "each_stream_patient_bootstrap95_lower_pp_min": -0.3
+  },
+  "new_gate": {
+    "each_stream_mean_delta_vs_student_pp_min": -0.2,
+    "each_stream_patient_bootstrap95_lower_pp_min": -0.2,
+    "each_stream_absolute_dice_percent_min": 83
+  },
+  "tail_gate": {
+    "reference": "original source model",
+    "each_stream_declines_over_1pp_max": 2,
+    "each_stream_declines_over_2pp_max": 0,
+    "each_stream_patient_delta_p10_pp_min": -0.5,
+    "decline_counts_no_worse_than_student": true
+  },
+  "bootstrap": {
+    "replicates": 10000,
+    "seed": 163,
+    "unit": "patient, jointly retaining ED and ES"
+  },
+  "all_streams_all_gates_required": true,
+  "validation_reused": true,
+  "independent_source_replication": false,
+  "independent_test_access": false,
+  "hard_timeout_seconds": 28800,
+  "storage_limit_bytes": 4000000000
+}
