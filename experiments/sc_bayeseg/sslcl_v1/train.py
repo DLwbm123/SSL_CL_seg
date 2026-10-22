@@ -28,8 +28,9 @@ def setup():
     torch.manual_seed(163); np.random.seed(163)
 
 
-def optimizer(model):
-    return torch.optim.Adam([p for p in model.parameters() if p.requires_grad], lr=3e-4, betas=(.9, .999), eps=1e-8, weight_decay=0, foreach=False)
+def optimizer(model, lr=3e-4):
+    assert 0 < lr < 1
+    return torch.optim.Adam([p for p in model.parameters() if p.requires_grad], lr=lr, betas=(.9, .999), eps=1e-8, weight_decay=0, foreach=False)
 
 
 @torch.no_grad()
@@ -55,7 +56,8 @@ def step_loss(model, teacher, x, y, u, current, history, step, seed=163, history
         consistency = (target * (target.clamp_min(1e-8).log() - p.log())).sum(1).mean()
         unlabeled_img = iu
         img = (img + iu) / 2
-    loss = sup + .01 * img + min(step / 1000, 1) * consistency
+    assert consistency_weight >= 0
+    loss = sup + .01 * img + consistency_weight * min(step / 1000, 1) * consistency
     if fixed_jl is not None:
         assert u is not None and fixed_jl >= 0 and ju_weight >= 0 and consistency_weight >= 0
         loss = sup + fixed_jl * labeled_img + ju_weight * unlabeled_img + consistency_weight * min(step / 1000, 1) * consistency
@@ -136,12 +138,13 @@ def run(s):
     setup(); out = Path(s['output']); out.mkdir(exist_ok=False)
     write(out / 'CONTEXT.json', s)
     model = initialize(s, s['family']); teacher = copy.deepcopy(model).eval().requires_grad_(False)
-    opt = optimizer(model); completed = 0; source = None
+    opt = optimizer(model, s.get('learning_rate', 3e-4)); completed = 0; source = None
     if s['stage'] == 'target':
         source = torch.load(s['source'], map_location='cpu', weights_only=False)
         assert source['step'] == 5000
         model.load_state_dict(source['model']); teacher.load_state_dict(source['teacher']); restore_rng_state(source['rng'])
         write(out / 'ARRIVAL.json', json.loads((Path(s['source']).parent / 'METRICS.json').read_text()))
+    write(out / 'HYPERPARAMETERS.json', dict(optimizer_lrs=[g['lr'] for g in opt.param_groups], consistency_weight=s.get('consistency_weight', 1.0), fixed_jl=s.get('fixed_jl')))
     seed = s.get('training_seed', s.get('schedule_seed', 163))
     if 'training_seed' in s and not (s.get('dataset') == 'fundus' and s['stage'] == 'target'):
         torch.manual_seed(seed); np.random.seed(seed)
