@@ -62,15 +62,16 @@ class Model(nn.Module):
         return torch.stack([l.softmax(1) for l in logits]).mean(0)
 
 
-def supervised(logits, target):
+def supervised(logits, target, dice_weight=1.):
+    assert dice_weight >= 0
     ce = torch.stack([F.cross_entropy(l, target, reduction='none').mean() for l in logits]).mean()
     p = torch.stack([l.softmax(1) for l in logits]).mean(0)
     if p.shape[1] == 4:
-        return ce + foreground_dice_loss(p, target)
+        return ce + dice_weight * foreground_dice_loss(p, target)
     truth = F.one_hot(target, p.shape[1]).permute(0, 3, 1, 2)[:, 1:].to(p.dtype)
     foreground = p[:, 1:]; count = truth.sum((2, 3)); present = count > 0
     dice = (2 * (foreground * truth).sum((2, 3)) + 1e-6) / (foreground.sum((2, 3)) + count + 1e-6)
-    return ce + (((1 - dice) * present).sum(1) / present.sum(1).clamp_min(1)).mean()
+    return ce + dice_weight * (((1 - dice) * present).sum(1) / present.sum(1).clamp_min(1)).mean()
 
 
 def initialize(s, family):

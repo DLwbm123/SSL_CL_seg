@@ -28,39 +28,44 @@ def setup():
     torch.manual_seed(163); np.random.seed(163)
 
 
-def optimizer(model, lr=3e-4):
+def optimizer(model, lr=3e-4, weight_decay=0, betas=(.9, .999), eps=1e-8):
     assert 0 < lr < 1
-    return torch.optim.Adam([p for p in model.parameters() if p.requires_grad], lr=lr, betas=(.9, .999), eps=1e-8, weight_decay=0, foreach=False)
+    assert weight_decay >= 0 and eps > 0 and all(0 <= b < 1 for b in betas)
+    return torch.optim.Adam([p for p in model.parameters() if p.requires_grad], lr=lr, betas=betas, eps=eps, weight_decay=weight_decay, foreach=False)
 
 
 @torch.no_grad()
-def ema(teacher, model):
-    for a, b in zip(teacher.parameters(), model.parameters()): a.mul_(.99).add_(b, alpha=.01)
+def ema(teacher, model, decay=.99):
+    assert 0 <= decay < 1
+    for a, b in zip(teacher.parameters(), model.parameters()): a.mul_(decay).add_(b, alpha=.01 if decay == .99 else 1-decay)
     for a, b in zip(teacher.buffers(), model.buffers()):
-        if a.is_floating_point(): a.mul_(.99).add_(b, alpha=.01)
+        if a.is_floating_point(): a.mul_(decay).add_(b, alpha=.01 if decay == .99 else 1-decay)
         else: a.copy_(b)
 
 
-def step_loss(model, teacher, x, y, u, current, history, step, seed=163, history_l=True, history_u=True, style_mode="history", fixed_jl=None, ju_weight=0.005, consistency_weight=1.0, history_strength=1.0, teacher_on_strong=False):
+def step_loss(model, teacher, x, y, u, current, history, step, seed=163, history_l=True, history_u=True, style_mode="history", fixed_jl=None, ju_weight=0.005, consistency_weight=1.0, history_strength=1.0, teacher_on_strong=False, ramp_steps=1000, dice_weight=1., augmentation_strength=1., strong_supervision_weight=.5):
     strong = view(x, current, history if history_l else None, step, seed, style_mode if history_l else "history", history_strength)
+    assert ramp_steps > 0 and 0 <= augmentation_strength <= 1 and 0 <= strong_supervision_weight <= 1
+    if augmentation_strength != 1: strong = x + augmentation_strength * (strong - x)
     l1, i1 = model(x); l2, i2 = model(strong)
-    sup = (supervised(l1, y) + supervised(l2, y)) / 2
+    sup = (supervised(l1, y, dice_weight) + supervised(l2, y, dice_weight)) / 2 if strong_supervision_weight == .5 else (1-strong_supervision_weight)*supervised(l1, y, dice_weight) + strong_supervision_weight*supervised(l2, y, dice_weight)
     img = (i1 + i2) / 2; labeled_img = img; unlabeled_img = sup * 0; consistency = sup * 0
     if u is not None:
         with torch.no_grad():
             teacher_input = view(u, current, history if history_u else None, 500000 + step, seed, style_mode if history_u else "history", history_strength) if teacher_on_strong else u
             target = teacher.probability(teacher_input)
         strong_u = view(u, current, history if history_u else None, 500000 + step, seed, style_mode if history_u else "history", history_strength)
+        if augmentation_strength != 1: strong_u = u + augmentation_strength * (strong_u - u)
         lu, iu = model(strong_u)
         p = torch.stack([v.softmax(1) for v in lu]).mean(0).clamp_min(1e-8)
         consistency = (target * (target.clamp_min(1e-8).log() - p.log())).sum(1).mean()
         unlabeled_img = iu
         img = (img + iu) / 2
     assert consistency_weight >= 0
-    loss = sup + .01 * img + consistency_weight * min(step / 1000, 1) * consistency
+    loss = sup + .01 * img + consistency_weight * min(step / ramp_steps, 1) * consistency
     if fixed_jl is not None:
         assert u is not None and fixed_jl >= 0 and ju_weight >= 0 and consistency_weight >= 0
-        loss = sup + fixed_jl * labeled_img + ju_weight * unlabeled_img + consistency_weight * min(step / 1000, 1) * consistency
+        loss = sup + fixed_jl * labeled_img + ju_weight * unlabeled_img + consistency_weight * min(step / ramp_steps, 1) * consistency
     perturbation = {}
     if x.shape[1] == 3:
         from .fundus import fov
@@ -140,7 +145,7 @@ def run(s):
     setup(); out = Path(s['output']); out.mkdir(exist_ok=False)
     write(out / 'CONTEXT.json', s)
     model = initialize(s, s['family']); teacher = copy.deepcopy(model).eval().requires_grad_(False)
-    opt = optimizer(model, s.get('learning_rate', 3e-4)); completed = 0; source = None
+    opt = optimizer(model, s.get('learning_rate', 3e-4), s.get('weight_decay', 0), (s.get('beta1', .9), s.get('beta2', .999)), s.get('adam_eps', 1e-8)); completed = 0; source = None
     if s['stage'] == 'target':
         source = torch.load(s['source'], map_location='cpu', weights_only=False)
         assert source['step'] == 5000
@@ -150,8 +155,8 @@ def run(s):
     seed = s.get('training_seed', s.get('schedule_seed', 163))
     if 'training_seed' in s and not (s.get('dataset') == 'fundus' and s['stage'] == 'target'):
         torch.manual_seed(seed); np.random.seed(seed)
-    schedule = Schedule(s['data'], s['domain'], seed=seed, dataset=s.get('dataset', 'mnms'), image_size=s.get('image_size', 128))
-    unlabeled = Schedule(s['data'], s['domain'], True, seed=seed, dataset=s.get('dataset', 'mnms'), image_size=s.get('image_size', 128)) if s['use_u'] else None
+    schedule = Schedule(s['data'], s['domain'], seed=seed, dataset=s.get('dataset', 'mnms'), image_size=s.get('image_size', 128), batch_size=s.get('batch_size', 2))
+    unlabeled = Schedule(s['data'], s['domain'], True, seed=seed, dataset=s.get('dataset', 'mnms'), image_size=s.get('image_size', 128), batch_size=s.get('batch_size', 2)) if s['use_u'] else None
     current = s['styles'][s['domain']]
     history = s['styles'][s.get('source_domain', 'Siemens')] if s['history'] else None
     def snapshot():
@@ -165,12 +170,13 @@ def run(s):
             x, y, indices = schedule.batch(absolute)
             u = unlabeled.batch(absolute)[0] if unlabeled else None
             opt.zero_grad(set_to_none=True)
-            loss, parts = step_loss(model, teacher, x, y, u, current, history, step, seed, s.get("history_l", True), s.get("history_u", True), s.get("style_mode", "history"), s.get("fixed_jl"), s.get("ju_weight", .005), s.get("consistency_weight", 1.0), s.get("history_strength", 1.0), s.get("teacher_on_strong", False))
+            loss, parts = step_loss(model, teacher, x, y, u, current, history, step, seed, s.get("history_l", True), s.get("history_u", True), s.get("style_mode", "history"), s.get("fixed_jl"), s.get("ju_weight", .005), s.get("consistency_weight", 1.0), s.get("history_strength", 1.0), s.get("teacher_on_strong", False), s.get("ramp_steps", 1000), s.get("dice_weight", 1.), s.get("augmentation_strength", 1.), s.get("strong_supervision_weight", .5))
             assert torch.isfinite(loss), parts
             loss.backward()
             params = [p for p in model.parameters() if p.requires_grad]
             assert all(p.grad is not None and torch.isfinite(p.grad).all() for p in params)
-            norm = float(torch.nn.utils.clip_grad_norm_(params, 1.)); opt.step(); ema(teacher, model); completed = step
+            clip = s.get('gradient_clip', 1.); assert clip > 0
+            norm = float(torch.nn.utils.clip_grad_norm_(params, clip)); opt.step(); ema(teacher, model, s.get('ema_decay', .99)); completed = step
             append(out / 'steps.jsonl', dict(step=step, loss=float(loss.detach()), grad_norm=norm, elapsed=time.time()-started, **parts))
             if step % 50 == 0:
                 write(out / 'STATUS.json', dict(status='TRAINING', step=step, elapsed=time.time()-started))

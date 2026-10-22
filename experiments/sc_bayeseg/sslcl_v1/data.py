@@ -11,9 +11,11 @@ from lcrseg.data.h5_dataset import load_training_records
 
 
 class Schedule:
-    def __init__(self, data, site, unlabeled=False, seed=163, dataset="mnms", image_size=128):
+    def __init__(self, data, site, unlabeled=False, seed=163, dataset="mnms", image_size=128, batch_size=2):
         cls = H5UnlabeledDataset if unlabeled else H5LabeledDataset
         self.ds = cls(data, seed=0, dataset=dataset, sites=[site], transform=None)
+        assert type(batch_size) is int and 1 <= batch_size <= 4
+        self.batch_size = batch_size
         self.image_size = image_size
         self.unlabeled = unlabeled
         self.seed = seed
@@ -25,7 +27,7 @@ class Schedule:
     def batch(self, step):
         g = torch.Generator().manual_seed(self.seed + 100003 * step + 1000000007 * self.unlabeled)
         images = []; labels = []; indices = []
-        for j in torch.randperm(len(self.patients), generator=g)[:2].tolist():
+        for j in torch.randperm(len(self.patients), generator=g)[:self.batch_size].tolist():
             phases = self.groups[self.patients[j]]; names = sorted(phases)
             phase = names[int(torch.randint(len(names), (), generator=g))]
             ids = phases[phase]; index = ids[int(torch.randint(len(ids), (), generator=g))]
