@@ -1,0 +1,1935 @@
+{
+  "status": "COMPLETE",
+  "optimizer_updates": 0,
+  "new_model_forwards": 0,
+  "volume_unit": "stored-grid voxel counts; summed across phases, not physical mL",
+  "patient_ids_exported": false,
+  "test_access": false,
+  "prostate": {
+    "RUNMC": {
+      "n_patients": 4,
+      "class_index": 1,
+      "rows": [
+        {
+          "anonymous_patient": "case_01",
+          "arms": {
+            "default": {
+              "Dice": 0.7600647380133522,
+              "HD95_penalized_mm": 12.301981671080489,
+              "GT": 36828,
+              "predicted": 32374,
+              "TP": 26299,
+              "FP": 6075,
+              "FN": 10529,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.7964881980426022,
+              "HD95_penalized_mm": 63.203784981123015,
+              "GT": 36828,
+              "predicted": 39600,
+              "TP": 30437,
+              "FP": 9163,
+              "FN": 6391,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.839227072204761,
+              "HD95_penalized_mm": 7.200004577636719,
+              "GT": 36828,
+              "predicted": 34123,
+              "TP": 29772,
+              "FP": 4351,
+              "FN": 7056,
+              "phases": 1
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_02",
+          "arms": {
+            "default": {
+              "Dice": 0.8726366263902806,
+              "HD95_penalized_mm": 8.609600084976371,
+              "GT": 58457,
+              "predicted": 62292,
+              "TP": 52685,
+              "FP": 9607,
+              "FN": 5772,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.8795699279365445,
+              "HD95_penalized_mm": 8.173904429538258,
+              "GT": 58457,
+              "predicted": 62825,
+              "TP": 53338,
+              "FP": 9487,
+              "FN": 5119,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.8936794661262709,
+              "HD95_penalized_mm": 5.482932920053489,
+              "GT": 58457,
+              "predicted": 56027,
+              "TP": 51156,
+              "FP": 4871,
+              "FN": 7301,
+              "phases": 1
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_03",
+          "arms": {
+            "default": {
+              "Dice": 0.832351386795592,
+              "HD95_penalized_mm": 21.437928510995892,
+              "GT": 49660,
+              "predicted": 52518,
+              "TP": 42524,
+              "FP": 9994,
+              "FN": 7136,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.8679699306016767,
+              "HD95_penalized_mm": 7.5,
+              "GT": 49660,
+              "predicted": 54233,
+              "TP": 45088,
+              "FP": 9145,
+              "FN": 4572,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.8604393299169888,
+              "HD95_penalized_mm": 8.500000224393967,
+              "GT": 49660,
+              "predicted": 50447,
+              "TP": 43068,
+              "FP": 7379,
+              "FN": 6592,
+              "phases": 1
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_04",
+          "arms": {
+            "default": {
+              "Dice": 0.5448805929179248,
+              "HD95_penalized_mm": 32.4535487934538,
+              "GT": 16184,
+              "predicted": 27532,
+              "TP": 11910,
+              "FP": 15622,
+              "FN": 4274,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.5390914958851057,
+              "HD95_penalized_mm": 33.42838250038214,
+              "GT": 16184,
+              "predicted": 33392,
+              "TP": 13363,
+              "FP": 20029,
+              "FN": 2821,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.6063475194435052,
+              "HD95_penalized_mm": 35.66682081170282,
+              "GT": 16184,
+              "predicted": 25218,
+              "TP": 12552,
+              "FP": 12666,
+              "FN": 3632,
+              "phases": 1
+            }
+          }
+        }
+      ],
+      "comparisons": {
+        "selected-default": {
+          "mean_Dice_delta_pp": 4.74400108935941,
+          "Dice_improved": 4,
+          "mean_HD95_delta_mm": -4.488325131679889,
+          "HD95_improved": 3,
+          "Dice_leave_one_out_pp": [
+            3.686590312765585,
+            5.623906794612869,
+            5.3890700150993185,
+            4.276437234959866
+          ],
+          "Dice_leave_one_out_range_pp": [
+            3.686590312765585,
+            5.623906794612869
+          ],
+          "HD95_leave_one_out_mm": [
+            -4.2837744777585955,
+            -4.942211120598891,
+            -1.6717907467058766,
+            -7.055524181656192
+          ],
+          "Dice_down_HD95_improved": 0,
+          "Dice_down_FN_up": 0,
+          "Dice_down_predicted_volume_down": 0,
+          "total_FP_change": -12031,
+          "total_FN_change": -3130,
+          "total_predicted_voxels_change": -8901
+        },
+        "selected-anchor": {
+          "mean_Dice_delta_pp": 2.9143458806399183,
+          "Dice_improved": 3,
+          "mean_HD95_delta_mm": -13.864078344314105,
+          "HD95_improved": 2,
+          "Dice_leave_one_out_pp": [
+            2.461165368781263,
+            3.415476567862345,
+            4.136814530342821,
+            1.6439270555732428
+          ],
+          "Dice_leave_one_out_range_pp": [
+            1.6439270555732428,
+            4.136814530342821
+          ],
+          "HD95_leave_one_out_mm": [
+            0.18248900874329207,
+            -17.588447289257218,
+            -18.818771200550128,
+            -19.231583896192365
+          ],
+          "Dice_down_HD95_improved": 0,
+          "Dice_down_FN_up": 1,
+          "Dice_down_predicted_volume_down": 1,
+          "total_FP_change": -18557,
+          "total_FN_change": 5678,
+          "total_predicted_voxels_change": -24235
+        }
+      }
+    },
+    "BMC": {
+      "n_patients": 4,
+      "class_index": 1,
+      "rows": [
+        {
+          "anonymous_patient": "case_01",
+          "arms": {
+            "default": {
+              "Dice": 0.6743120979611353,
+              "HD95_penalized_mm": 17.143238463020925,
+              "GT": 82718,
+              "predicted": 51131,
+              "TP": 45128,
+              "FP": 6003,
+              "FN": 37590,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.648728820140086,
+              "HD95_penalized_mm": 18.0,
+              "GT": 82718,
+              "predicted": 46060,
+              "TP": 41771,
+              "FP": 4289,
+              "FN": 40947,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.6817808321505938,
+              "HD95_penalized_mm": 17.779025021017286,
+              "GT": 82718,
+              "predicted": 51152,
+              "TP": 45635,
+              "FP": 5517,
+              "FN": 37083,
+              "phases": 1
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_02",
+          "arms": {
+            "default": {
+              "Dice": 0.7122877225386076,
+              "HD95_penalized_mm": 41.77390319990623,
+              "GT": 47074,
+              "predicted": 50381,
+              "TP": 34708,
+              "FP": 15673,
+              "FN": 12366,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.7641023448688626,
+              "HD95_penalized_mm": 48.97839997572704,
+              "GT": 47074,
+              "predicted": 46492,
+              "TP": 35747,
+              "FP": 10745,
+              "FN": 11327,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.7828790728520021,
+              "HD95_penalized_mm": 47.9333338536423,
+              "GT": 47074,
+              "predicted": 44907,
+              "TP": 36005,
+              "FP": 8902,
+              "FN": 11069,
+              "phases": 1
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_03",
+          "arms": {
+            "default": {
+              "Dice": 0.8257168205070125,
+              "HD95_penalized_mm": 24.008088974008622,
+              "GT": 24736,
+              "predicted": 28241,
+              "TP": 21872,
+              "FP": 6369,
+              "FN": 2864,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.848478730492015,
+              "HD95_penalized_mm": 4.100300505724997,
+              "GT": 24736,
+              "predicted": 24795,
+              "TP": 21013,
+              "FP": 3782,
+              "FN": 3723,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.8487222757955641,
+              "HD95_penalized_mm": 3.952847075210474,
+              "GT": 24736,
+              "predicted": 25040,
+              "TP": 21123,
+              "FP": 3917,
+              "FN": 3613,
+              "phases": 1
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_04",
+          "arms": {
+            "default": {
+              "Dice": 0.8072579071733617,
+              "HD95_penalized_mm": 5.7295860645669645,
+              "GT": 19371,
+              "predicted": 26758,
+              "TP": 18619,
+              "FP": 8139,
+              "FN": 752,
+              "phases": 1
+            },
+            "anchor": {
+              "Dice": 0.8119543465353066,
+              "HD95_penalized_mm": 4.5086756892994595,
+              "GT": 19371,
+              "predicted": 26102,
+              "TP": 18461,
+              "FP": 7641,
+              "FN": 910,
+              "phases": 1
+            },
+            "selected": {
+              "Dice": 0.7902179691653376,
+              "HD95_penalized_mm": 5.7295860645669645,
+              "GT": 19371,
+              "predicted": 27654,
+              "TP": 18580,
+              "FP": 9074,
+              "FN": 791,
+              "phases": 1
+            }
+          }
+        }
+      ],
+      "comparisons": {
+        "selected-default": {
+          "mean_Dice_delta_pp": 2.1006400445845146,
+          "Dice_improved": 3,
+          "mean_HD95_delta_mm": -3.315006171766428,
+          "HD95_improved": 1,
+          "Dice_leave_one_out_pp": [
+            2.55189558646407,
+            0.44780838233287046,
+            2.034004883160963,
+            3.3688513263801547
+          ],
+          "Dice_leave_one_out_range_pp": [
+            0.44780838233287046,
+            3.3688513263801547
+          ],
+          "HD95_leave_one_out_mm": [
+            -4.631937081687358,
+            -6.473151780267262,
+            2.265072403910812,
+            -4.420008229021904
+          ],
+          "Dice_down_HD95_improved": 0,
+          "Dice_down_FN_up": 1,
+          "Dice_down_predicted_volume_down": 0,
+          "total_FP_change": -8774,
+          "total_FN_change": -1016,
+          "total_predicted_voxels_change": -7758
+        },
+        "selected-anchor": {
+          "mean_Dice_delta_pp": 0.7583976981806824,
+          "Dice_improved": 3,
+          "mean_HD95_delta_mm": -0.048146039078616254,
+          "HD95_improved": 3,
+          "Dice_leave_one_out_pp": [
+            -0.09053680277601635,
+            0.38530599813626126,
+            1.0030787541226067,
+            1.7357428432398774
+          ],
+          "Dice_leave_one_out_range_pp": [
+            -0.09053680277601635,
+            1.7357428432398774
+          ],
+          "HD95_leave_one_out_mm": [
+            0.00946360755608285,
+            0.2841606552567562,
+            -0.015043575266647421,
+            -0.47116484386065666
+          ],
+          "Dice_down_HD95_improved": 0,
+          "Dice_down_FN_up": 0,
+          "Dice_down_predicted_volume_down": 0,
+          "total_FP_change": 953,
+          "total_FN_change": -4351,
+          "total_predicted_voxels_change": 5304
+        }
+      }
+    }
+  },
+  "cardiac": {
+    "Siemens": {
+      "n_patients": 23,
+      "class_index": 3,
+      "rows": [
+        {
+          "anonymous_patient": "case_01",
+          "arms": {
+            "default": {
+              "Dice": 0.8595354854331965,
+              "HD95_penalized_mm": 7.535533905932738,
+              "GT": 40956,
+              "predicted": 33992,
+              "TP": 32429,
+              "FP": 1563,
+              "FN": 8527,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8238991011725587,
+              "HD95_penalized_mm": 8.333333333333332,
+              "GT": 40956,
+              "predicted": 32466,
+              "TP": 30969,
+              "FP": 1497,
+              "FN": 9987,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_02",
+          "arms": {
+            "default": {
+              "Dice": 0.6967415160793147,
+              "HD95_penalized_mm": 19.805496815818735,
+              "GT": 21069,
+              "predicted": 22149,
+              "TP": 16070,
+              "FP": 6079,
+              "FN": 4999,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.6628315482625027,
+              "HD95_penalized_mm": 21.034449442879346,
+              "GT": 21069,
+              "predicted": 25684,
+              "TP": 16407,
+              "FP": 9277,
+              "FN": 4662,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_03",
+          "arms": {
+            "default": {
+              "Dice": 0.6847226971766178,
+              "HD95_penalized_mm": 36.93878557886934,
+              "GT": 33178,
+              "predicted": 39381,
+              "TP": 26988,
+              "FP": 12393,
+              "FN": 6190,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.6583462310368702,
+              "HD95_penalized_mm": 15.351089032433066,
+              "GT": 33178,
+              "predicted": 28855,
+              "TP": 22345,
+              "FP": 6510,
+              "FN": 10833,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_04",
+          "arms": {
+            "default": {
+              "Dice": 0.4313655872938021,
+              "HD95_penalized_mm": 21.27826700346602,
+              "GT": 41841,
+              "predicted": 13832,
+              "TP": 12769,
+              "FP": 1063,
+              "FN": 29072,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.28174184932673096,
+              "HD95_penalized_mm": 24.170775219003943,
+              "GT": 41841,
+              "predicted": 7916,
+              "TP": 7521,
+              "FP": 395,
+              "FN": 34320,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_05",
+          "arms": {
+            "default": {
+              "Dice": 0.8954633126502005,
+              "HD95_penalized_mm": 6.050000190734863,
+              "GT": 46984,
+              "predicted": 49898,
+              "TP": 43726,
+              "FP": 6172,
+              "FN": 3258,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8805705515664479,
+              "HD95_penalized_mm": 9.600000381469727,
+              "GT": 46984,
+              "predicted": 47052,
+              "TP": 41580,
+              "FP": 5472,
+              "FN": 5404,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_06",
+          "arms": {
+            "default": {
+              "Dice": 0.7853512929290463,
+              "HD95_penalized_mm": 8.680040360699657,
+              "GT": 27101,
+              "predicted": 27162,
+              "TP": 21764,
+              "FP": 5398,
+              "FN": 5337,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7808355611220221,
+              "HD95_penalized_mm": 8.879805323985785,
+              "GT": 27101,
+              "predicted": 27272,
+              "TP": 21704,
+              "FP": 5568,
+              "FN": 5397,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_07",
+          "arms": {
+            "default": {
+              "Dice": 0.7944738981438165,
+              "HD95_penalized_mm": 28.444683548936588,
+              "GT": 45394,
+              "predicted": 49030,
+              "TP": 38394,
+              "FP": 10636,
+              "FN": 7000,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8366653903364724,
+              "HD95_penalized_mm": 9.760091100290325,
+              "GT": 45394,
+              "predicted": 45695,
+              "TP": 39123,
+              "FP": 6572,
+              "FN": 6271,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_08",
+          "arms": {
+            "default": {
+              "Dice": 0.740068424855887,
+              "HD95_penalized_mm": 14.40000057220459,
+              "GT": 34440,
+              "predicted": 38442,
+              "TP": 27641,
+              "FP": 10801,
+              "FN": 6799,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7341263116383188,
+              "HD95_penalized_mm": 19.200000762939453,
+              "GT": 34440,
+              "predicted": 39602,
+              "TP": 28005,
+              "FP": 11597,
+              "FN": 6435,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_09",
+          "arms": {
+            "default": {
+              "Dice": 0.8295181250208978,
+              "HD95_penalized_mm": 8.966666380564373,
+              "GT": 32826,
+              "predicted": 34517,
+              "TP": 28188,
+              "FP": 6329,
+              "FN": 4638,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8558164203304994,
+              "HD95_penalized_mm": 7.2295630034165805,
+              "GT": 32826,
+              "predicted": 35381,
+              "TP": 29372,
+              "FP": 6009,
+              "FN": 3454,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_10",
+          "arms": {
+            "default": {
+              "Dice": 0.7925946566614562,
+              "HD95_penalized_mm": 10.280543609185603,
+              "GT": 25831,
+              "predicted": 26375,
+              "TP": 21642,
+              "FP": 4733,
+              "FN": 4189,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8315438597297773,
+              "HD95_penalized_mm": 8.151492033988626,
+              "GT": 25831,
+              "predicted": 25221,
+              "TP": 21967,
+              "FP": 3254,
+              "FN": 3864,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_11",
+          "arms": {
+            "default": {
+              "Dice": 0.7591011106174292,
+              "HD95_penalized_mm": 11.54661334277252,
+              "GT": 24383,
+              "predicted": 25216,
+              "TP": 20159,
+              "FP": 5057,
+              "FN": 4224,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7289804725284836,
+              "HD95_penalized_mm": 14.861370571009994,
+              "GT": 24383,
+              "predicted": 22139,
+              "TP": 18508,
+              "FP": 3631,
+              "FN": 5875,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_12",
+          "arms": {
+            "default": {
+              "Dice": 0.8475395462913242,
+              "HD95_penalized_mm": 6.883333047231039,
+              "GT": 38855,
+              "predicted": 36774,
+              "TP": 32654,
+              "FP": 4120,
+              "FN": 6201,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8492894602508745,
+              "HD95_penalized_mm": 6.517960391238397,
+              "GT": 38855,
+              "predicted": 35178,
+              "TP": 32186,
+              "FP": 2992,
+              "FN": 6669,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_13",
+          "arms": {
+            "default": {
+              "Dice": 0.8707432526602645,
+              "HD95_penalized_mm": 6.663390171984688,
+              "GT": 49467,
+              "predicted": 43739,
+              "TP": 40955,
+              "FP": 2784,
+              "FN": 8512,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8854148354329134,
+              "HD95_penalized_mm": 6.302313222178192,
+              "GT": 49467,
+              "predicted": 44007,
+              "TP": 41587,
+              "FP": 2420,
+              "FN": 7880,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_14",
+          "arms": {
+            "default": {
+              "Dice": 0.7822584779675765,
+              "HD95_penalized_mm": 16.160645167107628,
+              "GT": 34898,
+              "predicted": 32917,
+              "TP": 27186,
+              "FP": 5731,
+              "FN": 7712,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7502981806882344,
+              "HD95_penalized_mm": 21.25525634897783,
+              "GT": 34898,
+              "predicted": 38371,
+              "TP": 28266,
+              "FP": 10105,
+              "FN": 6632,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_15",
+          "arms": {
+            "default": {
+              "Dice": 0.7534671456115907,
+              "HD95_penalized_mm": 17.524968065542133,
+              "GT": 36432,
+              "predicted": 39002,
+              "TP": 29290,
+              "FP": 9712,
+              "FN": 7142,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7096867677985926,
+              "HD95_penalized_mm": 15.232039967939508,
+              "GT": 36432,
+              "predicted": 37881,
+              "TP": 27481,
+              "FP": 10400,
+              "FN": 8951,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_16",
+          "arms": {
+            "default": {
+              "Dice": 0.8427292341420675,
+              "HD95_penalized_mm": 6.883333524068197,
+              "GT": 39046,
+              "predicted": 38081,
+              "TP": 32763,
+              "FP": 5318,
+              "FN": 6283,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8411087079594017,
+              "HD95_penalized_mm": 9.600000381469727,
+              "GT": 39046,
+              "predicted": 38541,
+              "TP": 32718,
+              "FP": 5823,
+              "FN": 6328,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_17",
+          "arms": {
+            "default": {
+              "Dice": 0.8949898843671469,
+              "HD95_penalized_mm": 3.9420716650409173,
+              "GT": 37971,
+              "predicted": 36392,
+              "TP": 33673,
+              "FP": 2719,
+              "FN": 4298,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.884965986421999,
+              "HD95_penalized_mm": 4.833333333333333,
+              "GT": 37971,
+              "predicted": 36171,
+              "TP": 33415,
+              "FP": 2756,
+              "FN": 4556,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_18",
+          "arms": {
+            "default": {
+              "Dice": 0.7402367566853234,
+              "HD95_penalized_mm": 14.123822253538197,
+              "GT": 20928,
+              "predicted": 21328,
+              "TP": 15261,
+              "FP": 6067,
+              "FN": 5667,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7545458522931068,
+              "HD95_penalized_mm": 16.36251368692347,
+              "GT": 20928,
+              "predicted": 25930,
+              "TP": 17800,
+              "FP": 8130,
+              "FN": 3128,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_19",
+          "arms": {
+            "default": {
+              "Dice": 0.8287338491548076,
+              "HD95_penalized_mm": 47.02131217393854,
+              "GT": 39861,
+              "predicted": 45487,
+              "TP": 36125,
+              "FP": 9362,
+              "FN": 3736,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8301668682981702,
+              "HD95_penalized_mm": 45.465864403598346,
+              "GT": 39861,
+              "predicted": 44094,
+              "TP": 35871,
+              "FP": 8223,
+              "FN": 3990,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_20",
+          "arms": {
+            "default": {
+              "Dice": 0.5199540842751093,
+              "HD95_penalized_mm": 24.180691809767247,
+              "GT": 32995,
+              "predicted": 14213,
+              "TP": 12019,
+              "FP": 2194,
+              "FN": 20976,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.3987253550985796,
+              "HD95_penalized_mm": 18.072446054705175,
+              "GT": 32995,
+              "predicted": 9053,
+              "TP": 7975,
+              "FP": 1078,
+              "FN": 25020,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_21",
+          "arms": {
+            "default": {
+              "Dice": 0.638834525129472,
+              "HD95_penalized_mm": 34.99815880525827,
+              "GT": 29387,
+              "predicted": 39358,
+              "TP": 24211,
+              "FP": 15147,
+              "FN": 5176,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.6534994260933007,
+              "HD95_penalized_mm": 28.979828359363317,
+              "GT": 29387,
+              "predicted": 35234,
+              "TP": 23575,
+              "FP": 11659,
+              "FN": 5812,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_22",
+          "arms": {
+            "default": {
+              "Dice": 0.2294455883615748,
+              "HD95_penalized_mm": 27.686529439804687,
+              "GT": 32605,
+              "predicted": 7379,
+              "TP": 4978,
+              "FP": 2401,
+              "FN": 27627,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.09261535469724055,
+              "HD95_penalized_mm": 46.55606363786572,
+              "GT": 32605,
+              "predicted": 3360,
+              "TP": 2158,
+              "FP": 1202,
+              "FN": 30447,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_23",
+          "arms": {
+            "default": {
+              "Dice": 0.8538584593756862,
+              "HD95_penalized_mm": 10.432100810096195,
+              "GT": 58093,
+              "predicted": 60040,
+              "TP": 50512,
+              "FP": 9528,
+              "FN": 7581,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8558825766810456,
+              "HD95_penalized_mm": 10.797577495601416,
+              "GT": 58093,
+              "predicted": 60775,
+              "TP": 50990,
+              "FP": 9785,
+              "FN": 7103,
+              "phases": 2
+            }
+          }
+        }
+      ],
+      "comparisons": {
+        "diagnostic-default": {
+          "mean_Dice_delta_pp": -2.131174965736805,
+          "Dice_improved": 9,
+          "mean_HD95_delta_mm": -0.6034704675920939,
+          "HD95_improved": 10,
+          "Dice_leave_one_out_pp": [
+            -2.066062990267397,
+            -2.0739103377393318,
+            -2.108153527180534,
+            -1.5479386552381542,
+            -2.160352186525966,
+            -2.207520501420186,
+            -2.4198260650550947,
+            -2.2010369495540765,
+            -2.347584261041212,
+            -2.40508838721721,
+            -2.0911345637750887,
+            -2.2360007094500696,
+            -2.2947355676914274,
+            -2.0827724765460136,
+            -2.0290448377566688,
+            -2.220680526985452,
+            -2.1824833826105325,
+            -2.2930878987602203,
+            -2.234560278467398,
+            -1.6770068770133428,
+            -2.2947051958331532,
+            -1.6060909475233223,
+            -2.237247088294657
+          ],
+          "Dice_leave_one_out_range_pp": [
+            -2.4198260650550947,
+            -1.5479386552381542
+          ],
+          "HD95_leave_one_out_mm": [
+            -0.6671645537281253,
+            -0.6867624264399442,
+            0.350357990537187,
+            -0.7623785895525494,
+            -0.7922645884251374,
+            -0.6399811689956494,
+            0.2183987133649138,
+            -0.8490827702433191,
+            -0.5519416989759258,
+            -0.534125871791872,
+            -0.7815717264934379,
+            -0.6142930953920689,
+            -0.6144883547641665,
+            -0.862474178931289,
+            -0.5266769389552516,
+            -0.7543858005463497,
+            -0.6714128374050261,
+            -0.7326596449092471,
+            -0.5601987720126349,
+            -0.3532534090707314,
+            -0.3573404685783277,
+            -1.4886070433035996,
+            -0.6475135200056082
+          ],
+          "Dice_down_HD95_improved": 3,
+          "Dice_down_FN_up": 11,
+          "Dice_down_predicted_volume_down": 9,
+          "total_FP_change": -10952,
+          "total_FN_change": 17874,
+          "total_predicted_voxels_change": -28826
+        }
+      }
+    },
+    "Philips": {
+      "n_patients": 31,
+      "class_index": 3,
+      "rows": [
+        {
+          "anonymous_patient": "case_01",
+          "arms": {
+            "default": {
+              "Dice": 0.8082766367839787,
+              "HD95_penalized_mm": 6.470818369225695,
+              "GT": 26966,
+              "predicted": 31540,
+              "TP": 25146,
+              "FP": 6394,
+              "FN": 1820,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8562835075921814,
+              "HD95_penalized_mm": 4.087604031627773,
+              "GT": 26966,
+              "predicted": 28901,
+              "TP": 24934,
+              "FP": 3967,
+              "FN": 2032,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_02",
+          "arms": {
+            "default": {
+              "Dice": 0.7829976939441131,
+              "HD95_penalized_mm": 63.352666780115904,
+              "GT": 34151,
+              "predicted": 32718,
+              "TP": 26716,
+              "FP": 6002,
+              "FN": 7435,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7688398836983699,
+              "HD95_penalized_mm": 9.716134730493405,
+              "GT": 34151,
+              "predicted": 28777,
+              "TP": 24904,
+              "FP": 3873,
+              "FN": 9247,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_03",
+          "arms": {
+            "default": {
+              "Dice": 0.7692677698297412,
+              "HD95_penalized_mm": 10.635034396092237,
+              "GT": 61252,
+              "predicted": 44617,
+              "TP": 40884,
+              "FP": 3733,
+              "FN": 20368,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7223212032315771,
+              "HD95_penalized_mm": 12.531910143765781,
+              "GT": 61252,
+              "predicted": 40064,
+              "TP": 36784,
+              "FP": 3280,
+              "FN": 24468,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_04",
+          "arms": {
+            "default": {
+              "Dice": 0.7950673276962978,
+              "HD95_penalized_mm": 7.534484387624258,
+              "GT": 25479,
+              "predicted": 23588,
+              "TP": 19294,
+              "FP": 4294,
+              "FN": 6185,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7546304232549664,
+              "HD95_penalized_mm": 10.137011669140813,
+              "GT": 25479,
+              "predicted": 21426,
+              "TP": 17572,
+              "FP": 3854,
+              "FN": 7907,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_05",
+          "arms": {
+            "default": {
+              "Dice": 0.808604597843265,
+              "HD95_penalized_mm": 13.00390529679106,
+              "GT": 32312,
+              "predicted": 38385,
+              "TP": 28118,
+              "FP": 10267,
+              "FN": 4194,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8094759328049383,
+              "HD95_penalized_mm": 12.590282775547468,
+              "GT": 32312,
+              "predicted": 36979,
+              "TP": 27819,
+              "FP": 9160,
+              "FN": 4493,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_06",
+          "arms": {
+            "default": {
+              "Dice": 0.7931164571884,
+              "HD95_penalized_mm": 31.039999906653012,
+              "GT": 26199,
+              "predicted": 27327,
+              "TP": 22413,
+              "FP": 4914,
+              "FN": 3786,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8523853335502545,
+              "HD95_penalized_mm": 25.176591302356652,
+              "GT": 26199,
+              "predicted": 25568,
+              "TP": 22783,
+              "FP": 2785,
+              "FN": 3416,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_07",
+          "arms": {
+            "default": {
+              "Dice": 0.8663631138481163,
+              "HD95_penalized_mm": 5.931694990624912,
+              "GT": 34305,
+              "predicted": 38818,
+              "TP": 32284,
+              "FP": 6534,
+              "FN": 2021,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8694318099307843,
+              "HD95_penalized_mm": 5.833333333333333,
+              "GT": 34305,
+              "predicted": 38181,
+              "TP": 32180,
+              "FP": 6001,
+              "FN": 2125,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_08",
+          "arms": {
+            "default": {
+              "Dice": 0.6755226993901886,
+              "HD95_penalized_mm": 11.628581471987868,
+              "GT": 25633,
+              "predicted": 20560,
+              "TP": 15469,
+              "FP": 5091,
+              "FN": 10164,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.5522787931000981,
+              "HD95_penalized_mm": 18.69825765901619,
+              "GT": 25633,
+              "predicted": 15927,
+              "TP": 11198,
+              "FP": 4729,
+              "FN": 14435,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_09",
+          "arms": {
+            "default": {
+              "Dice": 0.7316978970878512,
+              "HD95_penalized_mm": 7.821850464285763,
+              "GT": 25159,
+              "predicted": 21129,
+              "TP": 18504,
+              "FP": 2625,
+              "FN": 6655,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7194879732402331,
+              "HD95_penalized_mm": 10.0,
+              "GT": 25159,
+              "predicted": 19887,
+              "TP": 16855,
+              "FP": 3032,
+              "FN": 8304,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_10",
+          "arms": {
+            "default": {
+              "Dice": 0.674325809805058,
+              "HD95_penalized_mm": 13.381072657143385,
+              "GT": 44325,
+              "predicted": 32458,
+              "TP": 26874,
+              "FP": 5584,
+              "FN": 17451,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7155636262897571,
+              "HD95_penalized_mm": 10.416666666666668,
+              "GT": 44325,
+              "predicted": 35218,
+              "TP": 29185,
+              "FP": 6033,
+              "FN": 15140,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_11",
+          "arms": {
+            "default": {
+              "Dice": 0.8782891991265467,
+              "HD95_penalized_mm": 10.068968775248516,
+              "GT": 38087,
+              "predicted": 39708,
+              "TP": 34309,
+              "FP": 5399,
+              "FN": 3778,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8784530180553378,
+              "HD95_penalized_mm": 10.153882032022075,
+              "GT": 38087,
+              "predicted": 39132,
+              "TP": 34089,
+              "FP": 5043,
+              "FN": 3998,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_12",
+          "arms": {
+            "default": {
+              "Dice": 0.8363797151104276,
+              "HD95_penalized_mm": 7.150629348342899,
+              "GT": 29810,
+              "predicted": 31237,
+              "TP": 26264,
+              "FP": 4973,
+              "FN": 3546,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8411404945154595,
+              "HD95_penalized_mm": 7.220345002474147,
+              "GT": 29810,
+              "predicted": 30436,
+              "TP": 26028,
+              "FP": 4408,
+              "FN": 3782,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_13",
+          "arms": {
+            "default": {
+              "Dice": 0.8499011915732657,
+              "HD95_penalized_mm": 6.049355670169177,
+              "GT": 31173,
+              "predicted": 34863,
+              "TP": 28419,
+              "FP": 6444,
+              "FN": 2754,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8574832391619661,
+              "HD95_penalized_mm": 4.455843206390364,
+              "GT": 31173,
+              "predicted": 34850,
+              "TP": 28666,
+              "FP": 6184,
+              "FN": 2507,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_14",
+          "arms": {
+            "default": {
+              "Dice": 0.897486053420018,
+              "HD95_penalized_mm": 8.004626062886658,
+              "GT": 55791,
+              "predicted": 62089,
+              "TP": 53080,
+              "FP": 9009,
+              "FN": 2711,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.9063396208950628,
+              "HD95_penalized_mm": 7.3570226039551585,
+              "GT": 55791,
+              "predicted": 61326,
+              "TP": 53183,
+              "FP": 8143,
+              "FN": 2608,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_15",
+          "arms": {
+            "default": {
+              "Dice": 0.8899832903681179,
+              "HD95_penalized_mm": 2.8199287231801535,
+              "GT": 21863,
+              "predicted": 21888,
+              "TP": 19728,
+              "FP": 2160,
+              "FN": 2135,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8854571017683369,
+              "HD95_penalized_mm": 3.6226347715223395,
+              "GT": 21863,
+              "predicted": 20890,
+              "TP": 19417,
+              "FP": 1473,
+              "FN": 2446,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_16",
+          "arms": {
+            "default": {
+              "Dice": 0.8546519585562993,
+              "HD95_penalized_mm": 7.180294227431951,
+              "GT": 35279,
+              "predicted": 34516,
+              "TP": 30158,
+              "FP": 4358,
+              "FN": 5121,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8489404162505414,
+              "HD95_penalized_mm": 8.75,
+              "GT": 35279,
+              "predicted": 33081,
+              "TP": 29221,
+              "FP": 3860,
+              "FN": 6058,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_17",
+          "arms": {
+            "default": {
+              "Dice": 0.8831500603693409,
+              "HD95_penalized_mm": 36.03636067213818,
+              "GT": 31813,
+              "predicted": 34693,
+              "TP": 29817,
+              "FP": 4876,
+              "FN": 1996,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8886420870942627,
+              "HD95_penalized_mm": 6.25,
+              "GT": 31813,
+              "predicted": 32661,
+              "TP": 29032,
+              "FP": 3629,
+              "FN": 2781,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_18",
+          "arms": {
+            "default": {
+              "Dice": 0.7551979545587928,
+              "HD95_penalized_mm": 12.916666666666668,
+              "GT": 27197,
+              "predicted": 26507,
+              "TP": 20510,
+              "FP": 5997,
+              "FN": 6687,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7667817904516134,
+              "HD95_penalized_mm": 10.590169943749475,
+              "GT": 27197,
+              "predicted": 25889,
+              "TP": 20621,
+              "FP": 5268,
+              "FN": 6576,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_19",
+          "arms": {
+            "default": {
+              "Dice": 0.9034510416200445,
+              "HD95_penalized_mm": 3.4857276303070606,
+              "GT": 36250,
+              "predicted": 37507,
+              "TP": 33726,
+              "FP": 3781,
+              "FN": 2524,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8992667326937378,
+              "HD95_penalized_mm": 5.277962237889663,
+              "GT": 36250,
+              "predicted": 36094,
+              "TP": 32757,
+              "FP": 3337,
+              "FN": 3493,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_20",
+          "arms": {
+            "default": {
+              "Dice": 0.7662330844488753,
+              "HD95_penalized_mm": 13.575622028456866,
+              "GT": 22548,
+              "predicted": 21599,
+              "TP": 17781,
+              "FP": 3818,
+              "FN": 4767,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7893046724936367,
+              "HD95_penalized_mm": 13.426561840065286,
+              "GT": 22548,
+              "predicted": 21359,
+              "TP": 18119,
+              "FP": 3240,
+              "FN": 4429,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_21",
+          "arms": {
+            "default": {
+              "Dice": 0.8280592537543963,
+              "HD95_penalized_mm": 6.347746236038857,
+              "GT": 28225,
+              "predicted": 33030,
+              "TP": 25728,
+              "FP": 7302,
+              "FN": 2497,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8487855848229644,
+              "HD95_penalized_mm": 4.32715200297271,
+              "GT": 28225,
+              "predicted": 31911,
+              "TP": 25840,
+              "FP": 6071,
+              "FN": 2385,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_22",
+          "arms": {
+            "default": {
+              "Dice": 0.8416060345944367,
+              "HD95_penalized_mm": 14.437293044088436,
+              "GT": 49971,
+              "predicted": 43760,
+              "TP": 39126,
+              "FP": 4634,
+              "FN": 10845,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8774048317953169,
+              "HD95_penalized_mm": 6.25,
+              "GT": 49971,
+              "predicted": 43254,
+              "TP": 40592,
+              "FP": 2662,
+              "FN": 9379,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_23",
+          "arms": {
+            "default": {
+              "Dice": 0.8781825977375429,
+              "HD95_penalized_mm": 4.583333333333334,
+              "GT": 35065,
+              "predicted": 36247,
+              "TP": 31719,
+              "FP": 4528,
+              "FN": 3346,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8841503118652253,
+              "HD95_penalized_mm": 6.717960677340692,
+              "GT": 35065,
+              "predicted": 35024,
+              "TP": 31347,
+              "FP": 3677,
+              "FN": 3718,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_24",
+          "arms": {
+            "default": {
+              "Dice": 0.824259874776367,
+              "HD95_penalized_mm": 10.220818369225695,
+              "GT": 37921,
+              "predicted": 40089,
+              "TP": 32997,
+              "FP": 7092,
+              "FN": 4924,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8333537879268633,
+              "HD95_penalized_mm": 9.617935822331072,
+              "GT": 37921,
+              "predicted": 40307,
+              "TP": 33625,
+              "FP": 6682,
+              "FN": 4296,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_25",
+          "arms": {
+            "default": {
+              "Dice": 0.8404089822445111,
+              "HD95_penalized_mm": 22.5989267349524,
+              "GT": 29927,
+              "predicted": 30267,
+              "TP": 25908,
+              "FP": 4359,
+              "FN": 4019,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.813060712828902,
+              "HD95_penalized_mm": 13.7881090651349,
+              "GT": 29927,
+              "predicted": 28726,
+              "TP": 24874,
+              "FP": 3852,
+              "FN": 5053,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_26",
+          "arms": {
+            "default": {
+              "Dice": 0.8527826373067763,
+              "HD95_penalized_mm": 8.288518328937418,
+              "GT": 50641,
+              "predicted": 51760,
+              "TP": 44453,
+              "FP": 7307,
+              "FN": 6188,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8737510099280524,
+              "HD95_penalized_mm": 6.25,
+              "GT": 50641,
+              "predicted": 52859,
+              "TP": 46044,
+              "FP": 6815,
+              "FN": 4597,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_27",
+          "arms": {
+            "default": {
+              "Dice": 0.7761369349901582,
+              "HD95_penalized_mm": 22.326198894536713,
+              "GT": 30541,
+              "predicted": 41812,
+              "TP": 29258,
+              "FP": 12554,
+              "FN": 1283,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8001139908114934,
+              "HD95_penalized_mm": 7.1006644078301235,
+              "GT": 30541,
+              "predicted": 39156,
+              "TP": 29215,
+              "FP": 9941,
+              "FN": 1326,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_28",
+          "arms": {
+            "default": {
+              "Dice": 0.7758674497611341,
+              "HD95_penalized_mm": 35.39686028902766,
+              "GT": 17707,
+              "predicted": 18066,
+              "TP": 14497,
+              "FP": 3569,
+              "FN": 3210,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7811588876931905,
+              "HD95_penalized_mm": 7.5,
+              "GT": 17707,
+              "predicted": 17117,
+              "TP": 14183,
+              "FP": 2934,
+              "FN": 3524,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_29",
+          "arms": {
+            "default": {
+              "Dice": 0.8164801130785385,
+              "HD95_penalized_mm": 4.166666666666667,
+              "GT": 21021,
+              "predicted": 24141,
+              "TP": 19103,
+              "FP": 5038,
+              "FN": 1918,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.7825999175304152,
+              "HD95_penalized_mm": 4.919676435871731,
+              "GT": 21021,
+              "predicted": 21600,
+              "TP": 17543,
+              "FP": 4057,
+              "FN": 3478,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_30",
+          "arms": {
+            "default": {
+              "Dice": 0.8542021219399122,
+              "HD95_penalized_mm": 9.166666666666668,
+              "GT": 36777,
+              "predicted": 35205,
+              "TP": 31276,
+              "FP": 3929,
+              "FN": 5501,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8147887447335608,
+              "HD95_penalized_mm": 9.123544427706664,
+              "GT": 36777,
+              "predicted": 34869,
+              "TP": 30209,
+              "FP": 4660,
+              "FN": 6568,
+              "phases": 2
+            }
+          }
+        },
+        {
+          "anonymous_patient": "case_31",
+          "arms": {
+            "default": {
+              "Dice": 0.8798978878847576,
+              "HD95_penalized_mm": 6.666666666666667,
+              "GT": 15721,
+              "predicted": 16104,
+              "TP": 14270,
+              "FP": 1834,
+              "FN": 1451,
+              "phases": 2
+            },
+            "diagnostic": {
+              "Dice": 0.8716645346573257,
+              "HD95_penalized_mm": 6.25,
+              "GT": 15721,
+              "predicted": 15857,
+              "TP": 14140,
+              "FP": 1717,
+              "FN": 1581,
+              "phases": 2
+            }
+          }
+        }
+      ],
+      "comparisons": {
+        "diagnostic-default": {
+          "mean_Dice_delta_pp": -0.07905634184143176,
+          "Dice_improved": 19,
+          "mean_HD95_delta_mm": -4.650023450526073,
+          "HD95_improved": 20,
+          "Dice_leave_one_out_pp": [
+            -0.24171445593015536,
+            -0.03449885241700191,
+            0.07479700209106754,
+            0.05309812823495858,
+            -0.08459600310839063,
+            -0.279254474442328,
+            -0.09192054017837292,
+            0.3291214677308222,
+            -0.04099180707741913,
+            -0.21915094151847664,
+            -0.08223761633211656,
+            -0.09756081791958553,
+            -0.10696504519848075,
+            -0.11120344481962886,
+            -0.06660425790354292,
+            -0.06265307888361978,
+            -0.09999830898588574,
+            -0.12030433954554828,
+            -0.06774385681512375,
+            -0.15859684671868415,
+            -0.15077932346470663,
+            -0.2010208772390802,
+            -0.10158393366175408,
+            -0.11200459707113394,
+            0.009469344815884136,
+            -0.15158612864040003,
+            -0.1616150726405966,
+            -0.09932967967633431,
+            0.031242431924264746,
+            0.049686370785025205,
+            -0.054247042478039804
+          ],
+          "Dice_leave_one_out_range_pp": [
+            -0.279254474442328,
+            0.3291214677308222
+          ],
+          "HD95_leave_one_out_mm": [
+            -4.725583754290344,
+            -3.017139830556192,
+            -4.868253423799393,
+            -4.89177514159416,
+            -4.7912368148354885,
+            -4.609577278733729,
+            -4.801745510300555,
+            -5.040680105111219,
+            -4.877629216734083,
+            -4.706210699194385,
+            -4.807854674102727,
+            -4.807348087347984,
+            -4.751907150084315,
+            -4.783437450245892,
+            -4.831781100488348,
+            -4.857347757962543,
+            -3.8121455431390032,
+            -4.727474341446369,
+            -4.864765385796362,
+            -4.800055559263888,
+            -4.73767109110807,
+            -4.532114464073994,
+            -4.876178477010521,
+            -4.784928147313788,
+            -4.511330309883025,
+            -4.737073621245695,
+            -4.297506415986722,
+            -3.875128889242687,
+            -4.830124557850444,
+            -4.803586824244943,
+            -4.791135343321387
+          ],
+          "Dice_down_HD95_improved": 4,
+          "Dice_down_FN_up": 12,
+          "Dice_down_predicted_volume_down": 12,
+          "total_FP_change": -24032,
+          "total_FN_change": 14870,
+          "total_predicted_voxels_change": -38902
+        }
+      }
+    }
+  }
+}
+
