@@ -36,8 +36,11 @@ class Config:
     common_scale: float = 1.
     local_parameterization: str = 'diagonal'
     prior_aware_init: bool = False
+    coordinate_channels: bool = False
 
     def __post_init__(self):
+        if type(self.coordinate_channels) is not bool:
+            raise ValueError('coordinate_channels must be boolean')
         object.__setattr__(self,'label_groups',tuple(tuple(v) for v in self.label_groups))
         if self.local_parameterization not in ('diagonal', 'sar_whitened') or type(self.prior_aware_init) is not bool:
             raise ValueError('invalid local proposal configuration')

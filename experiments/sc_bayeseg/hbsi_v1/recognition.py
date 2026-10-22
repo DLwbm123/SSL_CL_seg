@@ -13,7 +13,7 @@ class Recognition(nn.Module):
         self.config = config
         self.projection = projection
         h = config.hidden
-        self.enc = nn.Conv2d(config.channels, h, 3, padding=1)
+        self.enc = nn.Conv2d(config.channels + (2 if config.coordinate_channels else 0), h, 3, padding=1)
         self.down = nn.Conv2d(h, h, 3, padding=1)
         self.up = nn.Conv2d(2 * h, h, 3, padding=1)
         ctx = h + config.projection_dim + 3 * config.channels
@@ -35,7 +35,13 @@ class Recognition(nn.Module):
                     head.bias[n:].copy_(inverse_positive(head.bias.new_full((n,), scale), config.scale_floor))
 
     def context(self, x, theta, a):
-        h = torch.tanh(self.enc(x))
+        image = x
+        if self.config.coordinate_channels:
+            yy, xx = torch.meshgrid(torch.linspace(-1, 1, x.shape[-2], device=x.device, dtype=x.dtype),
+                                    torch.linspace(-1, 1, x.shape[-1], device=x.device, dtype=x.dtype), indexing='ij')
+            coordinates = torch.stack((xx, yy))[None].expand(len(x), -1, -1, -1)
+            image = torch.cat((x, coordinates), 1)
+        h = torch.tanh(self.enc(image))
         low = torch.tanh(self.down(F.avg_pool2d(h, 2)))
         feature = torch.tanh(self.up(torch.cat([h, F.interpolate(low, x.shape[-2:], mode='bilinear', align_corners=False)], 1)))
         extra = torch.cat([self.projection(theta), a])[None, :, None, None].expand(len(x), -1, *x.shape[-2:])

@@ -228,11 +228,11 @@ def train(root, p, cfg, ledger, counter, arm):
               fingerprint(p), batch_size=1, data_seed=p['data_seed'], checkpoint_stride=p['checkpoint_stride'])
 
 
-def evaluate(root, p, cfg, ledger, counter, arm, K):
+def evaluate(root, p, cfg, ledger, counter, arm, K, readiness_validator=None):
     import h5py
     import numpy as np
     from sc_bayeseg.sslcl_v1.prostate_metrics import binary_phase_metrics
-    pre = require_ready(root, p, cfg)
+    pre = (readiness_validator or require_ready)(root, p, cfg)
     checkpoint = pre['initial_checkpoint'] if arm == 'initial' else root/f'{arm}_attempt001/PRIVATE_SEALED_STATE.pt'
     state = StreamState.load(checkpoint).to_device(p['device'])
     if state.active is not None or state.config != cfg:
