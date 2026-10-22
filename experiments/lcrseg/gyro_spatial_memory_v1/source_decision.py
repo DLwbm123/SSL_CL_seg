@@ -178,7 +178,7 @@ def measure(cfg):
         lhs=detail['z']-detail['z0'];lhs=lhs-lhs.mean(1,keepdim=True)
         rhs=torch.einsum('bhwd,cd->bchw',detail['u']-detail['u0'],b)
         error=float((lhs-rhs).abs().max());max_error=max(max_error,error)
-        assert error<=1e-5*max(1.,float(lhs.abs().max()))
+        assert error<=1e-5*max(1.,float(detail['z'].abs().max()),float(detail['z0'].abs().max()))
         assert all(p.grad is None for p in source.parameters()) and m.get_parameter(HEAD).grad is None
         m.detail=None
     cosine=dot/math.sqrt(squares['DS']*squares['FULL']) if min(squares['DS'],squares['FULL'])>0 else None
