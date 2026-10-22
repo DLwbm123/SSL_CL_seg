@@ -1,5 +1,3 @@
-# 类别平均CE轮启动状态
+# 类别平均CE最终状态
 
-2026-10-22已启动：两流20261221/20261222、四组GR/GRP/GRB/GRPB。CPU/CUDA数值自检PASS，正在执行detach一致性和工程资格检查；通过后自动进入正式训练及固定终点评估。尚无正式结果，不声称科学有效。
-
-预算16320更新、65546 SVD、8小时、4GB。主比较GRPB−GRP，完整收益、患者尾部和新域非劣门槛见冻结协议。旧五轮阴性结论不变。唯一每30分钟监测继续。
+8组COMPLETE，最终审计PASS，主科学综合门槛FAIL。GRPB−GRP旧均−1.197861pp，新均−3.104520pp；两流患者尾部、绝对保持及增量均FAIL。全部worker退出，无重跑。完整证据见CLASS_BALANCE_REPORT_ZH.md和CLASS_BALANCE_PUBLIC_SUMMARY.json。
