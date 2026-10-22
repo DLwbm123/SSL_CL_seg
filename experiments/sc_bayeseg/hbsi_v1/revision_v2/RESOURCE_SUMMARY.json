@@ -1,0 +1,72 @@
+{
+  "ledger_seconds": 45.89966897999693,
+  "process_wall_seconds": 63.066969871520996,
+  "reserved_outer_updates": 22,
+  "actual_fixture_outer_updates": 22,
+  "oracle_outer_updates": 0,
+  "real_data_access": 0,
+  "GPU_used": false,
+  "results_bytes_snapshot": 3472979,
+  "peak_process_RSS_KiB": 570612,
+  "counters": {
+    "fixture_train_images": 32,
+    "test_images": 0,
+    "refinement_sample_steps": 1824,
+    "joint_forwards": 11368,
+    "local_backward_calls": 1824,
+    "real_train_images": 0,
+    "global_mc_samples": 48,
+    "domain_updates": 22,
+    "validation_images": 0,
+    "global_updates": 22,
+    "phi_updates": 22,
+    "outer_backward_calls": 22,
+    "current_train_images": 32,
+    "historical_train_images": 0,
+    "local_mc_samples": 11368,
+    "domain_mc_samples": 48,
+    "diagnostic_local_backward_calls": 144
+  },
+  "command_receipts": [
+    {
+      "command": "revision-checks",
+      "exit_code": 0,
+      "wall_seconds": 5.955001354217529
+    },
+    {
+      "command": "unit-tests",
+      "exit_code": 1,
+      "wall_seconds": 4.845105886459351
+    },
+    {
+      "command": "revision-checks",
+      "exit_code": 0,
+      "wall_seconds": 5.279848098754883
+    },
+    {
+      "command": "unit-tests",
+      "exit_code": 0,
+      "wall_seconds": 5.933037042617798
+    },
+    {
+      "command": "fixed-parameter-qualification",
+      "exit_code": 2,
+      "wall_seconds": 38.63902831077576
+    },
+    {
+      "command": "revision-checks",
+      "exit_code": 0,
+      "wall_seconds": 2.4149491786956787
+    }
+  ],
+  "measurement_notes": [
+    "Ledger seconds sum bounded attempt bodies including failed attempts, not editing or import time.",
+    "Process wall seconds include worker imports and receipt output for five commands.",
+    "Counters track model joint-density sample calls, not every convolution or standalone Gaussian algebra draw.",
+    "Fixture image counters cover run_stage checks; historical T10 sampler-image counts are not instrumented.",
+    "22 fixture optimizer updates are test-only; the oracle diagnostic has zero global/domain/phi optimizer updates.",
+    "No real training, validation or test data were opened."
+  ],
+  "full_root_allocated_KiB_snapshot": 4376,
+  "full_root_snapshot_note": "Measured before portability03 and final public-summary synchronization; later writes are small source/JSON only."
+}

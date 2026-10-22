@@ -393,8 +393,9 @@ def T16(out):
     from .data_adapter import CurrentTrainingData
     root=out/'fixture';(root/'h5/v1').mkdir(parents=True);(root/'manifests/training').mkdir(parents=True)
     with h5py.File(root/'h5/v1/x.h5','w') as f:f['image']=np.zeros((2,4,4))
+    with h5py.File(root/'h5/v1/u.h5','w') as f:f['image']=np.full((2,4,4),.2)
     with h5py.File(root/'h5/v1/y.h5','w') as f:f['label']=np.ones((2,4,4),dtype=np.int64)
-    (root/'manifests/training/lcrseg_v1_seed0.csv').write_text('dataset,site_or_vendor,primary_20pct_split,image_h5_relpath,label_h5_relpath\nprostate,current,train_labeled,x.h5,y.h5\nprostate,current,train_unlabeled,x.h5,\nprostate,old,train_labeled,DO_NOT_OPEN,DO_NOT_OPEN\nprostate,current,val,DO_NOT_OPEN,DO_NOT_OPEN\n')
+    (root/'manifests/training/lcrseg_v1_seed0.csv').write_text('dataset,site_or_vendor,primary_20pct_split,image_h5_relpath,label_h5_relpath\nprostate,current,train_labeled,x.h5,y.h5\nprostate,current,train_unlabeled,u.h5,\nprostate,old,train_labeled,DO_NOT_OPEN,DO_NOT_OPEN\nprostate,current,val,DO_NOT_OPEN,DO_NOT_OPEN\n')
     data=CurrentTrainingData(root,'prostate','current','current',Config(height=4,width=4,dct_order=2))
     generator=torch.Generator().manual_seed(SEED)
     u=data.batch('U',1,generator);l=data.batch('L',1,generator)

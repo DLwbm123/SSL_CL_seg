@@ -39,12 +39,15 @@ class ResourceLedger:
         return sum(p.stat().st_size for p in self.root.rglob('*') if p.is_file())
 
     def check(self):
+        if time.time() >= self.data['created'] + 24 * 3600:
+            raise BudgetExceeded('original 24-hour wall-clock budget expired')
         if self.data['seconds_charged'] > self.limits['seconds'] or self.data['updates_reserved'] > self.limits['updates'] or self.size() >= self.limits['bytes']:
             raise BudgetExceeded('cumulative resource cap')
 
     @contextmanager
     def attempt(self, name, seconds=300., updates=0):
-        seconds = min(seconds, self.limits['seconds'] - self.data['seconds_charged'])
+        seconds = min(seconds, self.limits['seconds'] - self.data['seconds_charged'],
+                      self.data['created'] + 24 * 3600 - time.time())
         if seconds <= 0 or self.data['updates_reserved'] + updates > self.limits['updates']:
             raise BudgetExceeded('no remaining reservation')
         self.check()

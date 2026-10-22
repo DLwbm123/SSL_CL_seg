@@ -6,12 +6,20 @@ def sar(x, alpha=.9):
     return x - alpha / 4 * sum(torch.roll(x, n, d) for n, d in ((1, -1), (-1, -1), (1, -2), (-1, -2)))
 
 
-def sar_logdet(height, width, like, alpha=.9):
+def sar_eigenvalues(height, width, like, alpha=.9):
     u = torch.arange(height, dtype=like.dtype, device=like.device)
     v = torch.arange(width, dtype=like.dtype, device=like.device)
-    eig = 1 - alpha / 2 * (torch.cos(2 * math.pi * u / height)[:, None]
-                           + torch.cos(2 * math.pi * v / width)[None, :])
-    return eig.log().sum()
+    return 1 - alpha / 2 * (torch.cos(2 * math.pi * u / height)[:, None]
+                            + torch.cos(2 * math.pi * v / width)[None, :])
+
+
+def sar_solve(x, alpha=.9):
+    eig = sar_eigenvalues(*x.shape[-2:], x, alpha)
+    return torch.fft.ifft2(torch.fft.fft2(x) / eig).real
+
+
+def sar_logdet(height, width, like, alpha=.9):
+    return sar_eigenvalues(height, width, like, alpha).log().sum()
 
 
 def sar_log_prob(x, mean, sigma=.2, alpha=.9):

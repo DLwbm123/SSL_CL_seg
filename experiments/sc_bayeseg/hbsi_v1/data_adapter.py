@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import torch
 from torch.nn import functional as F
+from .evidence import evidence_set
 
 
 def leaf_observations(labels, classes, groups=()):
@@ -55,15 +56,11 @@ def confined(root, relative):
 
 class CurrentTrainingData:
     """Uniform slice sampling; no augmentation, previous-domain records, or U label capability."""
-    def __init__(self, root, dataset, domain, stage, config, seed=0):
-        import h5py
-        self.root = Path(root)
-        self.config, self.dataset, self.stage = config, dataset, stage
-        self.gate = AccessGate(stage)
-        manifest = self.root / 'manifests' / 'training' / f'lcrseg_v1_seed{seed}.csv'
+    @staticmethod
+    def inspect_manifest(root, dataset, domain, data_version, seed=0):
+        manifest = Path(root) / 'manifests' / 'training' / f'lcrseg_v1_seed{seed}.csv'
         raw = manifest.read_bytes()
-        self.manifest_hash = hashlib.sha256(raw).hexdigest()
-        self.records = {'L': [], 'U': []}
+        selected, observations = [], []
         for row in csv.DictReader(raw.decode().splitlines()):
             if row['dataset'] != dataset or row.get('site_or_vendor', row.get('site')) != domain:
                 continue
@@ -72,6 +69,24 @@ class CurrentTrainingData:
                 continue
             if role == 'U' and any(row.get(k) for k in ('label_h5_relpath', 'hidden_label', 'diagnostic_path')):
                 raise PermissionError('unlabeled manifest contains hidden label capability')
+            selected.append((role, row))
+            record_id = dataset + ':' + row['image_h5_relpath']
+            observations.append(dict(kind='image', record=record_id))
+            if role == 'L':
+                observations.append(dict(kind='label', record=record_id,
+                                         annotation_version=row.get('annotation_version') or data_version))
+        return dict(manifest_hash=hashlib.sha256(raw).hexdigest(), selected=selected,
+                    evidence=evidence_set(data_version, domain, observations))
+
+    def __init__(self, root, dataset, domain, stage, config, seed=0, data_version='legacy-fixture-v1', prepared=None):
+        import h5py
+        self.root = Path(root)
+        self.config, self.dataset, self.stage = config, dataset, stage
+        self.gate = AccessGate(stage)
+        prepared = prepared or self.inspect_manifest(root, dataset, domain, data_version, seed)
+        self.manifest_hash, self.evidence = prepared['manifest_hash'], prepared['evidence']
+        self.records = {'L': [], 'U': []}
+        for role, row in prepared['selected']:
             record = {'role': 'train' + role, 'stage': stage,
                       'image': confined(self.root / 'h5/v1', row['image_h5_relpath'])}
             if role == 'L':

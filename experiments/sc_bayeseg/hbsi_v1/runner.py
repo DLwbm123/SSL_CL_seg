@@ -30,42 +30,45 @@ def storage_check(output):
 
 
 def train(args,cfg,ledger,counter,p):
+    from .qualification import require_receipt, fingerprint
+    from .training import run_stage, require_resume
+    if not getattr(args,'authorize_real_training',False):
+        raise PermissionError('explicit training authorization required')
     storage_check(args.output)
     steps=p['steps']
-    if type(steps) is not int or not 1<=steps<=1000 or not 1<=p.get('batch_size',1)<=4:
+    batch_size=p.get('batch_size',1)
+    if type(steps) is not int or not 1<=steps<=1000 or type(batch_size) is not int or not 1<=batch_size<=4:
         raise ValueError('invalid declared steps or batch size')
     if not 0<args.budget_seconds<=3600:
         raise ValueError('this implementation entry retains its 3600s hard cap')
-    if args.command=='train-stream' and p.get('source_qualification')!='PASS':
-        raise PermissionError('stream training requires a separately qualified source protocol')
-    state=StreamState.load(p['checkpoint']) if 'checkpoint' in p else StreamState(cfg)
-    if state.config!=cfg or state.active is not None:
-        raise ValueError('config mismatch or active checkpoint; explicit resume protocol required')
+    kind='SYNTHETIC_LEARNING' if args.command=='train-source' else 'MODEL_LEARNING'
+    require_receipt(p.get('qualification_receipt'),kind,cfg,p.get('qualification_evidence_fingerprint'),
+                    checkpoint=p.get('checkpoint') if args.command=='train-stream' else None)
+    resume=getattr(args,'resume_checkpoint',None)
+    state=StreamState.load(resume or p['checkpoint']) if resume or 'checkpoint' in p else StreamState(cfg)
+    if state.config!=cfg:
+        raise ValueError('config mismatch')
     if args.command=='train-source' and state.receipts:
         raise ValueError('source cannot absorb a sealed stage again')
     if args.command=='train-stream' and not state.receipts:
-        raise ValueError('stream requires source posterior')
-    with ledger.attempt(args.run_id+'_train',seconds=args.budget_seconds,updates=steps) as out:
-        data=CurrentTrainingData(p['data_root'],p['dataset'],p['domain'],p['stage'],cfg,p.get('split_seed',0))
-        state.begin_task(p['stage'],data.manifest_hash)
-        objective=SequentialObjective(state,Refiner(state.model,state.phi,counter))
-        (out/'PARAMETER_AUDIT.json').write_text(json.dumps(parameter_audit(state),indent=2))
-        with (out/'PRIVATE_TRAIN_LOG.jsonl').open('x') as log:
-            for i in range(steps):
-                ledger.check()
-                L=data.batch('L',p.get('batch_size',1),state.generator)
-                U=data.batch('U',p.get('batch_size',1),state.generator)
-                loss,parts=objective.estimate(L,U,data.counts,state.generator)
-                state.optimizer.zero_grad();loss.backward()
-                if any(v.grad is not None and not torch.isfinite(v.grad).all() for group in state.optimizer.param_groups for v in group['params']):
-                    raise FloatingPointError('outer gradients')
-                state.optimizer.step();state.steps+=1
-                for k in ('global_updates','domain_updates','phi_updates','outer_backward_calls'):counter.add(k)
-                n=sum(len(b['x']) for b in (L,U) if b is not None)
-                counter.add('real_train_images',n);counter.add('current_train_images',n)
-                log.write(json.dumps({'step':i+1,**to_json(parts)})+'\n');log.flush()
-        state.finalize_task(counter.export());state.save(out/'PRIVATE_SEALED_STATE.pt')
-        (out/'DATA_BOUNDARY_AUDIT.json').write_text(json.dumps({'events':data.gate.events,'historical_train_access':0,'val_test_access':0},indent=2))
+        raise ValueError('stream requires a qualified posterior')
+    if not p.get('data_version'):
+        raise ValueError('explicit immutable data version required')
+    protocol_id=fingerprint(p)
+    if resume:
+        require_resume(state,ledger,args.run_id,steps,args.budget_seconds,protocol_id,resume)
+    elif state.active is not None:
+        raise ValueError('active checkpoint requires --resume-checkpoint')
+    prepared=CurrentTrainingData.inspect_manifest(p['data_root'],p['dataset'],p['domain'],p['data_version'],p.get('split_seed',0))
+    if resume:
+        if state.active['evidence']!=prepared['evidence'] or state.active['manifest_hash']!=prepared['manifest_hash'] or state.active['id']!=p['stage']:
+            raise PermissionError('resume observations changed')
+    else:
+        state.begin_task(p['stage'],prepared['manifest_hash'],prepared['evidence'])
+    # Admission, duplicate evidence and resume checks all precede image/label file opens.
+    data=CurrentTrainingData(p['data_root'],p['dataset'],p['domain'],p['stage'],cfg,p.get('split_seed',0),p['data_version'],prepared)
+    run_stage(state,data,ledger,counter,args.run_id,steps,args.budget_seconds,protocol_id,
+              resume_checkpoint=resume,batch_size=batch_size)
     return 0
 
 
@@ -126,18 +129,22 @@ def evaluate(args,cfg,ledger,counter,p):
                          'metrics':phase_metrics(prob,y,spacing,cfg.classes),'inference_status':prediction['status']})
             counter.add('validation_images',len(x));ledger.check()
         results={d:patient_aggregate([r for r in rows if r['domain']==d],cfg.classes,1 if p['dataset']=='prostate' else 2) for d in p['domains']}
-        (out/'PRIVATE_PATIENT_METRICS.json').write_text(json.dumps({'domains':results,'cases':rows},indent=2))
+        (out/'PRIVATE_PATIENT_METRICS.json').write_text(json.dumps({'execution':'COMPLETE','scientific_state':'DIAGNOSTIC_ONLY',
+            'inference_status':'INFERENCE_UNQUALIFIED' if any(r['inference_status']!='SYNTHETIC_INFERENCE_PASS' for r in rows) else 'FORMAL_QUALIFICATION_NOT_ESTABLISHED',
+            'domain_inference_status':{d:('INFERENCE_UNQUALIFIED' if any(r['inference_status']!='SYNTHETIC_INFERENCE_PASS' for r in rows if r['domain']==d) else 'FORMAL_QUALIFICATION_NOT_ESTABLISHED') for d in p['domains']},
+            'domains':results,'cases':rows},indent=2))
         (out/'DATA_BOUNDARY_AUDIT.json').write_text(json.dumps({'events':gate.events,'prediction_before_GT':True,'test_access':0},indent=2))
     return 0
 
 
 def dispatch(args,cfg,ledger,counter):
     if args.command=='synthetic-qualification':
-        tests=sorted((p for p in ledger.root.glob('*_TEST_RESULTS.json') if 'PARTIAL_TEST_RESULTS' not in p.name),key=lambda p:p.stat().st_mtime)
-        complete=[] if not tests else json.loads(tests[-1].read_text())
-        partials=[] if not tests else [p for p in ledger.root.glob('*_PARTIAL_TEST_RESULTS.json') if p.stat().st_mtime>tests[-1].stat().st_mtime]
-        if {t['id'] for t in complete}!={f'T{i:02d}' for i in range(1,19)} or any(t['status']!='PASS' for t in complete) or any(t['status']!='PASS' for p in partials for t in json.loads(p.read_text())):
-            raise PermissionError('latest unit test suite must pass before synthetic qualification')
+        from .qualification import require_receipt
+        receipt_path=getattr(args,'unit_receipt',None)
+        if not receipt_path:
+            raise PermissionError('a code/config-bound full unit receipt is required')
+        receipt=json.loads(Path(receipt_path).read_text())
+        require_receipt(receipt_path,'UNIT',cfg,receipt.get('evidence_fingerprint'))
         from .synthetic import run
         result=run(cfg,ledger,counter,args.run_id)
         print(json.dumps({'status':result['status'],'optimization_status':result['optimization_status']}))

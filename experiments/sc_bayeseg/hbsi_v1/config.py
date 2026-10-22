@@ -34,9 +34,13 @@ class Config:
     seed: int = 20261022
     dtype: str = 'float64'
     common_scale: float = 1.
+    local_parameterization: str = 'diagonal'
+    prior_aware_init: bool = False
 
     def __post_init__(self):
         object.__setattr__(self,'label_groups',tuple(tuple(v) for v in self.label_groups))
+        if self.local_parameterization not in ('diagonal', 'sar_whitened') or type(self.prior_aware_init) is not bool:
+            raise ValueError('invalid local proposal configuration')
         if any(not v or len(set(v))!=len(v) or any(type(k) is not int or not 0<=k<self.classes for k in v) for v in self.label_groups):
             raise ValueError('invalid parent-to-leaf label mapping')
         if self.schema != 1 or self.channels not in (1, 3) or self.classes not in (2, 3, 4):

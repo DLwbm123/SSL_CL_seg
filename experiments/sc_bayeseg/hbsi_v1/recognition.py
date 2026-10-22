@@ -1,7 +1,9 @@
+import math
 import torch
 from torch import nn
 from torch.nn import functional as F
-from .distributions import positive, normal_log_prob, randn
+from .distributions import positive, inverse_positive, normal_log_prob, randn
+from .spatial_gaussian import sar, sar_solve, sar_logdet, sar_eigenvalues
 
 
 class Recognition(nn.Module):
@@ -20,6 +22,17 @@ class Recognition(nn.Module):
         self.s_head = nn.Conv2d(ctx + config.c_dim + config.r_channels, 2 * config.channels, 1)
         self.b_head = nn.Linear(ctx + config.c_dim + config.r_channels, 2 * config.channels * config.b_dim)
         self.to(dtype=getattr(torch, config.dtype))
+        if config.prior_aware_init:
+            scales = {'c': 1., 'r': 1., 'b': config.tau_b}
+            eig = sar_eigenvalues(config.height, config.width, self.enc.weight, config.alpha)
+            scales['s'] = 1. if config.local_parameterization == 'sar_whitened' else float(config.sigma_s * eig.pow(-2).mean().sqrt())
+            with torch.no_grad():
+                for name, scale in scales.items():
+                    head = getattr(self, name + '_head')
+                    n = head.bias.numel() // 2
+                    # b_head is reshaped [2*C,b_dim], so the second half is its scale output too.
+                    head.weight[n:].zero_()
+                    head.bias[n:].copy_(inverse_positive(head.bias.new_full((n,), scale), config.scale_floor))
 
     def context(self, x, theta, a):
         h = torch.tanh(self.enc(x))
@@ -53,7 +66,17 @@ class Recognition(nn.Module):
             return self.s_head(v)
         return self.b_head(v.mean((2, 3))).reshape(len(v), 2 * self.config.channels, self.config.b_dim)
 
-    def rsample_and_log_prob(self, context, noise, offsets):
+    def _transform(self, z, model, theta, inverse=False):
+        if model is None or theta is None:
+            raise ValueError('whitened proposal requires the sampled generative parameters')
+        c = self.config
+        mean = model.structure_mean(model.class_probabilities(z, theta), theta)
+        result = dict(z)
+        result['S'] = sar(z['S'] - mean, c.alpha) / c.sigma_s if inverse else mean + c.sigma_s * sar_solve(z['S'], c.alpha)
+        logdet = c.channels * sar_logdet(c.height, c.width, z['S'], c.alpha) - c.channels * c.height * c.width * math.log(c.sigma_s)
+        return result, logdet
+
+    def rsample_and_log_prob(self, context, noise, offsets, model=None, theta=None):
         z = {}; logq = context.new_zeros(len(context))
         for name in ('c', 'R', 'S', 'b'):
             raw = self.parameters_given(name, context, z) + offsets[name]
@@ -63,10 +86,16 @@ class Recognition(nn.Module):
                 raise ValueError('local noise shape')
             z[name] = mean + sd * noise[name]
             logq = logq + normal_log_prob(z[name], mean, sd).flatten(1).sum(1)
+        if self.config.local_parameterization == 'sar_whitened':
+            z, logdet = self._transform(z, model, theta)
+            logq = logq + logdet
         return z, logq
 
-    def log_prob(self, z, context, offsets):
+    def log_prob(self, z, context, offsets, model=None, theta=None):
         result = context.new_zeros(len(context))
+        if self.config.local_parameterization == 'sar_whitened':
+            z, logdet = self._transform(z, model, theta, inverse=True)
+            result = result + logdet
         for name in ('c', 'R', 'S', 'b'):
             mean, raw_sd = (self.parameters_given(name, context, z) + offsets[name]).chunk(2, 1)
             result = result + normal_log_prob(z[name], mean, positive(raw_sd, self.config.scale_floor)).flatten(1).sum(1)

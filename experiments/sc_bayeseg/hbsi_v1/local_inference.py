@@ -10,7 +10,7 @@ class Refiner:
         self.counter = counter if counter is not None else budgets.ACTIVE_COUNTER
 
     def draw(self, x, theta, a, context, offsets, noise, observations=None):
-        z, logq = self.recognition.rsample_and_log_prob(context, noise, offsets)
+        z, logq = self.recognition.rsample_and_log_prob(context, noise, offsets, self.model, theta)
         obs = observations or {}
         parts = self.model.log_joint(x, z, theta, a, **obs)
         if self.counter is not None:
