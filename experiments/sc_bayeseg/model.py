@@ -113,19 +113,22 @@ class BlockMean(nn.Module):
 class Model(nn.Module):
     num_classes = 4
 
-    def __init__(self, size=128):
+    def __init__(self, size=128, num_classes=4, input_channels=1):
         super().__init__()
+        assert num_classes >= 2 and input_channels in (1, 3)
         self.size = size
+        self.num_classes = num_classes
+        self.input_channels = input_channels
         self.code_dim = 16
-        self.shape_encoder = inference_net(1, 2)
-        self.appearance_encoder = inference_net(1, 2, blocks=2)
-        self.logit_encoder = inference_net(1, 6)
+        self.shape_encoder = inference_net(input_channels, 2 * input_channels)
+        self.appearance_encoder = inference_net(input_channels, 2 * input_channels, blocks=2)
+        self.logit_encoder = inference_net(input_channels, 2 * (num_classes - 1))
         self.code_encoder = nn.Sequential(BlockMean(), nn.Flatten(),
-                                          nn.Linear(48, 32), nn.ReLU(), nn.Linear(32, 32))
+                                          nn.Linear(16 * (num_classes - 1), 32), nn.ReLU(), nn.Linear(32, 32))
         self.anatomy = nn.ModuleList([BayesianLayer(16, 16 * 4 * 4),
-                                     BayesianLayer(16, 16, 3), BayesianLayer(16, 3, 3)])
-        self.structure = nn.ModuleList([BayesianLayer(4, 16, 3),
-                                       BayesianLayer(16, 16, 3), BayesianLayer(16, 1, 3)])
+                                     BayesianLayer(16, 16, 3), BayesianLayer(16, num_classes - 1, 3)])
+        self.structure = nn.ModuleList([BayesianLayer(num_classes, 16, 3),
+                                       BayesianLayer(16, 16, 3), BayesianLayer(16, input_channels, 3)])
         self.register_buffer('logdet', torch.tensor(sar_logdet(size), dtype=torch.float32))
         self.calls = dict(proposal_images=0, density_images=0, generator_draws=0,
                           refinement_derivatives=0, predictive_images=0)
@@ -187,13 +190,13 @@ class Model(nn.Module):
         terms = dict(
             code=normal_log_prob(h['c'], torch.zeros_like(h['c']), torch.zeros_like(h['c'])),
             appearance=normal_log_prob(h['m'], torch.zeros_like(h['m']), torch.full_like(h['m'], math.log(.5))),
-            image=student_log_prob(image - h['x'] - h['m'], .1),
-            shape=student_log_prob(sar(h['x'] - self.structure_mean(semantic)), .2) + self.logdet
+            image=sum(student_log_prob((image - h['x'] - h['m'])[:, j:j+1], .1) for j in range(self.input_channels)),
+            shape=sum(student_log_prob(sar(h['x'] - self.structure_mean(semantic))[:, j:j+1], .2) for j in range(self.input_channels)) + self.input_channels * self.logdet
         )
         # Each logit channel has its own independent Gamma precision.
         residual = sar(ell - self.anatomy_mean(h['c']))
         terms['logits'] = sum(student_log_prob(residual[:, j:j+1], 1.)
-                              for j in range(3)) + 3 * self.logdet
+                              for j in range(self.num_classes - 1)) + (self.num_classes - 1) * self.logdet
         terms['labels'] = (logits.sum((1, 2, 3)) * 0 if label is None else
                            -F.cross_entropy(logits, label, reduction='none').sum((1, 2)))
         return sum(terms.values()), terms, probabilities
@@ -202,7 +205,7 @@ class Model(nn.Module):
         h, logq = self.proposal(image)
         joint, terms, p = self.log_joint(image, h, label)
         diagnostics = {f'predicted_fraction_{c}': float((p.detach().argmax(1) == c).float().mean())
-                       for c in range(4)}
+                       for c in range(self.num_classes)}
         diagnostics.update(shape_rms=float(h['x'].detach().square().mean().sqrt()),
                            appearance_rms=float(h['m'].detach().square().mean().sqrt()))
         return joint - logq, terms, diagnostics
@@ -221,9 +224,9 @@ class Model(nn.Module):
             with torch.enable_grad():
                 shifts = {key: (torch.zeros(shape, device=image.device, requires_grad=True),
                                 torch.zeros(shape, device=image.device, requires_grad=True))
-                          for key, shape in dict(x=(len(image), 1, self.size, self.size),
-                                                 m=(len(image), 1, self.size, self.size),
-                                                 ell=(len(image), 3, self.size, self.size),
+                          for key, shape in dict(x=(len(image), self.input_channels, self.size, self.size),
+                                                 m=(len(image), self.input_channels, self.size, self.size),
+                                                 ell=(len(image), self.num_classes - 1, self.size, self.size),
                                                  c=(len(image), 16)).items()}
                 for _ in range(refine):
                     self.draw()
