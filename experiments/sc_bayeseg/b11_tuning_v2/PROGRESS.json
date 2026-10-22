@@ -1,0 +1,706 @@
+{
+  "status": "INTERIM_NOT_FINAL",
+  "snapshot_time": "2026-10-22T18:22:29+08:00",
+  "planned_candidates": 20,
+  "completed_candidates": 10,
+  "pending_candidates": [
+    "C05",
+    "P05",
+    "C06",
+    "P06",
+    "C07",
+    "P07",
+    "C08",
+    "P08",
+    "C09",
+    "P09"
+  ],
+  "test_access": false,
+  "tasks": {
+    "C00": {
+      "factor": "consistency_low",
+      "changed_options": {
+        "consistency_weight": 0.1
+      },
+      "learning_rate": 0.0003,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "Siemens": {
+            "mean_Dice": 0.7332741313232283,
+            "class_Dice": [
+              0.8191404862151378,
+              0.6840466912945229,
+              0.6966352164600241
+            ],
+            "NLL": 0.08168079390453369,
+            "Brier": 0.02055696530396338,
+            "HD95_penalized_mm": 21.873733324684355,
+            "empty_prediction_failures": [
+              0,
+              0,
+              1
+            ]
+          },
+          "Philips": {
+            "mean_Dice": 0.7981938286272551,
+            "class_Dice": [
+              0.8522718524286251,
+              0.7507169863647576,
+              0.7915926470883824
+            ],
+            "NLL": 0.05315881457311922,
+            "Brier": 0.015698946117089208,
+            "HD95_penalized_mm": 17.627996666826615,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 1061.9423587322235
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          -3.3859469803937503,
+          -2.2492278810655963
+        ],
+        "mean_delta_pp": -2.8175874307296733,
+        "HD95_change_pct": [
+          25.68333339162969,
+          16.77544439289893
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -3.3859469803937503,
+          -2.2492278810655963
+        ],
+        "HD95_change_pct": [
+          25.68333339162969,
+          16.77544439289893
+        ]
+      }
+    },
+    "C01": {
+      "factor": "consistency_high",
+      "changed_options": {
+        "consistency_weight": 3.0
+      },
+      "learning_rate": 0.0003,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "Siemens": {
+            "mean_Dice": 0.7608997826734195,
+            "class_Dice": [
+              0.8428932915346528,
+              0.7188688100175997,
+              0.7209372464680063
+            ],
+            "NLL": 0.052906606238426294,
+            "Brier": 0.018048753394067012,
+            "HD95_penalized_mm": 15.980260048863428,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          },
+          "Philips": {
+            "mean_Dice": 0.8267954011701583,
+            "class_Dice": [
+              0.8809080141849618,
+              0.7813059320782083,
+              0.8181722572473042
+            ],
+            "NLL": 0.03197359531693949,
+            "Brier": 0.012420434886945766,
+            "HD95_penalized_mm": 7.539858882409739,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 836.3260233402252
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          -0.6233818453746265,
+          0.6109293732247223
+        ],
+        "mean_delta_pp": -0.006226236074952096,
+        "HD95_change_pct": [
+          -8.179718496443478,
+          -50.0527264501891
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -0.6233818453746265,
+          0.6109293732247223
+        ],
+        "HD95_change_pct": [
+          -8.179718496443478,
+          -50.0527264501891
+        ]
+      }
+    },
+    "C02": {
+      "factor": "image_low",
+      "changed_options": {
+        "fixed_jl": 0.0015,
+        "ju_weight": 0.0015
+      },
+      "learning_rate": 0.0003,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "Siemens": {
+            "mean_Dice": 0.7479161282327224,
+            "class_Dice": [
+              0.8222666622408722,
+              0.6999807059764978,
+              0.7215010164807965
+            ],
+            "NLL": 0.06646854289628261,
+            "Brier": 0.020219623354353632,
+            "HD95_penalized_mm": 21.066102004051118,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          },
+          "Philips": {
+            "mean_Dice": 0.8004669785549576,
+            "class_Dice": [
+              0.8473518942981255,
+              0.7561454829762775,
+              0.7979035583904704
+            ],
+            "NLL": 0.04181014778056905,
+            "Brier": 0.01529706970849914,
+            "HD95_penalized_mm": 18.499528877607453,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 833.1738846302032
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          -1.9217472894443421,
+          -2.0219128882953408
+        ],
+        "mean_delta_pp": -1.9718300888698415,
+        "HD95_change_pct": [
+          21.042799696628435,
+          22.548849229546164
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -1.9217472894443421,
+          -2.0219128882953408
+        ],
+        "HD95_change_pct": [
+          21.042799696628435,
+          22.548849229546164
+        ]
+      }
+    },
+    "C03": {
+      "factor": "image_high",
+      "changed_options": {
+        "fixed_jl": 0.015,
+        "ju_weight": 0.015
+      },
+      "learning_rate": 0.0003,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "Siemens": {
+            "mean_Dice": 0.7396923183568217,
+            "class_Dice": [
+              0.8212687457788392,
+              0.6951198674528486,
+              0.7026883418387769
+            ],
+            "NLL": 0.06707150295048546,
+            "Brier": 0.020033740379151396,
+            "HD95_penalized_mm": 20.835922274207704,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          },
+          "Philips": {
+            "mean_Dice": 0.8141253856512825,
+            "class_Dice": [
+              0.8684210762813768,
+              0.7602172791036307,
+              0.8137378015688396
+            ],
+            "NLL": 0.038612766659514006,
+            "Brier": 0.013768503249066241,
+            "HD95_penalized_mm": 12.690165450979288,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 830.596729516983
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          -2.7441282770344078,
+          -0.6560721786628587
+        ],
+        "mean_delta_pp": -1.7001002278486332,
+        "HD95_change_pct": [
+          19.720219993544184,
+          -15.934876891244043
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -2.7441282770344078,
+          -0.6560721786628587
+        ],
+        "HD95_change_pct": [
+          19.720219993544184,
+          -15.934876891244043
+        ]
+      }
+    },
+    "C04": {
+      "factor": "history_low",
+      "changed_options": {
+        "history_strength": 0.25
+      },
+      "learning_rate": 0.0003,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "Siemens": {
+            "mean_Dice": 0.7088979158924916,
+            "class_Dice": [
+              0.8190303462396635,
+              0.6554062061904066,
+              0.6522571952474044
+            ],
+            "NLL": 0.0836130165631912,
+            "Brier": 0.021855746918629126,
+            "HD95_penalized_mm": 18.497876153569827,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          },
+          "Philips": {
+            "mean_Dice": 0.8033708605625185,
+            "class_Dice": [
+              0.862500358464613,
+              0.7544919855805013,
+              0.7931202376424411
+            ],
+            "NLL": 0.04372048328086865,
+            "Brier": 0.014890464822055917,
+            "HD95_penalized_mm": 13.75928348190345,
+            "empty_prediction_failures": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 842.3967206478119
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          -5.823568523467415,
+          -1.7315246875392543
+        ],
+        "mean_delta_pp": -3.7775466055033347,
+        "HD95_change_pct": [
+          6.286142431049413,
+          -8.852578458287452
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -5.823568523467415,
+          -1.7315246875392543
+        ],
+        "HD95_change_pct": [
+          6.286142431049413,
+          -8.852578458287452
+        ]
+      }
+    },
+    "P00": {
+      "factor": "consistency_low",
+      "changed_options": {
+        "consistency_weight": 0.1
+      },
+      "learning_rate": 0.0001,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "RUNMC": {
+            "mean_Dice": 0.7267507219982918,
+            "class_Dice": [
+              0.7267507219982918
+            ],
+            "NLL": 0.10807396945021636,
+            "Brier": 0.02945350271699422,
+            "HD95_penalized_mm": 30.582560261164577,
+            "empty_prediction_failures": [
+              0
+            ]
+          },
+          "BMC": {
+            "mean_Dice": 0.7593560159639602,
+            "class_Dice": [
+              0.7593560159639602
+            ],
+            "NLL": 0.0668098451910899,
+            "Brier": 0.016564647714999707,
+            "HD95_penalized_mm": 20.762394110267138,
+            "empty_prediction_failures": [
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 721.5673387050629
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          -2.573261403099547,
+          0.4462378918930865
+        ],
+        "mean_delta_pp": -1.0635117556032303,
+        "HD95_change_pct": [
+          63.536414928844124,
+          -6.322544526042839
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -4.402916611819052,
+          -0.896004454510746
+        ],
+        "HD95_change_pct": [
+          8.92575883301745,
+          9.872283770586222
+        ]
+      }
+    },
+    "P01": {
+      "factor": "consistency_high",
+      "changed_options": {
+        "consistency_weight": 3.0
+      },
+      "learning_rate": 0.0001,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "RUNMC": {
+            "mean_Dice": 0.7999233469228815,
+            "class_Dice": [
+              0.7999233469228815
+            ],
+            "NLL": 0.05280615722722951,
+            "Brier": 0.019642285682793404,
+            "HD95_penalized_mm": 14.212439633446749,
+            "empty_prediction_failures": [
+              0
+            ]
+          },
+          "BMC": {
+            "mean_Dice": 0.7759000374908744,
+            "class_Dice": [
+              0.7759000374908744
+            ],
+            "NLL": 0.049549826735828834,
+            "Brier": 0.015594268776503762,
+            "HD95_penalized_mm": 18.848698003609254,
+            "empty_prediction_failures": [
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 670.9815173149109
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          4.7440010893594176,
+          2.100640044584512
+        ],
+        "mean_delta_pp": 3.4223205669719645,
+        "HD95_change_pct": [
+          -24.000757124381124,
+          -14.95691399567346
+        ],
+        "gate_A": true,
+        "gate_B": true
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          2.9143458806399125,
+          0.7583976981806795
+        ],
+        "HD95_change_pct": [
+          -49.37962163006008,
+          -0.2547834917294045
+        ]
+      }
+    },
+    "P02": {
+      "factor": "image_low",
+      "changed_options": {
+        "fixed_jl": 0.0015,
+        "ju_weight": 0.0015
+      },
+      "learning_rate": 0.0001,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "RUNMC": {
+            "mean_Dice": 0.7732470247812822,
+            "class_Dice": [
+              0.7732470247812822
+            ],
+            "NLL": 0.06992482331884674,
+            "Brier": 0.023923268655382912,
+            "HD95_penalized_mm": 27.490879472766583,
+            "empty_prediction_failures": [
+              0
+            ]
+          },
+          "BMC": {
+            "mean_Dice": 0.7541052848503614,
+            "class_Dice": [
+              0.7541052848503614
+            ],
+            "NLL": 0.06450037197994737,
+            "Brier": 0.017667885199115326,
+            "HD95_penalized_mm": 20.62521965851138,
+            "empty_prediction_failures": [
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 733.5405495166779
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          2.0763688751994858,
+          -0.07883521946678851
+        ],
+        "mean_delta_pp": 0.9987668278663486,
+        "HD95_change_pct": [
+          47.004038701304005,
+          -6.941459354856338
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          0.24671366647998072,
+          -1.421077565870621
+        ],
+        "HD95_change_pct": [
+          -2.08586586648013,
+          9.146371806419706
+        ]
+      }
+    },
+    "P03": {
+      "factor": "image_high",
+      "changed_options": {
+        "fixed_jl": 0.015,
+        "ju_weight": 0.015
+      },
+      "learning_rate": 0.0001,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "RUNMC": {
+            "mean_Dice": 0.7627930434603192,
+            "class_Dice": [
+              0.7627930434603192
+            ],
+            "NLL": 0.0794114029820732,
+            "Brier": 0.02486856673623565,
+            "HD95_penalized_mm": 28.714850295977435,
+            "empty_prediction_failures": [
+              0
+            ]
+          },
+          "BMC": {
+            "mean_Dice": 0.7698588526430542,
+            "class_Dice": [
+              0.7698588526430542
+            ],
+            "NLL": 0.057174666488026556,
+            "Brier": 0.01601996461847314,
+            "HD95_penalized_mm": 18.938324365841115,
+            "empty_prediction_failures": [
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 679.1515171527863
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          1.0309707431031878,
+          1.4965215598024884
+        ],
+        "mean_delta_pp": 1.263746151452838,
+        "HD95_change_pct": [
+          53.549069552092135,
+          -14.55253049766847
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -0.7986844656163172,
+          0.1542792133986559
+        ],
+        "HD95_change_pct": [
+          2.2735451693910003,
+          0.21950926334333154
+        ]
+      }
+    },
+    "P04": {
+      "factor": "history_low",
+      "changed_options": {
+        "history_strength": 0.25
+      },
+      "learning_rate": 0.0001,
+      "result": {
+        "status": "COMPLETE",
+        "updates": 5000,
+        "metrics": {
+          "RUNMC": {
+            "mean_Dice": 0.7214935741187082,
+            "class_Dice": [
+              0.7214935741187082
+            ],
+            "NLL": 0.09029392016310507,
+            "Brier": 0.02794893467389463,
+            "HD95_penalized_mm": 28.69061709359955,
+            "empty_prediction_failures": [
+              0
+            ]
+          },
+          "BMC": {
+            "mean_Dice": 0.7224027125714096,
+            "class_Dice": [
+              0.7224027125714096
+            ],
+            "NLL": 0.06858260044925173,
+            "Brier": 0.018852119864722017,
+            "HD95_penalized_mm": 23.996075161265118,
+            "empty_prediction_failures": [
+              0
+            ]
+          }
+        },
+        "use_u": true,
+        "history": true,
+        "test_access": false,
+        "elapsed_seconds": 731.2138142585754
+      },
+      "vs_default": {
+        "Dice_delta_pp": [
+          -3.0989761910579117,
+          -3.2490924473619676
+        ],
+        "mean_delta_pp": -3.1740343192099396,
+        "HD95_change_pct": [
+          53.41948553410012,
+          8.26744018684944
+        ],
+        "gate_A": false,
+        "gate_B": false
+      },
+      "vs_anchor": {
+        "Dice_delta_pp": [
+          -4.928631399777417,
+          -4.5913347937658
+        ],
+        "HD95_change_pct": [
+          2.1872338882090503,
+          26.98456476149196
+        ]
+      }
+    }
+  },
+  "qualification_optimizer_updates": 0
+}
