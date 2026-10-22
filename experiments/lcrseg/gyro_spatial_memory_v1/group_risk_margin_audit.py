@@ -20,6 +20,11 @@ def main(cfg):
         v=read(p);s=Path('/proc')/str(v['pid'])/'stat';assert not s.exists() or s.read_text().split()[21]!=str(v['birth']) or s.read_text().split()[2]=='Z'
     assert all(read(p)['exit_code']==0 for p in [root/'EXIT.json',*root.glob('EXIT_*.json')])
     assert not list(root.glob('FAILURE*'))
+    if cfg.get('resume_after_summary_repair'):
+        repair=read(root/'SUMMARY_REPAIR.json');assert repair['status']=='PASS' and repair['model_forwards']==repair['optimizer_updates']==0 and repair['ledger_unchanged']
+        assert read(root/'summary_failure/EXIT_20270801_B_evaluate.json')['exit_code']==1
+        assert read(root/'summary_failure/LAUNCH.private.json')['original_started_epoch']==cfg['started_epoch']
+        assert (root/'summary_failure/FAILURE_20270801_B_evaluate.json').exists()
     p0=read(root/'P0_RESULT.json');full=status['status']=='COMPLETE'
     expected={'P0_ENGINEERING:engineering':32,'PROBE:probe':256}
     if full:

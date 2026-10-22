@@ -155,8 +155,15 @@ def margin_self_check():
 
 def controller(cfg,guard):
     root=Path(cfg['root']);assert json.loads((Path(cfg['reliable_root'])/'AUDIT.json').read_text())['status']=='PASS' and (Path(cfg['reliable_root'])/'DELIVERY.json').exists()
-    write(root/'WORKER.private.json',dict(pid=os.getpid(),birth=Path('/proc/self/stat').read_text().split()[21]));geometry_check(cfg);write(root/'MARGIN_SELF_CHECK.json',margin_self_check())
+    write(root/'WORKER.private.json',dict(pid=os.getpid(),birth=Path('/proc/self/stat').read_text().split()[21]))
+    if cfg.get('resume_after_summary_repair'):
+        assert json.loads((root/'SUMMARY_REPAIR.json').read_text())['status']=='PASS'
+    else:
+        geometry_check(cfg);write(root/'MARGIN_SELF_CHECK.json',margin_self_check())
     def stage(mode,c):
+        if cfg.get('resume_after_summary_repair') and (root/('EXIT_'+c['group']+'_'+mode+'.json')).exists():
+            assert json.loads((root/('EXIT_'+c['group']+'_'+mode+'.json')).read_text())['exit_code']==0
+            return
         guard(cfg,new_stage=True);assert int(subprocess.check_output(['nvidia-smi','--id=3','--query-gpu=memory.free','--format=csv,noheader,nounits'],text=True))>=18000
         p=root/('SETTINGS_'+c['group']+'_'+mode+'.private.json');write(p,c)
         with (root/(c['group']+'_'+mode+'.log')).open('x') as log:q=subprocess.Popen([cfg['runtime'],cfg['entry']],env=dict(os.environ,TASK_SETTINGS=str(p),TASK_MODE=mode),stdout=log,stderr=subprocess.STDOUT)
