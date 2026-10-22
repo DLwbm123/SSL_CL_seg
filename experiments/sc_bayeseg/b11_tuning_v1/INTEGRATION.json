@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "checks": {
+    "C0": {
+      "real_L_U_loss": 0.0459679439663887,
+      "exact_loss_and_all_gradients": true,
+      "teacher_no_gradient": true,
+      "source_B_step": 5000
+    },
+    "P0": {
+      "real_L_U_loss": 0.15962658822536469,
+      "exact_loss_and_all_gradients": true,
+      "teacher_no_gradient": true,
+      "source_B_step": 5000
+    },
+    "RGB": {
+      "real_L_U_loss": 2.312284469604492,
+      "finite_gradients": {
+        "backbone": true,
+        "hc": true,
+        "hr": true,
+        "hs": true,
+        "hm": true,
+        "g": true,
+        "f": true
+      },
+      "native_probability_shape": [
+        1,
+        3,
+        384,
+        384
+      ],
+      "parts": {
+        "perturbation": {
+          "L": {
+            "L1": 0.05195097625255585,
+            "RMS": 0.06944660097360611,
+            "saturation_fraction": 0.001085669151507318
+          },
+          "U": {
+            "L1": 0.08467935770750046,
+            "RMS": 0.09792162477970123,
+            "saturation_fraction": 0.005700353998690844
+          }
+        },
+        "labeled_image_objective": 29.31875228881836,
+        "unlabeled_image_objective": 29.578968048095703,
+        "supervised": 2.0177958011627197,
+        "image_objective": 29.44886016845703,
+        "soft_KL": 1.7161542928079143e-05
+      }
+    }
+  },
+  "optimizer_updates": 0,
+  "backwards": 5,
+  "test_access": false
+}
