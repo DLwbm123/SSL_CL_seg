@@ -31,7 +31,7 @@ def report(sem,switch,a):
     rows=sem['rows'];lines=['# v21-Q0：一致性专属与零更新域切换诊断','',
         '本次仅诊断。既有v19/v20模型、原始结果、训练时钟和科学负结果不变；不重训已关闭配置，不重新评分已完成的基线格。', '',
         '## 预算、来源不变与成本','',
-        f"一致性10探针/5既有状态，实际{sem['reverse_calls']}次诊断反向（上限128）、{sem['candidate_steps_discarded']}次丢弃副本Adam更新（上限24），来源更新0。来源payload/Adam/RNG检查不变，fixture检查通过。不能把副本Adam更新记成总计算更新0。", 
+        f"一致性10探针/5既有状态，实际{sem['reverse_calls']}次诊断反向（上限128）、{sem['candidate_steps_discarded']}次丢弃副本Adam更新（上限24），来源更新0。来源payload/Adam/RNG检查不变，fixture检查通过。不能把副本Adam更新记成总计算更新0。",
         '教师诊断只读当前训练L/U；L预测函数只传x，在预测后才用原训练L标签评分；U没有GT能力。域读出新增2格，复用2格旧完整结果；每格BMC原4val患者/3推断重复、8×4MC和原指标。模型副本仅前向，来源更新0；验证标签不用于训练、门槛选择或调参。','',
         '## 一致性候选更新','',
         f"A+sem相对A，在{a['semantic_adam_risk_worse']}/{a['semantic_probe_count']}个独立训练L探针上任务风险更高（规则阈值8/10）。这是同Adam状态的一步条件诊断，不是整个优化轨迹的因果证明。",'',
@@ -79,9 +79,9 @@ def report(sem,switch,a):
         lines+=['','| 配对患者差值 | Dice范围 pp | 正/负患者 |','|---|---:|---:|']
         for name,values in patient.items():
             m=values['Dice'];lines.append(f"| {name} | [{m['minimum']*100:+.4f}, {m['maximum']*100:+.4f}] | {m['positive']}/{m['negative']} |")
-    lines += ['',f"entry占总下降幅度：{number(a['entry_share_of_total_drop'])}；预定≥50%且同为负的域入口规则：{a['domain_entry_rule_met']}。entry+training_under_target_memory精确等于total。", 
+    lines += ['',f"entry占总下降幅度：{number(a['entry_share_of_total_drop'])}；预定≥50%且同为负的域入口规则：{a['domain_entry_rule_met']}。entry+training_under_target_memory精确等于total。",
         'q/phi/model/projection在源终点与真实目标ACTIVE_INITIAL一致；RUNMC封存记忆在目标终点不变已验证。域切换新读出只在副本注册current，不调用begin_task新建另一入口。T-post-source是定位读出，不是把较优读出选作最终方法。只覆盖首seed L/M0，不能声称三seed普遍机制；也没有拆分phi与全局后验更新、后验与记忆兼容性。特别是RUNMC记忆参数未变不代表其边缘分布不变：条件记忆仍依赖更新后的q。','',
-        '## 根据预定规则选择后续路线','',f"本次选择：**{a['next_route']}**。", 
+        '## 根据预定规则选择后续路线','',f"本次选择：**{a['next_route']}**。",
         '若入口损失主导，优先研究新域变分状态优化初始化，仍保留新域先验定义；不得把旧域训练证据当新域先验重复累计。若一致性专属规则满足，教师可靠性路线可另立协议，但不把本次训练L诊断当U可靠性验证。两者均满足时先修复目标L适应入口，教师路线后置。若均不满足，不强制认定根因。',
         '后续EMA/可靠筛选/覆盖匹配或域初始化训练未在本次执行；须另立可审核的协议和预算。v20失败配置保持关闭，不追加seed/权重/增强网格。本报告只交付诊断和选路，不声称后继方法已有效。','',
         '[一致性原始匿名标量](SEMANTIC_RESULTS.json)；[域切换聚合结果](SWITCH_RESULTS.json)；[判读汇总](ANALYSIS.json)；[冻结协议](PREREG_ZH.md)。不发布患者身份、影像、概率数组、权重、梯度向量、私有路径或原始日志。']
