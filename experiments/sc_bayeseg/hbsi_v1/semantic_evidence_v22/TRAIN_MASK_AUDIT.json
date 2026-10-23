@@ -1,0 +1,30 @@
+{
+  "training_L_slices": 80,
+  "training_L_patients": 4,
+  "empty_foreground_slices": 26,
+  "nonempty_slices": 54,
+  "source_updates": 0,
+  "forward_calls": 0,
+  "backward_calls": 0,
+  "L": {
+    "empty_exposures": 383,
+    "nonempty_exposures": 817,
+    "all_empty_margin_exact_zero": true,
+    "nonempty_zero_margin": 0,
+    "nonempty_positive_margin": 456,
+    "nonempty_negative_margin": 361,
+    "nonempty_mean_margin": 0.0008998859006032749,
+    "nonempty_mean_anchor": 0.6926989172291143
+  },
+  "LU": {
+    "empty_exposures": 383,
+    "nonempty_exposures": 817,
+    "all_empty_margin_exact_zero": true,
+    "nonempty_zero_margin": 0,
+    "nonempty_positive_margin": 415,
+    "nonempty_negative_margin": 402,
+    "nonempty_mean_margin": 0.00038778191953317597,
+    "nonempty_mean_anchor": 0.6929539780430215
+  },
+  "methodology": "Read only frozen RUNMC training-L labels and already sealed training logs; exact step-indexed L schedule; no U/val/test labels or model calls. Positive means score_GT exceeds mean score of two shifts after averaging global samples, not every candidate/sample individually."
+}
