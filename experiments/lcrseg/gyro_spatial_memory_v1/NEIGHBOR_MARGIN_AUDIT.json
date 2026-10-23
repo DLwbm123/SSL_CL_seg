@@ -1,0 +1,163 @@
+{
+  "status": "FAIL_PROTOCOL_DEVIATION",
+  "protocol_deviations": [
+    {
+      "group": "20271401_A",
+      "violation": "fixed_head_changed",
+      "cause": "source_decision.setup exempts variant A from head freezing",
+      "invalidates": "C-minus-A mechanism isolation"
+    }
+  ],
+  "fixed_head_checks": {
+    "20271401_B": {
+      "student_exact": true,
+      "EMA_exact": true,
+      "student_delta_l2": 0.0,
+      "EMA_delta_l2": 0.0
+    },
+    "20271401_R": {
+      "student_exact": true,
+      "EMA_exact": true,
+      "student_delta_l2": 0.0,
+      "EMA_delta_l2": 0.0
+    },
+    "20271401_W": {
+      "student_exact": true,
+      "EMA_exact": true,
+      "student_delta_l2": 0.0,
+      "EMA_delta_l2": 0.0
+    },
+    "20271401_A": {
+      "student_exact": false,
+      "EMA_exact": false,
+      "student_delta_l2": 0.015561002133236681,
+      "EMA_delta_l2": 0.011845368518395728
+    },
+    "20271401_C": {
+      "student_exact": true,
+      "EMA_exact": true,
+      "student_delta_l2": 0.0,
+      "EMA_delta_l2": 0.0
+    }
+  },
+  "audit_execution_attempts": 2,
+  "first_attempt_failed_on_fixed_head_assertion": true,
+  "cost": {
+    "total": 10832,
+    "optimizer": 10832,
+    "functional": 0,
+    "pending": 0,
+    "by_phase": {
+      "P0_ENGINEERING:engineering": 32,
+      "PROBE:probe": 256,
+      "DETACH_B:detach": 32,
+      "DETACH_C:detach": 32,
+      "20271401_B:engineering": 32,
+      "20271401_R:engineering": 32,
+      "20271401_W:engineering": 32,
+      "20271401_A:engineering": 32,
+      "20271401_C:engineering": 32,
+      "20271402_B:engineering": 32,
+      "20271402_R:engineering": 32,
+      "20271402_W:engineering": 32,
+      "20271402_A:engineering": 32,
+      "20271402_C:engineering": 32,
+      "20271403_B:engineering": 32,
+      "20271403_R:engineering": 32,
+      "20271403_W:engineering": 32,
+      "20271403_A:engineering": 32,
+      "20271403_C:engineering": 32,
+      "20271401_B:formal": 2000,
+      "20271401_R:formal": 2000,
+      "20271401_W:formal": 2000,
+      "20271401_A:formal": 2000,
+      "20271401_C:formal": 2000
+    }
+  },
+  "calls": {
+    "executed": {
+      "p0_native": 4574,
+      "p0_reverse": 633,
+      "detach_native": 1024,
+      "detach_reverse": 128,
+      "engineering_native": 1800,
+      "engineering_reverse": 555,
+      "formal_native": 160000,
+      "formal_reverse": 20060,
+      "evaluation_native": 14460,
+      "evaluation_reverse": 0
+    },
+    "by_group": {
+      "P0_ENGINEERING:p0_native": 120,
+      "P0_ENGINEERING:p0_reverse": 37,
+      "PROBE:p0_native": 4454,
+      "PROBE:p0_reverse": 596,
+      "DETACH_B:detach_native": 512,
+      "DETACH:detach_reverse": 128,
+      "DETACH_C:detach_native": 512,
+      "20271401_B:engineering_native": 120,
+      "20271401_B:engineering_reverse": 37,
+      "20271401_R:engineering_native": 120,
+      "20271401_R:engineering_reverse": 37,
+      "20271401_W:engineering_native": 120,
+      "20271401_W:engineering_reverse": 37,
+      "20271401_A:engineering_native": 120,
+      "20271401_A:engineering_reverse": 37,
+      "20271401_C:engineering_native": 120,
+      "20271401_C:engineering_reverse": 37,
+      "20271402_B:engineering_native": 120,
+      "20271402_B:engineering_reverse": 37,
+      "20271402_R:engineering_native": 120,
+      "20271402_R:engineering_reverse": 37,
+      "20271402_W:engineering_native": 120,
+      "20271402_W:engineering_reverse": 37,
+      "20271402_A:engineering_native": 120,
+      "20271402_A:engineering_reverse": 37,
+      "20271402_C:engineering_native": 120,
+      "20271402_C:engineering_reverse": 37,
+      "20271403_B:engineering_native": 120,
+      "20271403_B:engineering_reverse": 37,
+      "20271403_R:engineering_native": 120,
+      "20271403_R:engineering_reverse": 37,
+      "20271403_W:engineering_native": 120,
+      "20271403_W:engineering_reverse": 37,
+      "20271403_A:engineering_native": 120,
+      "20271403_A:engineering_reverse": 37,
+      "20271403_C:engineering_native": 120,
+      "20271403_C:engineering_reverse": 37,
+      "20271401_B:formal_native": 32000,
+      "20271401_B:formal_reverse": 4012,
+      "20271401_B:evaluation_native": 2892,
+      "20271401_R:formal_native": 32000,
+      "20271401_R:formal_reverse": 4012,
+      "20271401_R:evaluation_native": 2892,
+      "20271401_W:formal_native": 32000,
+      "20271401_W:formal_reverse": 4012,
+      "20271401_W:evaluation_native": 2892,
+      "20271401_A:formal_native": 32000,
+      "20271401_A:formal_reverse": 4012,
+      "20271401_A:evaluation_native": 2892,
+      "20271401_C:formal_native": 32000,
+      "20271401_C:formal_reverse": 4012,
+      "20271401_C:evaluation_native": 2892
+    },
+    "pending": null,
+    "caps": {
+      "p0_native": 6000,
+      "p0_reverse": 1500,
+      "detach_native": 1024,
+      "detach_reverse": 128,
+      "engineering_native": 6000,
+      "engineering_reverse": 1200,
+      "formal_native": 480000,
+      "formal_reverse": 60200,
+      "evaluation_native": 43380,
+      "evaluation_reverse": 0
+    }
+  },
+  "workers_retired": true,
+  "source_entry_exact": true,
+  "audit_model_forwards": 0,
+  "allocated_bytes_including_metadata": 345556096,
+  "elapsed_seconds": 4477.220221281052
+}
