@@ -11,3 +11,5 @@
 固定I/E2000终点、4新cell；主要E−A、E−N、E−I，另I−A/I−N均保持原门槛。旧A/N不重训重评分。预检、质量守恒、图求解成功不代替分割收益。
 
 [冻结协议](PREREG_ZH.md)；[预检](PREFLIGHT.json)；[缓存标量摘要](TARGET_SUMMARY.json)。完成后仅读封存指标，补齐真实解释与匿名报告；唯一runmc半小时跟进，12小时累计总结仍北京时间12:13。
+
+最终 COMPLETE/EXIT0，见[封存结果与解释](REPORT_ZH.md)；本启动快照已结束。

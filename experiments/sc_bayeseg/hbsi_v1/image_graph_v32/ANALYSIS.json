@@ -1,0 +1,1109 @@
+{
+  "status": "COMPLETE",
+  "seed": 20261023,
+  "training_seeds": 1,
+  "patients_per_domain": 4,
+  "inference_repeats": 3,
+  "means": {
+    "A": {
+      "RUNMC": {
+        "Dice": 0.6298790837559647,
+        "NLL": 0.07897086970259337,
+        "Brier": 0.04096875632061326,
+        "HD95_penalized_mm": 14.380379750659264,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.43083076056549985,
+        "NLL": 0.10105040852887005,
+        "Brier": 0.05222019864211378,
+        "HD95_penalized_mm": 34.21390918811838,
+        "empty_predictions": 0
+      }
+    },
+    "N": {
+      "RUNMC": {
+        "Dice": 0.6348166875376601,
+        "NLL": 0.06111986827160479,
+        "Brier": 0.03596816997798867,
+        "HD95_penalized_mm": 14.377365526372161,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.4323738852893459,
+        "NLL": 0.069746924363813,
+        "Brier": 0.04384247515919853,
+        "HD95_penalized_mm": 34.15597020067218,
+        "empty_predictions": 0
+      }
+    },
+    "I": {
+      "RUNMC": {
+        "Dice": 0.6325435272639612,
+        "NLL": 0.0601776570347991,
+        "Brier": 0.0356237256687824,
+        "HD95_penalized_mm": 14.392104046210875,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.432010500117017,
+        "NLL": 0.06712095894755496,
+        "Brier": 0.042526886003917255,
+        "HD95_penalized_mm": 34.156194776907455,
+        "empty_predictions": 0
+      }
+    },
+    "E": {
+      "RUNMC": {
+        "Dice": 0.6341301621092038,
+        "NLL": 0.05992748400994766,
+        "Brier": 0.0353009907251311,
+        "HD95_penalized_mm": 14.327744219307846,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.43237955376814025,
+        "NLL": 0.06667854141741159,
+        "Brier": 0.04204809917708721,
+        "HD95_penalized_mm": 34.12853430146491,
+        "empty_predictions": 0
+      }
+    }
+  },
+  "effects": {
+    "E_minus_A": {
+      "domains": {
+        "RUNMC": {
+          "metrics": {
+            "Dice": 0.004251078353239124,
+            "NLL": -0.019043385692645715,
+            "Brier": -0.005667765595482162,
+            "HD95_penalized_mm": -0.05263553135141841,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": 0.004251078353239082,
+              "minimum": -0.004255273569875984,
+              "maximum": 0.012141023405897233,
+              "positive": 3,
+              "negative": 1
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.019043385692645708,
+              "minimum": -0.030477392967783012,
+              "maximum": -0.0044962973821992755,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.00566776559548216,
+              "minimum": -0.0094287201835671,
+              "maximum": -0.0010591031527916878,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": -0.05263553135141841,
+              "minimum": -0.4027795960186893,
+              "maximum": 0.22451985348777193,
+              "positive": 2,
+              "negative": 2
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        },
+        "BMC": {
+          "metrics": {
+            "Dice": 0.0015487932026403972,
+            "NLL": -0.03437186711145847,
+            "Brier": -0.01017209946502657,
+            "HD95_penalized_mm": -0.0853748866534687,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": 0.0015487932026403833,
+              "minimum": -0.006492763289746684,
+              "maximum": 0.01078134398898678,
+              "positive": 3,
+              "negative": 1
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.034371867111458475,
+              "minimum": -0.04033203599248468,
+              "maximum": -0.02959413496400444,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.010172099465026575,
+              "minimum": -0.012208737921821866,
+              "maximum": -0.007249522422069207,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": -0.08537488665346604,
+              "minimum": -0.15366036497030677,
+              "maximum": 0.0,
+              "positive": 0,
+              "negative": 3
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        }
+      },
+      "gate": {
+        "status": "FAILED",
+        "checks": {
+          "source_gain_ge_1pp": false,
+          "transfer_drop_le_0_5pp": true,
+          "no_new_empty": true,
+          "HD95_worsening_le_10pct": true
+        }
+      }
+    },
+    "E_minus_N": {
+      "domains": {
+        "RUNMC": {
+          "metrics": {
+            "Dice": -0.0006865254284562639,
+            "NLL": -0.0011923842616571312,
+            "Brier": -0.0006671792528575721,
+            "HD95_penalized_mm": -0.049621307064315445,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": -0.0006865254284562777,
+              "minimum": -0.0022823455217090283,
+              "maximum": 0.001557924292434787,
+              "positive": 2,
+              "negative": 2
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.0011923842616571294,
+              "minimum": -0.002289672113021793,
+              "maximum": -9.404638357524836e-05,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.0006671792528575686,
+              "minimum": -0.001516084663820312,
+              "maximum": 0.0001360575512518794,
+              "positive": 1,
+              "negative": 3
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": -0.04962130706431589,
+              "minimum": -0.12627852133938333,
+              "maximum": 0.024397778450357066,
+              "positive": 1,
+              "negative": 3
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        },
+        "BMC": {
+          "metrics": {
+            "Dice": 5.668478794351728e-06,
+            "NLL": -0.00306838294640141,
+            "Brier": -0.0017943759821113167,
+            "HD95_penalized_mm": -0.027435899207269188,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": 5.668478794351728e-06,
+              "minimum": -0.0029879201675628853,
+              "maximum": 0.004182034162701076,
+              "positive": 2,
+              "negative": 2
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.0030683829464014066,
+              "minimum": -0.003615424000321485,
+              "maximum": -0.0024171339190318664,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.001794375982111322,
+              "minimum": -0.0021817291859828752,
+              "maximum": -0.0012582462295387883,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": -0.0274358992072683,
+              "minimum": -0.06315173372540528,
+              "maximum": 0.0,
+              "positive": 0,
+              "negative": 2
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        }
+      },
+      "gate": {
+        "status": "FAILED",
+        "checks": {
+          "source_gain_ge_1pp": false,
+          "transfer_drop_le_0_5pp": true,
+          "no_new_empty": true,
+          "HD95_worsening_le_10pct": true
+        }
+      }
+    },
+    "E_minus_I": {
+      "domains": {
+        "RUNMC": {
+          "metrics": {
+            "Dice": 0.0015866348452425738,
+            "NLL": -0.0002501730248514397,
+            "Brier": -0.00032273494365130106,
+            "HD95_penalized_mm": -0.06435982690302922,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": 0.0015866348452424905,
+              "minimum": -0.0024576131058983153,
+              "maximum": 0.006287482395371469,
+              "positive": 2,
+              "negative": 2
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.000250173024851438,
+              "minimum": -0.001260985835722088,
+              "maximum": 0.0006974961304720001,
+              "positive": 2,
+              "negative": 2
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.0003227349436513028,
+              "minimum": -0.0008774466557169916,
+              "maximum": 0.0002988434194691261,
+              "positive": 1,
+              "negative": 3
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": -0.06435982690302833,
+              "minimum": -0.16818772926511727,
+              "maximum": 0.024397778450357066,
+              "positive": 2,
+              "negative": 2
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        },
+        "BMC": {
+          "metrics": {
+            "Dice": 0.000369053651123219,
+            "NLL": -0.00044241753014337415,
+            "Brier": -0.0004787868268300438,
+            "HD95_penalized_mm": -0.027660475442544907,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": 0.00036905365112323285,
+              "minimum": -0.0017500340865307384,
+              "maximum": 0.0035212824598047088,
+              "positive": 2,
+              "negative": 2
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.0004424175301433776,
+              "minimum": -0.000865091638121325,
+              "maximum": 0.0004426662414276916,
+              "positive": 1,
+              "negative": 3
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.00047878682683005075,
+              "minimum": -0.0007498545650934038,
+              "maximum": -0.00012257797221960215,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": -0.02766047544254313,
+              "minimum": -0.04903060905207468,
+              "maximum": 0.0,
+              "positive": 0,
+              "negative": 3
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        }
+      },
+      "gate": {
+        "status": "FAILED",
+        "checks": {
+          "source_gain_ge_1pp": false,
+          "transfer_drop_le_0_5pp": true,
+          "no_new_empty": true,
+          "HD95_worsening_le_10pct": true
+        }
+      }
+    },
+    "I_minus_A": {
+      "domains": {
+        "RUNMC": {
+          "metrics": {
+            "Dice": 0.00266444350799655,
+            "NLL": -0.018793212667794275,
+            "Brier": -0.005345030651830861,
+            "HD95_penalized_mm": 0.011724295551610808,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": 0.0026644435079965917,
+              "minimum": -0.0017976604639776683,
+              "maximum": 0.006294397861445256,
+              "positive": 3,
+              "negative": 1
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.018793212667794268,
+              "minimum": -0.029735191226271787,
+              "maximum": -0.005193793512671276,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.005345030651830857,
+              "minimum": -0.008804783790135572,
+              "maximum": -0.0013579465722608139,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": 0.01172429555160992,
+              "minimum": -0.23459186675357202,
+              "maximum": 0.2087989667404191,
+              "positive": 2,
+              "negative": 2
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        },
+        "BMC": {
+          "metrics": {
+            "Dice": 0.0011797395515171782,
+            "NLL": -0.033929449581315094,
+            "Brier": -0.009693312638196526,
+            "HD95_penalized_mm": -0.0577144112109238,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": 0.0011797395515171505,
+              "minimum": -0.004742729203215945,
+              "maximum": 0.007260061529182071,
+              "positive": 3,
+              "negative": 1
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.033929449581315094,
+              "minimum": -0.03950403183738062,
+              "maximum": -0.03003680120543213,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.009693312638196524,
+              "minimum": -0.011458883356728462,
+              "maximum": -0.007126944449849605,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": -0.05771441121092291,
+              "minimum": -0.1264141080595671,
+              "maximum": 0.0,
+              "positive": 0,
+              "negative": 3
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        }
+      },
+      "gate": {
+        "status": "FAILED",
+        "checks": {
+          "source_gain_ge_1pp": false,
+          "transfer_drop_le_0_5pp": true,
+          "no_new_empty": true,
+          "HD95_worsening_le_10pct": true
+        }
+      }
+    },
+    "I_minus_N": {
+      "domains": {
+        "RUNMC": {
+          "metrics": {
+            "Dice": -0.0022731602736988377,
+            "NLL": -0.0009422112368056915,
+            "Brier": -0.000344444309206271,
+            "HD95_penalized_mm": 0.01473851983871377,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": -0.0022731602736987683,
+              "minimum": -0.004897777939424475,
+              "maximum": 0.0003612868822555626,
+              "positive": 2,
+              "negative": 2
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.0009422112368056915,
+              "minimum": -0.0013424351017443797,
+              "maximum": -0.0006061810541314328,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.0003444443092062658,
+              "minimum": -0.0006386380081033205,
+              "maximum": -0.00016278586821724672,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": 0.014738519838712438,
+              "minimum": -0.09385435612500892,
+              "maximum": 0.11089922755412474,
+              "positive": 2,
+              "negative": 1
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        },
+        "BMC": {
+          "metrics": {
+            "Dice": -0.00036338517232886725,
+            "NLL": -0.002625965416258036,
+            "Brier": -0.001315589155281273,
+            "HD95_penalized_mm": 0.00022457623527571968,
+            "empty_predictions": 0
+          },
+          "patient_aggregates": {
+            "Dice": {
+              "n": 4,
+              "mean": -0.0003633851723288811,
+              "minimum": -0.0023605841184924925,
+              "maximum": 0.0006607517028963672,
+              "positive": 3,
+              "negative": 1
+            },
+            "NLL": {
+              "n": 4,
+              "mean": -0.002625965416258029,
+              "minimum": -0.0033014624595667508,
+              "maximum": -0.001897893350256051,
+              "positive": 0,
+              "negative": 4
+            },
+            "Brier": {
+              "n": 4,
+              "mean": -0.0013155891552812712,
+              "minimum": -0.0015806562269847918,
+              "maximum": -0.0011141575159316353,
+              "positive": 0,
+              "negative": 4
+            },
+            "HD95_penalized_mm": {
+              "n": 4,
+              "mean": 0.0002245762352748315,
+              "minimum": -0.02878669791804711,
+              "maximum": 0.04903060905207468,
+              "positive": 1,
+              "negative": 2
+            },
+            "empty_predictions": {
+              "n": 4,
+              "mean": 0,
+              "minimum": 0,
+              "maximum": 0,
+              "positive": 0,
+              "negative": 0
+            }
+          }
+        }
+      },
+      "gate": {
+        "status": "FAILED",
+        "checks": {
+          "source_gain_ge_1pp": false,
+          "transfer_drop_le_0_5pp": true,
+          "no_new_empty": true,
+          "HD95_worsening_le_10pct": true
+        }
+      }
+    }
+  },
+  "training": {
+    "I": {
+      "rows": 400,
+      "first": {
+        "step": 1601,
+        "scaled": 1.3309121208382062,
+        "fit": 1.1697861651496257,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 1.1565616074570662,
+        "anchor": 0.002096773873863672,
+        "image_L": -1.1127783818695918,
+        "image_U": 0.0,
+        "structure_margin": 6.44556439224905,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "U_risk": 0.15537084317098077,
+        "background_pixels": 16291.0,
+        "background_weight_mean": 1.0,
+        "background_effective_pixels": 16291.0,
+        "foreground_pixels": 93.0,
+        "foreground_weight_mean": 1.0,
+        "foreground_effective_pixels": 93.0
+      },
+      "last": {
+        "step": 2000,
+        "scaled": 0.9210621491538082,
+        "fit": 0.8693671684101012,
+        "global_kl": 7537.218097941008,
+        "domain_kl": 14.105074792775618,
+        "task": 0.6128482706226142,
+        "anchor": 0.24003509112191357,
+        "image_L": -1.648380666557332,
+        "image_U": 0.0,
+        "structure_margin": 1.945509426006754,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "U_risk": 0.045933778371931355,
+        "background_pixels": 16059.0,
+        "background_weight_mean": 1.0,
+        "background_effective_pixels": 16059.0,
+        "foreground_pixels": 325.0,
+        "foreground_weight_mean": 1.0,
+        "foreground_effective_pixels": 325.0
+      },
+      "last100_means": {
+        "scaled": 1.0124031053149334,
+        "fit": 0.9444616909852266,
+        "global_kl": 7534.533862654059,
+        "domain_kl": 14.1710908729171,
+        "task": 0.7471974766853389,
+        "anchor": 0.17577619506325878,
+        "image_L": -2.148801923662897,
+        "image_U": 0.0,
+        "structure_margin": 3.217381107408312,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "U_risk": 0.062182209500660876,
+        "background_pixels": 16111.38,
+        "background_weight_mean": 1.0,
+        "background_effective_pixels": 16111.38,
+        "foreground_pixels": 272.62,
+        "foreground_weight_mean": 1.0,
+        "foreground_effective_pixels": 272.62
+      }
+    },
+    "E": {
+      "rows": 400,
+      "first": {
+        "step": 1601,
+        "scaled": 1.3594698802477214,
+        "fit": 1.1697861651496257,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 1.1565616074570662,
+        "anchor": 0.002096773873863672,
+        "image_L": -1.1127783818695918,
+        "image_U": 0.0,
+        "structure_margin": 6.44556439224905,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "U_risk": 0.18392860258049595,
+        "background_pixels": 16275.0,
+        "background_weight_mean": 1.0,
+        "background_effective_pixels": 16275.0,
+        "foreground_pixels": 109.0,
+        "foreground_weight_mean": 1.0,
+        "foreground_effective_pixels": 109.0
+      },
+      "last": {
+        "step": 2000,
+        "scaled": 0.925566873076288,
+        "fit": 0.8760644625963419,
+        "global_kl": 7537.206003975578,
+        "domain_kl": 14.155105334060593,
+        "task": 0.6195599423310179,
+        "anchor": 0.23965471256928644,
+        "image_L": -1.6849807696037487,
+        "image_U": 0.0,
+        "structure_margin": 1.98217715366386,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "U_risk": 0.04374117916486008,
+        "background_pixels": 16054.0,
+        "background_weight_mean": 1.0,
+        "background_effective_pixels": 16054.0,
+        "foreground_pixels": 330.0,
+        "foreground_weight_mean": 1.0,
+        "foreground_effective_pixels": 330.0
+      },
+      "last100_means": {
+        "scaled": 1.0035804471210015,
+        "fit": 0.9330938798957261,
+        "global_kl": 7534.077132136004,
+        "domain_kl": 14.10307763130186,
+        "task": 0.7440667590417493,
+        "anchor": 0.168084567503767,
+        "image_L": -2.094255335020975,
+        "image_U": 0.0,
+        "structure_margin": 3.3070087176425913,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "U_risk": 0.06472776274394644,
+        "background_pixels": 16107.02,
+        "background_weight_mean": 1.0,
+        "background_effective_pixels": 16107.02,
+        "foreground_pixels": 276.98,
+        "foreground_weight_mean": 1.0,
+        "foreground_effective_pixels": 276.98
+      }
+    }
+  },
+  "audit": {
+    "I": [
+      {
+        "step": 1600,
+        "arm": "I",
+        "extra_reverse_calls": 2,
+        "groups": {
+          "q_mean": {
+            "base_gradient_norm": 0.9731335809283951,
+            "U_gradient_norm": 1.9281835576294686,
+            "U_over_base": 1.9814171408923436,
+            "cosine": 0.9845411985184952,
+            "actual_combined_Adam_displacement": 0.003906937298735694
+          },
+          "q_scale": {
+            "base_gradient_norm": 0.006891243620602071,
+            "U_gradient_norm": 0.014454618293052078,
+            "U_over_base": 2.0975340720560993,
+            "cosine": 0.01831133416079142,
+            "actual_combined_Adam_displacement": 0.005473042179827432
+          },
+          "phi_encoder": {
+            "base_gradient_norm": 1.6174283575586978,
+            "U_gradient_norm": 2.460961682731543,
+            "U_over_base": 1.5215274736780622,
+            "cosine": 0.5680401141371327,
+            "actual_combined_Adam_displacement": 0.006365327243063067
+          },
+          "phi_cR": {
+            "base_gradient_norm": 1.8240891754324309,
+            "U_gradient_norm": 3.4270350615882355,
+            "U_over_base": 1.8787650887604217,
+            "cosine": 0.9832854391879079,
+            "actual_combined_Adam_displacement": 0.004008991460782371
+          },
+          "domain": {
+            "base_gradient_norm": 0.26919810194274923,
+            "U_gradient_norm": 0.3120847252487644,
+            "U_over_base": 1.1593125025641375,
+            "cosine": 0.8848552867705044,
+            "actual_combined_Adam_displacement": 0.00039597490173298304
+          }
+        }
+      },
+      {
+        "step": 1799,
+        "arm": "I",
+        "extra_reverse_calls": 2,
+        "groups": {
+          "q_mean": {
+            "base_gradient_norm": 1.2339779620108406,
+            "U_gradient_norm": 1.3310829104212827,
+            "U_over_base": 1.0786926115375706,
+            "cosine": -0.859152495136626,
+            "actual_combined_Adam_displacement": 0.006857545701465372
+          },
+          "q_scale": {
+            "base_gradient_norm": 0.00850953673479758,
+            "U_gradient_norm": 0.009091893812987625,
+            "U_over_base": 1.068435814585375,
+            "cosine": 0.04439534287330734,
+            "actual_combined_Adam_displacement": 0.0047227905180260805
+          },
+          "phi_encoder": {
+            "base_gradient_norm": 2.984555896165332,
+            "U_gradient_norm": 0.8967588891461171,
+            "U_over_base": 0.3004664413550794,
+            "cosine": -0.44054095420996275,
+            "actual_combined_Adam_displacement": 0.006804723054633184
+          },
+          "phi_cR": {
+            "base_gradient_norm": 1.010882280439125,
+            "U_gradient_norm": 1.4428104157620694,
+            "U_over_base": 1.427278372250541,
+            "cosine": -0.8675067277450401,
+            "actual_combined_Adam_displacement": 0.005228543951916758
+          },
+          "domain": {
+            "base_gradient_norm": 1.2660333015060012,
+            "U_gradient_norm": 0.10819470206928775,
+            "U_over_base": 0.08545960200303221,
+            "cosine": -0.2055740361946095,
+            "actual_combined_Adam_displacement": 0.0007819023657716976
+          }
+        }
+      },
+      {
+        "step": 1999,
+        "arm": "I",
+        "extra_reverse_calls": 2,
+        "groups": {
+          "q_mean": {
+            "base_gradient_norm": 1.3249319849311503,
+            "U_gradient_norm": 0.9346784356117496,
+            "U_over_base": 0.7054538997036288,
+            "cosine": -0.8410425837117959,
+            "actual_combined_Adam_displacement": 0.0021044219703982856
+          },
+          "q_scale": {
+            "base_gradient_norm": 0.008785723526308077,
+            "U_gradient_norm": 0.005971261524830143,
+            "U_over_base": 0.6796550684698562,
+            "cosine": 0.10745338620477585,
+            "actual_combined_Adam_displacement": 0.002916379352755155
+          },
+          "phi_encoder": {
+            "base_gradient_norm": 2.2646227933893703,
+            "U_gradient_norm": 0.5307073982802801,
+            "U_over_base": 0.23434692957673167,
+            "cosine": -0.5596260026094667,
+            "actual_combined_Adam_displacement": 0.0025786835183214587
+          },
+          "phi_cR": {
+            "base_gradient_norm": 0.9766390891177565,
+            "U_gradient_norm": 1.0895091697265893,
+            "U_over_base": 1.115569898713345,
+            "cosine": -0.786010770673643,
+            "actual_combined_Adam_displacement": 0.002229331513582336
+          },
+          "domain": {
+            "base_gradient_norm": 0.209909161231478,
+            "U_gradient_norm": 0.10535163416929941,
+            "U_over_base": 0.5018915494265759,
+            "cosine": 0.44805121172652,
+            "actual_combined_Adam_displacement": 0.00032223576070552286
+          }
+        }
+      }
+    ],
+    "E": [
+      {
+        "step": 1600,
+        "arm": "E",
+        "extra_reverse_calls": 2,
+        "groups": {
+          "q_mean": {
+            "base_gradient_norm": 0.9731335809283951,
+            "U_gradient_norm": 1.22450339854382,
+            "U_over_base": 1.2583096735554142,
+            "cosine": 0.9427862777701772,
+            "actual_combined_Adam_displacement": 0.004342175212621002
+          },
+          "q_scale": {
+            "base_gradient_norm": 0.006891243620602071,
+            "U_gradient_norm": 0.009289285524864554,
+            "U_over_base": 1.3479839106389004,
+            "cosine": 0.012312112929931476,
+            "actual_combined_Adam_displacement": 0.0053220681054818135
+          },
+          "phi_encoder": {
+            "base_gradient_norm": 1.6174283575586978,
+            "U_gradient_norm": 1.7768757564585878,
+            "U_over_base": 1.0985808108005202,
+            "cosine": 0.4969228293893299,
+            "actual_combined_Adam_displacement": 0.006476421735645853
+          },
+          "phi_cR": {
+            "base_gradient_norm": 1.8240891754324309,
+            "U_gradient_norm": 1.915873591309362,
+            "U_over_base": 1.0503179433950494,
+            "cosine": 0.9526892496881221,
+            "actual_combined_Adam_displacement": 0.004061280531573591
+          },
+          "domain": {
+            "base_gradient_norm": 0.26919810194274923,
+            "U_gradient_norm": 0.14495529681738537,
+            "U_over_base": 0.5384707238694173,
+            "cosine": 0.7085738416452142,
+            "actual_combined_Adam_displacement": 0.00044677457981768365
+          }
+        }
+      },
+      {
+        "step": 1799,
+        "arm": "E",
+        "extra_reverse_calls": 2,
+        "groups": {
+          "q_mean": {
+            "base_gradient_norm": 1.245273208930199,
+            "U_gradient_norm": 1.2959705983354028,
+            "U_over_base": 1.0407118606918055,
+            "cosine": -0.8658806757477343,
+            "actual_combined_Adam_displacement": 0.006817482939300842
+          },
+          "q_scale": {
+            "base_gradient_norm": 0.008549913019756595,
+            "U_gradient_norm": 0.008822210440027338,
+            "U_over_base": 1.0318479754871817,
+            "cosine": 0.045090739915503525,
+            "actual_combined_Adam_displacement": 0.004691394359537489
+          },
+          "phi_encoder": {
+            "base_gradient_norm": 2.9813654389971553,
+            "U_gradient_norm": 0.8854789065616885,
+            "U_over_base": 0.29700448491800385,
+            "cosine": -0.4488806914946171,
+            "actual_combined_Adam_displacement": 0.006650860800651031
+          },
+          "phi_cR": {
+            "base_gradient_norm": 1.0155014034353065,
+            "U_gradient_norm": 1.3979284269219399,
+            "U_over_base": 1.3765893598895418,
+            "cosine": -0.8721115335292805,
+            "actual_combined_Adam_displacement": 0.005162039061173934
+          },
+          "domain": {
+            "base_gradient_norm": 1.2763591121431126,
+            "U_gradient_norm": 0.10765627219387613,
+            "U_over_base": 0.08434638117881443,
+            "cosine": -0.1982193940370378,
+            "actual_combined_Adam_displacement": 0.0007869876266695444
+          }
+        }
+      },
+      {
+        "step": 1999,
+        "arm": "E",
+        "extra_reverse_calls": 2,
+        "groups": {
+          "q_mean": {
+            "base_gradient_norm": 1.3712220210874784,
+            "U_gradient_norm": 0.8441517061228303,
+            "U_over_base": 0.6156200040117186,
+            "cosine": -0.8710219171271878,
+            "actual_combined_Adam_displacement": 0.0020786118016078428
+          },
+          "q_scale": {
+            "base_gradient_norm": 0.009138064156629919,
+            "U_gradient_norm": 0.005398271320992423,
+            "U_over_base": 0.5907456140013887,
+            "cosine": 0.10763373393325824,
+            "actual_combined_Adam_displacement": 0.0028299151392860832
+          },
+          "phi_encoder": {
+            "base_gradient_norm": 2.410204242235824,
+            "U_gradient_norm": 0.490067736355894,
+            "U_over_base": 0.20333037664114434,
+            "cosine": -0.6363027260902614,
+            "actual_combined_Adam_displacement": 0.0026018555556960687
+          },
+          "phi_cR": {
+            "base_gradient_norm": 1.0918849734691622,
+            "U_gradient_norm": 0.9777682559451483,
+            "U_over_base": 0.8954865024275958,
+            "cosine": -0.8617596759544982,
+            "actual_combined_Adam_displacement": 0.002226716001915527
+          },
+          "domain": {
+            "base_gradient_norm": 0.3345855789730427,
+            "U_gradient_norm": 0.09608696771144923,
+            "U_over_base": 0.28718203577803,
+            "cosine": 0.09349879146826555,
+            "actual_combined_Adam_displacement": 0.00032451704566207636
+          }
+        }
+      }
+    ]
+  },
+  "matching": {
+    "status": "PASS",
+    "reused_controls": [
+      "v25_A2000",
+      "v30_N2000"
+    ],
+    "same_config_and_data": true,
+    "critical_training_dependencies_match_v25": true,
+    "common_payload": "71f75aed1b66a1194e148e9607fc2307558f8a176dd2a9456e1beeafbbeb860f",
+    "prior_hash": "e36dd953520513322f99aa7fe0468181c42ad27944116d1aa065e0321b2312bc",
+    "old_teacher_cache_reused_for_matching": true,
+    "old_teacher_new_forwards": 0,
+    "expected_new_target_backbone_forwards": 0,
+    "old_endpoints_rescored": false
+  },
+  "target_summary": {
+    "status": "COMPLETE",
+    "arms": {
+      "I": {
+        "mean_foreground_mass": 0.018664089076193498,
+        "argmax_foreground_fraction": 0.016575436750461255,
+        "target_entropy": 0.02479154540361164,
+        "mean_absolute_change": 0.0022353940657684084,
+        "max_solver_iterations": 17,
+        "max_residual": 1.8051716204887505e-09,
+        "max_clamp_correction": 0.0
+      },
+      "E": {
+        "mean_foreground_mass": 0.018664089076193498,
+        "argmax_foreground_fraction": 0.01681507293588561,
+        "target_entropy": 0.024063759066661035,
+        "mean_absolute_change": 0.0017978739835707675,
+        "max_solver_iterations": 17,
+        "max_residual": 1.2386012637506589e-09,
+        "max_clamp_correction": 0.0
+      }
+    },
+    "U_slices": 271,
+    "graph_solves": 542,
+    "model_forwards": 0,
+    "source_updates": 0,
+    "U_labels_read": false,
+    "L_labels_read": false,
+    "existing_neighbor_cache_reused": true,
+    "solver_dtype": "float64",
+    "source_unchanged": true
+  },
+  "reused_controls": [
+    "v25_A2000",
+    "v30_N2000"
+  ],
+  "relative_to_v23_L1600_pp": {
+    "A": {
+      "RUNMC": 1.0015564509171182,
+      "BMC": -0.9923031662988357
+    },
+    "N": {
+      "RUNMC": 1.495316829086657,
+      "BMC": -0.8379906939142312
+    },
+    "I": {
+      "RUNMC": 1.2680008017167732,
+      "BMC": -0.8743292111471179
+    },
+    "E": {
+      "RUNMC": 1.4266642862410306,
+      "BMC": -0.837423846034796
+    }
+  }
+}
