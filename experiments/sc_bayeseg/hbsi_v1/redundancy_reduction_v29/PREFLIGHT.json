@@ -1,0 +1,75 @@
+{
+  "status": "PASS",
+  "redundancy_checks": {
+    "orthogonal_identity_near_zero": true,
+    "duplicate_channels_penalized": true,
+    "channel_mismatch_penalized": true,
+    "collapsed_constant_loss_one": true,
+    "finite_nondegenerate_gradient": true,
+    "fixture_reverse_calls": 1
+  },
+  "auxiliary_only_backbone_gradient": true,
+  "auxiliary_path_reverse_calls": 1,
+  "real_batch": [
+    {
+      "use_u": false,
+      "seconds": 0.7115345990168862,
+      "parts": {
+        "scaled": 1.0150059303119576,
+        "fit": 0.9351024337191337,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 0.7055443653109255,
+        "anchor": 0.22083687264161017,
+        "image_L": -0.8721195766598071,
+        "image_U": 0.0,
+        "structure_margin": 2.898676522225908,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.9408575462367332,
+        "auxiliary_risk": 0.07414838407522435,
+        "auxiliary_pool_U": 0.0,
+        "invariance": 0.04648650550850163,
+        "redundancy": 5.532375713344544,
+        "correlation_diagonal": 0.856200778328265,
+        "correlation_offdiag_square": 0.36882504755630297,
+        "feature_spatial_sd": 0.26651889591419714
+      }
+    },
+    {
+      "use_u": true,
+      "seconds": 0.1524244809988886,
+      "parts": {
+        "scaled": 0.9900843878794608,
+        "fit": 0.9351024337191337,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 0.7055443653109255,
+        "anchor": 0.22083687264161017,
+        "image_L": -0.8721195766598071,
+        "image_U": 0.0,
+        "structure_margin": 2.898676522225908,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.9408575462367332,
+        "auxiliary_risk": 0.04922684164272759,
+        "auxiliary_pool_U": 1.0,
+        "invariance": 0.020223988904891483,
+        "redundancy": 5.8005705475672205,
+        "correlation_diagonal": 0.9043080892397309,
+        "correlation_offdiag_square": 0.386704703171148,
+        "feature_spatial_sd": 0.26713652504985874
+      }
+    }
+  ],
+  "paired_original_L_task_anchor": true,
+  "paired_global_rng": true,
+  "source_updates": 0,
+  "real_batch_reverse_calls": 2,
+  "fixture_reverse_calls": 1,
+  "U_label_capability": false,
+  "counts": {
+    "L": 80,
+    "U": 271
+  }
+}
