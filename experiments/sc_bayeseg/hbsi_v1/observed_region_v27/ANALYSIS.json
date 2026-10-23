@@ -1,0 +1,282 @@
+{
+  "status": "COMPLETE",
+  "seed": 20261023,
+  "training_seeds": 1,
+  "patients_per_domain": 4,
+  "inference_repeats": 3,
+  "means": {
+    "L": {
+      "RUNMC": {
+        "Dice": 0.6276329725912237,
+        "NLL": 0.0814348142142929,
+        "Brier": 0.04255666709778976,
+        "HD95_penalized_mm": 14.63816210571488,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.42700828056769957,
+        "NLL": 0.10662036306116154,
+        "Brier": 0.05481895364303918,
+        "HD95_penalized_mm": 34.30952455490008,
+        "empty_predictions": 0
+      }
+    },
+    "LU": {
+      "RUNMC": {
+        "Dice": 0.6272927490338726,
+        "NLL": 0.08172374602725573,
+        "Brier": 0.04277630402597972,
+        "HD95_penalized_mm": 14.671051270070556,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.42692776921562614,
+        "NLL": 0.10726286734292889,
+        "Brier": 0.055158018655342346,
+        "HD95_penalized_mm": 34.31892786928941,
+        "empty_predictions": 0
+      }
+    }
+  },
+  "U_effect": {
+    "RUNMC": {
+      "metrics": {
+        "Dice": -0.0003402235573511936,
+        "NLL": 0.0002889318129628282,
+        "Brier": 0.00021963692818995767,
+        "HD95_penalized_mm": 0.03288916435567657,
+        "empty_predictions": 0
+      },
+      "patient_aggregates": {
+        "Dice": {
+          "n": 4,
+          "mean": -0.00034022355735120746,
+          "minimum": -0.0016826212829263443,
+          "maximum": 0.0014585237410025265,
+          "positive": 1,
+          "negative": 3
+        },
+        "NLL": {
+          "n": 4,
+          "mean": 0.0002889318129628282,
+          "minimum": -0.00038407535648478375,
+          "maximum": 0.0009031822267274864,
+          "positive": 2,
+          "negative": 2
+        },
+        "Brier": {
+          "n": 4,
+          "mean": 0.00021963692818995507,
+          "minimum": -0.00014596444747435114,
+          "maximum": 0.00045994404891683965,
+          "positive": 3,
+          "negative": 1
+        },
+        "HD95_penalized_mm": {
+          "n": 4,
+          "mean": 0.03288916435567657,
+          "minimum": -0.0053169782849735725,
+          "maximum": 0.09080872944091922,
+          "positive": 3,
+          "negative": 1
+        },
+        "empty_predictions": {
+          "n": 4,
+          "mean": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "positive": 0,
+          "negative": 0
+        }
+      }
+    },
+    "BMC": {
+      "metrics": {
+        "Dice": -8.05113520734313e-05,
+        "NLL": 0.0006425042817673476,
+        "Brier": 0.00033906501230316494,
+        "HD95_penalized_mm": 0.009403314389331285,
+        "empty_predictions": 0
+      },
+      "patient_aggregates": {
+        "Dice": {
+          "n": 4,
+          "mean": -8.051135207344517e-05,
+          "minimum": -0.0015412574235137422,
+          "maximum": 0.0005502356278557219,
+          "positive": 3,
+          "negative": 1
+        },
+        "NLL": {
+          "n": 4,
+          "mean": 0.0006425042817673476,
+          "minimum": 0.00012112705543251834,
+          "maximum": 0.0010069944288625399,
+          "positive": 4,
+          "negative": 0
+        },
+        "Brier": {
+          "n": 4,
+          "mean": 0.0003390650123031632,
+          "minimum": 0.0001859633088324153,
+          "maximum": 0.0004658057939689389,
+          "positive": 4,
+          "negative": 0
+        },
+        "HD95_penalized_mm": {
+          "n": 4,
+          "mean": 0.00940331438933395,
+          "minimum": 0.0,
+          "maximum": 0.015635917266585864,
+          "positive": 3,
+          "negative": 0
+        },
+        "empty_predictions": {
+          "n": 4,
+          "mean": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "positive": 0,
+          "negative": 0
+        }
+      }
+    }
+  },
+  "gate": {
+    "status": "FAILED",
+    "checks": {
+      "source_U_gain_ge_1pp": false,
+      "transfer_drop_le_0_5pp": true,
+      "no_new_empty": true,
+      "HD95_worsening_le_10pct": true
+    }
+  },
+  "training_summaries": {
+    "L": {
+      "rows": 400,
+      "first": {
+        "step": 1601,
+        "scaled": 1.13335260646259,
+        "fit": 1.1275974939449904,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "context_rms": 0.3105470049199828,
+        "donor_U": 0.0,
+        "observed_fraction": 0.46875,
+        "task": 1.1143729362524308,
+        "task_original": 1.1565616074570662,
+        "task_context": 1.0721842650477955,
+        "anchor": 0.002096773873863672,
+        "image_L": -1.1127783818695918,
+        "structure_margin": 6.44556439224905,
+        "valid_candidate_fraction": 1.0
+      },
+      "last": {
+        "step": 2000,
+        "scaled": 0.7236062948390161,
+        "fit": 0.7178435889879089,
+        "global_kl": 7540.967172759455,
+        "domain_kl": 12.32664040367683,
+        "context_rms": 0.31943708068635046,
+        "donor_U": 0.0,
+        "observed_fraction": 0.46875,
+        "task": 0.5911058688597228,
+        "task_original": 0.535944710738521,
+        "task_context": 0.6462670269809245,
+        "anchor": 0.11770363317379315,
+        "image_L": -0.9034086954393123,
+        "structure_margin": 3.324316474303046,
+        "valid_candidate_fraction": 1.0
+      },
+      "last100_means": {
+        "scaled": 0.8436444957461084,
+        "fit": 0.8378825021094753,
+        "global_kl": 7540.153154255801,
+        "domain_kl": 12.207145151846477,
+        "context_rms": 0.3513663470936954,
+        "donor_U": 0.0,
+        "observed_fraction": 0.46875,
+        "task": 0.7295772374829528,
+        "task_original": 0.697581979637136,
+        "task_context": 0.7615724953287697,
+        "anchor": 0.09904483198500742,
+        "image_L": -0.926043264151514,
+        "structure_margin": 5.209109671049545,
+        "valid_candidate_fraction": 1.0
+      }
+    },
+    "LU": {
+      "rows": 400,
+      "first": {
+        "step": 1601,
+        "scaled": 1.1332517598138687,
+        "fit": 1.127496647296269,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "context_rms": 0.4910465833809736,
+        "donor_U": 1.0,
+        "observed_fraction": 0.46875,
+        "task": 1.1142720896037095,
+        "task_original": 1.1565616074570662,
+        "task_context": 1.0719825717503526,
+        "anchor": 0.002096773873863672,
+        "image_L": -1.1127783818695918,
+        "structure_margin": 6.44556439224905,
+        "valid_candidate_fraction": 1.0
+      },
+      "last": {
+        "step": 2000,
+        "scaled": 0.7234488908007027,
+        "fit": 0.7176861723099227,
+        "global_kl": 7540.9827908486495,
+        "domain_kl": 12.327589386577593,
+        "context_rms": 0.38329578449468316,
+        "donor_U": 1.0,
+        "observed_fraction": 0.46875,
+        "task": 0.5907759179579404,
+        "task_original": 0.5356847602619347,
+        "task_context": 0.645867075653946,
+        "anchor": 0.11787054358589653,
+        "image_L": -0.9039710766085831,
+        "structure_margin": 3.3187505820248617,
+        "valid_candidate_fraction": 1.0
+      },
+      "last100_means": {
+        "scaled": 0.8428216677560614,
+        "fit": 0.837059647538122,
+        "global_kl": 7540.181761012653,
+        "domain_kl": 12.213379044877136,
+        "context_rms": 0.4019440193786472,
+        "donor_U": 1.0,
+        "observed_fraction": 0.46875,
+        "task": 0.7293067271042577,
+        "task_original": 0.6975918922580062,
+        "task_context": 0.7610215619505092,
+        "anchor": 0.09848853796899996,
+        "image_L": -0.9264382464864296,
+        "structure_margin": 5.219823758175959,
+        "valid_candidate_fraction": 1.0
+      }
+    }
+  },
+  "historical_v23_L_delta_pp": {
+    "L": {
+      "RUNMC": 0.7769453344430244,
+      "BMC": -1.3745511660788634
+    },
+    "LU": {
+      "RUNMC": 0.742922978707905,
+      "BMC": -1.3826023012862065
+    }
+  },
+  "historical_v25_A_delta_pp": {
+    "L": {
+      "RUNMC": -0.22461111647409382,
+      "BMC": -0.38224799978002766
+    },
+    "LU": {
+      "RUNMC": -0.2586334722092132,
+      "BMC": -0.3902991349873708
+    }
+  }
+}

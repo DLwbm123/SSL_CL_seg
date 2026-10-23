@@ -13,3 +13,5 @@
 预检仅证明这些实现性质，不证明新U机制有效。接缝和不自然上下文风险仍在；固定L供体对照、原门槛与绝对水平背景共同解释最终结果。
 
 [冻结协议](PREREG_ZH.md)；[预检](PREFLIGHT.json)；[失败修复记录](REPAIR_RECORD.json)。
+
+最终状态：COMPLETE+EXIT0；L/LU均固定2000步，800新增更新。原门槛FAILED，原失败与修复成本保留。见[最终报告](REPORT_ZH.md)。
