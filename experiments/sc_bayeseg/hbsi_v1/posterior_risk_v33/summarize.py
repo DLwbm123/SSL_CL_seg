@@ -60,6 +60,11 @@ def main():
     for r in a['audit']['J']:
         q=r['groups']['q_mean'];v=r['groups']['q_scale'];lines.append(f"| {r['step']} | {q['U_over_base']:.6f} | {q['cosine']:.6f} | {v['U_over_base']:.6f} | {v['cosine']:.6f} |")
     lines+=['', '基础含全部原L目标，实际Adam位移不是U反事实。2×2为嵌套样本，经验方差不等可靠不确定性；期望条件风险可能压低有用分歧，不能仅以gap下降宣称成功。', '',f"400正式Adam/模型反向，1真实预检反向0Adam，6额外遥测autograd0额外Adam；无新目标前向/缓存。历时{cost['elapsed_seconds']:.2f}秒，全根{cost['root_bytes']}字节。v30旧建库成本保留，旧A/N未重新评分。", '', '单seed、每域4开发患者、3推断重复，不证明独立泛化、精确后验、可靠不确定性或CL。失败不扩seed/样本数/风险混合权重/温度/阈值/增强。', '', '[冻结协议](PREREG_ZH.md)；[全部指标/轨迹](ANALYSIS.json)；[成本](EXECUTION_SUMMARY.json)。']
+    lines += ['', '## 实测结论与机制边界', '',
+        'J−A源域+0.53584pp、迁移+0.15390pp，J−N仅+0.04208pp/−0.00041pp；两项均只失败于原源域≥1pp门槛。保护门通过、空预测为0，不能替代主门。J−N两域均2正2负患者，因此这次积分位置调整没有建立有意义的条件分割收益。配置关闭，不追加样本数、混合权重或seed搜索。', '',
+        '相对N，J源域NLL和HD95均值变差，Brier仅微降；迁移三项均值都变差。相对A的概率误差改善大部分已经出现在N，不能归功于J的新风险。J迁移Dice仍比共同v23L1600入口低0.83840pp，不能将额外400步的源域增益全部归U或称双域净提升。', '',
+        '全400步Jensen gap范围0.000462689至0.037241589，最小采样概率0.000153356，数值下限触发比例每步均为0；本次轨迹的非负gap符合正概率条件下的Jensen关系。它证明新条件风险确实区别于原均值风险，未证明分歧被正确压缩，也未证明U目标正确。没有对N做相同样本的后续反事实重评分，不以两个版本的不同训练轨迹判定后验方差因果变化。', '',
+        '三点q均值U/基础范数约0.656、0.925、0.511，余弦约−0.017、−0.764、−0.844；q尺度余弦后两点转正。不同组和时点方向不同，不能以“始终梯度太小”或“全参数冲突”解释结果。现有证据支持停止同一固定目标上的进一步风险变体；后继需引入不同的信息约束，不能把小标量改善视为机制已经可行。']
     for n,v in [('ANALYSIS.json',a),('RESULTS.json',x['RESULTS.json']),('EXECUTION_SUMMARY.json',cost)]:(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps({k:v['gate'] for k,v in a['effects'].items()}))
 
