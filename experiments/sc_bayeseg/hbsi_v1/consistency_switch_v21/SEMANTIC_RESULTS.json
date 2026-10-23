@@ -1,0 +1,1564 @@
+{
+  "status": "COMPLETE",
+  "rows": [
+    {
+      "state": "L400",
+      "batch_index": 0,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.21765898678972748,
+        "probability_variance": 0.0013977245991356774,
+        "sample_class_disagreement": 0.014862060546875,
+        "mask_agreement": 0.9508056640625,
+        "classes": {
+          "background": {
+            "predicted_pixels": 28727,
+            "accepted_pixels": 23855,
+            "coverage": 0.8304034471511841,
+            "accepted_class_jaccard": 0.949336588382721
+          },
+          "foreground": {
+            "predicted_pixels": 4041,
+            "accepted_pixels": 221,
+            "coverage": 0.0546894334256649,
+            "accepted_class_jaccard": 0.09068627655506134
+          }
+        },
+        "label_audit": {
+          "precision": 0.17619401216506958,
+          "recall": 0.8800988793373108,
+          "gt_foreground_pixels": 809,
+          "pred_foreground_pixels": 4041,
+          "high_confidence_pixels": 25441,
+          "high_confidence_errors": 352,
+          "high_confidence_error_rate": 0.013835933990776539,
+          "boundary_pixels": 1112,
+          "boundary_errors": 606,
+          "boundary_error_rate": 0.5449640154838562,
+          "interior_error_rate": 0.08908263593912125,
+          "accepted_foreground_precision": 0.09502262622117996
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.21649564130496918,
+        "probability_variance": 0.0015026041392091614,
+        "sample_class_disagreement": 0.017486572265625,
+        "mask_agreement": 0.953643798828125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 29852,
+            "accepted_pixels": 24742,
+            "coverage": 0.8288221955299377,
+            "accepted_class_jaccard": 0.9401119947433472
+          },
+          "foreground": {
+            "predicted_pixels": 2916,
+            "accepted_pixels": 0,
+            "coverage": 0.0,
+            "accepted_class_jaccard": null
+          }
+        }
+      },
+      "terms": {
+        "task": 1.0376364776003155,
+        "A": 1.0622018002872347,
+        "semantic": 0.0010000747052263744,
+        "background_pixels": 29852.0,
+        "background": 0.0003647380720726403,
+        "foreground_pixels": 2916.0,
+        "foreground": 0.0016354113383801082
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 0.5362206696891468,
+          "semantic_norm": 0.10847503291408536,
+          "A_norm": 0.5400737036425058,
+          "semantic_task_ratio": 0.2022955082596304,
+          "semantic_task_cosine": -0.6213808968326863,
+          "semantic_A_ratio": 0.20085227661054367
+        },
+        "F_mean": {
+          "task_norm": 0.04987055591998571,
+          "semantic_norm": 0.021270002497160857,
+          "A_norm": 0.053257366541488535,
+          "semantic_task_ratio": 0.4265042188678885,
+          "semantic_task_cosine": -0.8984959167538593,
+          "semantic_A_ratio": 0.3993814166645117
+        },
+        "G_scale": {
+          "task_norm": 0.0036624342243800024,
+          "semantic_norm": 0.0007209022296698049,
+          "A_norm": 0.003675705696100924,
+          "semantic_task_ratio": 0.196836908324775,
+          "semantic_task_cosine": -0.008342470958432645,
+          "semantic_A_ratio": 0.19612621065786523
+        },
+        "F_scale": {
+          "task_norm": 0.0004964398292193838,
+          "semantic_norm": 0.0001908153584238333,
+          "A_norm": 0.0005205526063672516,
+          "semantic_task_ratio": 0.3843675450534999,
+          "semantic_task_cosine": 0.05653789535205968,
+          "semantic_A_ratio": 0.36656306411654466
+        },
+        "domain": {
+          "task_norm": 0.037810411751776886,
+          "semantic_norm": 0.01391487324358307,
+          "A_norm": 0.06884775709648949,
+          "semantic_task_ratio": 0.36801697201642203,
+          "semantic_task_cosine": -0.9215352611982123,
+          "semantic_A_ratio": 0.20211077063965213
+        },
+        "phi_shared": {
+          "task_norm": 3.5354631667230336,
+          "semantic_norm": 0.2686474643390345,
+          "A_norm": 3.5269372925954046,
+          "semantic_task_ratio": 0.07598649785624545,
+          "semantic_task_cosine": -0.7331633877868247,
+          "semantic_A_ratio": 0.07617018451194013
+        },
+        "phi_cR": {
+          "task_norm": 0.5919263435675237,
+          "semantic_norm": 0.14096577434188406,
+          "A_norm": 0.5942344007493641,
+          "semantic_task_ratio": 0.23814749229150242,
+          "semantic_task_cosine": -0.7306104261160811,
+          "semantic_A_ratio": 0.237222507084945
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.045374723841776675,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.8946296843273664,
+          "soft_dice_loss": 0.703634331106588,
+          "precision": 0.2900641025641026,
+          "recall": 0.945993031358885
+        },
+        "A": {
+          "risk": 0.8899933197165225,
+          "soft_dice_loss": 0.699206869129134,
+          "precision": 0.29243243243243244,
+          "recall": 0.9425087108013938
+        },
+        "A_sem": {
+          "risk": 0.8899599283310051,
+          "soft_dice_loss": 0.6989536332291026,
+          "precision": 0.2929074174336762,
+          "recall": 0.9425087108013938
+        }
+      }
+    },
+    {
+      "state": "L400",
+      "batch_index": 1,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.1936681273953787,
+        "probability_variance": 0.0009779415362935753,
+        "sample_class_disagreement": 0.008758544921875,
+        "mask_agreement": 0.945709228515625,
+        "classes": {
+          "background": {
+            "predicted_pixels": 29536,
+            "accepted_pixels": 25289,
+            "coverage": 0.856209397315979,
+            "accepted_class_jaccard": 0.9372574687004089
+          },
+          "foreground": {
+            "predicted_pixels": 3232,
+            "accepted_pixels": 42,
+            "coverage": 0.012995049357414246,
+            "accepted_class_jaccard": 0.0
+          }
+        },
+        "label_audit": {
+          "precision": 0.3635519742965698,
+          "recall": 0.9266561269760132,
+          "gt_foreground_pixels": 1268,
+          "pred_foreground_pixels": 3232,
+          "high_confidence_pixels": 26895,
+          "high_confidence_errors": 33,
+          "high_confidence_error_rate": 0.001226993859745562,
+          "boundary_pixels": 1352,
+          "boundary_errors": 584,
+          "boundary_error_rate": 0.43195265531539917,
+          "interior_error_rate": 0.04984721168875694,
+          "accepted_foreground_precision": 1.0
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.2365845469924466,
+        "probability_variance": 0.0017757558343951207,
+        "sample_class_disagreement": 0.01935577392578125,
+        "mask_agreement": 0.955474853515625,
+        "classes": {
+          "background": {
+            "predicted_pixels": 28007,
+            "accepted_pixels": 22449,
+            "coverage": 0.8015496134757996,
+            "accepted_class_jaccard": 0.9431513547897339
+          },
+          "foreground": {
+            "predicted_pixels": 4761,
+            "accepted_pixels": 145,
+            "coverage": 0.030455786734819412,
+            "accepted_class_jaccard": 0.0
+          }
+        }
+      },
+      "terms": {
+        "task": 0.805225449550846,
+        "A": 0.829300541279706,
+        "semantic": 0.0004277853346384959,
+        "background_pixels": 28007.0,
+        "background": 0.00025176418886859093,
+        "foreground_pixels": 4761.0,
+        "foreground": 0.0006038064804084009
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 0.8017196851930001,
+          "semantic_norm": 0.04637115308370373,
+          "A_norm": 0.8017666389501535,
+          "semantic_task_ratio": 0.05783960895576698,
+          "semantic_task_cosine": -0.20037093094448913,
+          "semantic_A_ratio": 0.05783622170214376
+        },
+        "F_mean": {
+          "task_norm": 0.020428160077435663,
+          "semantic_norm": 0.008867104428476751,
+          "A_norm": 0.021086022424490095,
+          "semantic_task_ratio": 0.434062803251238,
+          "semantic_task_cosine": 0.24809658727718437,
+          "semantic_A_ratio": 0.42052048745704473
+        },
+        "G_scale": {
+          "task_norm": 0.004619510753464746,
+          "semantic_norm": 0.00031734910654575787,
+          "A_norm": 0.00462398628562434,
+          "semantic_task_ratio": 0.06869755770299664,
+          "semantic_task_cosine": 0.01566442066899332,
+          "semantic_A_ratio": 0.06863106569592879
+        },
+        "F_scale": {
+          "task_norm": 0.0003947263673269039,
+          "semantic_norm": 8.00491890094324e-05,
+          "A_norm": 0.0004021415153284707,
+          "semantic_task_ratio": 0.20279666025740153,
+          "semantic_task_cosine": 0.03791573274792697,
+          "semantic_A_ratio": 0.19905726207861907
+        },
+        "domain": {
+          "task_norm": 0.018584644927528468,
+          "semantic_norm": 0.006341535339854507,
+          "A_norm": 0.04114102141357656,
+          "semantic_task_ratio": 0.3412244551662712,
+          "semantic_task_cosine": 0.4549729946748467,
+          "semantic_A_ratio": 0.15414141705684042
+        },
+        "phi_shared": {
+          "task_norm": 0.5677023968298122,
+          "semantic_norm": 0.10527279539431897,
+          "A_norm": 0.56560730341618,
+          "semantic_task_ratio": 0.18543658787101797,
+          "semantic_task_cosine": -0.2527433578884806,
+          "semantic_A_ratio": 0.18612347251969286
+        },
+        "phi_cR": {
+          "task_norm": 0.2727036903810615,
+          "semantic_norm": 0.061241136545256085,
+          "A_norm": 0.272267207089765,
+          "semantic_task_ratio": 0.22457025227521124,
+          "semantic_task_cosine": -0.17174697323348567,
+          "semantic_A_ratio": 0.2249302705230499
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.07241442448063387,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.7832915079621601,
+          "soft_dice_loss": 0.5834955655998078,
+          "precision": 0.425904317386231,
+          "recall": 0.8809332260659695
+        },
+        "A": {
+          "risk": 0.7827178018720078,
+          "soft_dice_loss": 0.5784365714661133,
+          "precision": 0.4342948717948718,
+          "recall": 0.8720836685438456
+        },
+        "A_sem": {
+          "risk": 0.7827979523257003,
+          "soft_dice_loss": 0.5782909889158954,
+          "precision": 0.43481748896911354,
+          "recall": 0.8720836685438456
+        }
+      }
+    },
+    {
+      "state": "A800",
+      "batch_index": 0,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.03597523924100575,
+        "probability_variance": 0.0003906380246457338,
+        "sample_class_disagreement": 0.0034942626953125,
+        "mask_agreement": 0.993682861328125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31412,
+            "accepted_pixels": 30700,
+            "coverage": 0.9773334860801697,
+            "accepted_class_jaccard": 0.9962902665138245
+          },
+          "foreground": {
+            "predicted_pixels": 1356,
+            "accepted_pixels": 668,
+            "coverage": 0.49262535572052,
+            "accepted_class_jaccard": 0.8751677870750427
+          }
+        },
+        "label_audit": {
+          "precision": 0.5707964897155762,
+          "recall": 0.95673668384552,
+          "gt_foreground_pixels": 809,
+          "pred_foreground_pixels": 1356,
+          "high_confidence_pixels": 31539,
+          "high_confidence_errors": 163,
+          "high_confidence_error_rate": 0.005168204661458731,
+          "boundary_pixels": 1112,
+          "boundary_errors": 441,
+          "boundary_error_rate": 0.3965827226638794,
+          "interior_error_rate": 0.005559767596423626,
+          "accepted_foreground_precision": 0.8218562602996826
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.03006630877963543,
+        "probability_variance": 0.0002612859153267044,
+        "sample_class_disagreement": 0.002410888671875,
+        "mask_agreement": 0.993194580078125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31710,
+            "accepted_pixels": 31199,
+            "coverage": 0.9838852286338806,
+            "accepted_class_jaccard": 0.9959028363227844
+          },
+          "foreground": {
+            "predicted_pixels": 1058,
+            "accepted_pixels": 433,
+            "coverage": 0.4092627465724945,
+            "accepted_class_jaccard": 0.8140900135040283
+          }
+        }
+      },
+      "terms": {
+        "task": 0.43933979529515743,
+        "A": 0.46252521377806627,
+        "semantic": 0.00011969249125097967,
+        "background_pixels": 31710.0,
+        "background": 1.6382690003618048e-05,
+        "foreground_pixels": 1058.0,
+        "foreground": 0.00022300229249834128
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 0.38355147984671056,
+          "semantic_norm": 0.03528834798014979,
+          "A_norm": 0.37542451570740815,
+          "semantic_task_ratio": 0.0920042023935172,
+          "semantic_task_cosine": 0.3488694989314251,
+          "semantic_A_ratio": 0.09399585403648017
+        },
+        "F_mean": {
+          "task_norm": 0.052384125125115776,
+          "semantic_norm": 0.007987350548496872,
+          "A_norm": 0.04807193507031358,
+          "semantic_task_ratio": 0.15247654760711668,
+          "semantic_task_cosine": 0.9325369619492718,
+          "semantic_A_ratio": 0.16615412998902543
+        },
+        "G_scale": {
+          "task_norm": 0.0029451291959760972,
+          "semantic_norm": 0.00026167029385480516,
+          "A_norm": 0.0028926586477690847,
+          "semantic_task_ratio": 0.08884849405327375,
+          "semantic_task_cosine": 0.07022141726984817,
+          "semantic_A_ratio": 0.09046013571515397
+        },
+        "F_scale": {
+          "task_norm": 0.0007171051099770874,
+          "semantic_norm": 7.503816372632541e-05,
+          "A_norm": 0.0006715373493452648,
+          "semantic_task_ratio": 0.10464039745682886,
+          "semantic_task_cosine": -0.018188752609965133,
+          "semantic_A_ratio": 0.11174086415221147
+        },
+        "domain": {
+          "task_norm": 0.05675627953731463,
+          "semantic_norm": 0.005820549109525912,
+          "A_norm": 0.11207953807618927,
+          "semantic_task_ratio": 0.10255339421427669,
+          "semantic_task_cosine": 0.9586303731368784,
+          "semantic_A_ratio": 0.05193230815752673
+        },
+        "phi_shared": {
+          "task_norm": 2.1335983272232135,
+          "semantic_norm": 0.08654220088596574,
+          "A_norm": 2.1336219839473163,
+          "semantic_task_ratio": 0.04056161826795051,
+          "semantic_task_cosine": -0.3978176542636007,
+          "semantic_A_ratio": 0.04056116853738917
+        },
+        "phi_cR": {
+          "task_norm": 0.43990258560698786,
+          "semantic_norm": 0.06004975617163204,
+          "A_norm": 0.4287185312844499,
+          "semantic_task_ratio": 0.13650694071000738,
+          "semantic_task_cosine": 0.7352146532217747,
+          "semantic_A_ratio": 0.14006802083343978
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.09577925484804616,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.7200507880825807,
+          "soft_dice_loss": 0.46031380672094524,
+          "precision": 0.4222408026755853,
+          "recall": 0.8797909407665505
+        },
+        "A": {
+          "risk": 0.7180167368179468,
+          "soft_dice_loss": 0.4587416687643484,
+          "precision": 0.4221105527638191,
+          "recall": 0.8780487804878049
+        },
+        "A_sem": {
+          "risk": 0.7180618186322234,
+          "soft_dice_loss": 0.45868436652713385,
+          "precision": 0.4221105527638191,
+          "recall": 0.8780487804878049
+        }
+      }
+    },
+    {
+      "state": "A800",
+      "batch_index": 1,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.030276109042989083,
+        "probability_variance": 0.0002688750900706188,
+        "sample_class_disagreement": 0.00223541259765625,
+        "mask_agreement": 0.993621826171875,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31490,
+            "accepted_pixels": 30964,
+            "coverage": 0.983296275138855,
+            "accepted_class_jaccard": 0.9961936473846436
+          },
+          "foreground": {
+            "predicted_pixels": 1278,
+            "accepted_pixels": 727,
+            "coverage": 0.5688576102256775,
+            "accepted_class_jaccard": 0.8876543045043945
+          }
+        },
+        "label_audit": {
+          "precision": 0.6940532326698303,
+          "recall": 0.6995267868041992,
+          "gt_foreground_pixels": 1268,
+          "pred_foreground_pixels": 1278,
+          "high_confidence_pixels": 31848,
+          "high_confidence_errors": 395,
+          "high_confidence_error_rate": 0.012402663007378578,
+          "boundary_pixels": 1352,
+          "boundary_errors": 465,
+          "boundary_error_rate": 0.34393492341041565,
+          "interior_error_rate": 0.00977209024131298,
+          "accepted_foreground_precision": 0.7936726212501526
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.03297884338865953,
+        "probability_variance": 0.0003932516414358857,
+        "sample_class_disagreement": 0.003021240234375,
+        "mask_agreement": 0.993377685546875,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31743,
+            "accepted_pixels": 31033,
+            "coverage": 0.9776328802108765,
+            "accepted_class_jaccard": 0.9956852197647095
+          },
+          "foreground": {
+            "predicted_pixels": 1025,
+            "accepted_pixels": 482,
+            "coverage": 0.470243901014328,
+            "accepted_class_jaccard": 0.8479853272438049
+          }
+        }
+      },
+      "terms": {
+        "task": 0.7942524163065187,
+        "A": 0.8167319554531426,
+        "semantic": 0.00023361538727999183,
+        "background_pixels": 31743.0,
+        "background": 3.589583407579443e-05,
+        "foreground_pixels": 1025.0,
+        "foreground": 0.00043133494048418924
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 3.344325891393328,
+          "semantic_norm": 0.008569852213078988,
+          "A_norm": 3.364647490975336,
+          "semantic_task_ratio": 0.00256250511803698,
+          "semantic_task_cosine": -0.35426064260432133,
+          "semantic_A_ratio": 0.002547028250675609
+        },
+        "F_mean": {
+          "task_norm": 0.7878096574894189,
+          "semantic_norm": 0.0010442828820474055,
+          "A_norm": 0.7943611732048037,
+          "semantic_task_ratio": 0.0013255522728361975,
+          "semantic_task_cosine": -0.7889257961627025,
+          "semantic_A_ratio": 0.0013146197438556914
+        },
+        "G_scale": {
+          "task_norm": 0.022741753928485108,
+          "semantic_norm": 8.384895091383537e-05,
+          "A_norm": 0.0228568685919226,
+          "semantic_task_ratio": 0.0036870045809795984,
+          "semantic_task_cosine": 0.004962804756837686,
+          "semantic_A_ratio": 0.0036684356204185727
+        },
+        "F_scale": {
+          "task_norm": 0.007398793127363763,
+          "semantic_norm": 1.3104325867769186e-05,
+          "A_norm": 0.0074619026700316745,
+          "semantic_task_ratio": 0.0017711437044109302,
+          "semantic_task_cosine": -0.015986003722633466,
+          "semantic_A_ratio": 0.0017561641376533205
+        },
+        "domain": {
+          "task_norm": 0.6895343434733958,
+          "semantic_norm": 0.001000609255456454,
+          "A_norm": 0.6583229865676173,
+          "semantic_task_ratio": 0.0014511376625797614,
+          "semantic_task_cosine": -0.89100040047048,
+          "semantic_A_ratio": 0.001519936681344606
+        },
+        "phi_shared": {
+          "task_norm": 8.934967721027997,
+          "semantic_norm": 0.09547533590066026,
+          "A_norm": 8.938520497280823,
+          "semantic_task_ratio": 0.010685582632376373,
+          "semantic_task_cosine": -0.6248086741268036,
+          "semantic_A_ratio": 0.010681335454755034
+        },
+        "phi_cR": {
+          "task_norm": 5.969183153061925,
+          "semantic_norm": 0.01655752541514558,
+          "A_norm": 5.98293305786805,
+          "semantic_task_ratio": 0.002773834374080532,
+          "semantic_task_cosine": -0.3681668915822762,
+          "semantic_A_ratio": 0.002767459581278629
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.08072658201141976,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.35874338726423133,
+          "soft_dice_loss": 0.20790721488352892,
+          "precision": 0.7997043606799704,
+          "recall": 0.8704746580852776
+        },
+        "A": {
+          "risk": 0.3479243121530665,
+          "soft_dice_loss": 0.20956040871370207,
+          "precision": 0.7851002865329513,
+          "recall": 0.8817377312952535
+        },
+        "A_sem": {
+          "risk": 0.34801912896325576,
+          "soft_dice_loss": 0.20956902305694958,
+          "precision": 0.7851002865329513,
+          "recall": 0.8817377312952535
+        }
+      }
+    },
+    {
+      "state": "C800",
+      "batch_index": 0,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.03464537614484338,
+        "probability_variance": 0.00037058370158014756,
+        "sample_class_disagreement": 0.0033416748046875,
+        "mask_agreement": 0.994171142578125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31441,
+            "accepted_pixels": 30757,
+            "coverage": 0.978244960308075,
+            "accepted_class_jaccard": 0.9965568780899048
+          },
+          "foreground": {
+            "predicted_pixels": 1327,
+            "accepted_pixels": 669,
+            "coverage": 0.5041446685791016,
+            "accepted_class_jaccard": 0.8860589861869812
+          }
+        },
+        "label_audit": {
+          "precision": 0.5810098052024841,
+          "recall": 0.9530284404754639,
+          "gt_foreground_pixels": 809,
+          "pred_foreground_pixels": 1327,
+          "high_confidence_pixels": 31612,
+          "high_confidence_errors": 158,
+          "high_confidence_error_rate": 0.004998101852834225,
+          "boundary_pixels": 1112,
+          "boundary_errors": 437,
+          "boundary_error_rate": 0.39298561215400696,
+          "interior_error_rate": 0.004959565121680498,
+          "accepted_foreground_precision": 0.828101634979248
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.029514987975188367,
+        "probability_variance": 0.0002539287352828001,
+        "sample_class_disagreement": 0.0022125244140625,
+        "mask_agreement": 0.992340087890625,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31705,
+            "accepted_pixels": 31197,
+            "coverage": 0.9839773178100586,
+            "accepted_class_jaccard": 0.9956780672073364
+          },
+          "foreground": {
+            "predicted_pixels": 1063,
+            "accepted_pixels": 468,
+            "coverage": 0.44026342034339905,
+            "accepted_class_jaccard": 0.7935943007469177
+          }
+        }
+      },
+      "terms": {
+        "task": 0.4270147877446549,
+        "A": 0.45049105960894315,
+        "semantic": 0.00010157336978898216,
+        "background_pixels": 31705.0,
+        "background": 1.3300985666790192e-05,
+        "foreground_pixels": 1063.0,
+        "foreground": 0.00018984575391117414
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 0.3812402577819215,
+          "semantic_norm": 0.025938712199066755,
+          "A_norm": 0.37328532493959304,
+          "semantic_task_ratio": 0.06803770501567627,
+          "semantic_task_cosine": 0.3338055921737961,
+          "semantic_A_ratio": 0.06948762907640232
+        },
+        "F_mean": {
+          "task_norm": 0.05150244554961028,
+          "semantic_norm": 0.005870925594357391,
+          "A_norm": 0.04725556454423765,
+          "semantic_task_ratio": 0.11399314210627454,
+          "semantic_task_cosine": 0.9299845977818392,
+          "semantic_A_ratio": 0.12423776228218382
+        },
+        "G_scale": {
+          "task_norm": 0.0029497991262072035,
+          "semantic_norm": 0.00019172828169903498,
+          "A_norm": 0.002897373078459395,
+          "semantic_task_ratio": 0.06499706369686116,
+          "semantic_task_cosine": 0.06705778644450167,
+          "semantic_A_ratio": 0.0661731425353692
+        },
+        "F_scale": {
+          "task_norm": 0.0007207811560626782,
+          "semantic_norm": 5.500009822676642e-05,
+          "A_norm": 0.0006752608645076138,
+          "semantic_task_ratio": 0.07630623770356128,
+          "semantic_task_cosine": -0.01963939129952926,
+          "semantic_A_ratio": 0.08145014929433433
+        },
+        "domain": {
+          "task_norm": 0.05502222119426228,
+          "semantic_norm": 0.004260931990283334,
+          "A_norm": 0.11427281376749882,
+          "semantic_task_ratio": 0.0774402032088022,
+          "semantic_task_cosine": 0.9612915345327864,
+          "semantic_A_ratio": 0.03728736389525413
+        },
+        "phi_shared": {
+          "task_norm": 1.9209608088780221,
+          "semantic_norm": 0.071383133170679,
+          "A_norm": 1.920576487143628,
+          "semantic_task_ratio": 0.037160119478112534,
+          "semantic_task_cosine": -0.3301237253065109,
+          "semantic_A_ratio": 0.037167555496237153
+        },
+        "phi_cR": {
+          "task_norm": 0.42453527403340513,
+          "semantic_norm": 0.04412766745912132,
+          "A_norm": 0.4128644473747635,
+          "semantic_task_ratio": 0.1039434651445455,
+          "semantic_task_cosine": 0.7497315216098981,
+          "semantic_A_ratio": 0.10688173258732048
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.10178627437163988,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.723058713595019,
+          "soft_dice_loss": 0.466926939075044,
+          "precision": 0.4122448979591837,
+          "recall": 0.8797909407665505
+        },
+        "A": {
+          "risk": 0.7213641176621692,
+          "soft_dice_loss": 0.4649856478499732,
+          "precision": 0.4152960526315789,
+          "recall": 0.8797909407665505
+        },
+        "A_sem": {
+          "risk": 0.7213927837822521,
+          "soft_dice_loss": 0.4649404824319249,
+          "precision": 0.4156378600823045,
+          "recall": 0.8797909407665505
+        }
+      }
+    },
+    {
+      "state": "C800",
+      "batch_index": 1,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.030018819383178127,
+        "probability_variance": 0.00027156978001990396,
+        "sample_class_disagreement": 0.0023193359375,
+        "mask_agreement": 0.9935302734375,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31518,
+            "accepted_pixels": 30993,
+            "coverage": 0.9833428263664246,
+            "accepted_class_jaccard": 0.9962611794471741
+          },
+          "foreground": {
+            "predicted_pixels": 1250,
+            "accepted_pixels": 696,
+            "coverage": 0.5568000078201294,
+            "accepted_class_jaccard": 0.8777070045471191
+          }
+        },
+        "label_audit": {
+          "precision": 0.6984000205993652,
+          "recall": 0.6884858012199402,
+          "gt_foreground_pixels": 1268,
+          "pred_foreground_pixels": 1250,
+          "high_confidence_pixels": 31848,
+          "high_confidence_errors": 377,
+          "high_confidence_error_rate": 0.011837477795779705,
+          "boundary_pixels": 1352,
+          "boundary_errors": 474,
+          "boundary_error_rate": 0.3505917191505432,
+          "interior_error_rate": 0.009485612623393536,
+          "accepted_foreground_precision": 0.8045976758003235
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.0327594575550572,
+        "probability_variance": 0.00038208970622995674,
+        "sample_class_disagreement": 0.00321197509765625,
+        "mask_agreement": 0.993438720703125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31736,
+            "accepted_pixels": 31035,
+            "coverage": 0.9779115319252014,
+            "accepted_class_jaccard": 0.9958466291427612
+          },
+          "foreground": {
+            "predicted_pixels": 1032,
+            "accepted_pixels": 471,
+            "coverage": 0.45639535784721375,
+            "accepted_class_jaccard": 0.8413284420967102
+          }
+        }
+      },
+      "terms": {
+        "task": 0.7846104599024419,
+        "A": 0.8073089271431481,
+        "semantic": 0.0002604034922804442,
+        "background_pixels": 31736.0,
+        "background": 3.078833509335928e-05,
+        "foreground_pixels": 1032.0,
+        "foreground": 0.0004900186494675291
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 3.4742038390331795,
+          "semantic_norm": 0.017179889354913495,
+          "A_norm": 3.495339265810917,
+          "semantic_task_ratio": 0.004944986002805871,
+          "semantic_task_cosine": 0.7721964076491301,
+          "semantic_A_ratio": 0.004915084931227061
+        },
+        "F_mean": {
+          "task_norm": 0.8205044830022101,
+          "semantic_norm": 0.003200387662930122,
+          "A_norm": 0.8272931848237219,
+          "semantic_task_ratio": 0.0039005120986298153,
+          "semantic_task_cosine": 0.9461930184411252,
+          "semantic_A_ratio": 0.003868504807775075
+        },
+        "G_scale": {
+          "task_norm": 0.023630164090830335,
+          "semantic_norm": 0.00013810285231365447,
+          "A_norm": 0.023749553227489215,
+          "semantic_task_ratio": 0.005844345887011642,
+          "semantic_task_cosine": 0.05027623004192583,
+          "semantic_A_ratio": 0.00581496632761098
+        },
+        "F_scale": {
+          "task_norm": 0.007708724968237421,
+          "semantic_norm": 3.0400712655491694e-05,
+          "A_norm": 0.007774048429866809,
+          "semantic_task_ratio": 0.003943675871269634,
+          "semantic_task_cosine": -0.015693919912206995,
+          "semantic_A_ratio": 0.0039105381101944775
+        },
+        "domain": {
+          "task_norm": 0.7220499546574516,
+          "semantic_norm": 0.0019223814606813925,
+          "A_norm": 0.6901814299369561,
+          "semantic_task_ratio": 0.002662393991276395,
+          "semantic_task_cosine": 0.9698812684535006,
+          "semantic_A_ratio": 0.0027853277084794797
+        },
+        "phi_shared": {
+          "task_norm": 9.023511420377119,
+          "semantic_norm": 0.09354486833206638,
+          "A_norm": 9.026988372571786,
+          "semantic_task_ratio": 0.010366792257925337,
+          "semantic_task_cosine": -0.5151770851939085,
+          "semantic_A_ratio": 0.010362799249448404
+        },
+        "phi_cR": {
+          "task_norm": 6.198610583013124,
+          "semantic_norm": 0.029401299510618397,
+          "A_norm": 6.212739336899051,
+          "semantic_task_ratio": 0.004743208032972854,
+          "semantic_task_cosine": 0.7617644180927335,
+          "semantic_A_ratio": 0.004732421226172575
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.08503648058104837,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.3646294698548479,
+          "soft_dice_loss": 0.21016523515656282,
+          "precision": 0.7974870657797487,
+          "recall": 0.8680611423974256
+        },
+        "A": {
+          "risk": 0.3541121240671102,
+          "soft_dice_loss": 0.21194308784962446,
+          "precision": 0.7836676217765043,
+          "recall": 0.8801287208366855
+        },
+        "A_sem": {
+          "risk": 0.35412266680455656,
+          "soft_dice_loss": 0.21194657971012654,
+          "precision": 0.7836676217765043,
+          "recall": 0.8801287208366855
+        }
+      }
+    },
+    {
+      "state": "A1600",
+      "batch_index": 0,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.024999877927608133,
+        "probability_variance": 0.0003853949224378005,
+        "sample_class_disagreement": 0.00310516357421875,
+        "mask_agreement": 0.9959716796875,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31409,
+            "accepted_pixels": 30912,
+            "coverage": 0.984176516532898,
+            "accepted_class_jaccard": 0.9981902241706848
+          },
+          "foreground": {
+            "predicted_pixels": 1359,
+            "accepted_pixels": 764,
+            "coverage": 0.5621780753135681,
+            "accepted_class_jaccard": 0.9079903364181519
+          }
+        },
+        "label_audit": {
+          "precision": 0.5901398062705994,
+          "recall": 0.9913473129272461,
+          "gt_foreground_pixels": 809,
+          "pred_foreground_pixels": 1359,
+          "high_confidence_pixels": 31857,
+          "high_confidence_errors": 196,
+          "high_confidence_error_rate": 0.006152493879199028,
+          "boundary_pixels": 1112,
+          "boundary_errors": 427,
+          "boundary_error_rate": 0.3839927911758423,
+          "interior_error_rate": 0.004327773582190275,
+          "accepted_foreground_precision": 0.8180628418922424
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.026743508365531948,
+        "probability_variance": 0.00038322665419523083,
+        "sample_class_disagreement": 0.00327301025390625,
+        "mask_agreement": 0.994415283203125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31803,
+            "accepted_pixels": 31176,
+            "coverage": 0.9802848696708679,
+            "accepted_class_jaccard": 0.9966073632240295
+          },
+          "foreground": {
+            "predicted_pixels": 965,
+            "accepted_pixels": 333,
+            "coverage": 0.3450777232646942,
+            "accepted_class_jaccard": 0.8070175647735596
+          }
+        }
+      },
+      "terms": {
+        "task": 0.351794503891165,
+        "A": 0.36993220482909833,
+        "semantic": 0.004362302370280797,
+        "background_pixels": 31803.0,
+        "background": 0.00020871770972068492,
+        "foreground_pixels": 965.0,
+        "foreground": 0.008515887030840908
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 0.3410388944421433,
+          "semantic_norm": 0.4427326083245967,
+          "A_norm": 0.3327603431541323,
+          "semantic_task_ratio": 1.2981880235355547,
+          "semantic_task_cosine": -0.4980723435098549,
+          "semantic_A_ratio": 1.3304848892992218
+        },
+        "F_mean": {
+          "task_norm": 0.05601150376236482,
+          "semantic_norm": 0.10777899342255566,
+          "A_norm": 0.05242633061783571,
+          "semantic_task_ratio": 1.9242295989734592,
+          "semantic_task_cosine": -0.9440831673884905,
+          "semantic_A_ratio": 2.0558179859699868
+        },
+        "G_scale": {
+          "task_norm": 0.002409648010428334,
+          "semantic_norm": 0.0030515507136007203,
+          "A_norm": 0.0023624534333046604,
+          "semantic_task_ratio": 1.2663885764204554,
+          "semantic_task_cosine": 0.005855690134195664,
+          "semantic_A_ratio": 1.291687137863341
+        },
+        "F_scale": {
+          "task_norm": 0.0005035404058124657,
+          "semantic_norm": 0.0009913737492682206,
+          "A_norm": 0.0004822383339746774,
+          "semantic_task_ratio": 1.9688067488221381,
+          "semantic_task_cosine": -0.04223045621572384,
+          "semantic_A_ratio": 2.055775494032538
+        },
+        "domain": {
+          "task_norm": 0.06523608845894913,
+          "semantic_norm": 0.05343638651742637,
+          "A_norm": 0.07267801074679961,
+          "semantic_task_ratio": 0.8191230924437183,
+          "semantic_task_cosine": -0.9122501805832135,
+          "semantic_A_ratio": 0.7352483367161979
+        },
+        "phi_shared": {
+          "task_norm": 1.4281597454374122,
+          "semantic_norm": 1.343904857489836,
+          "A_norm": 1.4263604343853222,
+          "semantic_task_ratio": 0.9410045772423232,
+          "semantic_task_cosine": 0.4669698740133305,
+          "semantic_A_ratio": 0.9421916263885854
+        },
+        "phi_cR": {
+          "task_norm": 0.48999062492273826,
+          "semantic_norm": 0.8144081293970723,
+          "A_norm": 0.4809783269859415,
+          "semantic_task_ratio": 1.6620892073710354,
+          "semantic_task_cosine": -0.7421472419668476,
+          "semantic_A_ratio": 1.6932324882507162
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.008628915438405787,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.693614818898495,
+          "soft_dice_loss": 0.4691666851549474,
+          "precision": 0.3868458274398868,
+          "recall": 0.9529616724738676
+        },
+        "A": {
+          "risk": 0.6949992800507727,
+          "soft_dice_loss": 0.4782554168834626,
+          "precision": 0.37601078167115903,
+          "recall": 0.9721254355400697
+        },
+        "A_sem": {
+          "risk": 0.6954667611977072,
+          "soft_dice_loss": 0.47931281587916585,
+          "precision": 0.37516778523489935,
+          "recall": 0.9738675958188153
+        }
+      }
+    },
+    {
+      "state": "A1600",
+      "batch_index": 1,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.025378494732567432,
+        "probability_variance": 0.0003536610428545493,
+        "sample_class_disagreement": 0.00272369384765625,
+        "mask_agreement": 0.995635986328125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31285,
+            "accepted_pixels": 30747,
+            "coverage": 0.9828032851219177,
+            "accepted_class_jaccard": 0.9973693490028381
+          },
+          "foreground": {
+            "predicted_pixels": 1483,
+            "accepted_pixels": 925,
+            "coverage": 0.6237356662750244,
+            "accepted_class_jaccard": 0.9359503984451294
+          }
+        },
+        "label_audit": {
+          "precision": 0.6979096531867981,
+          "recall": 0.8162460327148438,
+          "gt_foreground_pixels": 1268,
+          "pred_foreground_pixels": 1483,
+          "high_confidence_pixels": 31836,
+          "high_confidence_errors": 303,
+          "high_confidence_error_rate": 0.009517527185380459,
+          "boundary_pixels": 1352,
+          "boundary_errors": 404,
+          "boundary_error_rate": 0.2988165616989136,
+          "interior_error_rate": 0.008817163296043873,
+          "accepted_foreground_precision": 0.7762162089347839
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.02409510605867849,
+        "probability_variance": 0.00034689135220228524,
+        "sample_class_disagreement": 0.00293731689453125,
+        "mask_agreement": 0.995849609375,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31970,
+            "accepted_pixels": 31378,
+            "coverage": 0.9814826250076294,
+            "accepted_class_jaccard": 0.9973910450935364
+          },
+          "foreground": {
+            "predicted_pixels": 798,
+            "accepted_pixels": 300,
+            "coverage": 0.37593984603881836,
+            "accepted_class_jaccard": 0.8430232405662537
+          }
+        }
+      },
+      "terms": {
+        "task": 0.5293135752086738,
+        "A": 0.546751477073977,
+        "semantic": 0.0023984880553377112,
+        "background_pixels": 31970.0,
+        "background": 0.0001360177833366612,
+        "foreground_pixels": 798.0,
+        "foreground": 0.004660958327338761
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 2.7156558433421654,
+          "semantic_norm": 0.32275757137631966,
+          "A_norm": 2.7266248960082207,
+          "semantic_task_ratio": 0.11885069021820563,
+          "semantic_task_cosine": 0.9852837802642536,
+          "semantic_A_ratio": 0.11837256083476565
+        },
+        "F_mean": {
+          "task_norm": 0.6617882168729605,
+          "semantic_norm": 0.07865553379219478,
+          "A_norm": 0.6650944678199048,
+          "semantic_task_ratio": 0.11885302848674595,
+          "semantic_task_cosine": 0.9972849415041648,
+          "semantic_A_ratio": 0.11826219822579134
+        },
+        "G_scale": {
+          "task_norm": 0.018401594141380262,
+          "semantic_norm": 0.002216534800190992,
+          "A_norm": 0.018468034741407482,
+          "semantic_task_ratio": 0.12045341197948706,
+          "semantic_task_cosine": 0.02632738363516473,
+          "semantic_A_ratio": 0.12002006879601884
+        },
+        "F_scale": {
+          "task_norm": 0.005726401031365841,
+          "semantic_norm": 0.0007285713931400719,
+          "A_norm": 0.005751838720514529,
+          "semantic_task_ratio": 0.12723024272128136,
+          "semantic_task_cosine": 0.006345566129947486,
+          "semantic_A_ratio": 0.1266675629380126
+        },
+        "domain": {
+          "task_norm": 0.39893362782712116,
+          "semantic_norm": 0.03712395061787743,
+          "A_norm": 0.39196915351333433,
+          "semantic_task_ratio": 0.0930579625991449,
+          "semantic_task_cosine": 0.9837628215588429,
+          "semantic_A_ratio": 0.09471140850019596
+        },
+        "phi_shared": {
+          "task_norm": 5.561850682792144,
+          "semantic_norm": 0.8826658115723808,
+          "A_norm": 5.56248232573405,
+          "semantic_task_ratio": 0.1587000194563417,
+          "semantic_task_cosine": 0.7553532744954036,
+          "semantic_A_ratio": 0.15868199841082647
+        },
+        "phi_cR": {
+          "task_norm": 4.948043161456431,
+          "semantic_norm": 0.5875444103710118,
+          "A_norm": 4.958988005921358,
+          "semantic_task_ratio": 0.11874278198455956,
+          "semantic_task_cosine": 0.9802108252121311,
+          "semantic_A_ratio": 0.1184807080939589
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.009734783055359263,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.25303781887076454,
+          "soft_dice_loss": 0.17148692025157541,
+          "precision": 0.8012337217272104,
+          "recall": 0.9404666130329847
+        },
+        "A": {
+          "risk": 0.24133085472033433,
+          "soft_dice_loss": 0.1780062621967755,
+          "precision": 0.7755498059508409,
+          "recall": 0.9646017699115044
+        },
+        "A_sem": {
+          "risk": 0.2412892426574633,
+          "soft_dice_loss": 0.17850519530106823,
+          "precision": 0.7741935483870968,
+          "recall": 0.9654062751407884
+        }
+      }
+    },
+    {
+      "state": "C1600",
+      "batch_index": 0,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.024875428157873698,
+        "probability_variance": 0.0003952203319934163,
+        "sample_class_disagreement": 0.00307464599609375,
+        "mask_agreement": 0.99517822265625,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31411,
+            "accepted_pixels": 30934,
+            "coverage": 0.9848142266273499,
+            "accepted_class_jaccard": 0.9979658126831055
+          },
+          "foreground": {
+            "predicted_pixels": 1357,
+            "accepted_pixels": 748,
+            "coverage": 0.5512159466743469,
+            "accepted_class_jaccard": 0.8845686316490173
+          }
+        },
+        "label_audit": {
+          "precision": 0.5917465090751648,
+          "recall": 0.9925834536552429,
+          "gt_foreground_pixels": 809,
+          "pred_foreground_pixels": 1357,
+          "high_confidence_pixels": 31870,
+          "high_confidence_errors": 187,
+          "high_confidence_error_rate": 0.005867586936801672,
+          "boundary_pixels": 1112,
+          "boundary_errors": 423,
+          "boundary_error_rate": 0.38039568066596985,
+          "interior_error_rate": 0.004327773582190275,
+          "accepted_foreground_precision": 0.8288770318031311
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.026673598084443667,
+        "probability_variance": 0.00041435419353094314,
+        "sample_class_disagreement": 0.0030059814453125,
+        "mask_agreement": 0.99420166015625,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31674,
+            "accepted_pixels": 31095,
+            "coverage": 0.9817200303077698,
+            "accepted_class_jaccard": 0.9966627955436707
+          },
+          "foreground": {
+            "predicted_pixels": 1094,
+            "accepted_pixels": 430,
+            "coverage": 0.3930530250072479,
+            "accepted_class_jaccard": 0.8317025303840637
+          }
+        }
+      },
+      "terms": {
+        "task": 0.348619039767764,
+        "A": 0.3664813193597629,
+        "semantic": 0.0021486481266534616,
+        "background_pixels": 31674.0,
+        "background": 9.749868640166273e-05,
+        "foreground_pixels": 1094.0,
+        "foreground": 0.0041997975669052605
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 0.3498376753233757,
+          "semantic_norm": 0.2725515173000689,
+          "A_norm": 0.34242513033834493,
+          "semantic_task_ratio": 0.7790799462868983,
+          "semantic_task_cosine": -0.4278696117212174,
+          "semantic_A_ratio": 0.7959448450257286
+        },
+        "F_mean": {
+          "task_norm": 0.05379708946895673,
+          "semantic_norm": 0.065165387029737,
+          "A_norm": 0.0504963502345712,
+          "semantic_task_ratio": 1.211318078226895,
+          "semantic_task_cosine": -0.9745608820575092,
+          "semantic_A_ratio": 1.2904969711082797
+        },
+        "G_scale": {
+          "task_norm": 0.002359138834175111,
+          "semantic_norm": 0.0019174606764343835,
+          "A_norm": 0.0023183973308186254,
+          "semantic_task_ratio": 0.8127799214940381,
+          "semantic_task_cosine": -9.671208543859247e-05,
+          "semantic_A_ratio": 0.8270630107037471
+        },
+        "F_scale": {
+          "task_norm": 0.00046491419151293716,
+          "semantic_norm": 0.0006057542468399038,
+          "A_norm": 0.00044532523986894155,
+          "semantic_task_ratio": 1.3029377418414372,
+          "semantic_task_cosine": -0.019184780808960064,
+          "semantic_A_ratio": 1.3602513233208524
+        },
+        "domain": {
+          "task_norm": 0.05937180015525536,
+          "semantic_norm": 0.03159505960776822,
+          "A_norm": 0.06824989464204571,
+          "semantic_task_ratio": 0.5321559987257949,
+          "semantic_task_cosine": -0.8958563986865847,
+          "semantic_A_ratio": 0.46293199093532245
+        },
+        "phi_shared": {
+          "task_norm": 1.2667765745451232,
+          "semantic_norm": 0.7295543972080801,
+          "A_norm": 1.2662032717440328,
+          "semantic_task_ratio": 0.5759140260941833,
+          "semantic_task_cosine": 0.4107413851554325,
+          "semantic_A_ratio": 0.5761747844824413
+        },
+        "phi_cR": {
+          "task_norm": 0.4737479614807321,
+          "semantic_norm": 0.5015284022529426,
+          "A_norm": 0.4642547487223803,
+          "semantic_task_ratio": 1.0586397051406422,
+          "semantic_task_cosine": -0.76625855041141,
+          "semantic_A_ratio": 1.0802870700475087
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.010777951736611242,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.7042194783600254,
+          "soft_dice_loss": 0.47822247495523373,
+          "precision": 0.38172804532577903,
+          "recall": 0.9390243902439024
+        },
+        "A": {
+          "risk": 0.7026696198722503,
+          "soft_dice_loss": 0.4836621323042214,
+          "precision": 0.3765347885402456,
+          "recall": 0.9616724738675958
+        },
+        "A_sem": {
+          "risk": 0.7028200993026147,
+          "soft_dice_loss": 0.4842212621302081,
+          "precision": 0.37576582709326073,
+          "recall": 0.9616724738675958
+        }
+      }
+    },
+    {
+      "state": "C1600",
+      "batch_index": 1,
+      "L_teacher": {
+        "pixels": 32768,
+        "entropy": 0.025982663478588595,
+        "probability_variance": 0.0003807219874621102,
+        "sample_class_disagreement": 0.003082275390625,
+        "mask_agreement": 0.99591064453125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31291,
+            "accepted_pixels": 30743,
+            "coverage": 0.9824869632720947,
+            "accepted_class_jaccard": 0.9977912902832031
+          },
+          "foreground": {
+            "predicted_pixels": 1477,
+            "accepted_pixels": 894,
+            "coverage": 0.6052809953689575,
+            "accepted_class_jaccard": 0.929861843585968
+          }
+        },
+        "label_audit": {
+          "precision": 0.7061611413955688,
+          "recall": 0.8225551843643188,
+          "gt_foreground_pixels": 1268,
+          "pred_foreground_pixels": 1477,
+          "high_confidence_pixels": 31794,
+          "high_confidence_errors": 280,
+          "high_confidence_error_rate": 0.008806693367660046,
+          "boundary_pixels": 1352,
+          "boundary_errors": 389,
+          "boundary_error_rate": 0.2877219021320343,
+          "interior_error_rate": 0.008594347164034843,
+          "accepted_foreground_precision": 0.790827751159668
+        }
+      },
+      "U_teacher": {
+        "pixels": 32768,
+        "entropy": 0.025404740218847192,
+        "probability_variance": 0.00042574197284383163,
+        "sample_class_disagreement": 0.00348663330078125,
+        "mask_agreement": 0.9952392578125,
+        "classes": {
+          "background": {
+            "predicted_pixels": 31864,
+            "accepted_pixels": 31277,
+            "coverage": 0.9815779328346252,
+            "accepted_class_jaccard": 0.9971272349357605
+          },
+          "foreground": {
+            "predicted_pixels": 904,
+            "accepted_pixels": 337,
+            "coverage": 0.37278762459754944,
+            "accepted_class_jaccard": 0.8312020301818848
+          }
+        }
+      },
+      "terms": {
+        "task": 0.5106546401771762,
+        "A": 0.5278548254658545,
+        "semantic": 0.0014488232353968085,
+        "background_pixels": 31864.0,
+        "background": 7.415441090300658e-05,
+        "foreground_pixels": 904.0,
+        "foreground": 0.0028234920598906106
+      },
+      "gradient_groups": {
+        "G_mean": {
+          "task_norm": 2.599628850343289,
+          "semantic_norm": 0.23359310670559708,
+          "A_norm": 2.6102977993136007,
+          "semantic_task_ratio": 0.08985632955825612,
+          "semantic_task_cosine": 0.9871104903595062,
+          "semantic_A_ratio": 0.08948906395546988
+        },
+        "F_mean": {
+          "task_norm": 0.6291453288951073,
+          "semantic_norm": 0.05605006846997944,
+          "A_norm": 0.6323879448056411,
+          "semantic_task_ratio": 0.08908922294378863,
+          "semantic_task_cosine": 0.9987279836907171,
+          "semantic_A_ratio": 0.08863241137084917
+        },
+        "G_scale": {
+          "task_norm": 0.0177631897697901,
+          "semantic_norm": 0.0016286106629320861,
+          "A_norm": 0.01782713223163624,
+          "semantic_task_ratio": 0.09168458390856514,
+          "semantic_task_cosine": 0.028247419819218425,
+          "semantic_A_ratio": 0.09135572910834948
+        },
+        "F_scale": {
+          "task_norm": 0.00544129008829598,
+          "semantic_norm": 0.000521277154019824,
+          "A_norm": 0.005466411924402021,
+          "semantic_task_ratio": 0.09580028735116926,
+          "semantic_task_cosine": 0.007936553397328981,
+          "semantic_A_ratio": 0.09536002065501994
+        },
+        "domain": {
+          "task_norm": 0.3668156404510399,
+          "semantic_norm": 0.026347242015580523,
+          "A_norm": 0.35930276141471845,
+          "semantic_task_ratio": 0.0718269318701452,
+          "semantic_task_cosine": 0.9861936431647034,
+          "semantic_A_ratio": 0.07332880468783738
+        },
+        "phi_shared": {
+          "task_norm": 5.416206277223234,
+          "semantic_norm": 0.6065983026501653,
+          "A_norm": 5.416875231891067,
+          "semantic_task_ratio": 0.11199689812426321,
+          "semantic_task_cosine": 0.7648585997794342,
+          "semantic_A_ratio": 0.11198306711568799
+        },
+        "phi_cR": {
+          "task_norm": 4.740972487153708,
+          "semantic_norm": 0.42511673927400456,
+          "A_norm": 4.7519602171920114,
+          "semantic_task_ratio": 0.0896686788261089,
+          "semantic_task_cosine": 0.9807135131241015,
+          "semantic_A_ratio": 0.08946134223430241
+        },
+        "phi_Sb": {
+          "task_norm": 0.0,
+          "semantic_norm": 0.0,
+          "A_norm": 0.01088003214723982,
+          "semantic_task_ratio": null,
+          "semantic_task_cosine": null,
+          "semantic_A_ratio": 0.0
+        }
+      },
+      "adam_candidates": {
+        "unchanged": {
+          "risk": 0.2840322703779807,
+          "soft_dice_loss": 0.18344129966679035,
+          "precision": 0.802366040361865,
+          "recall": 0.9275945293644409
+        },
+        "A": {
+          "risk": 0.2666129567971421,
+          "soft_dice_loss": 0.18665082644598352,
+          "precision": 0.7744904667981591,
+          "recall": 0.9477071600965407
+        },
+        "A_sem": {
+          "risk": 0.26643770352490165,
+          "soft_dice_loss": 0.18698494613120342,
+          "precision": 0.7731147540983606,
+          "recall": 0.9485116653258246
+        }
+      }
+    }
+  ],
+  "reverse_calls": 30,
+  "reverse_limit": 128,
+  "candidate_steps_discarded": 20,
+  "candidate_step_limit": 24,
+  "source_updates": 0,
+  "payload_unchanged": true,
+  "training_only": true,
+  "validation_scoring_calls": 0,
+  "teacher_labels_used_for_prediction": false
+}
