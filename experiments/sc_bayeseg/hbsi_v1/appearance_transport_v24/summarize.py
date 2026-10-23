@@ -26,6 +26,7 @@ def main():
     for arm,t in a['training_summaries'].items():
         m=t['last100_means'];lines.append(f"| {arm} | {m['task_original']:.6f} | {m['task_transported']:.6f} | {m['transport_rms']:.6f} |")
     lines+=['',f"2400正式更新，3预检反向/0Adam；全根{cost['root_bytes']}字节，总历时{cost['wall_seconds']:.2f}秒。来源400步成本保留。只读封存指标，无新推断。",'', '[冻结协议](PREREG_ZH.md)；[匿名全指标](ANALYSIS.json)；[执行摘要](EXECUTION_SUMMARY.json)。']
+    lines += ["", '## 结论与机制判断\n\nU供体相对L供体使源Dice下降0.45911pp，源4名患者中3名下降；BMC平均增加0.20733pp，但范围跨零，而且两域NLL/Brier均变差。源增益门槛失败，其余守护通过。不是“已有迁移收益即可继续扩样”。\n\n更关键的是，两个外观迁移臂相对同入口的已封存v23 L都明显变差：源下降2.02/2.48pp、BMC下降2.60/2.39pp。因此这次没有净性能改善；不能把BMC的小条件正差解释为方案可行。最后100步迁移图任务风险高于原图，和扰动增加任务难度相容，但没有合成图真实语义检验，不能证明解剖被破坏或锁定根因。本配置关闭，不搜索频带或增强强度。\n']
     for n,v in [('ANALYSIS.json',a),('RESULTS.json',x['RESULTS.json']),('EXECUTION_SUMMARY.json',cost)]:(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps(a['gate']))
 
