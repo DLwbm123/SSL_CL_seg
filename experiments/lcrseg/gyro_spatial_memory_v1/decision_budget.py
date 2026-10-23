@@ -17,6 +17,9 @@ SEED=20271401
 METHODS=('D','DP')
 CAPS={f'{a}_{b}':n for a,ns in [('p0',(400,256)),('detach',(640,320)),('engineering',(512,160)),('formal',(40000,20100)),('evaluation',(5784,0))] for b,n in zip(('native','reverse'),ns)}
 
+def caps_for(cfg):
+    return dict(CAPS,formal_native=40010) if cfg.get('approved_dp_failure_recovery',False) else CAPS
+
 def flatten(values,pars):
     return torch.cat([(torch.zeros_like(p) if g is None else g).detach().reshape(-1) for g,p in zip(values,pars)]).double()
 
@@ -254,15 +257,58 @@ def controller(cfg,guard):
         c=dict(c,bucket='formal',phase='formal',output=str(root/'jobs'/c['group']));stage('train',c);stage('evaluate',dict(c,bucket='evaluation'))
     write(root/'STATUS.json',dict(status='COMPLETE',audit_pending=True,resources=guard(cfg)));write(root/'EXIT.json',dict(exit_code=0))
 
+def resume_dp_controller(cfg,guard):
+    import shutil
+    root=Path(cfg['root']);receipt=json.loads((root/'DP_RECOVERY_AUTHORIZATION.private.json').read_text())
+    assert receipt['extra_optimizer']==1 and receipt['extra_native']==10 and receipt['extra_reverse']==5
+    assert cfg['update_cap']==4129 and cfg['phase_caps']['20271401_DP:formal']==2001
+    assert (root/'DP_RECOVERY_PREPARED.json').exists() and not (root/'DP_RECOVERY_RESULT.json').exists()
+    assert json.loads((root/'EXIT_20271401_D_evaluate.json').read_text())['exit_code']==0
+    write(root/'WORKER.private.json',dict(pid=os.getpid(),birth=Path('/proc/self/stat').read_text().split()[21]))
+    def stage(mode,c,label):
+        guard(cfg,new_stage=True);p=root/('SETTINGS_'+label+'.private.json');write(p,c)
+        with (root/(label+'.log')).open('x') as log:
+            q=subprocess.Popen([cfg['runtime'],cfg['entry']],env=dict(os.environ,TASK_SETTINGS=str(p),TASK_MODE=mode),stdout=log,stderr=subprocess.STDOUT)
+        a=dict(pid=q.pid,birth=Path('/proc/'+str(q.pid)+'/stat').read_text().split()[21],group=c['group'],mode=mode)
+        write(root/'ACTIVE.private.json',a);write(root/('ACTIVE_'+label+'.private.json'),a);write(root/'STATUS.json',dict(status='RUNNING',**a))
+        code=q.wait();write(root/('EXIT_'+label+'.json'),dict(exit_code=code));assert code==0
+    old=root/'jobs'/f'{SEED}_DP';continuation=old/'continuation_after_step1242'
+    c=json.loads((root/'SETTINGS_20271401_DP_train.private.json').read_text())
+    c.update(approved_dp_failure_recovery=True,update_cap=cfg['update_cap'],phase_caps=cfg['phase_caps'],output=str(continuation),resume_checkpoint=str(root/'dp_step_failure'/'latest_committed_1242.pt'),resume_step=1242)
+    stage('train',c,'20271401_DP_recovery_train')
+    entry=torch.load(continuation/'entry.pt',map_location='cpu',weights_only=False)
+    old_entry=torch.load(c['resume_checkpoint'],map_location='cpu',weights_only=False)
+    assert runtime.exact(entry,old_entry)
+    for name,start,end,key in [('step_control.jsonl',0,2000,'step'),('physical_updates.jsonl',1,2001,'physical_call')]:
+        left=[json.loads(v) for v in (root/'dp_step_failure'/name).read_text().splitlines()]
+        right=[json.loads(v) for v in (continuation/name).read_text().splitlines()]
+        combined=left+right;assert [v[key] for v in combined]==list(range(start,end))
+        (old/name).write_text(''.join(json.dumps(v)+'\n' for v in combined))
+    for name in ('gradient_diagnostics.jsonl','telemetry.jsonl'):
+        left=(root/'dp_step_failure'/name).read_text() if (root/'dp_step_failure'/name).exists() else ''
+        right=(continuation/name).read_text() if (continuation/name).exists() else ''
+        (old/name).write_text(left+right)
+    for name in ('final.pt','latest.pt','TRAINED.json','COSTS.json','STATUS.json','EXIT.json'):
+        assert (continuation/name).exists();tmp=old/(name+'.recovered');shutil.copyfile(continuation/name,tmp);os.replace(tmp,old/name)
+    costs=json.loads((old/'COSTS.json').read_text());costs.update(committed_optimizer_updates=2000,actual_optimizer_calls_including_failed=2001,failed_optimizer_calls=1,approved_extra_replayed_step=True);write(old/'COSTS.json',costs)
+    assert json.loads((root/'budget_counter.json').read_text())['total']==4129
+    write(root/'EXIT_20271401_DP_train.json',dict(exit_code=0,recovered_from_committed_checkpoint=True,original_failed_exit_preserved=True))
+    ev=dict(c,output=str(old),bucket='evaluation');ev.pop('resume_checkpoint');ev.pop('resume_step')
+    stage('evaluate',ev,'20271401_DP_recovery_evaluate')
+    write(root/'EXIT_20271401_DP_evaluate.json',dict(exit_code=0))
+    write(root/'DP_RECOVERY_RESULT.json',dict(status='PASS',resume_step=1242,remaining_committed_updates=758,final_committed_updates=2000,total_DP_optimizer_calls=2001,failed_DP_calls=1,new_extra_optimizer=1,new_extra_native=10,new_extra_reverse=5,initial_checkpoint_RNG_optimizer_model_EMA_exact=True,D_B_W_not_rerun=True,original_clock_preserved=True,not_equivalent_to_fault_free_execution=True))
+    write(root/'STATUS.json',dict(status='COMPLETE',audit_pending=True,resources=guard(cfg),recovered_DP=True));write(root/'EXIT.json',dict(exit_code=0))
+
 def main(cfg):
     guard=install(cfg);target.guard=guard;mode=os.environ.get('TASK_MODE','controller');root=Path(cfg['root'])
     torch.set_num_threads(4);torch.use_deterministic_algorithms(True);torch.backends.cudnn.benchmark=False;torch.backends.cudnn.deterministic=True;torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
     try:
-        if mode=='controller':controller(cfg,guard);return
+        if mode=='controller':
+            (resume_dp_controller if cfg.get('approved_dp_failure_recovery',False) else controller)(cfg,guard);return
         calls=Calls(cfg,mode);backward=torch.autograd.backward;grad=torch.autograd.grad
         def b(*a,**kw):return calls.call(calls.kind('reverse'),1,lambda:backward(*a,**kw))
         def g(*a,**kw):return calls.call(calls.kind('reverse'),1,lambda:grad(*a,**kw))
-        with patch.object(base,'losses',losses),patch.object(shared,'CAPS',CAPS),patch.object(core,'build',build),patch.object(core,'target_setup',setup),patch.object(core,'losses',losses),patch.object(core,'update_ema',update_ema),patch.object(target,'Domain',Current),patch.object(target,'preflight',preflight),patch.object(torch.autograd,'backward',b),patch.object(torch.autograd,'grad',g):
+        with patch.object(base,'losses',losses),patch.object(shared,'CAPS',caps_for(cfg)),patch.object(core,'build',build),patch.object(core,'target_setup',setup),patch.object(core,'losses',losses),patch.object(core,'update_ema',update_ema),patch.object(target,'Domain',Current),patch.object(target,'preflight',preflight),patch.object(torch.autograd,'backward',b),patch.object(torch.autograd,'grad',g):
             {'qualify':qualify,'train':train,'compatibility':compatibility,'measure':measure,'detach':detach,'evaluate':evaluate}[mode](cfg)
     except BaseException as exc:
         write(root/('FAILURE_'+cfg.get('group','controller')+'_'+mode+'.json'),dict(error=str(exc),traceback=traceback.format_exc()))
