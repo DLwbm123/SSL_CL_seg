@@ -43,6 +43,19 @@ def correction(dopt,grads,risks,budgets,present):
     residual=a@(dopt+delta)-b
     return delta,dict(candidate_norm=dn,raw_correction_norm=raw,correction_norm=float(delta.norm()),correction_ratio=float(delta.norm())/(dn+1e-30),alpha=alpha,solver_kkt=kkt,predicted_violation_before=[float(x) for x in v],predicted_violation_after=[float(x) for x in residual],slack=[max(0.,float(x)) for x in residual])
 
+@torch.no_grad()
+def apply_rounded_correction(pars,before,dopt,delta):
+    # Enforce the original cap on float32 writes, rather than trusting ideal arithmetic.
+    candidate=[p.detach().clone() for p in pars];dn=float(dopt.norm())
+    for attempt in range(10):
+        factor=.99**attempt if attempt<9 else 0.;offset=0
+        for p,c in zip(pars,candidate):
+            n=p.numel();p.copy_(c+(factor*delta[offset:offset+n]).reshape_as(p).to(p.dtype));offset+=n
+        actual=flatten([p-b for p,b in zip(pars,before)],pars)
+        ratio=float((actual-dopt).norm())/(dn+1e-30)
+        if torch.isfinite(actual).all() and ratio<=.25:return actual,ratio,factor,attempt
+    raise FloatingPointError('float32 correction cannot satisfy unchanged 25 percent cap')
+
 def check_fixed(m,ema,opt):
     head=m.get_parameter(HEAD)
     assert not head.requires_grad and head.grad is None
@@ -70,12 +83,16 @@ def setup(cfg):
             delta,stats=correction(dopt,ctx['grads'],ctx['risks'],ctx['budgets'],ctx['present'])
             apply=cfg['variant']=='DP' and not cfg.get('zero_new',False)
             if apply:
-                offset=0
-                for p in pars:
-                    n=p.numel();p.add_(delta[offset:offset+n].reshape_as(p).to(p.dtype));offset+=n
-                actual=flatten([p-b for p,b in zip(pars,before)],pars)
-                stats['actual_correction_ratio']=float((actual-dopt).norm())/(float(dopt.norm())+1e-30)
-                assert stats['actual_correction_ratio']<=.25001 and torch.isfinite(actual).all()
+                actual,ratio,factor,attempt=apply_rounded_correction(pars,before,dopt,delta)
+                stats.update(actual_correction_ratio=ratio,float32_backoff_factor=factor,float32_backoff_attempts=attempt)
+                norms=ctx['grads'].norm(dim=1);valid=ctx['present']&(norms>1e-12)
+                a=ctx['grads']/(norms[:,None]+1e-12);a[~valid]=0
+                b=(ctx['budgets']-ctx['risks'])/(norms+1e-12);b[~valid]=0
+                residual=a@actual-b
+                stats['predicted_violation_after']=[float(v) for v in residual]
+                stats['slack']=[max(0.,float(v)) for v in residual]
+                stats['prediction_uses_actual_float32_displacement']=True
+                assert ratio<=.25 and torch.isfinite(actual).all()
             stats.update(step=ctx['step'],applied=apply,risks=ctx['risks'].tolist(),budgets=ctx['budgets'].tolist(),risk_gradient_energy=ctx['grads'].square().sum(1).tolist(),candidate_momentum_preserved=True)
             if cfg['bucket']=='formal':append(Path(cfg['output'])/'step_control.jsonl',stats)
         check_fixed(m,ema,opt)
