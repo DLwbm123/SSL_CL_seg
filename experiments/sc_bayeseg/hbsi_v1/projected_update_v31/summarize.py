@@ -61,6 +61,11 @@ def main():
     lines+=['',f"400步投影触发比例{m['projection_applied']:.6f}；基础·U内积均值{m['base_dot_U']:.6f}，基础·投影U内积均值{m['base_dot_projected_U']:.6f}。这些随模型和训练批次变化，不是固定探针或U语义质量。",'', '| 训练点 | 实际Adam位移范数 | 基础梯度·实际位移 | U梯度·实际位移 |','|---|---:|---:|---:|']
     for row in a['audit']['P']:lines.append(f"| {row['step']} | {row['combined_Adam_displacement_norm']:.7f} | {row['base_gradient_dot_actual_displacement']:.7f} | {row['U_gradient_dot_actual_displacement']:.7f} |")
     lines+=['','实际位移是合并Adam步，不是U反事实；基础梯度包含L全部任务/image/anchor/KL。原梯度投影性质不能保证带动量/自适应缩放后的有限步风险改善。投影改变范数和方向，不是原标量风险或ELBO梯度、精确后验。近邻缓存仍可能错误且不是独立教师；L额外建库成本保留。', '',f"本run 400正式Adam更新、800模型autograd和400 surrogate backward；预检2模型autograd+1 surrogate backward、0Adam；fixture/额外遥测反向均0，无新目标预测。历时{cost['elapsed_seconds']:.2f}秒，全根{cost['root_bytes']}字节，旧A/N未重新评分。",'', '单训练seed、每域4开发患者、3推断重复；不宣称稳定泛化、可靠不确定性或CL成功。失败不搜索seed/分组/阈值/权重/优化器/增强。', '', '[冻结协议](PREREG_ZH.md)；[全部匿名指标/轨迹](ANALYSIS.json)；[执行摘要](EXECUTION_SUMMARY.json)。']
+    lines+=['', '## 实测解释与收口', '',
+        'P−A源/迁移分别+0.48636/+0.08340pp，但P−N为−0.00740/−0.07092pp。两项均只在源≥1pp门失败，其他保护通过。投影没有把原N的亚门槛收益提升为继续信号，本配置关闭。',
+        'P−A源4/4患者改善；相对N源2正2负，迁移3正1负但单个负差幅度较大，平均仍下降。P相对N的NLL、Brier、HD95两域均值全部恶化；不能仅以患者正方向数量判定优于N。相对v23L1600迁移仍下降0.90891pp，不是双域绝对净收益。',
+        '400步中154步触发投影，说明合并规则实际介入。1600点基础梯度与实际Adam位移内积为正，中点U梯度与位移内积为正；原始欧氏投影约束不自动传递给带历史动量和逐坐标缩放的实际位移。这里仅有三个时点的一阶局部量，不能据此断言真实有限步损失上升，更不能反推冲突是唯一根因。',
+        '结果排除了“在该固定缓存、共同入口与400步预算下，当前全参数欧氏投影足以建立≥1pp源增益”这一具体候选。它没有排除所有冲突处理，也没有验证近邻目标的语义正确性。不会改为分组投影、调优化器或权重继续搜索。后继若推进，应改变可证伪的语义信息机制并另立协议，而不是据此改门槛。']
     for n,v in [('ANALYSIS.json',a),('RESULTS.json',x['RESULTS.json']),('EXECUTION_SUMMARY.json',cost)]:(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps({k:v['gate'] for k,v in a['effects'].items()}))
 

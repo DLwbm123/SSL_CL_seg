@@ -1,0 +1,91 @@
+{
+  "cells": {
+    "P_RUNMC": {
+      "domain": "RUNMC",
+      "memory": "RUNMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.6354489781994564,
+          "NLL": 0.06086893203098979,
+          "Brier": 0.03603010449699577,
+          "HD95_penalized_mm": 14.367541785629903,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.63375161047137,
+          "NLL": 0.06172867196711063,
+          "Brier": 0.036610425038007384,
+          "HD95_penalized_mm": 14.399465571002198,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.6350273461110046,
+          "NLL": 0.06155659677669158,
+          "Brier": 0.036489019873990614,
+          "HD95_penalized_mm": 14.447396290325425,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "variational_approximation",
+      "complete": true
+    },
+    "P_BMC": {
+      "domain": "BMC",
+      "memory": "RUNMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.43145492449188305,
+          "NLL": 0.07118264785532805,
+          "Brier": 0.04487869208005323,
+          "HD95_penalized_mm": 34.19201960896138,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.4317380595075059,
+          "NLL": 0.07029351534957305,
+          "Brier": 0.04427684713331438,
+          "HD95_penalized_mm": 34.19575388095773,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.43180121064369736,
+          "NLL": 0.07225514699610207,
+          "Brier": 0.045610809656339214,
+          "HD95_penalized_mm": 34.23442686514899,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "variational_approximation",
+      "complete": true
+    }
+  },
+  "new_formal_updates": 400,
+  "preflight_model_autograd_calls": 2,
+  "preflight_surrogate_backward_calls": 1,
+  "training_model_autograd_calls": 800,
+  "training_surrogate_backward_calls": 400,
+  "training_audit_extra_reverse_calls": 0,
+  "source_updates": 0,
+  "teacher_updates": 0,
+  "common_entrance": true,
+  "counter": {
+    "domain_updates": 400,
+    "local_backward_calls": 0,
+    "global_mc_samples": 1608,
+    "real_train_images": 800,
+    "local_mc_samples": 3216,
+    "validation_images": 0,
+    "joint_forwards": 1608,
+    "current_train_images": 800,
+    "phi_updates": 400,
+    "domain_mc_samples": 0,
+    "refinement_sample_steps": 0,
+    "projection_model_reverse_calls": 802,
+    "outer_backward_calls": 400,
+    "historical_train_images": 0,
+    "test_images": 0,
+    "global_updates": 400
+  }
+}
