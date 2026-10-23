@@ -15,3 +15,5 @@ NAS实际挂载、容量与写读探针通过；GPU1启动前可用7711MiB，启
 最终等待2session/4cell/800formal/EXIT0以及两臂三点审计、固定观测参数与S/b冻结核验。只读取封存指标，原源≥1pp与迁移/HD95/空预测保护门槛保持；并列v25A2000/v23L1600绝对背景。失败不扩seed/先验/混合分量/强度变换/权重/MC/阈值/增强。
 
 [冻结协议](PREREG_ZH.md)；[预检回执](PREFLIGHT.json)；[匿名统计回执](OBSERVATION_SUMMARY.json)。唯一runmc每30分钟继续，12小时累计总结仍为北京时间12:13。
+
+最终状态：COMPLETE+EXIT0；原门槛FAILED，详见[最终报告](REPORT_ZH.md)。
