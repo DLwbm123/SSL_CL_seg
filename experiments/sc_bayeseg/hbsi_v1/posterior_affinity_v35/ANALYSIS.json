@@ -1,0 +1,318 @@
+{
+  "status": "COMPLETE",
+  "seed": 20261023,
+  "training_seeds": 1,
+  "patients_per_domain": 4,
+  "inference_repeats": 3,
+  "means": {
+    "L": {
+      "RUNMC": {
+        "Dice": 0.6240168163398235,
+        "NLL": 0.11330247552171877,
+        "Brier": 0.04583166037290131,
+        "HD95_penalized_mm": 14.68812366060092,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.42728347582544735,
+        "NLL": 0.14199021454559185,
+        "Brier": 0.05752893469100445,
+        "HD95_penalized_mm": 34.29272347103867,
+        "empty_predictions": 0
+      }
+    },
+    "LU": {
+      "RUNMC": {
+        "Dice": 0.6246457002200133,
+        "NLL": 0.1139344361012497,
+        "Brier": 0.045293526055719416,
+        "HD95_penalized_mm": 14.612489074952006,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.42817180307845937,
+        "NLL": 0.14195031321893173,
+        "Brier": 0.056691123197136706,
+        "HD95_penalized_mm": 34.22763371264259,
+        "empty_predictions": 0
+      }
+    }
+  },
+  "U_effect": {
+    "RUNMC": {
+      "metrics": {
+        "Dice": 0.0006288838801897789,
+        "NLL": 0.000631960579530938,
+        "Brier": -0.0005381343171818945,
+        "HD95_penalized_mm": -0.07563458564891512,
+        "empty_predictions": 0
+      },
+      "patient_aggregates": {
+        "Dice": {
+          "n": 4,
+          "mean": 0.0006288838801897928,
+          "minimum": -0.0038340506264517016,
+          "maximum": 0.004607758943238005,
+          "positive": 3,
+          "negative": 1
+        },
+        "NLL": {
+          "n": 4,
+          "mean": 0.0006319605795309449,
+          "minimum": -0.002577048717632341,
+          "maximum": 0.0024285568655482426,
+          "positive": 3,
+          "negative": 1
+        },
+        "Brier": {
+          "n": 4,
+          "mean": -0.0005381343171818927,
+          "minimum": -0.0013983628238638593,
+          "maximum": 0.0005174592666506578,
+          "positive": 1,
+          "negative": 3
+        },
+        "HD95_penalized_mm": {
+          "n": 4,
+          "mean": -0.07563458564891468,
+          "minimum": -0.28080448706512584,
+          "maximum": 0.023386187803216885,
+          "positive": 2,
+          "negative": 2
+        },
+        "empty_predictions": {
+          "n": 4,
+          "mean": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "positive": 0,
+          "negative": 0
+        }
+      }
+    },
+    "BMC": {
+      "metrics": {
+        "Dice": 0.0008883272530120223,
+        "NLL": -3.990132666012447e-05,
+        "Brier": -0.0008378114938677461,
+        "HD95_penalized_mm": -0.065089758396077,
+        "empty_predictions": 0
+      },
+      "patient_aggregates": {
+        "Dice": {
+          "n": 4,
+          "mean": 0.0008883272530119946,
+          "minimum": -0.00098203088288773,
+          "maximum": 0.004267822209171046,
+          "positive": 2,
+          "negative": 2
+        },
+        "NLL": {
+          "n": 4,
+          "mean": -3.990132666011059e-05,
+          "minimum": -0.0014112086096317589,
+          "maximum": 0.0007977069921017987,
+          "positive": 3,
+          "negative": 1
+        },
+        "Brier": {
+          "n": 4,
+          "mean": -0.0008378114938677409,
+          "minimum": -0.0010742665710824911,
+          "maximum": -0.00044755592413105866,
+          "positive": 0,
+          "negative": 4
+        },
+        "HD95_penalized_mm": {
+          "n": 4,
+          "mean": -0.06508975839607611,
+          "minimum": -0.11751273151249464,
+          "maximum": 0.0,
+          "positive": 0,
+          "negative": 3
+        },
+        "empty_predictions": {
+          "n": 4,
+          "mean": 0,
+          "minimum": 0,
+          "maximum": 0,
+          "positive": 0,
+          "negative": 0
+        }
+      }
+    }
+  },
+  "gate": {
+    "status": "FAILED",
+    "checks": {
+      "source_U_gain_ge_1pp": false,
+      "transfer_drop_le_0_5pp": true,
+      "no_new_empty": true,
+      "HD95_worsening_le_10pct": true
+    }
+  },
+  "training_summaries": {
+    "L": {
+      "rows": 400,
+      "first": {
+        "step": 1601,
+        "scaled": 1.3532904876666914,
+        "fit": 1.1697861651496257,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 1.1565616074570662,
+        "anchor": 0.002096773873863672,
+        "image_L": -1.1127783818695918,
+        "image_U": 0.0,
+        "structure_margin": 6.44556439224905,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 1.1755412776672254,
+        "affinity_risk": 0.17774920999946586,
+        "auxiliary_pool_U": 0.0,
+        "foreground_degree_fraction": 0.028054626281213146,
+        "foreground_mean": 0.031134932528573092,
+        "minimum_class_volume": 1515.5315548511749,
+        "volume_floor_classes": 0.0,
+        "mean_edge_affinity": 0.8307814932865227
+      },
+      "last": {
+        "step": 2000,
+        "scaled": 0.6705469771162444,
+        "fit": 0.5593092652736593,
+        "global_kl": 7597.540210887684,
+        "domain_kl": 12.53322807061657,
+        "task": 0.4909588818045506,
+        "anchor": 0.05361644766304789,
+        "image_L": -1.4733935806060843,
+        "image_U": 0.0,
+        "structure_margin": 5.1970080187864856,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.5651152905414193,
+        "affinity_risk": 0.10543168657482516,
+        "auxiliary_pool_U": 0.0,
+        "foreground_degree_fraction": 0.048445360065390325,
+        "foreground_mean": 0.05312776328685069,
+        "minimum_class_volume": 2551.7053727201524,
+        "volume_floor_classes": 0.0,
+        "mean_edge_affinity": 0.810036629653456
+      },
+      "last100_means": {
+        "scaled": 0.8597161087974848,
+        "fit": 0.7571492197408921,
+        "global_kl": 7591.943741720893,
+        "domain_kl": 12.236563781746218,
+        "task": 0.7133127257506661,
+        "anchor": 0.030340613551558825,
+        "image_L": -1.3495880438667232,
+        "image_U": 0.0,
+        "structure_margin": 6.865940439385685,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.7629507489046362,
+        "affinity_risk": 0.09676535989284854,
+        "auxiliary_pool_U": 0.0,
+        "foreground_degree_fraction": 0.04104443792884705,
+        "foreground_mean": 0.04296445346719804,
+        "minimum_class_volume": 2172.04020107733,
+        "volume_floor_classes": 0.0,
+        "mean_edge_affinity": 0.8146761773822909
+      }
+    },
+    "LU": {
+      "rows": 400,
+      "first": {
+        "step": 1601,
+        "scaled": 1.509893630048558,
+        "fit": 1.1697861651496257,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 1.1565616074570662,
+        "anchor": 0.002096773873863672,
+        "image_L": -1.1127783818695918,
+        "image_U": 0.0,
+        "structure_margin": 6.44556439224905,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 1.1755412776672254,
+        "affinity_risk": 0.33435235238133254,
+        "auxiliary_pool_U": 1.0,
+        "foreground_degree_fraction": 0.00961277128993371,
+        "foreground_mean": 0.011183692519203186,
+        "minimum_class_volume": 499.34998173849624,
+        "volume_floor_classes": 0.0,
+        "mean_edge_affinity": 0.7988822039364604
+      },
+      "last": {
+        "step": 2000,
+        "scaled": 0.681774624770437,
+        "fit": 0.5626102790172856,
+        "global_kl": 7601.959769528715,
+        "domain_kl": 12.65323138299315,
+        "task": 0.492737871740896,
+        "anchor": 0.05581751210120754,
+        "image_L": -1.4054895175181916,
+        "image_U": 0.0,
+        "structure_margin": 5.157782672388342,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.5684197676959597,
+        "affinity_risk": 0.11335485707447734,
+        "auxiliary_pool_U": 1.0,
+        "foreground_degree_fraction": 0.04077808865299927,
+        "foreground_mean": 0.038162430045763855,
+        "minimum_class_volume": 2096.4871364607957,
+        "volume_floor_classes": 0.0,
+        "mean_edge_affinity": 0.7906634340763133
+      },
+      "last100_means": {
+        "scaled": 0.8632685954151582,
+        "fit": 0.7585635112890098,
+        "global_kl": 7596.529064758189,
+        "domain_kl": 12.411983153227263,
+        "task": 0.7148304404329147,
+        "anchor": 0.030860451362991398,
+        "image_L": -1.2872619493103705,
+        "image_U": 0.0,
+        "structure_margin": 6.9247150933943225,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.7643686726109639,
+        "affinity_risk": 0.09889992280419449,
+        "auxiliary_pool_U": 1.0,
+        "foreground_degree_fraction": 0.041308052491841066,
+        "foreground_mean": 0.041371428734325304,
+        "minimum_class_volume": 2155.7291557189556,
+        "volume_floor_classes": 0.0,
+        "mean_edge_affinity": 0.8031309829638237
+      }
+    }
+  },
+  "audit": {
+    "L": null,
+    "LU": null
+  },
+  "v23L1600_historical_delta_pp": {
+    "L": {
+      "RUNMC": 0.41532970930300284,
+      "BMC": -1.347031640304086
+    },
+    "LU": {
+      "RUNMC": 0.47821809732198073,
+      "BMC": -1.2581989150028838
+    }
+  },
+  "v25A2000_historical_delta_pp": {
+    "L": {
+      "RUNMC": -0.5862267416141154,
+      "BMC": -0.3547284740052503
+    },
+    "LU": {
+      "RUNMC": -0.5233383535951375,
+      "BMC": -0.2658957487040481
+    }
+  },
+  "audit_status": "MISSING: after_update callback was not wired into run_stage; no historical replay",
+  "audit_compute_accounting": "12 extra autograd calls inferred from completed steps and executed source; gradient and displacement scalars were not persisted"
+}

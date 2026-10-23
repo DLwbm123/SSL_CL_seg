@@ -39,9 +39,11 @@ def main():
         old=json.loads((out.parent/folder/'ANALYSIS.json').read_text())
         a[tag+'_historical_delta_pp']={new:{d:100*(a['means'][new][d]['Dice']-old['means'][arm][d]['Dice']) for d in ('RUNMC','BMC')} for new in ('L','LU')}
     assert r['training_audit_reverse_calls']==12
-    assert all([q['step'] for q in x['audit'][arm]]==[1600,1799,1999] for arm in ('L','LU'))
-    cost=dict(status='COMPLETE',original_started=x['LAUNCH.json']['started'],original_deadline=x['LAUNCH.json']['deadline'],wall_seconds=x['EXIT.json']['time']-x['LAUNCH.json']['started'],root_bytes=x['root_bytes'],formal_updates=800,preflight_model_reverse_calls=3,preflight_fixture_reverse_calls=1,preflight_optimizer_updates=0,additional_training_audit_reverse_calls=12,source_updates=0,common_payload_and_prior=True,ledger={k:x['ledger'][k] for k in ('limits','seconds_charged','updates_reserved','bytes')})
-    lines=['# v35：后验预测图像亲和风险 L/U 池对照结果','', '共同v23L1600入口，各400步到固定2000；两臂均有相同辅助目标，只辅助图像池不同。', '', '| 臂 | 域 | Dice % | NLL | Brier | HD95 mm | 空预测 |','|---|---|---:|---:|---:|---:|---:|']
+    assert all(x['audit'][arm] is None for arm in ('L','LU'))
+    a['audit_status']='MISSING: after_update callback was not wired into run_stage; no historical replay'
+    a['audit_compute_accounting']='12 extra autograd calls inferred from completed steps and executed source; gradient and displacement scalars were not persisted'
+    cost=dict(status='COMPLETE_WITH_MISSING_AUDIT',audit_status=a['audit_status'],original_started=x['LAUNCH.json']['started'],original_deadline=x['LAUNCH.json']['deadline'],wall_seconds=x['EXIT.json']['time']-x['LAUNCH.json']['started'],root_bytes=x['root_bytes'],formal_updates=800,preflight_model_reverse_calls=3,preflight_fixture_reverse_calls=1,preflight_optimizer_updates=0,additional_training_audit_reverse_calls=12,source_updates=0,common_payload_and_prior=True,ledger={k:x['ledger'][k] for k in ('limits','seconds_charged','updates_reserved','bytes')})
+    lines=['# v35：后验预测图像亲和风险 L/U 池对照结果','', '共同v23L1600入口，各400步到固定2000；两臂均有相同辅助目标，只辅助图像池不同。三点梯度遥测缺失，见下文异常说明。', '', '| 臂 | 域 | Dice % | NLL | Brier | HD95 mm | 空预测 |','|---|---|---:|---:|---:|---:|---:|']
     for arm,ds in a['means'].items():
         for d,m in ds.items():lines.append(f"| {arm} | {d} | {100*m['Dice']:.5f} | {m['NLL']:.7f} | {m['Brier']:.7f} | {m['HD95_penalized_mm']:.5f} | {m['empty_predictions']:.3f} |")
     lines+=['','| LU−L | Dice pp | 患者范围 pp | 正/负患者 | NLL变化 | Brier变化 |','|---|---:|---:|---:|---:|---:|']
