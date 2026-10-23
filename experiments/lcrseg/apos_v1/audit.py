@@ -79,7 +79,11 @@ def main(cfg):
         if full:assert exact(load(root/'incidents/nll_determinism/qualification/initial.pt'),load(root/'qualification/source_D/initial.pt'))
         incident=dict(reason=repair['reason'],failed_attempt_samples=2,failed_reverse=0,failed_optimizer=0,synthetic_repair_reverse=4,clean_initial_exact=True if full else None,caps_unchanged=True)
     resource=status['resources'];assert resource['elapsed_seconds']<28800 and resource['allocated_bytes_including_ops']<4000000000
-    audit=dict(status='PASS',completed=full,workers_retired=True,audit_model_forward=0,counters=counters,resources=resource)
+    synthetic_calls=read(root/'SELF_CHECK.json')['synthetic_reverse']
+    for name,key in [('NLL_IMPLEMENTATION_REPAIR.json','new_synthetic_reverse'),('FULL_OBJECTIVE_SYNTHETIC.json','synthetic_reverse'),('FULL_OBJECTIVE_SYNTHETIC_INITIAL_FAILURE.json','synthetic_backward_attempt')]:
+        if (root/name).exists():synthetic_calls+=read(root/name)[key]
+    assert synthetic_calls<=64
+    audit=dict(status='PASS',synthetic_reverse_calls_including_failed_attempts=synthetic_calls,completed=full,workers_retired=True,audit_model_forward=0,counters=counters,resources=resource)
     result=dict(status='COMPLETE' if full else 'ENGINEERING_STOP',primary='T final EMA .999',audit=audit,metrics=metrics,contrasts_T_minus=contrasts,patient_tails=tail,checks=checks,composite_pass=full and all(checks.values()),single_seed=20271601,independent_test=False,development_patients_reused=True,implementation_incident=incident)
     write(root/'PUBLIC_SUMMARY.json',result)
     report=['# APOS V1 完整结果','','单种子探索性验证；工程审计PASS。科学综合：'+('PASS' if result['composite_pass'] else 'FAIL' if full else '未形成完整性能结论')+'。','','旧域患者尾部与新域非劣须同时通过；全部对照和两个源参照均保留。','', '```json',json.dumps(result,ensure_ascii=False,indent=2),'```','','共享原始源随机与反复开发23/31患者。CI不覆盖源训练随机、多重比较或独立测试；后验求积、有限变分及结构有效性均有近似，不作无遗忘或临床保证。']

@@ -1,11 +1,23 @@
 {
-  "status": "FROZEN_PREFLIGHT_PASS_NOT_STARTED",
+  "status": "RUNNING_SOURCE",
   "protocol": "APOS_V1",
   "seed": 20271601,
-  "source_and_target_arms": ["D", "G", "T"],
+  "source_and_target_arms": [
+    "D",
+    "G",
+    "T"
+  ],
   "primary": "T final EMA .999",
-  "synthetic_CPU_CUDA": "PASS",
-  "medical_forward": 0,
-  "optimizer": 0,
-  "performance_conclusion": "UNKNOWN"
+  "source_prior_fit": "PASS",
+  "source_qualifications": {
+    "D": "PASS",
+    "G": "PASS",
+    "T": "PASS"
+  },
+  "active_stage": "source_D_formal",
+  "target_training_started": false,
+  "performance_conclusion": "UNKNOWN",
+  "implementation_incident": "Deterministic NLL replacement; failed 2 model samples, 0 reverse/optimizer; original evidence retained, clean initial exact restore; caps and original clock unchanged",
+  "synthetic_reverse_calls_including_failed_attempts": 15,
+  "optimizer_cap": 12192
 }
