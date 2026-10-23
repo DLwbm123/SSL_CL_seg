@@ -60,6 +60,25 @@ def main():
     lines+=['','| 臂 | 相对v23L1600源 pp | 相对v23L1600迁移 pp |','|---|---:|---:|']
     for arm,v in a['relative_to_v23_L1600_pp'].items():lines.append(f"| {arm} | {v['RUNMC']:+.5f} | {v['BMC']:+.5f} |")
     lines+=['','额外400步不能全归U；绝对背景与严格同预算对照分开。近邻软票不等于U GT或校准概率。N−B改变信息来源、目标分布/熵和建库成本，不声称隔离单一纯梯度原因。L标签额外用于一次固定库构造，没有新增标签患者，但标签使用量不与A/B逐项相同。单seed、每域4开发患者、3推断不是3训练seed；BMC未适应，不是CL结果。失败不扩seed/k/网格/特征层/坐标/权重/增强网格。', '', f"新增400正式更新、1真实预检反向、6训练内遥测反向、0额外Adam；一次351骨干前向建库、0新增语义后验预测；全根{cost['root_bytes']}字节，历时{cost['elapsed_seconds']:.2f}秒。旧teacher与A/B来源成本保留；新目标缓存成本计入本run，未重评分旧格。",'', '[冻结协议](PREREG_ZH.md)；[全指标/遥测](ANALYSIS.json)；[执行摘要](EXECUTION_SUMMARY.json)。']
+    # Post hoc descriptive precision/recall from already sealed confusion counts.
+    pools={'A':x['controls_v25']['patients']['A'],'B':x['controls_v25']['patients']['B'],'N':x['patients']['N']}
+    confusion={}
+    for arm,ds in pools.items():
+        confusion[arm]={}
+        for d,rows in ds.items():
+            summaries=[]
+            for row in rows:
+                metrics=[]
+                for rep in row['metrics']:
+                    c=rep['classes'][0]
+                    metrics.append(dict(precision=c['TP']/max(1,c['TP']+c['FP']),recall=c['TP']/max(1,c['TP']+c['FN']),predicted_over_GT=c['predicted']/max(1,c['GT'])))
+                summaries.append({k:mean(v[k] for v in metrics) for k in metrics[0]})
+            confusion[arm][d]={k:mean(v[k] for v in summaries) for k in summaries[0]}
+    a['posthoc_sealed_confusion_macro_means']=confusion
+    lines+=['','补充描述（只读封存TP/FP/FN，患者内先平均3推断再平均4患者，不作新增门槛）：','', '| 臂 | 域 | Precision % | Recall % | 预测/GT体素比 |','|---|---|---:|---:|---:|']
+    for arm,ds in confusion.items():
+        for d,m in ds.items():lines.append(f"| {arm} | {d} | {100*m['precision']:.4f} | {100*m['recall']:.4f} | {m['predicted_over_GT']:.5f} |")
+    lines += ['', '## 实测分析与后继取舍\n\nN−A源+0.49376pp、迁移+0.15431pp，N−B源+0.49799pp、迁移+0.27188pp。两个原门槛都因源未达1pp而FAILED，其他保护PASS、空预测0。N相对A源3/4、迁移2/4患者正，相对B源4/4、迁移3/4正；这支持在本条件下标签来源影响结果，不构成稳定可行性或独立泛化。N相对入口L1600迁移仍−0.83799pp，不能隐藏这部分绝对损失。\n\nN相对A的NLL均值源−0.017851、迁移−0.0313035，Brier源−0.0050006、迁移−0.0083777；概率误差改善比Dice差异更明显，但没有校准评估或独立测试，不能称可靠不确定性。封存混淆计数显示N源precision/recall均值较A略升，迁移precision略升而recall略降，预测/GT体素比两域下降。不能仅用近邻缓存前景少断言其质量更高；也不能把概率指标改善全部归因于减少假阳性。\n\nN起点q均值U/基础梯度范数0.612、余弦+0.012；中点1.040/−0.751，末点0.534/−0.834。骨干后两点余弦也为负，c/R三点均负，但N仍较A/B有平均Dice改善。这不能证明冲突是唯一原因，也不支持一概增大或减小U权重。基础梯度含原L任务、image、anchor和KL，不等于纯监督任务；三个点不能代表全程，实际Adam位移不是U反事实。\n\n本固定近邻配置按原FAILED关闭，不扩seed/k/网格/坐标/特征层/权重/增强。下一独立实验保持同一缓存、数据、损失、初始Adam和终点，仅改变基础目标与U梯度的合并规则：当全参数U梯度与基础梯度内积为负时，把U投影到基础梯度的正交平面，基础梯度不动。比较P−N检验该更新规则、P−A检验整套U净收益；均保留原门槛，不能用局部补偿代替整体成功。该非对称投影借鉴[PCGrad](https://arxiv.org/abs/2001.06782)，并非原论文标准对称随机任务实现；向量范数也会改变，不是纯方向消融。欧氏原梯度的一阶内积性质不保证带历史动量/自适应缩放的Adam实际步长、有限步损失或泛化改善，也不是原ELBO梯度或精确后验更新。无需另做P0，直接冻结独立协议并训练检验。\n']
     for n,v in [('ANALYSIS.json',a),('RESULTS.json',x['RESULTS.json']),('EXECUTION_SUMMARY.json',cost)]:(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps({k:v['gate'] for k,v in a['effects'].items()}))
 
