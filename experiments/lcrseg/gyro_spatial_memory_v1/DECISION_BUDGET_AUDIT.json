@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "workers_retired": true,
+  "audit_model_forwards": 0,
+  "cost": {
+    "total": 4129,
+    "optimizer": 4129,
+    "functional": 0,
+    "pending": 0,
+    "by_phase": {
+      "DETACH_D:detach": 32,
+      "DETACH_DP:detach": 32,
+      "20271401_D:engineering": 32,
+      "20271401_DP:engineering": 32,
+      "20271401_D:formal": 2000,
+      "20271401_DP:formal": 2001
+    }
+  },
+  "calls": {
+    "executed": {
+      "p0_native": 186,
+      "p0_reverse": 113,
+      "detach_native": 640,
+      "detach_reverse": 320,
+      "engineering_native": 204,
+      "engineering_reverse": 92,
+      "formal_native": 40010,
+      "formal_reverse": 20023,
+      "evaluation_native": 5784,
+      "evaluation_reverse": 0
+    },
+    "by_group": {
+      "MEASURE:p0_native": 186,
+      "MEASURE:p0_reverse": 113,
+      "DETACH_D:detach_native": 320,
+      "DETACH:detach_reverse": 320,
+      "DETACH_DP:detach_native": 320,
+      "20271401_D:engineering_native": 102,
+      "20271401_D:engineering_reverse": 46,
+      "20271401_DP:engineering_native": 102,
+      "20271401_DP:engineering_reverse": 46,
+      "20271401_D:formal_native": 20000,
+      "20271401_D:formal_reverse": 10009,
+      "20271401_D:evaluation_native": 2892,
+      "20271401_DP:formal_native": 20010,
+      "20271401_DP:formal_reverse": 10014,
+      "20271401_DP:evaluation_native": 2892
+    },
+    "pending": null,
+    "caps": {
+      "p0_native": 400,
+      "p0_reverse": 256,
+      "detach_native": 640,
+      "detach_reverse": 320,
+      "engineering_native": 512,
+      "engineering_reverse": 160,
+      "formal_native": 40010,
+      "formal_reverse": 20100,
+      "evaluation_native": 5784,
+      "evaluation_reverse": 0
+    }
+  },
+  "allocated_bytes_including_metadata": 111477888,
+  "elapsed_seconds": 4612.845452070236,
+  "old_B_W_reused": true,
+  "DP_recovery": {
+    "status": "PASS",
+    "resume_step": 1242,
+    "remaining_committed_updates": 758,
+    "final_committed_updates": 2000,
+    "total_DP_optimizer_calls": 2001,
+    "failed_DP_calls": 1,
+    "new_extra_optimizer": 1,
+    "new_extra_native": 10,
+    "new_extra_reverse": 5,
+    "initial_checkpoint_RNG_optimizer_model_EMA_exact": true,
+    "D_B_W_not_rerun": true,
+    "original_clock_preserved": true,
+    "not_equivalent_to_fault_free_execution": true
+  },
+  "old_A_protocol_failure_not_erased": true,
+  "qualification_check_repair": {
+    "status": "PASS",
+    "reason": "CPU/CUDA comparison fixed after completed D qualification",
+    "new_model_calls": 0,
+    "new_optimizer_steps": 0,
+    "original_failure_preserved": true,
+    "original_qualification_calls": 32,
+    "budget_total_unchanged": 96,
+    "head_student_EMA_source_exact": true
+  }
+}
