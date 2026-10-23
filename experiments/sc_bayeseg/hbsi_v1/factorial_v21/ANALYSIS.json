@@ -1,0 +1,498 @@
+{
+  "status": "COMPLETE",
+  "training_seed": 20261023,
+  "patients_per_domain": 4,
+  "inference_repeats": 3,
+  "factorial_complete": true,
+  "means": {
+    "F10": {
+      "RUNMC": {
+        "Dice": 0.583239823274633,
+        "NLL": 0.08702315714655999,
+        "Brier": 0.053779065593946414,
+        "HD95_penalized_mm": 17.293646375186135,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.39497378796882265,
+        "NLL": 0.11248182911316154,
+        "Brier": 0.06975109281415989,
+        "HD95_penalized_mm": 35.197862550317986,
+        "empty_predictions": 0
+      }
+    },
+    "F00": {
+      "RUNMC": {
+        "Dice": 0.6180508488799242,
+        "NLL": 0.08099912286748202,
+        "Brier": 0.04008083604630481,
+        "HD95_penalized_mm": 15.191115578804066,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.43058890849323744,
+        "NLL": 0.10485910124208363,
+        "Brier": 0.056634693319780285,
+        "HD95_penalized_mm": 34.43884796624832,
+        "empty_predictions": 0
+      }
+    },
+    "F11": {
+      "RUNMC": {
+        "Dice": 0.5543774805774667,
+        "NLL": 0.09871797205508856,
+        "Brier": 0.05281366060752593,
+        "HD95_penalized_mm": 19.456367585069582,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.4074438451788582,
+        "NLL": 0.09354074213053803,
+        "Brier": 0.053530372928484365,
+        "HD95_penalized_mm": 34.88541514998434,
+        "empty_predictions": 0
+      }
+    },
+    "SOURCE": {
+      "RUNMC": {
+        "Dice": 0.6180508488799242,
+        "NLL": 0.08099912286748202,
+        "Brier": 0.04008083604630481,
+        "HD95_penalized_mm": 15.191115578804066,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.4431957632845746,
+        "NLL": 0.09022438799478517,
+        "Brier": 0.04687278007370714,
+        "HD95_penalized_mm": 34.01855224797038,
+        "empty_predictions": 0
+      }
+    },
+    "F01": {
+      "RUNMC": {
+        "Dice": 0.5450459938333412,
+        "NLL": 0.10516632791387934,
+        "Brier": 0.05825654734864552,
+        "HD95_penalized_mm": 20.776213022048516,
+        "empty_predictions": 0
+      },
+      "BMC": {
+        "Dice": 0.39630342173704874,
+        "NLL": 0.10834237263932492,
+        "Brier": 0.06194537859746216,
+        "HD95_penalized_mm": 35.239876005284046,
+        "empty_predictions": 0
+      }
+    }
+  },
+  "gates": {
+    "F10": {
+      "checks": {
+        "new_domain_net_ge_0_5pp": false,
+        "old_domain_drop_le_0_5pp": false,
+        "no_new_empty": true,
+        "HD95_worsening_le_10pct": false
+      },
+      "status": "FAILED",
+      "new_net_pp": -4.8221975315751955,
+      "old_change_pp": -3.4811025605291257
+    },
+    "F00": {
+      "checks": {
+        "new_domain_net_ge_0_5pp": false,
+        "old_domain_drop_le_0_5pp": true,
+        "no_new_empty": true,
+        "HD95_worsening_le_10pct": true
+      },
+      "status": "FAILED",
+      "new_net_pp": -1.2606854791337163,
+      "old_change_pp": 0.0
+    },
+    "F11": {
+      "checks": {
+        "new_domain_net_ge_0_5pp": false,
+        "old_domain_drop_le_0_5pp": false,
+        "no_new_empty": true,
+        "HD95_worsening_le_10pct": false
+      },
+      "status": "FAILED",
+      "new_net_pp": -3.575191810571643,
+      "old_change_pp": -6.367336830245751
+    },
+    "F01": {
+      "checks": {
+        "new_domain_net_ge_0_5pp": false,
+        "old_domain_drop_le_0_5pp": false,
+        "no_new_empty": true,
+        "HD95_worsening_le_10pct": false
+      },
+      "status": "FAILED",
+      "new_net_pp": -4.689234154752587,
+      "old_change_pp": -7.300485504658305
+    }
+  },
+  "effects": {
+    "phi_given_q_fixed": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": -0.07300485504658305,
+          "NLL": 0.024167205046397314,
+          "Brier": 0.018175711302340712,
+          "HD95_penalized_mm": 5.58509744324445,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -7.300485504658308,
+          "minimum": -14.78558725786916,
+          "maximum": -0.4628140652465196,
+          "positive": 0,
+          "negative": 4
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": -0.0342854867561887,
+          "NLL": 0.0034832713972412915,
+          "Brier": 0.005310685277681873,
+          "HD95_penalized_mm": 0.8010280390357281,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -3.42854867561887,
+          "minimum": -9.118580460106019,
+          "maximum": 8.517654688959714,
+          "positive": 1,
+          "negative": 3
+        }
+      }
+    },
+    "phi_given_q_learning": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": -0.028862342697166254,
+          "NLL": 0.01169481490852857,
+          "Brier": -0.0009654049864204831,
+          "HD95_penalized_mm": 2.162721209883447,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -2.8862342697166237,
+          "minimum": -13.838001202790828,
+          "maximum": 8.889244647913369,
+          "positive": 2,
+          "negative": 2
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": 0.012470057210035523,
+          "NLL": -0.018941086982623506,
+          "Brier": -0.016220719885675527,
+          "HD95_penalized_mm": -0.31244740033364593,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": 1.2470057210035494,
+          "minimum": -5.715624591359764,
+          "maximum": 10.152914796871176,
+          "positive": 2,
+          "negative": 2
+        }
+      }
+    },
+    "q_given_phi_fixed": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": -0.03481102560529126,
+          "NLL": 0.006024034279077967,
+          "Brier": 0.013698229547641605,
+          "HD95_penalized_mm": 2.1025307963820694,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -3.4811025605291324,
+          "minimum": -6.044133084484598,
+          "maximum": 0.17453705691301558,
+          "positive": 1,
+          "negative": 3
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": -0.03561512052441479,
+          "NLL": 0.007622727871077914,
+          "Brier": 0.013116399494379608,
+          "HD95_penalized_mm": 0.7590145840696678,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -3.5615120524414747,
+          "minimum": -6.915790995436877,
+          "maximum": 0.04822139987828433,
+          "positive": 1,
+          "negative": 3
+        }
+      }
+    },
+    "q_given_phi_learning": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": 0.009331486744125539,
+          "NLL": -0.0064483558587907774,
+          "Brier": -0.00544288674111959,
+          "HD95_penalized_mm": -1.3198454369789339,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": 0.9331486744125511,
+          "minimum": -1.2905524493958542,
+          "maximum": 3.30792562867529,
+          "positive": 3,
+          "negative": 1
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": 0.011140423441809433,
+          "NLL": -0.014801630508786884,
+          "Brier": -0.008415005668977793,
+          "HD95_penalized_mm": -0.35446085529970617,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": 1.1140423441809446,
+          "minimum": -0.148866661131003,
+          "maximum": 2.658948194928734,
+          "positive": 3,
+          "negative": 1
+        }
+      }
+    },
+    "interaction": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": 0.044142512349416796,
+          "NLL": -0.012472390137868744,
+          "Brier": -0.019141116288761195,
+          "HD95_penalized_mm": -3.4223762333610033,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": 4.414251234941684,
+          "minimum": 0.028807716622447632,
+          "maximum": 9.352058713159888,
+          "positive": 4,
+          "negative": 0
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": 0.04675554396622422,
+          "NLL": -0.022424358379864798,
+          "Brier": -0.0215314051633574,
+          "HD95_penalized_mm": -1.113475439369374,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": 4.675554396622419,
+          "minimum": 1.6352601079114626,
+          "maximum": 9.57473919036561,
+          "positive": 4,
+          "negative": 0
+        }
+      }
+    },
+    "F10_minus_SOURCE": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": -0.03481102560529126,
+          "NLL": 0.006024034279077967,
+          "Brier": 0.013698229547641605,
+          "HD95_penalized_mm": 2.1025307963820694,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -3.4811025605291324,
+          "minimum": -6.044133084484598,
+          "maximum": 0.17453705691301558,
+          "positive": 1,
+          "negative": 3
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": -0.04822197531575195,
+          "NLL": 0.022257441118376367,
+          "Brier": 0.022878312740452753,
+          "HD95_penalized_mm": 1.1793103023476021,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -4.822197531575191,
+          "minimum": -11.788138776364415,
+          "maximum": -0.26009498335997083,
+          "positive": 0,
+          "negative": 4
+        }
+      }
+    },
+    "F00_minus_SOURCE": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": 0.0,
+          "NLL": 0.0,
+          "Brier": 0.0,
+          "HD95_penalized_mm": 0.0,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": 0.0,
+          "minimum": 0.0,
+          "maximum": 0.0,
+          "positive": 0,
+          "negative": 0
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": -0.012606854791337163,
+          "NLL": 0.014634713247298453,
+          "Brier": 0.009761913246073145,
+          "HD95_penalized_mm": 0.4202957182779343,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -1.2606854791337163,
+          "minimum": -4.872347780927538,
+          "maximum": 1.0071694016794197,
+          "positive": 1,
+          "negative": 3
+        }
+      }
+    },
+    "F11_minus_SOURCE": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": -0.06367336830245751,
+          "NLL": 0.017718849187606536,
+          "Brier": 0.012732824561221122,
+          "HD95_penalized_mm": 4.265252006265516,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -6.367336830245757,
+          "minimum": -16.076139707265014,
+          "maximum": 2.8451115634287705,
+          "positive": 1,
+          "negative": 3
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": -0.03575191810571643,
+          "NLL": 0.003316354135752861,
+          "Brier": 0.006657592854777225,
+          "HD95_penalized_mm": 0.8668629020139562,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -3.575191810571641,
+          "minimum": -8.260277719557601,
+          "maximum": 9.892819813511206,
+          "positive": 1,
+          "negative": 3
+        }
+      }
+    },
+    "F01_minus_SOURCE": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": -0.07300485504658305,
+          "NLL": 0.024167205046397314,
+          "Brier": 0.018175711302340712,
+          "HD95_penalized_mm": 5.58509744324445,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -7.300485504658308,
+          "minimum": -14.78558725786916,
+          "maximum": -0.4628140652465196,
+          "positive": 0,
+          "negative": 4
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": -0.04689234154752586,
+          "NLL": 0.018117984644539745,
+          "Brier": 0.015072598523755018,
+          "HD95_penalized_mm": 1.2213237573136624,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -4.689234154752587,
+          "minimum": -10.367728914619862,
+          "maximum": 8.20933830572146,
+          "positive": 1,
+          "negative": 3
+        }
+      }
+    },
+    "FIX_PHI_minus_FULL": {
+      "RUNMC": {
+        "metrics": {
+          "Dice": 0.028862342697166254,
+          "NLL": -0.01169481490852857,
+          "Brier": 0.0009654049864204831,
+          "HD95_penalized_mm": -2.162721209883447,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": 2.8862342697166237,
+          "minimum": -8.889244647913369,
+          "maximum": 13.838001202790828,
+          "positive": 2,
+          "negative": 2
+        }
+      },
+      "BMC": {
+        "metrics": {
+          "Dice": -0.012470057210035523,
+          "NLL": 0.018941086982623506,
+          "Brier": 0.016220719885675527,
+          "HD95_penalized_mm": 0.31244740033364593,
+          "empty_predictions": 0
+        },
+        "paired_patient_Dice_pp": {
+          "n": 4,
+          "mean": -1.2470057210035494,
+          "minimum": -10.152914796871176,
+          "maximum": 5.715624591359764,
+          "positive": 2,
+          "negative": 2
+        }
+      }
+    }
+  },
+  "FIX_PHI_conditional_rule_pass": false
+}
