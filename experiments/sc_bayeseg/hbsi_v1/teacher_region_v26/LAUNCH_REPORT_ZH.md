@@ -13,3 +13,5 @@
 先分别判断H−A/R−A的U原门槛，再报告H−B、R−H、R−B条件效应和绝对水平。硬标签可能继承教师错误；这轮检验风险相容性，不把类别硬化当作真实性或可靠性证据。
 
 [冻结协议](PREREG_ZH.md)；[实现预检](PREFLIGHT.json)；[对照匹配](MATCHING.json)。
+
+最终状态：COMPLETE + EXIT0，固定终点结果见[最终报告](REPORT_ZH.md)。不按历史启动状态重启。
