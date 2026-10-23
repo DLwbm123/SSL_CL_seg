@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "reason": "CUDA 2D NLL lacks strict deterministic implementation",
+  "replacement": "identical -logp[label].mean, determinism retained",
+  "synthetic_checks": [
+    {
+      "device": "cpu",
+      "value_error": 0.0,
+      "gradient_error": 0.0
+    },
+    {
+      "device": "cuda",
+      "value_error": 0.0,
+      "gradient_error": 9.313225746154785e-10
+    }
+  ],
+  "new_synthetic_reverse": 4,
+  "prior_medical_samples": 2,
+  "prior_reverse": 0,
+  "prior_optimizer": 0,
+  "caps_unchanged": true,
+  "clean_restart_state": "qualification/source_D/initial.pt; exception_state forbidden"
+}

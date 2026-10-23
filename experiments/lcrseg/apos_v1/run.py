@@ -15,7 +15,7 @@ from ..gyro_spatial_memory_v1.runtime import exact,finite
 
 def terms(model,x,y):
     logp=model(x);target,patterns=fields(y);flat=target.flatten(1)
-    ce=F.nll_loss(logp,y)
+    ce=-logp.gather(1,y[:,None]).mean()
     p=logp.exp()[:,1:];one=F.one_hot(y,4).permute(0,3,1,2)[:,1:].to(p)
     dice=1-((2*(p*one).sum((2,3))+1e-5)/(p.sum((2,3))+one.sum((2,3))+1e-5)).mean()
     t,w,rawpi,_=model.last
@@ -42,7 +42,11 @@ def check_trainability(model,opt):
 def preflight(cfg,out,source,model,ema,opt,data):
     model.frozen_reference=alg.frozen(model);ema.frozen_reference=alg.frozen(model)
     check_trainability(model,opt)
-    state=copy.deepcopy(engine.snapshot(model,ema,opt,data,0));save(cfg,state,out/'initial.pt')
+    state=copy.deepcopy(engine.snapshot(model,ema,opt,data,0))
+    if cfg.get('repair_initial') and cfg['stage']=='source' and cfg['arm']=='D':
+        clean=torch.load(cfg['repair_initial'],map_location='cpu',weights_only=False)
+        assert exact(state,clean),'clean initial model/EMA/optimizer/RNG state differs'
+    save(cfg,state,out/'initial.pt')
     assert not opt.state
     if cfg['phase']=='qualification':
         first=None;grads=None

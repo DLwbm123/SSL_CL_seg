@@ -27,7 +27,7 @@ def noninferior(v):return v['mean_pp']>=-.20 and v['CI95_pp'][0]>=-.20
 def main(cfg):
     root=Path(cfg['root']);assert not (root/'AUDIT.json').exists()
     status=read(root/'STATUS.json');assert status['status'] in ('COMPLETE','STOPPED')
-    for p in [root/'LAUNCH.private.json',root/'WORKER.private.json',*root.glob('ACTIVE_*.private.json')]:
+    for p in [root/'LAUNCH.private.json',root/'WORKER.private.json',*root.glob('RESUME_LAUNCH*.private.json'),*root.glob('ACTIVE_*.private.json')]:
         info=read(p);stat=Path('/proc')/str(info['pid'])/'stat'
         assert not stat.exists() or int(stat.read_text().split()[21])!=info['birth'] or stat.read_text().split()[2]=='Z'
     counters=read(root/'COUNTERS.private.json') if (root/'COUNTERS.private.json').exists() else dict(calls={},optimizer={})
@@ -72,9 +72,15 @@ def main(cfg):
         contrasts={other:{d:compare(rr['target'][other][d],rr['target']['T'][d]) for d in ('Siemens','Philips')} for other in ('D','G')}
         old=tail['T']['own_source'];orig=tail['T']['original_source'];baseline=tail['D']['own_source']
         checks=dict(old_absolute=metrics['target']['T']['Siemens']['primary_dice']*100>=80.36740663770262,old_own_source_CI=old['CI95_pp'][0]>=-.30,new_absolute=metrics['target']['T']['Philips']['primary_dice']*100>=83,new_noninferior_D=noninferior(contrasts['D']['Philips']),old_increment_D=contrasts['D']['Siemens']['mean_pp']>=.30,old_increment_G=contrasts['G']['Siemens']['mean_pp']>=.15,noninferior_G_both=all(noninferior(v) for v in contrasts['G'].values()),tail_own=old['decline_over_1']<=2 and old['decline_over_2']==0 and old['p10_pp']>=-.50,tail_original=orig['decline_over_1']<=2 and orig['decline_over_2']==0 and orig['p10_pp']>=-.50,tail_no_worse_D=old['decline_over_1']<=baseline['decline_over_1'] and old['decline_over_2']<=baseline['decline_over_2'])
+    incident=None
+    if (root/'NLL_IMPLEMENTATION_REPAIR.json').exists():
+        repair=read(root/'NLL_IMPLEMENTATION_REPAIR.json');assert repair['status']=='PASS' and repair['prior_optimizer']==repair['prior_reverse']==0 and repair['prior_medical_samples']==2
+        assert read(root/'incidents/nll_determinism/EXIT_source_D_qualification.json')['exit_code']==1
+        if full:assert exact(load(root/'incidents/nll_determinism/qualification/initial.pt'),load(root/'qualification/source_D/initial.pt'))
+        incident=dict(reason=repair['reason'],failed_attempt_samples=2,failed_reverse=0,failed_optimizer=0,synthetic_repair_reverse=4,clean_initial_exact=True if full else None,caps_unchanged=True)
     resource=status['resources'];assert resource['elapsed_seconds']<28800 and resource['allocated_bytes_including_ops']<4000000000
     audit=dict(status='PASS',completed=full,workers_retired=True,audit_model_forward=0,counters=counters,resources=resource)
-    result=dict(status='COMPLETE' if full else 'ENGINEERING_STOP',primary='T final EMA .999',audit=audit,metrics=metrics,contrasts_T_minus=contrasts,patient_tails=tail,checks=checks,composite_pass=full and all(checks.values()),single_seed=20271601,independent_test=False,development_patients_reused=True)
+    result=dict(status='COMPLETE' if full else 'ENGINEERING_STOP',primary='T final EMA .999',audit=audit,metrics=metrics,contrasts_T_minus=contrasts,patient_tails=tail,checks=checks,composite_pass=full and all(checks.values()),single_seed=20271601,independent_test=False,development_patients_reused=True,implementation_incident=incident)
     write(root/'PUBLIC_SUMMARY.json',result)
     report=['# APOS V1 完整结果','','单种子探索性验证；工程审计PASS。科学综合：'+('PASS' if result['composite_pass'] else 'FAIL' if full else '未形成完整性能结论')+'。','','旧域患者尾部与新域非劣须同时通过；全部对照和两个源参照均保留。','', '```json',json.dumps(result,ensure_ascii=False,indent=2),'```','','共享原始源随机与反复开发23/31患者。CI不覆盖源训练随机、多重比较或独立测试；后验求积、有限变分及结构有效性均有近似，不作无遗忘或临床保证。']
     (root/'APOS_REPORT_ZH.md').write_text('\n'.join(report)+'\n');write(root/'AUDIT.json',audit)

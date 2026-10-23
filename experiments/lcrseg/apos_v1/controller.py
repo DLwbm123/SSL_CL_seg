@@ -72,7 +72,11 @@ def main(cfg):
             assert json.loads((root/'SELF_CHECK.json').read_text())['status']=='PASS'
             write(root/'SYNTHETIC_REUSE.json',dict(status='PASS',new_calls=0))
         else:launch('selfcheck')
-        launch('prior')
+        if cfg.get('resume_after_deterministic_nll_repair'):
+            assert json.loads((root/'NLL_IMPLEMENTATION_REPAIR.json').read_text())['status']=='PASS'
+            assert json.loads((root/'PRIOR_FIT.json').read_text())['status']=='PASS'
+            write(root/'PRIOR_REUSE.json',dict(status='PASS',new_label_reads=0))
+        else:launch('prior')
         for arm in ('D','G','T'):launch('qualification','source',arm)
         for arm in ('D','G','T'):launch('formal','source',arm)
         for arm in ('D','G','T'):launch('evaluate','source',arm)
