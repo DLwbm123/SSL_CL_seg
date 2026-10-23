@@ -24,7 +24,7 @@ def summarize(snapshot):
         for key, cell in exp['cells'].items():
             assert cell['complete'] and cell['patients']==4 and len(cell['repeats'])==3
             cells[key]={m:statistics.mean(r[m] for r in cell['repeats']) for m in METRICS}
-        result=dict(status=exp['status'],exit=exp.get('exit'),resources=exp['resources'],sessions=exp['sessions'],cells=cells,contrasts={})
+        result=dict(status=exp['status'],exit=exp.get('exit'),resources=exp['resources'],sessions=exp['sessions'],cells=cells,contrasts={},completion=exp.get('completion'),branch_checks=exp.get('branch_checks'))
         if version=='v19':
             contrasts={
                 'source_U':{'LU_A':1,'L_A':-1},
@@ -81,12 +81,13 @@ def summarize(snapshot):
 def report(d):
     date=datetime.datetime.fromtimestamp(d['checked_epoch'],datetime.timezone(datetime.timedelta(hours=8))).isoformat()
     v19=d['experiments']['v19'];v20=d['experiments']['v20_P2']
-    lines=['# v19 三种子完整结果与 v20 P2 阶段汇总','',f'截点：{date}。仅汇总已有封存预测及指标，0新增模型前向/优化/重新评分。','',
+    final=len(v20['cells'])==24 and v20['exit'] is not None and v20['exit']['exit_code']==0
+    lines=['# v19 与 v20 P2 完整三种子最终报告' if final else '# v19 三种子完整结果与 v20 P2 阶段汇总','',f'截点：{date}。仅汇总已有封存预测及指标，0新增模型前向/优化/重新评分。','',
            '## 完成状态与核心判断','',
            '- v19：18个训练阶段全部完成、19200更新，36个评估格完整、EXIT0。',
-           f"- v20 P2：{len(v20['cells'])}/24格已完整评估，当前{v20['status']['stage']}，seed={v20['status'].get('seed')}、arm={v20['status'].get('arm')}；运行进度见匿名JSON。缺失格保留NA，不能将门槛已确定失败写成运行已经完成。",
-           '- 语义一致性：1600步固定终点，已完成两种子的C−A源域均负，800步P1的小幅正收益没有保持。不能选800步替换1600步。',
-           '- U图像ELBO：B−A前两个种子源域与迁移均负，完整已出种子逐项见下表；D−C跨种子混合。B/C/D均已无法满足至少2个训练种子源域改善，门槛失败不依赖尚未完成种子的结果。',
+           ('- v20 P2：12阶段全部完成，12800新增更新，24/24格完整、EXIT0；连同P1合计14400新增更新。三种子均为固定1600步终点，B/C/D预注册门槛全部FAILED。' if final else f"- v20 P2：{len(v20['cells'])}/24格已完整评估，当前{v20['status']['stage']}；缺失格保留NA。"),
+           '- 语义一致性：1600步固定终点，C−A三种子源域均负；D−B源域也三种子均负。800步P1的小幅正收益没有保持，不能选早期checkpoint替换固定终点。',
+           '- U图像ELBO：B−A三种子均值接近零，只有1/3种子改善，未通过预注册分割收益门槛。D−C源域2正1负、迁移2正1负，均值小幅为正；不能把小量级条件增量或正交互称为稳定有效，更不能抵消语义一致性分支的总体下降。',
            '- 历史先验：v19 L组旧域三种子方向为正但幅度约百分之一个百分点；LU旧域三种子均为负，新增历史先验没有具有实际量级的稳定收益。','',
            '## 数据、配对与解释边界','',
            '训练种子20261023/24/25，冻结split0。源RUNMC为4L患者/80切片，LU另用14U患者；v19目标BMC为4L/14U。每域4验证患者、每格3推断重复，先患者宏平均再平均推断，再汇总训练种子；推断重复不是训练种子，反复开发验证不是独立泛化。test与U隐藏标签未访问。',
@@ -112,23 +113,35 @@ def report(d):
                   '### v19 目标适应相对自身源模型（Dice pp）','',
                   'RUNMC差值为负表示旧域遗忘；BMC差值为负表示目标适应后低于未适应迁移。不是将两个域之间直接相减。'])
     contrast_table(v19,['L_M0_target_minus_source','L_M1_target_minus_source','LU_M0_target_minus_source','LU_M1_target_minus_source'])
-    lines.extend(['','## v20 P2 固定1600步，明确缺失格','',
+    lines.extend(['','## v20 P2 固定1600步完整三种子终点','',
                   '| 臂 | 域 | seed23 | seed24 | seed25 |','|---|---|---:|---:|---:|'])
     for arm in 'ABCD':
         for domain in DOMAINS:
             vals=[f"{100*v20['cells'][f's{s}_{arm}_{domain}']['Dice']:.4f}" if f's{s}_{arm}_{domain}' in v20['cells'] else 'NA（未完整评估）' for s in SEEDS]
             lines.append(f'| {arm} | {domain} | '+' | '.join(vals)+' |')
-    lines.extend(['','每项机制差值仅使用该项具备完整配对的种子。B−A已3种子齐全；含C/D的对比当前仍只有2种子；不把多出的A/B单独混入缺失对照。'])
+    lines.extend(['','所有机制差值现均使用完整3个训练种子的同源配对。各seed分别列出，不以均值掩盖方向反转。'])
     contrast_table(v20,['B-A','C-A','D-C','D-B','D-A','interaction'])
+    # Compare the same seed across the two preregistered fixed endpoints.
+    p1_path=Path(__file__).resolve().parent.parent/'semantic_u_v20/P1_RESULTS.json'
+    if final and p1_path.exists():
+        p1=json.loads(p1_path.read_text())['means']
+        lines.extend(['','## 首种子800→1600步：同seed端点对照','',
+                      '仅比较同一训练种子20261023，避免用单seed早期结果对比三seed终点均值。800为P1预定筛选终点，1600为P2预定正式终点，不用于挑选更有利的checkpoint。','',
+                      '| 对比 | 域 | P1 800步 pp | P2 1600步 pp |','|---|---|---:|---:|'])
+        for name,left,right in [('B-A','B','A'),('C-A','C','A'),('D-C','D','C')]:
+            for domain in DOMAINS:
+                early=p1[left+'_'+domain]['Dice']-p1[right+'_'+domain]['Dice']
+                late=v20['cells']['s20261023_'+left+'_'+domain]['Dice']-v20['cells']['s20261023_'+right+'_'+domain]['Dice']
+                lines.append(f'| {name} | {domain} | {early*100:+.4f} | {late*100:+.4f} |')
     lines.extend(['','## 预注册源域门槛逐项判定','',
-                  '所有候选均相对A，预注册要求均值≥1pp、至少2seed正、最差≥−.5pp、无新增空预测、平均HD95恶化≤10%。这些条件是AND关系。前两个seed已负意味着第三seed即使为正也最多1/3正，故可以确定失败；未知的最终统计仍保留待完成。','',
+                  '所有候选均相对A，预注册要求均值≥1pp、至少2seed正、最差≥−.5pp、无新增空预测、平均HD95恶化≤10%。这些条件是AND关系。现全部三种子齐全，所有门槛均按冻结阈值正式计算；不再包含NA或待完成项。','',
                   '| 候选 | 配对seed数 | 均值≥1pp | ≥2seed正 | 最差≥−.5pp | 无新空预测 | HD95≤10%恶化 | 判定 |','|---|---:|---|---|---|---|---|---|'])
     def flag(value):
         return 'PASS' if value is True else ('FAIL' if value is False else '待完整统计')
     for arm,g in v20['preregistered_source_gate'].items():
         c=g['checks'];keys=['mean_gain_at_least_1pp','at_least_2_positive_seeds','worst_seed_at_least_minus_0_5pp','no_new_empty_predictions','mean_HD95_worsening_at_most_10pct']
         lines.append(f"| {arm}−A | {g['complete_seed_metrics']} | "+' | '.join(flag(c[key]) for key in keys)+f" | {g['verdict']} |")
-    lines.extend(['','这不是根据两seed估计三seed均值，也不是改变阈值提前淘汰；至少一个已被观察结果不可逆违反的必要条件足以否定联合门槛。既有队列仍按用户冻结指令完成第三seed，不停跑、不调参。D−C的额外贡献独立报告，不能以候选整体失败宣称图像ELBO在所有设置无效。'])
+    lines.extend(['','B均值及≥2正seed门槛失败；C还违反最差seed门槛；D均值及≥2正seed门槛失败，并违反最差seed门槛。所有候选空预测与HD95项通过仍不能替代联合门槛。D−C的条件额外贡献独立报告，不能以候选整体失败宣称图像ELBO在所有设置无效。'])
     lines.extend(['','## 辅助指标和患者异质性','',
                   '下表是各配对差值的训练种子均值。NLL、Brier、HD95越低越好；Dice越高越好。患者范围先在同一患者上平均可用种子，再统计4患者范围，未把12次观测当独立患者。','',
                   '| 版本/对比 | 域 | n seeds | ΔNLL | ΔBrier | ΔHD95 mm | 患者Dice差值范围 pp | 正/负患者 |','|---|---|---:|---:|---:|---:|---|---|'])
@@ -142,12 +155,12 @@ def report(d):
                   '## 科学结论与下一允许动作','',
                   '1. 保留CE＋Dice。其与v18完整首seed源格的改善已有前期报告；v18已取消格不补跑，不声称跨目标三seed配对。',
                   '2. v19已完成收口；不对微小历史先验差异宣称可靠抗遗忘。共享识别器phi没有直接历史KL保护，只能作为待检验机制，不能从现有表格归因。',
-                  '3. v20继续原P2队列直至第三seed完整，不改权重/增强、不选择早期checkpoint、不增seed至成功。完整三seed后按预注册源域均值≥1pp、≥2seed正、最差≥−.5pp、无新增空预测及平均HD95恶化≤10%作正式筛选。B/C/D至少2seed正这一必要条件已确定失败；未齐全的最终均值/辅助门槛仍标待完成，不冒充完整三seed统计。',
-                  '4. 当前两个seed的固定终点并不支持语义一致性扩展带来分割增益。本配置门槛已失败，完成既有队列后不继续扩样，保留负结果；不得通过反复调参或替换终点抹去失败。',
-                  '5. 当前未启动共同源目标U×M或其他新模型。P2完成后由唯一runmc整理最终三seed报告并push，原时钟/空间/隐私边界继续。','',
+                  '3. v20 P2已完整结束。按源域均值≥1pp、≥2seed正、最差≥−.5pp、无新增空预测及平均HD95恶化≤10%正式筛选，B/C/D全部FAILED。冻结阈值、每个种子和所有辅助指标均保留。',
+                  '4. 三个seed均不支持本版语义一致性扩展带来分割收益。本配置扩样关闭，不追加seed/权重/增强网格，不用早期800步替换1600步；保留完整负结果。',
+                  '5. 未启动共同源目标U×M或其他新模型。本报告完成本次三seed收口与公开交付；后续独立主线假设需另立协议与预算，原停止要求、历史结果和隐私边界继续。','',
                   '## 完成与资源证据','',
-                  f"v19资源ledger bytes={v19['resources']['bytes']}，秒账单={v19['resources']['seconds_charged']:.2f}；EXIT0。运行中v20_P2 ledger bytes={v20['resources']['bytes']}，秒账单={v20['resources']['seconds_charged']:.2f}，其中运行阶段含预留，不能当作实际已耗时。",'P0/P1/P2原始起点和绝对截止不变；不重启/重置预算，不重新评分。初始启动错误记录继续保留。源码/协议/匿名指标可公开；患者身份、原始图像/预测数组、权重、原始日志、私有配置路径均不发布。','',
-                  '本报告为v19最终、v20 P2阶段报告；不会将尚未完成的三seed交付称为最终完成。'])
+                  f"v19资源ledger bytes={v19['resources']['bytes']}，秒账单={v19['resources']['seconds_charged']:.2f}；EXIT0。已结束v20_P2 ledger bytes={v20['resources']['bytes']}，秒账单={v20['resources']['seconds_charged']:.2f}；阶段均已退出，账单与ledger一并保留。",'P0/P1/P2原始起点和绝对截止不变；不重启/重置预算，不重新评分。初始启动错误记录继续保留。源码/协议/匿名指标可公开；患者身份、原始图像/预测数组、权重、原始日志、私有配置路径均不发布。','',
+                  '本报告为v19与v20 P2完整三种子最终报告。12个P2分支的来源与原先验已核验，seed24/25四臂同入口一致，seed23分别继承P1已分叉的四臂状态，不重跑P1。P0/P1/P2原始起点到P2退出约10444.19秒（2.90小时），低于43100秒统一硬截止；P2约2.089GB（ledger字节）。'])
     return '\n'.join(lines)+'\n'
 
 
