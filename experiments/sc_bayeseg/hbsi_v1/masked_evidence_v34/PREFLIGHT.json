@@ -1,0 +1,74 @@
+{
+  "status": "PASS",
+  "marginal_checks": {
+    "SAR_dense_covariance_match": true,
+    "marginal_logprob_match": true,
+    "heldout_input_independent": true,
+    "finite_probability_gradient": true,
+    "direct_score_theta_a_stopped": true,
+    "fixture_reverse_calls": 1
+  },
+  "auxiliary_semantic_gradient": true,
+  "real_hidden_pixel_no_input_leak": true,
+  "auxiliary_path_reverse_calls": 1,
+  "real_batch": [
+    {
+      "use_u": false,
+      "seconds": 0.38731002202257514,
+      "parts": {
+        "scaled": 0.9469856836090997,
+        "fit": 0.9351024337191337,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 0.7055443653109255,
+        "anchor": 0.22083687264161017,
+        "image_L": -0.8721195766598071,
+        "image_U": 0.0,
+        "structure_margin": 2.898676522225908,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.9408575462367332,
+        "masked_risk": 0.006128137372366514,
+        "auxiliary_pool_U": 0.0,
+        "heldout_logscore_per_pixel": -0.6128137372366513,
+        "heldout_fraction": 0.015625,
+        "heldout_residual_mse": 0.19455107071697916,
+        "heldout_logdet_per_pixel": -4.73148288527823
+      }
+    },
+    {
+      "use_u": true,
+      "seconds": 0.3080357830040157,
+      "parts": {
+        "scaled": 0.9390501605730467,
+        "fit": 0.9351024337191337,
+        "global_kl": 7531.314906106962,
+        "domain_kl": 12.026172961090982,
+        "task": 0.7055443653109255,
+        "anchor": 0.22083687264161017,
+        "image_L": -0.8721195766598071,
+        "image_U": 0.0,
+        "structure_margin": 2.898676522225908,
+        "valid_candidate_fraction": 1.0,
+        "U_local_prior_minus_q": 0.0,
+        "base_objective": 0.9408575462367332,
+        "masked_risk": -0.0018073856636865904,
+        "auxiliary_pool_U": 1.0,
+        "heldout_logscore_per_pixel": 0.18073856636865904,
+        "heldout_fraction": 0.015625,
+        "heldout_residual_mse": 0.11972167157610314,
+        "heldout_logdet_per_pixel": -4.73148288527823
+      }
+    }
+  ],
+  "paired_original_L_task_anchor": true,
+  "paired_global_rng": true,
+  "source_updates": 0,
+  "real_batch_reverse_calls": 2,
+  "fixture_reverse_calls": 1,
+  "U_label_capability": false,
+  "counts": {
+    "L": 80,
+    "U": 271
+  }
+}
