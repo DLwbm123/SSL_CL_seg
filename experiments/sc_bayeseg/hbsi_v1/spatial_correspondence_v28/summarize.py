@@ -54,6 +54,11 @@ def main():
     for arm,t in a['training_summaries'].items():
         m=t['last100_means'];lines.append(f"| {arm} | {m['correspondence']:.6f} | {m['correspondence_positive_cos']:.6f} | {m['correspondence_negative_cos']:.6f} | {m['correspondence_accuracy']:.6f} |")
     lines+=['','对应检索率是重复训练图像/位置上的任务统计，不是U分割正确率、独立样本或泛化。显式坐标置零不排除隐式位置捷径；不同位置的相同组织可能是假负对。辅助只直接更新phi骨干，整个方法仍由原L目标训练其他模块。', '',f"800正式更新，3模型预检反向+1小fixture反向、0预检Adam。总历时{cost['wall_seconds']:.2f}秒，全根{cost['root_bytes']}字节。只读封存指标，无新评分。",'', '单训练seed、每域4患者、3推断不是3训练seed。共享开发val反复使用，不能宣称稳定泛化/精确后验/CL成功；原门槛与负结果保留，失败不追加seed/温度/权重/空间网格/增强搜索。', '', '[冻结协议](PREREG_ZH.md)；[全部匿名指标](ANALYSIS.json)；[执行摘要](EXECUTION_SUMMARY.json)。']
+    lines += ['', '## 实测结论与后继依据', '',
+        '这是当前几轮中一个方向较一致、但量级不足的U条件增量：源域与迁移域均4/4患者Dice正向，源域NLL/Brier/HD95也均4/4改善；迁移域Brier4/4改善、NLL3/4改善，HD95为2名略升、1名下降、1名不变。不能只按患者正负数认定统计显著或稳定成功。', '',
+        '原源域至少1pp的门槛仍失败；源+0.31712pp与迁移+0.35216pp不构成通过。相对无辅助的匹配更新数v25A，LU源提高0.73787pp但迁移下降0.40560pp；相对1600入口迁移仍下降1.39790pp。因此这是辅助表征路径的局部研究线索，尚非双域净收益或可行性验证。', '',
+        '两臂对应风险降低与LU较高的末段检索率仅为训练内摘要。不同图像批次、位置和演化模型不能充当固定探针或U分割真值；本实验也没有测出错误负对比例、位置捷径贡献或梯度冲突因果。', '',
+        '后继不扩跑本配置或调温度。直接检验一个不同目标：保留同一共享骨干、同一图像池对照和视图，但取消不同空间位置必须互斥的负对，改为对应视图的通道交叉相关逼近单位阵。该目标以通道去冗余替代空间排斥，避免显式把不同位置的同组织当负对；这只是机制假设，不把v28不足归因为已证明的假负对问题。新独立协议/预算仍采用共同入口、固定终点和原门槛。']
     for name,value in [('ANALYSIS.json',a),('RESULTS.json',r),('EXECUTION_SUMMARY.json',cost)]:
         (out/name).write_text(json.dumps(value,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps(a['gate']))
