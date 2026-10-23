@@ -15,3 +15,5 @@ NAS挂载/容量/真实写读及GPU1显存准入PASS。启动前GPU1可用7711Mi
 完成时核验2session/4cell/800formal/2000/EXIT0，三点审计完整、共同payload/prior、参考与S/b冻结。原LU−L源≥1pp/迁移≥−.5pp/无新空/HD95≤10%门槛保持；并列v25A2000/v23L1600绝对背景，披露A少32辅助图像语义前向/步及额外L标签统计差异。失败不扩seed/批次/距离阶数/占比变换/权重/MC/阈值/增强。
 
 [冻结协议](PREREG_ZH.md)；[预检](PREFLIGHT.json)；[匿名参考摘要](REFERENCE_SUMMARY.json)。唯一runmc每30分钟继续，12小时累计总结仍北京时间12:13。
+
+最终已 COMPLETE/EXIT0；科学门槛 FAILED，详见 [最终报告](REPORT_ZH.md)。启动状态为历史记录。
