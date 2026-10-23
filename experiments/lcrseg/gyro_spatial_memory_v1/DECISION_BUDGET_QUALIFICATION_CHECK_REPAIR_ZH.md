@@ -1,0 +1,5 @@
+# 资格收尾检查设备修复
+
+原P0全部PASS、64步零新增机制等价PASS、D资格32步全部运行并由原ENGINEERING.json判PASS后，附加末头比对将CPU保存张量直接与CUDA参考张量比较，触发设备RuntimeError。此为检查实现故障，不是训练数值或P0失败。正式尚未开始。
+
+修复仅将参考头转CPU比较。通过保存的initial/engineering_terminal和源checkpoint在CPU核对，零新模型forward、零optimizer，不重跑资格或P0；修复receipt核当前96opt/工程102native46reverse并将原失败与EXIT1归档保存。恢复控制器仅跳过有PASS修复回执的D资格，其余DP资格及D/DP正式正常运行。保留原started_epoch与全部预算，独立timeout扣除已消耗时间，不拆名重置。终态审计核原失败与零调用修复记录。科学公式、门槛、数据、系数不变。

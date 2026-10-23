@@ -133,7 +133,7 @@ def qualify(cfg):
     with patch.object(base,'setup',setup),patch.object(base,'update_ema',update_ema):base.qualify(cfg)
     out=Path(cfg['output']);source,m,ema,opt=setup(cfg)
     v=torch.load(out/'engineering_terminal.pt',map_location='cpu',weights_only=False)
-    assert torch.equal(v['model'][HEAD],source.state_dict()[HEAD]) and torch.equal(v['ema'][HEAD],source.state_dict()[HEAD])
+    assert torch.equal(v['model'][HEAD],source.state_dict()[HEAD].cpu()) and torch.equal(v['ema'][HEAD],source.state_dict()[HEAD].cpu())
     write(out/'FIXED_HEAD_TERMINAL.json',dict(status='PASS',student_EMA_unchanged=True))
 
 def detach(cfg):
@@ -211,7 +211,10 @@ def self_check():
 
 def controller(cfg,guard):
     root=Path(cfg['root']);assert (Path(cfg['neighbor_root'])/'DELIVERY.json').exists()
-    write(root/'WORKER.private.json',dict(pid=os.getpid(),birth=Path('/proc/self/stat').read_text().split()[21]));geometry_check(cfg);write(root/'DECISION_SELF_CHECK.json',self_check())
+    write(root/'WORKER.private.json',dict(pid=os.getpid(),birth=Path('/proc/self/stat').read_text().split()[21]))
+    resume=cfg.get('resume_after_qualification_check_repair',False)
+    if resume:assert json.loads((root/'QUALIFICATION_CHECK_REPAIR.json').read_text())['status']=='PASS'
+    else:geometry_check(cfg);write(root/'DECISION_SELF_CHECK.json',self_check())
     def stage(mode,c):
         guard(cfg,new_stage=True);p=root/('SETTINGS_'+c['group']+'_'+mode+'.private.json');write(p,c)
         with (root/(c['group']+'_'+mode+'.log')).open('x') as log:q=subprocess.Popen([cfg['runtime'],cfg['entry']],env=dict(os.environ,TASK_SETTINGS=str(p),TASK_MODE=mode),stdout=log,stderr=subprocess.STDOUT)
@@ -220,11 +223,16 @@ def controller(cfg,guard):
     parent_p0=json.loads((Path(cfg['neighbor_root'])/'P0_RESULT.json').read_text())
     common=dict(cfg,arm='A',weights={'R':parent_p0['weights']['R'],'D':0.},scales=parent_p0['scales'],target_seed=SEED,variant='D',preflight_only=False,checkpoint_each_step=True,save_exception_state=True,diagnostic_holdout_excluded=False)
     c=dict(common,group='MEASURE',bucket='p0',phase='measure',output=str(root/'measure'))
-    stage('compatibility',c);stage('measure',c);p0=json.loads((root/'P0_RESULT.json').read_text())
+    if not resume:stage('compatibility',c);stage('measure',c)
+    p0=json.loads((root/'P0_RESULT.json').read_text())
     if p0['status']!='PASS':write(root/'STATUS.json',dict(status='P0_STOP',formal_started=False,resources=guard(cfg)));write(root/'EXIT.json',dict(exit_code=0));return
-    common['weights']=p0['weights'];stage('detach',dict(common,group='DETACH',bucket='detach',phase='detach',output=str(root/'detach')))
+    common['weights']=p0['weights']
+    if not resume:stage('detach',dict(common,group='DETACH',bucket='detach',phase='detach',output=str(root/'detach')))
+    else:assert json.loads((root/'DETACH_CHECK.json').read_text())['status']=='PASS'
     configs=[dict(common,group=f'{SEED}_{arm}',variant=arm) for arm in METHODS]
-    for c in configs:stage('qualify',dict(c,bucket='engineering',phase='engineering',output=str(root/'qualification'/c['group'])))
+    for c in configs:
+        if resume and c['variant']=='D':assert json.loads((root/'qualification'/c['group']/'FIXED_HEAD_TERMINAL.json').read_text())['status']=='PASS';continue
+        stage('qualify',dict(c,bucket='engineering',phase='engineering',output=str(root/'qualification'/c['group'])))
     for c in configs:
         c=dict(c,bucket='formal',phase='formal',output=str(root/'jobs'/c['group']));stage('train',c);stage('evaluate',dict(c,bucket='evaluation'))
     write(root/'STATUS.json',dict(status='COMPLETE',audit_pending=True,resources=guard(cfg)));write(root/'EXIT.json',dict(exit_code=0))

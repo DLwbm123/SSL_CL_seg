@@ -13,11 +13,14 @@ def read(p):return json.loads(Path(p).read_text())
 def main(cfg):
     torch.set_num_threads(4);root=Path(cfg['root']);oldroot=Path(cfg['neighbor_root']);assert not (root/'AUDIT.json').exists()
     status=read(root/'STATUS.json');assert status['status'] in ('COMPLETE','P0_STOP');full=status['status']=='COMPLETE'
-    pg=read(root/'LAUNCH.private.json')['process_group']
+    pg=read(root/('RESUME_LAUNCH.private.json' if (root/'RESUME_LAUNCH.private.json').exists() else 'LAUNCH.private.json'))['process_group']
     for line in subprocess.check_output(['ps','-eo','pid,pgid,stat'],text=True).splitlines()[1:]:
         f=line.split();assert int(f[1])!=pg or f[2].startswith('Z')
-    for p in [root/'LAUNCH.private.json',root/'WORKER.private.json',*root.glob('ACTIVE_*.private.json')]:
+    for p in [*root.glob('*LAUNCH.private.json'),root/'WORKER.private.json',*root.glob('ACTIVE_*.private.json')]:
         v=read(p);s=Path('/proc')/str(v['pid'])/'stat';assert not s.exists() or s.read_text().split()[21]!=str(v['birth']) or s.read_text().split()[2]=='Z'
+    if (root/'QUALIFICATION_CHECK_REPAIR.json').exists():
+        repair=read(root/'QUALIFICATION_CHECK_REPAIR.json');assert repair['status']=='PASS' and repair['new_model_calls']==repair['new_optimizer_steps']==0
+        assert read(root/'qualification_check_failure'/'EXIT_20271401_D_qualify.json')['exit_code']==1
     assert not list(root.glob('FAILURE*')) and all(read(p)['exit_code']==0 for p in [root/'EXIT.json',*root.glob('EXIT_*.json')])
     p0=read(root/'P0_RESULT.json');expected={}
     if full:
@@ -78,7 +81,7 @@ def main(cfg):
         composite=all(gates['DP']['checks'].values())
         assert calls['executed']['formal_native']==40000 and calls['executed']['formal_reverse']==20018 and calls['executed']['evaluation_native']==5784
     used=int(subprocess.check_output(['du','-s','-B1',str(root)]).split()[0])+2000000;assert used<4000000000 and status['resources']['elapsed_seconds']<28800
-    audit=dict(status='PASS',workers_retired=True,audit_model_forwards=0,cost=count,calls=calls,allocated_bytes_including_metadata=used,elapsed_seconds=status['resources']['elapsed_seconds'],old_B_W_reused=True,old_A_protocol_failure_not_erased=True)
+    audit=dict(status='PASS',workers_retired=True,audit_model_forwards=0,cost=count,calls=calls,allocated_bytes_including_metadata=used,elapsed_seconds=status['resources']['elapsed_seconds'],old_B_W_reused=True,old_A_protocol_failure_not_erased=True,qualification_check_repair=read(root/'QUALIFICATION_CHECK_REPAIR.json') if (root/'QUALIFICATION_CHECK_REPAIR.json').exists() else None)
     result=dict(audit=audit,P0=p0,formal_started=full,metrics=metrics,contrasts=contrasts,old_source_damage=tail,gates=gates,control=control,composite_pass=composite,primary='final EMA .999',target_seed=SEED,independent_test=False,development_validation_reused=True,training_stability_established=False)
     write(root/'PUBLIC_SUMMARY.json',result);write(root/'AUDIT.json',audit)
     (root/'REPORT_ZH.md').write_text('# 分类别预算完整结果\n\n工程审计PASS，单种子科学'+('PASS' if composite else 'FAIL/STOP')+'。完整四配置指标、类别、患者配对区间和尾部见PUBLIC_SUMMARY.json。无独立测试/训练稳定性结论。等待用户决定，不自动后继。\n')
