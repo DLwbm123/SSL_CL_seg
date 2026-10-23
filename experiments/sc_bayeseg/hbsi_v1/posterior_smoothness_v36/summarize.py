@@ -56,7 +56,7 @@ def main():
         for arm,v in a[tag+'_historical_delta_pp'].items():lines.append(f"| {arm} | {v['RUNMC']:+.5f} | {v['BMC']:+.5f} |")
     lines+=['','历史v25A每步少12次辅助语义预测及1次方向autograd，是无辅助目标背景，不是新两臂等计算的主对照。', '', '| 臂 | 末100辅助KL | 探针KL | 扰动L2范数 | 零方向比例 |','|---|---:|---:|---:|---:|']
     for arm,t in a['training_summaries'].items():
-        m=t['last100_means'];lines.append(f"| {arm} | {m['smoothness_risk']:.6f} | {m['probe_kl']:.6f} | {m['perturbation_norm']:.6f} | {m['zero_direction_fraction']:.6f} |")
+        m=t['last100_means'];lines.append(f"| {arm} | {m['smoothness_risk']:.6f} | {m['probe_kl']:.6e} | {m['perturbation_norm']:.6f} | {m['zero_direction_fraction']:.6f} |")
     lines+=['','局部KL来自变化训练图像与模型，不是固定探针、语义正确率或独立泛化证据。共同噪声控制不保证精确后验；一次幂迭代不是全局最坏方向，平滑性仍可能固化错误或损小结构。没有读取U标签验证这些可能性。', '',f"800正式更新，800方向autograd；预检3模型外层反向+3方向autograd+2小fixture autograd、0预检Adam，另12训练遥测autograd/0额外Adam。总历时{cost['wall_seconds']:.2f}秒，全根{cost['root_bytes']}字节。只读封存指标，无新评分。",'', '单训练seed、每域4患者、3推断不是3训练seed。共享开发val反复使用，不能宣称稳定泛化/精确后验/CL成功；原门槛与负结果保留，失败不追加seed/xi/半径/幂迭代数/权重/MC/阈值/增强搜索。', '', '[冻结协议](PREREG_ZH.md)；[全部匿名指标](ANALYSIS.json)；[执行摘要](EXECUTION_SUMMARY.json)。']
     for name,value in [('ANALYSIS.json',a),('RESULTS.json',r),('EXECUTION_SUMMARY.json',cost)]:
         (out/name).write_text(json.dumps(value,indent=2)+'\n')

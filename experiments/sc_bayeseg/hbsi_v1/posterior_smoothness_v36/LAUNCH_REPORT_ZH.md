@@ -13,3 +13,5 @@
 完成后仅采集封存指标，按原LU−L源≥1pp/迁移≥−.5pp/无新空/HD95≤10%判定，另列封存v25A2000与v23L1600绝对背景。失败不扩seed/半径/xi/幂迭代/权重/MC/增强。唯一runmc30分钟继续，12小时累计总结仍北京时间12:13。
 
 [冻结协议](PREREG_ZH.md)；[必要预检](PREFLIGHT.json)。
+
+最终状态：COMPLETE + EXIT0；原继续门槛 FAILED，详见[最终报告](REPORT_ZH.md)。
