@@ -31,7 +31,11 @@ def analyze(x):
     r=x['RESULTS.json'];assert r['formal_updates']==r['optimizer_updates']==r['reverse_calls']==0
     assert r['source_state_unchanged'] and r['new_evaluation_cells']==2 and r['reused_endpoint_cells']==4
     assert x['MATCHING.json']['status']=='PASS' and x['ledger']['updates_reserved']==0
-    assert all(v['status']=='PASS' for v in x['ledger']['attempts'])
+    failures=[v for v in x['ledger']['attempts'] if v['status']!='PASS']
+    if x.get('REPAIR_RECORD.json'):
+        assert len(failures)==1 and failures[0]['name']=='check_W' and failures[0]['error_type']=='FileExistsError'
+        assert x['REPAIR_RECORD.json']['S_rescored'] is False
+    else:assert not failures
     assert x['parent_EXIT']['exit_code']==0 and x['parent_RESULTS']['new_formal_updates']==4800
     result={}
     for arm,phases in x['patients'].items():
@@ -58,7 +62,7 @@ def analyze(x):
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('snapshot');args=p.parse_args();x=json.loads(Path(args.snapshot).read_text());a=analyze(x);out=Path(__file__).parent
-    cost=dict(status='COMPLETE',original_start=x['LAUNCH.json']['started'],compute_started=x['DEPENDENCY_READY.json']['compute_started'],exit_time=x['EXIT.json']['time'],elapsed_including_queue=x['EXIT.json']['time']-x['LAUNCH.json']['started'],compute_elapsed=x['EXIT.json']['time']-x['DEPENDENCY_READY.json']['compute_started'],original_deadline=x['LAUNCH.json']['deadline'],root_bytes=x['root_bytes'],new_evaluation_cells=2,reused_endpoint_cells=4,formal_updates=0,optimizer_updates=0,reverse_calls=0,probe_semantic_forwards=16,stage_seconds={v['name']:v['seconds_actual'] for v in x['ledger']['attempts']})
+    cost=dict(status='COMPLETE_WITH_RECEIPT_REPAIR' if x.get('REPAIR_RECORD.json') else 'COMPLETE',original_start=x['LAUNCH.json']['started'],compute_started=x['DEPENDENCY_READY.json']['compute_started'],exit_time=x['EXIT.json']['time'],elapsed_including_queue=x['EXIT.json']['time']-x['LAUNCH.json']['started'],compute_elapsed=x['EXIT.json']['time']-x['DEPENDENCY_READY.json']['compute_started'],original_deadline=x['LAUNCH.json']['deadline'],root_bytes=x['root_bytes'],new_evaluation_cells=2,reused_endpoint_cells=4,formal_updates=0,optimizer_updates=0,reverse_calls=0,probe_semantic_forwards=x['MATCHING.json']['probe_semantic_forwards'],repair=x.get('REPAIR_RECORD.json'),stage_seconds={v['name']:v['seconds_actual'] for v in x['ledger']['attempts']})
     lines=['# v47 真实目标入口分解','','本报告仅新增S/W各一个BMC零步读出；source和target800指标直接复用v46，来源模型不更新、不重新评分。J为入口切换，L为随后学习，G为完整净变化；逐患者J+L=G。','','| 骨干 | source Dice % | zero Dice % | target Dice % | J pp | L pp | G pp | 入口负向患者 | warm-start触发 |','|---|---:|---:|---:|---:|---:|---:|---:|---|']
     for arm,v in a['arms'].items():
         m=v['means'];e=v['effects'];lines.append(f"| {arm} | {100*m['source']['Dice']:.5f} | {100*m['zero']['Dice']:.5f} | {100*m['target']['Dice']:.5f} | {100*e['J']['Dice']['mean']:+.5f} | {100*e['L']['Dice']['mean']:+.5f} | {100*e['G']['Dice']['mean']:+.5f} | {e['J']['Dice']['negative']}/4 | {v['warm_start_trigger']} |")
@@ -66,7 +70,8 @@ def main():
     for arm,v in a['arms'].items():
         for name,e in v['effects'].items():
             d=e['Dice'];lines.append(f"| {arm} | {name} | [{100*d['minimum']:+.5f},{100*d['maximum']:+.5f}] | {d['positive']}/{d['negative']} | {e['NLL']['mean']:+.7f} | {e['Brier']['mean']:+.7f} | {e['HD95_penalized_mm']['mean']:+.5f} |")
-    lines+=['','完整匿名逐患者效应、三个推断重复的波动及由封存TP/count推导的precision/recall/体积比见ANALYSIS.json。零分母记NA，三个推断重复不是三个训练seed。', '', f"预算触发：{a['decision']}。触发不是初始化主因或修复成功的证明；不满足时不直接运行warm-start。先结合v46完整六门槛决定是否仍需训练拟合诊断，任何后继训练另立协议。",'',f"排队及执行共{cost['elapsed_including_queue']:.2f}秒，实际计算阶段{cost['compute_elapsed']:.2f}秒，根{cost['root_bytes']}字节。0训练/副本Adam/反向，16语义前向用于旧memory路由一致性，2个完整8×4MC、3重复、4患者新读出；推断不是免费。",'', 'v46原判定和旧v21初始化非主因的负证据保留；单seed/4名开发患者不足以证明独立泛化、可靠不确定性或CL成功。', '', '[冻结协议](PREREG_ZH.md)；[完整匿名分析](ANALYSIS.json)；[成本](EXECUTION_SUMMARY.json)。']
+    lines+=['','完整匿名逐患者效应、三个推断重复的波动及由封存TP/count推导的precision/recall/体积比见ANALYSIS.json。零分母记NA，三个推断重复不是三个训练seed。', '', f"预算触发：{a['decision']}。触发不是初始化主因或修复成功的证明；不满足时不直接运行warm-start。先结合v46完整六门槛决定是否仍需训练拟合诊断，任何后继训练另立协议。",'',f"排队及执行共{cost['elapsed_including_queue']:.2f}秒，实际计算阶段（含修复间隔）{cost['compute_elapsed']:.2f}秒，根{cost['root_bytes']}字节。0训练/副本Adam/反向，{cost['probe_semantic_forwards']}语义前向用于旧memory路由一致性，2个完整8×4MC、3重复、4患者新读出；推断不是免费。",'', '若有回执写入修复，保留原check_W失败、EXIT1与源码；S评价不重复，W原检查8次前向由异常位置和执行路径推导，修复重新检查另8次，完整成本见执行JSON。没有扩展原预算或改变评分。', '', 'v46原判定和旧v21初始化非主因的负证据保留；单seed/4名开发患者不足以证明独立泛化、可靠不确定性或CL成功。', '', '[冻结协议](PREREG_ZH.md)；[完整匿名分析](ANALYSIS.json)；[成本](EXECUTION_SUMMARY.json)。']
+    lines+=['', '## 冻结结论与后继', '', 'W的入口切换仅−0.05146pp，随后学习+2.77592pp且4/4患者改善；它在v46的目标域进步来自实际学习，不能归因为入口变好。S入口−1.49057pp但仅2/4受损，随后学习−2.25179pp且3/4下降。两臂都不满足预注册的多数患者入口损害条件，因此不启动warm-start800，也不因S均值越线而追改触发。', '', 'W的净NLL/Brier仍略变差，HD95略升；Dice改善不能代替概率质量或边界质量。结合v46旧域保持及源BMC门槛失败，执行已冻结分支的独立v48 W Full/Task-only各200步训练拟合诊断。该诊断仅限当前trainL，结果之前不宣称目标冲突或结构容量已被证明。', '', '[v46完整门槛](../multiscale_recognition_v46/REPORT_ZH.md)；[v48冻结诊断](../fit_diagnostic_v48/PREREG_ZH.md)。']
     for n,v in [('ANALYSIS.json',a),('EXECUTION_SUMMARY.json',cost),('MATCHING.json',x['MATCHING.json'])]:(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps(a['decision']))
 

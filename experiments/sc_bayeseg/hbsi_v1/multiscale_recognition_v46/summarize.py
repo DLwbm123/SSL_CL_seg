@@ -3,6 +3,7 @@ import argparse,json
 from pathlib import Path
 from statistics import mean
 from ..unet_transfer_v45.summarize import patients,p10,DOMAINS,METRICS
+from ..entry_decomposition_v47.summarize import extra_metrics
 
 CONTRASTS={**{f'{a}_minus_{b}_{stage}':(a+'_'+stage,b+'_'+stage) for a,b in [('W','S'),('W','U'),('S','U')] for stage in ('source','target')},**{a+'_adaptation':(a+'_target',a+'_source') for a in ('W','S','U')}}
 
@@ -30,7 +31,13 @@ def analyze(x):
                 agg[k]=dict(mean=mean(v),minimum=min(v),maximum=max(v),p10=p10(v),positive=sum(t>1e-12 for t in v),negative=sum(t< -1e-12 for t in v),n=4)
             effects[name][d]=dict(metrics={k:means[a][d][k]-means[b][d][k] for k in METRICS},patients=agg)
     checks=dict(target_W_minus_S_ge_1pp=100*effects['W_minus_S_target']['BMC']['metrics']['Dice']>=1,W_target_gain_ge_0_5pp=100*effects['W_adaptation']['BMC']['metrics']['Dice']>=.5,W_old_drop_le_0_5pp=100*effects['W_adaptation']['RUNMC']['metrics']['Dice']>=-.5,source_transfer_W_minus_S_ge_minus_0_5pp=100*effects['W_minus_S_source']['BMC']['metrics']['Dice']>=-.5,no_new_empty=all(means['W_'+stage][d]['empty_predictions']<=means['S_'+stage][d]['empty_predictions'] for stage in ('source','target') for d in DOMAINS),HD95_worsening_le_10pct=all(means['W_'+stage][d]['HD95_penalized_mm']<=1.1*means['S_'+stage][d]['HD95_penalized_mm'] for stage in ('source','target') for d in DOMAINS))
-    return dict(status='COMPLETE',means=means,patient_tails=tails,effects=effects,mechanism_gate=dict(status='PASS' if all(checks.values()) else 'FAILED',checks=checks),seed=20261023,training_seeds=1,patients_per_domain=4,training=x['training'],old_models_rescored=0)
+    foreground={}
+    for arm,ds in raw.items():
+        foreground[arm]={}
+        for d,rows in ds.items():
+            values=extra_metrics(rows)
+            foreground[arm][d]={k:dict(mean=mean(v[k] for v in values.values() if v[k] is not None) if any(v[k] is not None for v in values.values()) else None,valid_patients=sum(v[k] is not None for v in values.values())) for k in ('precision','recall','volume_ratio')}
+    return dict(status='COMPLETE',means=means,patient_tails=tails,effects=effects,derived_foreground_metrics=foreground,mechanism_gate=dict(status='PASS' if all(checks.values()) else 'FAILED',checks=checks),seed=20261023,training_seeds=1,patients_per_domain=4,training=x['training'],old_models_rescored=0)
 
 
 def main():
@@ -46,9 +53,15 @@ def main():
             m=e['metrics'];q=e['patients']['Dice'];lines.append(f"| {name} | {d} | {100*m['Dice']:+.5f} | [{100*q['minimum']:+.5f},{100*q['maximum']:+.5f}] | {q['positive']}/{q['negative']} | {m['NLL']:+.7f} | {m['Brier']:+.7f} | {m['HD95_penalized_mm']:+.5f} |")
     lines+=['',f"冻结机制继续标准：**{a['mechanism_gate']['status']}**。",'', '| 标准 | 判定 |','|---|---|']
     for k,v in a['mechanism_gate']['checks'].items():lines.append(f"| {k} | {'PASS' if v else 'FAILED'} |")
+    lines+=['','由已封存TP/FP/FN/count派生的描述统计，不改变主评分或门槛；患者等权，零分母NA。','','| 臂 | 域 | 前景precision | 前景recall | 预测/GT体积比 |','|---|---|---:|---:|---:|']
+    for arm,ds in a['derived_foreground_metrics'].items():
+        for d,m in ds.items():
+            values=['NA' if m[k]['mean'] is None else f"{m[k]['mean']:.6f}" for k in ('precision','recall','volume_ratio')]
+            lines.append(f"| {arm} | {d} | "+' | '.join(values)+' |')
     lines+=['','| 阶段 | 实际秒（含I/O） |','|---|---:|']
     for k,v in cost['stage_seconds'].items():lines.append(f'| {k} | {v:.2f} |')
     lines+=['',f"原始启动至最终退出{cost['elapsed_seconds']:.2f}秒，根{cost['root_bytes']}字节；4800正式反向/Adam、4预检模型反向0Adam，额外16语义前向核验序列化，元数据修正检查0前向/反向/Adam。目标预检使用未训练源副本，正式目标结果由各实际源1600初始化。", '', '若有封存计步检查修正，原EXIT1与错误保留；只规范化inactive steps元数据，W源训练/评价/预检不重复，counter/ledger/原硬截止保持。具体已发生记录见执行JSON，不将修正过程写成首次无失败。', '', '单训练seed、每域4反复开发患者、3推断非3训练seed，p10仅小样本描述。不证明独立泛化、精确后验、可靠校准、普遍遗忘保护；无U目标不评价SSL增益。骨干同时改变深度/归一化/多尺度/容量，不能独立归因单项。所有原门槛与失败保留，不扩宽度/学习率/权重/seed网格；L-only或胜过U-Net不作后继U机制永久前提。', '', '[冻结协议](PREREG_ZH.md)；[全部匿名数据](ANALYSIS.json)；[成本与修正记录](EXECUTION_SUMMARY.json)。']
+    lines += ['', '## 实测解释与后继', '', '多尺度识别器有实质条件收益：W相对S目标BMC+4.61555pp、旧域+8.49877pp，但BMC患者3正1负，最差相对下降7.00931pp。W相对自身到达的新域净增+2.72446pp，4患者均正；这纠正了小骨干新域净下降的现象，支持识别器替换具有作用，不证明容量单一根因。', '', '完整六门仍FAILED：W旧域下降1.00826pp，超过0.5pp保护线；W源终点未适应BMC比S低1.85127pp，超过0.5pp迁移保护线。W自身旧域2人改善2人下降，最差下降7.17544pp。不能以新域提高或两域平均追认成功，也不扩宽度、学习率或种子网格。', '', '同预算标准U-Net的适应终点仍明显更高：W在新域低17.31752pp、旧域低5.88302pp，两域4患者全部更低。W的HD95均值仍更好。W新域适应后的recall约0.71226与U约0.72755接近，但precision仅0.34488，对比U的0.61038；预测/GT体积比约2.13139，对比1.28122。封存计数支持过分割/假阳性是当前重叠误差的重要表现，不支持简单归因过度保守或漏分割；尚未分析离散组件，不能断定HD95差异由远处假阳性独立造成。', '', 'W比S源训练/目标训练约2.66/2.68倍耗时，均含I/O；识别改造带来改善但尚未兑现总体竞争力。两骨干的新域净变化都包含域入口切换；已完成的v47真实零步分解显示W入口−0.05146pp、学习+2.77592pp，S入口−1.49057pp、学习−2.25179pp。两臂均未满足多数患者入口损害门槛，因此已转入独立v48 Full/Task-only拟合诊断，见相邻报告；不将净变化直接等同800次更新效应。', '', 'v46已COMPLETE且EXIT0；首次inactive steps元数据断言失败与一次限定接续已实际发生并纳入3627.34秒总历时，W源不重训、不重评分、预检不重复，原成本和失败保留。后续按已冻结v47入口触发规则选择一个修复/拟合诊断，不复活旧冻结训练表，不把L-only超过U-Net作为独立SSL研究永久前提。']
     for n,v in [('ANALYSIS.json',a),('RESULTS.json',x['RESULTS.json']),('EXECUTION_SUMMARY.json',cost)]:(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps(a['mechanism_gate']))
 

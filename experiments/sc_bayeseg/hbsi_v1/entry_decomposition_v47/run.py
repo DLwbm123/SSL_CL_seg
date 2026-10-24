@@ -39,14 +39,22 @@ def main():
             if free>3000:break
             assert time.time()<launch['deadline']-1800,'no remaining inference admission window'
             time.sleep(15)
-        write(root/'DEPENDENCY_READY.json',dict(parent_complete=True,parent_formal_updates=4800,parent_cells=8,GPU_free_MiB=free,compute_started=time.time(),original_deadline=launch['deadline']))
+        repaired=os.environ.get('REPAIR_W_ONLY')=='1'
+        if not repaired:write(root/'DEPENDENCY_READY.json',dict(parent_complete=True,parent_formal_updates=4800,parent_cells=8,GPU_free_MiB=free,compute_started=time.time(),original_deadline=launch['deadline']))
         torch.set_num_threads(1);torch.use_deterministic_algorithms(True)
         torch.backends.cuda.matmul.allow_tf32=False;torch.backends.cudnn.allow_tf32=False
         ledger=ResourceLedger(root/'results',max_seconds=1800,max_updates=0,max_bytes=2_000_000_000)
         cells={};checks={}
-        for arm,cls in CLASSES.items():
+        if repaired:
+            failed=[v for v in ledger.data['attempts'] if v['status']!='PASS']
+            assert len(failed)==1 and failed[0]['name']=='check_W' and failed[0]['error_type']=='FileExistsError'
+            assert [v['name'] for v in ledger.data['attempts']]==['check_S','eval_S_zero_BMC','check_W']
+            cells['S']=json.loads((root/'results/eval_S_zero_BMC/validation/SUMMARY.json').read_text());assert cells['S']['complete']
+            checks=json.loads((root/'failure_entry001/MATCHING.json').read_text())['arms'];assert set(checks)=={'S'}
+        for arm in (('W',) if repaired else ('S','W')):
+            cls=CLASSES[arm]
             status('CHECK_ENTRY',arm=arm)
-            with ledger.attempt('check_'+arm,seconds=180,updates=0):
+            with ledger.attempt('check_'+arm+('_repair002' if repaired else ''),seconds=180,updates=0):
                 source=cls.load(parent/'results'/f'{arm}_source_attempt001/PRIVATE_SEALED_STATE.pt')
                 entry=cls.load(parent/'results'/f'{arm}_target_attempt001/ACTIVE_INITIAL.pt')
                 assert entry.steps==0 and entry.active['id']=='BMC' and not entry.optimizer.state
@@ -64,7 +72,7 @@ def main():
                 assert digest(source.payload())==source_before and digest(entry.payload())==before
                 del source,x,a,b
                 checks[arm]=dict(source_parameters_and_memory_exact=True,source_q_equals_target_prior=True,real_active_initial=True,fresh_optimizer=True,reset_domain_parameters=True,old_memory_routing_exact=True,probe_semantic_forwards=8)
-                write(root/'MATCHING.json',dict(status='IN_PROGRESS',arms=checks))
+                write(root/f'MATCHING_{arm}.json',checks[arm])
             entry.memories['BMC']=copy.deepcopy(entry.current).requires_grad_(False)
             probe=digest(entry.payload());status('EVALUATE_ZERO',arm=arm)
             with ledger.attempt('eval_'+arm+'_zero_BMC',seconds=600,updates=0) as out:
@@ -72,7 +80,7 @@ def main():
             assert digest(entry.payload())==probe
             del entry.memories['BMC'];assert digest(entry.payload())==before
             del entry
-        write(root/'MATCHING.json',dict(status='PASS',arms=checks,source_updates=0,optimizer_updates=0,reverse_calls=0,probe_semantic_forwards=16))
+        write(root/'MATCHING.json',dict(status='PASS',arms=checks,source_updates=0,optimizer_updates=0,reverse_calls=0,probe_semantic_forwards=24 if repaired else 16,failed_entry_W_probe_forwards_inferred_from_error_location=8 if repaired else 0))
         write(root/'RESULTS.json',dict(cells=cells,new_evaluation_cells=2,reused_endpoint_cells=4,formal_updates=0,optimizer_updates=0,reverse_calls=0,source_state_unchanged=True))
         status('COMPLETE')
     except BaseException as exc:
