@@ -92,6 +92,12 @@ def main(snapshot):
 |---|---:|---:|---:|
 {patient_table}
 
+## 判读
+
+H-IS的目标BMC均值64.416%，比U-Std高2.309pp、比H-Std高4.009pp；但源RUNMC比U-Std低6.688pp，适应后目标RUNMC低7.936pp。目标BMC 3/4名患者达到相对U-Std的−5pp界限，剩下一名低11.809pp；旧域源→目标虽均值提高4.825pp，一名患者下降15.690pp。因此八项联合门只通过4项，不能以BMC均值胜出称新基座合格。
+
+同结构NoVar在源RUNMC比H-IS高4.625pp，但目标BMC比H-IS低23.455pp，目标RUNMC低11.302pp；目标BMC全训练患者Dice仅37.657%，空真值切片每片FP 3260.91，对应H-IS的318.13。这是本固定训练种子中去掉层次目标后明显过分割的证据，说明不能简单把变分项视为纯性能负担；两臂优化轨迹不同，单种子与反复使用的开发患者不支持普遍因果或论文级贡献结论。H-IS本身的源域与旧域绝对能力、最差患者仍是当前阻塞。
+
 H-IS目标BMC全训练患者Dice {pct(analysis['train_cells']['H_IS']['Dice'])}%；空真值切片每片FP {x['train_strata']['H_IS']['empty_FP_per_slice']:.2f}，非空真值切片每片FN {x['train_strata']['H_IS']['positive_FN_per_slice']:.2f}。[匿名完整分析](ANALYSIS.json)含患者TP/FP/FN、HD95及四格NLL/Brier；[执行摘要](EXECUTION_SUMMARY.json)含时间、字节与每阶段状态。
 
 初始权重及函数与H-Std匹配，新图像通道初始为零；NoVar拥有相同网络、初始概率与采样，只去掉变分目标。任何性能差都仅为本种子/当前四名开发患者的诊断，不足以证明层次目标在U或CL中的作用。固定患者反复用于开发；MC4不是独立训练种子，隐藏U标签和test未访问。[冻结协议](PREREG_ZH.md)定义全部门槛。
