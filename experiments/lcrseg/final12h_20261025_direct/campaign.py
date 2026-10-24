@@ -45,7 +45,7 @@ def allocated(root):
 def guard():
     if STOP or time.time() >= CFG['deadline_epoch']-60:
         raise TimeoutError('Original 12h deadline; no restart or clock reset')
-    if COUNTS['optimizer'] > CFG.get('optimizer_cap',80096) or COUNTS['native'] >= CFG.get('native_cap',2500000) or COUNTS['reverse'] >= 81000 or COUNTS['importance_reverse'] >= 500:
+    if COUNTS['optimizer'] > CFG.get('optimizer_cap',80096) or COUNTS['native'] >= CFG.get('native_cap',2500000) or COUNTS['reverse'] >= CFG.get('reverse_cap',81000) or COUNTS['importance_reverse'] >= 500:
         raise RuntimeError('Frozen physical call cap')
     if sum(allocated(p) for p in CFG.get('window_roots',[CFG['root']])) >= 45000000000:
         raise RuntimeError('45GB pre-stop below strict 50GB window cap')

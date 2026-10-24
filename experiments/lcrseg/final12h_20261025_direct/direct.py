@@ -68,6 +68,8 @@ def main(cfg):
     receipt=json.loads((Path(cfg['previous_root'])/'SYNTHETIC.json').read_text()); assert receipt['status']=='PASS'
     c.write(root/'REUSED_SYNTHETIC.json', dict(receipt=receipt, new_synthetic_native=0, new_synthetic_reverse=0))
     for dataset in ('mnms','fundus'):
+        if time.time() >= cfg['deadline_epoch']-120:
+            source_ok[dataset]=False;failed[dataset+'_deadline']='No new stage within final 120 seconds';continue
         try:
             p=prepare_source(dataset);source_ok[dataset]=True
             current[(dataset,'B')]=current[(dataset,'C')]=p
@@ -78,6 +80,8 @@ def main(cfg):
             if not source_ok.get(dataset) or depth>=len(cfg['sites'][dataset]):continue
             for arm in ('B','C'):
                 if dataset+'_'+arm in failed:continue
+                if time.time() >= cfg['deadline_epoch']-120:
+                    failed[dataset+'_'+arm]='No new stage within final 120 seconds';continue
                 try:
                     p,_=c.run_stage(dataset,arm,depth,current[(dataset,arm)]);current[(dataset,arm)]=p
                 except BaseException:
