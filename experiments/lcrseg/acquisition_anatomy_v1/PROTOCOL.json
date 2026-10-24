@@ -1,0 +1,282 @@
+{
+  "name": "ACQUISITION_ANATOMY_V1",
+  "status": "FROZEN_BEFORE_ANY_NEW_MODEL_CALL",
+  "seed": 20271701,
+  "diagnostic_seed": 20271702,
+  "proposal": {
+    "status": "DESIGN_COMPLETE_PROPOSED_NOT_IMPLEMENTED_NOT_RUNNING",
+    "name_zh": "采集外观逆变换与解剖表征协同学习",
+    "authority_scope": "User accepted moving away from posterior solver; current deliverable is complete evidence-led design, controls and one-shot stopping plan. No experiment launched this turn.",
+    "closed_routes": [
+      "APOS V1 absolute shape posterior",
+      "APOS V2 absolute occupancy posterior",
+      "APOS V3 finite alternating posterior",
+      "APOS joint Newton posterior"
+    ],
+    "problem": "scanner-related appearance shift should be addressed through a restricted acquisition-correction channel while retaining source semantic segmentation and supervision from current-domain anatomical labels; the original source can be wrong on current images, so old predicted masks are not hard targets.",
+    "data": {
+      "source": "existing Siemens train-L10 patients20 volumes230 slices; no new source U or additional subjects",
+      "target": "existing Philips current train-L13 patients26 volumes254 slices; no old images/labels/features/replay or U/test",
+      "source_reference": "same FixMatch43600 EMA163 native warm start, old saved23patient EDES score80.36740663770262% reused",
+      "validation": "same old23/new31 repeated-development patients, no independent-test or cross-seed claim",
+      "clinical_scope": "LV/MYO/RV2D segmentation with partial-volume boundaries and varying organ visibility; no assumed healthy shape or ED>=ES constraint"
+    },
+    "architecture": {
+      "prediction": "f_theta(C_psi(x)), real native3x3 classification convolution/padding/interpolation retained; no posterior decoder or per-image optimizer",
+      "canonicalizer": "small image-conditioned estimator (three stride2 conv blocks1->8->16->16) predicts global8-bin monotone intensity map and smooth4x4 bias field; analytic inverse applied pointwise",
+      "semantic_network": "original encoder plus prehead decoder; source phase trainable, target phase permanently frozen; original real final3x3 head fixed in both phases",
+      "anatomy_heads": "training-only r32/r64 four-class occupancy heads; same spatial footprint centre as native output, align3x3 mean-patch prehead features through native output geometry before pooling; never replace native classification path",
+      "source_initialization": "canonicalizer parameter outputs all zero -> identity intensity map and zero bias; semantic source weights from original checkpoint; newly random anatomy heads never affect deployed source initialization",
+      "deployment": "one appearance estimator + one native segmentation pass; anatomy heads removed. Nonzero light appearance overhead disclosed.",
+      "identity_implementation_requirement": "Use centred residual algebra for the spline inverse relative to fixed zero-parameter map; at zero output parameters values remain exactly identity while parameter derivatives remain active. No early return that suppresses training gradients."
+    },
+    "acquisition_family": {
+      "coordinates": "no spatial warp, crop, object synthesis, or atlas alignment",
+      "monotone_map": "eight input bins width Delta=.25 on[-1,1], output widths=.5*Delta+.5*2*softmax(v)_i; v0 yields identity; slopes in[.5,4.5] for fixed parameters",
+      "bias_field": "upsampled4x4 coefficient field a; b=.05*(tanh(a)-spatial_mean(tanh(a))), so mean0 and |b|<=.1",
+      "bias_forward": "B_b(t)=t+b*(1-t^2); derivative1-2bt>=.8, endpoints preserved, output stays[-1,1]",
+      "synthetic_transform": "T_s(x)=B_b(M_v(x)); independently sampled fixed seed v_i and4x4coefficients uniform[-1,1] during training, one transformed view per clean input",
+      "canonicalizer": "C_psi(x)=M_vhat^{-1}(B_bhat^{-1}(x)); inverse bias=2*(x-b)/(1+sqrt(1-4*b*(x-b))), stable also at b0; inverse monotone map by piecewise linear interpolation",
+      "bounds": "Conditional on fixed estimated parameters, inverse Lipschitz <=2*1.25=2.5. This does not bound the total image-conditioned estimator Jacobian.",
+      "medical_assumption": "spatially fixed monotone contrast and smooth intensity field simulate a restricted acquisition-like nuisance; not a full MRI forward model and not proof real Siemens/Philips shift lies in this family",
+      "information": "synthetic forward family is invertible, avoids clipping information loss; correction parameters are inferred and may be wrong on real images"
+    },
+    "source_learning": {
+      "two_shared_source_checkpoints": true,
+      "steps_per_source": 2000,
+      "views": "clean x and independently transformed T_s(x), both retain original GT coordinates",
+      "base_loss": "mean over both views of ordinary pixel CE + present-foreground Dice (empty foreground Dice0, CE retained)",
+      "occupancy_target": "U_r=nonoverlapping average of four-class GT onehot at r32 and r64, captures fractional MYO occupancy rather than patient-average atlas",
+      "anatomy_loss": "mean soft-target cross entropy of auxiliary occupancy heads against U_r, averaged over two resolutions and both views; not class-reweighted macro CE",
+      "inverse_loss": "[MSE(C(T_s x),x)+MSE(C(x),x)]/[2*(stopgrad MSE(T_s x,x)+1e-6)]",
+      "full_loss": "L_GT + L_anatomy + L_inverse; fixed coefficient1 for each normalized mechanism, no coefficient calibration/search",
+      "base_source_loss": "L_GT only, same canonicalizer+native network capacity, same two views, batches, optimizer and steps",
+      "source_trainable": "encoder/prehead decoder + canonicalizer; full source also anatomy heads; native final head remains frozen",
+      "source_gate": "both matched base and full-source checkpoints must pass original-source mean difference>=-.20pp, patientCI lower>=-.30pp, >1<=2/>2=0/p10>=-.50. Initial source function equivalence required; after learning only empirical source capability preservation is claimed, not exact function identity.",
+      "fixed_training_diagnostics": {
+        "steps": [
+          1500,
+          1750,
+          2000
+        ],
+        "batches_each": 8,
+        "student_and_EMA": true,
+        "same_fixed_train_batches": true,
+        "objective": "each source configuration own full training objective and components; report task performance separately from reconstruction",
+        "stability_gate": "last three EMA objectives adjacent relative change /max(1,abs(previous))<=.01; failure SOURCE_TRAINING_STOP, no extension",
+        "additional_native_samples": 384,
+        "additional_batch_reads": 48,
+        "no_validation_selection": true
+      }
+    },
+    "adaptation": {
+      "source_to_target": "freeze final source EMA native network and full-source anatomy heads; train only canonicalizer estimator psi",
+      "loss_GT": "same CE+present-foreground Dice on original and transformed current-L views",
+      "full_anatomy_loss": "same occupancy head against current GT U_r; source predictions are not pseudo-GT and no population average shape is imposed",
+      "full_equivariance_loss": "MSE(C(T_s x),stopgrad C(x))/(stopgrad MSE(T_s x,x)+1e-6), same current sample and fixed nuisance family",
+      "full_loss": "L_GT + L_anatomy + L_equivariance; coefficients1, one common physical optimizer step",
+      "plain_loss": "L_GT only; same transform draws and architecture",
+      "teacher": "no old-image teacher, no additional large model, no source-image context; detached current clean canonicalized view is same-model consistency target, EMA used for deployment only",
+      "steps_per_configuration": 2000,
+      "seed": 20271701,
+      "optimizer_proposal": "SGD lr.001 momentum.9 Nesterov, matrixWD.0005/vector0, clipnorm1, fixed EMA.999; same for controls, no scheduler/EMA scan",
+      "risks": [
+        "input/appearance-only plasticity may be insufficient for absolute83% new-domain gate",
+        "source anatomical probe can be inaccurate off its training support",
+        "global updates to psi can alter old images despite frozen semantic weights",
+        "target anatomy changes outside nuisance family remain unhandled"
+      ]
+    },
+    "controls": [
+      {
+        "arm": "B",
+        "source": "S0 matched ordinary source learning",
+        "target": "canonicalizer current GT task loss only",
+        "purpose": "base control, no studied source/anatomy/inverse mechanisms"
+      },
+      {
+        "arm": "S",
+        "source": "S1 full source learning",
+        "target": "canonicalizer current GT task loss only",
+        "purpose": "S-B measures full source-learning bundle; shares S1 source checkpoint with C"
+      },
+      {
+        "arm": "C",
+        "source": "S1 same full source checkpoint",
+        "target": "full current-GT anatomy + acquisition equivariance adaptation",
+        "purpose": "primary complete method; C-S measures complete adaptation bundle, no per-module causal attribution"
+      }
+    ],
+    "finite_theory": {
+      "invertibility": "For fixed parameters B derivative>=.8 and M slope>=.5, both preserve endpoints; known synthetic nuisance has a unique analytic inverse without iterative solves.",
+      "risk_proxy": "If fixed f and continuous surrogate loss are Lipschitz, |ell(f(C(T_s x)),y)-ell(f(x),y)| <= L_ell L_f ||C(T_s x)-x||. Reconstruction supervision directly controls this restricted-family term. Constants can be large, especially soft Dice on thin structures.",
+      "out_of_family": "real domain shift may include spatial resolution, noise, missing information, anatomical distribution or pathology differences outside T_s; these leave extra error terms.",
+      "forgetting": "||f_s(C_psi_t(x_old))-f_s(C_psi_s(x_old))|| <= L_f ||C_psi_t(x_old)-C_psi_s(x_old)||. The right-hand side is unobserved during no-old-image adaptation; no no-forgetting theorem follows.",
+      "invariance": "known paired synthetic interventions and GT supervision motivate task invariance. Does not establish causal identifiability or anatomy/acquisition disentanglement."
+    },
+    "one_shot_validation_plan": {
+      "qualification": "initial native-function equivalence, inverse family correctness, monotonicity/range, native head freeze, source/target allowed-data manifests, finite full objective/backward, golden and nonempty checkpoint restore, two-case overfit, parameter sets; capacity failure stops rather than adding layers",
+      "source_first": "S0 and S1 each fixed2000 then each one source evaluation; both gates must pass before any target qualification/formal; no checkpoint selection or extended source training",
+      "target": "B/S/C each32 qualification, all before3x2000 formal; all formal completed before target performance reading",
+      "science": {
+        "C_old_absolute_min_percent": 80.36740663770262,
+        "C_new_absolute_min_percent": 83,
+        "old_source_CI_lower_min_pp": -0.3,
+        "tail_own_and_original": {
+          "over1_max": 2,
+          "over2_max": 0,
+          "p10_min_pp": -0.5,
+          "counts_not_worse_than_B": true
+        },
+        "C_minus_B_new_mean_and_CI_lower_min_pp": -0.2,
+        "C_minus_B_old_min_pp": 0.3,
+        "C_minus_S_old_min_pp": 0.15,
+        "C_minus_S_new_mean_and_CI_lower_min_pp": -0.2,
+        "reference_rule": "both own full-source and original FixMatch references retained; each source paired EDES patient bootstrap10000seed163; all gates required"
+      },
+      "stop": "One complete fixed candidate test only. Source/qualification/numerical failure stops. If final old-tail/new-NI conjunction fails, archive result and return to evidence-led method decision, no knot-count/bias-strength/weight/layer/probe/seed sweeps."
+    },
+    "budget_draft_not_execution_authorization": {
+      "unique_source_runs": 2,
+      "target_runs": 3,
+      "qualification_groups": 5,
+      "source_opt": 4000,
+      "target_opt": 6000,
+      "qualification_opt": 160,
+      "total_optimizer_cap_candidate": 10160,
+      "native_formal": 40000,
+      "native_qualification_cap_candidate": 1000,
+      "source_evaluation": 1088,
+      "target_evaluation": 3612,
+      "total_native_sample_cap_candidate": 46100,
+      "formal_reverse_cap_candidate": 10030,
+      "qualification_reverse_cap_candidate": 200,
+      "total_medical_reverse_cap_candidate": 10230,
+      "canonicalizer_sample_calls_cap_candidate": 46100,
+      "anatomy_head_sample_calls_cap_candidate": 92200,
+      "transform_sample_calls_cap_candidate": 22500,
+      "no_new_model_download": true,
+      "hardware": "only pro5000 GPU3 existing UUID",
+      "clock_hours": 8,
+      "strict_storage_bytes": 4000000000,
+      "write_protection_bytes": 3500000000,
+      "cumulative_30GB_not_reset": true,
+      "binding_needed": "before execution freeze actual two-view qualification/replay/reference calls, per-loss diagnostic gradients, inverse/transform operations, checkpoint/atomic peak and representative speed; cannot launch if original8h/<4GB cannot contain them",
+      "reservation_this_turn": false,
+      "source_diagnostic_native": 384,
+      "native_expected_with_caps": 46084
+    },
+    "claims_and_limits": [
+      "complete research candidate, not validated effective or TMI-ready",
+      "do not present restricted photometric family as MRI physics recovery",
+      "retain ordinary native output and target GT loss; learned auxiliary anatomy is training-only",
+      "do not claim separate causal benefit of each auxiliary term from B/S/C",
+      "single-seed pilot only; publication would require separately authorized broader evidence if pilot first passes"
+    ],
+    "current_actions": {
+      "training_code_written": false,
+      "run_created": false,
+      "GPU_launch": false,
+      "medical_forward": 0,
+      "optimizer": 0,
+      "monitor_created": false,
+      "old_posterior_routes_reopened": false
+    }
+  },
+  "arms": {
+    "B": "source-B ordinary segmentation; target GT only",
+    "S": "source-F full acquisition/anatomy; target GT only",
+    "C": "same source-F; target GT+anatomy+equivariance (primary)"
+  },
+  "source": {
+    "groups": [
+      "B",
+      "F"
+    ],
+    "steps_each": 2000,
+    "target_old_image_access": false,
+    "training_reads_each": 2024,
+    "fixed_diagnostic_steps": [
+      1500,
+      1750,
+      2000
+    ],
+    "fixed_diagnostic_batches_each": 8,
+    "diagnostic_models": [
+      "student",
+      "EMA"
+    ],
+    "capability_gate": {
+      "mean_vs_original_pp": -0.2,
+      "CI95_lower_pp": -0.3,
+      "over1_max": 2,
+      "over2_max": 0,
+      "p10_min_pp": -0.5
+    },
+    "training_sufficiency_gate": "Each of two adjacent last-three EMA fixed-training-batch total-objective relative changes abs(b-a)/max(1,abs(a)) <= .01; both sources must pass; no extending or checkpoint selection"
+  },
+  "target": {
+    "groups": [
+      "B",
+      "S",
+      "C"
+    ],
+    "steps_each": 2000,
+    "only_current_L": true,
+    "frozen": [
+      "entire native segmenter",
+      "anatomy heads"
+    ],
+    "trainable": [
+      "appearance canonicalizer"
+    ],
+    "source_gates_before_any_target_qualification": true
+  },
+  "optimizer_total_cap": 10160,
+  "physical_native_expected": 45824,
+  "physical_reverse_expected": 10200,
+  "native_total_cap": 46100,
+  "reverse_total_cap": 10230,
+  "caps": {
+    "source_qualification_samples": 400,
+    "source_qualification_reverse": 80,
+    "source_formal_samples": 16000,
+    "source_formal_reverse": 4012,
+    "source_diagnostic_samples": 384,
+    "source_evaluation_samples": 1088,
+    "target_qualification_samples": 600,
+    "target_qualification_reverse": 120,
+    "target_formal_samples": 24000,
+    "target_formal_reverse": 6018,
+    "target_evaluation_samples": 3612,
+    "appearance_samples": 46100,
+    "anatomy_samples": 92200,
+    "transform_samples": 22500,
+    "spline_samples": 137200,
+    "bias_samples": 68600,
+    "gt_occupancy_samples": 45000
+  },
+  "synthetic_caps": {
+    "native_samples": 128,
+    "reverse": 64,
+    "appearance_samples": 128,
+    "anatomy_samples": 256,
+    "transform_samples": 128,
+    "spline_samples": 512,
+    "bias_samples": 256,
+    "gt_occupancy_samples": 256
+  },
+  "runtime": {
+    "hours": 8,
+    "no_new_stage_seconds": 25200,
+    "stop_seconds": 27900,
+    "timeout_TERM_seconds": 28600,
+    "KILL_grace_seconds": 30,
+    "storage_bytes_exclusive": 4000000000,
+    "write_protect_bytes": 3500000000,
+    "ops_reserved_bytes": 2000000,
+    "window_reservation_bytes": 4050000000
+  },
+  "no_scan": true,
+  "no_automatic_successor": true
+}
