@@ -45,7 +45,7 @@ def main(path):
     (out / 'EXECUTION_SUMMARY.json').write_text(json.dumps(execution, indent=2) + '\n')
     table = '\n'.join(
         f"| {'训练' if r['group']=='BMC_train' else '开发'} | {r['arm']} | {r['index']} | "
-        f"{r['predicted_components']} | {r['largest_fraction']:.4f} | "
+        f"{r['gt_components']}/{r['predicted_components']} | {r['largest_fraction']:.4f} | "
         f"{r['removed_FP']}/{r['removed_TP']} | "
         f"{100*r['baseline_Dice']:.3f}→{100*r['largest_Dice']:.3f} | "
         f"{r['baseline_HD95_mm']:.3f}→{r['largest_HD95_mm']:.3f} |"
@@ -54,13 +54,15 @@ def main(path):
 
 **冻结描述判定：{verdict}。** 仅重新读取封存R2两臂在BMC训练/开发各四名患者的完整三维预测，0网络前向、0反向、0更新。16例原Dice与惩罚HD95均用正式评分函数重新计算且与R2原患者指标误差≤1e−9。固定的三维6邻接最大预测前景组件保留不使用标签；标签仅用于事后核算被删FP/TP与指标。这是诊断性反事实，不是R2主预测、阈值选择或正式后处理配置。
 
-| 集合 | 臂 | 匿名索引 | 原预测组件数 | 最大组件占预测比例 | 被删FP/TP体素 | Dice原→最大组件% | 惩罚HD95原→最大组件mm |
+| 集合 | 臂 | 匿名索引 | GT/预测组件数 | 最大组件占预测比例 | 被删FP/TP体素 | Dice原→最大组件% | 惩罚HD95原→最大组件mm |
 |---|---|---:|---:|---:|---:|---:|---:|
 {table}
 
 预定关注的开发第3人：ReplayJoint最大组件HD95 {row('BMC','ReplayJoint',3)['largest_HD95_mm']:.3f}mm，ReplayCut原HD95×1.10为 {1.1*row('BMC','ReplayCut',3)['baseline_HD95_mm']:.3f}mm，恢复门 {'PASS' if probes[0]['HD95_restored'] else 'FAILED'}；被删FP/TP={row('BMC','ReplayJoint',3)['removed_FP']}/{row('BMC','ReplayJoint',3)['removed_TP']}，FP主导门 {'PASS' if probes[0]['removed_FP_dominant'] else 'FAILED'}。
 
 开发第4人：ReplayJoint最大组件HD95 {row('BMC','ReplayJoint',4)['largest_HD95_mm']:.3f}mm，ReplayCut原HD95×1.10为 {1.1*row('BMC','ReplayCut',4)['baseline_HD95_mm']:.3f}mm，恢复门 {'PASS' if probes[1]['HD95_restored'] else 'FAILED'}；被删FP/TP={row('BMC','ReplayJoint',4)['removed_FP']}/{row('BMC','ReplayJoint',4)['removed_TP']}，FP主导门 {'PASS' if probes[1]['removed_FP_dominant'] else 'FAILED'}。
+
+最大组件保留并非普遍无害：ReplayCut开发第1人会删掉 {row('BMC','ReplayCut',1)['removed_TP']} 个真阳性，Dice由 {100*row('BMC','ReplayCut',1)['baseline_Dice']:.3f}%降至 {100*row('BMC','ReplayCut',1)['largest_Dice']:.3f}%，HD95也恶化。这个反例阻止把诊断直接当固定可用的推断规则。
 
 R2原冻结判定 `REHEARSAL_FEEDBACK_FAILED` 保持不变。{'此诊断仅将断开FP列为后继空间先验的候选机制；尚未验证训练或独立泛化。' if component_candidate else '简单最大组件保留不足以同时解释并修复两名开发患者的HD95损失；不能据此单独认定主体过扩张或强度漂移为原因。'} 四名开发患者已反复用于路线选择，本轮仍只作探索性机制诊断；不启动阈值或组件大小搜索，不读取隐藏U标签或test。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[成本](EXECUTION_SUMMARY.json)。
 """
