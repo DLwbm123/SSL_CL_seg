@@ -38,7 +38,7 @@ def main(cfg):
             out=root/'source'/arm;initial=load(out/'initial.pt');last=load(out/'final.pt');finite(last);assert last['step']==last['physical_updates']==2000 and last['reads']==[2024,0] and exact(last,load(out/'latest.pt'))
             assert not initial['optimizer']['state'] and last['optimizer']['state'];assert len(rows(out/'physical_updates.jsonl'))==2000
             for k,v in initial['model'].items():
-                if k.startswith('parent.native.decoder.conv_logit.') or (k.startswith('parent.') and k not in dict(last['model'])):assert exact(v,last['model'][k]) and exact(v,last['ema'][k]),k
+                if k.startswith('parent.native.decoder.conv_logit.') or k.endswith(('running_mean','running_var','num_batches_tracked')) or (arm=='B' and k.startswith('anatomy.')):assert exact(v,last['model'][k]) and exact(v,last['ema'][k]),k
             assert read(root/'qualification'/('source_'+arm)/'ENGINEERING.json')['optimizer_calls']==32
             sources[arm]=last;metrics['source'][arm]=read(out/'RESULTS.json')['metrics']
         if not full:assert not (root/'target').exists() and not any(k.startswith('target_') for k in count['optimizer'])

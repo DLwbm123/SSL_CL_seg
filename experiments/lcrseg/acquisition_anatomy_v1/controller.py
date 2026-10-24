@@ -17,7 +17,7 @@ def selfcheck(cfg):
     torch.autograd.backward=backward
     result={'CPU':check('cpu'),'CUDA':check('cuda')}
     # Analytic tests above: two canonicalizer forwards (2 samples each) per device.
-    calls.extra('appearance_samples',8);calls.extra('spline_samples',24);calls.extra('bias_samples',12)
+    calls.extra('appearance_samples',8);calls.extra('spline_samples',32);calls.extra('bias_samples',12);calls.extra('transform_samples',4)
     x=torch.linspace(-1,1,384,device='cuda').reshape(1,1,1,384).expand(2,1,384,384).contiguous()
     y=torch.zeros(2,384,384,device='cuda',dtype=torch.long);y[:,130:220,140:230]=1;y[:,120:130,140:230]=2;y[:,150:210,250:290]=3
     benchmarks={}
