@@ -75,7 +75,7 @@ def main(path):
 |---|---:|---:|---:|---:|
 {rows}
 
-交换后的分割读数仅检验冻结U是否仍能识别源标签；它不是合成图真实标签正确性的直接证明，更不说明外观潜变量已与形状解耦。若Cut失败，关闭此合成路线，不对伙伴、裁剪、权重或checkpoint作结果后调整。身份、图像、标签、合成图和原始预测留NAS。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。
+Cut自身重建相对原图U为{100*(arms['Cut']['self_Dice']-arms['Cut']['original_Dice']):+.3f}pp，交换后为{100*(arms['Cut']['swap_Dice']-arms['Cut']['original_Dice']):+.3f}pp。重建误差和越界比例都很低，但交换后4名患者的Dice均大幅下降；这一组合与外观场携带空间结构或模型不能组合跨患者潜变量均相容，不能仅凭此审计确定原因。交换后的分割读数仅检验冻结U是否仍能识别源标签；它不是合成图真实标签正确性的直接证明，更不说明外观潜变量已与形状解耦。Cut失败，本轮关闭直接外观交换合成路线，不对伙伴、裁剪、权重或checkpoint作结果后调整。身份、图像、标签、合成图和原始预测留NAS。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。
 """
     (out/'REPORT_ZH.md').write_text(report)
     print(verdict,'Cut swap Dice',100*arms['Cut']['swap_Dice'])

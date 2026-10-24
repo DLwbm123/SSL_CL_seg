@@ -1,0 +1,574 @@
+{
+  "status": "CUT_ADMISSION_FAILED",
+  "gates": {
+    "Cut": {
+      "self_reconstruction_mse_le_0_02": true,
+      "swap_outside_fraction_le_0_01": true,
+      "self_mean_Dice_drop_le_5pp": true,
+      "self_each_Dice_drop_le_10pp": true,
+      "swap_mean_Dice_drop_le_5pp": false,
+      "swap_each_Dice_drop_le_10pp": false,
+      "swap_no_patient_empty": true
+    },
+    "Joint": {
+      "self_reconstruction_mse_le_0_02": true,
+      "swap_outside_fraction_le_0_01": true,
+      "self_mean_Dice_drop_le_5pp": true,
+      "self_each_Dice_drop_le_10pp": true,
+      "swap_mean_Dice_drop_le_5pp": false,
+      "swap_each_Dice_drop_le_10pp": false,
+      "swap_no_patient_empty": true
+    }
+  },
+  "arms": {
+    "Cut": {
+      "patients": 4,
+      "slices": 80,
+      "reconstruction_mse": 0.00038292804631472716,
+      "swap_outside_fraction": 0.00024566650390625,
+      "original_Dice": 0.8263174812956011,
+      "self_Dice": 0.8280057952370486,
+      "swap_Dice": 0.6198621745934502
+    },
+    "Joint": {
+      "patients": 4,
+      "slices": 80,
+      "reconstruction_mse": 0.00039398144744653426,
+      "swap_outside_fraction": 0.000304412841796875,
+      "original_Dice": 0.8263174812956011,
+      "self_Dice": 0.826272483511742,
+      "swap_Dice": 0.6202845913748817
+    }
+  },
+  "patients": {
+    "Cut": [
+      {
+        "index": 1,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 27570,
+                "TP": 24273,
+                "FP": 3297,
+                "FN": 1787,
+                "Dice": 0.9052023121387284,
+                "HD95_mm": 3.5999984741210938,
+                "HD95_penalized_mm": 3.5999984741210938,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.011090986684819129,
+            "Brier": 0.005886614675207728
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 27417,
+                "TP": 24174,
+                "FP": 3243,
+                "FN": 1886,
+                "Dice": 0.9040896086167886,
+                "HD95_mm": 3.4938562148434213,
+                "HD95_penalized_mm": 3.4938562148434213,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.011193207730389464,
+            "Brier": 0.006005915591486848
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 20881,
+                "TP": 14308,
+                "FP": 6573,
+                "FN": 11752,
+                "Dice": 0.6096163268784218,
+                "HD95_mm": 43.39420010852619,
+                "HD95_penalized_mm": 43.39420010852619,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.06357572061187508,
+            "Brier": 0.02473458040750231
+          }
+        },
+        "reconstruction_mse": 0.0003137162311195738,
+        "swap_outside_fraction": 0.0007232666015625,
+        "slices": 20
+      },
+      {
+        "index": 2,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 20965,
+                "TP": 12494,
+                "FP": 8471,
+                "FN": 934,
+                "Dice": 0.7265431919285901,
+                "HD95_mm": 51.85875215164513,
+                "HD95_penalized_mm": 51.85875215164513,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.024836413901846773,
+            "Brier": 0.011683828237316563
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 20445,
+                "TP": 12401,
+                "FP": 8044,
+                "FN": 1027,
+                "Dice": 0.7322055914740354,
+                "HD95_mm": 58.78717334746416,
+                "HD95_penalized_mm": 58.78717334746416,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.02372251734116198,
+            "Brier": 0.011199022907340601
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 25669,
+                "TP": 12117,
+                "FP": 13552,
+                "FN": 1311,
+                "Dice": 0.6198429547024068,
+                "HD95_mm": 26.200874046132263,
+                "HD95_penalized_mm": 26.200874046132263,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.044946446200738954,
+            "Brier": 0.019516585070478737
+          }
+        },
+        "reconstruction_mse": 0.00051338171620322,
+        "swap_outside_fraction": 8.85009765625e-05,
+        "slices": 20
+      },
+      {
+        "index": 3,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 25511,
+                "TP": 20451,
+                "FP": 5060,
+                "FN": 2667,
+                "Dice": 0.8411030455078246,
+                "HD95_mm": 22.422532873624853,
+                "HD95_penalized_mm": 22.422532873624853,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.019921659342874244,
+            "Brier": 0.009395924690393674
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 25055,
+                "TP": 20164,
+                "FP": 4891,
+                "FN": 2954,
+                "Dice": 0.8371494405579889,
+                "HD95_mm": 21.829449449798023,
+                "HD95_penalized_mm": 21.829449449798023,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.02028241559588782,
+            "Brier": 0.00952281240890997
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 28612,
+                "TP": 15300,
+                "FP": 13312,
+                "FN": 7818,
+                "Dice": 0.5915329595979122,
+                "HD95_mm": 44.19307689734168,
+                "HD95_penalized_mm": 44.19307689734168,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.07595137938029986,
+            "Brier": 0.02899594177208072
+          }
+        },
+        "reconstruction_mse": 0.00034271862937530875,
+        "swap_outside_fraction": 0.0001220703125,
+        "slices": 20
+      },
+      {
+        "index": 4,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 28825,
+                "TP": 24417,
+                "FP": 4408,
+                "FN": 5423,
+                "Dice": 0.8324213756072616,
+                "HD95_mm": 39.32266381291153,
+                "HD95_penalized_mm": 39.32266381291153,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.030596219170934535,
+            "Brier": 0.012620714685941356
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 28213,
+                "TP": 24341,
+                "FP": 3872,
+                "FN": 5499,
+                "Dice": 0.8385785402993816,
+                "HD95_mm": 38.692320762121035,
+                "HD95_penalized_mm": 38.692320762121035,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.028619896959305453,
+            "Brier": 0.011967578067119847
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 27081,
+                "TP": 18740,
+                "FP": 8341,
+                "FN": 11100,
+                "Dice": 0.6584564571950599,
+                "HD95_mm": 9.7963162369002,
+                "HD95_penalized_mm": 9.7963162369002,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.07206350112507329,
+            "Brier": 0.026755801583780763
+          }
+        },
+        "reconstruction_mse": 0.000361895608560806,
+        "swap_outside_fraction": 4.8828125e-05,
+        "slices": 20
+      }
+    ],
+    "Joint": [
+      {
+        "index": 1,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 27570,
+                "TP": 24273,
+                "FP": 3297,
+                "FN": 1787,
+                "Dice": 0.9052023121387284,
+                "HD95_mm": 3.5999984741210938,
+                "HD95_penalized_mm": 3.5999984741210938,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.011090986684819129,
+            "Brier": 0.005886614675207728
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 27662,
+                "TP": 24261,
+                "FP": 3401,
+                "FN": 1799,
+                "Dice": 0.9032053907151633,
+                "HD95_mm": 3.4938562148434213,
+                "HD95_penalized_mm": 3.4938562148434213,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.011224479168664132,
+            "Brier": 0.006065047084988144
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 21012,
+                "TP": 14396,
+                "FP": 6616,
+                "FN": 11664,
+                "Dice": 0.6116587355540448,
+                "HD95_mm": 43.251907923957525,
+                "HD95_penalized_mm": 43.251907923957525,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.0631761638830494,
+            "Brier": 0.024640379255582132
+          }
+        },
+        "reconstruction_mse": 0.0003212414683951378,
+        "swap_outside_fraction": 0.00087890625,
+        "slices": 20
+      },
+      {
+        "index": 2,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 20965,
+                "TP": 12494,
+                "FP": 8471,
+                "FN": 934,
+                "Dice": 0.7265431919285901,
+                "HD95_mm": 51.85875215164513,
+                "HD95_penalized_mm": 51.85875215164513,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.024836413901846773,
+            "Brier": 0.011683828237316563
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 20630,
+                "TP": 12414,
+                "FP": 8216,
+                "FN": 1014,
+                "Dice": 0.7289917200070468,
+                "HD95_mm": 58.151994909639875,
+                "HD95_penalized_mm": 58.151994909639875,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.024200205258752123,
+            "Brier": 0.011403963296644722
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 25711,
+                "TP": 12124,
+                "FP": 13587,
+                "FN": 1304,
+                "Dice": 0.6195355016735226,
+                "HD95_mm": 26.189223914022104,
+                "HD95_penalized_mm": 26.189223914022104,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.04496456208148097,
+            "Brier": 0.019547626693044787
+          }
+        },
+        "reconstruction_mse": 0.0005307865992129848,
+        "swap_outside_fraction": 0.000115966796875,
+        "slices": 20
+      },
+      {
+        "index": 3,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 25511,
+                "TP": 20451,
+                "FP": 5060,
+                "FN": 2667,
+                "Dice": 0.8411030455078246,
+                "HD95_mm": 22.422532873624853,
+                "HD95_penalized_mm": 22.422532873624853,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.019921659342874244,
+            "Brier": 0.009395924690393674
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 25254,
+                "TP": 20196,
+                "FP": 5058,
+                "FN": 2922,
+                "Dice": 0.8350285289010171,
+                "HD95_mm": 22.544692158716366,
+                "HD95_penalized_mm": 22.544692158716366,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.020606773836643867,
+            "Brier": 0.00969889123150009
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 28664,
+                "TP": 15312,
+                "FP": 13352,
+                "FN": 7806,
+                "Dice": 0.591402417828589,
+                "HD95_mm": 44.19307689734168,
+                "HD95_penalized_mm": 44.19307689734168,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.07595091506197466,
+            "Brier": 0.029001856796255242
+          }
+        },
+        "reconstruction_mse": 0.00035098453972148505,
+        "swap_outside_fraction": 0.000164794921875,
+        "slices": 20
+      },
+      {
+        "index": 4,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 28825,
+                "TP": 24417,
+                "FP": 4408,
+                "FN": 5423,
+                "Dice": 0.8324213756072616,
+                "HD95_mm": 39.32266381291153,
+                "HD95_penalized_mm": 39.32266381291153,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.030596219170934535,
+            "Brier": 0.012620714685941356
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 28389,
+                "TP": 24394,
+                "FP": 3995,
+                "FN": 5446,
+                "Dice": 0.8378642944237408,
+                "HD95_mm": 39.068840574871444,
+                "HD95_penalized_mm": 39.068840574871444,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.02882312320245269,
+            "Brier": 0.012085549317224694
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 27268,
+                "TP": 18804,
+                "FP": 8464,
+                "FN": 11036,
+                "Dice": 0.6585417104433705,
+                "HD95_mm": 10.042441153093929,
+                "HD95_penalized_mm": 10.042441153093929,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.07195432289599726,
+            "Brier": 0.02678120144577361
+          }
+        },
+        "reconstruction_mse": 0.0003729131824565294,
+        "swap_outside_fraction": 5.79833984375e-05,
+        "slices": 20
+      }
+    ]
+  },
+  "source_training_patients": 4,
+  "source_training_slices": 80,
+  "formal_updates": 0,
+  "target_data_read": false,
+  "synthetic_labels_not_proven": true
+}
