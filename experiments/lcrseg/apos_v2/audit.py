@@ -11,7 +11,7 @@ def main(cfg):
     torch.set_num_threads(4);root=Path(cfg['root']);assert not (root/'AUDIT.json').exists();status=read(root/'STATUS.json');assert status['status'] in ('COMPLETE','SOURCE_STOP','NUMERIC_STOP','ENGINEERING_STOP')
     for p in [*root.glob('*LAUNCH*.private.json'),root/'WORKER.private.json',*root.glob('ACTIVE_*.private.json')]:
         if not p.exists():continue
-        d=read(p);s=Path('/proc')/str(d['pid'])/'stat';assert not s.exists() or int(s.read_text().split()[21])!=d['birth'] or s.read_text().split()[2]=='Z'
+        d=read(p);s=Path('/proc')/str(d.get('pid',d.get('timeoutpg')))/'stat';assert not s.exists() or int(s.read_text().split()[21])!=d['birth'] or s.read_text().split()[2]=='Z'
     count=read(root/'COUNTERS.private.json') if (root/'COUNTERS.private.json').exists() else dict(calls={},optimizer={})
     events=rows(root/'EVENTS.private.jsonl') if (root/'EVENTS.private.jsonl').exists() else []
     for kind,table in [('call',count['calls']),('optimizer',count['optimizer'])]:
