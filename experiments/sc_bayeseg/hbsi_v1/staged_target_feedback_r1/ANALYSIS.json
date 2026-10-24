@@ -1,0 +1,621 @@
+{
+  "status": "STAGED_FEEDBACK_FAILED",
+  "source_gates": {
+    "RUNMC_mean_vs_Cut_ge_minus_1pp": false,
+    "RUNMC_each_vs_Cut_ge_minus_5pp": false,
+    "RUNMC_HD95_vs_Cut_le_1_10": true,
+    "RUNMC_mean_vs_source_ge_minus_0_5pp": true,
+    "RUNMC_each_vs_source_ge_minus_5pp": true,
+    "no_RUNMC_patient_empty": true
+  },
+  "target_gates": {
+    "BMC_mean_vs_Cut_ge_plus_2pp": true,
+    "BMC_at_least_3_of_4_nonnegative_vs_Cut": false,
+    "BMC_each_vs_Cut_ge_minus_5pp": true,
+    "BMC_train_mean_vs_Cut_ge_minus_5pp": true,
+    "BMC_HD95_vs_Cut_le_1_10": true,
+    "no_BMC_patient_empty": true
+  },
+  "source_pass": false,
+  "target_pass": false,
+  "cells": {
+    "RemainCut_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8525209866882927,
+      "precision": 0.8316997821493541,
+      "recall": 0.876714201967899,
+      "HD95_penalized_mm": 7.837856666983022,
+      "NLL": 0.01578393365379375,
+      "Brier": 0.007438944565865258,
+      "empty_predictions": 0
+    },
+    "RemainCut_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6933437729771399,
+      "precision": 0.6606698052074009,
+      "recall": 0.8092702572426251,
+      "HD95_penalized_mm": 46.63253705967881,
+      "NLL": 0.08262775514027043,
+      "Brier": 0.03579884945861788,
+      "empty_predictions": 0
+    },
+    "RemainCut_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6210666628831149,
+      "precision": 0.610377554640054,
+      "recall": 0.7275506883497924,
+      "HD95_penalized_mm": 36.43882762281816,
+      "NLL": 0.07158634246005266,
+      "Brier": 0.028093637775100544,
+      "empty_predictions": 0
+    },
+    "SwitchJoint_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8724335968359556,
+      "precision": 0.8893949247854881,
+      "recall": 0.8569784193163795,
+      "HD95_penalized_mm": 3.8353995582561033,
+      "NLL": 0.012792410569442685,
+      "Brier": 0.006143696255291939,
+      "empty_predictions": 0
+    },
+    "SwitchJoint_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6709097830340758,
+      "precision": 0.6993307236560596,
+      "recall": 0.7237964557706009,
+      "HD95_penalized_mm": 45.03354707281389,
+      "NLL": 0.09812712537393627,
+      "Brier": 0.037922607557048967,
+      "empty_predictions": 0
+    },
+    "SwitchJoint_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6518388263160119,
+      "precision": 0.7247871098433145,
+      "recall": 0.7031828522751365,
+      "HD95_penalized_mm": 31.931508035002757,
+      "NLL": 0.066587566043838,
+      "Brier": 0.023614865080064038,
+      "empty_predictions": 0
+    }
+  },
+  "patients": {
+    "RUNMC": [
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 41838,
+          "TP": 26900,
+          "FP": 14938,
+          "FN": 9928,
+          "Dice": 0.6839041008822109,
+          "HD95_mm": 73.46286946485885,
+          "HD95_penalized_mm": 73.46286946485885,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.08534897993407041,
+          "Brier": 0.03336847314476636
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 31202,
+          "TP": 23456,
+          "FP": 7746,
+          "FN": 13372,
+          "Dice": 0.6895781272967808,
+          "HD95_mm": 92.78388610898155,
+          "HD95_penalized_mm": 92.78388610898155,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.08445834734842837,
+          "Brier": 0.029002277026683752
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 27445,
+          "TP": 22055,
+          "FP": 5390,
+          "FN": 14773,
+          "Dice": 0.6862912887215471,
+          "HD95_mm": 19.510835193549077,
+          "HD95_penalized_mm": 19.510835193549077,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07797852775204797,
+          "Brier": 0.0277753237842516
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 49664,
+          "TP": 43709,
+          "FP": 5955,
+          "FN": 14748,
+          "Dice": 0.8085200839799854,
+          "HD95_mm": 12.000010013580322,
+          "HD95_penalized_mm": 12.000010013580322,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.0855375471746697,
+          "Brier": 0.03247093466659891
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 40151,
+          "TP": 34674,
+          "FP": 5477,
+          "FN": 23783,
+          "Dice": 0.7032695116014928,
+          "HD95_mm": 13.930648967376092,
+          "HD95_penalized_mm": 13.930648967376092,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.14172304220269738,
+          "Brier": 0.047908177889147786
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 39641,
+          "TP": 35235,
+          "FP": 4406,
+          "FN": 23222,
+          "Dice": 0.7183632693836776,
+          "HD95_mm": 40.10501603444067,
+          "HD95_penalized_mm": 40.10501603444067,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.11669192585150123,
+          "Brier": 0.04431099868616651
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 50699,
+          "TP": 41531,
+          "FP": 9168,
+          "FN": 8129,
+          "Dice": 0.8276487410197392,
+          "HD95_mm": 26.420873080431644,
+          "HD95_penalized_mm": 26.420873080431644,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.06959494262033598,
+          "Brier": 0.02992561369402608
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 44005,
+          "TP": 36476,
+          "FP": 7529,
+          "FN": 13184,
+          "Dice": 0.7788608338226659,
+          "HD95_mm": 9.013878400261316,
+          "HD95_penalized_mm": 9.013878400261316,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.0950293297526275,
+          "Brier": 0.03711536935491519
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 29502,
+          "TP": 26364,
+          "FP": 3138,
+          "FN": 23296,
+          "Dice": 0.6660771582324853,
+          "HD95_mm": 26.260712753698773,
+          "HD95_penalized_mm": 26.260712753698773,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.13602524575791686,
+          "Brier": 0.04889567680961195
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 49697,
+          "TP": 14932,
+          "FP": 34765,
+          "FN": 1252,
+          "Dice": 0.45330216602662377,
+          "HD95_mm": 74.64639567984443,
+          "HD95_penalized_mm": 74.64639567984443,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.09002955083200567,
+          "Brier": 0.047430376329080176
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 42656,
+          "TP": 15061,
+          "FP": 27595,
+          "FN": 1123,
+          "Dice": 0.5119306594153638,
+          "HD95_mm": 64.40577481463659,
+          "HD95_penalized_mm": 64.40577481463659,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07129778219199179,
+          "Brier": 0.03766460595744914
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 18373,
+          "TP": 7943,
+          "FP": 10430,
+          "FN": 8241,
+          "Dice": 0.459704256735249,
+          "HD95_mm": 25.76177215481844,
+          "HD95_penalized_mm": 25.76177215481844,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07076546407536959,
+          "Brier": 0.025786227741840147
+        }
+      }
+    ],
+    "BMC": [
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 82718,
+          "predicted": 36419,
+          "TP": 28527,
+          "FP": 7892,
+          "FN": 54191,
+          "Dice": 0.47889404635000044,
+          "HD95_mm": 17.871503154463532,
+          "HD95_penalized_mm": 17.871503154463532,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.1551593545148164,
+          "Brier": 0.04903207040784391
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 82718,
+          "predicted": 23757,
+          "TP": 23379,
+          "FP": 378,
+          "FN": 59339,
+          "Dice": 0.4391453392815215,
+          "HD95_mm": 21.1482859825566,
+          "HD95_penalized_mm": 21.1482859825566,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.17216658921422923,
+          "Brier": 0.04900307609901319
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 47074,
+          "predicted": 63200,
+          "TP": 35110,
+          "FP": 28090,
+          "FN": 11964,
+          "Dice": 0.6367774815459674,
+          "HD95_mm": 30.035370924091175,
+          "HD95_penalized_mm": 30.035370924091175,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.0692994254205182,
+          "Brier": 0.03313670247180199
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 47074,
+          "predicted": 50583,
+          "TP": 35062,
+          "FP": 15521,
+          "FN": 12012,
+          "Dice": 0.7180642452665964,
+          "HD95_mm": 21.659630372662782,
+          "HD95_penalized_mm": 21.659630372662782,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.05007367350684517,
+          "Brier": 0.0227790126032552
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 24736,
+          "predicted": 46242,
+          "TP": 22803,
+          "FP": 23439,
+          "FN": 1933,
+          "Dice": 0.6425371241793232,
+          "HD95_mm": 42.294212510562026,
+          "HD95_penalized_mm": 42.294212510562026,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.04173206973957692,
+          "Brier": 0.0204766958675981
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 24736,
+          "predicted": 34621,
+          "TP": 21986,
+          "FP": 12635,
+          "FN": 2750,
+          "Dice": 0.740805633707903,
+          "HD95_mm": 36.40499687827329,
+          "HD95_penalized_mm": 36.40499687827329,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.023268754151375293,
+          "Brier": 0.01196547548068897
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 19371,
+          "predicted": 28526,
+          "TP": 17388,
+          "FP": 11138,
+          "FN": 1983,
+          "Dice": 0.7260579994571685,
+          "HD95_mm": 55.55422390215591,
+          "HD95_penalized_mm": 55.55422390215591,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.020154520165299145,
+          "Brier": 0.009729082353158166
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 19371,
+          "predicted": 29590,
+          "TP": 17365,
+          "FP": 12225,
+          "FN": 2006,
+          "Dice": 0.7093400870080268,
+          "HD95_mm": 48.513118906518365,
+          "HD95_penalized_mm": 48.513118906518365,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.020841247302902294,
+          "Brier": 0.010711896137298798
+        }
+      }
+    ],
+    "BMC_train": [
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 25328,
+          "predicted": 27783,
+          "TP": 22362,
+          "FP": 5421,
+          "FN": 2966,
+          "Dice": 0.8420854436933969,
+          "HD95_mm": 12.000008583068848,
+          "HD95_penalized_mm": 12.000008583068848,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.013934819334771217,
+          "Brier": 0.00657528521767024
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 25328,
+          "predicted": 25340,
+          "TP": 22367,
+          "FP": 2973,
+          "FN": 2961,
+          "Dice": 0.8828846609299755,
+          "HD95_mm": 3.0644147686969325,
+          "HD95_penalized_mm": 3.0644147686969325,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.008752947319036398,
+          "Brier": 0.004472741934156825
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 27434,
+          "predicted": 30942,
+          "TP": 25272,
+          "FP": 5670,
+          "FN": 2162,
+          "Dice": 0.8658352747704536,
+          "HD95_mm": 4.002537782087348,
+          "HD95_penalized_mm": 4.002537782087348,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.012157258693861315,
+          "Brier": 0.0060462876113687
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 27434,
+          "predicted": 27613,
+          "TP": 23955,
+          "FP": 3658,
+          "FN": 3479,
+          "Dice": 0.8703471578832634,
+          "HD95_mm": 3.482095631429795,
+          "HD95_penalized_mm": 3.482095631429795,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.011219466271552053,
+          "Brier": 0.005503143317881294
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 50427,
+          "predicted": 53844,
+          "TP": 43089,
+          "FP": 10755,
+          "FN": 7338,
+          "Dice": 0.8264809966337716,
+          "HD95_mm": 12.000005722045898,
+          "HD95_penalized_mm": 12.000005722045898,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.02674325639596584,
+          "Brier": 0.012233537372226789
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 50427,
+          "predicted": 48039,
+          "TP": 41368,
+          "FP": 6671,
+          "FN": 9059,
+          "Dice": 0.8402494261978755,
+          "HD95_mm": 6.000002861022949,
+          "HD95_penalized_mm": 6.000002861022949,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.023336584770877803,
+          "Brier": 0.010702457089434798
+        }
+      },
+      {
+        "RemainCut": {
+          "class_index": 1,
+          "GT": 26385,
+          "predicted": 24734,
+          "TP": 22382,
+          "FP": 2352,
+          "FN": 4003,
+          "Dice": 0.8756822316555488,
+          "HD95_mm": 3.348874580729996,
+          "HD95_penalized_mm": 3.348874580729996,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.010300400190576629,
+          "Brier": 0.004900668062195304
+        },
+        "SwitchJoint": {
+          "class_index": 1,
+          "GT": 26385,
+          "predicted": 23737,
+          "TP": 22461,
+          "FP": 1276,
+          "FN": 3924,
+          "Dice": 0.8962531423327081,
+          "HD95_mm": 2.7950849718747373,
+          "HD95_penalized_mm": 2.7950849718747373,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.007860643916304482,
+          "Brier": 0.0038964426796948373
+        }
+      }
+    ]
+  },
+  "source_U_RUNMC": {
+    "Dice": 0.6326089932682397,
+    "NLL": 0.10036529085920891,
+    "Brier": 0.03669205675546755,
+    "HD95_penalized_mm": 27.90958403412674,
+    "empty_predictions": 0
+  },
+  "last100": {
+    "RemainCut": {
+      "task": 0.11175954432134469,
+      "bound_per_pixel": -2.506679341455543,
+      "shape_logsd": -2.502254880991747,
+      "z_logsd": -1.064451475678229
+    },
+    "SwitchJoint": {
+      "task": 0.11220893577599074,
+      "bound_per_pixel": -2.473200783259782,
+      "shape_logsd": -2.502019057588679,
+      "z_logsd": -1.0643892672687345
+    }
+  },
+  "formal_updates": 1600,
+  "descriptive_tail": {
+    "RUNMC": {
+      "RemainCut": {
+        "worst_Dice_percent": 45.330216602662375,
+        "empirical_p10_percent": 52.248274648329996
+      },
+      "SwitchJoint": {
+        "worst_Dice_percent": 51.193065941536375,
+        "empirical_p10_percent": 56.522489977978886
+      }
+    },
+    "BMC": {
+      "RemainCut": {
+        "worst_Dice_percent": 47.88940463500004,
+        "empirical_p10_percent": 52.625907690879046
+      },
+      "SwitchJoint": {
+        "worst_Dice_percent": 43.91453392815215,
+        "empirical_p10_percent": 52.020376359947306
+      }
+    }
+  },
+  "paired_four_patient_bootstrap95pp": {
+    "RUNMC": [
+      -7.751942268022702,
+      3.215125990165496
+    ],
+    "BMC": [
+      -2.823330975881036,
+      8.977763662460442
+    ]
+  },
+  "C1_source_Joint_hard_stop_unchanged": true,
+  "repeated_four_patient_dev_exploratory": true
+}

@@ -2,6 +2,7 @@
 import json
 import math
 import sys
+from itertools import product
 from pathlib import Path
 
 
@@ -56,11 +57,27 @@ def main(path):
     source_pass=all(gates_source.values())
     target_pass=all(gates_target.values())
     verdict='STAGED_FEEDBACK_SIGNAL' if source_pass and target_pass else 'STAGED_FEEDBACK_FAILED'
+    def percentile(values, q):
+        values=sorted(values)
+        pos=(len(values)-1)*q
+        lo=int(pos);hi=min(lo+1,len(values)-1)
+        return values[lo]+(pos-lo)*(values[hi]-values[lo])
+    def empirical_bootstrap_ci(values):
+        means=[sum(sample)/len(sample) for sample in product(values,repeat=len(values))]
+        return [percentile(means,.025),percentile(means,.975)]
+    descriptive_tail={domain:{arm:dict(worst_Dice_percent=100*min(v[arm]['Dice'] for v in p[domain]),
+                                        empirical_p10_percent=100*percentile([v[arm]['Dice'] for v in p[domain]],.1))
+                              for arm in (cut,joint)}
+                      for domain in ('RUNMC','BMC')}
+    paired_bootstrap={domain:empirical_bootstrap_ci(diff)
+                      for domain,diff in (('RUNMC',run_cut),('BMC',bmc_cut))}
     out=Path(__file__).resolve().parent
     analysis=dict(status=verdict,source_gates=gates_source,target_gates=gates_target,
                   source_pass=source_pass,target_pass=target_pass,
                   cells=c,patients=p,source_U_RUNMC=x['source_U_RUNMC'],
                   last100=x['last100'],formal_updates=1600,
+                  descriptive_tail=descriptive_tail,
+                  paired_four_patient_bootstrap95pp=paired_bootstrap,
                   C1_source_Joint_hard_stop_unchanged=True,
                   repeated_four_patient_dev_exploratory=True)
     (out/'ANALYSIS.json').write_text(json.dumps(analysis,indent=2)+'\n')
@@ -114,6 +131,8 @@ SwitchJoint−RemainCut 旧/新域为 {mdiff('RUNMC'):+.3f}/{mdiff('BMC'):+.3f} 
 | 域 | 索引 | 源 U | RemainCut | SwitchJoint | 差值pp |
 |---|---:|---:|---:|---:|---:|
 {patient_rows}
+
+旧域 SwitchJoint 对 RemainCut：2/4患者下降，最大配对跌幅 {min(run_cut):.3f} pp；两臂绝对最差患者 Dice 分别为 {descriptive_tail['RUNMC'][cut]['worst_Dice_percent']:.3f}%/{descriptive_tail['RUNMC'][joint]['worst_Dice_percent']:.3f}%，四人线性插值 p10 分别为 {descriptive_tail['RUNMC'][cut]['empirical_p10_percent']:.3f}%/{descriptive_tail['RUNMC'][joint]['empirical_p10_percent']:.3f}%。新域 SwitchJoint 虽有均值增益，只有 {sum(v>=0 for v in bmc_cut)}/4 患者获益；两臂新域最差 Dice 为 {descriptive_tail['BMC'][cut]['worst_Dice_percent']:.3f}%/{descriptive_tail['BMC'][joint]['worst_Dice_percent']:.3f}%。对四名患者配对差做全部4⁴个有放回重采样所得的经验均值95%描述区间：RUNMC [{paired_bootstrap['RUNMC'][0]:+.3f},{paired_bootstrap['RUNMC'][1]:+.3f}] pp，BMC [{paired_bootstrap['BMC'][0]:+.3f},{paired_bootstrap['BMC'][1]:+.3f}] pp。这些区间没有新独立患者，不能当作总体非劣或疗效置信区间，也不进入预注册门。
 
 最后100批训练读数（生成 bound 为每像素值；它与分割终点不是同一指标）：
 
