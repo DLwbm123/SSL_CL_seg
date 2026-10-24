@@ -1,0 +1,2125 @@
+{
+  "status": "SWAP_MECHANISM_FAILED",
+  "mechanism_gates": {
+    "Smooth_self_reconstruction_mse_le_0_02": false,
+    "Smooth_swap_outside_fraction_le_0_01": true,
+    "Smooth_swap_Dice_vs_Full_ge_plus_10pp": false,
+    "Smooth_swap_Dice_vs_own_original_ge_minus_5pp": false,
+    "Smooth_swap_each_vs_original_ge_minus_10pp": false,
+    "Smooth_swap_no_patient_empty": true
+  },
+  "source_gates": {
+    "Smooth_RUNMC_mean_vs_Full_ge_minus_1pp": true,
+    "Smooth_RUNMC_each_vs_Full_ge_minus_5pp": true,
+    "Smooth_RUNMC_train_mean_vs_Full_ge_minus_5pp": true,
+    "Smooth_RUNMC_mean_vs_U_ge_minus_1pp": true,
+    "Smooth_RUNMC_each_vs_U_ge_minus_5pp": true,
+    "Smooth_RUNMC_train_mean_vs_U_ge_minus_5pp": true,
+    "Smooth_RUNMC_HD95_vs_both_le_1_10": true,
+    "Smooth_no_source_collapse": true,
+    "Full_vs_U_mean_ge_minus_1pp": true,
+    "Full_vs_U_each_ge_minus_5pp": true,
+    "Full_no_source_collapse": true,
+    "finite_training_and_scales": true
+  },
+  "BMC_signal_gates": {
+    "Smooth_BMC_mean_vs_max_Full_U_H1_L1_ge_plus_2pp": false,
+    "Smooth_BMC_3_of_4_nonnegative_vs_Full_and_U": false,
+    "Smooth_BMC_each_vs_Full_and_U_ge_minus_5pp": true,
+    "Smooth_BMC_HD95_vs_Full_and_U_le_1_10": true,
+    "Smooth_no_BMC_collapse": true
+  },
+  "cells": {
+    "U_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6326089932682397,
+      "precision": 0.7546032897602193,
+      "recall": 0.5558247906040931,
+      "HD95_penalized_mm": 27.90958403412674,
+      "NLL": 0.10036529085920891,
+      "Brier": 0.03669205675546755,
+      "empty_predictions": 0
+    },
+    "H1_Shape_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.6371795038484263,
+      "precision": 0.7669162636244349,
+      "recall": 0.5531732454408407,
+      "HD95_penalized_mm": 26.52426175454593,
+      "NLL": 0.10196721246122911,
+      "Brier": 0.035887831993698105,
+      "empty_predictions": 0
+    },
+    "L1_Cut_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.6354087865592332,
+      "precision": 0.767042497310024,
+      "recall": 0.5517995408482339,
+      "HD95_penalized_mm": 26.518672253982512,
+      "NLL": 0.10158533221933605,
+      "Brier": 0.03628204393827898,
+      "empty_predictions": 0
+    },
+    "Full_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.6268830053027121,
+      "precision": 0.7767061722770499,
+      "recall": 0.5343918542275323,
+      "HD95_penalized_mm": 25.828985467354926,
+      "NLL": 0.10829856194891156,
+      "Brier": 0.03693032036796233,
+      "empty_predictions": 0
+    },
+    "Smooth_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.6270417374902044,
+      "precision": 0.7760247281457423,
+      "recall": 0.5349931612488061,
+      "HD95_penalized_mm": 25.85338836839207,
+      "NLL": 0.10811809141226379,
+      "Brier": 0.03692670249966272,
+      "empty_predictions": 0
+    },
+    "U_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.3099734565874816,
+      "precision": 0.4215958756531034,
+      "recall": 0.279570877524663,
+      "HD95_penalized_mm": 43.788126941648855,
+      "NLL": 0.11627197939770216,
+      "Brier": 0.03883788255763219,
+      "empty_predictions": 0
+    },
+    "H1_Shape_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.31072053099748614,
+      "precision": 0.4492183257298913,
+      "recall": 0.26803602208701516,
+      "HD95_penalized_mm": 40.98624659958424,
+      "NLL": 0.12127330811556994,
+      "Brier": 0.038057282055960644,
+      "empty_predictions": 0
+    },
+    "L1_Cut_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.30488224232971983,
+      "precision": 0.4350468662436212,
+      "recall": 0.2639904288208547,
+      "HD95_penalized_mm": 40.637985916114474,
+      "NLL": 0.12136127115913362,
+      "Brier": 0.03839782711793671,
+      "empty_predictions": 0
+    },
+    "Full_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.29565236396178285,
+      "precision": 0.4381570669682438,
+      "recall": 0.25095873486475195,
+      "HD95_penalized_mm": 39.63090494605558,
+      "NLL": 0.12855252820474522,
+      "Brier": 0.03829020086802903,
+      "empty_predictions": 0
+    },
+    "Smooth_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.2961244497894806,
+      "precision": 0.4380572954489875,
+      "recall": 0.2517734533102151,
+      "HD95_penalized_mm": 39.6748625490821,
+      "NLL": 0.12811720499890447,
+      "Brier": 0.03829733936147581,
+      "empty_predictions": 0
+    },
+    "U_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8263174812956011,
+      "precision": 0.7812726237285461,
+      "recall": 0.8911926869694089,
+      "HD95_penalized_mm": 29.30098682807565,
+      "NLL": 0.02161131977511867,
+      "Brier": 0.00989677057221483,
+      "empty_predictions": 0
+    },
+    "H1_Shape_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.8343815961573995,
+      "precision": 0.8040462659118361,
+      "recall": 0.8782125443903096,
+      "HD95_penalized_mm": 26.64829208094556,
+      "NLL": 0.020116227770245392,
+      "Brier": 0.009249621905899756,
+      "empty_predictions": 0
+    },
+    "L1_Cut_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.8374946647037351,
+      "precision": 0.8057278141866274,
+      "recall": 0.8850711164069139,
+      "HD95_penalized_mm": 19.75196593837712,
+      "NLL": 0.019412606878533058,
+      "Brier": 0.009066763471636548,
+      "empty_predictions": 0
+    },
+    "Full_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.8414609851585951,
+      "precision": 0.8246193174741354,
+      "recall": 0.870471325442099,
+      "HD95_penalized_mm": 19.26661839769235,
+      "NLL": 0.018475417094173028,
+      "Brier": 0.008691728818865225,
+      "empty_predictions": 0
+    },
+    "Smooth_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.8410322199381535,
+      "precision": 0.8232653441671134,
+      "recall": 0.8711348036164084,
+      "HD95_penalized_mm": 19.29289507065444,
+      "NLL": 0.018556558793555753,
+      "Brier": 0.008722854705530813,
+      "empty_predictions": 0
+    }
+  },
+  "patients": {
+    "RUNMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 27445,
+              "TP": 22055,
+              "FP": 5390,
+              "FN": 14773,
+              "Dice": 0.6862912887215471,
+              "HD95_mm": 19.510835193549077,
+              "HD95_penalized_mm": 19.510835193549077,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07797852775204797,
+          "Brier": 0.0277753237842516
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26587,
+              "TP": 21927,
+              "FP": 4660,
+              "FN": 14901,
+              "Dice": 0.6915398565008278,
+              "HD95_mm": 17.401073957603217,
+              "HD95_penalized_mm": 17.401073957603217,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.08059364254912446,
+          "Brier": 0.026929272914926722
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26595,
+              "TP": 21860,
+              "FP": 4735,
+              "FN": 14968,
+              "Dice": 0.6893398293994293,
+              "HD95_mm": 17.485603104210895,
+              "HD95_penalized_mm": 17.485603104210895,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07704188228709588,
+          "Brier": 0.027142091707263744
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 25210,
+              "TP": 21090,
+              "FP": 4120,
+              "FN": 15738,
+              "Dice": 0.6799058641477804,
+              "HD95_mm": 16.81236965199959,
+              "HD95_penalized_mm": 16.81236965199959,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.08235771400057432,
+          "Brier": 0.027394549965496524
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 25296,
+              "TP": 21129,
+              "FP": 4167,
+              "FN": 15699,
+              "Dice": 0.6802202047517868,
+              "HD95_mm": 16.813198501944573,
+              "HD95_penalized_mm": 16.813198501944573,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.08221437410981702,
+          "Brier": 0.02740934492790952
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39641,
+              "TP": 35235,
+              "FP": 4406,
+              "FN": 23222,
+              "Dice": 0.7183632693836776,
+              "HD95_mm": 40.10501603444067,
+              "HD95_penalized_mm": 40.10501603444067,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11669192585150123,
+          "Brier": 0.04431099868616651
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39524,
+              "TP": 35288,
+              "FP": 4236,
+              "FN": 23169,
+              "Dice": 0.7203029158714445,
+              "HD95_mm": 39.261621541670884,
+              "HD95_penalized_mm": 39.261621541670884,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11870825313568052,
+          "Brier": 0.044068700432564244
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39359,
+              "TP": 35077,
+              "FP": 4282,
+              "FN": 23380,
+              "Dice": 0.7172037294512146,
+              "HD95_mm": 40.016793570306874,
+              "HD95_penalized_mm": 40.016793570306874,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11900578049624222,
+          "Brier": 0.044472690378473755
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 38045,
+              "TP": 34109,
+              "FP": 3936,
+              "FN": 24348,
+              "Dice": 0.706907628857433,
+              "HD95_mm": 39.21176549717962,
+              "HD95_penalized_mm": 39.21176549717962,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.12947475185517532,
+          "Brier": 0.045681328994506304
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 38066,
+              "TP": 34137,
+              "FP": 3929,
+              "FN": 24320,
+              "Dice": 0.7073340032945515,
+              "HD95_mm": 39.20136310534856,
+              "HD95_penalized_mm": 39.20136310534856,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1290523748265949,
+          "Brier": 0.04563080278840717
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29502,
+              "TP": 26364,
+              "FP": 3138,
+              "FN": 23296,
+              "Dice": 0.6660771582324853,
+              "HD95_mm": 26.260712753698773,
+              "HD95_penalized_mm": 26.260712753698773,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13602524575791686,
+          "Brier": 0.04889567680961195
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29850,
+              "TP": 26867,
+              "FP": 2983,
+              "FN": 22793,
+              "Dice": 0.675814362973211,
+              "HD95_mm": 25.675864821506547,
+              "HD95_penalized_mm": 25.675864821506547,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13714368172019517,
+          "Brier": 0.04786292030703719
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29098,
+              "TP": 26204,
+              "FP": 2894,
+              "FN": 23456,
+              "Dice": 0.6654308133776886,
+              "HD95_mm": 25.544080220909844,
+              "HD95_penalized_mm": 25.544080220909844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13976038971652163,
+          "Brier": 0.04894762990821564
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 27685,
+              "TP": 25021,
+              "FP": 2664,
+              "FN": 24639,
+              "Dice": 0.6469972202469455,
+              "HD95_mm": 24.690585559252945,
+              "HD95_penalized_mm": 24.690585559252945,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1534913563551124,
+          "Brier": 0.051021536189458545
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 27735,
+              "TP": 25061,
+              "FP": 2674,
+              "FN": 24599,
+              "Dice": 0.6476128948898507,
+              "HD95_mm": 24.704504332859575,
+              "HD95_penalized_mm": 24.704504332859575,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.15311490271661413,
+          "Brier": 0.05096911222220394
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 18373,
+              "TP": 7943,
+              "FP": 10430,
+              "FN": 8241,
+              "Dice": 0.459704256735249,
+              "HD95_mm": 25.76177215481844,
+              "HD95_penalized_mm": 25.76177215481844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07076546407536959,
+          "Brier": 0.025786227741840147
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16996,
+              "TP": 7649,
+              "FP": 9347,
+              "FN": 8535,
+              "Dice": 0.4610608800482218,
+              "HD95_mm": 23.758486697403075,
+              "HD95_penalized_mm": 23.758486697403075,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07142327243991631,
+          "Brier": 0.024690434320264264
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 17304,
+              "TP": 7864,
+              "FP": 9440,
+              "FN": 8320,
+              "Dice": 0.46966077400860007,
+              "HD95_mm": 23.02821212050243,
+              "HD95_penalized_mm": 23.02821212050243,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07053327637748448,
+          "Brier": 0.024565763759162768
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16447,
+              "TP": 7729,
+              "FP": 8718,
+              "FN": 8455,
+              "Dice": 0.4737213079586896,
+              "HD95_mm": 22.601221160987556,
+              "HD95_penalized_mm": 22.601221160987556,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.06787042558478422,
+          "Brier": 0.023623866322387933
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16501,
+              "TP": 7730,
+              "FP": 8771,
+              "FN": 8454,
+              "Dice": 0.47299984702462905,
+              "HD95_mm": 22.69448753341558,
+              "HD95_penalized_mm": 22.69448753341558,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.0680907139960291,
+          "Brier": 0.02369755006013024
+        }
+      }
+    ],
+    "BMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 14841,
+              "TP": 6340,
+              "FP": 8501,
+              "FN": 76378,
+              "Dice": 0.1299726319457969,
+              "HD95_mm": 36.0611459233682,
+              "HD95_penalized_mm": 36.0611459233682,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.22191107590509956,
+          "Brier": 0.0693348208845001
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13568,
+              "TP": 6162,
+              "FP": 7406,
+              "FN": 76556,
+              "Dice": 0.1279936854786781,
+              "HD95_mm": 31.87127428060293,
+              "HD95_penalized_mm": 31.87127428060293,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.2344025992817308,
+          "Brier": 0.06869908241064303
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13894,
+              "TP": 5863,
+              "FP": 8031,
+              "FN": 76855,
+              "Dice": 0.12137208628327743,
+              "HD95_mm": 34.630583259395245,
+              "HD95_penalized_mm": 34.630583259395245,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.238101636892688,
+          "Brier": 0.0694295328548192
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 12716,
+              "TP": 5258,
+              "FP": 7458,
+              "FN": 77460,
+              "Dice": 0.11019133642098204,
+              "HD95_mm": 33.507368458528106,
+              "HD95_penalized_mm": 33.507368458528106,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.2567543187532062,
+          "Brier": 0.06982691281656966
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 12731,
+              "TP": 5281,
+              "FP": 7450,
+              "FN": 77437,
+              "Dice": 0.11065595239342477,
+              "HD95_mm": 33.523499139714104,
+              "HD95_penalized_mm": 33.523499139714104,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.2555393452314078,
+          "Brier": 0.06978888480645383
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 25352,
+              "TP": 9873,
+              "FP": 15479,
+              "FN": 37201,
+              "Dice": 0.27263689835142074,
+              "HD95_mm": 36.21220756211231,
+              "HD95_penalized_mm": 36.21220756211231,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1341571976167854,
+          "Brier": 0.04635336695435931
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 23920,
+              "TP": 9432,
+              "FP": 14488,
+              "FN": 37642,
+              "Dice": 0.2657125954305998,
+              "HD95_mm": 35.38289101418232,
+              "HD95_penalized_mm": 35.38289101418232,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14228388075245926,
+          "Brier": 0.04614674839258172
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 23284,
+              "TP": 9068,
+              "FP": 14216,
+              "FN": 38006,
+              "Dice": 0.25776741806191195,
+              "HD95_mm": 35.362379569225844,
+              "HD95_penalized_mm": 35.362379569225844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13979680308674589,
+          "Brier": 0.04629239153922378
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 21321,
+              "TP": 8123,
+              "FP": 13198,
+              "FN": 38951,
+              "Dice": 0.23753198333211492,
+              "HD95_mm": 35.031581475893894,
+              "HD95_penalized_mm": 35.031581475893894,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14860240107446432,
+          "Brier": 0.046395515305545164
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 21414,
+              "TP": 8185,
+              "FP": 13229,
+              "FN": 38889,
+              "Dice": 0.2390199743020675,
+              "HD95_mm": 35.098290004549234,
+              "HD95_penalized_mm": 35.098290004549234,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14806157316938526,
+          "Brier": 0.046372928759103274
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 28744,
+              "TP": 14031,
+              "FP": 14713,
+              "FN": 10705,
+              "Dice": 0.52471952131638,
+              "HD95_mm": 43.86340972315025,
+              "HD95_penalized_mm": 43.86340972315025,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05752037939543178,
+          "Brier": 0.02142742000146931
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26139,
+              "TP": 13333,
+              "FP": 12806,
+              "FN": 11403,
+              "Dice": 0.5241474201474201,
+              "HD95_mm": 41.596258395929695,
+              "HD95_penalized_mm": 41.596258395929695,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05634198459427672,
+          "Brier": 0.020402463803201872
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26046,
+              "TP": 13313,
+              "FP": 12733,
+              "FN": 11423,
+              "Dice": 0.5243196408176125,
+              "HD95_mm": 38.69775402525923,
+              "HD95_penalized_mm": 38.69775402525923,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05533786225660277,
+          "Brier": 0.02041394601359015
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 24904,
+              "TP": 13088,
+              "FP": 11816,
+              "FN": 11648,
+              "Dice": 0.5273166800966962,
+              "HD95_mm": 36.368329023082936,
+              "HD95_penalized_mm": 36.368329023082936,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.054246531690264735,
+          "Brier": 0.019805029281624482
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 25021,
+              "TP": 13110,
+              "FP": 11911,
+              "FN": 11626,
+              "Dice": 0.5269610306087585,
+              "HD95_mm": 36.44741948465198,
+              "HD95_penalized_mm": 36.44741948465198,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05434206400744703,
+          "Brier": 0.01986336318785583
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 13435,
+              "TP": 5127,
+              "FP": 8308,
+              "FN": 14244,
+              "Dice": 0.3125647747363287,
+              "HD95_mm": 59.01574455796467,
+              "HD95_penalized_mm": 59.01574455796467,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05149926467349192,
+          "Brier": 0.018235922390200023
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11414,
+              "TP": 5003,
+              "FP": 6411,
+              "FN": 14368,
+              "Dice": 0.3250284229332467,
+              "HD95_mm": 55.09456270762202,
+              "HD95_penalized_mm": 55.09456270762202,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.052064767833812975,
+          "Brier": 0.016980833617415945
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11793,
+              "TP": 4925,
+              "FP": 6868,
+              "FN": 14446,
+              "Dice": 0.31606982415607754,
+              "HD95_mm": 53.86122681057756,
+              "HD95_penalized_mm": 53.86122681057756,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05220878240049784,
+          "Brier": 0.0174554380641137
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 10684,
+              "TP": 4622,
+              "FP": 6062,
+              "FN": 14749,
+              "Dice": 0.3075694559973382,
+              "HD95_mm": 53.61634082671739,
+              "HD95_penalized_mm": 53.61634082671739,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05460686130104563,
+          "Brier": 0.0171333460683768
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 10753,
+              "TP": 4637,
+              "FP": 6116,
+              "FN": 14734,
+              "Dice": 0.3078608418536715,
+              "HD95_mm": 53.63024156741306,
+              "HD95_penalized_mm": 53.63024156741306,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.054525837587377876,
+          "Brier": 0.0171641806924903
+        }
+      }
+    ],
+    "RUNMC_train": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 27570,
+              "TP": 24273,
+              "FP": 3297,
+              "FN": 1787,
+              "Dice": 0.9052023121387284,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.011090986684819129,
+          "Brier": 0.005886614675207728
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26632,
+              "TP": 23936,
+              "FP": 2696,
+              "FN": 2124,
+              "Dice": 0.9085250132847491,
+              "HD95_mm": 3.4938562148434213,
+              "HD95_penalized_mm": 3.4938562148434213,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010130276371570353,
+          "Brier": 0.00552668935535433
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26753,
+              "TP": 24012,
+              "FP": 2741,
+              "FN": 2048,
+              "Dice": 0.9093215685531971,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.009984144081640244,
+          "Brier": 0.005496791832059903
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 25670,
+              "TP": 23488,
+              "FP": 2182,
+              "FN": 2572,
+              "Dice": 0.9080997486951479,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010145790315282439,
+          "Brier": 0.0054735856261798775
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 25725,
+              "TP": 23515,
+              "FP": 2210,
+              "FN": 2545,
+              "Dice": 0.9081780438350874,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.01013815346658094,
+          "Brier": 0.005476378295243877
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 20965,
+              "TP": 12494,
+              "FP": 8471,
+              "FN": 934,
+              "Dice": 0.7265431919285901,
+              "HD95_mm": 51.85875215164513,
+              "HD95_penalized_mm": 51.85875215164513,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.024836413901846773,
+          "Brier": 0.011683828237316563
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19343,
+              "TP": 12228,
+              "FP": 7115,
+              "FN": 1200,
+              "Dice": 0.7462695676055049,
+              "HD95_mm": 46.01032742213721,
+              "HD95_penalized_mm": 46.01032742213721,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02004737006956556,
+          "Brier": 0.01022738653822388
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19980,
+              "TP": 12399,
+              "FP": 7581,
+              "FN": 1029,
+              "Dice": 0.7422772988505747,
+              "HD95_mm": 46.08077001708612,
+              "HD95_penalized_mm": 46.08077001708612,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.021593031632612832,
+          "Brier": 0.010626861578521966
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 18845,
+              "TP": 12259,
+              "FP": 6586,
+              "FN": 1169,
+              "Dice": 0.7597062560034704,
+              "HD95_mm": 44.413503528255404,
+              "HD95_penalized_mm": 44.413503528255404,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018085586157531,
+          "Brier": 0.009526639260392041
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 18910,
+              "TP": 12265,
+              "FP": 6645,
+              "FN": 1163,
+              "Dice": 0.7585503123260561,
+              "HD95_mm": 44.4341124626323,
+              "HD95_penalized_mm": 44.4341124626323,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018281231252393886,
+          "Brier": 0.009594692213844755
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 25511,
+              "TP": 20451,
+              "FP": 5060,
+              "FN": 2667,
+              "Dice": 0.8411030455078246,
+              "HD95_mm": 22.422532873624853,
+              "HD95_penalized_mm": 22.422532873624853,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.019921659342874244,
+          "Brier": 0.009395924690393674
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24624,
+              "TP": 20247,
+              "FP": 4377,
+              "FN": 2871,
+              "Dice": 0.8481839889405555,
+              "HD95_mm": 20.058962978899288,
+              "HD95_penalized_mm": 20.058962978899288,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018743280767116937,
+          "Brier": 0.00891008616847966
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24506,
+              "TP": 20397,
+              "FP": 4109,
+              "FN": 2721,
+              "Dice": 0.8565849151688224,
+              "HD95_mm": 18.223446509526344,
+              "HD95_penalized_mm": 18.223446509526344,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.017369008027327222,
+          "Brier": 0.008383424391365758
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 23658,
+              "TP": 20041,
+              "FP": 3617,
+              "FN": 3077,
+              "Dice": 0.8568924234650248,
+              "HD95_mm": 18.0044281323531,
+              "HD95_penalized_mm": 18.0044281323531,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.016594908701270606,
+          "Brier": 0.008121967419712462
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 23709,
+              "TP": 20058,
+              "FP": 3651,
+              "FN": 3060,
+              "Dice": 0.8566852456915882,
+              "HD95_mm": 18.033820593089445,
+              "HD95_penalized_mm": 18.033820593089445,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.016666431301990237,
+          "Brier": 0.008150580323104483
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 28825,
+              "TP": 24417,
+              "FP": 4408,
+              "FN": 5423,
+              "Dice": 0.8324213756072616,
+              "HD95_mm": 39.32266381291153,
+              "HD95_penalized_mm": 39.32266381291153,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.030596219170934535,
+          "Brier": 0.012620714685941356
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27935,
+              "TP": 24108,
+              "FP": 3827,
+              "FN": 5732,
+              "Dice": 0.8345478147987884,
+              "HD95_mm": 37.030021707902314,
+              "HD95_penalized_mm": 37.030021707902314,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.03154398387272872,
+          "Brier": 0.012334325561541152
+        },
+        "L1_Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27813,
+              "TP": 24266,
+              "FP": 3547,
+              "FN": 5574,
+              "Dice": 0.8417948762423465,
+              "HD95_mm": 11.103648752774918,
+              "HD95_penalized_mm": 11.103648752774918,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02870424377255194,
+          "Brier": 0.01175997608459856
+        },
+        "Full": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 26973,
+              "TP": 23894,
+              "FP": 3079,
+              "FN": 5946,
+              "Dice": 0.8411455124707373,
+              "HD95_mm": 11.048543456039805,
+              "HD95_penalized_mm": 11.048543456039805,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02907538320260807,
+          "Brier": 0.011644722969176518
+        },
+        "Smooth": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27033,
+              "TP": 23907,
+              "FP": 3126,
+              "FN": 5933,
+              "Dice": 0.8407152778998822,
+              "HD95_mm": 11.103648752774918,
+              "HD95_penalized_mm": 11.103648752774918,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.029140419153257952,
+          "Brier": 0.011669767989930137
+        }
+      }
+    ]
+  },
+  "swap": {
+    "Full": {
+      "patients": 4,
+      "slices": 80,
+      "reconstruction_mse": 0.0004262204535339588,
+      "swap_outside_fraction": 0.000201416015625,
+      "original_Dice": 0.8263174812956011,
+      "self_Dice": 0.8271134143654464,
+      "swap_Dice": 0.6187186826632234
+    },
+    "Smooth": {
+      "patients": 4,
+      "slices": 80,
+      "reconstruction_mse": 0.15029976502506806,
+      "swap_outside_fraction": 0.002426910400390625,
+      "original_Dice": 0.8263174812956011,
+      "self_Dice": 7.738454962192121e-05,
+      "swap_Dice": 0.0005068643920523664
+    }
+  },
+  "swap_patients": {
+    "Full": [
+      {
+        "index": 1,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 27570,
+                "TP": 24273,
+                "FP": 3297,
+                "FN": 1787,
+                "Dice": 0.9052023121387284,
+                "HD95_mm": 3.5999984741210938,
+                "HD95_penalized_mm": 3.5999984741210938,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.011090986684819129,
+            "Brier": 0.005886614675207728
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 27497,
+                "TP": 24169,
+                "FP": 3328,
+                "FN": 1891,
+                "Dice": 0.9025524207853315,
+                "HD95_mm": 3.4938562148434213,
+                "HD95_penalized_mm": 3.4938562148434213,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.011270485438781681,
+            "Brier": 0.006085334158460068
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 20722,
+                "TP": 14243,
+                "FP": 6479,
+                "FN": 11817,
+                "Dice": 0.6089094096019837,
+                "HD95_mm": 43.251907923957525,
+                "HD95_penalized_mm": 43.251907923957525,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.06360890939567518,
+            "Brier": 0.024717439990028338
+          }
+        },
+        "reconstruction_mse": 0.0003532909874802312,
+        "swap_outside_fraction": 0.0005828857421875,
+        "slices": 20
+      },
+      {
+        "index": 2,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 20965,
+                "TP": 12494,
+                "FP": 8471,
+                "FN": 934,
+                "Dice": 0.7265431919285901,
+                "HD95_mm": 51.85875215164513,
+                "HD95_penalized_mm": 51.85875215164513,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.024836413901846773,
+            "Brier": 0.011683828237316563
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 20607,
+                "TP": 12433,
+                "FP": 8174,
+                "FN": 995,
+                "Dice": 0.7306008520640517,
+                "HD95_mm": 54.4865334714309,
+                "HD95_penalized_mm": 54.4865334714309,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.02380972507924316,
+            "Brier": 0.011305115905691937
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 25683,
+                "TP": 12120,
+                "FP": 13563,
+                "FN": 1308,
+                "Dice": 0.6197744879957046,
+                "HD95_mm": 25.968805745804044,
+                "HD95_penalized_mm": 25.968805745804044,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.04505768859071191,
+            "Brier": 0.019564542387921442
+          }
+        },
+        "reconstruction_mse": 0.0005710664123691712,
+        "swap_outside_fraction": 0.000103759765625,
+        "slices": 20
+      },
+      {
+        "index": 3,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 25511,
+                "TP": 20451,
+                "FP": 5060,
+                "FN": 2667,
+                "Dice": 0.8411030455078246,
+                "HD95_mm": 22.422532873624853,
+                "HD95_penalized_mm": 22.422532873624853,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.019921659342874244,
+            "Brier": 0.009395924690393674
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 25115,
+                "TP": 20215,
+                "FP": 4900,
+                "FN": 2903,
+                "Dice": 0.8382227935231066,
+                "HD95_mm": 21.383830832645796,
+                "HD95_penalized_mm": 21.383830832645796,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.02020538748931696,
+            "Brier": 0.009496964411741431
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 28576,
+                "TP": 15253,
+                "FP": 13323,
+                "FN": 7865,
+                "Dice": 0.5901265137153248,
+                "HD95_mm": 44.15853584350205,
+                "HD95_penalized_mm": 44.15853584350205,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.07627347500251022,
+            "Brier": 0.02908297948740058
+          }
+        },
+        "reconstruction_mse": 0.0003754501014817282,
+        "swap_outside_fraction": 9.46044921875e-05,
+        "slices": 20
+      },
+      {
+        "index": 4,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 28825,
+                "TP": 24417,
+                "FP": 4408,
+                "FN": 5423,
+                "Dice": 0.8324213756072616,
+                "HD95_mm": 39.32266381291153,
+                "HD95_penalized_mm": 39.32266381291153,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.030596219170934535,
+            "Brier": 0.012620714685941356
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 28427,
+                "TP": 24387,
+                "FP": 4040,
+                "FN": 5453,
+                "Dice": 0.8370775910892958,
+                "HD95_mm": 38.65657718330284,
+                "HD95_penalized_mm": 38.65657718330284,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.028620078115984486,
+            "Brier": 0.012061890926029389
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 26877,
+                "TP": 18605,
+                "FP": 8272,
+                "FN": 11235,
+                "Dice": 0.6560643193398804,
+                "HD95_mm": 9.849163054717797,
+                "HD95_penalized_mm": 9.849163054717797,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.07279066091966584,
+            "Brier": 0.026893805931025548
+          }
+        },
+        "reconstruction_mse": 0.0004050743128047046,
+        "swap_outside_fraction": 2.44140625e-05,
+        "slices": 20
+      }
+    ],
+    "Smooth": [
+      {
+        "index": 1,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 27570,
+                "TP": 24273,
+                "FP": 3297,
+                "FN": 1787,
+                "Dice": 0.9052023121387284,
+                "HD95_mm": 3.5999984741210938,
+                "HD95_penalized_mm": 3.5999984741210938,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.011090986684819129,
+            "Brier": 0.005886614675207728
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 109626,
+                "TP": 21,
+                "FP": 109605,
+                "FN": 26039,
+                "Dice": 0.00030953819848768483,
+                "HD95_mm": 53.74983680026174,
+                "HD95_penalized_mm": 53.74983680026174,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.37032914394239025,
+            "Brier": 0.1778285384454001
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 26060,
+                "predicted": 139422,
+                "TP": 0,
+                "FP": 139422,
+                "FN": 26060,
+                "Dice": 0.0,
+                "HD95_mm": 67.28841279764424,
+                "HD95_penalized_mm": 67.28841279764424,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.41795814556183164,
+            "Brier": 0.21144408776293605
+          }
+        },
+        "reconstruction_mse": 0.11281347746245791,
+        "swap_outside_fraction": 0.0,
+        "slices": 20
+      },
+      {
+        "index": 2,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 20965,
+                "TP": 12494,
+                "FP": 8471,
+                "FN": 934,
+                "Dice": 0.7265431919285901,
+                "HD95_mm": 51.85875215164513,
+                "HD95_penalized_mm": 51.85875215164513,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.024836413901846773,
+            "Brier": 0.011683828237316563
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 135216,
+                "TP": 0,
+                "FP": 135216,
+                "FN": 13428,
+                "Dice": 0.0,
+                "HD95_mm": 75.18455181122496,
+                "HD95_penalized_mm": 75.18455181122496,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.33882588162966726,
+            "Brier": 0.18748292324353105
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 13428,
+                "predicted": 138042,
+                "TP": 0,
+                "FP": 138042,
+                "FN": 13428,
+                "Dice": 0.0,
+                "HD95_mm": 72.9536643934878,
+                "HD95_penalized_mm": 72.9536643934878,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.3358109283023366,
+            "Brier": 0.18926536832777016
+          }
+        },
+        "reconstruction_mse": 0.2056560874312113,
+        "swap_outside_fraction": 0.0057769775390625,
+        "slices": 20
+      },
+      {
+        "index": 3,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 25511,
+                "TP": 20451,
+                "FP": 5060,
+                "FN": 2667,
+                "Dice": 0.8411030455078246,
+                "HD95_mm": 22.422532873624853,
+                "HD95_penalized_mm": 22.422532873624853,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.019921659342874244,
+            "Brier": 0.009395924690393674
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 140707,
+                "TP": 0,
+                "FP": 140707,
+                "FN": 23118,
+                "Dice": 0.0,
+                "HD95_mm": 65.29377602421343,
+                "HD95_penalized_mm": 65.29377602421343,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.3952519896892293,
+            "Brier": 0.20683006482084107
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 23118,
+                "predicted": 128199,
+                "TP": 0,
+                "FP": 128199,
+                "FN": 23118,
+                "Dice": 0.0,
+                "HD95_mm": 58.575250485871045,
+                "HD95_penalized_mm": 58.575250485871045,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.3790995237532331,
+            "Brier": 0.19272727389289285
+          }
+        },
+        "reconstruction_mse": 0.13202903452042986,
+        "swap_outside_fraction": 0.0023406982421875,
+        "slices": 20
+      },
+      {
+        "index": 4,
+        "metrics": {
+          "original": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 28825,
+                "TP": 24417,
+                "FP": 4408,
+                "FN": 5423,
+                "Dice": 0.8324213756072616,
+                "HD95_mm": 39.32266381291153,
+                "HD95_penalized_mm": 39.32266381291153,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.030596219170934535,
+            "Brier": 0.012620714685941356
+          },
+          "self": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 130400,
+                "TP": 0,
+                "FP": 130400,
+                "FN": 29840,
+                "Dice": 0.0,
+                "HD95_mm": 60.79631868498587,
+                "HD95_penalized_mm": 60.79631868498587,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.4197438571240263,
+            "Brier": 0.2056718970504062
+          },
+          "swap": {
+            "classes": [
+              {
+                "class_index": 1,
+                "GT": 29840,
+                "predicted": 108264,
+                "TP": 140,
+                "FP": 108124,
+                "FN": 29700,
+                "Dice": 0.0020274575682094655,
+                "HD95_mm": 58.639228885550224,
+                "HD95_penalized_mm": 58.639228885550224,
+                "empty_prediction_failure": false,
+                "GT_absent": false
+              }
+            ],
+            "NLL": 0.3895535501157299,
+            "Brier": 0.18212633735443376
+          }
+        },
+        "reconstruction_mse": 0.15070046068617304,
+        "swap_outside_fraction": 0.0015899658203125,
+        "slices": 20
+      }
+    ]
+  },
+  "training": {
+    "Full": {
+      "first100": {
+        "task": 0.1286304674796963,
+        "variational": 6.055526199405314,
+        "reconstruction_mse": 0.04656848879404728,
+        "shape_mean_sd": 1.6825859640650638,
+        "shape_logsd": -1.5138164602319797,
+        "appearance_logsd": -2.1939966262928583
+      },
+      "last100": {
+        "task": 0.13783542667261345,
+        "variational": 2.284544810266988,
+        "reconstruction_mse": 0.007546529934936227,
+        "shape_mean_sd": 1.9098129265439547,
+        "shape_logsd": -1.7210568423861532,
+        "appearance_logsd": -2.474317283495422
+      }
+    },
+    "Smooth": {
+      "first100": {
+        "task": 0.128631881530274,
+        "variational": 7.814892387910659,
+        "reconstruction_mse": 0.21570590914616591,
+        "shape_mean_sd": 1.6825821356735131,
+        "shape_logsd": -1.5138641662754124,
+        "appearance_logsd": -1.6449184325828665
+      },
+      "last100": {
+        "task": 0.1379466025663823,
+        "variational": 4.310909971433788,
+        "reconstruction_mse": 0.18668399881369782,
+        "shape_mean_sd": 1.9144373267283945,
+        "shape_logsd": -1.7232305078580583,
+        "appearance_logsd": -1.713972112475368
+      }
+    }
+  },
+  "gradient_audits": {
+    "Full": [
+      {
+        "step": 1,
+        "task_norm": 0.1841325994097922,
+        "weighted_variational_norm": 0.10601662951495643,
+        "cosine": -0.5104118657936204,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 400,
+        "task_norm": 1.0426904873255336,
+        "weighted_variational_norm": 0.01689570236622702,
+        "cosine": 0.7911763639600216,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 800,
+        "task_norm": 0.13115371502580014,
+        "weighted_variational_norm": 0.13370100298645718,
+        "cosine": -0.9017366168912904,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 1200,
+        "task_norm": 0.6313286693237965,
+        "weighted_variational_norm": 0.1679643622228339,
+        "cosine": -0.990981618893729,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 1600,
+        "task_norm": 0.25944084710315996,
+        "weighted_variational_norm": 0.01893129193767345,
+        "cosine": -0.07341951077248586,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      }
+    ],
+    "Smooth": [
+      {
+        "step": 1,
+        "task_norm": 0.1841325994097922,
+        "weighted_variational_norm": 0.10601336098890643,
+        "cosine": -0.5103573241321089,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 400,
+        "task_norm": 1.0809328622274392,
+        "weighted_variational_norm": 0.020584484953701177,
+        "cosine": 0.8226484687804007,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 800,
+        "task_norm": 0.1326265438787697,
+        "weighted_variational_norm": 0.13420417128136605,
+        "cosine": -0.9005234752433903,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 1200,
+        "task_norm": 0.6208482428305786,
+        "weighted_variational_norm": 0.16246117238910893,
+        "cosine": -0.9900313630838928,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 1600,
+        "task_norm": 0.24159908594929172,
+        "weighted_variational_norm": 0.017783061686523154,
+        "cosine": -0.03670671894302985,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      }
+    ]
+  },
+  "Smooth_minus_Full_pp": {
+    "RUNMC": 0.015873218749229423,
+    "BMC": 0.047208582769775465,
+    "RUNMC_train": -0.042876522044166254
+  },
+  "Smooth_minus_U_pp": {
+    "RUNMC": -0.5567255778035296,
+    "BMC": -1.3849006798000996,
+    "RUNMC_train": 1.471473864255235
+  },
+  "BMC_reused_development_patients": true,
+  "prior_hard_stops_unchanged": true
+}

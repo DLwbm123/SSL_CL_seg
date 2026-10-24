@@ -162,7 +162,7 @@ BMC积极门（须交换机制与源安全全过才允许后继）：
 |---|---:|---:|
 {audits}
 
-最后100批Full/Smooth生成损失={t['Full']['last100']['variational']:.3f}/{t['Smooth']['last100']['variational']:.3f}，重建MSE={t['Full']['last100']['reconstruction_mse']:.5f}/{t['Smooth']['last100']['reconstruction_mse']:.5f}。冻结U在合成图上的Dice只是可识别性审计，不证明合成标签真实有效或潜变量已因果解耦。未访问隐藏U标签/test。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。旧路线硬停不变。
+最后100批Full/Smooth生成损失={t['Full']['last100']['variational']:.3f}/{t['Smooth']['last100']['variational']:.3f}，重建MSE={t['Full']['last100']['reconstruction_mse']:.5f}/{t['Smooth']['last100']['reconstruction_mse']:.5f}。Smooth原图分割接近Full，但自身生成图的MSE={s['Smooth']['reconstruction_mse']:.5f}，冻结U在该图上的Dice仅{100*s['Smooth']['self_Dice']:.3f}%；这一固定4×4瓶颈未让其余生成层级补偿丢失的图像结构。冻结U在合成图上的Dice只是可识别性审计，不证明合成标签真实有效或潜变量已因果解耦。未访问隐藏U标签/test。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。旧路线硬停不变。
 """
     (out/'REPORT_ZH.md').write_text(report)
     print(verdict,f"Smooth_RUNMC={100*c['Smooth_RUNMC']['Dice']:.3f}",
