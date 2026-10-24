@@ -1,0 +1,182 @@
+{
+  "cells": {
+    "U1600_RUNMC": {
+      "domain": "RUNMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.6326089932682397,
+          "NLL": 0.10036529085920891,
+          "Brier": 0.03669205675546755,
+          "HD95_penalized_mm": 27.90958403412674,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "deterministic_standard_UNet",
+      "complete": true
+    },
+    "U1600_BMC": {
+      "domain": "BMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.3099734565874816,
+          "NLL": 0.11627197939770216,
+          "Brier": 0.03883788255763219,
+          "HD95_penalized_mm": 43.788126941648855,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "deterministic_standard_UNet",
+      "complete": true
+    },
+    "U2000_RUNMC": {
+      "domain": "RUNMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.7005914286935767,
+          "NLL": 0.09819395894205893,
+          "Brier": 0.03436015101941246,
+          "HD95_penalized_mm": 38.12361024747206,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "deterministic_standard_UNet",
+      "complete": true
+    },
+    "U2000_BMC": {
+      "domain": "BMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.3126847950481978,
+          "NLL": 0.14070489321059854,
+          "Brier": 0.0419891782532247,
+          "HD95_penalized_mm": 54.32201003654677,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "deterministic_standard_UNet",
+      "complete": true
+    },
+    "U_B800_RUNMC": {
+      "domain": "RUNMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.6933437729771399,
+          "NLL": 0.08262775514027043,
+          "Brier": 0.03579884945861788,
+          "HD95_penalized_mm": 46.63253705967881,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "deterministic_standard_UNet",
+      "complete": true
+    },
+    "U_B800_BMC": {
+      "domain": "BMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.6210666628831149,
+          "NLL": 0.07158634246005266,
+          "Brier": 0.028093637775100544,
+          "HD95_penalized_mm": 36.43882762281816,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "deterministic_standard_UNet",
+      "complete": true
+    },
+    "M_B800_RUNMC": {
+      "domain": "RUNMC",
+      "memory": "RUNMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.5540691297034864,
+          "NLL": 0.09325486668293038,
+          "Brier": 0.04739852758485311,
+          "HD95_penalized_mm": 18.881854736378735,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.5528221106743053,
+          "NLL": 0.0946024506892838,
+          "Brier": 0.04791808934770586,
+          "HD95_penalized_mm": 18.945946980883495,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.5529916198955422,
+          "NLL": 0.09434036273004436,
+          "Brier": 0.04801998399082735,
+          "HD95_penalized_mm": 18.906056913331405,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "variational_approximation",
+      "complete": true
+    },
+    "M_B800_BMC": {
+      "domain": "BMC",
+      "memory": "BMC",
+      "patients": 4,
+      "repeats": [
+        {
+          "Dice": 0.4108200234114412,
+          "NLL": 0.09096122054486365,
+          "Brier": 0.052319287506340774,
+          "HD95_penalized_mm": 34.79894492368913,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.41120518023568353,
+          "NLL": 0.08981239409556357,
+          "Brier": 0.051692589865644345,
+          "HD95_penalized_mm": 34.816131992314126,
+          "empty_predictions": 0
+        },
+        {
+          "Dice": 0.41071434235912385,
+          "NLL": 0.09185837598821998,
+          "Brier": 0.05278257674125041,
+          "HD95_penalized_mm": 34.86840679661316,
+          "empty_predictions": 0
+        }
+      ],
+      "predictor": "variational_approximation",
+      "complete": true
+    }
+  },
+  "new_formal_updates": 3600,
+  "unet_updates": 2800,
+  "method_updates": 800,
+  "preflight_reverse_calls": 3,
+  "preflight_updates": 0,
+  "method_counter": {
+    "refinement_sample_steps": 0,
+    "phi_updates": 800,
+    "domain_updates": 800,
+    "validation_images": 0,
+    "current_train_images": 800,
+    "real_train_images": 800,
+    "historical_train_images": 0,
+    "domain_mc_samples": 0,
+    "joint_forwards": 3204,
+    "local_backward_calls": 0,
+    "global_updates": 800,
+    "test_images": 0,
+    "local_mc_samples": 3204,
+    "global_mc_samples": 1602,
+    "outer_backward_calls": 800
+  },
+  "old_memory_and_Sb_unchanged": true,
+  "reused": [
+    "v23_L1600",
+    "v25_A2000"
+  ],
+  "unet_training_seed": 20261023
+}

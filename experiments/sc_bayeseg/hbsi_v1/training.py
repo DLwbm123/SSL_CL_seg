@@ -123,7 +123,7 @@ def run_stage(state, data, ledger, counter, name, steps, seconds, protocol_finge
             ledger.flush()
         except BaseException as exc:
             # Resume the last completed transaction, never an interrupted batch's advanced RNG or optimizer.
-            partial = StreamState.load(latest)
+            partial = type(state).load(latest)
             checkpoint(partial, 'PARTIAL_STATE.pt')
             session['status'] = 'FAILED_RECOVERABLE'
             (out / 'FAILURE_RECEIPT.json').write_text(json.dumps(
