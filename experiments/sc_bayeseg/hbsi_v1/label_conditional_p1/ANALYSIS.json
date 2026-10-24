@@ -1,0 +1,1381 @@
+{
+  "status": "MECHANISM_FAILED",
+  "mechanism_gates": {
+    "LabelY_abs_Pearson_mean_vs_ProbZ_ge_plus_0_05": false,
+    "LabelY_abs_Pearson_at_least_3_of_4_nonnegative": false,
+    "LabelY_mean_reconstruction_MSE_le_2x_ProbZ": true,
+    "training_and_scales_finite": true
+  },
+  "source_gates": {
+    "LabelY_RUNMC_mean_vs_ProbZ_ge_minus_1pp": true,
+    "LabelY_RUNMC_each_vs_ProbZ_ge_minus_5pp": true,
+    "LabelY_RUNMC_train_mean_vs_ProbZ_ge_minus_5pp": true,
+    "LabelY_RUNMC_mean_vs_U_ge_minus_1pp": true,
+    "LabelY_RUNMC_each_vs_U_ge_minus_5pp": true,
+    "LabelY_RUNMC_train_mean_vs_U_ge_minus_5pp": true,
+    "LabelY_RUNMC_HD95_vs_both_le_1_10": true,
+    "LabelY_no_source_collapse": true,
+    "ProbZ_vs_U_mean_ge_minus_1pp": true,
+    "ProbZ_vs_U_each_ge_minus_5pp": true,
+    "ProbZ_no_source_collapse": true
+  },
+  "BMC_signal_gates": {
+    "LabelY_BMC_mean_vs_max_ProbZ_U_H1_ge_plus_2pp": false,
+    "LabelY_BMC_3_of_4_nonnegative_vs_ProbZ_and_U": false,
+    "LabelY_BMC_each_vs_ProbZ_and_U_ge_minus_5pp": true,
+    "LabelY_BMC_HD95_vs_ProbZ_and_U_le_1_10": true,
+    "LabelY_no_BMC_collapse": true
+  },
+  "cells": {
+    "U_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6326089932682397,
+      "precision": 0.7546032897602193,
+      "recall": 0.5558247906040931,
+      "HD95_penalized_mm": 27.90958403412674,
+      "NLL": 0.10036529085920891,
+      "Brier": 0.03669205675546755,
+      "empty_predictions": 0
+    },
+    "H1_Shape_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.6371795038484263,
+      "precision": 0.7669162636244349,
+      "recall": 0.5531732454408407,
+      "HD95_penalized_mm": 26.52426175454593,
+      "NLL": 0.10196721246122911,
+      "Brier": 0.035887831993698105,
+      "empty_predictions": 0
+    },
+    "ProbZ_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.6374595613945508,
+      "precision": 0.7670235602354496,
+      "recall": 0.553541310796252,
+      "HD95_penalized_mm": 26.46930674967426,
+      "NLL": 0.10182023741278007,
+      "Brier": 0.035815590728653104,
+      "empty_predictions": 0
+    },
+    "LabelY_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.6380773124995316,
+      "precision": 0.7676446076652682,
+      "recall": 0.5541025995171577,
+      "HD95_penalized_mm": 26.4396804653892,
+      "NLL": 0.10134647491439702,
+      "Brier": 0.0357574859584744,
+      "empty_predictions": 0
+    },
+    "U_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.3099734565874816,
+      "precision": 0.4215958756531034,
+      "recall": 0.279570877524663,
+      "HD95_penalized_mm": 43.788126941648855,
+      "NLL": 0.11627197939770216,
+      "Brier": 0.03883788255763219,
+      "empty_predictions": 0
+    },
+    "H1_Shape_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.31072053099748614,
+      "precision": 0.4492183257298913,
+      "recall": 0.26803602208701516,
+      "HD95_penalized_mm": 40.98624659958424,
+      "NLL": 0.12127330811556994,
+      "Brier": 0.038057282055960644,
+      "empty_predictions": 0
+    },
+    "ProbZ_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.3091178298893533,
+      "precision": 0.444883452920367,
+      "recall": 0.26727114901872884,
+      "HD95_penalized_mm": 40.87957715068925,
+      "NLL": 0.12250796502617997,
+      "Brier": 0.038199267472563546,
+      "empty_predictions": 0
+    },
+    "LabelY_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.309210282865937,
+      "precision": 0.4451233575968262,
+      "recall": 0.2673144428235133,
+      "HD95_penalized_mm": 41.13175384272397,
+      "NLL": 0.12220021899527383,
+      "Brier": 0.03819164603327755,
+      "empty_predictions": 0
+    },
+    "U_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8263174812956011,
+      "precision": 0.7812726237285461,
+      "recall": 0.8911926869694089,
+      "HD95_penalized_mm": 29.30098682807565,
+      "NLL": 0.02161131977511867,
+      "Brier": 0.00989677057221483,
+      "empty_predictions": 0
+    },
+    "H1_Shape_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.8343815961573995,
+      "precision": 0.8040462659118361,
+      "recall": 0.8782125443903096,
+      "HD95_penalized_mm": 26.64829208094556,
+      "NLL": 0.020116227770245392,
+      "Brier": 0.009249621905899756,
+      "empty_predictions": 0
+    },
+    "ProbZ_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.8349937144170878,
+      "precision": 0.804365364787588,
+      "recall": 0.8793036034490163,
+      "HD95_penalized_mm": 26.688476292411718,
+      "NLL": 0.02002996418790825,
+      "Brier": 0.009207150732431347,
+      "empty_predictions": 0
+    },
+    "LabelY_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.835113806799445,
+      "precision": 0.8045784322853755,
+      "recall": 0.879339089702649,
+      "HD95_penalized_mm": 26.672621611361254,
+      "NLL": 0.01995708585659929,
+      "Brier": 0.009190846217037803,
+      "empty_predictions": 0
+    }
+  },
+  "patients": {
+    "RUNMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 27445,
+              "TP": 22055,
+              "FP": 5390,
+              "FN": 14773,
+              "Dice": 0.6862912887215471,
+              "HD95_mm": 19.510835193549077,
+              "HD95_penalized_mm": 19.510835193549077,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07797852775204797,
+          "Brier": 0.0277753237842516
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26587,
+              "TP": 21927,
+              "FP": 4660,
+              "FN": 14901,
+              "Dice": 0.6915398565008278,
+              "HD95_mm": 17.401073957603217,
+              "HD95_penalized_mm": 17.401073957603217,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.08059364254912446,
+          "Brier": 0.026929272914926722
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26463,
+              "TP": 21872,
+              "FP": 4591,
+              "FN": 14956,
+              "Dice": 0.6911567205447852,
+              "HD95_mm": 17.401073957603217,
+              "HD95_penalized_mm": 17.401073957603217,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.0808891183846571,
+          "Brier": 0.02684191564056892
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26550,
+              "TP": 21953,
+              "FP": 4597,
+              "FN": 14875,
+              "Dice": 0.6927640506169334,
+              "HD95_mm": 17.401073957603217,
+              "HD95_penalized_mm": 17.401073957603217,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.08022913460965153,
+          "Brier": 0.0267101415396785
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39641,
+              "TP": 35235,
+              "FP": 4406,
+              "FN": 23222,
+              "Dice": 0.7183632693836776,
+              "HD95_mm": 40.10501603444067,
+              "HD95_penalized_mm": 40.10501603444067,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11669192585150123,
+          "Brier": 0.04431099868616651
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39524,
+              "TP": 35288,
+              "FP": 4236,
+              "FN": 23169,
+              "Dice": 0.7203029158714445,
+              "HD95_mm": 39.261621541670884,
+              "HD95_penalized_mm": 39.261621541670884,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11870825313568052,
+          "Brier": 0.044068700432564244
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39861,
+              "TP": 35574,
+              "FP": 4287,
+              "FN": 22883,
+              "Dice": 0.7236518236742,
+              "HD95_mm": 39.198133961755076,
+              "HD95_penalized_mm": 39.198133961755076,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11739434804707806,
+          "Brier": 0.04376865683202213
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39829,
+              "TP": 35563,
+              "FP": 4266,
+              "FN": 22894,
+              "Dice": 0.7236635940011802,
+              "HD95_mm": 39.14715894424276,
+              "HD95_penalized_mm": 39.14715894424276,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11692870900531233,
+          "Brier": 0.04374387947697101
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29502,
+              "TP": 26364,
+              "FP": 3138,
+              "FN": 23296,
+              "Dice": 0.6660771582324853,
+              "HD95_mm": 26.260712753698773,
+              "HD95_penalized_mm": 26.260712753698773,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13602524575791686,
+          "Brier": 0.04889567680961195
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29850,
+              "TP": 26867,
+              "FP": 2983,
+              "FN": 22793,
+              "Dice": 0.675814362973211,
+              "HD95_mm": 25.675864821506547,
+              "HD95_penalized_mm": 25.675864821506547,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13714368172019517,
+          "Brier": 0.04786292030703719
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29776,
+              "TP": 26802,
+              "FP": 2974,
+              "FN": 22858,
+              "Dice": 0.6748073921144065,
+              "HD95_mm": 25.555088227831995,
+              "HD95_penalized_mm": 25.555088227831995,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13742508314639856,
+          "Brier": 0.04793801257680272
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29751,
+              "TP": 26786,
+              "FP": 2965,
+              "FN": 22874,
+              "Dice": 0.6746168666809385,
+              "HD95_mm": 25.477441581806417,
+              "HD95_penalized_mm": 25.477441581806417,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13699610020223163,
+          "Brier": 0.04793417741751829
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 18373,
+              "TP": 7943,
+              "FP": 10430,
+              "FN": 8241,
+              "Dice": 0.459704256735249,
+              "HD95_mm": 25.76177215481844,
+              "HD95_penalized_mm": 25.76177215481844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07076546407536959,
+          "Brier": 0.025786227741840147
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16996,
+              "TP": 7649,
+              "FP": 9347,
+              "FN": 8535,
+              "Dice": 0.4610608800482218,
+              "HD95_mm": 23.758486697403075,
+              "HD95_penalized_mm": 23.758486697403075,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07142327243991631,
+          "Brier": 0.024690434320264264
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 17013,
+              "TP": 7639,
+              "FP": 9374,
+              "FN": 8545,
+              "Dice": 0.4602223092448113,
+              "HD95_mm": 23.722930851506757,
+              "HD95_penalized_mm": 23.722930851506757,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07157240007298653,
+          "Brier": 0.024713777865218646
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16977,
+              "TP": 7648,
+              "FP": 9329,
+              "FN": 8536,
+              "Dice": 0.4612647386990742,
+              "HD95_mm": 23.733047377904402,
+              "HD95_penalized_mm": 23.733047377904402,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07123195584039263,
+          "Brier": 0.02464174539972982
+        }
+      }
+    ],
+    "BMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 14841,
+              "TP": 6340,
+              "FP": 8501,
+              "FN": 76378,
+              "Dice": 0.1299726319457969,
+              "HD95_mm": 36.0611459233682,
+              "HD95_penalized_mm": 36.0611459233682,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.22191107590509956,
+          "Brier": 0.0693348208845001
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13568,
+              "TP": 6162,
+              "FP": 7406,
+              "FN": 76556,
+              "Dice": 0.1279936854786781,
+              "HD95_mm": 31.87127428060293,
+              "HD95_penalized_mm": 31.87127428060293,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.2344025992817308,
+          "Brier": 0.06869908241064303
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13556,
+              "TP": 6099,
+              "FP": 7457,
+              "FN": 76619,
+              "Dice": 0.12670087458711593,
+              "HD95_mm": 32.07053992746105,
+              "HD95_penalized_mm": 32.07053992746105,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.2364453167582919,
+          "Brier": 0.06878035677103124
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13754,
+              "TP": 6256,
+              "FP": 7498,
+              "FN": 76462,
+              "Dice": 0.1296956629902977,
+              "HD95_mm": 32.179910890471646,
+              "HD95_penalized_mm": 32.179910890471646,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.23487253281419285,
+          "Brier": 0.06864459634898706
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 25352,
+              "TP": 9873,
+              "FP": 15479,
+              "FN": 37201,
+              "Dice": 0.27263689835142074,
+              "HD95_mm": 36.21220756211231,
+              "HD95_penalized_mm": 36.21220756211231,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1341571976167854,
+          "Brier": 0.04635336695435931
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 23920,
+              "TP": 9432,
+              "FP": 14488,
+              "FN": 37642,
+              "Dice": 0.2657125954305998,
+              "HD95_mm": 35.38289101418232,
+              "HD95_penalized_mm": 35.38289101418232,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14228388075245926,
+          "Brier": 0.04614674839258172
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 24084,
+              "TP": 9351,
+              "FP": 14733,
+              "FN": 37723,
+              "Dice": 0.26282357570476966,
+              "HD95_mm": 35.381566743650666,
+              "HD95_penalized_mm": 35.381566743650666,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14419901584344152,
+          "Brier": 0.04648051888705959
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 24089,
+              "TP": 9324,
+              "FP": 14765,
+              "FN": 37750,
+              "Dice": 0.26204628809915265,
+              "HD95_mm": 35.43505989590617,
+              "HD95_penalized_mm": 35.43505989590617,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14422764566237353,
+          "Brier": 0.04653993652077982
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 28744,
+              "TP": 14031,
+              "FP": 14713,
+              "FN": 10705,
+              "Dice": 0.52471952131638,
+              "HD95_mm": 43.86340972315025,
+              "HD95_penalized_mm": 43.86340972315025,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05752037939543178,
+          "Brier": 0.02142742000146931
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26139,
+              "TP": 13333,
+              "FP": 12806,
+              "FN": 11403,
+              "Dice": 0.5241474201474201,
+              "HD95_mm": 41.596258395929695,
+              "HD95_penalized_mm": 41.596258395929695,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05634198459427672,
+          "Brier": 0.020402463803201872
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26110,
+              "TP": 13320,
+              "FP": 12790,
+              "FN": 11416,
+              "Dice": 0.5239350194705582,
+              "HD95_mm": 41.0336975855327,
+              "HD95_penalized_mm": 41.0336975855327,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.0563293727662822,
+          "Brier": 0.02040304417558947
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26141,
+              "TP": 13326,
+              "FP": 12815,
+              "FN": 11410,
+              "Dice": 0.5238516421958842,
+              "HD95_mm": 41.93662266461427,
+              "HD95_penalized_mm": 41.93662266461427,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.056393445818059953,
+          "Brier": 0.020412670310838238
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 13435,
+              "TP": 5127,
+              "FP": 8308,
+              "FN": 14244,
+              "Dice": 0.3125647747363287,
+              "HD95_mm": 59.01574455796467,
+              "HD95_penalized_mm": 59.01574455796467,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05149926467349192,
+          "Brier": 0.018235922390200023
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11414,
+              "TP": 5003,
+              "FP": 6411,
+              "FN": 14368,
+              "Dice": 0.3250284229332467,
+              "HD95_mm": 55.09456270762202,
+              "HD95_penalized_mm": 55.09456270762202,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.052064767833812975,
+          "Brier": 0.016980833617415945
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11600,
+              "TP": 5002,
+              "FP": 6598,
+              "FN": 14369,
+              "Dice": 0.3230118497949695,
+              "HD95_mm": 55.03250434611258,
+              "HD95_penalized_mm": 55.03250434611258,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05305815473670428,
+          "Brier": 0.01713315005657388
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11602,
+              "TP": 4975,
+              "FP": 6627,
+              "FN": 14396,
+              "Dice": 0.32124753817841345,
+              "HD95_mm": 54.97542191990378,
+              "HD95_penalized_mm": 54.97542191990378,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05330725168646898,
+          "Brier": 0.017169380952505087
+        }
+      }
+    ],
+    "RUNMC_train": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 27570,
+              "TP": 24273,
+              "FP": 3297,
+              "FN": 1787,
+              "Dice": 0.9052023121387284,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.011090986684819129,
+          "Brier": 0.005886614675207728
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26632,
+              "TP": 23936,
+              "FP": 2696,
+              "FN": 2124,
+              "Dice": 0.9085250132847491,
+              "HD95_mm": 3.4938562148434213,
+              "HD95_penalized_mm": 3.4938562148434213,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010130276371570353,
+          "Brier": 0.00552668935535433
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26582,
+              "TP": 23913,
+              "FP": 2669,
+              "FN": 2147,
+              "Dice": 0.9085141142053873,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010266506142441597,
+          "Brier": 0.0055210914277262785
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26555,
+              "TP": 23901,
+              "FP": 2654,
+              "FN": 2159,
+              "Dice": 0.9085241851183122,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010218827515801549,
+          "Brier": 0.005514671311651058
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 20965,
+              "TP": 12494,
+              "FP": 8471,
+              "FN": 934,
+              "Dice": 0.7265431919285901,
+              "HD95_mm": 51.85875215164513,
+              "HD95_penalized_mm": 51.85875215164513,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.024836413901846773,
+          "Brier": 0.011683828237316563
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19343,
+              "TP": 12228,
+              "FP": 7115,
+              "FN": 1200,
+              "Dice": 0.7462695676055049,
+              "HD95_mm": 46.01032742213721,
+              "HD95_penalized_mm": 46.01032742213721,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02004737006956556,
+          "Brier": 0.01022738653822388
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19384,
+              "TP": 12269,
+              "FP": 7115,
+              "FN": 1159,
+              "Dice": 0.7478361575033524,
+              "HD95_mm": 46.01032742213721,
+              "HD95_penalized_mm": 46.01032742213721,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.01981440359626147,
+          "Brier": 0.010153806956432941
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19394,
+              "TP": 12268,
+              "FP": 7126,
+              "FN": 1160,
+              "Dice": 0.7475473767594906,
+              "HD95_mm": 46.01032742213721,
+              "HD95_penalized_mm": 46.01032742213721,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.019821035549927774,
+          "Brier": 0.010162350483603042
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 25511,
+              "TP": 20451,
+              "FP": 5060,
+              "FN": 2667,
+              "Dice": 0.8411030455078246,
+              "HD95_mm": 22.422532873624853,
+              "HD95_penalized_mm": 22.422532873624853,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.019921659342874244,
+          "Brier": 0.009395924690393674
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24624,
+              "TP": 20247,
+              "FP": 4377,
+              "FN": 2871,
+              "Dice": 0.8481839889405555,
+              "HD95_mm": 20.058962978899288,
+              "HD95_penalized_mm": 20.058962978899288,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018743280767116937,
+          "Brier": 0.00891008616847966
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24681,
+              "TP": 20252,
+              "FP": 4429,
+              "FN": 2866,
+              "Dice": 0.8473817443879579,
+              "HD95_mm": 20.127437255368285,
+              "HD95_penalized_mm": 20.127437255368285,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.0189575333517674,
+          "Brier": 0.008947247077028389
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24662,
+              "TP": 20263,
+              "FP": 4399,
+              "FN": 2855,
+              "Dice": 0.8481791544579322,
+              "HD95_mm": 20.063313305906824,
+              "HD95_penalized_mm": 20.063313305906824,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018829795956023566,
+          "Brier": 0.00889735651263528
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 28825,
+              "TP": 24417,
+              "FP": 4408,
+              "FN": 5423,
+              "Dice": 0.8324213756072616,
+              "HD95_mm": 39.32266381291153,
+              "HD95_penalized_mm": 39.32266381291153,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.030596219170934535,
+          "Brier": 0.012620714685941356
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27935,
+              "TP": 24108,
+              "FP": 3827,
+              "FN": 5732,
+              "Dice": 0.8345478147987884,
+              "HD95_mm": 37.030021707902314,
+              "HD95_penalized_mm": 37.030021707902314,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.03154398387272872,
+          "Brier": 0.012334325561541152
+        },
+        "ProbZ": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27959,
+              "TP": 24167,
+              "FP": 3792,
+              "FN": 5673,
+              "Dice": 0.8362428415716535,
+              "HD95_mm": 37.01614201802029,
+              "HD95_penalized_mm": 37.01614201802029,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.031081413661162537,
+          "Brier": 0.012206457468537782
+        },
+        "LabelY": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27976,
+              "TP": 24173,
+              "FP": 3803,
+              "FN": 5667,
+              "Dice": 0.8362045108620451,
+              "HD95_mm": 37.016847243279884,
+              "HD95_penalized_mm": 37.016847243279884,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.030958684404644284,
+          "Brier": 0.012189006560261837
+        }
+      }
+    ]
+  },
+  "latent_audits": {
+    "ProbZ": {
+      "patients": 4,
+      "slices": 80,
+      "mean_abs_mask_pearson": 0.4716340137095496,
+      "mean_reconstruction_mse": 0.07149059362743805
+    },
+    "LabelY": {
+      "patients": 4,
+      "slices": 80,
+      "mean_abs_mask_pearson": 0.4717789404898987,
+      "mean_reconstruction_mse": 0.05784625885652746
+    }
+  },
+  "latent_patients": [
+    {
+      "index": 1,
+      "ProbZ": {
+        "slices": 20,
+        "abs_mask_pearson": 0.42201429039969096,
+        "signed_mask_pearson": 0.42201429039969096,
+        "mean_reconstruction_mse": 0.07106351619566047
+      },
+      "LabelY": {
+        "slices": 20,
+        "abs_mask_pearson": 0.4181962221330295,
+        "signed_mask_pearson": 0.4181962221330295,
+        "mean_reconstruction_mse": 0.05774050417870182
+      }
+    },
+    {
+      "index": 2,
+      "ProbZ": {
+        "slices": 20,
+        "abs_mask_pearson": 0.37256653242595505,
+        "signed_mask_pearson": 0.37256653242595505,
+        "mean_reconstruction_mse": 0.059160117191658736
+      },
+      "LabelY": {
+        "slices": 20,
+        "abs_mask_pearson": 0.3750590369152362,
+        "signed_mask_pearson": 0.3750590369152362,
+        "mean_reconstruction_mse": 0.051369068988006625
+      }
+    },
+    {
+      "index": 3,
+      "ProbZ": {
+        "slices": 20,
+        "abs_mask_pearson": 0.513016563089591,
+        "signed_mask_pearson": 0.513016563089591,
+        "mean_reconstruction_mse": 0.06889367657069001
+      },
+      "LabelY": {
+        "slices": 20,
+        "abs_mask_pearson": 0.5191274885941354,
+        "signed_mask_pearson": 0.5191274885941354,
+        "mean_reconstruction_mse": 0.05621127684432958
+      }
+    },
+    {
+      "index": 4,
+      "ProbZ": {
+        "slices": 20,
+        "abs_mask_pearson": 0.5789386689229615,
+        "signed_mask_pearson": 0.5789386689229615,
+        "mean_reconstruction_mse": 0.08684506455174297
+      },
+      "LabelY": {
+        "slices": 20,
+        "abs_mask_pearson": 0.5747330143171938,
+        "signed_mask_pearson": 0.5747330143171938,
+        "mean_reconstruction_mse": 0.06606418541507181
+      }
+    }
+  ],
+  "training": {
+    "ProbZ": {
+      "first100": {
+        "fused_task": 0.1279817989586273,
+        "direct_task": 1.2444317463593608,
+        "variational": 2.734374595760837,
+        "reconstruction_mse": 0.019647964442295805,
+        "shape_logsd": -2.4771902088247177,
+        "appearance_logsd": -2.259980407693959
+      },
+      "last100": {
+        "fused_task": 0.11734108906297587,
+        "direct_task": 0.33506594776735027,
+        "variational": 4.198507593641824,
+        "reconstruction_mse": 0.14359550146164549,
+        "shape_logsd": -2.2241893956564165,
+        "appearance_logsd": -1.8198724268662791
+      }
+    },
+    "LabelY": {
+      "first100": {
+        "fused_task": 0.12798192504457342,
+        "direct_task": 1.2444468092234549,
+        "variational": 2.7337509044471817,
+        "reconstruction_mse": 0.01964730319811491,
+        "shape_logsd": -2.4770807927095517,
+        "appearance_logsd": -2.2599469468759605
+      },
+      "last100": {
+        "fused_task": 0.1173990853064886,
+        "direct_task": 0.3192882713527718,
+        "variational": 4.061891982594458,
+        "reconstruction_mse": 0.12226186115320192,
+        "shape_logsd": -2.2534512807946743,
+        "appearance_logsd": -1.8511217173638033
+      }
+    }
+  },
+  "gradient_audits": {
+    "ProbZ": [
+      {
+        "step": 1,
+        "task_grad_norm": 0.0,
+        "weighted_variational_grad_norm": 0.024448619376862952,
+        "cosine": null,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 400,
+        "task_grad_norm": 0.97438167523312,
+        "weighted_variational_grad_norm": 0.3573094106573911,
+        "cosine": -0.8399763557325337,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 800,
+        "task_grad_norm": 4.822324862969738,
+        "weighted_variational_grad_norm": 0.5998090006075181,
+        "cosine": -0.014194435298036847,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 1200,
+        "task_grad_norm": 8.361103056703728,
+        "weighted_variational_grad_norm": 0.40620377638651867,
+        "cosine": -0.5792564232766088,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 1600,
+        "task_grad_norm": 0.47379788869233447,
+        "weighted_variational_grad_norm": 0.7487620353529206,
+        "cosine": 0.42245314527219024,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      }
+    ],
+    "LabelY": [
+      {
+        "step": 1,
+        "task_grad_norm": 0.0,
+        "weighted_variational_grad_norm": 0.02446510107945246,
+        "cosine": null,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 400,
+        "task_grad_norm": 1.0155661334936388,
+        "weighted_variational_grad_norm": 0.5227790046335155,
+        "cosine": -0.8917499424657513,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 800,
+        "task_grad_norm": 2.773599104422338,
+        "weighted_variational_grad_norm": 1.3824242425161304,
+        "cosine": 0.29668106184364745,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 1200,
+        "task_grad_norm": 3.8202331589005913,
+        "weighted_variational_grad_norm": 1.0108330705764077,
+        "cosine": -0.7021548029008696,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 1600,
+        "task_grad_norm": 0.782234018289251,
+        "weighted_variational_grad_norm": 0.37721388783911947,
+        "cosine": 0.4413138593355932,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      }
+    ]
+  },
+  "LabelY_minus_ProbZ_pp": {
+    "RUNMC": 0.061775110498074604,
+    "BMC": 0.009245297658366791,
+    "RUNMC_train": 0.012009238235721753
+  },
+  "LabelY_minus_U_pp": {
+    "RUNMC": 0.5468319231291874,
+    "BMC": -0.07631737215446077,
+    "RUNMC_train": 0.8796325503843905
+  },
+  "failed_preflight_root_bytes": 5818051,
+  "failed_preflight_formal_updates": 0,
+  "BMC_reused_development_patients": true,
+  "prior_hard_stops_unchanged": true
+}

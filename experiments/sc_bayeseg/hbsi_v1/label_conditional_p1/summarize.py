@@ -12,9 +12,11 @@ def main(path):
     assert x['run']['formal_updates']==3200 and not x['run']['target_training']
     assert x['ledger']['updates_reserved']==3200
     assert all(a['status']=='PASS' for a in x['ledger']['attempts'])
+    assert x['failed_root_ledger']['updates_reserved']==0
+    assert [v['status'] for v in x['failed_root_ledger']['attempts']]==['FAILED']
     c=x['cells'];p=x['patients'];a=x['latent_audits'];ap=x['latent_patients'];t=x['training']
     assert len(p['RUNMC'])==len(p['BMC'])==4
-    assert all(len(ap[arm])==4 and a[arm]['slices']==80 for arm in ('ProbZ','LabelY'))
+    assert len(ap)==4 and all(a[arm]['slices']==80 for arm in ('ProbZ','LabelY'))
     diff=lambda phase,left,right:[100*(v[left]['classes'][0]['Dice']-
                                         v[right]['classes'][0]['Dice']) for v in p[phase]]
     mdiff=lambda phase,left,right:100*(c[left+'_'+phase]['Dice']-
@@ -70,12 +72,18 @@ def main(path):
                                           for phase in ('RUNMC','BMC','RUNMC_train')},
                   LabelY_minus_U_pp={phase:mdiff(phase,'LabelY','U')
                                       for phase in ('RUNMC','BMC','RUNMC_train')},
+                  failed_preflight_root_bytes=x['failed_root_bytes'],
+                  failed_preflight_formal_updates=0,
                   BMC_reused_development_patients=True,prior_hard_stops_unchanged=True)
     out=Path(__file__).resolve().parent
     (out/'ANALYSIS.json').write_text(json.dumps(analysis,indent=2)+'\n')
-    execution=dict(first_actual_start=x['launch']['started'],deadline=x['launch']['deadline'],
+    execution=dict(first_actual_start=x['launch']['started'],
+                   repair_started=x['launch']['repair_started'],deadline=x['launch']['deadline'],
                    elapsed_seconds=x['exit']['time']-x['launch']['started'],
-                   new_root_bytes=x['bytes'],new_formal_updates=3200,
+                   repair_root_bytes=x['bytes'],failed_root_bytes=x['failed_root_bytes'],
+                   combined_new_bytes=x['bytes']+x['failed_root_bytes'],
+                   failed_preflight_seconds=x['failed_root_ledger']['seconds_charged'],
+                   failed_preflight_formal_updates=0,new_formal_updates=3200,
                    reused_H1_common_initial_C1_source_updates=1600,
                    attempts=[{k:v[k] for k in ('name','status','seconds_actual')}
                              for v in x['ledger']['attempts']])
@@ -147,7 +155,9 @@ BMC积极门（须机制/源安全全过才允许后继）：
 |---|---:|---:|
 {audits}
 
-最后100批ProbZ/LabelY变分损失={t['ProbZ']['last100']['variational']:.3f}/{t['LabelY']['last100']['variational']:.3f}，样本重建MSE={t['ProbZ']['last100']['reconstruction_mse']:.5f}/{t['LabelY']['last100']['reconstruction_mse']:.5f}。源L相关性不是解耦证明，BMC4名患者不是独立验证。隐藏U标签和test未访问。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。旧路线硬停不变。
+最后100批ProbZ/LabelY变分损失={t['ProbZ']['last100']['variational']:.3f}/{t['LabelY']['last100']['variational']:.3f}，样本重建MSE={t['ProbZ']['last100']['reconstruction_mse']:.5f}/{t['LabelY']['last100']['reconstruction_mse']:.5f}。源L患者绝对Pearson均值仅从{a['ProbZ']['mean_abs_mask_pearson']:.5f}到{a['LabelY']['mean_abs_mask_pearson']:.5f}，LabelY虽改善均值重建，却未产生预定形状语义收益。
+
+第一次零更新预检因误把设计中应不同的变分值列入相等断言而退出，0正式更新且未读开发结果；只修该断言后在新根沿原时钟完成。失败根{x['failed_root_bytes']:,}字节，修复根{x['bytes']:,}字节，合计{x['failed_root_bytes']+x['bytes']:,}字节；[故障记录](PREFLIGHT_INCIDENT_ZH.md)与[成本](EXECUTION_SUMMARY.json)保留。源L相关性不是解耦证明，BMC4名患者不是独立验证。隐藏U标签和test未访问。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)。旧路线硬停不变。
 """
     (out/'REPORT_ZH.md').write_text(report)
     print(verdict,f"LabelY_RUNMC={100*c['LabelY_RUNMC']['Dice']:.3f}",
