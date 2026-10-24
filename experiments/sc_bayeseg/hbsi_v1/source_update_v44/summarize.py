@@ -60,6 +60,7 @@ def main():
     for arm,t in a['training'].items():
         for k in ('task','image_L','anchor','scaled'):lines.append(f"| {arm} | {k} | {t['full_means'][k]:.8f} | {t['last100_means'][k]:.8f} |")
     lines+=['',f"800正式反向/Adam、预检3完整目标前向与2模型反向/0Adam、0额外训练反向探针；历时{cost['elapsed_seconds']:.2f}秒，全根{cost['root_bytes']}字节。原A额外3次基础梯度探针为历史成本，新臂没有。LU适配器读取U但无U损失；没有新BMC训练或旧评分。",'','单训练seed、每域4开发患者、3推断重复不证明独立泛化、精确后验、可靠不确定性或严格CL遗忘。全部患者指标配对范围/方向见匿名JSON。门槛不改；两臂均失败即关闭冻结诊断，不补组合/seed/权重网格；后继U机制不以L-only通过作永久前提。','','[冻结协议](PREREG_ZH.md)；[完整匿名结果](ANALYSIS.json)；[成本](EXECUTION_SUMMARY.json)。']
+    lines += ['', '## 实测解释与后继决策', '', 'FIX_Q相对A源−0.05297pp、BMC+0.02878pp，未恢复迁移；FIX_PHI源−0.85048pp、BMC+0.51456pp，仅迁移门通过但源保护失败，两臂整体均FAILED。不能只取FIX_PHI的新域正均值宣布成功：源患者1正3负、最差−3.16308pp；BMC2正2负，范围−0.64612至+1.83486pp，且NLL/Brier/HD95均值均恶化。其BMC仍较原入口低0.47775pp，是带代价的部分恢复。', '', '固定q的当前条件效应很小，固定phi减少了源训练获得的域内提升并减轻部分迁移损失。这支持当前轨迹存在域内学习与迁移的权衡，但不独立识别phi根因、q无效或eta作用，也不证明普遍遗忘机制。按冻结规则关闭双冻结诊断，不加DOMAIN_ONLY/组合/seed/权重网格。', '', '用户新要求补齐标准U-Net同数据与更新预算的跨域/新域适应对照，另立v45：U源1600、源续400到2000、从1600进入BMC800，与完整v23L1600/v25A2000及新增当前方法BMC800比较。标准U-Net不调参，方法不采用本轮局部赢家；整方法比较用于明确主线短板，同步补足当前方法的目标域学习证据，后续独立U机制仍不以L-only或胜过U-Net为永久前提。']
     for n,v in [('ANALYSIS.json',a),('RESULTS.json',x['RESULTS.json']),('EXECUTION_SUMMARY.json',cost)]:(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps(a['mechanism_gates']))
 

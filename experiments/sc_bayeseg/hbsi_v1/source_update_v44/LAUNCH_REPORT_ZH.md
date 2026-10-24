@@ -1,5 +1,7 @@
 # v44 启动回执
 
+最终COMPLETE+EXIT0，两臂机制门均FAILED；详见[最终报告](REPORT_ZH.md)。以下保留原启动记录。
+
 已确认TRAIN/FIX_Q，尚无固定终点科学结果。FIX_Q与FIX_PHI各新增400步到2000，共800正式更新、4新评价格；A复用封存v25A2000，不重训或重评分。
 
 两新臂完整原目标损失均为1.1755412776672254，与A固定批次一致；同global RNG、来源payload/prior/Adam/config/evidence与关键计算依赖匹配PASS。3完整目标前向评估、2模型反向、0Adam；冻结组无梯度且其参数与继承Adam槽不变，另一模块及RUNMC域状态有有限非零梯度，来源恢复PASS。FIX_Q仍采样，FIX_PHI仍传输入梯度。这些为实现证据，不是科学收益。
