@@ -26,7 +26,10 @@ def analyze(x):
     train={arm:enriched([dict(patient=str(v['case']),metrics=v['metrics']) for v in diag['patients']],3) for arm,diag in train_raw.items()}
     train_means={arm:aggregate(rows) for arm,rows in train.items()}
     anonymous={arm:{domain:[dict(case=i+1,metrics=rows[key]) for i,key in enumerate(sorted(rows))] for domain,rows in ds.items()} for arm,ds in pp.items()}
-    return dict(status='COMPLETE',means=means,effects=effects,patient_tails=tails,mechanism_gate=gates(effects['C3_minus_C0'],means,pp['C3'],pp['C0']),anonymous_development_patients=anonymous,train_means=train_means,train_effect_C3_minus_C0=effect(train['C3'],train['C0']),train_effect_C3_minus_C2=effect(train['C3'],train['C2']),training=x['training'],training_seeds=1,development_patients_per_domain=4,old_controls_rescored=False)
+    gate=gates(effects['C3_minus_C0'],means,pp['C3'],pp['C0'])
+    gate['checks']['HD95_worsening_le_10pct']=all(means['C3'][d]['HD95_penalized_mm']['mean']<=1.1*means['C0'][d]['HD95_penalized_mm']['mean'] for d in ('RUNMC','BMC'))
+    gate['status']='PASS' if all(gate['checks'].values()) else 'FAILED'
+    return dict(status='COMPLETE',means=means,effects=effects,patient_tails=tails,mechanism_gate=gate,anonymous_development_patients=anonymous,train_means=train_means,train_effect_C3_minus_C0=effect(train['C3'],train['C0']),train_effect_C3_minus_C2=effect(train['C3'],train['C2']),training=x['training'],training_seeds=1,development_patients_per_domain=4,old_controls_rescored=False)
 
 
 def main():
@@ -44,7 +47,7 @@ def main():
     for name,ds in a['effects'].items():
         for domain,e in ds.items():
             d=e['Dice'];lines.append(f"| {name} | {domain} | {fmt(d['mean'],100)} | [{fmt(d['minimum'],100)}, {fmt(d['maximum'],100)}] | {d['positive']}/{d['negative']} | {fmt(e['precision']['mean'],100)} | {fmt(e['recall']['mean'],100)} |")
-    lines+=['','最终科学解释须在封存结果后补充，包含训练空片FP/非空FN、开发七门、旧域绝对遗忘和U-Net差距。',f"{cost['elapsed_seconds']:.2f}秒、根{cost['root_bytes']}字节；800正式更新、3预检模型反向+1fixture反向、12864训练读出样本前向。",'','单训练seed、每域4名反复开发患者。旧控制无重训/重评分；不得以训练切片或MC重复当独立患者。','', '[冻结协议](PREREG_ZH.md)；[匿名分析](ANALYSIS.json)；[成本](EXECUTION_SUMMARY.json)。']
+    lines+=['','**实际结论：七门全部失败，关闭 C3。** C3 在完整 BMC 训练患者及两域各4名开发患者的固定 0.5 判别规则下全部预测为空：Dice、recall、预测体积比均为0，precision 因没有阳性预测记为 NA，不伪作0。对 C0 的 BMC Dice −44.7891pp、RUNMC Dice −63.4514pp，四名患者在两域均下降；与标准 U-Net 的 BMC Dice 差距扩大到 −62.1067pp。相对自身源模型 RUNMC Dice −64.4596pp，旧域遗忘尤其严重。两域 HD95 从33.7089/19.6414增至245.617/283.497 mm，亦明显失败。', '训练空片平均 FP 从 C0 的 956.57 降到0，同时小/中/大非空面积层 TP也全为0，全部前景漏检。训练日志最后100步平均前景质量约0.02715，说明软概率未必数学上为零；结论是固定决策规则下出现全背景预测，不是参数/概率逐项恒为零。仅空片罚比 v50 含正片项更差，C3−C2 的 BMC Dice −40.9105pp，但单一新臂不能证明正片项在所有设定下必然保护召回。此空片抑制路线已关闭，不搜索阈值或罚项系数补救。', '复核门计算时发现复用的 v49 函数把 HD95 臂名写死为 C1；现改按 C3 对 C0 核算。所有患者指标与总 FAILED 结论不变，失败项由六项修正为七项；未重评分模型。',f"{cost['elapsed_seconds']:.2f}秒、根{cost['root_bytes']}字节；800正式更新、3预检模型反向+1fixture反向、12864训练读出样本前向。",'','单训练seed、每域4名反复开发患者。旧控制无重训/重评分；不得以训练切片或MC重复当独立患者。','', '[冻结协议](PREREG_ZH.md)；[匿名分析](ANALYSIS.json)；[成本](EXECUTION_SUMMARY.json)。']
     train_raw=dict(x['control_train_diagnostics'],C3=r['train_diagnostics']['C3'])
     outputs={'ANALYSIS.json':a,'EXECUTION_SUMMARY.json':cost,'TRAIN_DIAGNOSTICS.json':public_train_diagnostics(train_raw),'TRAIN_DEFINITION.json':public_train_definition(x['TRAIN_DEFINITION.json'])}
     for n,v in outputs.items():(out/n).write_text(json.dumps(v,indent=2)+'\n')
