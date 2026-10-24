@@ -1,0 +1,147 @@
+{
+  "status": "FROZEN_EXECUTABLE_V3",
+  "name": "源函数保持的解剖漂移近端推断",
+  "purpose": "Preserve full original source function and constrain adaptation-induced cross-organ occupancy drift relative to the frozen source on each current image; no absolute shape correction at source.",
+  "source_reference": "q0(x)=softmax(f0(x)); frozen native FixMatch43600 EMA; current input only",
+  "student": "qtheta via existing zero-entry 16->8->16 adapter B tanh(Ah); native backbone and real 3x3 head frozen",
+  "source_stage": {
+    "reuse": "V2 source prior and final EMA calibration, immutable read-only",
+    "new_calibration_optimizer": 0,
+    "new_native_source_training": 0,
+    "source_images_during_adaptation": false,
+    "new_source_gate": "Q/R source output equals q0 mathematically; numerical probability max error<=5e-7 and argmax exact, old-source paired mean/CI/p10 all zero; N saved rows reused",
+    "failure": "Any source function or source gate failure stops before target qualification"
+  },
+  "structural_model": {
+    "A": "384->32 nonoverlapping mean occupancy operator",
+    "a0": "A(q0_fg)",
+    "pi": "V2 frozen mode head applied to detached original h0 only, fixed throughout each solve and adaptation",
+    "W": "V2 frozen scale head on detached h0 only, W=s2/(s2+b2), [0,1]",
+    "mu_bar": "sum_k pi_k mu_k; only used to build between-mode uncertainty directions",
+    "F_x": "concatenate sqrt(pi_k)*F_k for all 8 modes and sqrt(pi_k)*(mu_k-mu_bar) for all 8 modes; rank<=72; do not average eigenvector columns",
+    "d_x": "sum_k pi_k sigma2_k, lower bounded by existing 1e-6 numerical floor",
+    "r": "u-a0-F_x z",
+    "Q_penalty": "sum_j 0.5*(r_j/sqrt(d_x_j))^2 + 0.5*||z||^2",
+    "R_penalty": "sum_j [sqrt(1+(r_j/sqrt(d_x_j))^2)-1] + 0.5*||z||^2",
+    "curvature_match": "both second derivatives at zero equal 1/d_x_j; R influence magnitude never exceeds Q at equal standardized residual",
+    "energy": "mean_i KL(P_i||qtheta_i) + lambda/(2M)||A(P_fg)-u||^2_W + lambda*beta/M*H(u-a0,z)",
+    "constraints": "P in 4-class simplex; u>=0,sum_c u_c<=1; z unconstrained",
+    "constants": {
+      "lambda": 1,
+      "beta": 1,
+      "pseudoHuber_scale_in_standardized_units": 1
+    },
+    "source_identity_proof": "qtheta=q0, P=q0,u=a0,z=0 gives all nonnegative terms zero; KL forces unique P=q0 at any global minimizer. No mixture latent-rho optimization or absolute-mu attraction.",
+    "convexity": "fixed x/pi/W/F/d: Q and pseudo-Huber are convex; KL strict in P, z quadratic coercive. Conditional latent and occupancy minimizers unique; no global Student-t nonconvexity.",
+    "scope": "Source-function preservation is exact for readout on any source-entry input; it does not prove old-domain retention after theta changes or correct source errors on the new domain."
+  },
+  "solver": {
+    "pixel_fixed_point_per_block": 16,
+    "final_pixel_refresh": 16,
+    "latent": "SPD72 or smaller solve; pseudoHuber IRLS uses 1/(d*sqrt(1+r^2/d)), matched to Q at r=0",
+    "projection": "exact weighted 3-class occupancy simplex",
+    "checks": [
+      "energy nonincrease",
+      "pixel fixed point residual<=1e-4",
+      "normalized full-block KKT/stationarity residual<=1e-4",
+      "zero drift source invariance",
+      "analytic derivative against independent finite difference on synthetic data",
+      "nonnegative robust penalty and R influence <=Q"
+    ],
+    "failure": "Stop on failed qualification, runtime or stationarity; do not increase iterations or tolerances in-run",
+    "gradient": "differentiate complete finite unroll; no early identity-return branch that silently removes structural derivatives",
+    "fixed_outer": 8
+  },
+  "adaptation": {
+    "data": "same Philips 13 train-L patients; no old images/labels/U/test",
+    "objective": "same ordinary GT pixel CE + present foreground Dice on final P for all arms; no trainable calibration head or mode head",
+    "teacher_calls": "same current-image frozen source forward for all arms including N",
+    "steps": 2000,
+    "seed": 20271611,
+    "deployment": "fixed final EMA .999",
+    "source_reference_update": false
+  },
+  "controls": [
+    {
+      "arm": "N",
+      "method": "native observation plus same adapter and GT task loss"
+    },
+    {
+      "arm": "Q",
+      "method": "source-anchored quadratic drift inference"
+    },
+    {
+      "arm": "R",
+      "method": "full source-anchored curvature-matched pseudo-Huber drift inference; primary"
+    }
+  ],
+  "qualification": {
+    "optimizer_per_arm": 32,
+    "all_before_formal": true,
+    "shared_distinguishability": "N qualification terminal batch graph evaluates Q/R structural gradient contrast; distance>=.05 and finite nonzero active gradient away from entry; no new probe extension or seed",
+    "near_entry_gradient": "Structural value/gradient can vanish at qtheta=q0 by design; do not incorrectly reject the intended identity as missing gradient"
+  },
+  "provisional_caps": {
+    "optimizer": 6096,
+    "source_gate_native_samples": 2176,
+    "formal_native_samples": 24000,
+    "all_qualification_native_samples": 600,
+    "evaluation_native_samples": 7224,
+    "total_medical_native_samples": 34000,
+    "formal_reverse": 6018,
+    "qualification_reverse": 150,
+    "total_medical_reverse": 6168,
+    "synthetic_native_samples": 128,
+    "synthetic_reverse": 64,
+    "pixel_sample_updates": 2500000,
+    "latent_block_sample_updates": 200000,
+    "clock_hours": 8,
+    "nonew_stage_seconds": 25200,
+    "stop_seconds": 27900,
+    "independent_timeout_seconds": 28600,
+    "kill_grace_seconds": 30,
+    "storage_strict_bytes": 4000000000,
+    "write_protection_bytes": 3500000000,
+    "remote_plus_local_peak_reservation_bytes": 4050000000,
+    "cumulative_30GB_not_reset": true,
+    "binding_status": "FROZEN: native source2176, qualification600, formal24000, evaluation7224; reverse qualification150/formal6018; optimizer6096. No extra probe.",
+    "synthetic_expected_reverse": 17
+  },
+  "final_science_gates": {
+    "source": "No loss of source readout, stricter function identity above",
+    "old_absolute_percent": 80.36740663770262,
+    "new_absolute_percent": 83,
+    "old_source_paired_CI_lower_pp": -0.3,
+    "old_tail_both_own_and_original": {
+      "over1_max": 2,
+      "over2_max": 0,
+      "p10_min_pp": -0.5,
+      "counts_no_worse_than_N": true
+    },
+    "R_minus_N_new_mean_and_CI_lower_pp": -0.2,
+    "R_minus_N_old_mean_pp": 0.3,
+    "R_minus_Q_old_mean_pp": 0.15,
+    "R_minus_Q_both_domains_NI_mean_and_CI_lower_pp": -0.2,
+    "all_required": true
+  },
+  "logging_required": [
+    "aggregate real W and anatomical active region weighting",
+    "posterior correction norms and classwise argmax flip counts",
+    "matched Q/R influence ratio and standardized residual strata",
+    "per-block energy and full stationarity residual",
+    "patient-level original/own-source paired CI and tails; public aggregates only"
+  ],
+  "do_not": [
+    "reopen V2",
+    "run scalar scans",
+    "retrain source segmenter",
+    "add new anatomy data or calibration split silently",
+    "call current proposal proven TMI-ready",
+    "claim no forgetting without old-domain evidence",
+    "start a new monitor or experiment before explicit user acceptance"
+  ],
+  "optimizer_cap": 6096,
+  "native_cap": 34000,
+  "reverse_cap": 6168,
+  "authority": "User explicitly approved V3 complete single-seed validation; source function and competence gates before adaptation."
+}
