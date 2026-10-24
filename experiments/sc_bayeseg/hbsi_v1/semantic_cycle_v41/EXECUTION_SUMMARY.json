@@ -1,0 +1,38 @@
+{
+  "status": "FAILED_PREFLIGHT_NO_TRAINING",
+  "exit_code": 1,
+  "original_started": 1792802819.231377,
+  "original_deadline": 1792813819.231377,
+  "exit_time": 1792802822.776859,
+  "wall_seconds": 3.5454821586608887,
+  "root_bytes": 1009632,
+  "formal_updates": 0,
+  "optimizer_updates": 0,
+  "source_updates": 0,
+  "model_forward_calls": 0,
+  "model_reverse_calls": 0,
+  "fixture_reverse_calls": 1,
+  "fixture_cost_evidence": "Execution reached auxiliary after check_fixture returned; code has one autograd.grad plus small tensor forwards. Not an independent counter.",
+  "evaluation_cells": 0,
+  "attempts": [
+    {
+      "name": "preflight",
+      "status": "FAILED",
+      "seconds_reserved": 600,
+      "updates_reserved": 0,
+      "error_type": "RuntimeError",
+      "seconds_actual": 1.8748547029972542,
+      "process_peak_rss_kib": 700416,
+      "peak_rss_unit": "KiB"
+    }
+  ],
+  "ledger_seconds_charged": 1.8748547029972542,
+  "ledger_updates_reserved": 0,
+  "error": "\"argmax_cuda\" not implemented for 'Bool'",
+  "retry": false,
+  "scientific_gate": "NOT_EVALUATED",
+  "campaign_admission_bytes": 16522015059,
+  "window_growth_at_admission_bytes": 5422471854,
+  "storage_reservation_bytes": 3000000000,
+  "source_payload_final_check": "NOT_REACHED; no optimizer call or source checkpoint write before failure"
+}
