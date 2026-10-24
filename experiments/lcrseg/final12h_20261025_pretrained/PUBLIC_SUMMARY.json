@@ -1,0 +1,124 @@
+{
+  "frozen_encoder_verification": {
+    "mnms": {
+      "status": "NOT_RUN",
+      "C_stages": [],
+      "model_forward": 0
+    },
+    "fundus": {
+      "status": "NOT_RUN",
+      "C_stages": [],
+      "model_forward": 0
+    }
+  },
+  "terminal": {
+    "status": "FINISHED_WITH_STOPS",
+    "source_ok": {
+      "mnms": false,
+      "fundus": false
+    },
+    "failed": [],
+    "counts": {
+      "native": 393156,
+      "reverse": 14016,
+      "importance_reverse": 0,
+      "optimizer": 14016,
+      "synthetic_reverse": 4
+    },
+    "end_epoch": 1792870974.279862,
+    "elapsed_seconds": 14411.279862165451,
+    "allocated_bytes": 2040176640,
+    "failure_details_private": false
+  },
+  "audit_model_forward": 0,
+  "optimizer_ledger": 14016,
+  "single_seed": 20272401,
+  "independent_test": false,
+  "current_U_used": true,
+  "historical_raw_images_in_adaptation": false,
+  "datasets": {
+    "mnms": {
+      "source": {
+        "gate": {
+          "status": "SOURCE_STOP",
+          "contrast": {
+            "mean_pp": -0.4689586831713207,
+            "CI95_pp": [
+              -2.9695073035040824,
+              1.7903207930018294
+            ],
+            "over1": 8,
+            "over2": 7,
+            "p10_pp": -6.829731835919272,
+            "n": 23
+          },
+          "training_sufficient": true,
+          "min_Dice_percent": 80.06740663770262
+        },
+        "metrics": {
+          "Siemens": {
+            "Dice_percent": 79.89800908561986,
+            "classes_percent": [
+              88.48508893660856,
+              77.71165537707483,
+              73.49728294317617
+            ],
+            "n": 23,
+            "p10_Dice_percent": 75.44228052833888
+          }
+        }
+      },
+      "stages": {},
+      "paper_reference_mean": 87.81,
+      "direct_paper_comparison": false,
+      "comparability_reason": "different frozen development-validation split",
+      "complete": false
+    },
+    "fundus": {
+      "source": {
+        "gate": {
+          "status": "SOURCE_STOP",
+          "contrast": {
+            "mean_pp": 0.8628937831422036,
+            "CI95_pp": [
+              0.23813200777998922,
+              1.5086952440825359
+            ],
+            "over1": 26,
+            "over2": 13,
+            "p10_pp": -2.846531826834844,
+            "n": 100
+          },
+          "training_sufficient": true,
+          "min_Dice_percent": 89.60059924655434
+        },
+        "metrics": {
+          "REFUGE": {
+            "Dice_percent": 90.76349302969653,
+            "classes_percent": [
+              86.37285898592768,
+              95.15412707346535
+            ],
+            "n": 100,
+            "p10_Dice_percent": 86.56716332957605
+          }
+        }
+      },
+      "stages": {},
+      "paper_reference_mean": 83.1,
+      "direct_paper_comparison": false,
+      "comparability_reason": "three sites; second REFUGE camera absent; development validation",
+      "complete": false
+    }
+  },
+  "previous_window_costs": {
+    "optimizer": 80096,
+    "native": 1275182,
+    "reverse": 80096,
+    "importance_reverse": 448,
+    "synthetic_native": 32,
+    "synthetic_reverse": 4
+  },
+  "cumulative_optimizer": 94112,
+  "decision": "INCOMPLETE_OR_SOURCE_STOP_NO_SUCCESS_CLAIM"
+}

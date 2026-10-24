@@ -39,13 +39,33 @@ def main(cfg):
             if int(rest[2]) == launch['process_group'] and rest[0] != 'Z': members.append(int(p.name))
         except (FileNotFoundError, PermissionError, ValueError): pass
     assert not members, members
+    # Verify the defining representation constraint from saved states, zero forwards.
+    import torch
+    torch.set_num_threads(4)
+    frozen_proof = {}
+    for dataset, sites in cfg['sites'].items():
+        src = root/f'{dataset}_0_SOURCE'/'final.pt'
+        checked = []
+        if src.exists():
+            source_state = torch.load(src, map_location='cpu', weights_only=False)['teacher']
+            keys = [k for k in source_state if k.startswith('encoder.') or k in ('mean','sd')]
+            assert keys
+            for i in range(1,len(sites)):
+                phase = root/f'{dataset}_{i}_C'
+                if not (phase/'EXIT.json').exists() or read(phase/'EXIT.json')['exit_code'] != 0: continue
+                saved = torch.load(phase/'final.pt', map_location='cpu', weights_only=False)
+                assert all(torch.equal(source_state[k],saved[which][k]) for which in ('model','teacher') for k in keys)
+                checked.append(i)
+                del saved
+            del source_state
+        frozen_proof[dataset] = dict(status='PASS_EXACT_SAVED_STATES' if checked else 'NOT_RUN', C_stages=checked, model_forward=0)
     terminal = read(root/'TERMINAL.json')
     physical = sum(1 for _ in (root/'physical_optimizer.jsonl').open()) if (root/'physical_optimizer.jsonl').exists() else 0
     assert physical == terminal['counts']['optimizer'] <= cfg.get('optimizer_cap',80096)
     terminal_public = dict(terminal)
     terminal_public['failed'] = list(terminal.get('failed', {}))
     terminal_public['failure_details_private'] = bool(terminal.get('failed'))
-    summary = dict(terminal=terminal_public, audit_model_forward=0, optimizer_ledger=physical,
+    summary = dict(frozen_encoder_verification=frozen_proof, terminal=terminal_public, audit_model_forward=0, optimizer_ledger=physical,
                    single_seed=20272401, independent_test=False, current_U_used=True,
                    historical_raw_images_in_adaptation=False, datasets={}, previous_window_costs=cfg.get('previous_costs',{}), cumulative_optimizer=physical+cfg.get('previous_costs',{}).get('optimizer',0))
     complete = {}
@@ -95,4 +115,4 @@ def main(cfg):
     report += ['', '决策：'+summary['decision'], '', '完整阶段、患者配对CI/下降人数/p10、源门禁和物理成本：', '', '```json', json.dumps(summary, ensure_ascii=False, indent=2), '```']
     (root/'REPORT_ZH.md').write_text('\n'.join(report)+'\n')
     (root/'PUBLIC_SUMMARY.json').write_text(json.dumps(summary, ensure_ascii=False, indent=2))
-    (root/'AUDIT.json').write_text(json.dumps(dict(status='PASS', retired=True, physical_optimizer=physical, model_forward=0, complete=complete, audited_epoch=time.time()), indent=2))
+    (root/'AUDIT.json').write_text(json.dumps(dict(status='PASS', retired=True, physical_optimizer=physical, model_forward=0, complete=complete, frozen_encoder_verification=frozen_proof, audited_epoch=time.time()), indent=2))
