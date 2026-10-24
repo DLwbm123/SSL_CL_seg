@@ -1,0 +1,126 @@
+{
+  "status": "FROZEN_USER_AUTHORIZED_EXECUTABLE",
+  "title": "V3 同一能量的联合求解与原始对偶证书修订",
+  "scientific_objective_change": false,
+  "keep": [
+    "source-anchored E(P,u,z)",
+    "Q quadratic and R equal-origin-curvature pseudo-Huber",
+    "source q0, anatomy prior, pi and W frozen",
+    "same native head and observation adapter",
+    "same current Philips L only during adaptation, no old images/U/test",
+    "N/Q/R single-seed, same task CE+present-foreground Dice, SGD and fixed EMA",
+    "source function and source competence gates before target",
+    "all old patient-tail and new-domain absolute/noninferiority science gates"
+  ],
+  "pixel_reduction": {
+    "P_of_u": "Solve original unique conditional P block with fixed 16 pixel fixed-point updates; original residual <=1e-4 retained.",
+    "C_j": "mean over pixel cell of diag(P_fg)-P_fg P_fg^T, 3x3",
+    "v_j": "W_j (A P_fg - u)_j",
+    "reduced_pixel_gradient_u": "-v",
+    "reduced_pixel_hessian_T_j": "(W_j^(-1)+C_j)^(-1)",
+    "finite_solve_caveat": "T formula is exact for the conditional optimum; finite16 pixel updates make this an inexact Newton direction. Retain pixel residual and final primal-dual gap checks, never claim exact Newton from an approximate conditional solve."
+  },
+  "joint_newton": {
+    "variables": "u and z updated together, not sequential stale best responses",
+    "r": "u-a0-Fz",
+    "s_Q": "r/d",
+    "s_R": "r/(d sqrt(1+r^2/d))",
+    "D_Q": "diag(1/d)",
+    "D_R": "diag((1/d)*(1+r^2/d)^(-3/2)); exact Hessian, not old IRLS gradient/r weight",
+    "gradient": "Differentiate complete finite eight coupled steps under selected active faces. No source-zero early return that removes structural derivative. No simultaneous production switch to implicit gradients.",
+    "Hessian_blocks": "[[T+D,-DF],[-F^T D,I+F^T D F]] (common 1/M factor removed)",
+    "interior_Schur": "I+F^T K F, K=(D^(-1)+T^(-1))^(-1)=(D^(-1)+W^(-1)+C)^(-1)",
+    "scalar_fixed_P_Schur": "K=WD/(W+D), so D->infinity gives K->W rather than a stale block feedback near1",
+    "stable_algebra": "Do not numerically form D-D(T+D)^(-1)D by large-number cancellation; use parallel-sum form.",
+    "occupancy_constraints": "Primal-dual active set with per-cell nonnegative foreground and sum<=1. Active cell KKT/tangent blocks eliminate locally, leaving <=72-dimensional Schur system. Release active constraints according to multiplier/complementarity, not by current zeros alone.",
+    "projection_warning": "T is full3x3. Existing diagonal weighted clamp/projection cannot silently be reused as the full-Hessian projection. Enumerate small faces / solve full-metric cell KKT.",
+    "active_constraint_conditioning": "The bounded interior K formula does not automatically cover binding faces. Their correct reduced KKT and stable square-root/LDLT factorization must be checked separately.",
+    "outer_direction_cap": 8,
+    "inner_pixel_updates_per_evaluation_cap": 16,
+    "line_search_candidates": [
+      1,
+      0.5,
+      0.25,
+      0.125
+    ],
+    "line_search_rule": "first feasible Armijo decrease candidate, c=1e-4, fixed original energy; if none qualifies STOP, no additional candidates/directions",
+    "line_search_counted_separately": true,
+    "guarantee": "Not a proof eight Newton directions always converge; no acceptance without original residual gate and the additional gap certificate."
+  },
+  "certificate": {
+    "original_stationarity_threshold": 0.0001,
+    "additional_relative_primal_dual_gap_threshold": 1e-06,
+    "u_constraints": "C=product_j {u_j>=0, sum_foreground u_j<=1}",
+    "dual_variables": "v arbitrary; s arbitrary for Q; |s_j|<=1/sqrt(d_j) for R",
+    "phi_Q_conjugate": ".5*d_j*s_j^2",
+    "phi_R_conjugate": "1-sqrt(1-d_j*s_j^2), evaluate by rationalized equivalent near zero",
+    "support_C": "sum_cell max(0,(v-s)_cell,LV,(v-s)_cell,MYO,(v-s)_cell,RV)",
+    "dual_objective": "D(v,s)=-mean_i logsumexp_c(log q_ic - lift(v)_ic) - [0.5 sum_j v_j^2/W_j + a0^T s + sum_j phi_j^*(s_j) + 0.5 ||F^T s||^2 + support_C(v-s)]/M; lift background coefficient0",
+    "construct_feasible_dual": "v=W(AP-u), s=gradient of raw residual penalty; check dual feasibility explicitly, roundoff handled by fixed inward machine-precision mapping only if necessary and recorded.",
+    "gap": "E(P,u,z)-D(v,s)>=0 for primal/dual feasible states; report raw and divided by max(1,|E|,|D|).",
+    "meaning": "Bounds objective suboptimality independently of latent coordinate representation. Does not guarantee Dice or old-patient safety.",
+    "failure": "Keep energy monotonicity and source identity gates; any residual/gap/feasibility failure STOP, do not silently substitute another solver."
+  },
+  "qualification_before_medical": {
+    "no_repeated_mechanism_scans": true,
+    "fixed_numerical_families": [
+      "source identity with real nonzero saved low-rank prior",
+      "aligned low-rank nonzero drift",
+      "residual-direction drift with real variance floor and nonzero F simultaneously",
+      "occupancy active-face transitions including absent classes and full foreground mass"
+    ],
+    "input": "existing source prior parameters and predeclared synthetic tensors only, no new patient image/label reading",
+    "reference": "independently solved small convex Q/R problems and primal-dual gap, gradient directional finite differences; compare values/solutions not only finite outputs",
+    "real_size": "384x384 full objective/backward must use real nonzero prior and nonzero synthetic adapter drift, not zero-factor proxy",
+    "budget_screen": "Worst-case fixed candidate and linear solve counts plus speed/memory estimate must fit original 8h/4GB before medical launch; failure ends proposal implementation attempt, no automatic iteration escalation"
+  },
+  "failure_capture": {
+    "before_assert": [
+      "per-direction energy, dual value/gap, original residual components",
+      "accepted step size, active face counts, linear-system relative residual",
+      "small spectral/conditioning summaries rather than guessed full condition number",
+      "last successful forward/optimizer counts and checkpoint step"
+    ],
+    "private_problem_snapshot": [
+      "log qtheta",
+      "log q0",
+      "W",
+      "pi or F and d",
+      "u",
+      "z",
+      "current active faces and arithmetic dtype"
+    ],
+    "rules": "No image/label/patient ID snapshots, never public, never replay for training. Save on failure before re-raising. Budget approximately 20-50MB including atomic copy; preserve old failure records."
+  },
+  "execution_if_later_authorized": {
+    "independent_protocol_required": true,
+    "original_V3_closed": true,
+    "original_31_calls_not_erased_or_claimed_resumable": true,
+    "reuse_original_checkpoint_as_step31": false,
+    "source": "fresh numerical/source gate for changed finite solver; N native saved rows remain reusable",
+    "target": "N/Q/R qualification and formal from original shared entry, not failed in-memory state",
+    "optimizer_cap_candidate": 6096,
+    "native_sample_cap_candidate": 34000,
+    "medical_reverse_cap_candidate": 6168,
+    "newton_direction_sample_cap_candidate": 120000,
+    "merit_trial_sample_cap_candidate": 480000,
+    "pixel_sample_update_cap_candidate": 10000000,
+    "note": "Candidate operation ceilings must be rebound to actual implementation, synthetic derivatives, active-set and line-search arithmetic. Higher algebra cost is not free and cannot borrow old V3 primitive buckets.",
+    "clock_hours": 8,
+    "storage_strict_bytes": 4000000000,
+    "write_protection_bytes": 3500000000,
+    "cumulative_30GB_not_reset": true,
+    "no_launch_this_turn": false,
+    "binding_status": "Fully bound by APOS_JOINT_V1_PROTOCOL_ZH.md and runtime.CAPS"
+  },
+  "final_evidence_required": [
+    "source function identity + full source capability pass",
+    "Q/R gradient distinguishability once on fixed qualification batch without expanded probe",
+    "all N/Q/R formal complete before target performance reading",
+    "R old absolute >=80.3674066377, source-paired CI lower >=-.30, own/original tail >1<=2/>2=0/p10>=-.50 and not worse N",
+    "R new >=83 and R-N new mean/CI>=-.20",
+    "old R-N>=.30 and R-Q>=.15; R-Q both domains NI mean/CI>=-.20",
+    "full failure costs and reused-development/single-seed limitations"
+  ],
+  "authority": "User authorized same8 joint directions, original residual, extra dual gap, N/Q/R single seed, source gates, no old images,8h/4GB"
+}
