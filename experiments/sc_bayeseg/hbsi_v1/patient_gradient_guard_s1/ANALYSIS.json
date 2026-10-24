@@ -1,0 +1,996 @@
+{
+  "status": "PATIENT_GUARD_FAILED",
+  "mechanism_gates": {
+    "Full_exact_R1": true,
+    "at_least_one_projection": true,
+    "all_post_projection_constraints": true,
+    "source_images_not_replayed": true
+  },
+  "source_gates": {
+    "RUNMC_mean_vs_Utarget_ge_minus_1pp": false,
+    "RUNMC_each_vs_Utarget_ge_minus_5pp": false,
+    "RUNMC_HD95_vs_Utarget_le_1_10": true,
+    "RUNMC_mean_vs_Usource_ge_minus_0_5pp": true,
+    "RUNMC_each_vs_Usource_ge_minus_5pp": true,
+    "no_RUNMC_patient_empty": true
+  },
+  "target_gates": {
+    "BMC_mean_vs_Utarget_ge_plus_2pp": false,
+    "BMC_at_least_3_of_4_nonnegative_vs_Utarget": false,
+    "BMC_each_vs_Utarget_ge_minus_5pp": false,
+    "BMC_HD95_vs_Utarget_le_1_10": false,
+    "BMC_train_mean_vs_Utarget_ge_minus_5pp": true,
+    "no_BMC_patient_empty": true
+  },
+  "cells": {
+    "Full_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8724335968359556,
+      "precision": 0.8893949247854881,
+      "recall": 0.8569784193163795,
+      "HD95_penalized_mm": 3.8353995582561033,
+      "NLL": 0.012792410569442685,
+      "Brier": 0.006143696255291939,
+      "empty_predictions": 0
+    },
+    "Full_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6709097830340758,
+      "precision": 0.6993307236560596,
+      "recall": 0.7237964557706009,
+      "HD95_penalized_mm": 45.03354707281389,
+      "NLL": 0.09812712537393627,
+      "Brier": 0.037922607557048967,
+      "empty_predictions": 0
+    },
+    "Full_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6518388263160119,
+      "precision": 0.7247871098433145,
+      "recall": 0.7031828522751365,
+      "HD95_penalized_mm": 31.931508035002757,
+      "NLL": 0.066587566043838,
+      "Brier": 0.023614865080064038,
+      "empty_predictions": 0
+    },
+    "PatientGuard_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8032494619560392,
+      "precision": 0.780150069881324,
+      "recall": 0.8278577663428349,
+      "HD95_penalized_mm": 48.761434465522505,
+      "NLL": 0.020159929232588435,
+      "Brier": 0.009546225489299965,
+      "empty_predictions": 0
+    },
+    "PatientGuard_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6689492085096359,
+      "precision": 0.6958310772844221,
+      "recall": 0.7062156179942285,
+      "HD95_penalized_mm": 42.83824820863322,
+      "NLL": 0.10770511987677418,
+      "Brier": 0.03858192427513782,
+      "empty_predictions": 0
+    },
+    "PatientGuard_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6309992804750941,
+      "precision": 0.6649362408432311,
+      "recall": 0.6948168458420606,
+      "HD95_penalized_mm": 42.083958608203844,
+      "NLL": 0.0701852851827166,
+      "Brier": 0.025268657919785893,
+      "empty_predictions": 0
+    }
+  },
+  "patients": {
+    "RUNMC": [
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 31202,
+          "TP": 23456,
+          "FP": 7746,
+          "FN": 13372,
+          "Dice": 0.6895781272967808,
+          "HD95_mm": 92.78388610898155,
+          "HD95_penalized_mm": 92.78388610898155,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.08445834734842837,
+          "Brier": 0.029002277026683752
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 35011,
+          "TP": 24506,
+          "FP": 10505,
+          "FN": 12322,
+          "Dice": 0.6822478041175406,
+          "HD95_mm": 72.31751968995597,
+          "HD95_penalized_mm": 72.31751968995597,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.08655033958680428,
+          "Brier": 0.031262785924911475
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 41838,
+          "TP": 26900,
+          "FP": 14938,
+          "FN": 9928,
+          "Dice": 0.6839041008822109,
+          "HD95_mm": 73.46286946485885,
+          "HD95_penalized_mm": 73.46286946485885,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.08534897993407041,
+          "Brier": 0.03336847314476636
+        },
+        "Usource": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 27445,
+          "TP": 22055,
+          "FP": 5390,
+          "FN": 14773,
+          "Dice": 0.6862912887215471,
+          "HD95_mm": 19.510835193549077,
+          "HD95_penalized_mm": 19.510835193549077,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07797852775204797,
+          "Brier": 0.0277753237842516
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 40151,
+          "TP": 34674,
+          "FP": 5477,
+          "FN": 23783,
+          "Dice": 0.7032695116014928,
+          "HD95_mm": 13.930648967376092,
+          "HD95_penalized_mm": 13.930648967376092,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.14172304220269738,
+          "Brier": 0.047908177889147786
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 41192,
+          "TP": 33988,
+          "FP": 7204,
+          "FN": 24469,
+          "Dice": 0.6821543618099529,
+          "HD95_mm": 20.834755882694992,
+          "HD95_penalized_mm": 20.834755882694992,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.16530776186648133,
+          "Brier": 0.05228001938273287
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 49664,
+          "TP": 43709,
+          "FP": 5955,
+          "FN": 14748,
+          "Dice": 0.8085200839799854,
+          "HD95_mm": 12.000010013580322,
+          "HD95_penalized_mm": 12.000010013580322,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.0855375471746697,
+          "Brier": 0.03247093466659891
+        },
+        "Usource": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 39641,
+          "TP": 35235,
+          "FP": 4406,
+          "FN": 23222,
+          "Dice": 0.7183632693836776,
+          "HD95_mm": 40.10501603444067,
+          "HD95_penalized_mm": 40.10501603444067,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.11669192585150123,
+          "Brier": 0.04431099868616651
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 44005,
+          "TP": 36476,
+          "FP": 7529,
+          "FN": 13184,
+          "Dice": 0.7788608338226659,
+          "HD95_mm": 9.013878400261316,
+          "HD95_penalized_mm": 9.013878400261316,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.0950293297526275,
+          "Brier": 0.03711536935491519
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 39114,
+          "TP": 33421,
+          "FP": 5693,
+          "FN": 16239,
+          "Dice": 0.7529456822943654,
+          "HD95_mm": 9.06228448019593,
+          "HD95_penalized_mm": 9.06228448019593,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.1163184985545443,
+          "Brier": 0.04020919367453936
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 50699,
+          "TP": 41531,
+          "FP": 9168,
+          "FN": 8129,
+          "Dice": 0.8276487410197392,
+          "HD95_mm": 26.420873080431644,
+          "HD95_penalized_mm": 26.420873080431644,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.06959494262033598,
+          "Brier": 0.02992561369402608
+        },
+        "Usource": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 29502,
+          "TP": 26364,
+          "FP": 3138,
+          "FN": 23296,
+          "Dice": 0.6660771582324853,
+          "HD95_mm": 26.260712753698773,
+          "HD95_penalized_mm": 26.260712753698773,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.13602524575791686,
+          "Brier": 0.04889567680961195
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 42656,
+          "TP": 15061,
+          "FP": 27595,
+          "FN": 1123,
+          "Dice": 0.5119306594153638,
+          "HD95_mm": 64.40577481463659,
+          "HD95_penalized_mm": 64.40577481463659,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07129778219199179,
+          "Brier": 0.03766460595744914
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 36272,
+          "TP": 14647,
+          "FP": 21625,
+          "FN": 1537,
+          "Dice": 0.5584489858166845,
+          "HD95_mm": 69.13843278168599,
+          "HD95_penalized_mm": 69.13843278168599,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.06264387949926688,
+          "Brier": 0.03057569811836756
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 49697,
+          "TP": 14932,
+          "FP": 34765,
+          "FN": 1252,
+          "Dice": 0.45330216602662377,
+          "HD95_mm": 74.64639567984443,
+          "HD95_penalized_mm": 74.64639567984443,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.09002955083200567,
+          "Brier": 0.047430376329080176
+        },
+        "Usource": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 18373,
+          "TP": 7943,
+          "FP": 10430,
+          "FN": 8241,
+          "Dice": 0.459704256735249,
+          "HD95_mm": 25.76177215481844,
+          "HD95_penalized_mm": 25.76177215481844,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07076546407536959,
+          "Brier": 0.025786227741840147
+        }
+      }
+    ],
+    "BMC": [
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 82718,
+          "predicted": 23757,
+          "TP": 23379,
+          "FP": 378,
+          "FN": 59339,
+          "Dice": 0.4391453392815215,
+          "HD95_mm": 21.1482859825566,
+          "HD95_penalized_mm": 21.1482859825566,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.17216658921422923,
+          "Brier": 0.04900307609901319
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 82718,
+          "predicted": 29970,
+          "TP": 25650,
+          "FP": 4320,
+          "FN": 57068,
+          "Dice": 0.45523924464006815,
+          "HD95_mm": 40.39670466300764,
+          "HD95_penalized_mm": 40.39670466300764,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.16413705308651066,
+          "Brier": 0.049219810798809355
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 82718,
+          "predicted": 36419,
+          "TP": 28527,
+          "FP": 7892,
+          "FN": 54191,
+          "Dice": 0.47889404635000044,
+          "HD95_mm": 17.871503154463532,
+          "HD95_penalized_mm": 17.871503154463532,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.1551593545148164,
+          "Brier": 0.04903207040784391
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 47074,
+          "predicted": 50583,
+          "TP": 35062,
+          "FP": 15521,
+          "FN": 12012,
+          "Dice": 0.7180642452665964,
+          "HD95_mm": 21.659630372662782,
+          "HD95_penalized_mm": 21.659630372662782,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.05007367350684517,
+          "Brier": 0.0227790126032552
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 47074,
+          "predicted": 50013,
+          "TP": 32815,
+          "FP": 17198,
+          "FN": 14259,
+          "Dice": 0.6759916363673818,
+          "HD95_mm": 38.33198916717127,
+          "HD95_penalized_mm": 38.33198916717127,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.06602887502203383,
+          "Brier": 0.02652145921072694
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 47074,
+          "predicted": 63200,
+          "TP": 35110,
+          "FP": 28090,
+          "FN": 11964,
+          "Dice": 0.6367774815459674,
+          "HD95_mm": 30.035370924091175,
+          "HD95_penalized_mm": 30.035370924091175,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.0692994254205182,
+          "Brier": 0.03313670247180199
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 24736,
+          "predicted": 34621,
+          "TP": 21986,
+          "FP": 12635,
+          "FN": 2750,
+          "Dice": 0.740805633707903,
+          "HD95_mm": 36.40499687827329,
+          "HD95_penalized_mm": 36.40499687827329,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.023268754151375293,
+          "Brier": 0.01196547548068897
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 24736,
+          "predicted": 36972,
+          "TP": 23242,
+          "FP": 13730,
+          "FN": 1494,
+          "Dice": 0.7532896869125559,
+          "HD95_mm": 32.99993443489075,
+          "HD95_penalized_mm": 32.99993443489075,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.022774827254585694,
+          "Brier": 0.0118080052831833
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 24736,
+          "predicted": 46242,
+          "TP": 22803,
+          "FP": 23439,
+          "FN": 1933,
+          "Dice": 0.6425371241793232,
+          "HD95_mm": 42.294212510562026,
+          "HD95_penalized_mm": 42.294212510562026,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.04173206973957692,
+          "Brier": 0.0204766958675981
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 19371,
+          "predicted": 29590,
+          "TP": 17365,
+          "FP": 12225,
+          "FN": 2006,
+          "Dice": 0.7093400870080268,
+          "HD95_mm": 48.513118906518365,
+          "HD95_penalized_mm": 48.513118906518365,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.020841247302902294,
+          "Brier": 0.010711896137298798
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 19371,
+          "predicted": 31064,
+          "TP": 16126,
+          "FP": 14938,
+          "FN": 3245,
+          "Dice": 0.6394765539803707,
+          "HD95_mm": 56.607206167745716,
+          "HD95_penalized_mm": 56.607206167745716,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.027800385367736234,
+          "Brier": 0.013525356386423997
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 19371,
+          "predicted": 28526,
+          "TP": 17388,
+          "FP": 11138,
+          "FN": 1983,
+          "Dice": 0.7260579994571685,
+          "HD95_mm": 55.55422390215591,
+          "HD95_penalized_mm": 55.55422390215591,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.020154520165299145,
+          "Brier": 0.009729082353158166
+        }
+      }
+    ],
+    "BMC_train": [
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 25328,
+          "predicted": 25340,
+          "TP": 22367,
+          "FP": 2973,
+          "FN": 2961,
+          "Dice": 0.8828846609299755,
+          "HD95_mm": 3.0644147686969325,
+          "HD95_penalized_mm": 3.0644147686969325,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.008752947319036398,
+          "Brier": 0.004472741934156825
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 25328,
+          "predicted": 27072,
+          "TP": 21003,
+          "FP": 6069,
+          "FN": 4325,
+          "Dice": 0.8016412213740458,
+          "HD95_mm": 47.34449326841759,
+          "HD95_penalized_mm": 47.34449326841759,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.01574608832706123,
+          "Brier": 0.007924738466799306
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 25328,
+          "predicted": 27783,
+          "TP": 22362,
+          "FP": 5421,
+          "FN": 2966,
+          "Dice": 0.8420854436933969,
+          "HD95_mm": 12.000008583068848,
+          "HD95_penalized_mm": 12.000008583068848,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.013934819334771217,
+          "Brier": 0.00657528521767024
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 27434,
+          "predicted": 27613,
+          "TP": 23955,
+          "FP": 3658,
+          "FN": 3479,
+          "Dice": 0.8703471578832634,
+          "HD95_mm": 3.482095631429795,
+          "HD95_penalized_mm": 3.482095631429795,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.011219466271552053,
+          "Brier": 0.005503143317881294
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 27434,
+          "predicted": 29613,
+          "TP": 23065,
+          "FP": 6548,
+          "FN": 4369,
+          "Dice": 0.8086314793065367,
+          "HD95_mm": 49.1428048091601,
+          "HD95_penalized_mm": 49.1428048091601,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.018649837277642377,
+          "Brier": 0.008597523801118378
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 27434,
+          "predicted": 30942,
+          "TP": 25272,
+          "FP": 5670,
+          "FN": 2162,
+          "Dice": 0.8658352747704536,
+          "HD95_mm": 4.002537782087348,
+          "HD95_penalized_mm": 4.002537782087348,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.012157258693861315,
+          "Brier": 0.0060462876113687
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 50427,
+          "predicted": 48039,
+          "TP": 41368,
+          "FP": 6671,
+          "FN": 9059,
+          "Dice": 0.8402494261978755,
+          "HD95_mm": 6.000002861022949,
+          "HD95_penalized_mm": 6.000002861022949,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.023336584770877803,
+          "Brier": 0.010702457089434798
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 50427,
+          "predicted": 53486,
+          "TP": 42401,
+          "FP": 11085,
+          "FN": 8026,
+          "Dice": 0.81608653392742,
+          "HD95_mm": 49.05133958156388,
+          "HD95_penalized_mm": 49.05133958156388,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.028205499679862266,
+          "Brier": 0.01282850894451988
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 50427,
+          "predicted": 53844,
+          "TP": 43089,
+          "FP": 10755,
+          "FN": 7338,
+          "Dice": 0.8264809966337716,
+          "HD95_mm": 12.000005722045898,
+          "HD95_penalized_mm": 12.000005722045898,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.02674325639596584,
+          "Brier": 0.012233537372226789
+        }
+      },
+      {
+        "Full": {
+          "class_index": 1,
+          "GT": 26385,
+          "predicted": 23737,
+          "TP": 22461,
+          "FP": 1276,
+          "FN": 3924,
+          "Dice": 0.8962531423327081,
+          "HD95_mm": 2.7950849718747373,
+          "HD95_penalized_mm": 2.7950849718747373,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.007860643916304482,
+          "Brier": 0.0038964426796948373
+        },
+        "PatientGuard": {
+          "class_index": 1,
+          "GT": 26385,
+          "predicted": 27322,
+          "TP": 21124,
+          "FP": 6198,
+          "FN": 5261,
+          "Dice": 0.7866386132161544,
+          "HD95_mm": 49.50710020294846,
+          "HD95_penalized_mm": 49.50710020294846,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.018038291645787873,
+          "Brier": 0.008834130744762296
+        },
+        "Utarget": {
+          "class_index": 1,
+          "GT": 26385,
+          "predicted": 24734,
+          "TP": 22382,
+          "FP": 2352,
+          "FN": 4003,
+          "Dice": 0.8756822316555488,
+          "HD95_mm": 3.348874580729996,
+          "HD95_penalized_mm": 3.348874580729996,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.010300400190576629,
+          "Brier": 0.004900668062195304
+        }
+      }
+    ]
+  },
+  "references": {
+    "Utarget_RUNMC": {
+      "Dice": 0.6933437729771399,
+      "NLL": 0.08262775514027043,
+      "Brier": 0.03579884945861788,
+      "HD95_penalized_mm": 46.63253705967881,
+      "empty_predictions": 0
+    },
+    "Utarget_BMC": {
+      "Dice": 0.6210666628831149,
+      "NLL": 0.07158634246005266,
+      "Brier": 0.028093637775100544,
+      "HD95_penalized_mm": 36.43882762281816,
+      "empty_predictions": 0
+    },
+    "Usource_RUNMC": {
+      "Dice": 0.6326089932682397,
+      "NLL": 0.10036529085920891,
+      "Brier": 0.03669205675546755,
+      "HD95_penalized_mm": 27.90958403412674,
+      "empty_predictions": 0
+    },
+    "Utarget_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8525209866882927,
+      "precision": 0.8316997821493541,
+      "recall": 0.876714201967899,
+      "HD95_penalized_mm": 7.837856666983022,
+      "NLL": 0.01578393365379375,
+      "Brier": 0.007438944565865258,
+      "empty_predictions": 0
+    },
+    "Full_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6709097830340758,
+      "precision": 0.6993307236560596,
+      "recall": 0.7237964557706009,
+      "HD95_penalized_mm": 45.03354707281389,
+      "NLL": 0.09812712537393627,
+      "Brier": 0.037922607557048967,
+      "empty_predictions": 0
+    },
+    "PatientGuard_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6689492085096359,
+      "precision": 0.6958310772844221,
+      "recall": 0.7062156179942285,
+      "HD95_penalized_mm": 42.83824820863322,
+      "NLL": 0.10770511987677418,
+      "Brier": 0.03858192427513782,
+      "empty_predictions": 0
+    },
+    "Full_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6518388263160119,
+      "precision": 0.7247871098433145,
+      "recall": 0.7031828522751365,
+      "HD95_penalized_mm": 31.931508035002757,
+      "NLL": 0.066587566043838,
+      "Brier": 0.023614865080064038,
+      "empty_predictions": 0
+    },
+    "PatientGuard_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6309992804750941,
+      "precision": 0.6649362408432311,
+      "recall": 0.6948168458420606,
+      "HD95_penalized_mm": 42.083958608203844,
+      "NLL": 0.0701852851827166,
+      "Brier": 0.025268657919785893,
+      "empty_predictions": 0
+    },
+    "Full_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8724335968359556,
+      "precision": 0.8893949247854881,
+      "recall": 0.8569784193163795,
+      "HD95_penalized_mm": 3.8353995582561033,
+      "NLL": 0.012792410569442685,
+      "Brier": 0.006143696255291939,
+      "empty_predictions": 0
+    },
+    "PatientGuard_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8032494619560392,
+      "precision": 0.780150069881324,
+      "recall": 0.8278577663428349,
+      "HD95_penalized_mm": 48.761434465522505,
+      "NLL": 0.020159929232588435,
+      "Brier": 0.009546225489299965,
+      "empty_predictions": 0
+    }
+  },
+  "source_anchor_audit": {
+    "patients": 4,
+    "slices": 80,
+    "unnormalized_norms": [
+      0.5109741187161484,
+      1.6995245361371976,
+      0.936470194511966,
+      1.8083727032788637
+    ],
+    "gram": [
+      [
+        0.9999999999999992,
+        0.3898969470389273,
+        0.5087310605276301,
+        0.33037545256645556
+      ],
+      [
+        0.3898969470389273,
+        1.0000000000000004,
+        0.27859962849951314,
+        0.11238068079085056
+      ],
+      [
+        0.5087310605276301,
+        0.27859962849951314,
+        0.9999999999999971,
+        0.5701213779140156
+      ],
+      [
+        0.33037545256645556,
+        0.11238068079085056,
+        0.5701213779140156,
+        0.9999999999999999
+      ]
+    ]
+  },
+  "projection_receipt": {
+    "status": "COMPLETE",
+    "steps": 800,
+    "source_patient_anchor_count": 4,
+    "projection_changed_steps": 765,
+    "source_anchor_negative_dot_steps": [
+      700,
+      557,
+      757,
+      665
+    ],
+    "mean_correction_norm": 0.002339580761941136,
+    "max_post_projection_violation": 1.6317242695906842e-17,
+    "source_images_read_during_target_updates": false
+  },
+  "last100": {
+    "Full": {
+      "task": 0.11220893577599074,
+      "bound_per_pixel": -2.473200783259782,
+      "shape_logsd": -2.502019057588679,
+      "z_logsd": -1.0643892672687345
+    },
+    "PatientGuard": {
+      "task": 0.10816809279375118,
+      "bound_per_pixel": -2.4392299497478684,
+      "shape_logsd": -2.502173410517987,
+      "z_logsd": -1.0614818290737116
+    }
+  },
+  "descriptive_tail": {
+    "RUNMC": {
+      "Utarget": {
+        "worst_Dice_percent": 45.330216602662375,
+        "empirical_p10_percent": 52.248274648329996
+      },
+      "Full": {
+        "worst_Dice_percent": 51.193065941536375,
+        "empirical_p10_percent": 56.522489977978886
+      },
+      "PatientGuard": {
+        "worst_Dice_percent": 55.844898581668446,
+        "empirical_p10_percent": 59.5560598614665
+      }
+    },
+    "BMC": {
+      "Utarget": {
+        "worst_Dice_percent": 47.88940463500004,
+        "empirical_p10_percent": 52.625907690879046
+      },
+      "Full": {
+        "worst_Dice_percent": 43.91453392815215,
+        "empirical_p10_percent": 52.020376359947306
+      },
+      "PatientGuard": {
+        "worst_Dice_percent": 45.52392446400682,
+        "empirical_p10_percent": 51.051043744215896
+      }
+    }
+  },
+  "paired_bootstrap95pp": {
+    "RUNMC": {
+      "Utarget": [
+        -10.053439044770313,
+        6.018435016120208
+      ],
+      "Full": [
+        -2.351515065992016,
+        2.9609957353105565
+      ]
+    },
+    "BMC": {
+      "Utarget": [
+        -5.513254540224475,
+        7.715072162244149
+      ],
+      "Full": [
+        -5.5968070963435315,
+        1.4288979281599805
+      ]
+    }
+  },
+  "formal_updates": 1600,
+  "old_dev_repeated": true
+}
