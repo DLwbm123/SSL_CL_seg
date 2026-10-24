@@ -1,0 +1,99 @@
+{
+  "terminal": {
+    "status": "FINISHED_WITH_STOPS",
+    "source_ok": {
+      "mnms": false,
+      "fundus": false
+    },
+    "failed": {},
+    "counts": {
+      "native": 241904,
+      "reverse": 20016,
+      "importance_reverse": 64,
+      "optimizer": 20016
+    },
+    "end_epoch": 1792858995.6900084,
+    "elapsed_seconds": 2432.6900086402893,
+    "allocated_bytes": 46149632
+  },
+  "audit_model_forward": 0,
+  "optimizer_ledger": 20016,
+  "single_seed": 20272401,
+  "independent_test": false,
+  "current_U_used": true,
+  "historical_raw_images_in_adaptation": false,
+  "datasets": {
+    "mnms": {
+      "source": {
+        "gate": {
+          "status": "SOURCE_STOP",
+          "contrast": {
+            "mean_pp": -2.219063429431637,
+            "CI95_pp": [
+              -3.7046802508499197,
+              -0.7014453439878785
+            ],
+            "over1": 15,
+            "over2": 11,
+            "p10_pp": -5.68233738343932,
+            "n": 23
+          },
+          "min_Dice_percent": 80.06740663770262
+        },
+        "metrics": {
+          "Siemens": {
+            "Dice_percent": 78.14790433935951,
+            "classes_percent": [
+              85.00066759353247,
+              75.7031799551158,
+              73.7398654694303
+            ],
+            "n": 23,
+            "p10_Dice_percent": 68.05320113645993
+          }
+        }
+      },
+      "stages": {},
+      "paper_reference_mean": 87.81,
+      "direct_paper_comparison": false,
+      "comparability_reason": "different frozen development-validation split",
+      "complete": false
+    },
+    "fundus": {
+      "source": {
+        "gate": {
+          "status": "SOURCE_STOP",
+          "contrast": {
+            "mean_pp": -0.02341761619348383,
+            "CI95_pp": [
+              -0.23076121061885949,
+              0.1746169797111098
+            ],
+            "over1": 16,
+            "over2": 3,
+            "p10_pp": -1.23194519208506,
+            "n": 100
+          },
+          "min_Dice_percent": 89.29755965874404
+        },
+        "metrics": {
+          "REFUGE": {
+            "Dice_percent": 89.87718163036087,
+            "classes_percent": [
+              85.65960057684774,
+              94.09476268387395
+            ],
+            "n": 100,
+            "p10_Dice_percent": 85.32656101376486
+          }
+        }
+      },
+      "stages": {},
+      "paper_reference_mean": 83.1,
+      "direct_paper_comparison": false,
+      "comparability_reason": "three sites; second REFUGE camera absent; development validation",
+      "complete": false
+    }
+  },
+  "decision": "INCOMPLETE_OR_SOURCE_STOP_NO_SUCCESS_CLAIM"
+}
