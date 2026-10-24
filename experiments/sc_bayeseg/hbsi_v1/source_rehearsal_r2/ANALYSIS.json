@@ -1,0 +1,784 @@
+{
+  "status": "REHEARSAL_FEEDBACK_FAILED",
+  "source_gates": {
+    "RUNMC_mean_vs_Cut_ge_minus_1pp": true,
+    "RUNMC_each_vs_Cut_ge_minus_5pp": true,
+    "RUNMC_HD95_vs_Cut_le_1_10": true,
+    "RUNMC_mean_vs_source_ge_minus_0_5pp": true,
+    "RUNMC_each_vs_source_ge_minus_5pp": true,
+    "no_RUNMC_patient_empty": true
+  },
+  "target_gates": {
+    "BMC_mean_vs_Cut_ge_plus_2pp": true,
+    "BMC_at_least_3_of_4_nonnegative_vs_Cut": true,
+    "BMC_each_vs_Cut_ge_minus_5pp": true,
+    "BMC_HD95_vs_Cut_le_1_10": false,
+    "BMC_train_mean_vs_Cut_ge_minus_5pp": true,
+    "no_BMC_patient_empty": true
+  },
+  "source_pass": true,
+  "target_pass": false,
+  "cells": {
+    "ReplayCut_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8385827041143884,
+      "precision": 0.9090549414685747,
+      "recall": 0.7792289100411127,
+      "HD95_penalized_mm": 15.290908893238853,
+      "NLL": 0.019116669798882248,
+      "Brier": 0.008272518283913042,
+      "empty_predictions": 0
+    },
+    "ReplayCut_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.7573054599778175,
+      "precision": 0.9054946116979221,
+      "recall": 0.6526412405811364,
+      "HD95_penalized_mm": 6.265494059792898,
+      "NLL": 0.02931197923688822,
+      "Brier": 0.010858509253391924,
+      "empty_predictions": 0
+    },
+    "ReplayCut_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.639234911267656,
+      "precision": 0.9039049100655865,
+      "recall": 0.5226769776058819,
+      "HD95_penalized_mm": 19.812069499540883,
+      "NLL": 0.13563453853832946,
+      "Brier": 0.03913053770319211,
+      "empty_predictions": 0
+    },
+    "ReplayCut_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.5618162064458652,
+      "precision": 0.7526026503525701,
+      "recall": 0.47697284816962604,
+      "HD95_penalized_mm": 21.291894704208122,
+      "NLL": 0.08687192903797038,
+      "Brier": 0.02660921702520094,
+      "empty_predictions": 0
+    },
+    "ReplayJoint_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8989225354549086,
+      "precision": 0.9125005239439905,
+      "recall": 0.8889644053200825,
+      "HD95_penalized_mm": 5.564598197342763,
+      "NLL": 0.011155674355603957,
+      "Brier": 0.005221646008539398,
+      "empty_predictions": 0
+    },
+    "ReplayJoint_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8571078152498763,
+      "precision": 0.8454039075632553,
+      "recall": 0.8708704277451629,
+      "HD95_penalized_mm": 5.4151337149017635,
+      "NLL": 0.017216253401262902,
+      "Brier": 0.0073686688780085705,
+      "empty_predictions": 0
+    },
+    "ReplayJoint_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.7144209696965573,
+      "precision": 0.91534878556506,
+      "recall": 0.613673716800281,
+      "HD95_penalized_mm": 13.993243422093009,
+      "NLL": 0.10429206105263485,
+      "Brier": 0.03202395099606492,
+      "empty_predictions": 0
+    },
+    "ReplayJoint_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6802694212040654,
+      "precision": 0.700277829305253,
+      "recall": 0.7171108996579425,
+      "HD95_penalized_mm": 27.377015057507585,
+      "NLL": 0.06123468785548032,
+      "Brier": 0.02201647386378863,
+      "empty_predictions": 0
+    }
+  },
+  "patients": {
+    "RUNMC": [
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 18353,
+          "TP": 17304,
+          "FP": 1049,
+          "FN": 19524,
+          "Dice": 0.6271723962958264,
+          "HD95_mm": 14.084184669781209,
+          "HD95_penalized_mm": 14.084184669781209,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.1036499518709472,
+          "Brier": 0.029225972050698774
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 20627,
+          "TP": 19715,
+          "FP": 912,
+          "FN": 17113,
+          "Dice": 0.6862762161691759,
+          "HD95_mm": 12.358419166381978,
+          "HD95_penalized_mm": 12.358419166381978,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.08833593747457416,
+          "Brier": 0.025757084657215885
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 36828,
+          "predicted": 27445,
+          "TP": 22055,
+          "FP": 5390,
+          "FN": 14773,
+          "Dice": 0.6862912887215471,
+          "HD95_mm": 19.510835193549077,
+          "HD95_penalized_mm": 19.510835193549077,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07797852775204797,
+          "Brier": 0.0277753237842516
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 24145,
+          "TP": 22366,
+          "FP": 1779,
+          "FN": 36091,
+          "Dice": 0.5415365245393574,
+          "HD95_mm": 32.31485809044821,
+          "HD95_penalized_mm": 32.31485809044821,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.22772181277964987,
+          "Brier": 0.06405586665625239
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 31277,
+          "TP": 30382,
+          "FP": 895,
+          "FN": 28075,
+          "Dice": 0.6771569304834288,
+          "HD95_mm": 12.737741299218095,
+          "HD95_penalized_mm": 12.737741299218095,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.15910851886248753,
+          "Brier": 0.04830920006253573
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 58457,
+          "predicted": 39641,
+          "TP": 35235,
+          "FP": 4406,
+          "FN": 23222,
+          "Dice": 0.7183632693836776,
+          "HD95_mm": 40.10501603444067,
+          "HD95_penalized_mm": 40.10501603444067,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.11669192585150123,
+          "Brier": 0.04431099868616651
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 22160,
+          "TP": 21687,
+          "FP": 473,
+          "FN": 27973,
+          "Dice": 0.6039264828738513,
+          "HD95_mm": 14.849242867328645,
+          "HD95_penalized_mm": 14.849242867328645,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.18992243540976486,
+          "Brier": 0.05412132818079305
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 26666,
+          "TP": 26124,
+          "FP": 542,
+          "FN": 23536,
+          "Dice": 0.6845373791368603,
+          "HD95_mm": 12.8768208521665,
+          "HD95_penalized_mm": 12.8768208521665,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.15225695499499434,
+          "Brier": 0.04573360886413631
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 49660,
+          "predicted": 29502,
+          "TP": 26364,
+          "FP": 3138,
+          "FN": 23296,
+          "Dice": 0.6660771582324853,
+          "HD95_mm": 26.260712753698773,
+          "HD95_penalized_mm": 26.260712753698773,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.13602524575791686,
+          "Brier": 0.04889567680961195
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 16895,
+          "TP": 12972,
+          "FP": 3923,
+          "FN": 3212,
+          "Dice": 0.7843042413615889,
+          "HD95_mm": 17.99999237060547,
+          "HD95_penalized_mm": 17.99999237060547,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.02124395409295602,
+          "Brier": 0.009118983925024218
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 18737,
+          "TP": 14138,
+          "FP": 4599,
+          "FN": 2046,
+          "Dice": 0.8097133529967642,
+          "HD95_mm": 17.99999237060547,
+          "HD95_penalized_mm": 17.99999237060547,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.01746683287848334,
+          "Brier": 0.008295910400371762
+        },
+        "SourceU": {
+          "class_index": 1,
+          "GT": 16184,
+          "predicted": 18373,
+          "TP": 7943,
+          "FP": 10430,
+          "FN": 8241,
+          "Dice": 0.459704256735249,
+          "HD95_mm": 25.76177215481844,
+          "HD95_penalized_mm": 25.76177215481844,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.07076546407536959,
+          "Brier": 0.025786227741840147
+        }
+      }
+    ],
+    "BMC": [
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 82718,
+          "predicted": 17211,
+          "TP": 11193,
+          "FP": 6018,
+          "FN": 71525,
+          "Dice": 0.22401905352800489,
+          "HD95_mm": 18.381801462315927,
+          "HD95_penalized_mm": 18.381801462315927,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.2308097151293251,
+          "Brier": 0.06296024941707545
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 82718,
+          "predicted": 40177,
+          "TP": 32564,
+          "FP": 7613,
+          "FN": 50154,
+          "Dice": 0.5299483298750967,
+          "HD95_mm": 17.2032882031314,
+          "HD95_penalized_mm": 17.2032882031314,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.14495454785152906,
+          "Brier": 0.04550551704725368
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 47074,
+          "predicted": 32995,
+          "TP": 25786,
+          "FP": 7209,
+          "FN": 21288,
+          "Dice": 0.6440944685209007,
+          "HD95_mm": 19.7111792200122,
+          "HD95_penalized_mm": 19.7111792200122,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.06708600425129178,
+          "Brier": 0.024136586922999182
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 47074,
+          "predicted": 51043,
+          "TP": 36941,
+          "FP": 14102,
+          "FN": 10133,
+          "Dice": 0.7529989706167127,
+          "HD95_mm": 20.925811522623825,
+          "HD95_penalized_mm": 20.925811522623825,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.04794283640592452,
+          "Brier": 0.020081854465189383
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 24736,
+          "predicted": 18741,
+          "TP": 15535,
+          "FP": 3206,
+          "FN": 9201,
+          "Dice": 0.7146307242910045,
+          "HD95_mm": 8.999982118606567,
+          "HD95_penalized_mm": 8.999982118606567,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.026452766820655806,
+          "Brier": 0.010221082213037653
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 24736,
+          "predicted": 28152,
+          "TP": 20409,
+          "FP": 7743,
+          "FN": 4327,
+          "Dice": 0.7717818786870367,
+          "HD95_mm": 22.951711496615104,
+          "HD95_penalized_mm": 22.951711496615104,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.023505029860129218,
+          "Brier": 0.009792250464466601
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 19371,
+          "predicted": 15421,
+          "TP": 11560,
+          "FP": 3861,
+          "FN": 7811,
+          "Dice": 0.6645205794435503,
+          "HD95_mm": 38.074616015897796,
+          "HD95_penalized_mm": 38.074616015897796,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.023139229950608867,
+          "Brier": 0.009118949547691477
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 19371,
+          "predicted": 30918,
+          "TP": 16755,
+          "FP": 14163,
+          "FN": 2616,
+          "Dice": 0.6663485056374158,
+          "HD95_mm": 48.42724900766001,
+          "HD95_penalized_mm": 48.42724900766001,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.028536337304338494,
+          "Brier": 0.012686273478244843
+        }
+      }
+    ],
+    "RUNMC_train": [
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 26060,
+          "predicted": 20892,
+          "TP": 20180,
+          "FP": 712,
+          "FN": 5880,
+          "Dice": 0.8596012949395127,
+          "HD95_mm": 4.830731370731994,
+          "HD95_penalized_mm": 4.830731370731994,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.01828414333423497,
+          "Brier": 0.008265544126828627
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 26060,
+          "predicted": 25521,
+          "TP": 23758,
+          "FP": 1763,
+          "FN": 2302,
+          "Dice": 0.9211919117504508,
+          "HD95_mm": 2.8168369339562416,
+          "HD95_penalized_mm": 2.8168369339562416,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.009050206225825962,
+          "Brier": 0.004710895501211493
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 13428,
+          "predicted": 12217,
+          "TP": 9945,
+          "FP": 2272,
+          "FN": 3483,
+          "Dice": 0.7755897835835446,
+          "HD95_mm": 45.80005392058021,
+          "HD95_penalized_mm": 45.80005392058021,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.015003757409230645,
+          "Brier": 0.007107467527657634
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 13428,
+          "predicted": 15094,
+          "TP": 12054,
+          "FP": 3040,
+          "FN": 1374,
+          "Dice": 0.8452422691255873,
+          "HD95_mm": 12.157761665479049,
+          "HD95_penalized_mm": 12.157761665479049,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.011357122912104266,
+          "Brier": 0.005535233775571066
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 23118,
+          "predicted": 19217,
+          "TP": 18302,
+          "FP": 915,
+          "FN": 4816,
+          "Dice": 0.8646273768749262,
+          "HD95_mm": 4.419417382415922,
+          "HD95_penalized_mm": 4.419417382415922,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.01699801391400084,
+          "Brier": 0.007214357593347228
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 23118,
+          "predicted": 21364,
+          "TP": 20439,
+          "FP": 925,
+          "FN": 2679,
+          "Dice": 0.9189784631985972,
+          "HD95_mm": 3.5999984741210938,
+          "HD95_penalized_mm": 3.5999984741210938,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.010529021376483554,
+          "Brier": 0.004468680577365828
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 29840,
+          "predicted": 26749,
+          "TP": 24178,
+          "FP": 2571,
+          "FN": 5662,
+          "Dice": 0.8545123610595698,
+          "HD95_mm": 6.113432899227283,
+          "HD95_penalized_mm": 6.113432899227283,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.026180764538062534,
+          "Brier": 0.010502703887818677
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 29840,
+          "predicted": 26701,
+          "TP": 25734,
+          "FP": 967,
+          "FN": 4106,
+          "Dice": 0.9102774977449992,
+          "HD95_mm": 3.683795715814668,
+          "HD95_penalized_mm": 3.683795715814668,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.013686346908002042,
+          "Brier": 0.006171774180009207
+        }
+      }
+    ],
+    "BMC_train": [
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 25328,
+          "predicted": 16770,
+          "TP": 15908,
+          "FP": 862,
+          "FN": 9420,
+          "Dice": 0.7557603686635944,
+          "HD95_mm": 6.25,
+          "HD95_penalized_mm": 6.25,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.025127489644866902,
+          "Brier": 0.008638522603985274
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 25328,
+          "predicted": 26800,
+          "TP": 22777,
+          "FP": 4023,
+          "FN": 2551,
+          "Dice": 0.8738873542050337,
+          "HD95_mm": 3.5355339059327378,
+          "HD95_penalized_mm": 3.5355339059327378,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.010347354369355483,
+          "Brier": 0.005019169507244252
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 27434,
+          "predicted": 22406,
+          "TP": 19332,
+          "FP": 3074,
+          "FN": 8102,
+          "Dice": 0.7757624398073836,
+          "HD95_mm": 4.508671088738062,
+          "HD95_penalized_mm": 4.508671088738062,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.023306057619479376,
+          "Brier": 0.009201942367406875
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 27434,
+          "predicted": 30865,
+          "TP": 25376,
+          "FP": 5489,
+          "FN": 2058,
+          "Dice": 0.8705466646083123,
+          "HD95_mm": 5.999996662139893,
+          "HD95_penalized_mm": 5.999996662139893,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.012402996996847928,
+          "Brier": 0.0058184158256046
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 50427,
+          "predicted": 37059,
+          "TP": 31340,
+          "FP": 5719,
+          "FN": 19087,
+          "Dice": 0.7164574903413118,
+          "HD95_mm": 9.000004291534424,
+          "HD95_penalized_mm": 9.000004291534424,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.04652188025729313,
+          "Brier": 0.01748152930093018
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 50427,
+          "predicted": 48603,
+          "TP": 39297,
+          "FP": 9306,
+          "FN": 11130,
+          "Dice": 0.7936382914268404,
+          "HD95_mm": 9.000004291534424,
+          "HD95_penalized_mm": 9.000004291534424,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.037453224763123905,
+          "Brier": 0.014342937234687258
+        }
+      },
+      {
+        "ReplayCut": {
+          "class_index": 1,
+          "GT": 26385,
+          "predicted": 17947,
+          "TP": 17317,
+          "FP": 630,
+          "FN": 9068,
+          "Dice": 0.7812415410989805,
+          "HD95_mm": 5.303300858899107,
+          "HD95_penalized_mm": 5.303300858899107,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.022292489425913466,
+          "Brier": 0.008112042741245367
+        },
+        "ReplayJoint": {
+          "class_index": 1,
+          "GT": 26385,
+          "predicted": 25767,
+          "TP": 23217,
+          "FP": 2550,
+          "FN": 3168,
+          "Dice": 0.8903589507593189,
+          "HD95_mm": 3.125,
+          "HD95_penalized_mm": 3.125,
+          "empty_prediction_failure": false,
+          "GT_absent": false,
+          "NLL": 0.008661437475724289,
+          "Brier": 0.004294152944498168
+        }
+      }
+    ]
+  },
+  "source_U_RUNMC": {
+    "Dice": 0.6326089932682397,
+    "NLL": 0.10036529085920891,
+    "Brier": 0.03669205675546755,
+    "HD95_penalized_mm": 27.90958403412674,
+    "empty_predictions": 0
+  },
+  "last100": {
+    "ReplayCut": {
+      "source_task": 0.12512189827227924,
+      "target_task": 0.10890968553815462,
+      "bound_per_pixel": -2.5933696336416068,
+      "shape_logsd": -2.5020638092724377,
+      "z_logsd": -1.0602475851892421
+    },
+    "ReplayJoint": {
+      "source_task": 0.1221123415626891,
+      "target_task": 0.11253290371271302,
+      "bound_per_pixel": -2.5296697342923458,
+      "shape_logsd": -2.502195224338788,
+      "z_logsd": -1.0613183199094578
+    }
+  },
+  "formal_updates": 1600,
+  "descriptive_tail": {
+    "RUNMC": {
+      "ReplayCut": {
+        "worst_Dice_percent": 54.15365245393574,
+        "empirical_p10_percent": 56.025351203970565
+      },
+      "ReplayJoint": {
+        "worst_Dice_percent": 67.71569304834289,
+        "empirical_p10_percent": 67.93710650794583
+      }
+    },
+    "BMC": {
+      "ReplayCut": {
+        "worst_Dice_percent": 22.40190535280049,
+        "empirical_p10_percent": 35.00416780258736
+      },
+      "ReplayJoint": {
+        "worst_Dice_percent": 52.99483298750967,
+        "empirical_p10_percent": 57.08683826037924
+      }
+    }
+  },
+  "paired_four_patient_bootstrap95pp": {
+    "RUNMC": [
+      3.920955779213367,
+      11.649125942639094
+    ],
+    "BMC": [
+      2.8597070169352143,
+      24.37347458593269
+    ]
+  },
+  "C1_source_Joint_hard_stop_unchanged": true,
+  "R1_and_S1_verdicts_unchanged": true,
+  "repeated_four_patient_dev_exploratory": true
+}

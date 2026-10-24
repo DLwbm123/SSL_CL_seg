@@ -75,6 +75,9 @@ def main(path):
         ci[domain] = [percentile(means, .025), percentile(means, .975)]
 
     out = Path(__file__).resolve().parent
+    r1 = json.loads((out.parent / 'staged_target_feedback_r1' / 'ANALYSIS.json').read_text())
+    assert r1['status'] == 'STAGED_FEEDBACK_FAILED'
+    r1_cells = r1['cells']
     analysis = dict(status=verdict, source_gates=source_gates,
         target_gates=target_gates, source_pass=source_pass,
         target_pass=target_pass, cells=c, patients=p,
@@ -102,6 +105,13 @@ def main(path):
         f"{100*c[f'{arm}_RUNMC_train']['Dice']:.3f} | "
         f"{100*c[f'{arm}_BMC_train']['Dice']:.3f} |"
         for arm in (cut, joint))
+    quality = '\n'.join(
+        f"| {arm} | {c[f'{arm}_BMC']['precision']*100:.3f} | "
+        f"{c[f'{arm}_BMC']['recall']*100:.3f} | "
+        f"{c[f'{arm}_BMC']['HD95_penalized_mm']:.3f} | "
+        f"{c[f'{arm}_BMC']['NLL']:.5f} | "
+        f"{c[f'{arm}_BMC']['Brier']:.5f} |"
+        for arm in (cut, joint))
     gates = '\n'.join(f"| {kind} | {name} | {'PASS' if good else 'FAILED'} |"
         for kind, group in (('旧域', source_gates), ('目标', target_gates))
         for name, good in group.items())
@@ -127,6 +137,15 @@ def main(path):
 
 ReplayJoint−ReplayCut 的旧/新域开发均值变化为 {mean_diff('RUNMC'):+.3f}/{mean_diff('BMC'):+.3f}pp；相对封存源U旧域均值 {100*(c[f'{joint}_RUNMC']['Dice']-x['source_U_RUNMC']['Dice']):+.3f}pp。每个Dice是四患者等权三维结果。
 
+只读R1无重放终点的RUNMC/BMC开发Dice为RemainCut {100*r1_cells['RemainCut_RUNMC']['Dice']:.3f}/{100*r1_cells['RemainCut_BMC']['Dice']:.3f}%，SwitchJoint {100*r1_cells['SwitchJoint_RUNMC']['Dice']:.3f}/{100*r1_cells['SwitchJoint_BMC']['Dice']:.3f}%。R2的ReplayCut相对R1 RemainCut为 {100*(c[f'{cut}_RUNMC']['Dice']-r1_cells['RemainCut_RUNMC']['Dice']):+.3f}/{100*(c[f'{cut}_BMC']['Dice']-r1_cells['RemainCut_BMC']['Dice']):+.3f}pp，ReplayJoint相对R1 SwitchJoint为 {100*(c[f'{joint}_RUNMC']['Dice']-r1_cells['SwitchJoint_RUNMC']['Dice']):+.3f}/{100*(c[f'{joint}_BMC']['Dice']-r1_cells['SwitchJoint_BMC']['Dice']):+.3f}pp。重放同时改变源标签曝光与每步任务混合，这些跨实验差异不构成单独生成反馈的因果估计。
+
+| 臂 | BMC precision% | BMC recall% | BMC惩罚HD95 mm | BMC NLL | BMC Brier |
+|---|---:|---:|---:|---:|---:|
+{quality}
+
+BMC惩罚HD95均值从 {c[f'{cut}_BMC']['HD95_penalized_mm']:.3f} 增至 {c[f'{joint}_BMC']['HD95_penalized_mm']:.3f}mm，比例 {c[f'{joint}_BMC']['HD95_penalized_mm']/c[f'{cut}_BMC']['HD95_penalized_mm']:.3f}，超过冻结1.10上限；Dice显著提高不能覆盖该边界损失。
+匿名BMC四人的惩罚HD95 Cut→Joint 为 {', '.join(f"{v[cut]['HD95_penalized_mm']:.3f}→{v[joint]['HD95_penalized_mm']:.3f}" for v in p['BMC'])}mm；第3、4人明显上升。
+
 | 类别 | 预注册门 | 判定 |
 |---|---|---|
 {gates}
@@ -137,7 +156,7 @@ ReplayJoint−ReplayCut 的旧/新域开发均值变化为 {mean_diff('RUNMC'):+
 |---|---:|---:|---:|---:|---:|
 {rows}
 
-旧域相对ReplayCut的最差配对跌幅 {min(old):+.3f}pp、下降 {sum(v<0 for v in old)}/4 患者；新域最差配对跌幅 {min(new):+.3f}pp、获益 {sum(v>=0 for v in new)}/4。旧域绝对最差Dice Cut/Joint={tails['RUNMC'][cut]['worst_Dice_percent']:.3f}/{tails['RUNMC'][joint]['worst_Dice_percent']:.3f}%，四人插值p10={tails['RUNMC'][cut]['empirical_p10_percent']:.3f}/{tails['RUNMC'][joint]['empirical_p10_percent']:.3f}%；新域绝对最差={tails['BMC'][cut]['worst_Dice_percent']:.3f}/{tails['BMC'][joint]['worst_Dice_percent']:.3f}%。四名配对患者的4⁴有放回重采样均值95%经验描述区间：旧域 [{ci['RUNMC'][0]:+.3f},{ci['RUNMC'][1]:+.3f}]pp，新域 [{ci['BMC'][0]:+.3f},{ci['BMC'][1]:+.3f}]pp；这些并非独立患者总体推断，也不进入门槛。
+旧域相对ReplayCut的最小配对差 {min(old):+.3f}pp、下降 {sum(v<0 for v in old)}/4 患者；新域最小配对差 {min(new):+.3f}pp、获益 {sum(v>=0 for v in new)}/4。旧域绝对最差Dice Cut/Joint={tails['RUNMC'][cut]['worst_Dice_percent']:.3f}/{tails['RUNMC'][joint]['worst_Dice_percent']:.3f}%，四人插值p10={tails['RUNMC'][cut]['empirical_p10_percent']:.3f}/{tails['RUNMC'][joint]['empirical_p10_percent']:.3f}%；新域绝对最差={tails['BMC'][cut]['worst_Dice_percent']:.3f}/{tails['BMC'][joint]['worst_Dice_percent']:.3f}%。四名配对患者的4⁴有放回重采样均值95%经验描述区间：旧域 [{ci['RUNMC'][0]:+.3f},{ci['RUNMC'][1]:+.3f}]pp，新域 [{ci['BMC'][0]:+.3f},{ci['BMC'][1]:+.3f}]pp；这些并非独立患者总体推断，也不进入门槛。
 
 最后100批训练读数（生成bound每像素，不等于分割）：
 
