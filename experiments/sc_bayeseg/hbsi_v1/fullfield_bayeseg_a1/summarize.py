@@ -38,6 +38,15 @@ def main(snapshot):
     assert len(train) == 4
     train_tp = sum(m['classes'][0]['TP'] for m in train)
     train_pred = sum(m['classes'][0]['predicted'] for m in train)
+    geometry = {}
+    for name in names:
+        geometry[name] = {}
+        for arm in ('A', 'U'):
+            masks = [r[arm]['classes'][0] for r in x['paired'][name]]
+            geometry[name][arm] = dict(
+                precision=sum(v['TP'] / v['predicted'] if v['predicted'] else 0 for v in masks) / 4,
+                recall=sum(v['TP'] / v['GT'] if v['GT'] else 0 for v in masks) / 4,
+                predicted_to_GT=sum(v['predicted'] / v['GT'] if v['GT'] else 0 for v in masks) / 4)
     gates = {
         'source_RUNMC_within_1pp_of_U': cells['source_RUNMC']['Dice'] >= controls['source_RUNMC']['Dice'] - .01,
         'target_BMC_within_2pp_of_U': cells['target_BMC']['Dice'] >= controls['target_BMC']['Dice'] - .02,
@@ -47,6 +56,7 @@ def main(snapshot):
     analysis = dict(status='PASS' if all(gates.values()) else 'FAILED', gates=gates,
                     cells={k: cells[k] for k in names}, U_controls=controls,
                     target_BMC_train=cells['target_BMC_train'], paired=paired,
+                    patient_equal_geometry=geometry,
                     old_domain_change=old_change,
                     train_diagnostics=x['train_diagnostics'],
                     source_RUNMC_minus_U_pp=100 * (cells['source_RUNMC']['Dice'] - controls['source_RUNMC']['Dice']),
@@ -89,7 +99,9 @@ def main(snapshot):
 |---|---:|
 {patient_text}
 
-A1 目标阶段后 RUNMC 相对自身源模型平均 {analysis['old_domain_mean_change_pp']:+.3f} pp；最差单患者变化 {analysis['old_domain_worst_patient_change_pp']:+.3f} pp。旧域保持在本 A1 仅描述，不能解释为完整 CL 安全证据。目标 BMC 全训练患者 Dice {pct(cells['target_BMC_train']['Dice'])}%；空真值切片每片 FP 均值 {x['train_diagnostics']['empty_FP_per_slice']:.2f}（{x['train_diagnostics']['empty_slices']} 片），非空真值切片每片 FN 均值 {x['train_diagnostics']['positive_FN_per_slice']:.2f}（{x['train_diagnostics']['positive_slices']} 片）。目标 BMC precision/recall 为 {pct(cells['target_BMC']['precision'])}% / {pct(cells['target_BMC']['recall'])}%；详细匿名患者计数、NLL、Brier、HD95 见 [分析](ANALYSIS.json)。
+A1 目标阶段后 RUNMC 相对自身源模型平均 {analysis['old_domain_mean_change_pp']:+.3f} pp；最差单患者变化 {analysis['old_domain_worst_patient_change_pp']:+.3f} pp。旧域保持在本 A1 仅描述，不能解释为完整 CL 安全证据。目标 BMC 全训练患者 Dice {pct(cells['target_BMC_train']['Dice'])}%；空真值切片每片 FP 均值 {x['train_diagnostics']['empty_FP_per_slice']:.2f}（{x['train_diagnostics']['empty_slices']} 片），非空真值切片每片 FN 均值 {x['train_diagnostics']['positive_FN_per_slice']:.2f}（{x['train_diagnostics']['positive_slices']} 片）。目标 BMC 患者等权 precision/recall 为 A1 **{pct(geometry['target_BMC']['A']['precision'])}% / {pct(geometry['target_BMC']['A']['recall'])}%**、U-Net **{pct(geometry['target_BMC']['U']['precision'])}% / {pct(geometry['target_BMC']['U']['recall'])}%**；预测/真值体积比为 **{geometry['target_BMC']['A']['predicted_to_GT']:.3f} / {geometry['target_BMC']['U']['predicted_to_GT']:.3f}**。A1 的高召回伴随较多假阳性；详细匿名患者计数、NLL、Brier、HD95 见 [分析](ANALYSIS.json)。
+
+相较旧 R64 目标 BMC 的46.459%，A1 的57.362%数值更高；但 A1 源 RUNMC 为57.073%，旧 R64 为63.813%。两路线还改变了权重后验、分割出口与目标定义，不能把目标端差值单独归因完整分辨率后验，更不能跨路线追认旧门槛。
 
 首次导入因部署快照漏现有工具模块而失败，未进入预检或优化；保留原失败记录并在同一根、同一截止时间内补齐，正式结果来自第二次启动。预检2次真实反向、0次 Adam，之后完成2400次正式更新；首次启动至结束 {execution['elapsed_seconds']:.1f} 秒，根占用 {execution['new_root_bytes']} 字节。失败和修复不重置时钟或科研预算。[冻结协议](PREREG_ZH.md)、[执行摘要](EXECUTION_SUMMARY.json)。
 
