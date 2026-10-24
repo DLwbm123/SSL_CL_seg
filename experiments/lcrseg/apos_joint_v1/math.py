@@ -72,7 +72,7 @@ def dual_certificate(lp,lq,u,a0,z,f,d,w,kind):
 def solve(lq,lq0,w,pi,prior,kind,calls=None,failure=None):
     assert kind in ('Q','R');output_dtype=lq.dtype;lq=lq.double();lq=lq-torch.logsumexp(lq,1,keepdim=True);lq0=lq0.double();lq0=lq0-torch.logsumexp(lq0,1,keepdim=True)
     f,d=mixture(prior,pi);g=int((d.shape[1]//3)**.5);a0=area(lq0.exp()[:,1:],g);u=area(lq.exp()[:,1:],g);w=w.double();z=torch.zeros(len(lq),f.shape[-1],device=lq.device,dtype=torch.double)
-    Fc=f.reshape(len(lq),3,g,g,-1).permute(0,2,3,1,4).reshape(len(lq),g*g,3,-1);dc=cells(d.reshape_as(u));wc=cells(w);trace=[];maxpixel=0.
+    Fc=f.reshape(len(lq),3,g,g,-1).permute(0,2,3,1,4).reshape(len(lq),g*g,3,-1);dc=cells(d.reshape_as(u));wc=cells(w);trace=[];maxpixel=0.;attempted_trials=[]
     try:
         lp,res=pixel(lq,u,w,calls);maxpixel=max(maxpixel,float(res.detach()));E=energy(lp,lq,u,a0,z,f,d,w,kind);initial=float(E.detach())
         for direction in range(8):
@@ -90,6 +90,7 @@ def solve(lq,lq0,w,pi,prior,kind,calls=None,failure=None):
                 if calls:calls.merit(len(lq))
                 cand,_,_=face_project(cells(u)+alpha*du,H,calls);uc=image(cand,g);zc=z+alpha*dz;lpc,rp=pixel(lq,uc,w,calls);Ec=energy(lpc,lq,uc,a0,zc,f,d,w,kind)
                 actual_slope=((gu*(cand-cells(u))).sum((1,2))+(gz*(alpha*dz)).sum(1)).mean()/(g*g)
+                attempted_trials.append(dict(direction=direction+1,step=alpha,energy=float(Ec.detach()),actual_slope=float(actual_slope.detach())))
                 if float(actual_slope.detach())<=1e-12 and float(Ec.detach())<=float((E+1e-4*actual_slope).detach())+1e-12*max(1,abs(float(E.detach()))):accepted=True;break
             assert accepted,('fixed Armijo candidates exhausted',kind,direction)
             linear_res=(S@dz[...,None])[...,0]-rhs;lr=float((linear_res.abs().amax(1)/(1+rhs.abs().amax(1))).max())
@@ -106,7 +107,7 @@ def solve(lq,lq0,w,pi,prior,kind,calls=None,failure=None):
             assert cert['duality_gap_min']>=-1e-10 and cert['relative_duality_gap_max']<=1e-6,('duality gap',kind,cert)
         return lp.to(output_dtype),stats
     except BaseException as error:
-        if failure:failure(dict(error=str(error),kind=kind,trace=trace,final_stats=locals().get('stats')),dict(logq=lq.detach(),logq0=lq0.detach(),W=w.detach(),pi=pi.detach(),F=f.detach(),d=d.detach(),u=u.detach(),z=z.detach()))
+        if failure:failure(dict(error=str(error),kind=kind,trace=trace,attempted_trials=attempted_trials,final_stats=locals().get('stats')),dict(logq=lq.detach(),logq0=lq0.detach(),W=w.detach(),pi=pi.detach(),F=f.detach(),d=d.detach(),u=u.detach(),z=z.detach()))
         raise
 
 def check(device,prior,calls=None):
