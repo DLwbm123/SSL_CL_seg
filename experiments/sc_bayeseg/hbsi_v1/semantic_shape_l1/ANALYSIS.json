@@ -1,0 +1,1298 @@
+{
+  "status": "NO_BMC_GAIN",
+  "source_gates": {
+    "Joint_RUNMC_mean_vs_Cut_ge_minus_1pp": true,
+    "Joint_RUNMC_each_vs_Cut_ge_minus_5pp": true,
+    "Joint_RUNMC_train_mean_vs_Cut_ge_minus_5pp": true,
+    "Joint_RUNMC_mean_vs_U_ge_minus_1pp": true,
+    "Joint_RUNMC_each_vs_U_ge_minus_5pp": true,
+    "Joint_RUNMC_train_mean_vs_U_ge_minus_5pp": true,
+    "Joint_RUNMC_HD95_vs_both_le_1_10": true,
+    "Joint_no_source_collapse": true,
+    "Cut_vs_U_mean_ge_minus_1pp": true,
+    "Cut_vs_U_each_ge_minus_5pp": true,
+    "Cut_no_source_collapse": true,
+    "finite_training_and_scale": true
+  },
+  "BMC_signal_gates": {
+    "Joint_BMC_mean_vs_max_Cut_U_H1_ge_plus_2pp": false,
+    "Joint_BMC_3_of_4_nonnegative_vs_Cut_and_U": false,
+    "Joint_BMC_each_vs_Cut_and_U_ge_minus_5pp": true,
+    "Joint_BMC_HD95_vs_Cut_and_U_le_1_10": true,
+    "Joint_no_BMC_collapse": true
+  },
+  "cells": {
+    "U_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6326089932682397,
+      "precision": 0.7546032897602193,
+      "recall": 0.5558247906040931,
+      "HD95_penalized_mm": 27.90958403412674,
+      "NLL": 0.10036529085920891,
+      "Brier": 0.03669205675546755,
+      "empty_predictions": 0
+    },
+    "H1_Shape_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.6371795038484263,
+      "precision": 0.7669162636244349,
+      "recall": 0.5531732454408407,
+      "HD95_penalized_mm": 26.52426175454593,
+      "NLL": 0.10196721246122911,
+      "Brier": 0.035887831993698105,
+      "empty_predictions": 0
+    },
+    "Cut_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.6354087865592332,
+      "precision": 0.767042497310024,
+      "recall": 0.5517995408482339,
+      "HD95_penalized_mm": 26.518672253982512,
+      "NLL": 0.10158533221933605,
+      "Brier": 0.03628204393827898,
+      "empty_predictions": 0
+    },
+    "Joint_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.6304226363893526,
+      "precision": 0.7709085983002368,
+      "recall": 0.5426932732098773,
+      "HD95_penalized_mm": 26.226966602086044,
+      "NLL": 0.10482903661156827,
+      "Brier": 0.036699997929302966,
+      "empty_predictions": 0
+    },
+    "U_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.3099734565874816,
+      "precision": 0.4215958756531034,
+      "recall": 0.279570877524663,
+      "HD95_penalized_mm": 43.788126941648855,
+      "NLL": 0.11627197939770216,
+      "Brier": 0.03883788255763219,
+      "empty_predictions": 0
+    },
+    "H1_Shape_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.31072053099748614,
+      "precision": 0.4492183257298913,
+      "recall": 0.26803602208701516,
+      "HD95_penalized_mm": 40.98624659958424,
+      "NLL": 0.12127330811556994,
+      "Brier": 0.038057282055960644,
+      "empty_predictions": 0
+    },
+    "Cut_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.30488224232971983,
+      "precision": 0.4350468662436212,
+      "recall": 0.2639904288208547,
+      "HD95_penalized_mm": 40.637985916114474,
+      "NLL": 0.12136127115913362,
+      "Brier": 0.03839782711793671,
+      "empty_predictions": 0
+    },
+    "Joint_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.30033049034812914,
+      "precision": 0.43510891740274066,
+      "recall": 0.25885341482499524,
+      "HD95_penalized_mm": 40.81169143654605,
+      "NLL": 0.12412419984430281,
+      "Brier": 0.038379301874166924,
+      "empty_predictions": 0
+    },
+    "U_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8263174812956011,
+      "precision": 0.7812726237285461,
+      "recall": 0.8911926869694089,
+      "HD95_penalized_mm": 29.30098682807565,
+      "NLL": 0.02161131977511867,
+      "Brier": 0.00989677057221483,
+      "empty_predictions": 0
+    },
+    "H1_Shape_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.8343815961573995,
+      "precision": 0.8040462659118361,
+      "recall": 0.8782125443903096,
+      "HD95_penalized_mm": 26.64829208094556,
+      "NLL": 0.020116227770245392,
+      "Brier": 0.009249621905899756,
+      "empty_predictions": 0
+    },
+    "Cut_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.8374946647037351,
+      "precision": 0.8057278141866274,
+      "recall": 0.8850711164069139,
+      "HD95_penalized_mm": 19.75196593837712,
+      "NLL": 0.019412606878533058,
+      "Brier": 0.009066763471636548,
+      "empty_predictions": 0
+    },
+    "Joint_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "semantic_shape_posterior_mean",
+      "Dice": 0.8386834793212011,
+      "precision": 0.8129306226814401,
+      "recall": 0.8784108545919308,
+      "HD95_penalized_mm": 25.68660336845838,
+      "NLL": 0.019011857142425776,
+      "Brier": 0.008929987060291654,
+      "empty_predictions": 0
+    }
+  },
+  "patients": {
+    "RUNMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 27445,
+              "TP": 22055,
+              "FP": 5390,
+              "FN": 14773,
+              "Dice": 0.6862912887215471,
+              "HD95_mm": 19.510835193549077,
+              "HD95_penalized_mm": 19.510835193549077,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07797852775204797,
+          "Brier": 0.0277753237842516
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26587,
+              "TP": 21927,
+              "FP": 4660,
+              "FN": 14901,
+              "Dice": 0.6915398565008278,
+              "HD95_mm": 17.401073957603217,
+              "HD95_penalized_mm": 17.401073957603217,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.08059364254912446,
+          "Brier": 0.026929272914926722
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26595,
+              "TP": 21860,
+              "FP": 4735,
+              "FN": 14968,
+              "Dice": 0.6893398293994293,
+              "HD95_mm": 17.485603104210895,
+              "HD95_penalized_mm": 17.485603104210895,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07704188228709588,
+          "Brier": 0.027142091707263744
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 25969,
+              "TP": 21502,
+              "FP": 4467,
+              "FN": 15326,
+              "Dice": 0.6848097839068745,
+              "HD95_mm": 17.097326736744247,
+              "HD95_penalized_mm": 17.097326736744247,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07986776223232188,
+          "Brier": 0.02733461944803962
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39641,
+              "TP": 35235,
+              "FP": 4406,
+              "FN": 23222,
+              "Dice": 0.7183632693836776,
+              "HD95_mm": 40.10501603444067,
+              "HD95_penalized_mm": 40.10501603444067,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11669192585150123,
+          "Brier": 0.04431099868616651
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39524,
+              "TP": 35288,
+              "FP": 4236,
+              "FN": 23169,
+              "Dice": 0.7203029158714445,
+              "HD95_mm": 39.261621541670884,
+              "HD95_penalized_mm": 39.261621541670884,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11870825313568052,
+          "Brier": 0.044068700432564244
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39359,
+              "TP": 35077,
+              "FP": 4282,
+              "FN": 23380,
+              "Dice": 0.7172037294512146,
+              "HD95_mm": 40.016793570306874,
+              "HD95_penalized_mm": 40.016793570306874,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11900578049624222,
+          "Brier": 0.044472690378473755
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 38617,
+              "TP": 34546,
+              "FP": 4071,
+              "FN": 23911,
+              "Dice": 0.7117456785545048,
+              "HD95_mm": 39.462007721424996,
+              "HD95_penalized_mm": 39.462007721424996,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1239852987244469,
+          "Brier": 0.045102726365228
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29502,
+              "TP": 26364,
+              "FP": 3138,
+              "FN": 23296,
+              "Dice": 0.6660771582324853,
+              "HD95_mm": 26.260712753698773,
+              "HD95_penalized_mm": 26.260712753698773,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13602524575791686,
+          "Brier": 0.04889567680961195
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29850,
+              "TP": 26867,
+              "FP": 2983,
+              "FN": 22793,
+              "Dice": 0.675814362973211,
+              "HD95_mm": 25.675864821506547,
+              "HD95_penalized_mm": 25.675864821506547,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13714368172019517,
+          "Brier": 0.04786292030703719
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29098,
+              "TP": 26204,
+              "FP": 2894,
+              "FN": 23456,
+              "Dice": 0.6654308133776886,
+              "HD95_mm": 25.544080220909844,
+              "HD95_penalized_mm": 25.544080220909844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13976038971652163,
+          "Brier": 0.04894762990821564
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 28301,
+              "TP": 25510,
+              "FP": 2791,
+              "FN": 24150,
+              "Dice": 0.6544297789920601,
+              "HD95_mm": 25.142096477000283,
+              "HD95_penalized_mm": 25.142096477000283,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14689133085818218,
+          "Brier": 0.05015756095186308
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 18373,
+              "TP": 7943,
+              "FP": 10430,
+              "FN": 8241,
+              "Dice": 0.459704256735249,
+              "HD95_mm": 25.76177215481844,
+              "HD95_penalized_mm": 25.76177215481844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07076546407536959,
+          "Brier": 0.025786227741840147
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16996,
+              "TP": 7649,
+              "FP": 9347,
+              "FN": 8535,
+              "Dice": 0.4610608800482218,
+              "HD95_mm": 23.758486697403075,
+              "HD95_penalized_mm": 23.758486697403075,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07142327243991631,
+          "Brier": 0.024690434320264264
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 17304,
+              "TP": 7864,
+              "FP": 9440,
+              "FN": 8320,
+              "Dice": 0.46966077400860007,
+              "HD95_mm": 23.02821212050243,
+              "HD95_penalized_mm": 23.02821212050243,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07053327637748448,
+          "Brier": 0.024565763759162768
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16979,
+              "TP": 7805,
+              "FP": 9174,
+              "FN": 8379,
+              "Dice": 0.47070530410397127,
+              "HD95_mm": 23.206435473174643,
+              "HD95_penalized_mm": 23.206435473174643,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.06857175463132208,
+          "Brier": 0.024205084952081176
+        }
+      }
+    ],
+    "BMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 14841,
+              "TP": 6340,
+              "FP": 8501,
+              "FN": 76378,
+              "Dice": 0.1299726319457969,
+              "HD95_mm": 36.0611459233682,
+              "HD95_penalized_mm": 36.0611459233682,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.22191107590509956,
+          "Brier": 0.0693348208845001
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13568,
+              "TP": 6162,
+              "FP": 7406,
+              "FN": 76556,
+              "Dice": 0.1279936854786781,
+              "HD95_mm": 31.87127428060293,
+              "HD95_penalized_mm": 31.87127428060293,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.2344025992817308,
+          "Brier": 0.06869908241064303
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13894,
+              "TP": 5863,
+              "FP": 8031,
+              "FN": 76855,
+              "Dice": 0.12137208628327743,
+              "HD95_mm": 34.630583259395245,
+              "HD95_penalized_mm": 34.630583259395245,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.238101636892688,
+          "Brier": 0.0694295328548192
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13314,
+              "TP": 5583,
+              "FP": 7731,
+              "FN": 77135,
+              "Dice": 0.11627374208597134,
+              "HD95_mm": 34.055331814563196,
+              "HD95_penalized_mm": 34.055331814563196,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.24501707543408552,
+          "Brier": 0.0696230429576008
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 25352,
+              "TP": 9873,
+              "FP": 15479,
+              "FN": 37201,
+              "Dice": 0.27263689835142074,
+              "HD95_mm": 36.21220756211231,
+              "HD95_penalized_mm": 36.21220756211231,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1341571976167854,
+          "Brier": 0.04635336695435931
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 23920,
+              "TP": 9432,
+              "FP": 14488,
+              "FN": 37642,
+              "Dice": 0.2657125954305998,
+              "HD95_mm": 35.38289101418232,
+              "HD95_penalized_mm": 35.38289101418232,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14228388075245926,
+          "Brier": 0.04614674839258172
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 23284,
+              "TP": 9068,
+              "FP": 14216,
+              "FN": 38006,
+              "Dice": 0.25776741806191195,
+              "HD95_mm": 35.362379569225844,
+              "HD95_penalized_mm": 35.362379569225844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13979680308674589,
+          "Brier": 0.04629239153922378
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 22329,
+              "TP": 8592,
+              "FP": 13737,
+              "FN": 38482,
+              "Dice": 0.2475973661080933,
+              "HD95_mm": 35.2918911697664,
+              "HD95_penalized_mm": 35.2918911697664,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14349204639016275,
+          "Brier": 0.04634551327385811
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 28744,
+              "TP": 14031,
+              "FP": 14713,
+              "FN": 10705,
+              "Dice": 0.52471952131638,
+              "HD95_mm": 43.86340972315025,
+              "HD95_penalized_mm": 43.86340972315025,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05752037939543178,
+          "Brier": 0.02142742000146931
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26139,
+              "TP": 13333,
+              "FP": 12806,
+              "FN": 11403,
+              "Dice": 0.5241474201474201,
+              "HD95_mm": 41.596258395929695,
+              "HD95_penalized_mm": 41.596258395929695,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05634198459427672,
+          "Brier": 0.020402463803201872
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26046,
+              "TP": 13313,
+              "FP": 12733,
+              "FN": 11423,
+              "Dice": 0.5243196408176125,
+              "HD95_mm": 38.69775402525923,
+              "HD95_penalized_mm": 38.69775402525923,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05533786225660277,
+          "Brier": 0.02041394601359015
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 25923,
+              "TP": 13348,
+              "FP": 12575,
+              "FN": 11388,
+              "Dice": 0.5269744764010343,
+              "HD95_mm": 39.53803401888261,
+              "HD95_penalized_mm": 39.53803401888261,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05471307923897896,
+          "Brier": 0.020198495247302058
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 13435,
+              "TP": 5127,
+              "FP": 8308,
+              "FN": 14244,
+              "Dice": 0.3125647747363287,
+              "HD95_mm": 59.01574455796467,
+              "HD95_penalized_mm": 59.01574455796467,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05149926467349192,
+          "Brier": 0.018235922390200023
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11414,
+              "TP": 5003,
+              "FP": 6411,
+              "FN": 14368,
+              "Dice": 0.3250284229332467,
+              "HD95_mm": 55.09456270762202,
+              "HD95_penalized_mm": 55.09456270762202,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.052064767833812975,
+          "Brier": 0.016980833617415945
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11793,
+              "TP": 4925,
+              "FP": 6868,
+              "FN": 14446,
+              "Dice": 0.31606982415607754,
+              "HD95_mm": 53.86122681057756,
+              "HD95_penalized_mm": 53.86122681057756,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05220878240049784,
+          "Brier": 0.0174554380641137
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11298,
+              "TP": 4761,
+              "FP": 6537,
+              "FN": 14610,
+              "Dice": 0.3104763767974176,
+              "HD95_mm": 54.361508742972,
+              "HD95_penalized_mm": 54.361508742972,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05327459831398405,
+          "Brier": 0.017350156017906734
+        }
+      }
+    ],
+    "RUNMC_train": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 27570,
+              "TP": 24273,
+              "FP": 3297,
+              "FN": 1787,
+              "Dice": 0.9052023121387284,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.011090986684819129,
+          "Brier": 0.005886614675207728
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26632,
+              "TP": 23936,
+              "FP": 2696,
+              "FN": 2124,
+              "Dice": 0.9085250132847491,
+              "HD95_mm": 3.4938562148434213,
+              "HD95_penalized_mm": 3.4938562148434213,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010130276371570353,
+          "Brier": 0.00552668935535433
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26753,
+              "TP": 24012,
+              "FP": 2741,
+              "FN": 2048,
+              "Dice": 0.9093215685531971,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.009984144081640244,
+          "Brier": 0.005496791832059903
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26241,
+              "TP": 23763,
+              "FP": 2478,
+              "FN": 2297,
+              "Dice": 0.9087015544635858,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010048267954979557,
+          "Brier": 0.0054758362681059485
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 20965,
+              "TP": 12494,
+              "FP": 8471,
+              "FN": 934,
+              "Dice": 0.7265431919285901,
+              "HD95_mm": 51.85875215164513,
+              "HD95_penalized_mm": 51.85875215164513,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.024836413901846773,
+          "Brier": 0.011683828237316563
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19343,
+              "TP": 12228,
+              "FP": 7115,
+              "FN": 1200,
+              "Dice": 0.7462695676055049,
+              "HD95_mm": 46.01032742213721,
+              "HD95_penalized_mm": 46.01032742213721,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02004737006956556,
+          "Brier": 0.01022738653822388
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19980,
+              "TP": 12399,
+              "FP": 7581,
+              "FN": 1029,
+              "Dice": 0.7422772988505747,
+              "HD95_mm": 46.08077001708612,
+              "HD95_penalized_mm": 46.08077001708612,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.021593031632612832,
+          "Brier": 0.010626861578521966
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19467,
+              "TP": 12344,
+              "FP": 7123,
+              "FN": 1084,
+              "Dice": 0.7505091959264326,
+              "HD95_mm": 45.32104394781162,
+              "HD95_penalized_mm": 45.32104394781162,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.019818384743522433,
+          "Brier": 0.01010818949071487
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 25511,
+              "TP": 20451,
+              "FP": 5060,
+              "FN": 2667,
+              "Dice": 0.8411030455078246,
+              "HD95_mm": 22.422532873624853,
+              "HD95_penalized_mm": 22.422532873624853,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.019921659342874244,
+          "Brier": 0.009395924690393674
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24624,
+              "TP": 20247,
+              "FP": 4377,
+              "FN": 2871,
+              "Dice": 0.8481839889405555,
+              "HD95_mm": 20.058962978899288,
+              "HD95_penalized_mm": 20.058962978899288,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018743280767116937,
+          "Brier": 0.00891008616847966
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24506,
+              "TP": 20397,
+              "FP": 4109,
+              "FN": 2721,
+              "Dice": 0.8565849151688224,
+              "HD95_mm": 18.223446509526344,
+              "HD95_penalized_mm": 18.223446509526344,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.017369008027327222,
+          "Brier": 0.008383424391365758
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24161,
+              "TP": 20216,
+              "FP": 3945,
+              "FN": 2902,
+              "Dice": 0.8551788320395948,
+              "HD95_mm": 18.50594443004917,
+              "HD95_penalized_mm": 18.50594443004917,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.017191775062269824,
+          "Brier": 0.008355298111518325
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 28825,
+              "TP": 24417,
+              "FP": 4408,
+              "FN": 5423,
+              "Dice": 0.8324213756072616,
+              "HD95_mm": 39.32266381291153,
+              "HD95_penalized_mm": 39.32266381291153,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.030596219170934535,
+          "Brier": 0.012620714685941356
+        },
+        "H1_Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27935,
+              "TP": 24108,
+              "FP": 3827,
+              "FN": 5732,
+              "Dice": 0.8345478147987884,
+              "HD95_mm": 37.030021707902314,
+              "HD95_penalized_mm": 37.030021707902314,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.03154398387272872,
+          "Brier": 0.012334325561541152
+        },
+        "Cut": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27813,
+              "TP": 24266,
+              "FP": 3547,
+              "FN": 5574,
+              "Dice": 0.8417948762423465,
+              "HD95_mm": 11.103648752774918,
+              "HD95_penalized_mm": 11.103648752774918,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02870424377255194,
+          "Brier": 0.01175997608459856
+        },
+        "Joint": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27546,
+              "TP": 24112,
+              "FP": 3434,
+              "FN": 5728,
+              "Dice": 0.8403443348551911,
+              "HD95_mm": 35.31942662185164,
+              "HD95_penalized_mm": 35.31942662185164,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02898900080893129,
+          "Brier": 0.011780624370827473
+        }
+      }
+    ]
+  },
+  "training": {
+    "Cut": {
+      "first100": {
+        "task": 0.15158172173994883,
+        "variational": 8.97557330114931,
+        "reconstruction_mse": 0.03872754695785614,
+        "shape_mean_sd": 1.7246318492888488,
+        "shape_logsd": -4.0,
+        "appearance_logsd": -2.2466824979051108
+      },
+      "last100": {
+        "task": 0.12242499514739627,
+        "variational": 5.354107715086614,
+        "reconstruction_mse": 0.007545864976319615,
+        "shape_mean_sd": 3.3153008629817173,
+        "shape_logsd": -4.0,
+        "appearance_logsd": -2.473590614766015
+      }
+    },
+    "Joint": {
+      "first100": {
+        "task": 0.15264646795758063,
+        "variational": 6.236173321684207,
+        "reconstruction_mse": 0.038738962138928794,
+        "shape_mean_sd": 1.6740304998327775,
+        "shape_logsd": -1.5319825241474416,
+        "appearance_logsd": -2.2465709474694187
+      },
+      "last100": {
+        "task": 0.12322063143446986,
+        "variational": 2.3304877188345947,
+        "reconstruction_mse": 0.0075490716625641685,
+        "shape_mean_sd": 1.930770466527549,
+        "shape_logsd": -1.7079471699523279,
+        "appearance_logsd": -2.473437654863628
+      }
+    }
+  },
+  "gradient_audits": {
+    "Cut": [
+      {
+        "step": 1,
+        "task_norm": 0.24251789477088592,
+        "weighted_variational_norm": 0.0,
+        "cosine": null,
+        "task_tensors": 20,
+        "variational_tensors": 0
+      },
+      {
+        "step": 400,
+        "task_norm": 0.12590900274612932,
+        "weighted_variational_norm": 0.0,
+        "cosine": null,
+        "task_tensors": 20,
+        "variational_tensors": 0
+      },
+      {
+        "step": 800,
+        "task_norm": 0.12399165893343368,
+        "weighted_variational_norm": 0.0,
+        "cosine": null,
+        "task_tensors": 20,
+        "variational_tensors": 0
+      },
+      {
+        "step": 1200,
+        "task_norm": 0.5776731847876082,
+        "weighted_variational_norm": 0.0,
+        "cosine": null,
+        "task_tensors": 20,
+        "variational_tensors": 0
+      },
+      {
+        "step": 1600,
+        "task_norm": 0.1655844326799159,
+        "weighted_variational_norm": 0.0,
+        "cosine": null,
+        "task_tensors": 20,
+        "variational_tensors": 0
+      }
+    ],
+    "Joint": [
+      {
+        "step": 1,
+        "task_norm": 0.24251789477088592,
+        "weighted_variational_norm": 0.09536077508605759,
+        "cosine": -0.49102382612727613,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 400,
+        "task_norm": 0.3802147251399593,
+        "weighted_variational_norm": 0.02055377612500242,
+        "cosine": -0.061770347403090814,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 800,
+        "task_norm": 0.09909226583024719,
+        "weighted_variational_norm": 0.0883183055841229,
+        "cosine": 0.1636580321290787,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 1200,
+        "task_norm": 0.48590238033947175,
+        "weighted_variational_norm": 0.08817713096957519,
+        "cosine": -0.9692322402337523,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      },
+      {
+        "step": 1600,
+        "task_norm": 0.3113839598703678,
+        "weighted_variational_norm": 0.0186674713187917,
+        "cosine": -0.7568290724515551,
+        "task_tensors": 20,
+        "variational_tensors": 20
+      }
+    ]
+  },
+  "Joint_minus_Cut_pp": {
+    "RUNMC": -0.49861501698805766,
+    "BMC": -0.45517519815906904,
+    "RUNMC_train": 0.11888146174660053
+  },
+  "Joint_minus_U_pp": {
+    "RUNMC": -0.21863568788871302,
+    "BMC": -0.9642966239352457,
+    "RUNMC_train": 1.2365998025600011
+  },
+  "reused_BMC_development_patients": true,
+  "prior_hard_stops_unchanged": true
+}

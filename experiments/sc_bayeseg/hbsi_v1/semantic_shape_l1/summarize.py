@@ -118,7 +118,7 @@ BMC积极门（源门全过才允许后继）：
 |---|---:|---:|
 {audits}
 
-最后100批Cut/Joint生成损失={t['Cut']['last100']['variational']:.3f}/{t['Joint']['last100']['variational']:.3f}，重建MSE={t['Cut']['last100']['reconstruction_mse']:.5f}/{t['Joint']['last100']['reconstruction_mse']:.5f}。这不证明形状/外观解耦，也不构成独立患者证据；隐藏U标签和test未访问。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。旧路线判定不变。
+最后100批Cut/Joint生成损失={t['Cut']['last100']['variational']:.3f}/{t['Joint']['last100']['variational']:.3f}，重建MSE={t['Cut']['last100']['reconstruction_mse']:.5f}/{t['Joint']['last100']['reconstruction_mse']:.5f}，qS平均log标准差={t['Cut']['last100']['shape_logsd']:.3f}/{t['Joint']['last100']['shape_logsd']:.3f}，形状均值空间SD={t['Cut']['last100']['shape_mean_sd']:.3f}/{t['Joint']['last100']['shape_mean_sd']:.3f}。Joint生成目标下降与形状尺度扩张同时发生，不能从这些观测确定哪一项造成BMC下降；本轮继承的`p(S|Z)`此前拟合的是灰度形状场，语义logit场尺度不匹配也限制解释。这不证明形状/外观解耦，也不构成独立患者证据；隐藏U标签和test未访问。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。旧路线判定不变。
 """
     (out/'REPORT_ZH.md').write_text(report)
     print(verdict,f"Joint_RUNMC={100*c['Joint_RUNMC']['Dice']:.3f}",
