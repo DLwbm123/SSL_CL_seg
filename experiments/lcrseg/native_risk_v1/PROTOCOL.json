@@ -1,0 +1,191 @@
+{
+  "name": "NATIVE_RISK_V1",
+  "status": "FROZEN_BEFORE_ANY_NEW_MODEL_CALL",
+  "seed": 20271801,
+  "diagnostic_seed": 20271802,
+  "accepted_design": {
+    "status": "COMPLETE_REVISION_PROPOSED_ONLY_NOT_FROZEN_NOT_IMPLEMENTED_NOT_RUNNING",
+    "name_zh": "源风险约束的原生解剖等变适配",
+    "authority": "Analysis and complete revision only; no training, no new model forwards/backward, no monitoring or successor launch.",
+    "closed_v1": {
+      "source_gate": "STOP",
+      "B_source_capability": "FAIL",
+      "F_source_capability": "FAIL",
+      "B_sufficiency": "PASS",
+      "F_sufficiency": "FAIL",
+      "old_gates_unchanged": true,
+      "repeat_audit": false
+    },
+    "evidence": {
+      "source_B_dice": 80.35887832710685,
+      "source_F_dice": 80.58609772056137,
+      "F_vs_B_improved": 11,
+      "F_vs_B_declined": 12,
+      "F_vs_B_median_pp": -0.03183565891465889,
+      "F_vs_original_worst_pp": -2.441429385114702,
+      "F_total_decrease_anatomy_fraction": [
+        0.7399647966449308,
+        0.7445077437418433
+      ],
+      "F_EMA_inverse_2000": 0.5041106976568699,
+      "identity_inverse_baseline_approximately": 0.5,
+      "initial_all_state_equal": true,
+      "final_head_exact": true,
+      "source_reads_each": [
+        2024,
+        0
+      ]
+    },
+    "revision_is_bundle_not_sweep": true,
+    "architecture": {
+      "source_core": "Original completed FixMatch43600 EMA163 native backbone/prehead/head frozen in both phases; no new deep supervision heads or posterior solver.",
+      "trainable": "Single zero-output residual bottleneck adapter on native prehead h16: h + B_3x3(ReLU(A_1x1 h)); A16->4 fixed random initialization, B4->16 zero initialization, padding1; both A/B trainable, core frozen. All target arms same capacity.",
+      "source_identity": "Zero adapter exactly reproduces native source at initialization; learned final adapter is evaluated honestly, no bypass/tag/oracle identity at evaluation.",
+      "deployment": "One native pass plus small feature adapter. No blind pixel canonicalizer, image reconstruction, per-image optimization, anatomy head, routing or domain-oracle.",
+      "photometric_transform": "Keep V1 fixed invertible intensity/bias family only as a label-preserving training augmentation. No learned blind inverse and no claim of MRI physics recovery."
+    },
+    "objective": {
+      "GT": "Unchanged ordinary CE + per-image present-foreground Dice on clean and transformed views, equal mean.",
+      "anatomy": "Direct native output probability pooled to32/64 versus GT onehot pooled to same scales; mean Jensen-Shannon / ln2, average over resolutions. No learned occupancy classifier, no soft-label entropy floor, full-resolution GT supervision retained.",
+      "equivariance": "Pixelwise Jensen-Shannon / ln2 between native probabilities on clean and photometric view, spatial coordinates unchanged, both GT supervised.",
+      "fixed_coefficients_proposed": [
+        1,
+        1,
+        1
+      ],
+      "source_risk_constraints": "For each observed source patient x ED/ES x present foreground class, fixed-clean-L group risk CE-on-GT-support + foreground Dice <= same native-initial baseline + .05*max(baseline,.1). Background CE remains in ordinary GT objective. Risks are sampled training surrogates, not validation volume Dice.",
+      "risk_optimization": "One SGD primal step per batch on L_GT+L_anatomy+L_equivariance+(1/G)sum_g nu_g(R_g-b_g); one projected dual step nu_g<-clip(nu_g+.01*batch_unbiased_group_violation_g,0,10), nu initialized0. For patient/phase/present-class group g, known sampling probability p_g from source/current-L manifests and present-slice cache, unbiased group residual is mean over batch of I_g*(r_slice-b_g)/p_g. Primal uses matching1/(G*p_g) normalization on observed groups. Empty unsupported groups excluded prospectively. No inner solver/extra backward; if dual saturates with violations, report failure, no cap adjustment.",
+      "source_reference_cache": "Precompute only private scalar per-slice clean-risk baseline on existing230 source train-L slices; no image/logit/feature bank retained for target.",
+      "target_constraints": "Use only current Philips L reference risks at adaptation entry; S/C share source-F initialization. Constraints protect observed current training groups and cannot certify unseen old-patient retention. Source cache is closed and never read during target.",
+      "risk_baseline": "Per clean slice and present foreground class r=mean GT-class CE on its GT support + one-vs-rest soft-Dice loss; aggregate over present slices per patient/EDES/class. Cached initial scalar risks and class-presence only; p_g=P(patient)*P(phase)*present_slice_count/phase_depth. No macro-CE replacement of ordinary task, constraints are additional GT-risk controls."
+    },
+    "controls": {
+      "B": "Reuse original completed source (no repeat narrow10-patient ordinary source fine-tuning); same zero adapter; current GT-only adaptation.",
+      "S": "New full-source adapter; current GT-only adaptation.",
+      "C": "Same new full-source adapter; full native anatomy/equivariance plus current-L risk constraints; sole primary.",
+      "fairness": "B/S/C share adapter capacity, batches, augmentation, optimizer, steps and accounting; B intentionally has no extra source mechanism training. This budget difference is disclosed. V1 B/F negative results remain and are not relabelled."
+    },
+    "source_schedule_proposed": {
+      "steps": 2000,
+      "qualification_steps": 32,
+      "fixed_diagnostic_steps": [
+        1500,
+        1750,
+        2000
+      ],
+      "fixed_batches": 8,
+      "EMA": 0.999,
+      "no_extra_head_warmup": true,
+      "no_extension": true,
+      "optimizer": "SGD lr.001 momentum.9 Nesterov, matrixWD.0005/vector0, globalclip1, fixed2000, EMA.999",
+      "no_extra_optimizer_for_dual": true
+    },
+    "source_gate": {
+      "old_absolute_reference": 80.36740663770262,
+      "mean_delta_min_pp": -0.2,
+      "CI95_lower_min_pp": -0.3,
+      "over1_max": 2,
+      "over2_max": 0,
+      "p10_min_pp": -0.5,
+      "total_training_stability_formula": "Frozen fixed-audit objective L_GT+L_anatomy+L_equivariance+mean positive clean-group risk residual; no time-varying dual multiplier in the audit objective. abs(b-a)/max(1,abs(a))<=.01 for both intervals; component trajectories separately reported. Do not reinterpret V1 sufficiency failure.",
+      "additional": "All source clean-training group constraints checked on all source L once at final EMA with numerical allowance1e-6 on declared loss risk. If violated or audit objective unstable, STOP after complete source evidence; no extension or selecting student/checkpoint."
+    },
+    "target_science": "Keep original C old absolute>=80.3674066377/new>=83; own and original old-patient CI>=-.30, tails>1<=2/>2=0/p10>=-.50/counts no worse B; C-B new mean+CI>=-.20; C-S new likewise; C-B old>=.30,C-S old>=.15. All conjunction, single seed, repeated-development not independent test.",
+    "budget_draft_not_frozen": {
+      "unique_source_formal": 1,
+      "target_formal": 3,
+      "steps_each": 2000,
+      "qualifications": 4,
+      "qualification_opt_each": 32,
+      "total_optimizer_proposed": 8128,
+      "formal_native_samples": 32000,
+      "qualification_expected_native": 592,
+      "source_train_diagnostic_native": 192,
+      "source_val_native": 544,
+      "target_val_native": 3612,
+      "source_train_scalar_risk_calibration_native": 460,
+      "target_train_risk_calibration_native": 1270,
+      "expected_native_total": 38670,
+      "native_cap_proposed": 39000,
+      "expected_reverse": 8184,
+      "reverse_cap_proposed": 8256,
+      "synthetic_native_cap": 128,
+      "synthetic_reverse_cap": 64,
+      "limits": "Original8h/strict4GB/3.5GB pre-stop; cumulative30GB not reset. Independent preflight must bind actual calls/risks/dual-updates and runtime before any run; current draft reserves nothing.",
+      "formal_dual_computation_events": 8000,
+      "formal_active_dual_updates": 4000
+    },
+    "theory": {
+      "training_groups": "If empirical risk constraints are satisfied, each observed training-group surrogate is bounded by its declared baseline plus budget. This is not a bound for held-out patient Dice.",
+      "augmentation": "JSD(q(x),q(Tx)) encourages invariance only for the specified coordinate-preserving acquisition family. GT task prevents a trivial constant predictor from being free.",
+      "residual": "Fixed source core and zero adapter preserve exact initial source function; a nonzero adapter can still alter old predictions, so empirical source/old-tail gates remain necessary.",
+      "impossibility_limit": "No-old-image adaptation plus finite current-L support alone cannot guarantee no forgetting on unseen old inputs. No such guarantee will be claimed."
+    },
+    "stop_decision": "Only propose this as one complete source-risk-constrained native-output candidate. If prospectively frozen complete validation fails, stop this bundle; no rank/weight/transform-strength/head/EMA/seed local scans.",
+    "remaining_before_future_freeze": "This is a complete prospective design, not frozen execution authority. If user approves, freeze this exact design and full primitive/data-read/dual-update accounting, then implement and qualify once before any medical run. Do not change thresholds in response to validation."
+  },
+  "controls": {
+    "B": "Original completed FixMatch43600 EMA; zero adapter; target GT only",
+    "S": "New complete source F; target GT only",
+    "C": "Same source F; full current-L GT/anatomy/equivariance/risk; primary"
+  },
+  "source_gates": "Source capability + fixed training stability + all source train-risk constraints; all required before target baseline/qualification/formal",
+  "caps": {
+    "source_qualification_samples": 160,
+    "source_qualification_reverse": 40,
+    "source_formal_samples": 8000,
+    "source_formal_reverse": 2024,
+    "source_diagnostic_samples": 192,
+    "source_evaluation_samples": 544,
+    "target_qualification_samples": 480,
+    "target_qualification_reverse": 120,
+    "target_formal_samples": 24000,
+    "target_formal_reverse": 6072,
+    "target_evaluation_samples": 3612,
+    "source_risk_calibration_samples": 460,
+    "target_risk_calibration_samples": 1270,
+    "adapter_samples": 39000,
+    "transform_samples": 18000,
+    "spline_samples": 36000,
+    "bias_samples": 18000,
+    "anatomy_samples": 72000,
+    "equivariance_samples": 18000,
+    "risk_class_samples": 120000,
+    "dual_computations": 8128,
+    "dual_active_updates": 4064
+  },
+  "optimizer_cap": 8128,
+  "native_expected": 38670,
+  "native_cap": 39000,
+  "reverse_expected": 8184,
+  "reverse_cap": 8256,
+  "clock_hours": 8,
+  "storage_strict_cap_bytes": 4000000000,
+  "write_protect_bytes": 3500000000,
+  "cumulative_storage_limit_bytes": 30000000000,
+  "reservation_bytes": 4050000000,
+  "dual_step": 0.01,
+  "dual_clip": [
+    0,
+    10
+  ],
+  "risk_relative_budget": 0.05,
+  "risk_floor": 0.1,
+  "risk_numeric_tolerance": 1e-06,
+  "qualification_fixed_objective": "GT+anatomy+equivariance+importance weighted per-slice positive residual upper-surrogate; not time-varying Lagrangian",
+  "synthetic_caps": {
+    "native_samples": 128,
+    "reverse": 64,
+    "adapter_samples": 128,
+    "anatomy_samples": 256,
+    "transform_samples": 128,
+    "spline_samples": 512,
+    "bias_samples": 256,
+    "equivariance_samples": 128,
+    "risk_class_samples": 384,
+    "dual_computations": 64,
+    "dual_active_updates": 64
+  },
+  "no_scan": true,
+  "no_automatic_successor": true
+}
