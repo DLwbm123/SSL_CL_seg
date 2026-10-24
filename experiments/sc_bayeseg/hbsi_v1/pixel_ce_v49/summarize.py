@@ -1,11 +1,43 @@
 """Frozen gates and paired patient analysis; train and development stay distinct."""
 import argparse,json
+from collections import defaultdict
 from pathlib import Path
 from statistics import mean
 from ..unet_transfer_v45.summarize import patients,p10,METRICS
 from ..entry_decomposition_v47.summarize import extra_metrics
 
 EXTRAS=('precision','recall','volume_ratio')
+
+
+def public_train_diagnostics(raw):
+    """Release aggregate error patterns, not ordered patient slices or masks."""
+    out={}
+    for arm,diag in raw.items():
+        strata=defaultdict(lambda:dict(repeat_slices=0,TP=0,FP=0,FN=0))
+        conditional={c:{k:[] for k in ('NLL','Brier')} for c in ('foreground','background')}
+        for patient in diag['patients']:
+            for c in conditional:
+                for k in conditional[c]:
+                    conditional[c][k].append(mean(m['conditional_probability'][c][k] for m in patient['metrics']))
+            for m in patient['metrics']:
+                for s in m['slices']:
+                    z=strata[s['stratum']];z['repeat_slices']+=1
+                    for k in ('TP','FP','FN'):z[k]+=s[k]
+        out[arm]=dict(patients=len(diag['patients']),repeats=3,
+            strata={name:dict(slices=z['repeat_slices']//3,mean_TP_per_slice=z['TP']/z['repeat_slices'],mean_FP_per_slice=z['FP']/z['repeat_slices'],mean_FN_per_slice=z['FN']/z['repeat_slices']) for name,z in strata.items()},
+            conditional_probability={c:{k:mean(conditional[c][k]) for k in conditional[c]} for c in conditional})
+    return out
+
+
+def public_train_definition(raw):
+    exposures=defaultdict(int)
+    for case in raw['cases']:
+        for n,g in zip(case['exposures'],case['strata']):exposures[g]+=n
+    return {k:raw[k] for k in ('patients','slices','updates','positive_area_quantiles','strata_counts')} | dict(exposures_by_stratum=dict(exposures),based_on_training_labels_only=True)
+
+
+def public_probes(raw):
+    return [{k:p[k] for k in ('step','foreground_Dice','empty_FP_fraction','fit_gate','semantic_sample_forwards','training_rng_unchanged')} | dict(selected_slices=len(p['rows'])) for p in raw]
 
 
 def enriched(rows,repeats):
@@ -76,7 +108,7 @@ def main():
         for domain,e in ds.items():
             d=e['Dice'];lines.append(f"| {name} | {domain} | {fmt(d['mean'],100)} | [{fmt(d['minimum'],100)}, {fmt(d['maximum'],100)}] | {d['positive']}/{d['negative']} | {fmt(e['precision']['mean'],100)} | {fmt(e['recall']['mean'],100)} |")
     lines+=['','相对C0保护不等于旧域无遗忘。C1/source的RUNMC差为负表示实际遗忘；源模型未变，v46 source BMC保护失败不会被本实验改写。所有患者尾部/辅助指标/NA分母见ANALYSIS。训练患者及分层FP/FN、FG/BG条件概率误差见TRAIN_DIAGNOSTICS，训练曝光定义见TRAIN_DEFINITION。', '', f"首次启动至退出{cost['elapsed_seconds']:.2f}秒，根{cost['root_bytes']}字节。800正式backward/Adam、3真实目标+1fixture预检反向0Adam、实际位移审计0额外反向；训练诊断25728+固定探针3072样本语义前向，两个正式开发格另计。原控制训练不重跑，控制train是新增诊断，不能写成完全无旧模型推断。", '', '单训练seed，每域4名反复开发患者、3推断重复不是3训练seed。CE改变的是整个监督风险权衡和梯度量级，不能把结果归因于唯一参数、可靠校准或SSL收益。未通过不搜权重/阈值/seed；通过只给独立从头一致风险验证资格，不称整体解决或追平U-Net。', '', '[协议](PREREG_ZH.md)；[匿名完整分析](ANALYSIS.json)；[成本](EXECUTION_SUMMARY.json)。']
-    outputs={'ANALYSIS.json':a,'EXECUTION_SUMMARY.json':cost,'TRAIN_DIAGNOSTICS.json':r['train_diagnostics'],'TRAIN_DEFINITION.json':x['TRAIN_DEFINITION.json'],'UPDATES.json':x['UPDATES.json'],'PROBES.json':x['PROBES.json']}
+    outputs={'ANALYSIS.json':a,'EXECUTION_SUMMARY.json':cost,'TRAIN_DIAGNOSTICS.json':public_train_diagnostics(r['train_diagnostics']),'TRAIN_DEFINITION.json':public_train_definition(x['TRAIN_DEFINITION.json']),'UPDATES.json':x['UPDATES.json'],'PROBES.json':public_probes(x['PROBES.json'])}
     for n,v in outputs.items():(out/n).write_text(json.dumps(v,indent=2)+'\n')
     (out/'REPORT_ZH.md').write_text('\n'.join(lines)+'\n');print(json.dumps(a['mechanism_gate']))
 
