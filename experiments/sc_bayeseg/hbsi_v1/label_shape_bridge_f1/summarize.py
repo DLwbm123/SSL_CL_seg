@@ -139,6 +139,8 @@ BMC匿名患者：
 |---|---:|---:|
 {audit}
 
+最后100个训练批的生成项损失Cut为{x['training']['Cut']['last100']['variational']:.3f}、Anchor为{x['training']['Anchor']['last100']['variational']:.3f}（越小越好）；样本图像重建MSE分别为{x['training']['Cut']['last100']['reconstruction_mse']:.5f}和{x['training']['Anchor']['last100']['reconstruction_mse']:.5f}。Anchor的标签分割小幅改善伴随这些训练生成读数变差。400、800、1200、1600步形状后验两目标梯度余弦符号并不恒定，单点冲突或吻合不能解释整段轨迹，也不能把此相关性单独认定为因果主因。
+
 [匿名分析](ANALYSIS.json)保留逐患者TP/FP/FN、NLL/Brier、训练首尾100步生成及重建读数和审计；[执行摘要](EXECUTION_SUMMARY.json)保留运行成本。用户要求的形状/外观生成层级继续接受生成训练，但本轮只检验标签进入形状后验的**整条策略效应**，不能证明每个潜变量已解耦或后验采样有益。C1/C2/E1负结果保持原判；同一4名开发患者多轮使用，积极信号也不能替代独立患者与多种子确认。隐藏U标签/test未访问。[冻结协议](PREREG_ZH.md)
 """
     (out / 'REPORT_ZH.md').write_text(report)
