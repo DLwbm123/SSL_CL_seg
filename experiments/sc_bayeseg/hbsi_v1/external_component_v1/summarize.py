@@ -161,6 +161,8 @@ def main(path):
 
 四站点等权：原预测Cut/Joint Dice={100*cut['original']['Dice']:.3f}/{100*joint['original']['Dice']:.3f}%；固定组件Cut/Joint Dice={100*cut['component']['Dice']:.3f}/{100*joint['component']['Dice']:.3f}%（Joint−Cut {100*(joint['component']['Dice']-cut['component']['Dice']):+.3f}pp）。Joint原→组件HD95={joint['original']['HD95_penalized_mm']:.3f}→{joint['component']['HD95_penalized_mm']:.3f}mm；组件Cut/Joint HD95={cut['component']['HD95_penalized_mm']:.3f}/{joint['component']['HD95_penalized_mm']:.3f}mm。原概率四站点等权NLL Cut/Joint={original_probability_quality['ReplayCut']['NLL']:.5f}/{original_probability_quality['ReplayJoint']['NLL']:.5f}，Brier={original_probability_quality['ReplayCut']['Brier']:.5f}/{original_probability_quality['ReplayJoint']['Brier']:.5f}；硬组件输出不拿来比较软概率质量。
 
+I2CVB是明确失败站点：ReplayJoint原预测三患者Dice已仅 {100*summary['I2CVB']['ReplayJoint']['original']['Dice']:.3f}%，组件规则又将三人的全部原TP分别移除 {', '.join(str(row('I2CVB',i,'ReplayJoint')['removed_TP']) for i in range(1,4))} 个，保留的最大预测组件与真值均无重叠，三人Dice变为0%。这不是整患者空预测，因此 `no_new_empty_patient` 仍显示PASS；它不能覆盖零重叠风险。不能据其他三站点的正值忽略该负例。
+
 | 类别 | 冻结门 | 判定 |
 |---|---|---|
 {gates}
