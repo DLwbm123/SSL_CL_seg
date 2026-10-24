@@ -1,0 +1,719 @@
+{
+  "status": "NO_ROBUST_POSITIVE_SIGNAL",
+  "paired_BMC": [
+    {
+      "index": 1,
+      "Cut_Dice": 0.5702524521627271,
+      "Joint_Dice": 0.5532092931679464,
+      "Joint_minus_Cut_pp": -1.7043158994780705,
+      "Cut_TP": 35464,
+      "Cut_FP": 6198,
+      "Cut_FN": 47254,
+      "Joint_TP": 33717,
+      "Joint_FP": 5461,
+      "Joint_FN": 49001,
+      "Cut_HD95_penalized_mm": 18.357557352779256,
+      "Joint_HD95_penalized_mm": 24.008136641563834
+    },
+    {
+      "index": 2,
+      "Cut_Dice": 0.7257554462403373,
+      "Joint_Dice": 0.7002485769868146,
+      "Joint_minus_Cut_pp": -2.5506869253522635,
+      "Cut_TP": 37179,
+      "Cut_FP": 18203,
+      "Cut_FN": 9895,
+      "Joint_TP": 38875,
+      "Joint_FP": 25083,
+      "Joint_FN": 8199,
+      "Cut_HD95_penalized_mm": 18.253823924876016,
+      "Joint_HD95_penalized_mm": 64.4687639519565
+    },
+    {
+      "index": 3,
+      "Cut_Dice": 0.6274761294000285,
+      "Joint_Dice": 0.529269345095407,
+      "Joint_minus_Cut_pp": -9.820678430462149,
+      "Cut_TP": 22015,
+      "Cut_FP": 23419,
+      "Cut_FN": 2721,
+      "Joint_TP": 22079,
+      "Joint_FP": 36617,
+      "Joint_FN": 2657,
+      "Cut_HD95_penalized_mm": 20.999958276748657,
+      "Joint_HD95_penalized_mm": 33.05315866459797
+    },
+    {
+      "index": 4,
+      "Cut_Dice": 0.6691060018568074,
+      "Joint_Dice": 0.6352853173755076,
+      "Joint_minus_Cut_pp": -3.382068448129971,
+      "Cut_TP": 18378,
+      "Cut_FP": 17184,
+      "Cut_FN": 993,
+      "Joint_TP": 17835,
+      "Joint_FP": 18942,
+      "Joint_FN": 1536,
+      "Cut_HD95_penalized_mm": 33.00005769729614,
+      "Joint_HD95_penalized_mm": 51.386721211718836
+    }
+  ],
+  "paired_cold_RUNMC": [
+    {
+      "index": 1,
+      "Cut_Dice": 0.15253372220196865,
+      "Joint_Dice": 0.12167105648229441,
+      "Joint_minus_Cut_pp": -3.0862665719674234
+    },
+    {
+      "index": 2,
+      "Cut_Dice": 0.3306015110826643,
+      "Joint_Dice": 0.4446229066773744,
+      "Joint_minus_Cut_pp": 11.402139559471014
+    },
+    {
+      "index": 3,
+      "Cut_Dice": 0.14134141064474254,
+      "Joint_Dice": 0.255011511033747,
+      "Joint_minus_Cut_pp": 11.367010038900444
+    },
+    {
+      "index": 4,
+      "Cut_Dice": 0.05482340537691091,
+      "Joint_Dice": 0.5686017098395825,
+      "Joint_minus_Cut_pp": 51.37783044626716
+    }
+  ],
+  "gates": {
+    "BMC_mean_gain_ge_1pp": false,
+    "BMC_at_least_3_of_4_nonnegative": false,
+    "BMC_each_decline_le_5pp": false,
+    "BMC_HD95_within_10pct_of_Cut": false,
+    "no_full_patient_collapse": true
+  },
+  "mean_effect_BMC_pp": -4.364437425855606,
+  "cold_RUNMC_effect_pp": 17.765178368167795,
+  "cells": {
+    "Cut_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6481475074149751,
+      "precision": 0.6309717843750915,
+      "recall": 0.7643172492064758,
+      "HD95_penalized_mm": 22.652849312925017,
+      "NLL": 0.06293334378419903,
+      "Brier": 0.025405093006449515,
+      "empty_predictions": 0
+    },
+    "Cut_BMC_MC4": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 4,
+      "complete": true,
+      "predictor": "local_qZ_MC4_secondary",
+      "Dice": 0.6481035774694486,
+      "precision": 0.6309097211176014,
+      "recall": 0.7642905305752294,
+      "HD95_penalized_mm": 22.646042059531155,
+      "NLL": 0.06273077948241103,
+      "Brier": 0.025392813583790988,
+      "empty_predictions": 0
+    },
+    "Cut_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.16982501232657157,
+      "precision": 0.6605610336751262,
+      "recall": 0.0998924375063806,
+      "HD95_penalized_mm": 55.976735328540606,
+      "NLL": 0.19926135849919543,
+      "Brier": 0.0648861712559003,
+      "empty_predictions": 0
+    },
+    "Cut_RUNMC_MC4": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 4,
+      "complete": true,
+      "predictor": "local_qZ_MC4_secondary",
+      "Dice": 0.16980181860761268,
+      "precision": 0.6600232632762774,
+      "recall": 0.09987709589755589,
+      "HD95_penalized_mm": 55.97054910339676,
+      "NLL": 0.198254394616919,
+      "Brier": 0.06487003498844768,
+      "empty_predictions": 0
+    },
+    "Cut_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8117187984771874,
+      "precision": 0.7449018681989138,
+      "recall": 0.8951101454501615,
+      "HD95_penalized_mm": 12.217051795341739,
+      "NLL": 0.022316381928590614,
+      "Brier": 0.01022595805184583,
+      "empty_predictions": 0
+    },
+    "Joint_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.604503133156419,
+      "precision": 0.5823849121341556,
+      "recall": 0.7616832891166769,
+      "HD95_penalized_mm": 43.229195117459284,
+      "NLL": 0.06756009091238395,
+      "Brier": 0.02939057225961896,
+      "empty_predictions": 0
+    },
+    "Joint_BMC_MC4": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 4,
+      "complete": true,
+      "predictor": "local_qZ_MC4_secondary",
+      "Dice": 0.6045505377260436,
+      "precision": 0.5824063999413064,
+      "recall": 0.7617098163522544,
+      "HD95_penalized_mm": 43.22755762770897,
+      "NLL": 0.06735526046423099,
+      "Brier": 0.029376652229586422,
+      "empty_predictions": 0
+    },
+    "Joint_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.34747679600824954,
+      "precision": 0.47886549971597125,
+      "recall": 0.2859645529571612,
+      "HD95_penalized_mm": 76.46936287502719,
+      "NLL": 0.18110386272055157,
+      "Brier": 0.06722414439042473,
+      "empty_predictions": 0
+    },
+    "Joint_RUNMC_MC4": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 4,
+      "complete": true,
+      "predictor": "local_qZ_MC4_secondary",
+      "Dice": 0.3474094594184387,
+      "precision": 0.4788508592389021,
+      "recall": 0.28588826345448837,
+      "HD95_penalized_mm": 76.48010594384918,
+      "NLL": 0.18025437563021618,
+      "Brier": 0.06719815673705061,
+      "empty_predictions": 0
+    },
+    "Joint_BMC_train": {
+      "domain": "BMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.7718197958136653,
+      "precision": 0.669571163475668,
+      "recall": 0.9124750274309734,
+      "HD95_penalized_mm": 21.563822231318706,
+      "NLL": 0.02773230780844327,
+      "Brier": 0.013112181555844994,
+      "empty_predictions": 0
+    }
+  },
+  "patient_metrics": {
+    "Cut_BMC": [
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 82718,
+            "predicted": 41662,
+            "TP": 35464,
+            "FP": 6198,
+            "FN": 47254,
+            "Dice": 0.5702524521627271,
+            "HD95_mm": 18.357557352779256,
+            "HD95_penalized_mm": 18.357557352779256,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.12277476747915252,
+        "Brier": 0.042875955716433455
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 47074,
+            "predicted": 55382,
+            "TP": 37179,
+            "FP": 18203,
+            "FN": 9895,
+            "Dice": 0.7257554462403373,
+            "HD95_mm": 18.253823924876016,
+            "HD95_penalized_mm": 18.253823924876016,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.05137395587285693,
+        "Brier": 0.02328159179035877
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 24736,
+            "predicted": 45434,
+            "TP": 22015,
+            "FP": 23419,
+            "FN": 2721,
+            "Dice": 0.6274761294000285,
+            "HD95_mm": 20.999958276748657,
+            "HD95_penalized_mm": 20.999958276748657,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.048071745016895935,
+        "Brier": 0.02172845795250568
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 19371,
+            "predicted": 35562,
+            "TP": 18378,
+            "FP": 17184,
+            "FN": 993,
+            "Dice": 0.6691060018568074,
+            "HD95_mm": 33.00005769729614,
+            "HD95_penalized_mm": 33.00005769729614,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.029512906767890704,
+        "Brier": 0.013734366566500152
+      }
+    ],
+    "Cut_RUNMC": [
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 36828,
+            "predicted": 4317,
+            "TP": 3138,
+            "FP": 1179,
+            "FN": 33690,
+            "Dice": 0.15253372220196865,
+            "HD95_mm": 39.60002517700195,
+            "HD95_penalized_mm": 39.60002517700195,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.16621972403461438,
+        "Brier": 0.05246684874229142
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 58457,
+            "predicted": 13412,
+            "TP": 11880,
+            "FP": 1532,
+            "FN": 46577,
+            "Dice": 0.3306015110826643,
+            "HD95_mm": 78.44504557372221,
+            "HD95_penalized_mm": 78.44504557372221,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.25306677342107986,
+        "Brier": 0.08395085058603102
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 49660,
+            "predicted": 8115,
+            "TP": 4083,
+            "FP": 4032,
+            "FN": 45577,
+            "Dice": 0.14134141064474254,
+            "HD95_mm": 77.01988451021694,
+            "HD95_penalized_mm": 77.01988451021694,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.3009512568011298,
+        "Brier": 0.09884243855863156
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 16184,
+            "predicted": 889,
+            "TP": 468,
+            "FP": 421,
+            "FN": 15716,
+            "Dice": 0.05482340537691091,
+            "HD95_mm": 28.841986053221312,
+            "HD95_penalized_mm": 28.841986053221312,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.07680767973995775,
+        "Brier": 0.024284547136647176
+      }
+    ],
+    "Cut_BMC_train": [
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 25328,
+            "predicted": 27470,
+            "TP": 22869,
+            "FP": 4601,
+            "FN": 2459,
+            "Dice": 0.8662828137429448,
+            "HD95_mm": 3.309552518786773,
+            "HD95_penalized_mm": 3.309552518786773,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.011833991238770627,
+        "Brier": 0.0053943994255896835
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 27434,
+            "predicted": 37132,
+            "TP": 25453,
+            "FP": 11679,
+            "FN": 1981,
+            "Dice": 0.7884335408729053,
+            "HD95_mm": 12.20974876001793,
+            "HD95_penalized_mm": 12.20974876001793,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.022774422906695048,
+        "Brier": 0.010773425614043229
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 50427,
+            "predicted": 58072,
+            "TP": 43445,
+            "FP": 14627,
+            "FN": 6982,
+            "Dice": 0.8008368740725721,
+            "HD95_mm": 9.34077498110505,
+            "HD95_penalized_mm": 9.34077498110505,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.03360446358527711,
+        "Brier": 0.01499593749853812
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 26385,
+            "predicted": 32845,
+            "TP": 23435,
+            "FP": 9410,
+            "FN": 2950,
+            "Dice": 0.7913219652203275,
+            "HD95_mm": 24.008130921457205,
+            "HD95_penalized_mm": 24.008130921457205,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.021052649983619682,
+        "Brier": 0.009740069669212285
+      }
+    ],
+    "Joint_BMC": [
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 82718,
+            "predicted": 39178,
+            "TP": 33717,
+            "FP": 5461,
+            "FN": 49001,
+            "Dice": 0.5532092931679464,
+            "HD95_mm": 24.008136641563834,
+            "HD95_penalized_mm": 24.008136641563834,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.12034046921265845,
+        "Brier": 0.0434075664957764
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 47074,
+            "predicted": 63958,
+            "TP": 38875,
+            "FP": 25083,
+            "FN": 8199,
+            "Dice": 0.7002485769868146,
+            "HD95_mm": 64.4687639519565,
+            "HD95_penalized_mm": 64.4687639519565,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.05536378085827922,
+        "Brier": 0.027083286693749202
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 24736,
+            "predicted": 58696,
+            "TP": 22079,
+            "FP": 36617,
+            "FN": 2657,
+            "Dice": 0.529269345095407,
+            "HD95_mm": 33.05315866459797,
+            "HD95_penalized_mm": 33.05315866459797,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.06431048310643646,
+        "Brier": 0.03202572948834039
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 19371,
+            "predicted": 36777,
+            "TP": 17835,
+            "FP": 18942,
+            "FN": 1536,
+            "Dice": 0.6352853173755076,
+            "HD95_mm": 51.386721211718836,
+            "HD95_penalized_mm": 51.386721211718836,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.030225630472161626,
+        "Brier": 0.015045706360609822
+      }
+    ],
+    "Joint_RUNMC": [
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 36828,
+            "predicted": 17844,
+            "TP": 3326,
+            "FP": 14518,
+            "FN": 33502,
+            "Dice": 0.12167105648229441,
+            "HD95_mm": 68.46977330925479,
+            "HD95_penalized_mm": 68.46977330925479,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.19545553203054927,
+        "Brier": 0.06952765363118878
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 58457,
+            "predicted": 26217,
+            "TP": 18824,
+            "FP": 7393,
+            "FN": 39633,
+            "Dice": 0.4446229066773744,
+            "HD95_mm": 87.20088830554666,
+            "HD95_penalized_mm": 87.20088830554666,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.20934819024448537,
+        "Brier": 0.07885456145612883
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 49660,
+            "predicted": 21576,
+            "TP": 9083,
+            "FP": 12493,
+            "FN": 40577,
+            "Dice": 0.255011511033747,
+            "HD95_mm": 80.63846824583885,
+            "HD95_penalized_mm": 80.63846824583885,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.2722348629929731,
+        "Brier": 0.1020408155308461
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 16184,
+            "predicted": 15047,
+            "TP": 8879,
+            "FP": 6168,
+            "FN": 7305,
+            "Dice": 0.5686017098395825,
+            "HD95_mm": 69.56832163946846,
+            "HD95_penalized_mm": 69.56832163946846,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.04737686561419856,
+        "Brier": 0.018473546943535177
+      }
+    ],
+    "Joint_BMC_train": [
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 25328,
+            "predicted": 35823,
+            "TP": 23787,
+            "FP": 12036,
+            "FN": 1541,
+            "Dice": 0.7779758303216627,
+            "HD95_mm": 12.20976375667138,
+            "HD95_penalized_mm": 12.20976375667138,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.02341376796747743,
+        "Brier": 0.010819641755480287
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 27434,
+            "predicted": 39868,
+            "TP": 25555,
+            "FP": 14313,
+            "FN": 1879,
+            "Dice": 0.7594127960536091,
+            "HD95_mm": 21.148274381960828,
+            "HD95_penalized_mm": 21.148274381960828,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.02672822512991701,
+        "Brier": 0.012843619070726868
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 50427,
+            "predicted": 66955,
+            "TP": 45351,
+            "FP": 21604,
+            "FN": 5076,
+            "Dice": 0.7727079109233103,
+            "HD95_mm": 25.89725722394425,
+            "HD95_penalized_mm": 25.89725722394425,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.038765706783428173,
+        "Brier": 0.018280194250355142
+      },
+      {
+        "classes": [
+          {
+            "class_index": 1,
+            "GT": 26385,
+            "predicted": 33359,
+            "TP": 23216,
+            "FP": 10143,
+            "FN": 3169,
+            "Dice": 0.7771826459560792,
+            "HD95_mm": 26.999993562698364,
+            "HD95_penalized_mm": 26.999993562698364,
+            "empty_prediction_failure": false,
+            "GT_absent": false
+          }
+        ],
+        "NLL": 0.02202153135295045,
+        "Brier": 0.010505271146817673
+      }
+    ]
+  },
+  "C1_RUNMC_source_gate": "FAILED_PREVIOUSLY_AND_UNCHANGED"
+}

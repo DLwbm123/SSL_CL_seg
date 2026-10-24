@@ -24,6 +24,12 @@ def main(snapshot):
                            Joint_TP=joint['TP'], Joint_FP=joint['FP'], Joint_FN=joint['FN'],
                            Cut_HD95_penalized_mm=cut['HD95_penalized_mm'],
                            Joint_HD95_penalized_mm=joint['HD95_penalized_mm']))
+    cold_paired = []
+    for i in range(4):
+        cut = x['patients']['Cut_RUNMC'][i]['classes'][0]
+        joint = x['patients']['Joint_RUNMC'][i]['classes'][0]
+        cold_paired.append(dict(index=i + 1, Cut_Dice=cut['Dice'], Joint_Dice=joint['Dice'],
+                                Joint_minus_Cut_pp=100 * (joint['Dice'] - cut['Dice'])))
     diff = 100 * (cells['Joint_BMC']['Dice'] - cells['Cut_BMC']['Dice'])
     gates = dict(
         BMC_mean_gain_ge_1pp=diff >= 1,
@@ -38,7 +44,7 @@ def main(snapshot):
                                           x['patients'][arm + '_BMC_train'])),
     )
     status = 'EXPLORATORY_POSITIVE' if all(gates.values()) else 'NO_ROBUST_POSITIVE_SIGNAL'
-    analysis = dict(status=status, paired_BMC=paired, gates=gates,
+    analysis = dict(status=status, paired_BMC=paired, paired_cold_RUNMC=cold_paired, gates=gates,
                     mean_effect_BMC_pp=diff,
                     cold_RUNMC_effect_pp=100 * (cells['Joint_RUNMC']['Dice'] - cells['Cut_RUNMC']['Dice']),
                     cells=cells,
@@ -61,6 +67,8 @@ def main(snapshot):
                       for arm in ('Cut', 'Joint'))
     rows = '\n'.join(f"| {p['index']} | {pct(p['Cut_Dice'])} | {pct(p['Joint_Dice'])} | "
                      f"{p['Joint_minus_Cut_pp']:+.3f} |" for p in paired)
+    cold_rows = '\n'.join(f"| {p['index']} | {pct(p['Cut_Dice'])} | {pct(p['Joint_Dice'])} | "
+                          f"{p['Joint_minus_Cut_pp']:+.3f} |" for p in cold_paired)
     gate_rows = '\n'.join(f"| {k} | {'PASS' if v else 'FAILED'} |" for k, v in gates.items())
     report = f"""# C2：BMC 小样本跨中心复核
 
@@ -79,6 +87,14 @@ Joint−Cut BMC均值 **{diff:+.3f}pp**；RUNMC冷迁移均值 **{analysis['cold
 | 预定积极信号门 | 判定 |
 |---|---|
 {gate_rows}
+
+RUNMC冷迁移的均值优势由患者差异共同构成，特别是第4名患者；它不是BMC域内主门的替代结果。RUNMC逐患者：
+
+| 索引 | Cut Dice % | Joint Dice % | Joint−Cut pp |
+|---|---:|---:|---:|
+{cold_rows}
+
+RUNMC惩罚HD95均值Cut {cells['Cut_RUNMC']['HD95_penalized_mm']:.3f}mm、Joint {cells['Joint_RUNMC']['HD95_penalized_mm']:.3f}mm；Brier分别为{cells['Cut_RUNMC']['Brier']:.4f}和{cells['Joint_RUNMC']['Brier']:.4f}。冷迁移Dice提高伴随这些指标变差，不能称为全面跨域改善。
 
 完整匿名患者计数、NLL/Brier、惩罚HD95及次要MC4见[分析](ANALYSIS.json)，资源收据见[执行摘要](EXECUTION_SUMMARY.json)。C1原RUNMC源门失败和未做目标训练的结论保持不变；本轮只检验另一中心的单域从零训练，BMC开发患者已经被历史路线多次观察，不是外部独立验证。BMC和RUNMC的训练切片数也不同，不能把域内Dice差异单独归因于中心。单种子4名开发患者及层次反馈整项对比，不足以识别某个潜变量的因果贡献或声称普遍优势。隐藏U标签和test未访问；原图、标注、预测和模型均留NAS。[冻结协议](PREREG_ZH.md)
 """
