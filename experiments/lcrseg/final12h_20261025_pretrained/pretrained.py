@@ -62,6 +62,10 @@ class Method(BaseMethod):
     def __init__(self,model,dataset,arm,old=None,importance=None,bank=None):
         super().__init__(model,dataset,arm,old,{},[])
         if arm=='C':self.model.encoder.requires_grad_(False)
+        self.reset_restore_tracking()
+
+    def reset_restore_tracking(self):
+        # Strict state restoration itself increments Tensor versions without a weight update.
         self.encoder_versions=[p._version for p in self.model.encoder.parameters()]
         self.encoder_buffer_versions=[b._version for b in self.model.encoder.buffers()]
 
@@ -139,6 +143,7 @@ def sufficient(out):
 
 def selfcheck():
     initial=c.COUNTS['native'];specs={}
+    c.COUNTS['synthetic_reverse']=0
     for dataset in ('mnms','fundus'):
         net=Network(dataset).cuda();specs[dataset]=sum(p.numel() for p in net.parameters())
         ch=1 if dataset=='mnms' else 3;nc=4 if dataset=='mnms' else 3
@@ -149,10 +154,12 @@ def selfcheck():
             model=copy.deepcopy(net);method=Method(model,dataset,arm,old)
             lb=LabeledBatch(x,y,torch.ones_like(y[:,None],dtype=torch.bool),[],[],[],[])
             ub=UnlabeledBatch(x,x,torch.ones_like(x[:,:1],dtype=torch.bool),[],[],[],[],[])
-            result=method.training_step(lb,ub,0,1000);result.total_loss.backward()
+            result=method.training_step(lb,ub,0,1000)
+            c.COUNTS['synthetic_reverse']+=1
+            result.total_loss.backward()
             assert torch.isfinite(result.total_loss)
             assert all(p.grad is not None and torch.isfinite(p.grad).all() for p in method.model.parameters() if p.requires_grad)
-            assert float(result.losses['history'])>0
+            assert float(result.losses['history'].detach())>0
             method.after_optimizer_step()
             if arm=='C':
                 assert all(torch.equal(v,method.teacher.encoder.state_dict()[k]) for k,v in method.model.encoder.state_dict().items())

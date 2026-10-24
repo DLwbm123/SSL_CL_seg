@@ -217,6 +217,7 @@ def qualify(method, l, u, out):
         return tr.train_step(lb, ub, state=TrainerState()).total_loss.detach().clone()
     a = one(); first = copy.deepcopy(method.model.state_dict()); first_ema = copy.deepcopy(method.teacher.state_dict())
     method.model.load_state_dict(start); method.teacher.load_state_dict(teacher); tr.load_state_dict(saved); restore_rng_state(saved_rng)
+    if hasattr(method,'reset_restore_tracking'): method.reset_restore_tracking()
     b = one()
     assert torch.equal(a, b)
     assert all(torch.equal(first[k], v) for k, v in method.model.state_dict().items())
@@ -231,6 +232,7 @@ def qualify(method, l, u, out):
     assert math.isfinite(after) and after < before, (before, after)
     method.assert_old_state_unchanged()
     method.model.load_state_dict(start); method.teacher.load_state_dict(teacher); method.model.zero_grad(set_to_none=True)
+    if hasattr(method,'reset_restore_tracking'): method.reset_restore_tracking()
     restore_rng_state(rng)
     write(out/'QUALIFICATION.json', dict(status='PASS', physical_optimizer=8, golden_exact=True, restored=True, before=before, after=after))
 
