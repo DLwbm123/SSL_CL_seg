@@ -18,10 +18,22 @@ def record(cfg,key,n,optimizer=False):
     root=Path(cfg['root'])
     with (root/'ledger.lock').open('a') as f:
         fcntl.flock(f,fcntl.LOCK_EX);p=root/'COUNTERS.private.json'
-        d=json.loads(p.read_text()) if p.exists() else dict(calls={},optimizer={})
+        d=json.loads(p.read_text()) if p.exists() else dict(calls={},optimizer={},pending_optimizer=None)
         table=d['optimizer' if optimizer else 'calls'];cap=(32 if key.endswith('_qualification') else 6000 if key=='source_CAL_formal' else 2000) if optimizer else CAPS[key]
         if table.get(key,0)+n>cap:raise PermissionError('cap '+key)
+        if optimizer:
+            assert d.get('pending_optimizer',{}).get('key')==key
+            d['pending_optimizer']=None
         table[key]=table.get(key,0)+n;append(root/'EVENTS.private.jsonl',dict(key=key,n=n,kind='optimizer' if optimizer else 'call',time=time.time()));write(p,d)
+def reserve(cfg,key):
+    root=Path(cfg['root'])
+    with (root/'ledger.lock').open('a') as f:
+        fcntl.flock(f,fcntl.LOCK_EX);p=root/'COUNTERS.private.json'
+        d=json.loads(p.read_text()) if p.exists() else dict(calls={},optimizer={},pending_optimizer=None)
+        assert d.get('pending_optimizer') is None
+        cap=32 if key.endswith('_qualification') else 6000 if key=='source_CAL_formal' else 2000
+        if d['optimizer'].get(key,0)>=cap:raise PermissionError('optimizer cap')
+        d['pending_optimizer']=dict(key=key,time=time.time());append(root/'EVENTS.private.jsonl',dict(key=key,n=1,kind='reserved_optimizer',time=time.time()));write(p,d)
 class Calls:
     def __init__(self,cfg):self.cfg=cfg;self.bucket=cfg['bucket']
     def sample(self,n):guard(self.cfg);record(self.cfg,self.bucket+'_samples',n)
@@ -39,8 +51,7 @@ def attach(opt,cfg,model):
         for prefix in ('adapter_','calibration'):
             pp=[p for n,p in model.named_parameters() if p.requires_grad and (n.startswith('adapter_') if prefix=='adapter_' else not n.startswith('adapter_'))]
             if pp:torch.nn.utils.clip_grad_norm_(pp,1.,error_if_nonfinite=True)
-        key=cfg['group']+'_'+cfg['phase'];p=Path(cfg['root'])/'COUNTERS.private.json';d=json.loads(p.read_text()) if p.exists() else {'optimizer':{}}
-        if d['optimizer'].get(key,0)>=(32 if cfg['phase']=='qualification' else 6000 if cfg['stage']=='source' else 2000):raise PermissionError('optimizer cap')
+        reserve(cfg,cfg['group']+'_'+cfg['phase'])
     opt.register_step_pre_hook(pre);opt.register_step_post_hook(lambda *_:record(cfg,cfg['group']+'_'+cfg['phase'],1,True))
 def save(cfg,state,path):
     from ..gyro_spatial_memory_v1.runtime import finite

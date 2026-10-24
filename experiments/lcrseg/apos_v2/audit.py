@@ -20,6 +20,12 @@ def main(cfg):
             if e['kind']==kind:got[e['key']]+=e['n']
         assert dict(got)==table
     assert all(v<=CAPS[k] for k,v in count['calls'].items()) and sum(count['optimizer'].values())<=12128
+    if status['status'] in ('COMPLETE','SOURCE_STOP'):
+        assert count.get('pending_optimizer') is None
+        reserved=collections.Counter()
+        for e in events:
+            if e['kind']=='reserved_optimizer':reserved[e['key']]+=e['n']
+        assert dict(reserved)==count['optimizer']
     full=status['status']=='COMPLETE';source_complete=(root/'SOURCE_GATE.json').exists();metrics={};tails={};contrasts={};checks={}
     load=lambda p:torch.load(p,map_location='cpu',weights_only=False)
     if source_complete:
