@@ -36,7 +36,8 @@ def selfcheck(cfg):
         assert float((m.last['logq']-m.last['logq0']).abs().max())>0
         del m,l,u,out;torch.cuda.empty_cache()
     projected=1.7*2000*sum(benchmarks.values())+9400*max(benchmarks.values())/4+1200
-    result.update(status='PASS' if projected<20000 else 'STOP_RUNTIME',synthetic_reverse=19,synthetic_native_samples=native,native_identity=True,nonzero_real_prior_and_drift=True,benchmarks_seconds=benchmarks,projected_seconds_including_margin=projected,peak_bytes=torch.cuda.max_memory_allocated(),medical_samples=0,optimizer=0)
+    counted=json.loads((Path(cfg['root'])/'SYNTHETIC_COUNTERS.json').read_text())
+    result.update(status='PASS' if projected<20000 else 'STOP_RUNTIME',synthetic_reverse=counted.get('reverse',0),synthetic_native_samples=counted.get('native',0),successful_current_pass_native=native,native_identity=True,nonzero_real_prior_and_drift=True,benchmarks_seconds=benchmarks,projected_seconds_including_margin=projected,peak_bytes=torch.cuda.max_memory_allocated(),medical_samples=0,optimizer=0)
     result['counted_synthetic_calls']=json.loads((Path(cfg['root'])/'SYNTHETIC_COUNTERS.json').read_text())
     write(Path(cfg['root'])/'SELF_CHECK.json',result)
 

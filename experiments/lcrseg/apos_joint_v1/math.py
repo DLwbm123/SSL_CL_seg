@@ -1,8 +1,20 @@
 """Eight coupled constrained Newton directions with a Fenchel dual certificate."""
 import torch
 from torch.nn import functional as F
-from ..apos_v2.math import area,lift,pixel,project
+from ..apos_v2.math import area,lift,project
 from ..apos_v3.math import mixture,penalty,precision,latent,energy
+
+def pixel(logq,u,w,calls=None):
+    # Centred algebra preserves exact source ties without bypassing the derivative.
+    grid=u.shape[-1];v=torch.zeros_like(u);baseline=F.log_softmax(logq,1)
+    if calls:calls.pixel(len(logq)*16)
+    for _ in range(16):
+        corr=torch.cat((torch.zeros_like(v[:,:1]),v),1)
+        lp=logq+(F.log_softmax(logq-lift(corr,logq.shape[-2:]),1)-baseline)
+        v=w*(area(lp.exp()[:,1:],grid)-u)
+    corr=torch.cat((torch.zeros_like(v[:,:1]),v),1);lp=logq+(F.log_softmax(logq-lift(corr,logq.shape[-2:]),1)-baseline)
+    residual=(v-w*(area(lp.exp()[:,1:],grid)-u)).abs().max();assert float(residual.detach())<=1e-4,('pixel fixed point residual',float(residual.detach()))
+    return lp,residual
 
 def cells(x):return x.permute(0,2,3,1).reshape(x.shape[0],-1,3)
 def image(x,g):return x.reshape(x.shape[0],g,g,3).permute(0,3,1,2)
@@ -17,6 +29,7 @@ def face_project(c,H,calls=None):
     rhs=(H@c[...,None])[...,0][...,None,:]*mask
     rr=torch.stack((rhs,mask.expand_as(rhs)),-1);sol=torch.linalg.solve(HH,rr);x=sol[...,0];j=sol[...,1]
     denom=torch.where(mass,j.sum(-1),torch.ones_like(j.sum(-1)));eta=torch.where(mass,(x.sum(-1)-1)/denom,torch.zeros_like(denom));x=x-eta[...,None]*j
+    interior=(mask.sum(-1)==3)&~mass;x=torch.where(interior[None,None,:,None],c[...,None,:],x)
     grad=(H[...,None,:,:]@(x-c[...,None,:])[...,None])[...,0]+eta[...,None]
     scale=1+(H@c[...,None])[...,0].abs().amax(-1)[...,None]+eta.abs()
     valid=((x*mask).amin(-1)>=-1e-12)&torch.where(mask.bool(),grad.abs()<=1e-10*scale[...,None],grad>=-1e-10*scale[...,None]).all(-1)&torch.where(mass,eta>=-1e-10*scale,x.sum(-1)<=1+1e-12)

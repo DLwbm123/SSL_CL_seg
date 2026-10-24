@@ -59,3 +59,7 @@ Optimizer6096=3*32资格+3*2000正式，源新优化0。医疗native cap34000=�
 首次数值/资格起同一新原始8h钟，25200不新stage、27900stop、独立timeout28600TERM/30KILL。3.5GB写保护、严格新增<4GB（含ops、缓存、snapshot/atomic），remote+local4.05GB峰值预留，累计30GB不清零/准入<27GB留3GB恢复余量。不删历史。仅pro5000 GPU3既定UUID，/data/bmw项目例外、中性父子argv，实际挂载容量写读及显存准入并核ps/nvidia。
 
 终态全退出且AUDIT不存在，只一次本轮audit.py零forward；完整发布命名协议/源码/匿名结果/停止失败/审计/status/report，患者行/权重/先验/诊断张量/配置日志私有。GitHub显式7897代理/NO_PROXY不绕过，核remoteSHAeq/匿名HTTP200/localremoteDELIVERY/results_public齐才完整交付。唯一30min健康静默监测，实质完成/故障/需用户动作才通知；交付后删除监测等待用户，不自动后继。
+
+## 零医疗算术修复记录
+
+首次CPU身份测试在精确类别同分时触发argmax不一致，1次合成reverse、160pixel/8joint/8merit/245760cell-face/1dual，0native/0medical/0optimizer。保留原log/exit1/counters/launch。像素块改成logq+[logsoftmax(logq−corr)−logsoftmax(logq)]的等价中心化表达；完整内点投影面采用解析恒等x=c，避免H^-1 Hc舍入。所有8方向仍执行、结构导数不切断；不改能量/门槛/迭代/候选/数据。合成剩余资格共享原钟和原硬cap，最终累计调用包括该失败，不重置计数。
