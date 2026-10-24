@@ -87,7 +87,7 @@ ReplayJoint开发旧域的变换相对原预测：等权Dice {sum(changes)/4:+.3
 |---|---|
 {gate_rows}
 
-R2的 `REHEARSAL_FEEDBACK_FAILED` 与T0的探索性目标域连通体观察均不变。{'本次旧域开发安全探针没有推翻这个固定空间候选，但仍缺独立患者和前瞻性模型检验。' if passed else '本固定最大组件规则触发旧域安全失败，不作为当前主方法的直接推断规则。'} RUNMC开发患者同样多次用于决策；不能把这次安全检查与T0目标域结果拼成一项确认性成功，也不扫组件连接方式、阈值或大小。[协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[成本](EXECUTION_SUMMARY.json)。
+R2的 `REHEARSAL_FEEDBACK_FAILED` 与T0的探索性目标域连通体观察均不变。{'本次旧域开发安全探针没有推翻这个固定空间候选，但仍缺独立患者和前瞻性模型检验。' if passed else '本固定最大组件规则触发旧域安全失败，不作为当前主方法的直接推断规则。'}训练第3名ReplayJoint仍误删 {row('RUNMC_train','ReplayJoint',3)['removed_TP']} 个TP，Dice下降 {100*(row('RUNMC_train','ReplayJoint',3)['largest_Dice']-row('RUNMC_train','ReplayJoint',3)['baseline_Dice']):+.3f}pp，故不宣称绝对无害。RUNMC开发患者同样多次用于决策；不能把这次安全检查与T0目标域结果拼成一项确认性成功，也不扫组件连接方式、阈值或大小。[协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[成本](EXECUTION_SUMMARY.json)。
 """
     (out / 'REPORT_ZH.md').write_text(report)
     print(verdict)
