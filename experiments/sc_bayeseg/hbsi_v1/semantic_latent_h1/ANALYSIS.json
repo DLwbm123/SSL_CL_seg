@@ -1,0 +1,1021 @@
+{
+  "status": "NO_SHAPE_SPECIFIC_BMC_SIGNAL",
+  "source_gates": {
+    "RUNMC_mean_vs_Appearance_ge_minus_1pp": true,
+    "RUNMC_mean_vs_U_ge_minus_1pp": true,
+    "RUNMC_each_vs_Appearance_ge_minus_5pp": true,
+    "RUNMC_each_vs_U_ge_minus_5pp": true,
+    "RUNMC_train_mean_vs_Appearance_ge_minus_5pp": true,
+    "RUNMC_train_mean_vs_U_ge_minus_5pp": true,
+    "RUNMC_HD95_vs_both_le_1_10": true,
+    "no_source_collapse": true,
+    "full_generator_finite": true
+  },
+  "BMC_signal_gates": {
+    "BMC_mean_vs_both_ge_plus_2pp": false,
+    "BMC_3_of_4_nonnegative_vs_both": false,
+    "BMC_each_vs_both_ge_minus_5pp": true,
+    "BMC_HD95_vs_both_le_1_10": true,
+    "no_BMC_collapse": true
+  },
+  "cells": {
+    "U_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.6326089932682397,
+      "precision": 0.7546032897602193,
+      "recall": 0.5558247906040931,
+      "HD95_penalized_mm": 27.90958403412674,
+      "NLL": 0.10036529085920891,
+      "Brier": 0.03669205675546755,
+      "empty_predictions": 0
+    },
+    "Appearance_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.6351987823981966,
+      "precision": 0.7639279231955792,
+      "recall": 0.5525281183006026,
+      "HD95_penalized_mm": 26.648821463589528,
+      "NLL": 0.10275647620217739,
+      "Brier": 0.0361978568264872,
+      "empty_predictions": 0
+    },
+    "Shape_RUNMC": {
+      "domain": "RUNMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.6371795038484263,
+      "precision": 0.7669162636244349,
+      "recall": 0.5531732454408407,
+      "HD95_penalized_mm": 26.52426175454593,
+      "NLL": 0.10196721246122911,
+      "Brier": 0.035887831993698105,
+      "empty_predictions": 0
+    },
+    "U_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.3099734565874816,
+      "precision": 0.4215958756531034,
+      "recall": 0.279570877524663,
+      "HD95_penalized_mm": 43.788126941648855,
+      "NLL": 0.11627197939770216,
+      "Brier": 0.03883788255763219,
+      "empty_predictions": 0
+    },
+    "Appearance_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.3100517623491166,
+      "precision": 0.4434344306546917,
+      "recall": 0.2693390717121385,
+      "HD95_penalized_mm": 41.53317383172261,
+      "NLL": 0.12006435218256657,
+      "Brier": 0.038166621489220065,
+      "empty_predictions": 0
+    },
+    "Shape_BMC": {
+      "domain": "BMC",
+      "split": "val",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.31072053099748614,
+      "precision": 0.4492183257298913,
+      "recall": 0.26803602208701516,
+      "HD95_penalized_mm": 40.98624659958424,
+      "NLL": 0.12127330811556994,
+      "Brier": 0.038057282055960644,
+      "empty_predictions": 0
+    },
+    "U_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "standard_UNet_two_logit_softmax",
+      "Dice": 0.8263174812956011,
+      "precision": 0.7812726237285461,
+      "recall": 0.8911926869694089,
+      "HD95_penalized_mm": 29.30098682807565,
+      "NLL": 0.02161131977511867,
+      "Brier": 0.00989677057221483,
+      "empty_predictions": 0
+    },
+    "Appearance_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.8331219920143911,
+      "precision": 0.8000243843201812,
+      "recall": 0.8810128784092857,
+      "HD95_penalized_mm": 26.784474280084854,
+      "NLL": 0.02053860932400188,
+      "Brier": 0.009373529368594122,
+      "empty_predictions": 0
+    },
+    "Shape_RUNMC_train": {
+      "domain": "RUNMC",
+      "split": "train_labeled",
+      "patients": 4,
+      "draws": 1,
+      "complete": true,
+      "predictor": "frozen_U_plus_half_tanh_latent_head",
+      "Dice": 0.8343815961573995,
+      "precision": 0.8040462659118361,
+      "recall": 0.8782125443903096,
+      "HD95_penalized_mm": 26.64829208094556,
+      "NLL": 0.020116227770245392,
+      "Brier": 0.009249621905899756,
+      "empty_predictions": 0
+    }
+  },
+  "patients": {
+    "RUNMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 27445,
+              "TP": 22055,
+              "FP": 5390,
+              "FN": 14773,
+              "Dice": 0.6862912887215471,
+              "HD95_mm": 19.510835193549077,
+              "HD95_penalized_mm": 19.510835193549077,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07797852775204797,
+          "Brier": 0.0277753237842516
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26792,
+              "TP": 21988,
+              "FP": 4804,
+              "FN": 14840,
+              "Dice": 0.6912291732159698,
+              "HD95_mm": 17.641980613879205,
+              "HD95_penalized_mm": 17.641980613879205,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.0804023823221106,
+          "Brier": 0.027027877465146732
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 36828,
+              "predicted": 26587,
+              "TP": 21927,
+              "FP": 4660,
+              "FN": 14901,
+              "Dice": 0.6915398565008278,
+              "HD95_mm": 17.401073957603217,
+              "HD95_penalized_mm": 17.401073957603217,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.08059364254912446,
+          "Brier": 0.026929272914926722
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39641,
+              "TP": 35235,
+              "FP": 4406,
+              "FN": 23222,
+              "Dice": 0.7183632693836776,
+              "HD95_mm": 40.10501603444067,
+              "HD95_penalized_mm": 40.10501603444067,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11669192585150123,
+          "Brier": 0.04431099868616651
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39474,
+              "TP": 35198,
+              "FP": 4276,
+              "FN": 23259,
+              "Dice": 0.7188326474762843,
+              "HD95_mm": 39.37630942163238,
+              "HD95_penalized_mm": 39.37630942163238,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11903041120615919,
+          "Brier": 0.044331155313356504
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 58457,
+              "predicted": 39524,
+              "TP": 35288,
+              "FP": 4236,
+              "FN": 23169,
+              "Dice": 0.7203029158714445,
+              "HD95_mm": 39.261621541670884,
+              "HD95_penalized_mm": 39.261621541670884,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.11870825313568052,
+          "Brier": 0.044068700432564244
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29502,
+              "TP": 26364,
+              "FP": 3138,
+              "FN": 23296,
+              "Dice": 0.6660771582324853,
+              "HD95_mm": 26.260712753698773,
+              "HD95_penalized_mm": 26.260712753698773,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13602524575791686,
+          "Brier": 0.04889567680961195
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29616,
+              "TP": 26641,
+              "FP": 2975,
+              "FN": 23019,
+              "Dice": 0.672107573540542,
+              "HD95_mm": 25.819565648870498,
+              "HD95_penalized_mm": 25.819565648870498,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13846897662568808,
+          "Brier": 0.04830807157232245
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 49660,
+              "predicted": 29850,
+              "TP": 26867,
+              "FP": 2983,
+              "FN": 22793,
+              "Dice": 0.675814362973211,
+              "HD95_mm": 25.675864821506547,
+              "HD95_penalized_mm": 25.675864821506547,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.13714368172019517,
+          "Brier": 0.04786292030703719
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 18373,
+              "TP": 7943,
+              "FP": 10430,
+              "FN": 8241,
+              "Dice": 0.459704256735249,
+              "HD95_mm": 25.76177215481844,
+              "HD95_penalized_mm": 25.76177215481844,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07076546407536959,
+          "Brier": 0.025786227741840147
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 17303,
+              "TP": 7679,
+              "FP": 9624,
+              "FN": 8505,
+              "Dice": 0.45862573535999046,
+              "HD95_mm": 23.75743016997603,
+              "HD95_penalized_mm": 23.75743016997603,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.0731241346547517,
+          "Brier": 0.025124322955123114
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 16184,
+              "predicted": 16996,
+              "TP": 7649,
+              "FP": 9347,
+              "FN": 8535,
+              "Dice": 0.4610608800482218,
+              "HD95_mm": 23.758486697403075,
+              "HD95_penalized_mm": 23.758486697403075,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.07142327243991631,
+          "Brier": 0.024690434320264264
+        }
+      }
+    ],
+    "BMC": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 14841,
+              "TP": 6340,
+              "FP": 8501,
+              "FN": 76378,
+              "Dice": 0.1299726319457969,
+              "HD95_mm": 36.0611459233682,
+              "HD95_penalized_mm": 36.0611459233682,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.22191107590509956,
+          "Brier": 0.0693348208845001
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13700,
+              "TP": 6155,
+              "FP": 7545,
+              "FN": 76563,
+              "Dice": 0.12767325603103155,
+              "HD95_mm": 32.54882147785686,
+              "HD95_penalized_mm": 32.54882147785686,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.23155946729054655,
+          "Brier": 0.06872836907243372
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 82718,
+              "predicted": 13568,
+              "TP": 6162,
+              "FP": 7406,
+              "FN": 76556,
+              "Dice": 0.1279936854786781,
+              "HD95_mm": 31.87127428060293,
+              "HD95_penalized_mm": 31.87127428060293,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.2344025992817308,
+          "Brier": 0.06869908241064303
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 25352,
+              "TP": 9873,
+              "FP": 15479,
+              "FN": 37201,
+              "Dice": 0.27263689835142074,
+              "HD95_mm": 36.21220756211231,
+              "HD95_penalized_mm": 36.21220756211231,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1341571976167854,
+          "Brier": 0.04635336695435931
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 24049,
+              "TP": 9473,
+              "FP": 14576,
+              "FN": 37601,
+              "Dice": 0.2663835889937151,
+              "HD95_mm": 35.37737061345153,
+              "HD95_penalized_mm": 35.37737061345153,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.1397049770265423,
+          "Brier": 0.04618319798629754
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 47074,
+              "predicted": 23920,
+              "TP": 9432,
+              "FP": 14488,
+              "FN": 37642,
+              "Dice": 0.2657125954305998,
+              "HD95_mm": 35.38289101418232,
+              "HD95_penalized_mm": 35.38289101418232,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.14228388075245926,
+          "Brier": 0.04614674839258172
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 28744,
+              "TP": 14031,
+              "FP": 14713,
+              "FN": 10705,
+              "Dice": 0.52471952131638,
+              "HD95_mm": 43.86340972315025,
+              "HD95_penalized_mm": 43.86340972315025,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05752037939543178,
+          "Brier": 0.02142742000146931
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26391,
+              "TP": 13408,
+              "FP": 12983,
+              "FN": 11328,
+              "Dice": 0.5244978191562188,
+              "HD95_mm": 42.923302345514216,
+              "HD95_penalized_mm": 42.923302345514216,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05643991055049279,
+          "Brier": 0.020477239246506372
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 24736,
+              "predicted": 26139,
+              "TP": 13333,
+              "FP": 12806,
+              "FN": 11403,
+              "Dice": 0.5241474201474201,
+              "HD95_mm": 41.596258395929695,
+              "HD95_penalized_mm": 41.596258395929695,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05634198459427672,
+          "Brier": 0.020402463803201872
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 13435,
+              "TP": 5127,
+              "FP": 8308,
+              "FN": 14244,
+              "Dice": 0.3125647747363287,
+              "HD95_mm": 59.01574455796467,
+              "HD95_penalized_mm": 59.01574455796467,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05149926467349192,
+          "Brier": 0.018235922390200023
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11905,
+              "TP": 5030,
+              "FP": 6875,
+              "FN": 14341,
+              "Dice": 0.3216523852155007,
+              "HD95_mm": 55.28320089006781,
+              "HD95_penalized_mm": 55.28320089006781,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.05255305386268466,
+          "Brier": 0.017277679651642622
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 19371,
+              "predicted": 11414,
+              "TP": 5003,
+              "FP": 6411,
+              "FN": 14368,
+              "Dice": 0.3250284229332467,
+              "HD95_mm": 55.09456270762202,
+              "HD95_penalized_mm": 55.09456270762202,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.052064767833812975,
+          "Brier": 0.016980833617415945
+        }
+      }
+    ],
+    "RUNMC_train": [
+      {
+        "index": 1,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 27570,
+              "TP": 24273,
+              "FP": 3297,
+              "FN": 1787,
+              "Dice": 0.9052023121387284,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.011090986684819129,
+          "Brier": 0.005886614675207728
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26937,
+              "TP": 24104,
+              "FP": 2833,
+              "FN": 1956,
+              "Dice": 0.9096363945128969,
+              "HD95_mm": 3.5999984741210938,
+              "HD95_penalized_mm": 3.5999984741210938,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010110377569950221,
+          "Brier": 0.005534595480258391
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 26060,
+              "predicted": 26632,
+              "TP": 23936,
+              "FP": 2696,
+              "FN": 2124,
+              "Dice": 0.9085250132847491,
+              "HD95_mm": 3.4938562148434213,
+              "HD95_penalized_mm": 3.4938562148434213,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.010130276371570353,
+          "Brier": 0.00552668935535433
+        }
+      },
+      {
+        "index": 2,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 20965,
+              "TP": 12494,
+              "FP": 8471,
+              "FN": 934,
+              "Dice": 0.7265431919285901,
+              "HD95_mm": 51.85875215164513,
+              "HD95_penalized_mm": 51.85875215164513,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.024836413901846773,
+          "Brier": 0.011683828237316563
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19689,
+              "TP": 12297,
+              "FP": 7392,
+              "FN": 1131,
+              "Dice": 0.74263973185977,
+              "HD95_mm": 46.52762660873489,
+              "HD95_penalized_mm": 46.52762660873489,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.021602645918637114,
+          "Brier": 0.010551709226793823
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 13428,
+              "predicted": 19343,
+              "TP": 12228,
+              "FP": 7115,
+              "FN": 1200,
+              "Dice": 0.7462695676055049,
+              "HD95_mm": 46.01032742213721,
+              "HD95_penalized_mm": 46.01032742213721,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.02004737006956556,
+          "Brier": 0.01022738653822388
+        }
+      },
+      {
+        "index": 3,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 25511,
+              "TP": 20451,
+              "FP": 5060,
+              "FN": 2667,
+              "Dice": 0.8411030455078246,
+              "HD95_mm": 22.422532873624853,
+              "HD95_penalized_mm": 22.422532873624853,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.019921659342874244,
+          "Brier": 0.009395924690393674
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24712,
+              "TP": 20242,
+              "FP": 4470,
+              "FN": 2876,
+              "Dice": 0.84641438427765,
+              "HD95_mm": 19.99607526798866,
+              "HD95_penalized_mm": 19.99607526798866,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018837993572324917,
+          "Brier": 0.009003715523836772
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 23118,
+              "predicted": 24624,
+              "TP": 20247,
+              "FP": 4377,
+              "FN": 2871,
+              "Dice": 0.8481839889405555,
+              "HD95_mm": 20.058962978899288,
+              "HD95_penalized_mm": 20.058962978899288,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.018743280767116937,
+          "Brier": 0.00891008616847966
+        }
+      },
+      {
+        "index": 4,
+        "U": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 28825,
+              "TP": 24417,
+              "FP": 4408,
+              "FN": 5423,
+              "Dice": 0.8324213756072616,
+              "HD95_mm": 39.32266381291153,
+              "HD95_penalized_mm": 39.32266381291153,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.030596219170934535,
+          "Brier": 0.012620714685941356
+        },
+        "Appearance": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27975,
+              "TP": 24103,
+              "FP": 3872,
+              "FN": 5737,
+              "Dice": 0.8337974574072472,
+              "HD95_mm": 37.014196769494774,
+              "HD95_penalized_mm": 37.014196769494774,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.03160342023509527,
+          "Brier": 0.012404097243487506
+        },
+        "Shape": {
+          "classes": [
+            {
+              "class_index": 1,
+              "GT": 29840,
+              "predicted": 27935,
+              "TP": 24108,
+              "FP": 3827,
+              "FN": 5732,
+              "Dice": 0.8345478147987884,
+              "HD95_mm": 37.030021707902314,
+              "HD95_penalized_mm": 37.030021707902314,
+              "empty_prediction_failure": false,
+              "GT_absent": false
+            }
+          ],
+          "NLL": 0.03154398387272872,
+          "Brier": 0.012334325561541152
+        }
+      }
+    ]
+  },
+  "training": {
+    "Appearance": {
+      "first100": {
+        "fused_task": 0.1263332714866474,
+        "direct_task": 1.2222028832646175,
+        "variational": 3.8547542984300254,
+        "reconstruction_mse": 0.02126992114761207,
+        "shape_logsd": -2.466936787319178,
+        "appearance_logsd": -2.2351854463092455
+      },
+      "last100": {
+        "fused_task": 0.12235139860289665,
+        "direct_task": 0.5271864877780222,
+        "variational": 4.326301956637607,
+        "reconstruction_mse": 0.09288129383807728,
+        "shape_logsd": -2.212240488430173,
+        "appearance_logsd": -1.8216483229592846
+      }
+    },
+    "Shape": {
+      "first100": {
+        "fused_task": 0.12661006520775805,
+        "direct_task": 1.2620601853365594,
+        "variational": 2.7064894118405185,
+        "reconstruction_mse": 0.01970606433527967,
+        "shape_logsd": -2.4819605046693023,
+        "appearance_logsd": -2.260373091596085
+      },
+      "last100": {
+        "fused_task": 0.1214902139436065,
+        "direct_task": 0.44065330723603585,
+        "variational": 4.017617900936987,
+        "reconstruction_mse": 0.13378599843826128,
+        "shape_logsd": -2.2480911514538606,
+        "appearance_logsd": -1.8780080994415675
+      }
+    }
+  },
+  "gradient_audits": {
+    "Appearance": [
+      {
+        "step": 1,
+        "task_grad_norm": 0.0,
+        "weighted_variational_grad_norm": 0.018371747609652437,
+        "cosine": null,
+        "task_gradient_parameters": 12,
+        "variational_gradient_parameters": 12
+      },
+      {
+        "step": 400,
+        "task_grad_norm": 1.2011031171602433,
+        "weighted_variational_grad_norm": 1.320073829399473,
+        "cosine": -0.9039826920650009,
+        "task_gradient_parameters": 12,
+        "variational_gradient_parameters": 12
+      },
+      {
+        "step": 800,
+        "task_grad_norm": 0.6297322832951906,
+        "weighted_variational_grad_norm": 0.18218271223952584,
+        "cosine": 0.03505029478488761,
+        "task_gradient_parameters": 12,
+        "variational_gradient_parameters": 12
+      },
+      {
+        "step": 1200,
+        "task_grad_norm": 0.7593061045010938,
+        "weighted_variational_grad_norm": 1.0677915816827912,
+        "cosine": 0.3933005323219891,
+        "task_gradient_parameters": 12,
+        "variational_gradient_parameters": 12
+      },
+      {
+        "step": 1600,
+        "task_grad_norm": 1.65974330936684,
+        "weighted_variational_grad_norm": 0.655649034780767,
+        "cosine": 0.6250141512060406,
+        "task_gradient_parameters": 12,
+        "variational_gradient_parameters": 12
+      }
+    ],
+    "Shape": [
+      {
+        "step": 1,
+        "task_grad_norm": 0.0,
+        "weighted_variational_grad_norm": 0.028627407333776233,
+        "cosine": null,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 400,
+        "task_grad_norm": 0.7044778704969987,
+        "weighted_variational_grad_norm": 0.7145610866432256,
+        "cosine": -0.9899979393380376,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 800,
+        "task_grad_norm": 0.37369564440540637,
+        "weighted_variational_grad_norm": 0.7251495100741358,
+        "cosine": -0.8810997694977952,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 1200,
+        "task_grad_norm": 0.6931333098827207,
+        "weighted_variational_grad_norm": 0.16855497512231551,
+        "cosine": -0.1980480573594488,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      },
+      {
+        "step": 1600,
+        "task_grad_norm": 0.48353617716812863,
+        "weighted_variational_grad_norm": 1.4083062197272047,
+        "cosine": 0.6114511711503696,
+        "task_gradient_parameters": 20,
+        "variational_gradient_parameters": 20
+      }
+    ]
+  },
+  "Shape_minus_Appearance_pp": {
+    "RUNMC": 0.198072145022965,
+    "BMC": 0.06687686483695665,
+    "RUNMC_train": 0.12596041430084082
+  },
+  "Shape_minus_U_pp": {
+    "RUNMC": 0.45705105801865376,
+    "BMC": 0.07470744100045446,
+    "RUNMC_train": 0.8064114861798366
+  },
+  "C1_C2_E1_F1_G1_hard_stops_unchanged": true
+}

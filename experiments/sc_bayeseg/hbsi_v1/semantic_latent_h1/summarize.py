@@ -120,6 +120,23 @@ Shape−Appearance RUNMC/BMC为{mdiff('RUNMC','Shape','Appearance'):+.3f}/{mdiff
 
 最后100个源L训练批的生成项损失Appearance为{t['Appearance']['last100']['variational']:.3f}、Shape为{t['Shape']['last100']['variational']:.3f}；重建MSE分别{t['Appearance']['last100']['reconstruction_mse']:.5f}/{t['Shape']['last100']['reconstruction_mse']:.5f}。该固定配置未访问BMC训练标签或隐藏U标签/test。旧C/F/G负判定不变；同一4名开发患者多轮使用，即使积极门通过也不能替代独立患者、多种子和长期CL证据。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。
 """
+    probe_file=out/'POSTHOC_FIXED_PROBE.json'
+    if probe_file.exists():
+        probe=json.loads(probe_file.read_text())
+        assert probe['status']=='POSTHOC_DESCRIPTIVE_NO_SELECTION'
+        runmc=probe['RUNMC_L_fixed'];bmc=probe['BMC_U_fixed']
+        report+=(
+            '\n终点后另做[零更新固定批探针](POSTHOC_FIXED_PROBE.json)，只描述生成拟合、不参与模型选择：'
+            f"同一RUNMC L训练图像和固定噪声下，初态/Appearance/Shape的生成项损失为"
+            f"{runmc['Initial']['variational']:.3f}/{runmc['Appearance']['variational']:.3f}/"
+            f"{runmc['Shape']['variational']:.3f}，重建MSE为"
+            f"{runmc['Initial']['reconstruction_mse']:.5f}/{runmc['Appearance']['reconstruction_mse']:.5f}/"
+            f"{runmc['Shape']['reconstruction_mse']:.5f}；同一BMC U无标签图像为"
+            f"{bmc['Initial']['variational']:.3f}/{bmc['Appearance']['variational']:.3f}/"
+            f"{bmc['Shape']['variational']:.3f}及"
+            f"{bmc['Initial']['reconstruction_mse']:.5f}/{bmc['Appearance']['reconstruction_mse']:.5f}/"
+            f"{bmc['Shape']['reconstruction_mse']:.5f}。两个固定批均显示终态生成拟合恶化，且Shape更明显；"
+            '仅两张图像，不能推断全域幅度或把恶化单独归因某一个损失项。\n')
     (out/'REPORT_ZH.md').write_text(report)
     print(verdict,f"Shape_RUNMC={100*c['Shape_RUNMC']['Dice']:.3f}",
           f"Shape_BMC={100*c['Shape_BMC']['Dice']:.3f}")
