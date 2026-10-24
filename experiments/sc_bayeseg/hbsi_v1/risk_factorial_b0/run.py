@@ -19,7 +19,7 @@ from .method import HStd, UBal
 def evaluate(p, model, domain, split, out, arm):
     summary = a1_evaluate(p, model, domain, split, out)
     summary['predictor'] = 'deterministic_standard_UNet' if arm == 'U_Bal' else 'fullfield_local_posterior_mean'
-    write(out / 'SUMMARY.json', summary)
+    (out / 'SUMMARY.json').write_text(json.dumps(summary, indent=2))
     return summary
 
 
@@ -58,65 +58,88 @@ def main():
         target = data(protocol, cfg, 'BMC', 'L')
         assert source.counts == {'L': 80, 'U': 0} and target.counts == {'L': 134, 'U': 0}
         assert cfg.height == cfg.width == 128 and cfg.dtype == 'float64' and cfg.outer_lr == 3e-4
-        status('PREFLIGHT')
-        with ledger.attempt('preflight', seconds=300, updates=0):
-            for relative in ('lcrseg/models/unet.py', 'sc_bayeseg/hbsi_v1/unet_transfer_v45/run.py',
-                             'sc_bayeseg/hbsi_v1/paired_semantic_v19/method.py'):
-                assert (root / 'source' / relative).read_bytes() == (Path(protocol['unet_root']) / 'source' / relative).read_bytes()
-            h = initial('H_Std')
-            historic = FullFieldBayeSeg().double().cuda()
-            historic.load_state_dict(torch.load(Path(protocol['a1_root']) / 'results/preflight/PRIVATE_PREFLIGHT.pt',
-                                                map_location='cpu', weights_only=True))
-            assert all(torch.equal(v, historic.state_dict()[k]) for k, v in h.state_dict().items())
-            first, labels = batch(source, 0, 163000)
-            same_seed = 54000000
-            p_h = h.draw(first, torch.Generator(device='cuda').manual_seed(same_seed))[3]
-            p_old = historic.draw(first, torch.Generator(device='cuda').manual_seed(same_seed))[3]
-            torch.testing.assert_close(p_h, p_old, rtol=0, atol=0)
-            hb_loss, hb_parts = historic.loss(first, labels, torch.Generator(device='cuda').manual_seed(same_seed))
-            hs_loss, hs_parts = h.loss(first, labels, torch.Generator(device='cuda').manual_seed(same_seed))
-            assert abs(hb_parts['bound_per_pixel'] - hs_parts['bound_per_pixel']) < 1e-12
-            assert abs(float((hs_loss - hb_loss).detach()) - (hs_parts['task'] - hb_parts['task'])) < 1e-12
-            del historic, p_h, p_old, hb_loss, hs_loss, first, labels
-            probes = {}
-            for arm in ('U_Bal', 'H_Std'):
-                model = initial(arm)
-                original = {k: v.detach().clone() for k, v in model.state_dict().items()}
-                for domain, d, seed in (('RUNMC', source, 163000), ('BMC', target, 263000)):
-                    image, label = batch(d, 0, seed)
-                    generator = torch.Generator(device='cuda').manual_seed(54000000)
-                    loss, parts = model.loss(image, label, generator)
-                    loss.backward()
-                    assert torch.isfinite(loss)
-                    assert all(p.grad is not None and torch.isfinite(p.grad).all() and p.grad.norm() > 0
-                               for p in model.parameters())
-                    prediction = model.predict(image, seed=1101)
-                    torch.testing.assert_close(prediction.sum(1), torch.ones_like(prediction[:, 0]))
-                    probes[arm + '_' + domain] = dict(loss=float(loss.detach()), **parts)
-                    model.zero_grad(set_to_none=True)
-                assert all(torch.equal(v, model.state_dict()[k]) for k, v in original.items())
-                checkpoint = root / 'results/preflight' / ('PRIVATE_' + arm + '_INITIAL.pt')
-                torch.save(model.state_dict(), checkpoint)
-                test = initial(arm)
-                test.load_state_dict(torch.load(checkpoint, map_location='cpu', weights_only=True))
-                assert all(torch.equal(v, test.state_dict()[k]) for k, v in original.items())
-                del model, test
-            write(root / 'PREFLIGHT.json', dict(status='PASS', old_source_and_target_complete=True,
+        resumed = os.environ.get('RESUME_B0') == '1'
+        if resumed:
+            attempts = ledger.data['attempts']
+            assert [(a['name'], a['status']) for a in attempts] == [
+                ('preflight', 'PASS'), ('U_Bal_source', 'PASS'), ('U_Bal_source_RUNMC', 'FAILED')]
+            assert ledger.data['updates_reserved'] == 1600
+            assert json.loads((root / 'PREFLIGHT.json').read_text())['status'] == 'PASS'
+            assert json.loads((root / 'EXIT_ATTEMPT001.json').read_text())['exit_code'] == 1
+            failed_validation = root / 'results/U_Bal_source_RUNMC/validation'
+            assert all((failed_validation / f'PRIVATE_METRICS_{i}.json').exists() for i in range(4))
+            assert all((failed_validation / f'PRIVATE_PREDICTION_{i}.pt').exists() for i in range(4))
+            failed_summary = json.loads((failed_validation / 'SUMMARY.json').read_text())
+            assert failed_summary['complete'] and failed_summary['patients'] == 4
+        else:
+            status('PREFLIGHT')
+            with ledger.attempt('preflight', seconds=300, updates=0):
+                for relative in ('lcrseg/models/unet.py', 'sc_bayeseg/hbsi_v1/unet_transfer_v45/run.py',
+                                 'sc_bayeseg/hbsi_v1/paired_semantic_v19/method.py'):
+                    assert (root / 'source' / relative).read_bytes() == (Path(protocol['unet_root']) / 'source' / relative).read_bytes()
+                h = initial('H_Std')
+                historic = FullFieldBayeSeg().double().cuda()
+                historic.load_state_dict(torch.load(Path(protocol['a1_root']) / 'results/preflight/PRIVATE_PREFLIGHT.pt',
+                                                    map_location='cpu', weights_only=True))
+                assert all(torch.equal(v, historic.state_dict()[k]) for k, v in h.state_dict().items())
+                first, labels = batch(source, 0, 163000)
+                same_seed = 54000000
+                p_h = h.draw(first, torch.Generator(device='cuda').manual_seed(same_seed))[3]
+                p_old = historic.draw(first, torch.Generator(device='cuda').manual_seed(same_seed))[3]
+                torch.testing.assert_close(p_h, p_old, rtol=0, atol=0)
+                hb_loss, hb_parts = historic.loss(first, labels, torch.Generator(device='cuda').manual_seed(same_seed))
+                hs_loss, hs_parts = h.loss(first, labels, torch.Generator(device='cuda').manual_seed(same_seed))
+                assert abs(hb_parts['bound_per_pixel'] - hs_parts['bound_per_pixel']) < 1e-12
+                assert abs(float((hs_loss - hb_loss).detach()) - (hs_parts['task'] - hb_parts['task'])) < 1e-12
+                del historic, p_h, p_old, hb_loss, hs_loss, first, labels
+                probes = {}
+                for arm in ('U_Bal', 'H_Std'):
+                    model = initial(arm)
+                    original = {k: v.detach().clone() for k, v in model.state_dict().items()}
+                    for domain, d, seed in (('RUNMC', source, 163000), ('BMC', target, 263000)):
+                        image, label = batch(d, 0, seed)
+                        generator = torch.Generator(device='cuda').manual_seed(54000000)
+                        loss, parts = model.loss(image, label, generator)
+                        loss.backward()
+                        assert torch.isfinite(loss)
+                        assert all(p.grad is not None and torch.isfinite(p.grad).all() and p.grad.norm() > 0
+                                   for p in model.parameters())
+                        prediction = model.predict(image, seed=1101)
+                        torch.testing.assert_close(prediction.sum(1), torch.ones_like(prediction[:, 0]))
+                        probes[arm + '_' + domain] = dict(loss=float(loss.detach()), **parts)
+                        model.zero_grad(set_to_none=True)
+                    assert all(torch.equal(v, model.state_dict()[k]) for k, v in original.items())
+                    checkpoint = root / 'results/preflight' / ('PRIVATE_' + arm + '_INITIAL.pt')
+                    torch.save(model.state_dict(), checkpoint)
+                    test = initial(arm)
+                    test.load_state_dict(torch.load(checkpoint, map_location='cpu', weights_only=True))
+                    assert all(torch.equal(v, test.state_dict()[k]) for k, v in original.items())
+                    del model, test
+                write(root / 'PREFLIGHT.json', dict(status='PASS', old_source_and_target_complete=True,
                                                  L_slices=dict(RUNMC=80, BMC=134), H_initial_state_exact=True,
                                                  H_initial_probability_exact=True,
                                                  H_variational_term_exact=True,
                                                  U_historical_initial_state_not_saved=True,
                                                  U_historical_source_code_exact=True,
                                                  real_backward_calls=4, optimizer_updates=0,
-                                                 probes=probes))
+                                                     probes=probes))
         cells = {}
         for arm in ('U_Bal', 'H_Std'):
             model = initial(arm)
-            optimizer = torch.optim.Adam(model.parameters(), lr=cfg.outer_lr)
-            status('TRAIN_SOURCE', arm=arm)
-            source_checkpoint = train(model, optimizer, source, 163000, 1600,
-                                      arm + '_source', ledger, 3000)
-            for domain in ('RUNMC', 'BMC'):
+            if resumed and arm == 'U_Bal':
+                source_checkpoint = root / 'results/U_Bal_source/PRIVATE_CHECKPOINT.pt'
+                checkpoint = torch.load(source_checkpoint, map_location='cpu', weights_only=True)
+                assert checkpoint['step'] == 1600
+                model.load_state_dict(checkpoint['model'])
+                cells[arm + '_source_RUNMC'] = dict(failed_summary, predictor='deterministic_standard_UNet')
+                domains = ('BMC',)
+            else:
+                optimizer = torch.optim.Adam(model.parameters(), lr=cfg.outer_lr)
+                status('TRAIN_SOURCE', arm=arm)
+                source_checkpoint = train(model, optimizer, source, 163000, 1600,
+                                          arm + '_source', ledger, 3000)
+                domains = ('RUNMC', 'BMC')
+            for domain in domains:
                 status('EVALUATE_SOURCE', arm=arm, domain=domain)
                 with ledger.attempt(arm + '_source_' + domain, seconds=800) as out:
                     cells[arm + '_source_' + domain] = evaluate(protocol, model, domain, 'val',
