@@ -78,7 +78,7 @@ def main(path):
 |---:|---:|---:|---:|
 {patient_rows}
 
-仅类均值发射门 **{'PASS' if class_pass else 'FAILED'}**，保留原图残差的类均值交换门 **{'PASS' if delta_pass else 'FAILED'}**。C 相对原图 Dice {100*(r['class_only_Dice']-r['original_Dice']):+.3f} pp；D 为 {100*(r['delta_Dice']-r['original_Dice']):+.3f} pp。两门须同时通过才考虑另立对应生成模型训练协议；本轮不训练，也不调整平滑、混合比例、伙伴或阈值。D 保留的是**原患者**空间残差，因此即使 D 通过，也不证明完整外观潜变量能跨患者交换；真值标签提供了学得 qS 所没有的理想解剖条件。源训练患者分数不是独立验证或目标域证据。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。
+仅类均值发射门 **{'PASS' if class_pass else 'FAILED'}**，保留原图残差的类均值交换门 **{'PASS' if delta_pass else 'FAILED'}**。C 相对原图 Dice {100*(r['class_only_Dice']-r['original_Dice']):+.3f} pp；D 为 {100*(r['delta_Dice']-r['original_Dice']):+.3f} pp。C 的大幅重建与分割损失说明两类全局灰度均值不足以表示这组 MRI；D 虽在均值上接近 5 pp 限制，最差个体仍下降 {-min(delta_diff):.3f} pp，且越界像素超过预设线。两门须同时通过才考虑另立对应生成模型训练协议；本轮不训练，也不调整平滑、混合比例、伙伴或阈值。D 保留的是**原患者**空间残差，因此即使 D 通过，也不证明完整外观潜变量能跨患者交换；真值标签提供了学得 qS 所没有的理想解剖条件。源训练患者分数不是独立验证或目标域证据。[冻结协议](PREREG_ZH.md)、[匿名分析](ANALYSIS.json)、[执行摘要](EXECUTION_SUMMARY.json)。
 """
     (out / 'REPORT_ZH.md').write_text(report)
     print(verdict, f"C={100*r['class_only_Dice']:.3f}",
