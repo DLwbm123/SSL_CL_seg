@@ -145,6 +145,7 @@ ReplayJoint−ReplayCut 的旧/新域开发均值变化为 {mean_diff('RUNMC'):+
 
 BMC惩罚HD95均值从 {c[f'{cut}_BMC']['HD95_penalized_mm']:.3f} 增至 {c[f'{joint}_BMC']['HD95_penalized_mm']:.3f}mm，比例 {c[f'{joint}_BMC']['HD95_penalized_mm']/c[f'{cut}_BMC']['HD95_penalized_mm']:.3f}，超过冻结1.10上限；Dice显著提高不能覆盖该边界损失。
 匿名BMC四人的惩罚HD95 Cut→Joint 为 {', '.join(f"{v[cut]['HD95_penalized_mm']:.3f}→{v[joint]['HD95_penalized_mm']:.3f}" for v in p['BMC'])}mm；第3、4人明显上升。
+相同BMC完整L训练患者的惩罚HD95则为 {c[f'{cut}_BMC_train']['HD95_penalized_mm']:.3f}→{c[f'{joint}_BMC_train']['HD95_penalized_mm']:.3f}mm；训练边界改善与开发边界恶化并存，支持将风险定位为跨患者边界泛化问题的线索，但不能由此确定唯一机制。
 
 | 类别 | 预注册门 | 判定 |
 |---|---|---|
