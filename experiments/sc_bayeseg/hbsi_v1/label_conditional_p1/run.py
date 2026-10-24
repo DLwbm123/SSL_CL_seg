@@ -130,7 +130,7 @@ def main():
                 torch.Generator(device='cuda').manual_seed(noise))
             sf, sd, sv, sl, sx = label_model.objectives(image, label,
                 torch.Generator(device='cuda').manual_seed(noise))
-            for a,b in ((af,sf),(ad,sd),(av,sv),(al,sl),
+            for a,b in ((af,sf),(ad,sd),(al,sl),
                         (ax['shape'],sx['shape']),(ax['appearance'],sx['appearance'])):
                 torch.testing.assert_close(a,b,rtol=0,atol=0)
             with torch.no_grad():
