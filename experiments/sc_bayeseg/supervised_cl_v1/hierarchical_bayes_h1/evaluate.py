@@ -34,8 +34,10 @@ def evaluate(settings):
     role = settings["role"]
     sites = tuple(settings["sites"])
     current = settings["current_site"]
-    if role not in ("val", "train") or sites != SITES[:len(sites)] or current not in sites:
+    if role not in ("val", "train") or current not in sites:
         raise ValueError("invalid evaluation role or sites")
+    if role == "val" and sites != SITES[:len(sites)]:
+        raise ValueError("validation sites must be the frozen prefix")
     if role == "train" and sites != (current,):
         raise ValueError("old train data may not be opened")
     family = settings["family"]
