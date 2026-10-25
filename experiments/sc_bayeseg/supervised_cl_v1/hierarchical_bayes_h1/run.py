@@ -60,6 +60,20 @@ def batch(cases, site, step):
     return data.augment(image, label, step, stage_seed(site) + 187)
 
 
+def parameter_manifest(model):
+    return [{"name": name, "shape": list(parameter.shape),
+             "group": "appearance" if name.startswith("appearance_prior.") else "anatomy"}
+            for name, parameter in named_prediction_parameters(model)]
+
+
+def mask_digest(state):
+    digest = hashlib.sha256()
+    for name, _ in state.named:
+        digest.update(name.encode())
+        digest.update(state.mask[name].detach().cpu().numpy().tobytes())
+    return digest.hexdigest()
+
+
 def objective(model, image, label, family):
     if family == "U":
         loss = data.loss_fn(model(image), label)
@@ -261,8 +275,11 @@ def preflight():
     named = named_prediction_parameters(model)
     prior = initial_precision(named)
     budgets = {}
+    permutation = None
     for variant in ("F0", "F_all", "F_A", "F_perm"):
         state = OnlineGaussian(model, prior, variant, SEED)
+        if variant == "F_perm":
+            permutation = mask_digest(state)
         budgets[variant] = state.transition()
     if budgets["F0"] != 0 or any(abs(budgets[variant] - 812) > .05
                                    for variant in ("F_all", "F_A", "F_perm")):
@@ -275,7 +292,10 @@ def preflight():
             "prediction_parameters": sum(parameter.numel() for parameter in model.prediction_parameters()),
             "appearance_parameters": sum(parameter.numel() for parameter in model.appearance_parameters()),
             "parameter_partition": True, "curvature_nonnegative": True,
-            "relative_variance_budgets": budgets}
+            "relative_variance_budgets": budgets,
+            "parameter_manifest_sha256": hashlib.sha256(json.dumps(parameter_manifest(model),
+                                                           sort_keys=True).encode()).hexdigest(),
+            "permuted_mask_sha256": permutation}
 
 
 def run(settings):
@@ -328,6 +348,10 @@ def run(settings):
         for arm in ARMS[2:]:
             models[arm] = copy.deepcopy(c)
         states = {arm: OnlineGaussian(models[arm], source_curve, arm, SEED) for arm in ARMS[2:]}
+        if (hashlib.sha256(json.dumps(parameter_manifest(c), sort_keys=True).encode()).hexdigest() !=
+                synthetic["parameter_manifest_sha256"] or
+                mask_digest(states["F_perm"]) != synthetic["permuted_mask_sha256"]):
+            raise AssertionError("frozen parameter groups or mask changed after source training")
         for arm in ARMS[2:]:
             if any(not torch.equal(value, models[arm].state_dict()[key])
                    for key, value in c.state_dict().items()):
