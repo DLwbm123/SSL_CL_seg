@@ -7,12 +7,12 @@ import numpy as np
 import torch
 
 
-STAGES = ("source", "finetune_BMC", "replay_BMC", "finetune_I2CVB", "replay_I2CVB", "joint")
-SITES = ("RUNMC", "BMC", "I2CVB")
+SITES = ("RUNMC", "BMC", "I2CVB", "UCL", "BIDMC", "HK")
+STAGES = ("source", *(name for site in SITES[1:] for name in (f"finetune_{site}", f"replay_{site}")), "joint")
 
 
-def stage_rows(root, stage):
-    private = torch.load(root / stage / "PRIVATE_VAL.pt", map_location="cpu", weights_only=False)
+def stage_rows(root, stage, role="VAL"):
+    private = torch.load(root / stage / f"PRIVATE_{role}.pt", map_location="cpu", weights_only=False)
     return {site: {r["patient"]: r["metrics"]["classes"][0] for r in rows}
             for site, rows in private.items()}
 
@@ -45,30 +45,41 @@ def summarize(root, public):
         raise ValueError("experiment did not complete")
     catalog = json.loads((root / "PRIVATE_CATALOG.json").read_text())
     rows = {stage: stage_rows(root, stage) for stage in STAGES}
+    train_rows = {stage: stage_rows(root, stage, "TRAIN") for stage in STAGES}
     if set(rows["source"]) != {"RUNMC"} or set(rows["joint"]) != set(SITES):
         raise ValueError("stage-domain matrix incomplete")
+    for index, site in enumerate(SITES[1:], start=1):
+        for arm in ("finetune", "replay"):
+            if set(rows[f"{arm}_{site}"]) != set(SITES[:index + 1]):
+                raise ValueError("stage-domain matrix incomplete")
     matrix = {stage: {site: cell(data) for site, data in rows[stage].items()} for stage in STAGES}
+    train_fit = {stage: {site: cell(data) for site, data in train_rows[stage].items()} for stage in STAGES}
     forgetting = {}
     for arm in ("finetune", "replay"):
-        forgetting[arm] = {
-            "RUNMC_after_BMC": paired(rows[f"{arm}_BMC"]["RUNMC"], rows["source"]["RUNMC"]),
-            "RUNMC_after_I2CVB": paired(rows[f"{arm}_I2CVB"]["RUNMC"], rows["source"]["RUNMC"]),
-            "BMC_after_I2CVB": paired(rows[f"{arm}_I2CVB"]["BMC"], rows[f"{arm}_BMC"]["BMC"])}
-    replay_vs_finetune = {site: paired(rows["replay_I2CVB"][site], rows["finetune_I2CVB"][site])
+        forgetting[arm] = {}
+        for index, current in enumerate(SITES[1:], start=1):
+            for old in SITES[:index]:
+                arrival = "source" if old == SITES[0] else f"{arm}_{old}"
+                forgetting[arm][f"{old}_after_{current}"] = paired(rows[f"{arm}_{current}"][old], rows[arrival][old])
+    final_site = SITES[-1]
+    replay_vs_finetune = {site: paired(rows[f"replay_{final_site}"][site], rows[f"finetune_{final_site}"][site])
                           for site in SITES}
     training = {stage: json.loads((root / stage / "STATUS.json").read_text()) for stage in STAGES}
-    result = {"status": "COMPLETE", "scope": catalog["scope"], "sites": list(SITES),
+    prediction_cost = {stage: json.loads((root / stage / "PRED_COST_VAL.json").read_text()) for stage in STAGES}
+    result = {"status": "COMPLETE", "scope": catalog["scope"], "family": status["family"], "sites": list(SITES),
               "training_patients": {site: catalog["counts"][site]["train"] for site in SITES},
               "validation_patients": {site: catalog["counts"][site]["val"] for site in SITES},
               "test_access": 0, "one_seed_exploratory": True, "matrix": matrix,
+              "train_fit": train_fit,
               "forgetting_vs_arrival": forgetting, "replay_vs_finetune_final": replay_vs_finetune,
-              "training": training, "elapsed_seconds": status["elapsed_seconds"],
+              "training": training, "validation_prediction_cost": prediction_cost,
+              "elapsed_seconds": status["elapsed_seconds"],
               "new_bytes": status["bytes"], "optimizer_updates": status["updates"]}
     public.mkdir(exist_ok=True)
     (public / "ANALYSIS.json").write_text(json.dumps(result, indent=2, ensure_ascii=False, allow_nan=False) + "\n")
-    lines = ["# 全监督前列腺域持续学习首批结果", "", f"训练标签范围：`{catalog['scope']}`；固定 seed 单次探索性运行。",
+    lines = ["# 全监督前列腺域持续学习首批结果", "", f"模型：`{status['family']}`；训练标签范围：`{catalog['scope']}`；固定 seed 单次探索性运行。",
              "评测仅使用冻结 val，test 未访问；患者级原始结果、模型和重放图像仅存 NAS。", "",
-             f"训练病例数：RUNMC {catalog['counts']['RUNMC']['train']}、BMC {catalog['counts']['BMC']['train']}、I2CVB {catalog['counts']['I2CVB']['train']}。",
+             "训练病例数：" + "、".join(f"{site} {catalog['counts'][site]['train']}" for site in SITES) + "。",
              "", "| 训练阶段 | 评价中心 | 患者 | Dice 均值 % | Dice p10 % | 惩罚 HD95 均值 mm | 零重叠 |", "| --- | --- | ---: | ---: | ---: | ---: | ---: |"]
     for stage in STAGES:
         for site in SITES:
@@ -76,6 +87,10 @@ def summarize(root, public):
                 continue
             c = matrix[stage][site]
             lines.append(f"| {stage} | {site} | {c['patients']} | {c['Dice_mean_percent']:.3f} | {c['Dice_p10_percent']:.3f} | {c['HD95_penalized_mean_mm']:.3f} | {c['zero_overlap_patients']} |")
+    lines += ["", "## 当前训练域拟合", "", "| 阶段 | 训练中心 | 患者 | 训练 Dice 均值 % |", "| --- | --- | ---: | ---: |"]
+    for stage in STAGES:
+        for site, c in train_fit[stage].items():
+            lines.append(f"| {stage} | {site} | {c['patients']} | {c['Dice_mean_percent']:.3f} |")
     lines += ["", "## 旧域遗忘（相对该模型学习该域后的首次评价）", "",
               "| 路线 | 对比 | 平均 Dice 变化 pp | 最差患者变化 pp | 下降患者/总数 |",
               "| --- | --- | ---: | ---: | ---: |"]

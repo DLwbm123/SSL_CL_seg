@@ -6,7 +6,7 @@ import os
 from pathlib import Path
 
 
-SITES = ("RUNMC", "BMC", "I2CVB")
+SITES = ("RUNMC", "BMC", "I2CVB", "UCL", "BIDMC", "HK")
 
 
 def rows(path):
@@ -70,8 +70,10 @@ def build(data_root, scope, approved_all_train=False):
     ids = [r["patient_id"] for site in SITES for bucket in ("train", "val") for r in result[site][bucket]]
     if len(ids) != len(set(ids)):
         raise ValueError("patient overlap across roles or sites")
-    expected = {"visible": {"RUNMC": (4, 4), "BMC": (4, 4), "I2CVB": (2, 3)},
-                "all_train": {"RUNMC": (18, 4), "BMC": (18, 4), "I2CVB": (11, 3)}}[scope]
+    expected = {"visible": {"RUNMC": (4, 4), "BMC": (4, 4), "I2CVB": (2, 3),
+                            "UCL": (2, 2), "BIDMC": (2, 2), "HK": (2, 2)},
+                "all_train": {"RUNMC": (18, 4), "BMC": (18, 4), "I2CVB": (11, 3),
+                              "UCL": (8, 2), "BIDMC": (7, 2), "HK": (7, 2)}}[scope]
     counts = {site: (len(result[site]["train"]), len(result[site]["val"])) for site in SITES}
     if counts != expected:
         raise ValueError(f"unexpected patient counts: {counts}")

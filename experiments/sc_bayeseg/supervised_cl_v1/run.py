@@ -1,4 +1,4 @@
-"""A fixed, fully labeled three-site prostate continual-learning comparison."""
+"""A fixed, fully labeled six-site prostate continual-learning comparison."""
 import copy
 import hashlib
 import json
@@ -14,14 +14,14 @@ os.environ.setdefault("CUBLAS_WORKSPACE_CONFIG", ":4096:8")
 import h5py
 import numpy as np
 import torch
-from monai.networks.nets import BasicUNet
 from torch.nn import functional as F
 
 from sc_bayeseg.sslcl_v1.prostate_metrics import binary_phase_metrics
+from sc_bayeseg.supervised_cl_v1.bayeseg import BayeSeg, backbone
 
 
-SITES = ("RUNMC", "BMC", "I2CVB")
-STEPS = (8000, 6000, 6000)
+SITES = ("RUNMC", "BMC", "I2CVB", "UCL", "BIDMC", "HK")
+STEPS = (8000, 6000, 6000, 6000, 6000, 6000)
 SEED = 20261025
 BUFFER_SLICES = 32
 MAX_BYTES = 49_000_000_000  # Reserve 1 GB below the strict 50 GB limit.
@@ -48,9 +48,23 @@ def setup():
     np.random.seed(SEED)
 
 
-def model():
-    return BasicUNet(spatial_dims=2, in_channels=1, out_channels=2,
-                     features=(32, 32, 64, 128, 256, 32)).cuda()
+def model(family):
+    if family not in ("U", "B"):
+        raise ValueError("family must be U or B")
+    return (backbone() if family == "U" else BayeSeg()).cuda()
+
+
+def objectives(net, image, label, family):
+    if family == "B":
+        logits, variational = net(image)
+    else:
+        logits, variational = net(image), image.sum() * 0
+    task = loss_fn(logits, label)
+    return task + (.01 * variational if family == "B" else 0), task, variational
+
+
+def predict_logits(net, image, family):
+    return net(image) if family == "U" else net.predict_logits(image)
 
 
 def read_case(data_root, record):
@@ -133,11 +147,11 @@ def loss_fn(logits, y):
 
 
 def replay_slices(cases, site, num, seed):
-    if num not in (16, 32) or len(cases) < 4:
-        raise ValueError("fixed replay requires four source patients and 16 or 32 slices")
+    if not 4 <= num <= BUFFER_SLICES or len(cases) < 4:
+        raise ValueError("fixed replay requires four source patients")
     ordered = sorted(cases, key=lambda c: hashlib.sha256(f"{seed}:{c['id']}".encode()).digest())
-    selected = []
-    per_patient = num // 4
+    by_patient = []
+    per_patient = math.ceil(num / 4)
     for case in ordered[:4]:
         choices = case["foreground"] if len(case["foreground"]) >= per_patient else np.arange(len(case["image"]))
         if len(choices) < per_patient:
@@ -145,30 +159,44 @@ def replay_slices(cases, site, num, seed):
         indices = [int(choices[round((j + .5) * len(choices) / per_patient - .5)]) for j in range(per_patient)]
         if len(set(indices)) != per_patient:
             raise ValueError("replay selection repeated a slice")
-        selected.extend({"site": site, "patient": case["id"], "image": case["image"][i].astype(np.float16),
-                         "label": case["label"][i]} for i in indices)
+        by_patient.append([{"site": site, "patient": case["id"], "image": case["image"][i].astype(np.float16),
+                            "label": case["label"][i]} for i in indices])
+    selected = [by_patient[j % 4][j // 4] for j in range(num)]
     if len(selected) != num:
         raise ValueError("insufficient patients for fixed replay allocation")
     return selected
 
 
-def evaluate(net, data_root, catalog, sites, output):
+def evaluate(net, data_root, catalog, sites, output, family, role="val"):
+    if role not in ("train", "val"):
+        raise ValueError("evaluation role must be train or val")
     prior = net.training
     net.eval()
     result = {}
+    forward_seconds = 0.0
+    forward_images = 0
     with torch.no_grad():
         for site in sites:
             rows = []
-            for record in catalog["cases"][site]["val"]:
+            for record in catalog["cases"][site][role]:
                 case = read_case(data_root, record)
                 predictions = []
                 for offset in range(0, len(case["image"]), 4):
                     image = torch.from_numpy(case["image"][offset:offset + 4].copy()).cuda()[:, None]
-                    predictions.append(net(image).softmax(1).cpu())
+                    torch.cuda.synchronize()
+                    started = time.perf_counter()
+                    probability = predict_logits(net, image, family).softmax(1)
+                    torch.cuda.synchronize()
+                    forward_seconds += time.perf_counter() - started
+                    forward_images += len(image)
+                    predictions.append(probability.cpu())
                 metric = binary_phase_metrics(torch.cat(predictions), case["label"], case["spacing"])
                 rows.append({"patient": case["id"], "metrics": metric})
             result[site] = rows
     torch.save(result, output)
+    write(output.with_name(f"PRED_COST_{role.upper()}.json"),
+          {"images": forward_images, "forward_seconds": forward_seconds,
+           "seconds_per_image": forward_seconds / forward_images})
     net.train(prior)
     return {site: len(result[site]) for site in sites}
 
@@ -184,14 +212,14 @@ def guard(root, deadline):
         raise RuntimeError("experiment storage pre-stop threshold reached")
 
 
-def train(net, current, replay, steps, name, root, deadline, runtime):
+def train(net, current, replay, steps, name, root, deadline, runtime, family):
     stage = root / name
     stage.mkdir(exist_ok=False)
     optimizer = torch.optim.AdamW(net.parameters(), lr=3e-4, weight_decay=1e-5)
     runtime.update(model=net, optimizer=optimizer, stage=name, step=0)
     seed = SEED + sum(ord(c) for c in name.split("_")[-1]) * 10000
     net.train()
-    losses = []
+    losses, tasks, variational = [], [], []
     for step in range(1, steps + 1):
         if step % 50 == 1:
             guard(root, deadline)
@@ -199,7 +227,7 @@ def train(net, current, replay, steps, name, root, deadline, runtime):
         x, y = augment(x, y, step, seed)
         optimizer.param_groups[0]["lr"] = 1e-5 + (3e-4 - 1e-5) * .5 * (1 + math.cos(math.pi * (step - 1) / steps))
         optimizer.zero_grad(set_to_none=True)
-        loss = loss_fn(net(x), y)
+        loss, task, auxiliary = objectives(net, x, y, family)
         if not torch.isfinite(loss):
             raise FloatingPointError("non-finite supervised loss")
         loss.backward()
@@ -209,8 +237,12 @@ def train(net, current, replay, steps, name, root, deadline, runtime):
         optimizer.step()
         runtime["step"] = step
         losses.append(float(loss.detach()))
+        tasks.append(float(task.detach()))
+        variational.append(float(auxiliary.detach()))
         if step % 100 == 0:
             append(stage / "curve.jsonl", {"step": step, "loss_last100": float(np.mean(losses[-100:])),
+                                           "task_last100": float(np.mean(tasks[-100:])),
+                                           "variational_last100": float(np.mean(variational[-100:])),
                                            "gradient_norm": norm})
             write(stage / "STATUS.json", {"status": "TRAINING", "step": step, "steps": steps})
         if step % 2000 == 0 and step < steps:
@@ -219,7 +251,10 @@ def train(net, current, replay, steps, name, root, deadline, runtime):
     torch.save({"step": steps, "model": net.state_dict(), "optimizer": optimizer.state_dict()}, stage / "endpoint.pt")
     write(stage / "STATUS.json", {"status": "TRAINED", "step": steps, "steps": steps,
                                   "loss_first100": float(np.mean(losses[:100])),
-                                  "loss_last100": float(np.mean(losses[-100:]))})
+                                  "loss_last100": float(np.mean(losses[-100:])),
+                                  "task_first100": float(np.mean(tasks[:100])),
+                                  "task_last100": float(np.mean(tasks[-100:])),
+                                  "variational_last100": float(np.mean(variational[-100:]))})
     return stage
 
 
@@ -229,6 +264,9 @@ def run(settings):
     if not root.is_dir() or (root / "STARTED.json").exists():
         raise FileExistsError("experiment root must exist and be unused")
     data_root = settings["data_root"]
+    family = settings["family"]
+    if family not in ("U", "B"):
+        raise ValueError("unknown model family")
     catalog_bytes = Path(settings["catalog"]).read_bytes()
     if hashlib.sha256(catalog_bytes).hexdigest() != settings["catalog_sha256"]:
         raise ValueError("frozen private catalog changed")
@@ -244,58 +282,95 @@ def run(settings):
     if not torch.cuda.is_available():
         raise RuntimeError("CUDA unavailable")
     write(root / "STARTED.json", {"started_unix": settings["started_unix"], "scope": catalog["scope"],
-                                  "counts": catalog["counts"], "stages": list(SITES), "test_access": 0})
+                                  "counts": catalog["counts"], "stages": list(SITES), "family": family,
+                                  "test_access": 0})
     active = {"stage": "P0", "step": 0}
     runtime = {}
     try:
         guard(root, deadline)
-        net = model()
+        net = model(family)
         parameter_count = sum(p.numel() for p in net.parameters())
         image = torch.zeros(2, 1, 256, 256, device="cuda")
         label = torch.zeros(2, 256, 256, dtype=torch.long, device="cuda")
         label[:, 80:180, 80:180] = 1
-        probe = loss_fn(net(image), label)
+        probe, probe_task, probe_aux = objectives(net, image, label, family)
+        auxiliary_backbone_grad = 0.0
+        if family == "B":
+            gradients = torch.autograd.grad(probe_aux, net.backbone.parameters(), retain_graph=True,
+                                            allow_unused=True)
+            auxiliary_backbone_grad = float(sum(g.square().sum() for g in gradients if g is not None).sqrt())
+            if not math.isfinite(auxiliary_backbone_grad) or auxiliary_backbone_grad <= 0:
+                raise FloatingPointError("shape/appearance hierarchy has no backbone feedback")
         probe.backward()
         if not math.isfinite(float(probe)) or any(p.grad is None or not torch.isfinite(p.grad).all() for p in net.parameters()):
             raise FloatingPointError("synthetic full-objective backward failed")
         net.zero_grad(set_to_none=True)
         torch.manual_seed(SEED)
-        net = model()  # Synthetic P0 must not alter formal initialization.
+        net = model(family)  # Synthetic P0 must not alter formal initialization.
+        torch.manual_seed(SEED)
+        reference = model("U")
+        actual = net if family == "U" else net.backbone
+        if any(not torch.equal(reference.state_dict()[key], value)
+               for key, value in actual.state_dict().items()):
+            raise ValueError("U-Net backbone initial state mismatch")
+        del reference
         write(root / "P0.json", {"status": "PASS", "parameters": parameter_count,
-                                 "synthetic_loss": float(probe.detach()), "full_backward": True})
+                                 "synthetic_loss": float(probe.detach()), "synthetic_task": float(probe_task.detach()),
+                                 "synthetic_variational": float(probe_aux.detach()),
+                                 "auxiliary_backbone_gradient_norm": auxiliary_backbone_grad,
+                                 "full_backward": True, "backbone_initial_exact": True})
         source = load_cases(data_root, catalog, (SITES[0],))
         active["stage"] = "source"
-        stage = train(net, source, None, STEPS[0], "source", root, deadline, runtime)
-        evaluate(net, data_root, catalog, SITES[:1], stage / "PRIVATE_VAL.pt")
+        stage = train(net, source, None, STEPS[0], "source", root, deadline, runtime, family)
+        evaluate(net, data_root, catalog, SITES[:1], stage / "PRIVATE_TRAIN.pt", family, "train")
+        evaluate(net, data_root, catalog, SITES[:1], stage / "PRIVATE_VAL.pt", family)
         source_state = copy.deepcopy(net.state_dict())
-        first_buffer = replay_slices(source[SITES[0]], SITES[0], BUFFER_SLICES, SEED)
-        torch.save(first_buffer, root / "PRIVATE_REPLAY_STAGE2.pt")
+        buffer = replay_slices(source[SITES[0]], SITES[0], BUFFER_SLICES, SEED)
+        torch.save(buffer, root / "PRIVATE_REPLAY.pt")
+        append(root / "REPLAY_AUDIT.jsonl", {"next_stage": 2, "slices": 32,
+                                              "site_quotas": {SITES[0]: 32}, "patients_per_site": 4})
         del source
         weights = {"finetune": source_state, "replay": source_state}
-        second_buffer = None
         for index, site in enumerate(SITES[1:], start=1):
             current = load_cases(data_root, catalog, (site,))
             for arm in ("finetune", "replay"):
                 active["stage"] = f"{arm}_{site}"
                 net.load_state_dict(weights[arm])
-                memory = None if arm == "finetune" else (first_buffer if index == 1 else second_buffer)
-                stage = train(net, current, memory, STEPS[index], active["stage"], root, deadline, runtime)
-                evaluate(net, data_root, catalog, SITES[:index + 1], stage / "PRIVATE_VAL.pt")
+                memory = None if arm == "finetune" else buffer
+                stage = train(net, current, memory, STEPS[index], active["stage"], root, deadline, runtime, family)
+                evaluate(net, data_root, catalog, (site,), stage / "PRIVATE_TRAIN.pt", family, "train")
+                evaluate(net, data_root, catalog, SITES[:index + 1], stage / "PRIVATE_VAL.pt", family)
                 weights[arm] = copy.deepcopy(net.state_dict())
-            if index == 1:
-                old_half = [first_buffer[8 * patient + offset] for patient in range(4) for offset in range(4)]
-                if len({item["patient"] for item in old_half}) != 4:
-                    raise ValueError("stage-three replay lost source patient balance")
-                second_buffer = old_half + replay_slices(current[site], site, 16, SEED)
-                torch.save(second_buffer, root / "PRIVATE_REPLAY_STAGE3.pt")
+            if index + 1 < len(SITES):
+                old_sites = SITES[:index + 1]
+                quotas = {old: BUFFER_SLICES // len(old_sites) + int(j < BUFFER_SLICES % len(old_sites))
+                          for j, old in enumerate(old_sites)}
+                updated = []
+                for old in old_sites:
+                    old_items = [item for item in buffer if item["site"] == old]
+                    selected = (old_items[:quotas[old]] if old != site else
+                                replay_slices(current[site], site, quotas[site], SEED))
+                    if len(selected) != quotas[old] or len({item["patient"] for item in selected}) != 4:
+                        raise ValueError("replay quota or patient coverage failed")
+                    updated.extend(selected)
+                buffer = updated
+                if len(buffer) != BUFFER_SLICES:
+                    raise ValueError("replay buffer exceeded fixed total")
+                temporary = root / "PRIVATE_REPLAY_next.pt"
+                torch.save(buffer, temporary)
+                temporary.replace(root / "PRIVATE_REPLAY.pt")
+                append(root / "REPLAY_AUDIT.jsonl", {"next_stage": index + 2, "slices": 32,
+                                                      "site_quotas": quotas, "patients_per_site": 4})
             del current
         active["stage"] = "joint"
         torch.manual_seed(SEED)
-        joint = model()
+        joint = model(family)
         all_sites = load_cases(data_root, catalog, SITES)
-        stage = train(joint, all_sites, None, sum(STEPS), "joint", root, deadline, runtime)
-        evaluate(joint, data_root, catalog, SITES, stage / "PRIVATE_VAL.pt")
-        write(root / "STATUS.json", {"status": "COMPLETE", "stages": 6, "updates": STEPS[0] + 2 * sum(STEPS[1:]) + sum(STEPS),
+        stage = train(joint, all_sites, None, sum(STEPS), "joint", root, deadline, runtime, family)
+        evaluate(joint, data_root, catalog, SITES, stage / "PRIVATE_TRAIN.pt", family, "train")
+        evaluate(joint, data_root, catalog, SITES, stage / "PRIVATE_VAL.pt", family)
+        write(root / "STATUS.json", {"status": "COMPLETE", "stages": 2 * len(SITES),
+                                     "family": family, "updates": STEPS[0] + 2 * sum(STEPS[1:]) + sum(STEPS),
                                      "elapsed_seconds": time.time() - settings["started_unix"], "bytes": bytes_used(root)})
         write(root / "EXIT.json", {"exit_code": 0})
     except BaseException:
