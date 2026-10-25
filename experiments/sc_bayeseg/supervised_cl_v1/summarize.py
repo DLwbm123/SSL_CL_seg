@@ -102,7 +102,7 @@ def summarize(root, public):
               "| --- | ---: | ---: | ---: |"]
     for site, c in replay_vs_finetune.items():
         lines.append(f"| {site} | {c['mean_Dice_delta_pp']:+.3f} | {c['worst_Dice_delta_pp']:+.3f} | {c['declined_patients']}/{c['patients']} |")
-    lines += ["", "联合训练使用全部三域训练标签，是离线参照，不满足逐域到来的访问约束。",
+    lines += ["", "联合训练使用全部六域训练标签，是离线参照，不满足逐域到来的访问约束。",
               "本批只有一个训练种子，且 val 在既往项目中反复用于开发；结果只能用于判断后续方法问题是否存在，不能构成独立确认。",
               f"本轮共 {status['updates']} 次优化更新，耗时 {status['elapsed_seconds']:.1f} 秒，新增目录 {status['bytes']} 字节。", ""]
     (public / "REPORT_ZH.md").write_text("\n".join(lines))
