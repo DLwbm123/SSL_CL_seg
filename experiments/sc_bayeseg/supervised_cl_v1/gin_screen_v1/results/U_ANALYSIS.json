@@ -1,0 +1,144 @@
+{
+  "status": "COMPLETE",
+  "family": "U",
+  "seed": 20261025,
+  "sites": [
+    "RUNMC",
+    "BMC",
+    "I2CVB"
+  ],
+  "test_access": 0,
+  "old_train_replay": 0,
+  "matrix": {
+    "source": {
+      "RUNMC": {
+        "patients": 4,
+        "Dice_mean_percent": 87.39918919483304,
+        "Dice_p10_percent": 84.67566541099455,
+        "Dice_min_percent": 84.05362417632357,
+        "HD95_penalized_mean_mm": 5.816809878704106,
+        "zero_overlap_patients": 0,
+        "empty_prediction_patients": 0,
+        "Recall_mean_percent": 80.10708292179358,
+        "Precision_mean_percent": 96.44336378290059
+      }
+    },
+    "finetune_BMC": {
+      "RUNMC": {
+        "patients": 4,
+        "Dice_mean_percent": 87.48955242737689,
+        "Dice_p10_percent": 84.32575408912662,
+        "Dice_min_percent": 82.90148402214147,
+        "HD95_penalized_mean_mm": 6.995367471089384,
+        "zero_overlap_patients": 0,
+        "empty_prediction_patients": 0,
+        "Recall_mean_percent": 83.70088948001711,
+        "Precision_mean_percent": 91.83487399297393
+      },
+      "BMC": {
+        "patients": 4,
+        "Dice_mean_percent": 84.6197880814515,
+        "Dice_p10_percent": 82.1618532536449,
+        "Dice_min_percent": 81.7328202308961,
+        "HD95_penalized_mean_mm": 7.254391983529136,
+        "zero_overlap_patients": 0,
+        "empty_prediction_patients": 0,
+        "Recall_mean_percent": 88.83131697732573,
+        "Precision_mean_percent": 82.12614822458944
+      }
+    },
+    "finetune_I2CVB": {
+      "RUNMC": {
+        "patients": 4,
+        "Dice_mean_percent": 50.687032547166275,
+        "Dice_p10_percent": 23.046707823519153,
+        "Dice_min_percent": 20.095277772746208,
+        "HD95_penalized_mean_mm": 17.48476715337217,
+        "zero_overlap_patients": 0,
+        "empty_prediction_patients": 0,
+        "Recall_mean_percent": 38.5441617543541,
+        "Precision_mean_percent": 98.84703131340851
+      },
+      "BMC": {
+        "patients": 4,
+        "Dice_mean_percent": 40.13645271662446,
+        "Dice_p10_percent": 26.437565982085527,
+        "Dice_min_percent": 24.540438175466093,
+        "HD95_penalized_mean_mm": 17.17961805781369,
+        "zero_overlap_patients": 0,
+        "empty_prediction_patients": 0,
+        "Recall_mean_percent": 27.634991608580606,
+        "Precision_mean_percent": 82.72555353249649
+      },
+      "I2CVB": {
+        "patients": 3,
+        "Dice_mean_percent": 85.45182817290123,
+        "Dice_p10_percent": 82.01161138973337,
+        "Dice_min_percent": 81.24153135980525,
+        "HD95_penalized_mean_mm": 5.164559051440257,
+        "zero_overlap_patients": 0,
+        "empty_prediction_patients": 0,
+        "Recall_mean_percent": 92.05966978546634,
+        "Precision_mean_percent": 81.0050043992362
+      }
+    }
+  },
+  "current_train_fit": {
+    "source": {
+      "patients": 18,
+      "Dice_mean_percent": 93.06040740848407,
+      "Dice_p10_percent": 91.30150075210945,
+      "Dice_min_percent": 88.04250327744428,
+      "HD95_penalized_mean_mm": 3.285658253240275,
+      "zero_overlap_patients": 0,
+      "empty_prediction_patients": 0,
+      "Recall_mean_percent": 94.53101748688833,
+      "Precision_mean_percent": 91.76561205170805
+    },
+    "finetune_BMC": {
+      "patients": 18,
+      "Dice_mean_percent": 90.57552365261833,
+      "Dice_p10_percent": 88.00189621337083,
+      "Dice_min_percent": 87.37161895496223,
+      "HD95_penalized_mean_mm": 5.55938377016025,
+      "zero_overlap_patients": 0,
+      "empty_prediction_patients": 0,
+      "Recall_mean_percent": 94.37441351012475,
+      "Precision_mean_percent": 87.17773016576122
+    },
+    "finetune_I2CVB": {
+      "patients": 11,
+      "Dice_mean_percent": 87.97519290471463,
+      "Dice_p10_percent": 82.765487485265,
+      "Dice_min_percent": 79.42260780249812,
+      "HD95_penalized_mean_mm": 4.3613156198967085,
+      "zero_overlap_patients": 0,
+      "empty_prediction_patients": 0,
+      "Recall_mean_percent": 94.9238299450176,
+      "Precision_mean_percent": 82.31187538521493
+    }
+  },
+  "final_forgetting": {
+    "RUNMC": {
+      "patients": 4,
+      "mean_Dice_delta_pp": -36.712156647666774,
+      "worst_Dice_delta_pp": -63.95834640357735,
+      "declined_patients": 4
+    },
+    "BMC": {
+      "patients": 4,
+      "mean_Dice_delta_pp": -44.483335364827056,
+      "worst_Dice_delta_pp": -61.29742405820636,
+      "declined_patients": 4
+    }
+  },
+  "new_zero_overlap": {
+    "RUNMC_after_BMC": 0,
+    "RUNMC_after_I2CVB": 0,
+    "BMC_after_I2CVB": 0
+  },
+  "elapsed_seconds": 1303.3340175151825,
+  "new_bytes": 143328493,
+  "optimizer_updates": 20000,
+  "development_val_only": true
+}

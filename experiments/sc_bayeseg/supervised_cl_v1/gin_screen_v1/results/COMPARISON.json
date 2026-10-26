@@ -1,0 +1,63 @@
+{
+  "status": "COMPLETE",
+  "seed": 20261025,
+  "test_access": 0,
+  "historical_controls": true,
+  "development_val_only": true,
+  "U_GIN_vs_U": {
+    "gates": {
+      "current_train_fit": true,
+      "old_absolute": false,
+      "mean_old_forgetting": false,
+      "worst_old_patient": false,
+      "no_new_zero_overlap": true,
+      "new_domain_vs_historical": false,
+      "mean_gain_vs_old_U": true,
+      "HD95_vs_old_U": true
+    },
+    "all_pass": false,
+    "mean_gain_pp": 20.182496532588708,
+    "HD95_ratio": 0.18106269365682873,
+    "mean_old_forgetting_pp": 40.59774600624691,
+    "worst_old_patient_delta_pp": -63.95834640357735
+  },
+  "B_GIN_vs_U_GIN": {
+    "gates": {
+      "current_train_fit": true,
+      "old_absolute": false,
+      "mean_old_forgetting": false,
+      "worst_old_patient": false,
+      "no_new_zero_overlap": true,
+      "new_domain_vs_historical": false,
+      "mean_gain_vs_U_GIN": true,
+      "new_domain_vs_U_GIN": false,
+      "old_patient_vs_U_GIN": false,
+      "HD95_vs_U_GIN": true
+    },
+    "all_pass": false,
+    "mean_gain_pp": 6.591042648839007,
+    "HD95_ratio": 0.963818980287084,
+    "paired_by_site": {
+      "RUNMC": {
+        "patients": 4,
+        "mean_Dice_delta_pp": -7.331525698684162,
+        "worst_Dice_delta_pp": -23.20969469035028,
+        "declined_patients": 3
+      },
+      "BMC": {
+        "patients": 4,
+        "mean_Dice_delta_pp": 28.2308254073684,
+        "worst_Dice_delta_pp": 18.453253583877803,
+        "declined_patients": 0
+      },
+      "I2CVB": {
+        "patients": 3,
+        "mean_Dice_delta_pp": -1.1261717621672385,
+        "worst_Dice_delta_pp": -1.4639840238809043,
+        "declined_patients": 3
+      }
+    },
+    "mean_old_forgetting_pp": 29.893240514078197,
+    "worst_old_patient_delta_pp": -61.13524003307963
+  }
+}
